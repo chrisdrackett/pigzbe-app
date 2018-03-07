@@ -1,6 +1,10 @@
-# pigzbe-app
+# Pigzbe App
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
+
+The desktop version runs via [Electron Compile](https://github.com/electron-userland/electron-compile) and [React Native Web](https://github.com/necolas/react-native-web).
+
+## React Native
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 

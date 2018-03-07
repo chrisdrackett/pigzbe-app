@@ -1,0 +1,10 @@
+{
+  "application/javascript": {
+    "presets": [
+        ["latest-node", { "target": "current" }],
+        "react"
+    ],
+    "plugins": ["react-native-web"],
+    "sourceMaps": "inline"
+  }
+}
