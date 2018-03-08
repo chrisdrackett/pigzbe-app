@@ -20,10 +20,14 @@
   },
   "dependencies": {
     "expo": "^25.0.0",
+    "expo-pixi": "^0.2.2",
+    "path": "^0.12.7",
+    "pixi.js": "^4.7.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-native": "0.52.0",
-    "react-native-web": "^0.5.1"
+    "react-native-web": "^0.5.1",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",

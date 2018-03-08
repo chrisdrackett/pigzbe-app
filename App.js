@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, Text, View, StyleSheet} from 'react-native';
 import PlatformSpecific from './platform-specific';
+import PixiView from './pixi-view';
 
 const styles = StyleSheet.create({
     container: {
@@ -24,6 +25,7 @@ export default class App extends Component {
                 <Text>Changes you make will automatically reload.</Text>
                 <Text>Shake your phone to open the developer menu.</Text>
                 <PlatformSpecific/>
+                <PixiView/>
             </View>
         );
     }
