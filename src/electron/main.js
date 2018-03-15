@@ -1,9 +1,12 @@
-import electron from 'electron';
-import path from 'path';
-import url from 'url';
-import {enableLiveReload} from 'electron-compile';
+const electron = require('electron');
+const path = require('path');
+const url = require('url');
+// import electron from 'electron';
+// import path from 'path';
+// import url from 'url';
+// import {enableLiveReload} from 'electron-compile';
 
-enableLiveReload();
+// enableLiveReload();
 
 // Module to control application life.
 const app = electron.app;
@@ -16,14 +19,28 @@ let mainWindow;
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: 800, height: 600});
+    mainWindow = new BrowserWindow({width: 1200, height: 600});
+
+    console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
+    if (process.env.NODE_ENV !== 'production') {
+        // mainWindow.loadURL(`http://localhost:${process.env.PORT || '8000'}`);
+        mainWindow.on('error', error => console.log(error));
+        mainWindow.loadURL(`http://localhost:${process.env.PORT || '8080'}`);
+    } else {
+        mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'index.html'),
+            protocol: 'file',
+            slashes: true
+        }));
+    }
 
     // and load the index.html of the app.
-    mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
+    // mainWindow.loadURL(url.format({
+    //     pathname: path.join(__dirname, 'index.html'),
+    //     protocol: 'file:',
+    //     slashes: true
+    // }));
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();

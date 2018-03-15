@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
-The desktop version runs via [Electron Compile](https://github.com/electron-userland/electron-compile) and [React Native Web](https://github.com/necolas/react-native-web).
+The desktop version runs via Electron and [React Native Web](https://github.com/necolas/react-native-web).
 
 ## React Native
 
