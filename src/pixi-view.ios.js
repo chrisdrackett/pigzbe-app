@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Dimensions, PixelRatio, Text} from 'react-native';
+import {PanResponder, View, Dimensions, PixelRatio} from 'react-native';
 import Expo from 'expo';
 import ExpoPixi, {PIXI} from 'expo-pixi';
 import startGame from './start-game';
@@ -9,62 +9,129 @@ const images = {
 };
 
 export default class Game extends Component {
-  state = {
-      loading: true,
-      resources: {}
-  };
+    constructor(props) {
+        super(props);
 
-  async componentWillMount() {
-      const downloads = Object.keys(images).map(key => {
-          const asset = Expo.Asset.fromModule(images[key]);
-          return asset.downloadAsync();
-      });
+        this.setupGestures();
+    }
 
-      await Promise.all(downloads);
-      this.cacheResourceURIs();
-  }
+    state = {
+        loading: true,
+        resources: {}
+    };
 
-  cacheResourceURIs() {
-      const resources = Object.keys(images).reduce((ob, key) => {
-          ob[key] = Expo.Asset.fromModule(images[key]).localUri;
-          return ob;
-      }, {});
-      this.setState({
-          resources,
-          loading: false
-      });
-  }
+    setupGestures() {
+        const touchesBegan = ({nativeEvent}) => {
+            const {touches} = nativeEvent;
+            touches.map(
+                ({target, locationX, locationY, force, identifier, timestamp}) => {
+                    this.touchDown({x: locationX, y: locationY});
+                }
+            );
+        };
 
-  startGame(context, resources) {
-      const app = ExpoPixi.application({
-          context,
-          backgroundColor: 0x0000ff,
-          width: Dimensions.get('window').width,
-          height: Dimensions.get('window').height,
-          resolution: PixelRatio.get()
-      });
-      startGame(app, PIXI, resources);
-  }
+        const touchesMoved = ({nativeEvent}) => {
+            const {touches} = nativeEvent;
+            touches.map(
+                ({target, locationX, locationY, force, identifier, timestamp}) => {
+                    this.touchMove({x: locationX, y: locationY});
+                }
+            );
+        };
 
-  render() {
-      const {loading, resources} = this.state;
+        const touchesEnded = ({nativeEvent}) => {
+            const {touches} = nativeEvent;
+            touches.map(
+                ({target, locationX, locationY, force, identifier, timestamp}) => {
+                    this.touchUp({x: locationX, y: locationY});
+                }
+            );
+        };
 
-      if (loading) {
-          return <Expo.AppLoading/>;
-      }
+        this.panResponder = PanResponder.create({
+            onStartShouldSetPanResponder: () => true,
+            onPanResponderGrant: touchesBegan,
+            onPanResponderMove: touchesMoved,
+            onPanResponderRelease: touchesEnded,
+            onPanResponderTerminate: touchesEnded, //cancel
+            onShouldBlockNativeResponder: () => false
+        });
+    }
 
-      return (
-          <View style={{flex: 1, width: '100%'}}>
-              <Text>{Dimensions.get('window').width}</Text>
-              <Expo.GLView
-                  style={{
-                      flex: 1,
-                      width: Dimensions.get('window').width,
-                      height: Dimensions.get('window').height
-                  }}
-                  onContextCreate={context => this.startGame(context, resources)}
-              />
-          </View>
-      );
-  }
+    async componentWillMount() {
+        const downloads = Object.keys(images).map(key => {
+            const asset = Expo.Asset.fromModule(images[key]);
+            return asset.downloadAsync();
+        });
+
+        await Promise.all(downloads);
+        this.cacheResourceURIs();
+    }
+
+    cacheResourceURIs() {
+        const resources = Object.keys(images).reduce((ob, key) => {
+            ob[key] = Expo.Asset.fromModule(images[key]).localUri;
+            return ob;
+        }, {});
+        this.setState({
+            resources,
+            loading: false
+        });
+    }
+
+    touchDown = (point) => {
+        if (!this.app) {
+            return;
+        }
+        this.app.touchDown(point);
+    }
+
+    touchMove = (point) => {
+        if (!this.app) {
+            return;
+        }
+        this.app.touchMove(point);
+    }
+
+    touchUp = (point) => {
+        if (!this.app) {
+            return;
+        }
+        this.app.touchUp(point);
+    }
+
+    startGame(context, resources) {
+        this.app = ExpoPixi.application({
+            context,
+            backgroundColor: 0x0000ff,
+            width: Dimensions.get('window').width,
+            height: Dimensions.get('window').height,
+            resolution: PixelRatio.get()
+        });
+        startGame(this.app, PIXI, resources);
+    }
+
+    render() {
+        const {loading, resources} = this.state;
+
+        if (loading) {
+            return <Expo.AppLoading/>;
+        }
+
+        return (
+            <View style={{flex: 1, width: '100%'}}>
+                {/* <Text>{Dimensions.get('window').width}</Text> */}
+                {/* <Text>{JSON.stringify(Object.keys(PIXI), null, 2)}</Text> */}
+                <Expo.GLView
+                    {...this.panResponder.panHandlers}
+                    style={{
+                        flex: 1,
+                        width: Dimensions.get('window').width,
+                        height: Dimensions.get('window').height
+                    }}
+                    onContextCreate={context => this.startGame(context, resources)}
+                />
+            </View>
+        );
+    }
 }

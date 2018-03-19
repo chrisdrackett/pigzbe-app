@@ -4,6 +4,8 @@ export default function startGame(app, PIXI, resources) {
         app.loader.add(key, resources[key])
     );
 
+
+
     app.loader
         .load((loader, assets) => {
             const {width, resolution} = app.renderer;
@@ -14,10 +16,31 @@ export default function startGame(app, PIXI, resources) {
             sprite.position.set(width / resolution / 2 - 60, 200);
 
             let counter = 0;
+            let running = false;
+
+            sprite.interactive = true;
+            sprite.on('pointerdown', () => {
+                running = !running;
+            });
+
+            app.touchUp = point => {
+                // running = !running;
+            };
+
+            app.touchDown = point => {
+                running = !running;
+            };
+
+            app.touchMove = point => {
+                // running = !running;
+                sprite.position.x = point.x;
+            };
 
             app.ticker.add(() => {
-                counter += 0.1;
-                sprite.position.y = 200 + Math.sin(counter) * 150;
+                if (running) {
+                    counter += 0.1;
+                    sprite.position.y = 200 + Math.sin(counter) * 150;
+                }
             });
         });
 
