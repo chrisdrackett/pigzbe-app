@@ -1,13 +1,7 @@
 import React, {Component} from 'react';
 import * as PIXI from 'pixi.js';
 import startGame from './start-game';
-import pig from './pig.png';
-
-const images = {
-    // pig: `file://${__dirname}/pig.png`
-    // pig: 'http://localhost:8080/pig.png'
-    pig
-};
+import images from './images';
 
 export default class Game extends Component {
   state = {

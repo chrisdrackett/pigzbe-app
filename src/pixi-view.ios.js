@@ -3,10 +3,7 @@ import {PanResponder, View, Dimensions, PixelRatio} from 'react-native';
 import Expo from 'expo';
 import ExpoPixi, {PIXI} from 'expo-pixi';
 import startGame from './start-game';
-
-const images = {
-    pig: require('./pig.png')
-};
+import images from './images';
 
 export default class Game extends Component {
     constructor(props) {
@@ -24,27 +21,22 @@ export default class Game extends Component {
         const touchesBegan = ({nativeEvent}) => {
             const {touches} = nativeEvent;
             touches.map(
-                ({target, locationX, locationY, force, identifier, timestamp}) => {
-                    this.touchDown({x: locationX, y: locationY});
-                }
+                // ({target, locationX, locationY, force, identifier, timestamp}) => {
+                ({locationX, locationY}) => this.touchDown({x: locationX, y: locationY})
             );
         };
 
         const touchesMoved = ({nativeEvent}) => {
             const {touches} = nativeEvent;
             touches.map(
-                ({target, locationX, locationY, force, identifier, timestamp}) => {
-                    this.touchMove({x: locationX, y: locationY});
-                }
+                ({locationX, locationY}) => this.touchMove({x: locationX, y: locationY})
             );
         };
 
         const touchesEnded = ({nativeEvent}) => {
             const {touches} = nativeEvent;
             touches.map(
-                ({target, locationX, locationY, force, identifier, timestamp}) => {
-                    this.touchUp({x: locationX, y: locationY});
-                }
+                ({locationX, locationY}) => this.touchUp({x: locationX, y: locationY})
             );
         };
 
@@ -64,6 +56,7 @@ export default class Game extends Component {
             return asset.downloadAsync();
         });
 
+
         await Promise.all(downloads);
         this.cacheResourceURIs();
     }
@@ -79,21 +72,21 @@ export default class Game extends Component {
         });
     }
 
-    touchDown = (point) => {
+    touchDown = point => {
         if (!this.app) {
             return;
         }
         this.app.touchDown(point);
     }
 
-    touchMove = (point) => {
+    touchMove = point => {
         if (!this.app) {
             return;
         }
         this.app.touchMove(point);
     }
 
-    touchUp = (point) => {
+    touchUp = point => {
         if (!this.app) {
             return;
         }
@@ -121,7 +114,7 @@ export default class Game extends Component {
         return (
             <View style={{flex: 1, width: '100%'}}>
                 {/* <Text>{Dimensions.get('window').width}</Text> */}
-                {/* <Text>{JSON.stringify(Object.keys(PIXI), null, 2)}</Text> */}
+                {/* <Text>{JSON.stringify(Object.keys(this), null, 2)}</Text> */}
                 <Expo.GLView
                     {...this.panResponder.panHandlers}
                     style={{
