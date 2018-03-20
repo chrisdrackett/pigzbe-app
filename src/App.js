@@ -1,15 +1,3 @@
-import PixiScreen from './pixi-screen';
-import HomeScreen from './home-screen';
-import {StackNavigator} from 'react-navigation';
+import nav from './nav';
 
-export default StackNavigator({
-    Home: {
-        screen: HomeScreen
-    },
-    Pixi: {
-        screen: PixiScreen
-    }
-},
-{
-    initialRouteName: 'Home'
-});
+export default nav;

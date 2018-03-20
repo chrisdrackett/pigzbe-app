@@ -21,8 +21,8 @@ export default class HomeScreen extends Component {
             <View style={styles.container}>
                 <Text style={styles.title}>Pigzbe</Text>
                 <Button
-                    title="Pixi"
-                    onPress={() => this.props.navigation.navigate('Pixi')}
+                    title="Game"
+                    onPress={() => this.props.navigation.navigate('Game')}
                 />
                 <Text>Open up App.js to start working on your app!</Text>
                 <Text>Changes you make will automatically reload.</Text>
