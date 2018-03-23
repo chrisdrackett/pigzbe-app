@@ -1,11 +1,22 @@
 import {DOMParser} from 'xmldom-qsa';
-import fontTxt from './font';
+import fontTxt from './fonts/font';
 import angle from 'usfl/math/angle';
 import distance from 'usfl/math/distance';
 import roundTo from 'usfl/math/round-to';
-const spritesJSON = require('./sprites.json');
+const spritesJSON = require('./images/sprites.json');
+import SoundPlayer from './sound-player';
 
-export default function startGame(app, PIXI, resources) {
+export default function startGame(app, PIXI, resources, sounds) {
+
+    console.log('sounds', Object.keys(sounds));
+
+    // Object.keys(sounds).forEach(key => console.log(key, '-', sounds[key]));
+
+    const soundPlayer = new SoundPlayer(sounds);
+    soundPlayer.load().then(() => {
+        console.log('PLAY SOUND!');
+        soundPlayer.play('music', true);
+    });
 
     Object.keys(resources).map(key =>
         app.loader.add(key, resources[key])
@@ -32,11 +43,11 @@ export default function startGame(app, PIXI, resources) {
                 console.log('width', width);
                 console.log('resolution', resolution);
 
-                const bg = new PIXI.Graphics();
-                bg.beginFill(0x0000ff);
-                bg.drawRect(0, 0, vW, vH);
-                bg.endFill();
-                app.stage.addChild(bg);
+                // const bg = new PIXI.Graphics();
+                // bg.beginFill(0x0000ff);
+                // bg.drawRect(0, 0, vW, vH);
+                // bg.endFill();
+                // app.stage.addChild(bg);
                 // const sprite = PIXI.Sprite.from(assets.pig.texture);
                 const pig = PIXI.Sprite.from('pig.png');
                 console.log('premultipliedAlpha', assets.sprites.texture.baseTexture.premultipliedAlpha);
@@ -59,6 +70,16 @@ export default function startGame(app, PIXI, resources) {
                 text.scale.set(0.5);
                 text.position.set(0, 100);
                 app.stage.addChild(text);
+
+                app.onBlur = () => {
+                    console.log('app.onBlur');
+                    soundPlayer.stop('music');
+                };
+
+                app.onFocus = () => {
+                    console.log('app.onFocus');
+                    soundPlayer.play('music', true);
+                };
 
                 app.touchUp = point => {
                     console.log('touchUp', point);

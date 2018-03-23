@@ -4,6 +4,8 @@ This project was bootstrapped with [Create React Native App](https://github.com/
 
 The desktop version runs via Electron and [React Native Web](https://github.com/necolas/react-native-web).
 
+The repo is [Git LFS](https://git-lfs.github.com/) enabled.
+
 ## React Native
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).

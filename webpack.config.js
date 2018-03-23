@@ -44,6 +44,17 @@ const imageLoaderConfiguration = {
     }
 };
 
+// This is needed for webpack to import sound files in JavaScript files.
+const soundLoaderConfiguration = {
+    test: /\.(mp3|ogg|wav)$/,
+    use: {
+        loader: 'url-loader',
+        options: {
+            name: '[name].[ext]'
+        }
+    }
+};
+
 module.exports = {
     // your web-specific entry file
     entry: path.resolve(appDirectory, 'src/index.web.js'),
@@ -59,7 +70,8 @@ module.exports = {
     module: {
         rules: [
             babelLoaderConfiguration,
-            imageLoaderConfiguration
+            imageLoaderConfiguration,
+            soundLoaderConfiguration
         ]
     },
 

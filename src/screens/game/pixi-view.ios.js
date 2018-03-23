@@ -4,15 +4,35 @@ import Expo from 'expo';
 import ExpoPixi, {PIXI} from 'expo-pixi';
 import startGame from './start-game';
 import images from './images';
+import sounds from './sounds';
 
 export default class Game extends Component {
     constructor(props) {
         super(props);
 
         this.setupGestures();
+
+        console.log('new Game');
+
+        this.didBlurSubscription = this.props.navigation.addListener(
+            'didBlur',
+            payload => {
+                console.debug('didBlur', payload);
+                this.onBlur();
+            }
+        );
+        this.didFocusSubscription = this.props.navigation.addListener(
+            'didFocus',
+            payload => {
+                console.debug('didFocus', payload);
+                this.onFocus();
+            }
+        );
+        // this.didBlurSubscription.remove();
     }
 
     state = {
+        active: true,
         loading: true,
         resources: {}
     };
@@ -93,6 +113,20 @@ export default class Game extends Component {
         this.app.touchUp(point);
     }
 
+    onBlur = () => {
+        if (!this.app) {
+            return;
+        }
+        this.app.onBlur();
+    }
+
+    onFocus = () => {
+        if (!this.app) {
+            return;
+        }
+        this.app.onFocus();
+    }
+
     startGame(context, resources) {
         this.app = ExpoPixi.application({
             context,
@@ -102,7 +136,7 @@ export default class Game extends Component {
             resolution: PixelRatio.get(),
             scale: PixelRatio.get()
         });
-        startGame(this.app, PIXI, resources);
+        startGame(this.app, PIXI, resources, sounds);
     }
 
     render() {

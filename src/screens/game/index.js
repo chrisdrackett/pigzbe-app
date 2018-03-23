@@ -13,9 +13,10 @@ const styles = StyleSheet.create({
 
 export default class PixiScreen extends Component {
     render() {
+        console.log('==> props', Object.keys(this.props));
         return (
             <View style={styles.container}>
-                <PixiView/>
+                <PixiView {...this.props}/>
             </View>
         );
     }
