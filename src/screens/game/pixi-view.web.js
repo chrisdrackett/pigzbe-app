@@ -13,7 +13,10 @@ export default class Game extends Component {
       const app = new PIXI.Application({
           backgroundColor: 0x0000ff,
           width: 800,
-          height: 600
+          height: 600,
+          // antialias: true,
+          // forceFXAA: true,
+          transparent: true
       });
       this.el.appendChild(app.view);
       app.view.style.width = '100%';

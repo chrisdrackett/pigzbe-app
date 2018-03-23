@@ -99,7 +99,8 @@ export default class Game extends Component {
             backgroundColor: 0x0000ff,
             width: Dimensions.get('window').width,
             height: Dimensions.get('window').height,
-            resolution: PixelRatio.get()
+            resolution: PixelRatio.get(),
+            scale: PixelRatio.get()
         });
         startGame(this.app, PIXI, resources);
     }
@@ -116,6 +117,7 @@ export default class Game extends Component {
                 {/* <Text>{Dimensions.get('window').width}</Text> */}
                 {/* <Text>{JSON.stringify(Object.keys(this), null, 2)}</Text> */}
                 <Expo.GLView
+                    msaaSamples={4}
                     {...this.panResponder.panHandlers}
                     style={{
                         flex: 1,
