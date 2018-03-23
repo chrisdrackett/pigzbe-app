@@ -1,10 +1,13 @@
+import '@expo/browser-polyfill';
 import React, {Component} from 'react';
-import {PanResponder, View, Dimensions, PixelRatio} from 'react-native';
+import {PanResponder, View, PixelRatio} from 'react-native';
 import Expo from 'expo';
-import ExpoPixi, {PIXI} from 'expo-pixi';
+import * as PIXI from 'pixi.js';
 import startGame from './start-game';
 import images from './images';
 import sounds from './sounds';
+
+global.PIXI = PIXI;
 
 export default class Game extends Component {
     constructor(props) {
@@ -34,7 +37,8 @@ export default class Game extends Component {
     state = {
         active: true,
         loading: true,
-        resources: {}
+        resources: {},
+        view: null
     };
 
     setupGestures() {
@@ -127,39 +131,77 @@ export default class Game extends Component {
         this.app.onFocus();
     }
 
-    startGame(context, resources) {
-        this.app = ExpoPixi.application({
+    initGame(context, resources) {
+        console.log('initGame');
+        const getAttributes = context.getContextAttributes || (() => ({}));
+        context.getContextAttributes = () => {
+            const contextAttributes = getAttributes();
+            return {
+                ...contextAttributes,
+                stencil: true
+            };
+        };
+
+        const resolution = PixelRatio.get();
+
+        console.log('1 context.drawingBufferWidth', context.drawingBufferWidth);
+        console.log('1 context.drawingBufferHeight', context.drawingBufferHeight);
+
+        this.app = new PIXI.Application({
             context,
-            backgroundColor: 0x0000ff,
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').height,
-            resolution: PixelRatio.get(),
-            scale: PixelRatio.get()
+            resolution,
+            scale: resolution,
+            width: context.drawingBufferWidth / resolution,
+            height: context.drawingBufferHeight / resolution,
+            backgroundColor: 0x0000ff
         });
+        this.app.ticker.add(() => context.endFrameEXP());
+
         startGame(this.app, PIXI, resources, sounds);
     }
 
+    resize = view => {
+        if (!this.app) {
+            return;
+        }
+        this.app.resize(view);
+    }
+
     render() {
-        const {loading, resources} = this.state;
+        const {loading, resources, view} = this.state;
 
         if (loading) {
             return <Expo.AppLoading/>;
         }
 
         return (
-            <View style={{flex: 1, width: '100%'}}>
+            <View
+                onLayout={event => {
+                    const {x, y, width, height} = event.nativeEvent.layout;
+                    console.log('view: ', x, y, width, height);
+                    this.setState({
+                        view: {x, y, width, height}
+                    });
+                    this.resize({x, y, width, height});
+                }}
+                style={{
+                    flex: 1,
+                    width: '100%'
+                }}>
                 {/* <Text>{Dimensions.get('window').width}</Text> */}
                 {/* <Text>{JSON.stringify(Object.keys(this), null, 2)}</Text> */}
-                <Expo.GLView
-                    msaaSamples={4}
-                    {...this.panResponder.panHandlers}
-                    style={{
-                        flex: 1,
-                        width: Dimensions.get('window').width,
-                        height: Dimensions.get('window').height
-                    }}
-                    onContextCreate={context => this.startGame(context, resources)}
-                />
+                {view && (
+                    <Expo.GLView
+                        msaaSamples={4}
+                        {...this.panResponder.panHandlers}
+                        style={{
+                            // flex: 1,
+                            width: view.width,
+                            height: view.height
+                        }}
+                        onContextCreate={context => this.initGame(context, resources)}
+                    />
+                )}
             </View>
         );
     }

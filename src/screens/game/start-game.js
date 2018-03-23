@@ -111,6 +111,10 @@ export default function startGame(app, PIXI, resources, sounds) {
                     arrow.scale.set(0.5 + force);
                 };
 
+                app.resize = rect => {
+                    app.renderer.resize(rect.width, rect.height);
+                };
+
                 // desktop:
                 app.stage.interactive = true;
                 app.stage.hitArea = new PIXI.Rectangle(0, 0, width, height);
