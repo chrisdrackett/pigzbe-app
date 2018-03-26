@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Platform, Text, View, StyleSheet} from 'react-native';
 import PlatformSpecific from './platform-specific';
+// import Stellar from 'stellar-sdk';
 
 const styles = StyleSheet.create({
     container: {

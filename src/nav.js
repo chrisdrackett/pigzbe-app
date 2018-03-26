@@ -1,4 +1,5 @@
 import React from 'react';
+import BalanceScreen from './screens/balance';
 import GameScreen from './screens/game';
 import HomeScreen from './screens/home';
 import MessagesScreen from './screens/messages';
@@ -9,6 +10,10 @@ const nav = {
     Home: {
         screen: HomeScreen,
         _icon: 'ios-home'
+    },
+    Balance: {
+        screen: BalanceScreen,
+        _icon: 'ios-card'
     },
     Game: {
         screen: GameScreen,
