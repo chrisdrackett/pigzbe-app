@@ -21,6 +21,7 @@ const nav = {
 };
 
 export default TabNavigator(nav, {
+    initialRouteName: 'Game',
     navigationOptions: ({navigation}) => ({
         tabBarIcon: ({focused, tintColor}) => {
             const {routeName} = navigation.state;

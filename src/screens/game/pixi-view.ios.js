@@ -2,12 +2,9 @@ import '@expo/browser-polyfill';
 import React, {Component} from 'react';
 import {PanResponder, View, PixelRatio} from 'react-native';
 import Expo from 'expo';
-import * as PIXI from 'pixi.js';
 import startGame from './start-game';
 import images from './images';
 import sounds from './sounds';
-
-global.PIXI = PIXI;
 
 export default class Game extends Component {
     constructor(props) {
@@ -16,22 +13,6 @@ export default class Game extends Component {
         this.setupGestures();
 
         console.log('new Game');
-
-        this.didBlurSubscription = this.props.navigation.addListener(
-            'didBlur',
-            payload => {
-                console.debug('didBlur', payload);
-                this.onBlur();
-            }
-        );
-        this.didFocusSubscription = this.props.navigation.addListener(
-            'didFocus',
-            payload => {
-                console.debug('didFocus', payload);
-                this.onFocus();
-            }
-        );
-        // this.didBlurSubscription.remove();
     }
 
     state = {
@@ -58,17 +39,17 @@ export default class Game extends Component {
         };
 
         const touchesEnded = ({nativeEvent}) => {
-            const {touches} = nativeEvent;
-            touches.map(
-                ({locationX, locationY}) => this.touchUp({x: locationX, y: locationY})
-            );
+            const {locationX, locationY} = nativeEvent;
+            this.touchUp({x: locationX, y: locationY});
         };
 
         this.panResponder = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
             onPanResponderGrant: touchesBegan,
+            // onMoveShouldSetResponder: () => true,
             onPanResponderMove: touchesMoved,
             onPanResponderRelease: touchesEnded,
+            // onPanResponderTerminationRequest: () => true,
             onPanResponderTerminate: touchesEnded, //cancel
             onShouldBlockNativeResponder: () => false
         });
@@ -111,24 +92,11 @@ export default class Game extends Component {
     }
 
     touchUp = point => {
+        console.log('touchUp', this.app.touchUp);
         if (!this.app) {
             return;
         }
         this.app.touchUp(point);
-    }
-
-    onBlur = () => {
-        if (!this.app) {
-            return;
-        }
-        this.app.onBlur();
-    }
-
-    onFocus = () => {
-        if (!this.app) {
-            return;
-        }
-        this.app.onFocus();
     }
 
     initGame(context, resources) {
@@ -144,20 +112,15 @@ export default class Game extends Component {
 
         const resolution = PixelRatio.get();
 
-        console.log('1 context.drawingBufferWidth', context.drawingBufferWidth);
-        console.log('1 context.drawingBufferHeight', context.drawingBufferHeight);
-
-        this.app = new PIXI.Application({
+        this.app = startGame({
             context,
             resolution,
             scale: resolution,
             width: context.drawingBufferWidth / resolution,
-            height: context.drawingBufferHeight / resolution,
-            backgroundColor: 0x0000ff
-        });
-        this.app.ticker.add(() => context.endFrameEXP());
+            height: context.drawingBufferHeight / resolution
+        }, resources, sounds, this.props.navigation);
 
-        startGame(this.app, PIXI, resources, sounds);
+        this.app.ticker.add(() => context.endFrameEXP());
     }
 
     resize = view => {

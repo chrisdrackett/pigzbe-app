@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.4.0</string>
         <key>fileName</key>
-        <string>/Users/ianmcgregor/Documents/dev/pigzbe-app/src/screens/game/sprites.tps</string>
+        <string>/Users/ianmcgregor/Documents/dev/pigzbe-app/src/screens/game/images/sprites.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -72,11 +72,11 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
-        <uint>1</uint>
+        <uint>0</uint>
         <key>webpQualityLevel</key>
         <uint>101</uint>
         <key>textureSubPath</key>
@@ -86,7 +86,7 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -160,7 +160,7 @@
         <key>outputFormat</key>
         <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
         <key>alphaHandling</key>
-        <enum type="SettingsBase::AlphaHandling">PremultiplyAlpha</enum>
+        <enum type="SettingsBase::AlphaHandling">KeepTransparentPixels</enum>
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
@@ -212,6 +212,34 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">ground_high.png</key>
+            <key type="filename">ground_low.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>25,75,50,149</rect>
+                <key>scale9Paddings</key>
+                <rect>25,75,50,149</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">ground_slope_down.png</key>
+            <key type="filename">ground_slope_up.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>50,75,100,149</rect>
+                <key>scale9Paddings</key>
+                <rect>50,75,100,149</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">pig.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -230,6 +258,10 @@
         <array>
             <filename>pig.png</filename>
             <filename>arrow.png</filename>
+            <filename>ground_high.png</filename>
+            <filename>ground_low.png</filename>
+            <filename>ground_slope_down.png</filename>
+            <filename>ground_slope_up.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
