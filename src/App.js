@@ -1,17 +1,17 @@
-import nav from './nav';
-// import crypto from './crypto';
-import createHash from './create-hash';
-// const randomBytes = require('react-native-randombytes');
+import React from 'react';
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import reducers from './reducers';
+import Nav from './nav';
 
-// const crypto = {
-//     createHash,
-//     randomBytes
-// };
-//
-// console.log('crypto', Object.keys(crypto).join(','));
-// console.log('crypto.createHash', crypto.createHash('sha256').update('Tx hash').digest());
-console.log('crypto.createHash', createHash('sha256').update('Tx hash').digest());
-// console.log('crypto.randomBytes', crypto.randomBytes(64));
-// console.log('crypto.randomBytes', randomBytes(64));
+const store = createStore(
+    reducers,
+    applyMiddleware(thunk),
+);
 
-export default nav;
+export default () => (
+    <Provider store={store}>
+        <Nav/>
+    </Provider>
+);
