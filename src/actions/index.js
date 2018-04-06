@@ -1,4 +1,4 @@
-import Stellar from '@pigzbe/react-native-stellar-sdk';
+import Stellar from '../stellar';
 
 console.log('Stellar', Object.keys(Stellar).join(','));
 
