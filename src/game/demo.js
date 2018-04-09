@@ -73,9 +73,28 @@ export default class Demo {
         this.arrow = arrow;
     }
 
+    positionWorld() {
+        const {vW, vH, center} = this.dims;
+
+        this.pig.position.set(center.x - this.pig.width / 2, center.y - this.pig.height / 2);
+
+        this.hillsBack.width = vW;
+        this.hillsFront.width = vW;
+        this.clouds.width = vW;
+        this.cloudsLow.width = vW;
+
+        this.ground.fillSections(vW);
+
+        this.hillsBack.position.set(0, vH - this.hillsBack.height + vertSpace - 120);
+        this.hillsFront.position.set(0, vH - this.hillsFront.height + vertSpace - 80);
+        this.ground.container.position.set(0, vH - 400 + vertSpace);
+        this.clouds.position.set(0, 80 - vertSpace);
+        this.cloudsLow.position.set(0, 160 - vertSpace);
+    }
+
     update(delta, vec) {
         // console.log('update', delta, vec.x, vec.y);
-        const {vW} = this.dims;
+        const {vW, center} = this.dims;
 
         this.clouds.tilePosition.x -= 0.032 * vec.x * delta;
         this.cloudsLow.tilePosition.x -= 0.064 * vec.x * delta;
@@ -91,6 +110,7 @@ export default class Demo {
             this.container.position.y = vertSpace;
         }
 
+        this.arrow.position.set(center.x, center.y);
         this.arrow.rotation = vec.rotation;
         this.text.text = `angle: ${roundTo(vec.rotation, 1)}\nx/y: ${roundTo(vec.x)}/${roundTo(vec.y)}`;
     }
@@ -105,5 +125,6 @@ export default class Demo {
 
     resize(dims) {
         this.dims = dims;
+        this.positionWorld();
     }
 }

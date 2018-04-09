@@ -32,14 +32,6 @@ export default class Game {
 
         this.vec = {x: 0, y: 0, rotation: 0};
 
-        if (Platform.OS === 'web') {
-            app.stage.interactive = true;
-            app.stage.hitArea = new PIXI.Rectangle(0, 0, this.dims.width, this.dims.height);
-            app.stage.on('pointerdown', event => this.touchDown(event.data.global));
-            app.stage.on('pointermove', event => this.touchMove(event.data.global));
-            app.stage.on('pointerup', event => this.touchUp(event.data.global));
-        }
-
         this.load(app, resources);
     }
 
@@ -48,7 +40,7 @@ export default class Game {
         SoundPlayer.load(sounds).then(() => {
             console.log('PLAY SOUND!');
             SoundPlayer.stop('music');
-            SoundPlayer.play('music', true);
+            // SoundPlayer.play('music', true);
         });
 
         Object.keys(resources).map(key =>
@@ -122,6 +114,9 @@ export default class Game {
     touchDown = point => {
         this.isDown = true;
 
+        this.dims.center.x = point.x;
+        this.dims.center.y = point.y;
+
         if (this.demo) {
             this.demo.pointerDown(point);
         }
@@ -170,6 +165,7 @@ export default class Game {
     }
 
     resize = rect => {
+        console.log('resize', rect.width, rect.height);
         this.app.renderer.resize(rect.width, rect.height);
         this.demo.resize(this.updateDims());
     }

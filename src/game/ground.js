@@ -117,6 +117,10 @@ export default class Ground {
     addInitialSections(vW) {
         this.addSection();
 
+        this.fillSections(vW);
+    }
+
+    fillSections(vW) {
         while (this.sprites.last.x + this.sprites.last.width < vW) {
             this.addSection();
         }
