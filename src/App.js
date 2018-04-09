@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
-import Nav from './nav';
+import Home from './home';
 
 const store = createStore(
     reducers,
@@ -12,6 +12,6 @@ const store = createStore(
 
 export default () => (
     <Provider store={store}>
-        <Nav/>
+        <Home/>
     </Provider>
 );

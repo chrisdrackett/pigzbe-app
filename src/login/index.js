@@ -1,7 +1,15 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Platform, Text, Button, View, StyleSheet} from 'react-native';
-import {authLogin, authLogout} from '../actions';
+import {
+    ActivityIndicator,
+    Platform,
+    Text,
+    TextInput,
+    Button,
+    View,
+    StyleSheet
+} from 'react-native';
+import {authLogin} from '../actions';
 
 const styles = StyleSheet.create({
     container: {
@@ -13,36 +21,58 @@ const styles = StyleSheet.create({
     title: {
         color: Platform.OS === 'web' ? 'red' : 'black',
         fontSize: 18
+    },
+    error: {
+        color: 'red',
+        fontSize: 18
     }
 });
 
+class LoginForm extends Component {
+    state = {
+        inputText: ''
+    }
+
+    render() {
+        const {
+            dispatch,
+            error,
+            isLoggingIn
+        } = this.props;
+
+        if (isLoggingIn) {
+            return (
+                <View style={styles.container}>
+                    <ActivityIndicator size="large" color="#0000ff" />
+                </View>
+            );
+        }
+
+        return (
+            <View style={styles.container}>
+                <Text style={styles.title}>Login</Text>
+                {error && (
+                    <Text style={styles.error}>{error.message}</Text>
+                )}
+                <TextInput
+                    placeholder="Key"
+                    onChangeText={inputText => this.setState({inputText})}
+                />
+                <Button
+                    onPress={() => dispatch(authLogin(this.state.inputText))}
+                    title="Login"
+                    color="#841584"
+                    accessibilityLabel="Login"
+                    disabled={!this.state.inputText}
+                />
+            </View>
+        );
+    }
+}
+
 export default connect(
     state => ({
-        isLoggedIn: state.auth.isLoggedIn
+        error: state.auth.error,
+        isLoggingIn: state.auth.isLoggingIn
     })
-)(({
-    dispatch,
-    isLoggedIn
-}) => (
-    <View style={styles.container}>
-        <Text style={styles.title}>Login</Text>
-        <Text>Lorem ipsum dolor sit amet</Text>
-        <Text>typeof window = {typeof window}</Text>
-        <Text>{isLoggedIn ? 'LOGGED IN' : 'LOGGED OUT'}</Text>
-        {isLoggedIn ? (
-            <Button
-                onPress={() => dispatch(authLogout())}
-                title="Logout"
-                color="#841584"
-                accessibilityLabel="Login"
-            />
-        ) : (
-            <Button
-                onPress={() => dispatch(authLogin())}
-                title="Login"
-                color="#841584"
-                accessibilityLabel="Login"
-            />
-        )}
-    </View>
-));
+)(LoginForm);

@@ -2,14 +2,9 @@
 import {TabNavigator, TabBarBottom} from 'react-navigation';
 import Balance from '../balance';
 import Game from '../game';
-import Login from '../login';
 import Messages from '../messages';
 
 const nav = {
-    Login: {
-        screen: Login,
-        _icon: 'ios-home'
-    },
     Balance: {
         screen: Balance,
         _icon: 'ios-card'
@@ -25,7 +20,7 @@ const nav = {
 };
 
 export default TabNavigator(nav, {
-    initialRouteName: 'Game',
+    initialRouteName: 'Balance',
     // navigationOptions: ({navigation}) => ({
     //     tabBarIcon: ({focused, tintColor}) => {
     //         const {routeName} = navigation.state;

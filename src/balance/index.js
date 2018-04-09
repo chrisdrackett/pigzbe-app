@@ -22,8 +22,8 @@ class Balance extends Component {
     }
 
     loadAccount() {
-        const publicKey = 'GCLJQREUHENRZWCIJ3QL6EKGCAW7EF2AZYJJMF2FOQMFPXRJBWXBG5EV';
-        this.props.dispatch(fetchBalance(publicKey));
+        const {dispatch, publicKey} = this.props;
+        dispatch(fetchBalance(publicKey));
     }
 
     render() {
@@ -41,6 +41,7 @@ class Balance extends Component {
 
 export default connect(
     state => ({
-        balance: state.stellar.balance
+        balance: state.stellar.balance,
+        publicKey: state.auth.publicKey
     })
 )(Balance);
