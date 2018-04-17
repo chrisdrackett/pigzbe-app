@@ -4,15 +4,15 @@ import {
     ActivityIndicator,
     Text,
     TextInput,
-    View,
-    TouchableOpacity
+    View
 } from 'react-native';
 import {authLogin} from '../actions';
 import styles from './styles';
+import Button from '../button';
 
 class LoginForm extends Component {
     state = {
-        inputText: ''
+        inputText: 'SAXYJU6Q67IXM4DSOFGVJ2L2I7C2SQJSV2MDR2E64AKML5ZXO25RMISJ'
     }
 
     render() {
@@ -38,11 +38,10 @@ class LoginForm extends Component {
                     placeholder="Key"
                     onChangeText={inputText => this.setState({inputText})}
                 />
-                <TouchableOpacity
-                    style={styles.buttonHit}
-                    onPress={() => dispatch(authLogin(this.state.inputText))}>
-                    <Text style={styles.button}>Login</Text>
-                </TouchableOpacity>
+                <Button
+                    label="Login"
+                    onPress={() => dispatch(authLogin(this.state.inputText))}
+                />
                 {error && (
                     <Text style={styles.error}>{error.message}</Text>
                 )}

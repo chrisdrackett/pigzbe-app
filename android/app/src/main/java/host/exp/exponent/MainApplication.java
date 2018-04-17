@@ -8,6 +8,7 @@ import java.util.List;
 
 // Needed for `react-native link`
 // import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 
 public class MainApplication extends ExpoApplication {
@@ -25,6 +26,7 @@ public class MainApplication extends ExpoApplication {
 
         // Needed for `react-native link`
         // new MainReactPackage(),
+            new ImagePickerPackage(),
             new RandomBytesPackage()
     );
   }

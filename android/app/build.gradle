@@ -103,6 +103,7 @@ preBuild.dependsOn exponentPrebuildStep
 
 
 dependencies {
+    compile project(':react-native-image-picker')
     compile project(':react-native-randombytes')
   compile fileTree(dir: 'libs', include: ['*.jar'])
 
