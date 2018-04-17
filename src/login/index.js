@@ -2,31 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
     ActivityIndicator,
-    Platform,
     Text,
     TextInput,
-    Button,
     View,
-    StyleSheet
+    TouchableOpacity
 } from 'react-native';
 import {authLogin} from '../actions';
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    title: {
-        color: Platform.OS === 'web' ? 'red' : 'black',
-        fontSize: 18
-    },
-    error: {
-        color: 'red',
-        fontSize: 18
-    }
-});
+import styles from './styles';
 
 class LoginForm extends Component {
     state = {
@@ -51,20 +33,19 @@ class LoginForm extends Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Login</Text>
-                {error && (
-                    <Text style={styles.error}>{error.message}</Text>
-                )}
                 <TextInput
+                    style={styles.input}
                     placeholder="Key"
                     onChangeText={inputText => this.setState({inputText})}
                 />
-                <Button
-                    onPress={() => dispatch(authLogin(this.state.inputText))}
-                    title="Login"
-                    color="#841584"
-                    accessibilityLabel="Login"
-                    disabled={!this.state.inputText}
-                />
+                <TouchableOpacity
+                    style={styles.buttonHit}
+                    onPress={() => dispatch(authLogin(this.state.inputText))}>
+                    <Text style={styles.button}>Login</Text>
+                </TouchableOpacity>
+                {error && (
+                    <Text style={styles.error}>{error.message}</Text>
+                )}
             </View>
         );
     }

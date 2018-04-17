@@ -44,6 +44,16 @@ const soundLoaderConfiguration = {
     }
 };
 
+const fontLoaderConfiguration = {
+    test: /\.(woff|woff2|ttf)$/,
+    use: {
+        loader: 'url-loader',
+        options: {
+            name: '[name].[ext]'
+        }
+    }
+};
+
 module.exports = {
     entry: path.resolve(appDirectory, 'desktop/index.web.js'),
 
@@ -56,7 +66,8 @@ module.exports = {
         rules: [
             babelLoaderConfiguration,
             imageLoaderConfiguration,
-            soundLoaderConfiguration
+            soundLoaderConfiguration,
+            fontLoaderConfiguration
         ]
     },
 
