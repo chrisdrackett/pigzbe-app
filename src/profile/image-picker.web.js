@@ -4,7 +4,7 @@ const fs = remote.require('fs');
 const path = remote.require('path');
 
 
-export const openImagePicker = () => {
+export const pickImage = () => {
     return new Promise((resolve, reject) => {
         dialog.showOpenDialog({
             filters: [

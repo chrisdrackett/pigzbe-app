@@ -3,16 +3,21 @@ import ImagePicker from 'react-native-image-picker';
 
 const options = {
     title: 'Select Avatar',
+    mediaType: 'photo',
+    maxWidth: 200,
+    maxHeight: 200
     // customButtons: [
     //   {name: 'fb', title: 'Choose Photo from Facebook'},
     // ],
-    storageOptions: {
-        skipBackup: true,
-        path: 'images'
-    }
+    // If this key is provided, the image will be saved in your app's
+    // Documents directory on iOS, or your app's Pictures directory on Android
+    // storageOptions: {
+    //     skipBackup: true,
+    //     path: 'images'
+    // }
 };
 
-export const openImagePicker = () => {
+export const pickImage = () => {
     return new Promise((resolve, reject) => {
         ImagePicker.showImagePicker(options, (response) => {
         // console.log('Response = ', response);
