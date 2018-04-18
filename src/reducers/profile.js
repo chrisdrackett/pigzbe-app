@@ -1,12 +1,14 @@
 import {
-    PROFILE_UPDATE
+    PROFILE_UPDATE,
+    PROFILE_FINISH
 } from '../actions';
 
 const initialState = {
     name: 'name',
     email: 'email@example.com',
     image: '',
-    subscribe: true
+    subscribe: true,
+    hasProfile: false
 };
 
 export default (state = initialState, action) => {
@@ -18,6 +20,11 @@ export default (state = initialState, action) => {
                 email: action.email,
                 image: action.image,
                 subscribe: action.subscribe
+            };
+        case PROFILE_FINISH:
+            return {
+                ...state,
+                hasProfile: true
             };
         default:
             return state;

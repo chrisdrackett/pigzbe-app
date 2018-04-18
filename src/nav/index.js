@@ -1,7 +1,6 @@
 // import React from 'react';
 import {TabNavigator, TabBarBottom} from 'react-navigation';
-// import Balance from '../balance';
-import Balance from '../profile';
+import Balance from '../balance';
 import Game from '../game';
 import Messages from '../messages';
 

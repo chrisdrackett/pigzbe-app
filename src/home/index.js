@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Nav from '../nav';
+import Profile from '../profile';
 import Login from '../login';
 import {loadFont} from '../styles';
 import {Platform} from 'react-native';
@@ -28,15 +29,25 @@ class Home extends Component {
         }
 
         const {
-            isLoggedIn
+            isLoggedIn,
+            hasProfile
         } = this.props;
 
-        return isLoggedIn ? <Nav/> : <Login/>;
+        if (isLoggedIn && hasProfile) {
+            return <Nav/>;
+        }
+
+        if (isLoggedIn) {
+            return <Profile/>;
+        }
+
+        return <Login/>;
     }
 }
 
 export default connect(
     state => ({
-        isLoggedIn: state.auth.isLoggedIn
+        isLoggedIn: state.auth.isLoggedIn,
+        hasProfile: state.profile.hasProfile
     })
 )(Home);

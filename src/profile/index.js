@@ -9,7 +9,7 @@ import {
     Switch,
     Image
 } from 'react-native';
-import {profileUpdate} from '../actions';
+import {profileUpdate, profileFinish} from '../actions';
 import styles from './styles';
 import Button from '../button';
 import {pickImage} from './image-picker';
@@ -66,7 +66,7 @@ class Profile extends Component {
 
         await dispatch(profileUpdate({name, email, image, subscribe}));
 
-        this.setState({isUpdating: false});
+        this.setState({isUpdating: false}, () => dispatch(profileFinish()));
     }
 
     cancel() {}
@@ -132,14 +132,23 @@ class Profile extends Component {
                     label="Save"
                     onPress={() => this.save()}
                 />
-                <Button
-                    label="Cancel"
-                    onPress={() => this.cancel()}
-                />
-                <TouchableOpacity
-                    onPress={() => this.logout()}>
-                    <Text style={styles.button}>Logout</Text>
-                </TouchableOpacity>
+                {edit ? (
+                    <Button
+                        label="Cancel"
+                        onPress={() => this.cancel()}
+                    />
+                ) : null}
+                {edit ? (
+                    <TouchableOpacity
+                        onPress={() => this.logout()}>
+                        <Text style={styles.button}>Logout</Text>
+                    </TouchableOpacity>
+                ) : (
+                    <TouchableOpacity
+                        onPress={() => this.logout()}>
+                        <Text style={styles.button}>Privacy Policy</Text>
+                    </TouchableOpacity>
+                )}
                 {error && (
                     <Text style={styles.error}>{error.message}</Text>
                 )}

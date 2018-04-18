@@ -41,7 +41,7 @@ class Balance extends Component {
 
 export default connect(
     state => ({
-        balance: state.stellar.balance,
+        balance: state.wollo.balance,
         publicKey: state.auth.publicKey
     })
 )(Balance);
