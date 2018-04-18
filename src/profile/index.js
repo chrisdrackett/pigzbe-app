@@ -9,7 +9,7 @@ import {
     Switch,
     Image
 } from 'react-native';
-import {profileUpdate, profileFinish} from '../actions';
+import {profileUpdate, profileAvailable, profileClear} from '../actions';
 import styles from './styles';
 import Button from '../button';
 import {pickImage} from './image-picker';
@@ -25,7 +25,8 @@ class Profile extends Component {
             image: props.image,
             subscribe: props.subscribe,
             validName: true,
-            validEmail: true
+            validEmail: true,
+            isUpdating: false
         };
     }
 
@@ -47,13 +48,13 @@ class Profile extends Component {
     }
 
     async save() {
-        const {dispatch} = this.props;
-
         const isValid = this.validate();
 
         if (!isValid) {
             return;
         }
+
+        const {dispatch, navigation} = this.props;
 
         const {
             name,
@@ -66,16 +67,27 @@ class Profile extends Component {
 
         await dispatch(profileUpdate({name, email, image, subscribe}));
 
-        this.setState({isUpdating: false}, () => dispatch(profileFinish()));
+        this.setState({isUpdating: false}, () => {
+            dispatch(profileAvailable(true));
+            if (navigation) {
+                navigation.navigate('Balance');
+            }
+        });
     }
 
-    cancel() {}
+    cancel() {
+        this.props.navigation.navigate('Balance');
+    }
+
+    clear() {
+        this.props.dispatch(profileClear());
+    }
 
     logout() {}
 
     render() {
         const {
-            edit,
+            hasProfile,
             error
         } = this.props;
 
@@ -91,7 +103,7 @@ class Profile extends Component {
 
         return (
             <View style={styles.container}>
-                {edit ? (
+                {hasProfile ? (
                     <Text style={styles.title}>Edit your account?</Text>
                 ) : (
                     <Text style={styles.title}>Create your account</Text>
@@ -132,13 +144,19 @@ class Profile extends Component {
                     label="Save"
                     onPress={() => this.save()}
                 />
-                {edit ? (
+                {hasProfile ? (
                     <Button
                         label="Cancel"
                         onPress={() => this.cancel()}
                     />
                 ) : null}
-                {edit ? (
+                {hasProfile ? (
+                    <Button
+                        label="Clear"
+                        onPress={() => this.clear()}
+                    />
+                ) : null}
+                {hasProfile ? (
                     <TouchableOpacity
                         onPress={() => this.logout()}>
                         <Text style={styles.button}>Logout</Text>
@@ -167,6 +185,7 @@ export default connect(
         name: state.profile.name,
         email: state.profile.email,
         image: state.profile.image,
-        subscribe: state.profile.subscribe
+        subscribe: state.profile.subscribe,
+        hasProfile: state.profile.hasProfile
     })
 )(Profile);

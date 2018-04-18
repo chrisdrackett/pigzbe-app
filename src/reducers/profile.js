@@ -1,6 +1,7 @@
 import {
+    PROFILE_LOAD,
     PROFILE_UPDATE,
-    PROFILE_FINISH
+    PROFILE_AVAILABLE
 } from '../actions';
 
 const initialState = {
@@ -8,11 +9,17 @@ const initialState = {
     email: 'email@example.com',
     image: '',
     subscribe: true,
-    hasProfile: false
+    hasProfile: false,
+    isLoadingProfile: false
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case PROFILE_LOAD:
+            return {
+                ...state,
+                isLoadingProfile: action.value
+            };
         case PROFILE_UPDATE:
             return {
                 ...state,
@@ -21,10 +28,10 @@ export default (state = initialState, action) => {
                 image: action.image,
                 subscribe: action.subscribe
             };
-        case PROFILE_FINISH:
+        case PROFILE_AVAILABLE:
             return {
                 ...state,
-                hasProfile: true
+                hasProfile: action.value
             };
         default:
             return state;

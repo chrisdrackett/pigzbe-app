@@ -6,7 +6,7 @@ import {
     TextInput,
     View
 } from 'react-native';
-import {authLogin} from '../actions';
+import {authLogin, profileLoad} from '../actions';
 import styles from './styles';
 import Button from '../button';
 
@@ -19,12 +19,19 @@ class LoginForm extends Component {
         const {
             dispatch,
             error,
-            isLoggingIn
+            isLoggingIn,
+            isLoadingProfile
         } = this.props;
 
-        if (isLoggingIn) {
+        if (isLoggingIn || isLoadingProfile) {
             return (
                 <View style={styles.container}>
+                    {isLoggingIn ? (
+                        <Text style={styles.title}>Logging in...</Text>
+                    ) : null}
+                    {isLoadingProfile ? (
+                        <Text style={styles.title}>Loading profile...</Text>
+                    ) : null}
                     <ActivityIndicator size="large" color="#0000ff" />
                 </View>
             );
@@ -40,7 +47,10 @@ class LoginForm extends Component {
                 />
                 <Button
                     label="Login"
-                    onPress={() => dispatch(authLogin(this.state.inputText))}
+                    onPress={() => {
+                        dispatch(authLogin(this.state.inputText))
+                            .then(() => dispatch(profileLoad()));
+                    }}
                 />
                 {error && (
                     <Text style={styles.error}>{error.message}</Text>
@@ -53,6 +63,7 @@ class LoginForm extends Component {
 export default connect(
     state => ({
         error: state.auth.error,
-        isLoggingIn: state.auth.isLoggingIn
+        isLoggingIn: state.auth.isLoggingIn,
+        isLoadingProfile: state.profile.isLoadingProfile
     })
 )(LoginForm);

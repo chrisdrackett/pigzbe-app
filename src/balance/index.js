@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Platform, Text, View, StyleSheet} from 'react-native';
 import {fetchBalance} from '../actions';
+import Button from '../button';
 
 const styles = StyleSheet.create({
     container: {
@@ -34,6 +35,10 @@ class Balance extends Component {
                 <Text style={styles.title}>
                     {balance.length ? `${balance} WOL` : 'Loading...'}
                 </Text>
+                <Button
+                    label="Go to Profile"
+                    onPress={() => this.props.navigation.navigate('Profile')}
+                />
             </View>
         );
     }

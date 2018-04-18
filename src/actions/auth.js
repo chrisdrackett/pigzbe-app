@@ -18,10 +18,10 @@ export const authLogin = secretKey => dispatch => {
 
     if (!keypair) {
         dispatch({type: AUTH_LOGIN_FAIL, error: new Error('Invalid key')});
-        return;
+        return Promise.reject();
     }
 
-    dispatch(loadAccount(keypair.publicKey()))
+    return dispatch(loadAccount(keypair.publicKey()))
         .then(() => dispatch({type: AUTH_LOGIN, keypair}))
         .catch(error => dispatch({type: AUTH_LOGIN_FAIL, error}));
 };
