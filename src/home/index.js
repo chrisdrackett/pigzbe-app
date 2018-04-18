@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Nav from '../nav';
-import Profile from '../profile';
-import Login from '../login';
+import Account from '../account';
+import Auth from '../auth';
 import {loadFont} from '../styles';
 import {Platform} from 'react-native';
 
@@ -38,10 +38,10 @@ class Home extends Component {
         }
 
         if (isLoggedIn) {
-            return <Profile/>;
+            return <Account/>;
         }
 
-        return <Login/>;
+        return <Auth/>;
     }
 }
 

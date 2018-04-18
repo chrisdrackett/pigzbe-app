@@ -1,7 +1,12 @@
 import '@expo/browser-polyfill';
 // import './polyfill';
 import React, {Component} from 'react';
-import {PanResponder, View, PixelRatio} from 'react-native';
+import {
+    ActivityIndicator,
+    PanResponder,
+    View,
+    PixelRatio
+} from 'react-native';
 import Expo from 'expo';
 import Game from './game';
 import images from './images';
@@ -139,7 +144,7 @@ export default class PixiView extends Component {
         const {loading, view} = this.state;
 
         if (loading) {
-            return <Expo.AppLoading/>;
+            return <ActivityIndicator size="large" color="#0000ff" />;
         }
 
         return (

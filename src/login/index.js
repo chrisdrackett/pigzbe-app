@@ -18,6 +18,7 @@ class LoginForm extends Component {
     render() {
         const {
             dispatch,
+            navigation,
             error,
             isLoggingIn,
             isLoadingProfile
@@ -55,6 +56,11 @@ class LoginForm extends Component {
                 {error && (
                     <Text style={styles.error}>{error.message}</Text>
                 )}
+                <Button
+                    label="Help"
+                    plain
+                    onPress={() => navigation.navigate('Help')}
+                />
             </View>
         );
     }

@@ -7,10 +7,11 @@ import styles from './styles';
 
 export default ({
     label,
-    onPress
+    onPress,
+    plain
 }) => (
     <TouchableOpacity
-        style={styles.buttonHit}
+        style={plain ? null : styles.buttonHit}
         onPress={() => onPress()}>
         <Text style={styles.button}>{label}</Text>
     </TouchableOpacity>

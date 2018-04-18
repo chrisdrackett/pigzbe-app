@@ -9,11 +9,17 @@ import {
     Switch,
     Image
 } from 'react-native';
-import {profileUpdate, profileAvailable, profileClear} from '../actions';
+import {
+    profileUpdate,
+    profileAvailable,
+    profileClear,
+    authLogout
+} from '../actions';
 import styles from './styles';
 import Button from '../button';
 import {pickImage} from './image-picker';
 import isEmail from './is-email';
+// import {NavigationActions} from 'react-navigation';
 
 class Profile extends Component {
     constructor(props) {
@@ -29,6 +35,31 @@ class Profile extends Component {
             isUpdating: false
         };
     }
+
+    // componentDidMount() {
+    //     const {dispatch, navigation} = this.props;
+    //
+    //     if (navigation) {
+    //         this.navListener = navigation.addListener('didBlur', () => {
+    //             console.log('=====> BLURRRR', navigation);
+    //             // navigation.navigate('Balance');
+    //             const resetAction = NavigationActions.reset({
+    //                 index: 0,
+    //                 key: null,
+    //                 actions: [NavigationActions.navigate({routeName: 'Balance'})]
+    //             });
+    //             navigation.dispatch(resetAction);
+    //
+    //         });
+    //     }
+    // }
+    //
+    // componentWillUnmount() {
+    //     console.log('componentWillUnmount');
+    //     if (this.navListener) {
+    //         this.navListener.remove();
+    //     }
+    // }
 
     validate() {
         const {
@@ -75,20 +106,12 @@ class Profile extends Component {
         });
     }
 
-    cancel() {
-        this.props.navigation.navigate('Balance');
-    }
-
-    clear() {
-        this.props.dispatch(profileClear());
-    }
-
-    logout() {}
-
     render() {
         const {
+            dispatch,
             hasProfile,
-            error
+            error,
+            navigation
         } = this.props;
 
         const {
@@ -108,13 +131,15 @@ class Profile extends Component {
                 ) : (
                     <Text style={styles.title}>Create your account</Text>
                 )}
-                <TouchableOpacity
+                <Button
+                    label="Add profile image"
+                    plain
                     onPress={() => {
                         pickImage()
-                            .then(({uri}) => this.setState({image: uri}));
-                    }}>
-                    <Text style={styles.button}>Add profile image</Text>
-                </TouchableOpacity>
+                            .then(({uri}) => this.setState({image: uri}))
+                            .catch(err => console.log('error', err));
+                    }}
+                />
                 {image ? (
                     <Image
                         source={{uri: image}}
@@ -147,25 +172,27 @@ class Profile extends Component {
                 {hasProfile ? (
                     <Button
                         label="Cancel"
-                        onPress={() => this.cancel()}
+                        onPress={() => navigation.navigate('Balance')}
                     />
                 ) : null}
                 {hasProfile ? (
                     <Button
                         label="Clear"
-                        onPress={() => this.clear()}
+                        onPress={() => dispatch(profileClear())}
                     />
                 ) : null}
                 {hasProfile ? (
-                    <TouchableOpacity
-                        onPress={() => this.logout()}>
-                        <Text style={styles.button}>Logout</Text>
-                    </TouchableOpacity>
+                    <Button
+                        label="Logout"
+                        plain
+                        onPress={() => dispatch(authLogout())}
+                    />
                 ) : (
-                    <TouchableOpacity
-                        onPress={() => this.logout()}>
-                        <Text style={styles.button}>Privacy Policy</Text>
-                    </TouchableOpacity>
+                    <Button
+                        label="Privacy"
+                        plain
+                        onPress={() => navigation.navigate('Privacy')}
+                    />
                 )}
                 {error && (
                     <Text style={styles.error}>{error.message}</Text>

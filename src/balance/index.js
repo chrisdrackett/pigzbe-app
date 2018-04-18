@@ -1,52 +1,29 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
-import {Platform, Text, View, StyleSheet} from 'react-native';
-import {fetchBalance} from '../actions';
+import {Text, View} from 'react-native';
 import Button from '../button';
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    title: {
-        color: Platform.OS === 'web' ? 'red' : 'black',
-        fontSize: 18
-    }
-});
-
-class Balance extends Component {
-    componentDidMount() {
-        this.loadAccount();
-    }
-
-    loadAccount() {
-        const {dispatch, publicKey} = this.props;
-        dispatch(fetchBalance(publicKey));
-    }
-
-    render() {
-        const {balance} = this.props;
-        return (
-            <View style={styles.container}>
-                <Text style={styles.title}>Balance</Text>
-                <Text style={styles.title}>
-                    {balance.length ? `${balance} WOL` : 'Loading...'}
-                </Text>
-                <Button
-                    label="Go to Profile"
-                    onPress={() => this.props.navigation.navigate('Profile')}
-                />
-            </View>
-        );
-    }
-}
+import styles from './styles';
 
 export default connect(
     state => ({
         balance: state.wollo.balance,
-        publicKey: state.auth.publicKey
+        publicKey: state.auth.publicKey,
+        name: state.profile.name
     })
-)(Balance);
+)(({
+    balance,
+    name,
+    navigation
+}) => (
+    <View style={styles.container}>
+        <Text style={styles.welcome}>Hi {name}</Text>
+        <Text style={styles.balance}>
+            {balance.length ? balance : 'Loading...'}
+        </Text>
+        <Text style={styles.label}>Wollo balance</Text>
+        <Button
+            label="Go to Profile"
+            onPress={() => navigation.navigate('Profile')}
+        />
+    </View>
+));

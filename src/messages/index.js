@@ -1,18 +1,6 @@
 import React from 'react';
-import {Platform, Text, View, StyleSheet} from 'react-native';
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    title: {
-        color: Platform.OS === 'web' ? 'red' : 'black',
-        fontSize: 18
-    }
-});
+import {Text, View} from 'react-native';
+import styles from './styles';
 
 export default () => (
     <View style={styles.container}>
