@@ -8,7 +8,7 @@ export default ({
 }) => (
     <View style={styles.container}>
         <Text style={styles.title}>Privacy</Text>
-        <Text>Lorem ipsum dolor sit amet</Text>
+        <Text style={styles.text}>Lorem ipsum dolor sit amet</Text>
         <Button
             label="Back"
             plain

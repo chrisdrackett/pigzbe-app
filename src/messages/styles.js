@@ -1,14 +1,20 @@
 import {StyleSheet} from 'react-native';
+import {
+    container,
+    color,
+    fontFamily
+} from '../styles';
 
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
+    container,
     title: {
-        color: 'black',
+        fontFamily,
+        color: color.white,
         fontSize: 18
+    },
+    text: {
+        fontFamily,
+        color: color.white,
+        fontSize: 16
     }
 });

@@ -1,28 +1,29 @@
+import {StyleSheet} from 'react-native';
 import {
-    Platform,
-    StyleSheet
-} from 'react-native';
-
-const input = {
-    alignSelf: 'stretch',
-    borderColor: '#000',
-    borderWidth: 1,
-    fontFamily: 'Poppins Regular',
-    marginBottom: 20,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 10
-};
+    container,
+    input,
+    color,
+    fontFamily
+} from '../styles';
 
 export default StyleSheet.create({
-    container: {
+    container,
+    avatar: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    avatarImage: {
+        width: 100,
+        height: 100,
+        borderRadius: 50
+    },
+    avatarText: {
+        fontFamily,
+        color: color.white,
+        fontSize: 20,
+        textAlign: 'center',
+        marginBottom: 20
     },
     loader: {
         flex: 1,
@@ -36,9 +37,10 @@ export default StyleSheet.create({
         bottom: 0
     },
     title: {
-        fontFamily: 'Poppins Regular',
-        color: Platform.OS === 'web' ? 'red' : 'black',
+        fontFamily,
+        color: color.white,
         fontSize: 50,
+        textAlign: 'center',
         marginBottom: 20
     },
     subscribe: {
@@ -46,31 +48,19 @@ export default StyleSheet.create({
         flexDirection: 'row'
     },
     subscribeText: {
-        fontFamily: 'Poppins Regular',
-        color: 'black',
+        fontFamily,
+        color: color.white,
         fontSize: 20,
         marginRight: 10
     },
     error: {
-        color: 'red',
+        fontFamily,
+        color: color.red,
         fontSize: 18
     },
-    input: {
-        ...input
-    },
+    input,
     inputError: {
         ...input,
         borderColor: '#ff0000'
-    },
-    button: {
-        alignSelf: 'stretch',
-        color: 'blue',
-        fontFamily: 'Poppins Regular',
-        fontSize: 18,
-        paddingBottom: 10,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 10,
-        textAlign: 'center'
     }
 });

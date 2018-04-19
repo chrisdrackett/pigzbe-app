@@ -13,6 +13,9 @@ export default ({
     <TouchableOpacity
         style={plain ? null : styles.buttonHit}
         onPress={() => onPress()}>
-        <Text style={styles.button}>{label}</Text>
+        <Text
+            style={plain ? [styles.button, styles.buttonPlain] : styles.button}>
+            {label}
+        </Text>
     </TouchableOpacity>
 );

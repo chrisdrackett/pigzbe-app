@@ -1,25 +1,25 @@
 import {StyleSheet} from 'react-native';
+import {
+    container,
+    color,
+    fontFamily
+} from '../styles';
 
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
+    container,
     welcome: {
-        color: 'black',
-        fontFamily: 'Poppins Regular',
+        fontFamily,
+        color: color.white,
         fontSize: 18
     },
     balance: {
-        color: 'black',
-        fontFamily: 'Poppins Regular',
+        fontFamily,
+        color: color.white,
         fontSize: 40
     },
     label: {
-        color: 'black',
-        fontFamily: 'Poppins Regular',
+        fontFamily,
+        color: color.white,
         fontSize: 18
     }
 });

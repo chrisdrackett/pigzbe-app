@@ -1,36 +1,23 @@
+import {StyleSheet} from 'react-native';
+
 import {
-    Platform,
-    StyleSheet
-} from 'react-native';
+    container,
+    input,
+    color,
+    fontFamily
+} from '../styles';
 
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
+    container,
+    input,
     title: {
-        fontFamily: 'Poppins Regular',
-        color: Platform.OS === 'web' ? 'red' : 'black',
+        fontFamily,
+        color: color.white,
         fontSize: 50,
         marginBottom: 20
     },
     error: {
-        color: 'red',
+        color: color.red,
         fontSize: 18
-    },
-    input: {
-        alignSelf: 'stretch',
-        borderColor: '#000',
-        borderWidth: 1,
-        fontFamily: 'Poppins Regular',
-        marginBottom: 20,
-        marginLeft: 20,
-        marginRight: 20,
-        paddingBottom: 10,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 10
     }
 });

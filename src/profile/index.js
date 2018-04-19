@@ -5,9 +5,9 @@ import {
     Text,
     TextInput,
     View,
-    TouchableOpacity,
     Switch,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import {
     profileUpdate,
@@ -20,6 +20,7 @@ import Button from '../button';
 import {pickImage} from './image-picker';
 import isEmail from './is-email';
 // import {NavigationActions} from 'react-navigation';
+import avatarImg from './icon-76.png';
 
 class Profile extends Component {
     constructor(props) {
@@ -126,26 +127,22 @@ class Profile extends Component {
 
         return (
             <View style={styles.container}>
-                {hasProfile ? (
-                    <Text style={styles.title}>Edit your account?</Text>
-                ) : (
-                    <Text style={styles.title}>Create your account</Text>
-                )}
-                <Button
-                    label="Add profile image"
-                    plain
+                <Text style={styles.title}>
+                    {hasProfile ? 'Edit your account?' : 'Create your account'}
+                </Text>
+                <TouchableOpacity
+                    style={styles.avatar}
                     onPress={() => {
                         pickImage()
                             .then(({uri}) => this.setState({image: uri}))
                             .catch(err => console.log('error', err));
-                    }}
-                />
-                {image ? (
+                    }}>
                     <Image
-                        source={{uri: image}}
-                        style={{width: 100, height: 100}}
+                        source={image ? {uri: image} : avatarImg}
+                        style={styles.avatarImage}
                     />
-                ) : null}
+                    <Text style={styles.avatarText}>{hasProfile ? 'Change profile image?' : 'Add Profile Image'}</Text>
+                </TouchableOpacity>
                 <TextInput
                     style={validName ? styles.input : styles.inputError}
                     placeholder="Name"

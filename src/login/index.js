@@ -9,6 +9,7 @@ import {
 import {authLogin, profileLoad} from '../actions';
 import styles from './styles';
 import Button from '../button';
+import {color} from '../styles';
 
 class LoginForm extends Component {
     state = {
@@ -33,7 +34,7 @@ class LoginForm extends Component {
                     {isLoadingProfile ? (
                         <Text style={styles.title}>Loading profile...</Text>
                     ) : null}
-                    <ActivityIndicator size="large" color="#0000ff" />
+                    <ActivityIndicator size="large" color={color.white} />
                 </View>
             );
         }
@@ -44,6 +45,7 @@ class LoginForm extends Component {
                 <TextInput
                     style={styles.input}
                     placeholder="Key"
+                    placeholderTextColor={color.white}
                     onChangeText={inputText => this.setState({inputText})}
                 />
                 <Button
