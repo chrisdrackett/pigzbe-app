@@ -1,27 +1,47 @@
 const electron = require('electron');
 const path = require('path');
 const url = require('url');
-// import electron from 'electron';
-// import path from 'path';
-// import url from 'url';
-// import {enableLiveReload} from 'electron-compile';
-
-// enableLiveReload();
-
-// Module to control application life.
-const app = electron.app;
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow;
+const {app, BrowserWindow} = electron;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
 function createWindow() {
+    const width = 1024;
+    const height = 768;
+    const icon = path.join(__dirname, 'desktop', 'icon.png');
+
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: 1024, height: 768});
+    mainWindow = new BrowserWindow({
+        width,
+        height,
+        icon,
+        show: false
+    });
 
     console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
+    // create a new `splash`-Window
+    const splash = new BrowserWindow({
+        width,
+        height,
+        icon
+    });
+
+    splash.loadURL(url.format({
+        pathname: path.join(__dirname, 'splash.html'),
+        protocol: 'file',
+        slashes: true
+    }));
+
+    // if main window is ready to show, then destroy the splash window and show up the main window
+    mainWindow.once('ready-to-show', () => {
+        splash.destroy();
+        mainWindow.show();
+        // Open the DevTools.
+        mainWindow.webContents.openDevTools();
+    });
 
     if (process.env.NODE_ENV !== 'production') {
         // mainWindow.loadURL(`http://localhost:${process.env.PORT || '8000'}`);
@@ -34,16 +54,6 @@ function createWindow() {
             slashes: true
         }));
     }
-
-    // and load the index.html of the app.
-    // mainWindow.loadURL(url.format({
-    //     pathname: path.join(__dirname, 'index.html'),
-    //     protocol: 'file:',
-    //     slashes: true
-    // }));
-
-    // Open the DevTools.
-    mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on('closed', () => {
