@@ -25,7 +25,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.pigzbe.app",
+      "bundleIdentifier": "com.pigzbe.app100",
       "publishBundlePath": "ios/pigzbe-app/Supporting/shell-app.bundle",
       "publishManifestPath": "ios/pigzbe-app/Supporting/shell-app-manifest.json"
     },
@@ -36,7 +36,7 @@
       "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v2.4.0-sdk26.0.0-e63d9209-070c-4118-b06b-c60e82da0b66.tar.gz"
     },
     "android": {
-      "package": "com.pigzbe.app"
+      "package": "com.pigzbe.app100"
     }
   }
 }

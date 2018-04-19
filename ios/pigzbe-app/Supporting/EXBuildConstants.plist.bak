@@ -14,6 +14,6 @@
 	<key>STANDALONE_CONTEXT_TYPE</key>
 	<string>user</string>
 	<key>developmentUrl</key>
-	<string>expd1f18944c2164b57a71f5105ac3f847e://de-xjf.pigzbe.pigzbe-app.exp.direct:80</string>
+	<string>expd1f18944c2164b57a71f5105ac3f847e://localhost:80</string>
 </dict>
 </plist>
