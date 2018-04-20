@@ -14,13 +14,16 @@
     "launch:electron": "electron './desktop/main.js'",
     "serve:webpack": "webpack-dev-server -d --config './desktop/webpack.config.js' --inline --hot --colors --host '0.0.0.0' --useLocalIp",
     "start:electron": "wait-on 'http://localhost:8080' && npm run launch:electron",
-    "build:webpack": "webpack -p --config './desktop/webpack.config.js'"
+    "build:webpack": "webpack -p --config './desktop/webpack.config.js'",
+    "contentful": "node ./scripts/contentful.js"
   },
   "dependencies": {
     "@expo/browser-polyfill": "^0.0.0-alpha.6",
     "@pigzbe/react-native-stellar-sdk": "^1.0.2",
     "babel-polyfill": "^6.26.0",
+    "contentful": "^6.0.0",
     "expo": "^26.0.0",
+    "moment": "^2.22.1",
     "path": "^0.12.7",
     "pixi.js": "^4.7.3",
     "react": "16.3.0-alpha.1",
@@ -61,5 +64,9 @@
     "assets": [
       "./assets/fonts/"
     ]
+  },
+  "contentful": {
+    "space": "dvqyefrvp0de",
+    "accessToken": "a6d260a0b1afaab84251118a9f3c027efffe3323c5aef5d3da3391bb215cc7d1"
   }
 }
