@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
+    // FlatList,
     Text,
     TouchableOpacity,
     View,
-    Linking
+    Linking,
+    ScrollView
 } from 'react-native';
 import styles from './styles';
 import {messagesLoad} from '../actions';
@@ -18,6 +20,27 @@ const daysAgo = date => {
 };
 
 const dateFormat = date => moment(date).format('LL');
+
+const Message = ({
+    date,
+    text,
+    link
+}) => (
+    <View style={styles.message}>
+        <TouchableOpacity onPress={() => {
+            if (link) {
+                Linking.openURL(link);
+            }
+        }}>
+            <Text style={styles.date}>
+                {daysAgo(date)} {dateFormat(date)}
+            </Text>
+            <Text style={styles.text}>
+                {text}
+            </Text>
+        </TouchableOpacity>
+    </View>
+);
 
 class Messages extends Component {
     componentDidMount() {
@@ -34,22 +57,15 @@ class Messages extends Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Messages</Text>
-                {messages.map(({date, text, link}) => (
-                    <View key={date}>
-                        <TouchableOpacity onPress={() => {
-                            if (link) {
-                                Linking.openURL(link);
-                            }
-                        }}>
-                            <Text style={styles.text}>
-                                {daysAgo(date)} {dateFormat(date)}
-                            </Text>
-                            <Text style={styles.text}>
-                                {text}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                ))}
+                {/* <FlatList
+                    data={messages}
+                    renderItem={({item}) => <Message item={item}/>}
+                /> */}
+                <ScrollView>
+                    {messages.map((item, i) => (
+                        <Message key={i} {...item}/>
+                    ))}
+                </ScrollView>
                 <Loader
                     isLoading={loading}
                     message={'Loading messages...'}
