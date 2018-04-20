@@ -6,8 +6,10 @@
 	<true/>
 	<key>isShell</key>
 	<true/>
+    <key>isRemoteJSEnabled</key>
+    <false/>
 	<key>manifestUrl</key>
-	<string>exp://exp.host/@pigzbe/pigzbe-app</string>
+	<string>expd1f18944c2164b57a71f5105ac3f847e://de-xjf.pigzbe.pigzbe-app.exp.direct:80</string>
 	<key>releaseChannel</key>
 	<string>default</string>
 </dict>

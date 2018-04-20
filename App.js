@@ -3,4 +3,6 @@ if (typeof global.self === 'undefined') {
     global.self = global;
 }
 
+window.navigator.platform = 'ios';
+
 module.exports = require('./src/App');

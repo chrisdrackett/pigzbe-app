@@ -1,11 +1,23 @@
 const pkg = require('../../package.json');
-import {createClient} from 'contentful';
 
 export const MESSAGES_LOADING = 'MESSAGES_LOADING';
 export const MESSAGES_UPDATE = 'MESSAGES_UPDATE';
 export const MESSAGES_ERROR = 'MESSAGES_ERROR';
 
-const client = createClient(pkg.contentful);
+const getEntries = () => {
+    const {space, accessToken} = pkg.contentful;
+    return fetch(`https://cdn.contentful.com/spaces/${space}/entries?access_token=${accessToken}&content_type=message`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res.json());
+};
+
+getEntries()
+    .then(json => console.log(json));
 
 export const messagesUpdate = messages => ({type: MESSAGES_UPDATE, messages});
 export const messagesLoading = value => ({type: MESSAGES_LOADING, value});
@@ -13,7 +25,7 @@ export const messagesError = error => ({type: MESSAGES_ERROR, error});
 
 export const messagesLoad = () => dispatch => {
     dispatch(messagesLoading(true));
-    client.getEntries({content_type: 'message'})
+    getEntries()
         .then(({items}) => items.map(item => item.fields))
         .then(messages => messages.sort((a, b) => new Date(b.date) - new Date(a.date)))
         .then(messages => {
