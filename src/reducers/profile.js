@@ -1,5 +1,5 @@
 import {
-    PROFILE_LOAD,
+    PROFILE_LOADING,
     PROFILE_UPDATE,
     PROFILE_AVAILABLE
 } from '../actions';
@@ -15,7 +15,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case PROFILE_LOAD:
+        case PROFILE_LOADING:
             return {
                 ...state,
                 isLoadingProfile: action.value

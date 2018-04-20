@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
-    ActivityIndicator,
     Text,
     TextInput,
     View,
@@ -17,6 +16,7 @@ import {
 } from '../actions';
 import styles from './styles';
 import Button from '../button';
+import Loader from '../loader';
 import {pickImage} from './image-picker';
 import isEmail from './is-email';
 // import {NavigationActions} from 'react-navigation';
@@ -174,7 +174,8 @@ class Profile extends Component {
                 ) : null}
                 {hasProfile ? (
                     <Button
-                        label="Clear"
+                        label="Clear data"
+                        plain
                         onPress={() => dispatch(profileClear())}
                     />
                 ) : null}
@@ -194,11 +195,9 @@ class Profile extends Component {
                 {error && (
                     <Text style={styles.error}>{error.message}</Text>
                 )}
-                {isUpdating ? (
-                    <View style={styles.loader}>
-                        <ActivityIndicator size="large" color="#0000ff" />
-                    </View>
-                ) : null}
+                <Loader
+                    isLoading={isUpdating}
+                />
             </View>
         );
     }

@@ -1,6 +1,6 @@
 import Stellar from '../stellar';
-
 import {loadAccount} from './wollo';
+import wait from './wait';
 
 export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
 export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
@@ -22,6 +22,7 @@ export const authLogin = secretKey => dispatch => {
     }
 
     return dispatch(loadAccount(keypair.publicKey()))
+        .then(() => wait(1))
         .then(() => dispatch({type: AUTH_LOGIN, keypair}))
         .catch(error => dispatch({type: AUTH_LOGIN_FAIL, error}));
 };

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
-    ActivityIndicator,
     Text,
     TextInput,
     View
@@ -9,7 +8,10 @@ import {
 import {authLogin, profileLoad} from '../actions';
 import styles from './styles';
 import Button from '../button';
+import Loader from '../loader';
+import Alert from '../alert';
 import {color} from '../styles';
+import {strings} from '../data';
 
 class LoginForm extends Component {
     state = {
@@ -25,43 +27,33 @@ class LoginForm extends Component {
             isLoadingProfile
         } = this.props;
 
-        if (isLoggingIn || isLoadingProfile) {
-            return (
-                <View style={styles.container}>
-                    {isLoggingIn ? (
-                        <Text style={styles.title}>Logging in...</Text>
-                    ) : null}
-                    {isLoadingProfile ? (
-                        <Text style={styles.title}>Loading profile...</Text>
-                    ) : null}
-                    <ActivityIndicator size="large" color={color.white} />
-                </View>
-            );
-        }
-
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Login</Text>
+                <Text style={styles.title}>{strings.loginTitle}</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Key"
+                    placeholder={strings.loginPlaceholder}
                     placeholderTextColor={color.white}
                     onChangeText={inputText => this.setState({inputText})}
                 />
                 <Button
-                    label="Login"
+                    label={strings.loginSubmitButtonLabel}
                     onPress={() => {
                         dispatch(authLogin(this.state.inputText))
                             .then(() => dispatch(profileLoad()));
                     }}
                 />
-                {error && (
-                    <Text style={styles.error}>{error.message}</Text>
-                )}
                 <Button
-                    label="Help"
+                    label={strings.loginHelpButtonLabel}
                     plain
                     onPress={() => navigation.navigate('Help')}
+                />
+                <Loader
+                    isLoading={isLoggingIn || isLoadingProfile}
+                    message={isLoggingIn ? 'Logging in...' : 'Loading profile...'}
+                />
+                <Alert
+                    error={error}
                 />
             </View>
         );

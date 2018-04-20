@@ -30,14 +30,15 @@ class Home extends Component {
 
         const {
             isLoggedIn,
-            hasProfile
+            hasProfile,
+            isLoadingProfile
         } = this.props;
 
         if (isLoggedIn && hasProfile) {
             return <Nav/>;
         }
 
-        if (isLoggedIn) {
+        if (isLoggedIn && !isLoadingProfile) {
             return <Account/>;
         }
 
@@ -48,6 +49,7 @@ class Home extends Component {
 export default connect(
     state => ({
         isLoggedIn: state.auth.isLoggedIn,
-        hasProfile: state.profile.hasProfile
+        hasProfile: state.profile.hasProfile,
+        isLoadingProfile: state.profile.isLoadingProfile
     })
 )(Home);

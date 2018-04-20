@@ -13,8 +13,11 @@ export default StyleSheet.create({
     title: {
         fontFamily,
         color: color.white,
-        fontSize: 50,
-        marginBottom: 20
+        fontSize: 20,
+        marginLeft: 20,
+        marginRight: 20,
+        marginBottom: 20,
+        textAlign: 'center'
     },
     error: {
         color: color.red,
