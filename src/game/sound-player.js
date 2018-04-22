@@ -1,26 +1,30 @@
-import Expo from 'expo';
 import map from 'usfl/object/map';
 
 class SoundPlayer {
     load(sounds) {
+        const getSound = src => {
+            const sound = new Audio();
+            sound.src = src;
+            return sound;
+        };
+
         this.sounds = map(sounds, (key, value) => ({
             url: value,
-            sound: new Expo.Audio.Sound()
+            sound: getSound(value)
         }));
 
-        return Promise.all(Object.keys(this.sounds).map(key => this.sounds[key].sound.loadAsync(this.sounds[key].url)))
-            .then(() => console.log('SOUNDS LOADED'));
+        return Promise.resolve();
     }
 
-    async play(id, loop = false) {
+    play(id, loop = false) {
         const {sound} = this.sounds[id];
-        await sound.setIsLoopingAsync(loop);
-        sound.playAsync();
+        sound.loop = loop;
+        sound.play();
     }
 
-    async stop(id) {
+    stop(id) {
         const {sound} = this.sounds[id];
-        sound.stopAsync();
+        sound.pause();
     }
 }
 
