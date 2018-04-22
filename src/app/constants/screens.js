@@ -1,0 +1,8 @@
+export const SCREEN_PROFILE = 'SCREEN_PROFILE';
+export const SCREEN_LOGIN = 'SCREEN_LOGIN';
+export const SCREEN_WALLET = 'SCREEN_WALLET';
+export const SCREEN_BALANCE = 'SCREEN_BALANCE';
+export const SCREEN_PRIVACY = 'SCREEN_PRIVACY';
+export const SCREEN_GAME = 'SCREEN_GAME';
+export const SCREEN_MESSAGES = 'SCREEN_MESSAGES';
+export const SCREEN_HELP = 'SCREEN_HELP';

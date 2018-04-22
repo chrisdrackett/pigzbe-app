@@ -10,8 +10,7 @@ const babelLoaderConfiguration = {
     include: [
         path.resolve(appDirectory, 'desktop/index.web.js'),
         path.resolve(appDirectory, 'src'),
-        path.resolve(appDirectory, '../'),
-        path.resolve(appDirectory, 'node_modules/react-native-uncompiled'),
+        path.resolve(appDirectory, './'),
         path.resolve(appDirectory, 'node_modules/react-navigation')
     ],
     use: {
@@ -89,5 +88,11 @@ module.exports = {
         // module implementations should be written in files using the extension
         // `.web.js`.
         extensions: ['.web.js', '.js']
+    },
+
+    devServer: {
+        watchOptions: {
+            poll: true
+        }
     }
 };

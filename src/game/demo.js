@@ -62,6 +62,7 @@ export default class Demo {
         arrowGfx.position.set(0 - arrow.width / 2, 0 - arrow.height / 2);
         arrow.position.set(center.x, center.y);
 
+        this.app = app;
         this.container = container;
         this.hillsBack = hillsBack;
         this.hillsFront = hillsFront;
@@ -112,7 +113,10 @@ export default class Demo {
 
         this.arrow.position.set(center.x, center.y);
         this.arrow.rotation = vec.rotation;
-        this.text.text = `angle: ${roundTo(vec.rotation, 1)}\nx/y: ${roundTo(vec.x)}/${roundTo(vec.y)}`;
+        const rendererType = (this.app.renderer instanceof PIXI.CanvasRenderer) ? 'canvas' : 'webgl';
+        const rendererRes = this.app.renderer.resolution;
+        const dpr = window.devicePixelRatio || 1;
+        this.text.text = `${rendererType}\nres: ${rendererRes} dpr: ${dpr}\nangle: ${roundTo(vec.rotation, 1)}\nx/y: ${roundTo(vec.x)}/${roundTo(vec.y)}`;
     }
 
     pointerDown(point) {

@@ -1,38 +1,58 @@
-import {Platform} from 'react-native';
 import * as PIXI from 'pixi.js';
 import Demo from './demo';
-import {registerFont} from './fonts';
+import {registerFont} from './assets/fonts';
 import angle from 'usfl/math/angle';
 import distance from 'usfl/math/distance';
 // import roundTo from 'usfl/math/round-to';
 import SoundPlayer from './sound-player';
-import sounds from './sounds';
+import images from './assets/images';
+import sounds from './assets/sounds';
 
 // import as js ob
-const spritesJSON = require('./images/sprites.json');
+const spritesJSON = require('./assets/images/sprites.json');
 
 global.PIXI = PIXI;
 
 export default class Game {
-    constructor(opts, resources, navigation) {
+    constructor(el) {
         this.isDown = false;
-        this.context = opts.context;
 
-        navigation.addListener('didBlur', () => this.onBlur());
-        navigation.addListener('didFocus', () => this.onFocus());
-        // const blurSub = // blurSub.remove();
+        const {width, height} = el.getBoundingClientRect();
 
-        const app = new PIXI.Application(Object.assign({}, opts, {
+        const app = new PIXI.Application({
             backgroundColor: 0xE0F0FA,
-            autoStart: false
-        }));
+            autoStart: false,
+            resolution: window.devicePixelRatio || 1,
+            width,
+            height
+        });
         this.app = app;
+        this.el = el;
+
+        this.el.appendChild(app.view);
+        app.view.style.width = '100%';
+        app.view.style.height = '100%';
+        app.view.style.cursor = 'pointer';
+
+        app.stage.interactive = true;
+        app.stage.hitArea = new PIXI.Rectangle(0, 0, width, height);
+        app.stage.on('pointerdown', event => {
+            app.view.style.cursor = 'all-scroll';
+            this.touchDown(event.data.global);
+        });
+        app.stage.on('pointermove', event => this.touchMove(event.data.global));
+        app.stage.on('pointerup', event => {
+            app.view.style.cursor = 'pointer';
+            this.touchUp(event.data.global);
+        });
+
+        window.addEventListener('resize', () => this.resize());
 
         this.dims = this.updateDims();
 
         this.vec = {x: 0, y: 0, rotation: 0};
 
-        this.load(app, resources);
+        this.load(app, images);
     }
 
     load(app, resources) {
@@ -40,7 +60,7 @@ export default class Game {
         SoundPlayer.load(sounds).then(() => {
             console.log('PLAY SOUND!');
             SoundPlayer.stop('music');
-            // SoundPlayer.play('music', true);
+            SoundPlayer.play('music', true);
         });
 
         Object.keys(resources).map(key =>
@@ -51,7 +71,7 @@ export default class Game {
             // parse fonts
             registerFont(assets.fontPng.texture);
             // parse spritesheets
-            const spriteSheet = Platform.OS === 'web' ? assets.sprites : assets.spritesA;
+            const spriteSheet = assets.sprites;
             const sheet = new PIXI.Spritesheet(spriteSheet.texture.baseTexture, spritesJSON);
 
             sheet.parse(textures => {
@@ -87,14 +107,14 @@ export default class Game {
         }
     }
 
-    onBlur = () => {
-        console.log('onBlur');
+    pause = () => {
+        console.log('Game.pause');
         SoundPlayer.stop('music');
         this.app.ticker.remove(this.update);
     }
 
-    onFocus = () => {
-        console.log('onFocus');
+    resume = () => {
+        console.log('Game.resume');
         if (this.demo) {
             SoundPlayer.stop('music');
             SoundPlayer.play('music', true);
@@ -164,9 +184,11 @@ export default class Game {
         return this.dims;
     }
 
-    resize = rect => {
-        console.log('resize', rect.width, rect.height);
-        this.app.renderer.resize(rect.width, rect.height);
+    resize() {
+        const {width, height} = this.el.getBoundingClientRect();
+        this.app.renderer.resize(width, height);
         this.demo.resize(this.updateDims());
+        this.app.stage.hitArea.width = width;
+        this.app.stage.hitArea.height = height;
     }
 }

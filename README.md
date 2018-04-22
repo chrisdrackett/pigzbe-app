@@ -1,21 +1,63 @@
-# pigzbe-app
+# Pigzbe App
 
 ## Installation
 
 ```sh
-yarn global add exp
-sudo gem install cocoapods
+brew install watchman
+yarn global add react-native-cli
 ```
 
 ```sh
 yarn install
-cd ios
-pod install
 ```
 
-XDE: <https://docs.expo.io/versions/latest/introduction/installation>
+```sh
+react-native link
+react-native link react-native-randombytes
+```
 
+## Usage
 
-To start on the iOS simulator, run XDE and build the iOS with `react-native run-ios` then launch simulator from XDE.
+### Run Desktop App
 
-To start on a connected device run XDE and build to device from xcode.
+```sh
+yarn run desktop
+```
+
+### Run iOS App
+
+```sh
+yarn run ios
+```
+
+### Run Android App
+
+```sh
+yarn run android
+```
+
+### Run Linter
+
+```sh
+yarn run lint
+```
+
+### Run Tests
+
+```sh
+yarn test
+```
+
+## Content Updates
+
+### Get latest content strings from CMS
+
+```sh
+yarn run content
+```
+
+### Rebuild game bundle for Webview
+
+```sh
+yarn run game
+```
