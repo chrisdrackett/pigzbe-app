@@ -38,7 +38,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Allow Pigzbe to use your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Give Pigzbe permission to access your photos</string>
 	<key>UIAppFonts</key>

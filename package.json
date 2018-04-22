@@ -18,8 +18,7 @@
     "serve:webpack": "webpack-dev-server -d --config './desktop/webpack.config.js' --hot --colors --host '0.0.0.0' --useLocalIp",
     "start:electron": "wait-on 'http://localhost:8080' && npm run launch:electron",
     "launch:electron": "electron './desktop/main.js'",
-    "build:webpack": "webpack -p --config './desktop/webpack.config.js'",
-    "postinstall": "rm -rf node_modules/gl-matrix/.babelrc"
+    "build:webpack": "webpack -p --config './desktop/webpack.config.js'"
   },
   "dependencies": {
     "@pigzbe/react-native-stellar-sdk": "^1.0.2",

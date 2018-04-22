@@ -16,6 +16,10 @@ react-native link
 react-native link react-native-randombytes
 ```
 
+```sh
+yarn run game
+```
+
 ## Usage
 
 ### Run Desktop App
