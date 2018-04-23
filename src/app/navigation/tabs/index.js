@@ -3,6 +3,7 @@ import Wallet from '../wallet';
 import Game from '../../components/game';
 import Messages from '../../components/messages';
 import {
+    strings,
     SCREEN_WALLET,
     SCREEN_GAME,
     SCREEN_MESSAGES
@@ -16,21 +17,21 @@ const nav = {
     [SCREEN_WALLET]: {
         screen: Wallet,
         navigationOptions: {
-            title: 'Wallet'
+            title: strings.menuWallet
         },
         _icon: 'ios-card'
     },
     [SCREEN_GAME]: {
         screen: Game,
         navigationOptions: {
-            title: 'Game'
+            title: strings.menuGame
         },
         _icon: 'ios-game-controller-b'
     },
     [SCREEN_MESSAGES]: {
         screen: Messages,
         navigationOptions: {
-            title: 'Messages'
+            title: strings.menuMessages
         },
         _icon: 'ios-notifications'
     }

@@ -12,6 +12,9 @@ import Loader from '../loader';
 import Alert from '../alert';
 import Message from './message';
 import isDesktop from '../../utils/is-desktop';
+import {
+    strings
+} from '../../constants';
 
 class Messages extends Component {
     componentDidMount() {
@@ -27,7 +30,9 @@ class Messages extends Component {
 
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Messages</Text>
+                <Text style={styles.title}>
+                    {strings.messagesTitle}
+                </Text>
                 {isDesktop ? (
                     <ScrollView>
                         {messages.map((item, i) => (
@@ -42,7 +47,7 @@ class Messages extends Component {
                 )}
                 <Loader
                     isLoading={loading}
-                    message={'Loading messages...'}
+                    message={strings.messagesLoading}
                 />
                 <Alert
                     error={error}

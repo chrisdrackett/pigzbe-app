@@ -7,7 +7,11 @@ import {
 } from 'react-native';
 import Avatar from '../avatar';
 import styles from './styles';
-import {SCREEN_PROFILE} from '../../constants';
+import {
+    strings,
+    SCREEN_PROFILE
+} from '../../constants';
+import openURL from '../../utils/open-url';
 
 export default connect(
     state => ({
@@ -24,11 +28,17 @@ export default connect(
 }) => (
     <View style={styles.container}>
         <Avatar image={image}/>
-        <Text style={styles.welcome}>Hi {name}</Text>
+        <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
         <Text style={styles.balance}>
-            {balance.length ? balance : 'Loading...'}
+            {balance}
         </Text>
-        <Text style={styles.label}>Wollo balance</Text>
+        <Text style={styles.label}>{strings.walletBalance}</Text>
+        <Text style={styles.label}>{strings.walletConversionTitle}</Text>
+        <Text
+            style={styles.label}
+            onPress={() => openURL(strings.walletConversionCreditUrl)}>
+            {strings.walletConversionCreditLabel}
+        </Text>
         <TouchableOpacity
             style={styles.settings}
             onPress={() => navigation.navigate(SCREEN_PROFILE)}
