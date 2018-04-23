@@ -35,7 +35,9 @@ class LoginForm extends Component {
 
         return (
             <View style={styles.container}>
+                <Text style={styles.title}>{strings.loginTagline}</Text>
                 <Text style={styles.title}>{strings.loginTitle}</Text>
+                <Text style={styles.title}>{strings.loginSubtitle}</Text>
                 <TextInput
                     style={styles.input}
                     placeholder={strings.loginPlaceholder}
@@ -56,7 +58,7 @@ class LoginForm extends Component {
                 />
                 <Loader
                     isLoading={isLoggingIn || isLoadingProfile}
-                    message={isLoggingIn ? 'Logging in...' : 'Loading profile...'}
+                    message={isLoggingIn ? strings.loginLoadingAccount : strings.loginLoadingProfile}
                 />
                 <Alert
                     error={error}

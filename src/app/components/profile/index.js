@@ -21,6 +21,7 @@ import {pickImage} from '../../utils/image-picker';
 import isEmail from './is-email';
 import {color} from '../../styles';
 import {
+    strings,
     SCREEN_BALANCE,
     SCREEN_PRIVACY
 } from '../../constants';
@@ -106,7 +107,7 @@ class Profile extends Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>
-                    {hasProfile ? 'Edit your account?' : 'Create your account'}
+                    {hasProfile ? strings.accountEdit : strings.accountCreate}
                 </Text>
                 <TouchableOpacity
                     style={styles.avatar}
@@ -116,43 +117,47 @@ class Profile extends Component {
                             .catch(err => console.log('error', err));
                     }}>
                     <Avatar image={image}/>
-                    <Text style={styles.avatarText}>{hasProfile ? 'Change profile image?' : 'Add Profile Image'}</Text>
+                    <Text style={styles.avatarText}>
+                        {hasProfile ? strings.accountChangeImage : strings.accountAddImage}
+                    </Text>
                 </TouchableOpacity>
                 <TextInput
                     style={validName ? styles.input : styles.inputError}
-                    placeholder="Name"
+                    placeholder={strings.accountNamePlaceholder}
                     placeholderTextColor={color.white}
                     value={name}
                     onChangeText={value => this.setState({name: value})}
                 />
                 <TextInput
                     style={validEmail ? styles.input : styles.inputError}
-                    placeholder="Email address"
+                    placeholder={strings.accountEmailPlaceholder}
                     placeholderTextColor={color.white}
                     value={email}
                     onChangeText={value => this.setState({email: value})}
                 />
                 <View style={styles.subscribe}>
-                    <Text style={styles.subscribeText}>Get Pigzbe Updates</Text>
+                    <Text style={styles.subscribeText}>
+                        {strings.accountMailingListOptIn}
+                    </Text>
                     <Switch
                         value={subscribe}
                         onValueChange={value => this.setState({subscribe: value})}
                     />
                 </View>
                 <Button
-                    label="Save"
+                    label={hasProfile ? strings.accountSaveButtonLabel : strings.accountSubmitButtonLabel}
                     onPress={() => this.save()}
                 />
                 {hasProfile ? (
                     <Button
-                        label="Cancel"
+                        label={strings.accountCancelButtonLabel}
                         onPress={() => navigation.navigate(SCREEN_BALANCE)}
                     />
                 ) : null}
                 {hasProfile ? (
                     <View style={styles.subscribe}>
                         <Button
-                            label="Logout"
+                            label={strings.accountLogoutButtonLabel}
                             plain
                             onPress={() => dispatch(authLogout())}
                         />
@@ -164,7 +169,7 @@ class Profile extends Component {
                     </View>
                 ) : (
                     <Button
-                        label="Privacy"
+                        label={strings.accountPrivacyButtonLabel}
                         plain
                         onPress={() => navigation.navigate(SCREEN_PRIVACY)}
                     />
