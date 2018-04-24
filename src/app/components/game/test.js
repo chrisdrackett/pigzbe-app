@@ -2,9 +2,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import Game from './';
 
-jest.mock('../../../game/game.html', () => 'html');
-jest.mock('WebView', () => 'WebView');
-
 describe('Game', () => {
     test('renders correctly', () => {
         const navigation = {

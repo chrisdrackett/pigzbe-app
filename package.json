@@ -68,7 +68,13 @@
     "preset": "react-native",
     "setupFiles": [
       "<rootDir>/src/setupTests.js"
-    ]
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|react-navigation)/"
+    ],
+    "globals": {
+      "window": true
+    }
   },
   "rnpm": {
     "assets": [
