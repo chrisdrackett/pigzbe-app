@@ -9,7 +9,7 @@ if (typeof console !== 'undefined') {
     console.disableYellowBox = true;
 }
 
-const store = createStore(
+export const store = createStore(
     reducers,
     applyMiddleware(thunk),
 );

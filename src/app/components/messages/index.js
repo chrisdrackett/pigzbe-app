@@ -57,6 +57,8 @@ class Messages extends Component {
     }
 }
 
+export const MessagesComponent = Messages;
+
 export default connect(state => ({
     messages: state.messages.messages,
     loading: state.messages.messagesLoading,

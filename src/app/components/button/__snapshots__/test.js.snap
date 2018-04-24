@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders correctly 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hasTVPreferredFocus={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignSelf": "stretch",
+      "backgroundColor": "#FDDF06",
+      "borderColor": "#FDDF06",
+      "borderRadius": 25,
+      "borderWidth": 1,
+      "marginBottom": 20,
+      "marginLeft": 20,
+      "marginRight": 20,
+      "opacity": 1,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "alignSelf": "stretch",
+        "color": "#000000",
+        "fontFamily": "Poppins",
+        "fontSize": 18,
+        "height": 50,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 10,
+        "textAlign": "center",
+      }
+    }
+  >
+    Label
+  </Text>
+</View>
+`;
+
+exports[`Button renders correctly in plain mode 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hasTVPreferredFocus={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "alignSelf": "stretch",
+          "color": "#000000",
+          "fontFamily": "Poppins",
+          "fontSize": 18,
+          "height": 50,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "paddingTop": 10,
+          "textAlign": "center",
+        },
+        Object {
+          "color": "#ffffff",
+          "textDecorationColor": "#ffffff",
+          "textDecorationLine": "underline",
+          "textDecorationStyle": "solid",
+        },
+      ]
+    }
+  >
+    Label
+  </Text>
+</View>
+`;

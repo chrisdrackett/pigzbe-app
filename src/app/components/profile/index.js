@@ -185,6 +185,8 @@ class Profile extends Component {
     }
 }
 
+export const ProfileComponent = Profile;
+
 export default connect(
     state => ({
         name: state.profile.name,

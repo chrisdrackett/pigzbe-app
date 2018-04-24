@@ -4,7 +4,7 @@ import {
     MESSAGES_ERROR
 } from '../actions';
 
-const initialState = {
+export const initialState = {
     messages: [],
     messagesLoading: false,
     messagesError: null

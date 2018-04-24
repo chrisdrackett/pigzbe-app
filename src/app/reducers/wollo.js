@@ -3,7 +3,7 @@ import {
     UPDATE_BALANCE
 } from '../actions';
 
-const initialState = {
+export const initialState = {
     balance: '0'
 };
 

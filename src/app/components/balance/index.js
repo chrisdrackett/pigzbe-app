@@ -13,14 +13,7 @@ import {
 } from '../../constants';
 import openURL from '../../utils/open-url';
 
-export default connect(
-    state => ({
-        balance: state.wollo.balance,
-        publicKey: state.auth.publicKey,
-        name: state.profile.name,
-        image: state.profile.image
-    })
-)(({
+export const Balance = ({
     balance,
     name,
     image,
@@ -44,4 +37,12 @@ export default connect(
             onPress={() => navigation.navigate(SCREEN_PROFILE)}
         />
     </View>
-));
+);
+
+export default connect(
+    state => ({
+        balance: state.wollo.balance,
+        name: state.profile.name,
+        image: state.profile.image
+    })
+)(Balance);
