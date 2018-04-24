@@ -4,7 +4,7 @@ import {registerFont} from './assets/fonts';
 import angle from 'usfl/math/angle';
 import distance from 'usfl/math/distance';
 // import roundTo from 'usfl/math/round-to';
-import SoundPlayer from './sound-player';
+import SoundPlayer from './utils/sound-player';
 import images from './assets/images';
 import sounds from './assets/sounds';
 
@@ -18,13 +18,14 @@ export default class Game {
         this.isDown = false;
 
         const {width, height} = el.getBoundingClientRect();
+        const resolution = window.devicePixelRatio || 1;
 
         const app = new PIXI.Application({
             backgroundColor: 0xE0F0FA,
             autoStart: false,
-            resolution: window.devicePixelRatio || 1,
-            width,
-            height
+            resolution,
+            width: width,
+            height: height
         });
         this.app = app;
         this.el = el;
@@ -149,7 +150,7 @@ export default class Game {
         const {center, vW, vH} = this.dims;
 
         const rotation = angle(center.x, center.y, point.x, point.y);
-        const maxDist = Math.min(vW, vH) / 2;
+        const maxDist = Math.min(vW, vH) / 4;
         const dist = Math.min(distance(center.x, center.y, point.x, point.y), maxDist);
         const force = dist / maxDist;
 
