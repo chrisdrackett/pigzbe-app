@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  node:
+  build:
     docker:
       - image: circleci/node:9.4.0
     steps:
@@ -22,4 +22,4 @@ jobs:
             - node_modules
       - run:
           name: "Run tests"
-          command: yarn test
+          command: yarn test --  --maxWorkers=2

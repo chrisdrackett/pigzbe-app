@@ -12,5 +12,5 @@ require('react-native').NativeModules.RNRandomBytes = {
 
 // mock webview
 
-jest.mock('./game/game.html', () => 'html');
+jest.mock('./game/game.html', () => 'html', {virtual: true});
 jest.mock('WebView', () => 'WebView');
