@@ -116,7 +116,8 @@ export default class Demo {
         const rendererType = (this.app.renderer instanceof PIXI.CanvasRenderer) ? 'canvas' : 'webgl';
         const rendererRes = this.app.renderer.resolution;
         const dpr = window.devicePixelRatio || 1;
-        this.text.text = `${rendererType}\nres: ${rendererRes} dpr: ${dpr}\nangle: ${roundTo(vec.rotation, 1)}\nx/y: ${roundTo(vec.x)}/${roundTo(vec.y)}`;
+        const {width, height} = this.app.renderer;
+        this.text.text = `${width}/${height}\n${rendererType}\nres: ${rendererRes} dpr: ${dpr}\nangle: ${roundTo(vec.rotation, 1)}\nx/y: ${roundTo(vec.x)}/${roundTo(vec.y)}`;
     }
 
     pointerDown(point) {

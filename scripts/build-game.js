@@ -102,6 +102,7 @@ webpack(config, (err, stats) => {
             `<!DOCTYPE html>
              <html lang="en" dir="ltr">
                 <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
                     <meta charset="utf-8">
                     <title>Pigzbe</title>
                     <style>
