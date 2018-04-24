@@ -19,7 +19,7 @@ import {
     SCREEN_HELP
 } from '../../constants';
 
-class LoginForm extends Component {
+class Login extends Component {
     state = {
         inputText: 'SAXYJU6Q67IXM4DSOFGVJ2L2I7C2SQJSV2MDR2E64AKML5ZXO25RMISJ'
     }
@@ -68,10 +68,12 @@ class LoginForm extends Component {
     }
 }
 
+export const LoginComponent = Login;
+
 export default connect(
     state => ({
         error: state.auth.error,
         isLoggingIn: state.auth.isLoggingIn,
         isLoadingProfile: state.profile.isLoadingProfile
     })
-)(LoginForm);
+)(Login);

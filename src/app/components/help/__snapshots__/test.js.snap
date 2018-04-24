@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Help renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "stretch",
+      "backgroundColor": "#003278",
+      "flex": 1,
+      "justifyContent": "center",
+      "paddingTop": 20,
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "#ffffff",
+        "fontFamily": "Poppins",
+        "fontSize": 18,
+      }
+    }
+  >
+    Help
+  </Text>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "#ffffff",
+        "fontFamily": "Poppins",
+        "fontSize": 16,
+      }
+    }
+  >
+    Lorem ipsum dolor sit amet
+  </Text>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    collapsable={undefined}
+    hasTVPreferredFocus={undefined}
+    hitSlop={undefined}
+    isTVSelectable={true}
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+    testID={undefined}
+    tvParallaxProperties={undefined}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "alignSelf": "stretch",
+            "color": "#000000",
+            "fontFamily": "Poppins",
+            "fontSize": 18,
+            "height": 50,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 10,
+            "textAlign": "center",
+          },
+          Object {
+            "color": "#ffffff",
+            "textDecorationColor": "#ffffff",
+            "textDecorationLine": "underline",
+            "textDecorationStyle": "solid",
+          },
+        ]
+      }
+    >
+      Back
+    </Text>
+  </View>
+</View>
+`;
