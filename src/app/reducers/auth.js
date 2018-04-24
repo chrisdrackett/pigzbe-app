@@ -5,7 +5,7 @@ import {
     AUTH_LOGOUT
 } from '../actions';
 
-const initialState = {
+export const initialState = {
     isLoggingIn: false,
     isLoggedIn: false,
     error: null

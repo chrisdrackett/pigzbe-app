@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest --verbose",
+    "test:watch": "npm test -- --watch",
     "lint": "eslint 'src/**/*.js'; exit 0",
     "desktop": "run-p serve:webpack start:electron",
     "ios": "react-native run-ios",

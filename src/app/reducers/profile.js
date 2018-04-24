@@ -4,7 +4,7 @@ import {
     PROFILE_AVAILABLE
 } from '../actions';
 
-const initialState = {
+export const initialState = {
     name: 'name',
     email: 'email@example.com',
     image: '',
