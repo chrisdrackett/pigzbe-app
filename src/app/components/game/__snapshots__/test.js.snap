@@ -1,20 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Game renders correctly 1`] = `
-<WebView
-  domStorageEnabled={true}
-  javaScriptEnabled={true}
-  onMessage={[Function]}
-  source="html"
+<View
   style={
     Object {
-      "alignItems": "center",
       "alignSelf": "stretch",
-      "backgroundColor": "#003278",
       "flex": 1,
-      "justifyContent": "center",
-      "paddingTop": 20,
     }
   }
-/>
+>
+  <WebView
+    domStorageEnabled={true}
+    javaScriptEnabled={true}
+    onMessage={[Function]}
+    source="html"
+    style={
+      Object {
+        "alignSelf": "stretch",
+        "flex": 1,
+      }
+    }
+  />
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    collapsable={undefined}
+    hasTVPreferredFocus={undefined}
+    hitSlop={undefined}
+    isTVSelectable={true}
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#FDDF06",
+        "bottom": 20,
+        "height": 40,
+        "left": 20,
+        "opacity": 1,
+        "position": "absolute",
+        "width": 40,
+      }
+    }
+    testID={undefined}
+    tvParallaxProperties={undefined}
+  />
+</View>
 `;
