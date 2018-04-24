@@ -1,7 +1,8 @@
 import React from 'react';
-import {WebView} from 'react-native';
+import {View, WebView} from 'react-native';
 import NavListener from './nav-listener';
-import {container} from '../../styles';
+import styles from './styles';
+import Overlay from '../overlay';
 
 const localWebURL = require('../../../game/game.html');
 
@@ -27,14 +28,17 @@ export default class GameView extends NavListener {
 
     render() {
         return (
-            <WebView
-                ref={el => (this.el = el)}
-                style={container}
-                source={localWebURL}
-                javaScriptEnabled={true}
-                domStorageEnabled={true}
-                onMessage={event => this.onMessage(event)}
-            />
+            <View style={styles.full}>
+                <WebView
+                    ref={el => (this.el = el)}
+                    style={styles.full}
+                    source={localWebURL}
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}
+                    onMessage={event => this.onMessage(event)}
+                />
+                <Overlay/>
+            </View>
         );
     }
 }

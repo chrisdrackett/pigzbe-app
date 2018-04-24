@@ -2,6 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import Game from '../../../game/';
 import NavListener from './nav-listener';
+import Overlay from '../overlay';
 import {container} from '../../styles';
 
 export default class GameView extends NavListener {
@@ -28,7 +29,11 @@ export default class GameView extends NavListener {
     render() {
         return (
             <View style={container}>
-                <div ref={el => (this.el = el)} style={container}/>
+                <div
+                    ref={el => (this.el = el)}
+                    style={container}
+                />
+                <Overlay/>
             </View>
         );
     }
