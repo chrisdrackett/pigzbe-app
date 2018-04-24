@@ -22,4 +22,4 @@ jobs:
             - node_modules
       - run:
           name: "Run tests"
-          command: yarn test
+          command: yarn test --  --maxWorkers=2
