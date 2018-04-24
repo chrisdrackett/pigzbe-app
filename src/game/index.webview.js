@@ -1,4 +1,4 @@
-import Game from './game';
+import Game from './';
 
 const game = new Game(document.body);
 

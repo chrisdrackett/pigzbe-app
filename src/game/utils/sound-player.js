@@ -17,6 +17,7 @@ class SoundPlayer {
     }
 
     play(id, loop = false) {
+        return;
         const {sound} = this.sounds[id];
         sound.loop = loop;
         sound.play();

@@ -2,7 +2,7 @@ import randomChoice from 'usfl/array/random-choice';
 import * as PIXI from 'pixi.js';
 import linkedList from 'usfl/linked-list';
 import objectPool from 'usfl/object-pool';
-import Text from './text';
+import Text from '../utils/text';
 
 let uid = 0;
 

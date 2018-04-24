@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import Game from '../../../game/game';
+import Game from '../../../game/';
 import NavListener from './nav-listener';
 import {container} from '../../styles';
 

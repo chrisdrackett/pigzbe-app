@@ -67,7 +67,7 @@ const soundLoaderConfiguration = {
 const config = {
     mode: 'production',
 
-    entry: path.resolve(appDirectory, 'src/game/game-standalone.js'),
+    entry: path.resolve(appDirectory, 'src/game/index.webview.js'),
 
     output: {
         filename: 'bundle.game.js',

@@ -4,7 +4,7 @@ import {registerFont} from './assets/fonts';
 import angle from 'usfl/math/angle';
 import distance from 'usfl/math/distance';
 // import roundTo from 'usfl/math/round-to';
-import SoundPlayer from './sound-player';
+import SoundPlayer from './utils/sound-player';
 import images from './assets/images';
 import sounds from './assets/sounds';
 
