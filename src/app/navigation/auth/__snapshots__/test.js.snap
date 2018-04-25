@@ -17,9 +17,10 @@ exports[`Navigation: Auth renders correctly 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "height": "50vh",
+        "flex": 1,
+        "height": "50%",
         "justifyContent": "center",
-        "width": "100vw",
+        "width": "100%",
       }
     }
   >
@@ -46,8 +47,8 @@ exports[`Navigation: Auth renders correctly 1`] = `
       }
       style={
         Object {
-          "height": "63px",
-          "width": "162px",
+          "height": 63,
+          "width": 162,
         }
       }
     />
@@ -77,12 +78,12 @@ exports[`Navigation: Auth renders correctly 1`] = `
   <View
     style={
       Object {
-        "height": "50vh",
+        "flex": 1,
+        "height": "50%",
         "justifyContent": "center",
         "paddingLeft": "9.375%",
         "paddingRight": "9.375%",
-        "paddingTop": "20px",
-        "width": "100vw",
+        "width": "100%",
       }
     }
   >

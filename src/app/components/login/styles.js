@@ -9,17 +9,18 @@ import {
 export default StyleSheet.create({
     container,
     containerHeader: {
-        height: '50vh',
-        width: '100vw',
+        height: '50%',
+        width: '100%',
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
     containerBody: {
-        height: '50vh',
-        width: '100vw',
-        paddingTop: '20px',
+        height: '50%',
+        width: '100%',
         paddingLeft: '9.375%',
         paddingRight: '9.375%',
+        flex: 1,
         justifyContent: 'center'
     },
 
@@ -30,8 +31,8 @@ export default StyleSheet.create({
         zIndex: 0
     },
     image: {
-        width: '162px',
-        height: '63px'
+        width: 162,
+        height: 63
     },
     title: {
         fontFamily,
