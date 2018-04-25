@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import {AppRegistry} from 'react-native';
 import App from '../src/App';
 import PoppinsRegular from '../assets/fonts/PoppinsRegular.ttf';
+import PoppinsSemiBold from '../assets/fonts/PoppinsSemiBold.ttf';
 
 const style = document.createElement('style');
 style.type = 'text/css';
@@ -11,6 +12,12 @@ style.appendChild(document.createTextNode(`
         font-style: normal;
         font-weight: normal;
         src: url("${PoppinsRegular}") format("truetype");
+    }
+    @font-face {
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: bold;
+        src: url("${PoppinsSemiBold}") format("truetype");
     }
     html,
     body,

@@ -35,9 +35,9 @@ class Login extends Component {
 
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>{strings.loginTagline}</Text>
+                <Text style={styles.tagline}>{strings.loginTagline}</Text>
                 <Text style={styles.title}>{strings.loginTitle}</Text>
-                <Text style={styles.title}>{strings.loginSubtitle}</Text>
+                <Text style={styles.subtitle}>{strings.loginSubtitle}</Text>
                 <TextInput
                     style={styles.input}
                     placeholder={strings.loginPlaceholder}
