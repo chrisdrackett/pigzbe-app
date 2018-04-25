@@ -3,7 +3,8 @@ import {StyleSheet} from 'react-native';
 import {
     container,
     color,
-    fontFamily
+    fontFamily,
+    input,
 } from '../../styles';
 
 export default StyleSheet.create({
