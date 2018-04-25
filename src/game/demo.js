@@ -24,6 +24,7 @@ export default class Demo {
         const pig = PIXI.Sprite.from('pig.png');
         pig.position.set(center.x - pig.width / 2, center.y - pig.height / 2);
         app.stage.addChild(pig);
+        pig.alpha = 0.5;
 
         const arrow = new PIXI.Container();
         const arrowGfx = PIXI.Sprite.from('arrow.png');
@@ -39,13 +40,12 @@ export default class Demo {
         this.arrow = arrow;
     }
 
-    update(delta, vec) {
+    update(delta, vec, touchOrigin) {
         // console.log('update', delta, vec.x, vec.y);
-        const {center} = this.dims;
 
         this.world.update(delta, vec);
 
-        this.arrow.position.set(center.x, center.y);
+        this.arrow.position.set(touchOrigin.x, touchOrigin.y);
         this.arrow.rotation = vec.rotation;
         const rendererType = (this.app.renderer instanceof PIXI.CanvasRenderer) ? 'canvas' : 'webgl';
         const rendererRes = this.app.renderer.resolution;
