@@ -53,6 +53,8 @@ export default class Game {
 
         this.vec = {x: 0, y: 0, rotation: 0};
 
+        this.touchOrigin = {x: 0, y: 0};
+
         this.load(app, images);
     }
 
@@ -94,7 +96,7 @@ export default class Game {
     }
 
     update = delta => {
-        this.demo.update(delta, this.vec);
+        this.demo.update(delta, this.vec, this.touchOrigin);
 
         if (!this.isDown) {
             this.vec.x *= 0.9;
@@ -135,8 +137,8 @@ export default class Game {
     touchDown = point => {
         this.isDown = true;
 
-        this.dims.center.x = point.x;
-        this.dims.center.y = point.y;
+        this.touchOrigin.x = point.x;
+        this.touchOrigin.y = point.y;
 
         if (this.demo) {
             this.demo.pointerDown(point);
@@ -147,11 +149,12 @@ export default class Game {
         if (!this.isDown) {
             return;
         }
-        const {center, vW, vH} = this.dims;
+        const {vW, vH} = this.dims;
+        const {touchOrigin} = this;
 
-        const rotation = angle(center.x, center.y, point.x, point.y);
+        const rotation = angle(touchOrigin.x, touchOrigin.y, point.x, point.y);
         const maxDist = Math.min(vW, vH) / 4;
-        const dist = Math.min(distance(center.x, center.y, point.x, point.y), maxDist);
+        const dist = Math.min(distance(touchOrigin.x, touchOrigin.y, point.x, point.y), maxDist);
         const force = dist / maxDist;
 
         const speed = 10;
@@ -172,6 +175,8 @@ export default class Game {
             x: vW / 2,
             y: vH / 2
         };
+
+        console.log('1. center', center);
 
         this.dims = {
             vW,

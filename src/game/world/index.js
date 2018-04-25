@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import Ground from './ground';
+import Wollo from './wollo';
 
 const addTilingSprite = (id, w, h) => {
     const texture = PIXI.Texture.from(id);
@@ -44,6 +45,9 @@ export default class World {
         cloudsLow.position.set(0, 160 - vertSpace);
         container.addChild(cloudsLow);
 
+        const wollo = new Wollo();
+        container.addChild(wollo.container);
+
         this.app = app;
         this.container = container;
         this.hillsBack = hillsBack;
@@ -51,6 +55,7 @@ export default class World {
         this.ground = ground;
         this.clouds = clouds;
         this.cloudsLow = cloudsLow;
+        this.wollo = wollo;
     }
 
     positionWorld() {
@@ -72,13 +77,14 @@ export default class World {
 
     update(delta, vec) {
         // console.log('update', delta, vec.x, vec.y);
-        const {vW} = this.dims;
+        const {center, vW} = this.dims;
 
         this.clouds.tilePosition.x -= 0.032 * vec.x * delta;
         this.cloudsLow.tilePosition.x -= 0.064 * vec.x * delta;
         this.hillsBack.tilePosition.x -= 0.128 * vec.x * delta;
         this.hillsFront.tilePosition.x -= 0.64 * vec.x * delta;
         this.ground.update(2 * vec.x * delta, 0, vW);
+        this.wollo.update(2 * vec.x * delta, 0, center, this.container.position.y);
 
         this.container.position.y -= vec.y * delta;
         if (this.container.position.y < 0 - vertSpace) {

@@ -53,6 +53,15 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":117,"h":103},
 	"sourceSize": {"w":117,"h":103},
 	"pivot": {"x":0.5,"y":0.5}
+},
+"wollo.png":
+{
+	"frame": {"x":167,"y":932,"w":46,"h":47},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":47},
+	"sourceSize": {"w":46,"h":47},
+	"pivot": {"x":0.5,"y":0.5}
 }},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
@@ -61,6 +70,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:6fd53ed795394fcea889a71669583605:6115c7a943c4ea075f555c3f97c1d721:1eabdf11f75e3a4fe3147baf7b5be24b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:ae3f62a3f420b23eb5b9ddb65b42da64:4eb841a33e3d3e40813253559e2ace4f:1eabdf11f75e3a4fe3147baf7b5be24b$"
 }
 }
