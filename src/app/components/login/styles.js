@@ -2,14 +2,12 @@ import {StyleSheet} from 'react-native';
 
 import {
     container,
-    input,
     color,
     fontFamily
 } from '../../styles';
 
 export default StyleSheet.create({
     container,
-    input,
     title: {
         fontFamily,
         color: color.white,

@@ -10,7 +10,8 @@ export const color = {
     yellow: '#FDDF06',
     red: '#ff0000',
     blueOnYellowOpacity40: '#979933',
-    whiteOnBlueOpacity70: '#b3c1d6'
+    whiteOnBlueOpacity70: '#b3c1d6',
+    whiteOnBlueOpacity60: '#97abc7'
 };
 
 export const paddingTop = isDesktop ? 0 : 20;
@@ -22,25 +23,4 @@ export const container = {
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop
-};
-
-export const input = {
-    fontFamily,
-    alignSelf: 'stretch',
-    color: color.white,
-    fontSize: 18,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 10,
-    height: 50,
-    borderColor: color.white,
-    borderWidth: 1,
-    borderRadius: 25,
-    marginBottom: 20,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 10
 };

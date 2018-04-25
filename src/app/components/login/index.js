@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
     Text,
-    TextInput,
     View
 } from 'react-native';
 import {
@@ -11,9 +10,9 @@ import {
 } from '../../actions';
 import styles from './styles';
 import Button from '../button';
+import TextInput from '../text-input';
 import Loader from '../loader';
 import Alert from '../alert';
-import {color} from '../../styles';
 import {
     strings,
     SCREEN_HELP
@@ -39,9 +38,9 @@ class Login extends Component {
                 <Text style={styles.title}>{strings.loginTitle}</Text>
                 <Text style={styles.subtitle}>{strings.loginSubtitle}</Text>
                 <TextInput
-                    style={styles.input}
+                    error={!!error}
+                    value={this.state.inputText}
                     placeholder={strings.loginPlaceholder}
-                    placeholderTextColor={color.white}
                     onChangeText={inputText => this.setState({inputText})}
                 />
                 <Button

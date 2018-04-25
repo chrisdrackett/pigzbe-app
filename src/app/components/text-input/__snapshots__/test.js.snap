@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextInput renders correctly 1`] = `
+<TextInput
+  allowFontScaling={true}
+  onChangeText={[Function]}
+  placeholder={undefined}
+  placeholderTextColor="#97abc7"
+  style={
+    Object {
+      "alignSelf": "stretch",
+      "borderColor": "#ffffff",
+      "borderRadius": 22.5,
+      "borderWidth": 1,
+      "color": "#ffffff",
+      "fontFamily": "Poppins",
+      "fontSize": 14,
+      "fontWeight": "bold",
+      "height": 45,
+      "marginBottom": 10,
+      "marginLeft": 30,
+      "marginRight": 30,
+      "paddingLeft": 30,
+      "paddingRight": 20,
+    }
+  }
+  value=""
+/>
+`;
