@@ -12,9 +12,9 @@ export default StyleSheet.create({
         borderColor: color.yellow,
         borderRadius: 22.5,
         borderWidth: 1,
-        marginLeft: 30,
-        marginRight: 30,
-        marginBottom: 20
+        marginLeft: 20,
+        marginRight: 20,
+        marginBottom: 10
     },
     button: {
         fontFamily,
@@ -36,6 +36,7 @@ export default StyleSheet.create({
         fontSize: 14,
         textDecorationLine: 'underline',
         textDecorationStyle: 'solid',
+        fontSize: 14,
         textDecorationColor: color.white
     }
 });

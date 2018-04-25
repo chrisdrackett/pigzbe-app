@@ -25,3 +25,24 @@ export const container = {
     justifyContent: 'center',
     paddingTop
 };
+
+export const input = {
+    fontFamily,
+    alignSelf: 'stretch',
+    color: color.white,
+    fontSize: 14,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    height: 45,
+    borderColor: color.white,
+    borderWidth: 1,
+    borderRadius: 25,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10
+};
