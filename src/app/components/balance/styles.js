@@ -11,7 +11,27 @@ export default StyleSheet.create({
     welcome: {
         fontFamily,
         color: color.white,
-        fontSize: 18
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginTop: 10
+    },
+    balanceContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        flexDirection: 'row',
+        marginTop: 10
+    },
+    logo: {
+        width: 65,
+        height: 25,
+        marginBottom: 10
+    },
+    currencyLogo: {
+        width: 23,
+        height: 19,
+        marginRight: 10
     },
     balance: {
         fontFamily,
@@ -21,12 +41,17 @@ export default StyleSheet.create({
     label: {
         fontFamily,
         color: color.white,
-        fontSize: 18
+        fontSize: 14,
+        opacity: 0.6
+    },
+    settingsIcon: {
+        width: 18,
+        height: 18
     },
     settings: {
-        backgroundColor: color.yellow,
-        width: 40,
-        height: 40,
+        // backgroundColor: color.yellow,
+        width: 18,
+        height: 18,
         position: 'absolute',
         top: paddingTop + 20,
         right: 20
