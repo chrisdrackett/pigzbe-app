@@ -9,6 +9,7 @@ export const color = {
     blue: '#003278',
     yellow: '#FDDF06',
     red: '#ff0000',
+    grey: '#9B9B9B',
     blueOnYellowOpacity40: '#979933',
     whiteOnBlueOpacity70: '#b3c1d6',
     whiteOnBlueOpacity60: '#97abc7'
