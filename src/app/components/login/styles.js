@@ -3,13 +3,11 @@ import {StyleSheet} from 'react-native';
 import {
     container,
     color,
-    fontFamily,
-    input,
+    fontFamily
 } from '../../styles';
 
 export default StyleSheet.create({
     container,
-    input,
     containerHeader: {
         height: '50vh',
         width: '100vw',

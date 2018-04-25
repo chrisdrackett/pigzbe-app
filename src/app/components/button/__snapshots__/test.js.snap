@@ -25,9 +25,7 @@ exports[`Button renders correctly 1`] = `
       "borderColor": "#FDDF06",
       "borderRadius": 22.5,
       "borderWidth": 1,
-      "marginBottom": 20,
-      "marginLeft": 30,
-      "marginRight": 30,
+      "marginBottom": 10,
       "opacity": 1,
     }
   }

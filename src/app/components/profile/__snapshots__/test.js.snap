@@ -105,8 +105,6 @@ exports[`Profile renders correctly with profile 1`] = `
         "fontWeight": "bold",
         "height": 45,
         "marginBottom": 10,
-        "marginLeft": 30,
-        "marginRight": 30,
         "paddingLeft": 30,
         "paddingRight": 20,
       }
@@ -130,8 +128,6 @@ exports[`Profile renders correctly with profile 1`] = `
         "fontWeight": "bold",
         "height": 45,
         "marginBottom": 10,
-        "marginLeft": 30,
-        "marginRight": 30,
         "paddingLeft": 30,
         "paddingRight": 20,
       }
@@ -203,9 +199,7 @@ exports[`Profile renders correctly with profile 1`] = `
         "borderColor": "#FDDF06",
         "borderRadius": 22.5,
         "borderWidth": 1,
-        "marginBottom": 20,
-        "marginLeft": 30,
-        "marginRight": 30,
+        "marginBottom": 10,
         "opacity": 1,
       }
     }
@@ -258,9 +252,7 @@ exports[`Profile renders correctly with profile 1`] = `
         "borderColor": "#FDDF06",
         "borderRadius": 22.5,
         "borderWidth": 1,
-        "marginBottom": 20,
-        "marginLeft": 30,
-        "marginRight": 30,
+        "marginBottom": 10,
         "opacity": 1,
       }
     }
@@ -518,8 +510,6 @@ exports[`Profile renders correctly without profile 1`] = `
         "fontWeight": "bold",
         "height": 45,
         "marginBottom": 10,
-        "marginLeft": 30,
-        "marginRight": 30,
         "paddingLeft": 30,
         "paddingRight": 20,
       }
@@ -543,8 +533,6 @@ exports[`Profile renders correctly without profile 1`] = `
         "fontWeight": "bold",
         "height": 45,
         "marginBottom": 10,
-        "marginLeft": 30,
-        "marginRight": 30,
         "paddingLeft": 30,
         "paddingRight": 20,
       }
@@ -616,9 +604,7 @@ exports[`Profile renders correctly without profile 1`] = `
         "borderColor": "#FDDF06",
         "borderRadius": 22.5,
         "borderWidth": 1,
-        "marginBottom": 20,
-        "marginLeft": 30,
-        "marginRight": 30,
+        "marginBottom": 10,
         "opacity": 1,
       }
     }

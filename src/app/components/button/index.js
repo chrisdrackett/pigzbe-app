@@ -25,7 +25,7 @@ export default ({
 }) => (
     <TouchableOpacity
         style={plain ? null : styles.buttonHit}
-        onPress={() => onPress()}>
+        onPress={() => disabled ? false : onPress()}>
         <Text
             style={getButtonStyle(plain, disabled)}>
             {label}

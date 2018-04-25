@@ -17,8 +17,6 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderRadius: 22.5,
         marginBottom: 10,
-        marginLeft: 30,
-        marginRight: 30,
         paddingLeft: 30,
         paddingRight: 20
     },

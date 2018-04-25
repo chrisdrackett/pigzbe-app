@@ -16,6 +16,20 @@ exports[`Navigation: Wallet renders correctly 1`] = `
   <Image
     source={
       Object {
+        "testUri": "../../../assets/images/pigzbe_logo_inapp.png",
+      }
+    }
+    style={
+      Object {
+        "height": 25,
+        "marginBottom": 10,
+        "width": 65,
+      }
+    }
+  />
+  <Image
+    source={
+      Object {
         "testUri": "../../../src/app/components/avatar/avatar.png",
       }
     }
@@ -35,7 +49,9 @@ exports[`Navigation: Wallet renders correctly 1`] = `
       Object {
         "color": "#ffffff",
         "fontFamily": "Poppins",
-        "fontSize": 18,
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "marginTop": 10,
       }
     }
   >
@@ -43,20 +59,47 @@ exports[`Navigation: Wallet renders correctly 1`] = `
      
     name
   </Text>
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
+  <View
     style={
       Object {
-        "color": "#ffffff",
-        "fontFamily": "Poppins",
-        "fontSize": 40,
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginTop": 10,
+        "width": "100%",
       }
     }
   >
-    0
-  </Text>
+    <Image
+      source={
+        Object {
+          "testUri": "../../../assets/images/currency_logo.png",
+        }
+      }
+      style={
+        Object {
+          "height": 19,
+          "marginRight": 10,
+          "width": 23,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#ffffff",
+          "fontFamily": "Poppins",
+          "fontSize": 40,
+        }
+      }
+    >
+      0.00
+    </Text>
+  </View>
   <Text
     accessible={true}
     allowFontScaling={true}
@@ -65,7 +108,8 @@ exports[`Navigation: Wallet renders correctly 1`] = `
       Object {
         "color": "#ffffff",
         "fontFamily": "Poppins",
-        "fontSize": 18,
+        "fontSize": 14,
+        "opacity": 0.6,
       }
     }
   >
@@ -79,7 +123,8 @@ exports[`Navigation: Wallet renders correctly 1`] = `
       Object {
         "color": "#ffffff",
         "fontFamily": "Poppins",
-        "fontSize": 18,
+        "fontSize": 14,
+        "opacity": 0.6,
       }
     }
   >
@@ -94,7 +139,8 @@ exports[`Navigation: Wallet renders correctly 1`] = `
       Object {
         "color": "#ffffff",
         "fontFamily": "Poppins",
-        "fontSize": 18,
+        "fontSize": 14,
+        "opacity": 0.6,
       }
     }
   >
@@ -119,17 +165,30 @@ exports[`Navigation: Wallet renders correctly 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "backgroundColor": "#FDDF06",
-        "height": 40,
+        "height": 18,
         "opacity": 1,
         "position": "absolute",
         "right": 20,
         "top": 40,
-        "width": 40,
+        "width": 18,
       }
     }
     testID={undefined}
     tvParallaxProperties={undefined}
-  />
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../assets/images/settings-icon.png",
+        }
+      }
+      style={
+        Object {
+          "height": 18,
+          "width": 18,
+        }
+      }
+    />
+  </View>
 </View>
 `;
