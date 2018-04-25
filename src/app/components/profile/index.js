@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
     Text,
-    TextInput,
     View,
     Switch,
     TouchableOpacity
@@ -15,6 +14,7 @@ import {
 } from '../../actions';
 import styles from './styles';
 import Button from '../button';
+import TextInput from '../text-input';
 import Loader from '../loader';
 import Avatar from '../avatar';
 import {pickImage} from '../../utils/image-picker';
@@ -122,16 +122,14 @@ class Profile extends Component {
                     </Text>
                 </TouchableOpacity>
                 <TextInput
-                    style={validName ? styles.input : styles.inputError}
+                    error={!validName}
                     placeholder={strings.accountNamePlaceholder}
-                    placeholderTextColor={color.white}
                     value={name}
                     onChangeText={value => this.setState({name: value})}
                 />
                 <TextInput
-                    style={validEmail ? styles.input : styles.inputError}
+                    error={!validEmail}
                     placeholder={strings.accountEmailPlaceholder}
-                    placeholderTextColor={color.white}
                     value={email}
                     onChangeText={value => this.setState({email: value})}
                 />

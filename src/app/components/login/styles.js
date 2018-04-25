@@ -2,7 +2,6 @@ import {StyleSheet} from 'react-native';
 
 import {
     container,
-    input,
     color,
     fontFamily
 } from '../../styles';

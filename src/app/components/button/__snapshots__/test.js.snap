@@ -23,11 +23,11 @@ exports[`Button renders correctly 1`] = `
       "alignSelf": "stretch",
       "backgroundColor": "#FDDF06",
       "borderColor": "#FDDF06",
-      "borderRadius": 25,
+      "borderRadius": 22.5,
       "borderWidth": 1,
       "marginBottom": 20,
-      "marginLeft": 20,
-      "marginRight": 20,
+      "marginLeft": 30,
+      "marginRight": 30,
       "opacity": 1,
     }
   }
@@ -41,10 +41,11 @@ exports[`Button renders correctly 1`] = `
     style={
       Object {
         "alignSelf": "stretch",
-        "color": "#000000",
+        "color": "#003278",
         "fontFamily": "Poppins",
-        "fontSize": 18,
-        "height": 50,
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "height": 45,
         "paddingLeft": 20,
         "paddingRight": 20,
         "paddingTop": 10,
@@ -91,17 +92,19 @@ exports[`Button renders correctly in plain mode 1`] = `
       Array [
         Object {
           "alignSelf": "stretch",
-          "color": "#000000",
+          "color": "#003278",
           "fontFamily": "Poppins",
-          "fontSize": 18,
-          "height": 50,
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "height": 45,
           "paddingLeft": 20,
           "paddingRight": 20,
           "paddingTop": 10,
           "textAlign": "center",
         },
         Object {
-          "color": "#ffffff",
+          "color": "#b3c1d6",
+          "fontSize": 14,
           "textDecorationColor": "#ffffff",
           "textDecorationLine": "underline",
           "textDecorationStyle": "solid",

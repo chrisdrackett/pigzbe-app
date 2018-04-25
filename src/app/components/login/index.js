@@ -42,7 +42,6 @@ class Login extends Component {
                     <Text style={styles.tagline}>{strings.loginTagline}</Text>
                 </View>
                 <View style={styles.containerBody}>
-
                     <Text style={styles.title}>{strings.loginTitle}</Text>
                     <Text style={styles.subtitle}>{strings.loginSubtitle}</Text>
                     <TextInput

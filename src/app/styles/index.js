@@ -8,7 +8,10 @@ export const color = {
     pink: '#E69BE6',
     blue: '#003278',
     yellow: '#FDDF06',
-    red: '#ff0000'
+    red: '#ff0000',
+    blueOnYellowOpacity40: '#979933',
+    whiteOnBlueOpacity70: '#b3c1d6',
+    whiteOnBlueOpacity60: '#97abc7'
 };
 
 export const paddingTop = isDesktop ? 0 : 20;
