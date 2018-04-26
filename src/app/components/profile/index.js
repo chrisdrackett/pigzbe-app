@@ -18,6 +18,7 @@ import Button from '../button';
 import TextInput from '../text-input';
 import Loader from '../loader';
 import Avatar from '../avatar';
+import Logo from '../logo';
 import {pickImage} from '../../utils/image-picker';
 import isEmail from './is-email';
 import {
@@ -106,6 +107,7 @@ class Profile extends Component {
 
         return (
             <ScrollView contentContainerStyle={styles.container}>
+                <Logo/>
                 <Text style={styles.title}>
                     {hasProfile ? strings.accountEdit : strings.accountCreate}
                 </Text>

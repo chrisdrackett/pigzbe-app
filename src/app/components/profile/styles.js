@@ -7,18 +7,24 @@ import {
 } from '../../styles';
 
 export default StyleSheet.create({
-    container,
+    container: {
+        ...container,
+        paddingLeft: '9.375%',
+        paddingRight: '9.375%',
+        flex: 0
+    },
     avatar: {
-        flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom: 20
     },
     avatarText: {
         fontFamily,
         color: color.white,
-        fontSize: 20,
+        fontSize: 14,
+        opacity: 0.6,
         textAlign: 'center',
-        marginBottom: 20
+        marginTop: 20
     },
     loader: {
         flex: 1,
@@ -34,18 +40,23 @@ export default StyleSheet.create({
     title: {
         fontFamily,
         color: color.white,
-        fontSize: 20,
+        fontSize: 16,
+        fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 20
+        marginBottom: 20,
+        marginTop: 10
     },
     subscribe: {
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginTop: 25,
+        marginBottom: 25
     },
     subscribeText: {
         fontFamily,
         color: color.white,
-        fontSize: 20,
+        fontSize: 14,
+        fontWeight: 'bold',
         marginRight: 10
     },
     error: {

@@ -4,7 +4,7 @@ export default StyleSheet.create({
     logo: {
         width: 65,
         height: 25,
-        marginTop: 34,
+        marginTop: 23,
         marginBottom: 10
     }
 });
