@@ -12,18 +12,20 @@ export const color = {
     grey: '#9B9B9B',
     blueOnYellowOpacity40: '#979933',
     whiteOnBlueOpacity70: '#b3c1d6',
-    whiteOnBlueOpacity60: '#97abc7'
+    whiteOnBlueOpacity60: '#97abc7',
+    greyLight: '#F7F7FA',
+    greyDark: '#4A4A4A',
+    greyMedium: '#E1E1E1'
 };
 
-export const paddingTop = isDesktop ? 0 : 20;
+export const paddingTop = isDesktop ? 0 : 0;
 
 export const container = {
     alignSelf: 'stretch',
     flex: 1,
     backgroundColor: color.blue,
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop
+    justifyContent: 'center'
 };
 
 export const input = {
