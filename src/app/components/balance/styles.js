@@ -59,7 +59,7 @@ export default StyleSheet.create({
         width: 18,
         height: 18,
         position: 'absolute',
-        top: paddingTop + 20,
+        top: paddingTop + 34,
         right: 20
     }
 });
