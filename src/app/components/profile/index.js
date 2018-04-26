@@ -4,6 +4,7 @@ import {
     Text,
     View,
     Switch,
+    ScrollView,
     TouchableOpacity
 } from 'react-native';
 import {
@@ -19,7 +20,6 @@ import Loader from '../loader';
 import Avatar from '../avatar';
 import {pickImage} from '../../utils/image-picker';
 import isEmail from './is-email';
-import {color} from '../../styles';
 import {
     strings,
     SCREEN_BALANCE,
@@ -105,7 +105,7 @@ class Profile extends Component {
         } = this.state;
 
         return (
-            <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>
                 <Text style={styles.title}>
                     {hasProfile ? strings.accountEdit : strings.accountCreate}
                 </Text>
@@ -178,7 +178,7 @@ class Profile extends Component {
                 <Loader
                     isLoading={isUpdating}
                 />
-            </View>
+            </ScrollView>
         );
     }
 }

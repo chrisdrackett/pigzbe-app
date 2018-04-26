@@ -33,6 +33,9 @@ class Login extends Component {
             isLoadingProfile
         } = this.props;
 
+        console.log('asdjahsdjkahsd');
+        console.log(styles.container);
+
         return (
             <View style={styles.container}>
                 <View style={styles.containerHeader}>

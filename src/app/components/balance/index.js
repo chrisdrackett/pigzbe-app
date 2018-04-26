@@ -4,7 +4,9 @@ import {
     Text,
     TouchableOpacity,
     View,
-    Image
+    Image,
+    Dimensions,
+    ScrollView
 } from 'react-native';
 import Avatar from '../avatar';
 import styles from './styles';
@@ -12,7 +14,8 @@ import {
     strings,
     SCREEN_PROFILE
 } from '../../constants';
-import openURL from '../../utils/open-url';
+import ConvertBalance from '../convert-balance';
+
 
 export const Balance = ({
     balance,
@@ -20,7 +23,7 @@ export const Balance = ({
     image,
     navigation
 }) => (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
         <Image style={styles.logo} source={require('../../../../assets/images/pigzbe_logo_inapp.png')} />
         <Avatar image={image}/>
         <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
@@ -30,19 +33,19 @@ export const Balance = ({
         </View>
 
         <Text style={styles.label}>{strings.walletBalance}</Text>
-        <Text style={styles.label}>{strings.walletConversionTitle}</Text>
-        <Text
-            style={styles.label}
-            onPress={() => openURL(strings.walletConversionCreditUrl)}>
-            {strings.walletConversionCreditLabel}
-        </Text>
+        <Image style={styles.pig} source={require('../../../../assets/images/pig.png')} />
+        <Image style={{
+            width: Dimensions.get('window').width,
+            height: Dimensions.get('window').width * 0.39
+        }} source={require('../../../../assets/images/graph.png')} />
+        <ConvertBalance balance={balance}/>
         <TouchableOpacity
             style={styles.settings}
             onPress={() => navigation.navigate(SCREEN_PROFILE)}
         >
             <Image style={styles.settingsIcon} source={require('../../../../assets/images/settings-icon.png')} />
         </TouchableOpacity>
-    </View>
+    </ScrollView>
 );
 
 export default connect(

@@ -7,7 +7,7 @@ import {
 } from '../../styles';
 
 export default StyleSheet.create({
-    container,
+    container: Object.assign({}, container, {flex: 0}),
     welcome: {
         fontFamily,
         color: color.white,
@@ -26,12 +26,18 @@ export default StyleSheet.create({
     logo: {
         width: 65,
         height: 25,
-        marginBottom: 10
+        marginBottom: 10,
+        marginTop: 10
     },
     currencyLogo: {
         width: 23,
         height: 19,
         marginRight: 10
+    },
+    pig: {
+        marginTop: 20,
+        width: 81,
+        height: 38
     },
     balance: {
         fontFamily,

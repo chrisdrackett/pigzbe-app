@@ -10,9 +10,11 @@ export const color = {
     yellow: '#FDDF06',
     red: '#ff0000',
     grey: '#9B9B9B',
+    lightGrey: '#F7F7FA',
     blueOnYellowOpacity40: '#979933',
     whiteOnBlueOpacity70: '#b3c1d6',
-    whiteOnBlueOpacity60: '#97abc7'
+    whiteOnBlueOpacity60: '#97abc7',
+    darkPurple: '#4A4A4A',
 };
 
 export const paddingTop = isDesktop ? 0 : 20;
