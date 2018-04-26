@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
     Text,
     TouchableOpacity,
     View,
     Image,
-    Dimensions,
     ScrollView
 } from 'react-native';
 import Avatar from '../avatar';
@@ -16,37 +15,68 @@ import {
 } from '../../constants';
 import ConvertBalance from '../convert-balance';
 import Logo from '../logo';
+import Graph from '../balance-graph';
+import Loader from '../loader';
 
-export const Balance = ({
-    balance,
-    name,
-    image,
-    navigation
-}) => (
-    <ScrollView contentContainerStyle={styles.container}>
-        <Logo/>
-        <Avatar image={image}/>
-        <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
-        <View style={styles.balanceContainer}>
-            <Image style={styles.currencyLogo} source={require('../../../../assets/images/currency_logo.png')} />
-            <Text style={styles.balance}>{Number(balance).toFixed(2)}</Text>
-        </View>
+const coins = ['xlm', 'btc', 'eth', 'eur', 'usd', 'jpy'];
 
-        <Text style={styles.label}>{strings.walletBalance}</Text>
-        <Image style={styles.pig} source={require('../../../../assets/images/pig.png')} />
-        <Image style={{
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').width * 0.39
-        }} source={require('../../../../assets/images/graph.png')} />
-        <ConvertBalance balance={balance}/>
-        <TouchableOpacity
-            style={styles.settings}
-            onPress={() => navigation.navigate(SCREEN_PROFILE)}
-        >
-            <Image style={styles.settingsIcon} source={require('../../../../assets/images/settings-icon.png')} />
-        </TouchableOpacity>
-    </ScrollView>
-);
+class Balance extends Component {
+
+  state = {
+      exchange: null
+  }
+
+  componentWillMount() {
+      this.getExhange();
+  }
+
+  getExhange = async () => {
+      const values = await (await fetch(`https://min-api.cryptocompare.com/data/price?fsym=XLM&tsyms=${coins.toString().toUpperCase()}`, {
+          method: 'GET'
+      })).json();
+
+      this.setState({
+          exchange: {...values}
+      });
+  }
+
+  render () {
+      const {exchange} = this.state;
+      const {
+          balance,
+          name,
+          image,
+          navigation
+      } = this.props;
+
+      if (!exchange) {
+          return <Loader isLoading />;
+      }
+
+      return (
+          <ScrollView contentContainerStyle={styles.container}>
+              <Logo/>
+              <Avatar image={image}/>
+              <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
+              <View style={styles.balanceContainer}>
+                  <Image style={styles.currencyLogo} source={require('../../../../assets/images/currency_logo.png')} />
+                  <Text style={styles.balance}>{Number(balance).toFixed(2)}</Text>
+              </View>
+
+              <Text style={styles.label}>{strings.walletBalance}</Text>
+              <Image style={styles.pig} source={require('../../../../assets/images/pig.png')} />
+              <Graph balance={balance} balanceConvert={balance * exchange.USD}/>
+              <ConvertBalance coins={coins} exchange={exchange} balance={balance}/>
+              <TouchableOpacity
+                  style={styles.settings}
+                  onPress={() => navigation.navigate(SCREEN_PROFILE)}
+              >
+                  <Image style={styles.settingsIcon} source={require('../../../../assets/images/settings-icon.png')} />
+              </TouchableOpacity>
+          </ScrollView>
+      );
+  }
+}
 
 export default connect(
     state => ({

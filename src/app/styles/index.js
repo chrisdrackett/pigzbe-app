@@ -7,6 +7,7 @@ export const color = {
     white: '#ffffff',
     pink: '#E69BE6',
     blue: '#003278',
+    mediumBlue: '#154A96',
     yellow: '#FDDF06',
     red: '#ff0000',
     grey: '#9B9B9B',
@@ -18,6 +19,7 @@ export const color = {
     greyDark: '#4A4A4A',
     greyMedium: '#E1E1E1',
     darkPurple: '#4A4A4A',
+    green: '#95C664',
 };
 
 export const paddingTop = isDesktop ? 0 : 0;
