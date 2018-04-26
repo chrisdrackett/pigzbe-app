@@ -50,7 +50,12 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         marginTop: 25,
-        marginBottom: 25
+        marginBottom: 25,
+        alignSelf: 'stretch',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingLeft: 10,
+        paddingRight: 10
     },
     subscribeText: {
         fontFamily,

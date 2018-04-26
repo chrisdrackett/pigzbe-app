@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {
     Text,
     View,
-    Switch,
     ScrollView,
     TouchableOpacity
 } from 'react-native';
@@ -19,6 +18,7 @@ import TextInput from '../text-input';
 import Loader from '../loader';
 import Avatar from '../avatar';
 import Logo from '../logo';
+import Checkbox from '../checkbox';
 import {pickImage} from '../../utils/image-picker';
 import isEmail from './is-email';
 import {
@@ -105,6 +105,8 @@ class Profile extends Component {
             isUpdating
         } = this.state;
 
+        console.log(image);
+
         return (
             <ScrollView contentContainerStyle={styles.container}>
                 <Logo/>
@@ -139,9 +141,9 @@ class Profile extends Component {
                     <Text style={styles.subscribeText}>
                         {strings.accountMailingListOptIn}
                     </Text>
-                    <Switch
+                    <Checkbox
                         value={subscribe}
-                        onValueChange={value => this.setState({subscribe: value})}
+                        onValueChange={() => this.setState({subscribe: !this.state.subscribe})}
                     />
                 </View>
                 <Button
