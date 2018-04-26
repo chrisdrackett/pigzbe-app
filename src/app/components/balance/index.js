@@ -15,7 +15,7 @@ import {
     SCREEN_PROFILE
 } from '../../constants';
 import ConvertBalance from '../convert-balance';
-
+import Logo from '../logo';
 
 export const Balance = ({
     balance,
@@ -24,7 +24,7 @@ export const Balance = ({
     navigation
 }) => (
     <ScrollView contentContainerStyle={styles.container}>
-        <Image style={styles.logo} source={require('../../../../assets/images/pigzbe_logo_inapp.png')} />
+        <Logo/>
         <Avatar image={image}/>
         <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
         <View style={styles.balanceContainer}>
