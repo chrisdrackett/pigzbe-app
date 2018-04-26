@@ -11,8 +11,8 @@ export default StyleSheet.create({
         flex: 1,
         flexShrink: 0,
         marginBottom: 20,
-        width: '33%',
-        minWidth: '33%'
+        width: '26%',
+        minWidth: '26%'
     },
     coin: {
         marginBottom: 15
