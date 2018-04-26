@@ -1,16 +1,16 @@
 import React from 'react';
 import {
     View,
-    Text,
-    Image
+    Text
 } from 'react-native';
 import styles from './styles';
+import CoinIcon from '../coin-icon';
 
 export default ({
     coin, value
 }) => (
     <View style={styles.container}>
-        <Image style={styles.coin} source={require(`../../../../assets/images/coin-${coin.toLowerCase()}.png`)} />
+        <CoinIcon coin={coin} style={styles.coin}/>
         <Text style={styles.coinName}>{coin.toUpperCase()}</Text>
         <Text style={styles.value}>{Number(value).toFixed(5)}</Text>
     </View>

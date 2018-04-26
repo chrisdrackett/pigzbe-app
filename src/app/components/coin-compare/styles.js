@@ -10,11 +10,10 @@ export default StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         minWidth: (Dimensions.get('window').width / 4) - 1,
-        marginBottom: 20
+        marginBottom: 20,
+        width: '25%'
     },
     coin: {
-        width: 35,
-        height: 35,
         marginBottom: 15
     },
     coinName: {

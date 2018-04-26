@@ -7,24 +7,23 @@ import {
 export default StyleSheet.create({
     container: {
         backgroundColor: color.lightGrey,
-        overflow: 'visible',
         alignSelf: 'stretch',
         flex: 1,
-        boxSizing: 'content-box',
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop: 20,
-        paddingBottom: 20,
+        paddingBottom: 20
     },
     containerCoins: {
+        alignSelf: 'stretch',
         flex: 1,
         flexDirection: 'row',
-        width: '100%',
         marginTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
         justifyContent: 'space-between',
-        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+        flexWrap: 'wrap'
     },
     title: {
         fontFamily,

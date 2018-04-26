@@ -1,13 +1,14 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
 import styles from './styles';
+import CoinIcon from '../coin-icon';
 
 const Graph = ({balance, balanceConvert}) => (
     <View style={styles.container}>
         <Image style={styles.graph} source={require('../../../../assets/images/graph.png')} />
         <View style={styles.wrapperBalance}>
             <View style={styles.containerBalance}>
-                <Image style={styles.coin} source={require('../../../../assets/images/coin-wollo.png')} />
+                <CoinIcon coin="WLO" style={styles.coin}/>
                 <View>
                     <Text style={styles.coinName}>Wollo</Text>
                     <Text style={styles.value}>{Number(balance).toFixed(2)}</Text>

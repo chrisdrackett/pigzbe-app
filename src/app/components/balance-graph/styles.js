@@ -19,8 +19,6 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     coin: {
-        width: 35,
-        height: 35,
         marginRight: 10
     },
     coinName: {
