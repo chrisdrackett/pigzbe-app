@@ -13,7 +13,7 @@ export default StyleSheet.create({
         flexGrow: 0,
         width: '100%',
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center'
     },
     containerBody: {

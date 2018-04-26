@@ -20,7 +20,7 @@ exports[`Messages renders correctly with messages 1`] = `
         "flexBasis": 162,
         "flexGrow": 0,
         "height": 162,
-        "justifyContent": "center",
+        "justifyContent": "flex-start",
         "width": "100%",
       }
     }
@@ -63,9 +63,10 @@ exports[`Messages renders correctly with messages 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "alignSelf": "stretch",
+          "bottom": 0,
           "flex": 1,
           "justifyContent": "flex-end",
+          "position": "absolute",
         }
       }
     >
@@ -291,7 +292,7 @@ exports[`Messages renders correctly without messages 1`] = `
         "flexBasis": 162,
         "flexGrow": 0,
         "height": 162,
-        "justifyContent": "center",
+        "justifyContent": "flex-start",
         "width": "100%",
       }
     }
@@ -334,9 +335,10 @@ exports[`Messages renders correctly without messages 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "alignSelf": "stretch",
+          "bottom": 0,
           "flex": 1,
           "justifyContent": "flex-end",
+          "position": "absolute",
         }
       }
     >

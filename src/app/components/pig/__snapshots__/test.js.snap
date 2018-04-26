@@ -5,9 +5,10 @@ exports[`Pig renders correctly 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "alignSelf": "stretch",
+      "bottom": 0,
       "flex": 1,
       "justifyContent": "flex-end",
+      "position": "absolute",
     }
   }
 >

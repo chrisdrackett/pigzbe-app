@@ -26,7 +26,7 @@ exports[`Login renders correctly 1`] = `
     <Image
       source={
         Object {
-          "testUri": "../../../assets/images/header.png",
+          "testUri": "../../../src/app/components/login/header.png",
         }
       }
       style={
@@ -73,6 +73,31 @@ exports[`Login renders correctly 1`] = `
     >
       Save. Learn. Play.
     </Text>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "bottom": 0,
+          "flex": 1,
+          "justifyContent": "flex-end",
+          "position": "absolute",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/pig/pig.png",
+          }
+        }
+        style={
+          Object {
+            "height": 35,
+            "width": 81,
+          }
+        }
+      />
+    </View>
   </View>
   <View
     style={

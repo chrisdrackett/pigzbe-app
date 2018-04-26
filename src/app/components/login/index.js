@@ -14,6 +14,7 @@ import Button from '../button';
 import TextInput from '../text-input';
 import Loader from '../loader';
 import Alert from '../alert';
+import Pig from '../pig';
 import {
     strings,
     SCREEN_HELP
@@ -36,9 +37,10 @@ class Login extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.containerHeader}>
-                    <Image style={styles.backgroundImage} source={require('../../../../assets/images/header.png')} />
+                    <Image style={styles.backgroundImage} source={require('./header.png')} />
                     <Image style={styles.image} source={require('../../../../assets/images/pigzbe_logo.png')} />
                     <Text style={styles.tagline}>{strings.loginTagline}</Text>
+                    <Pig/>
                 </View>
                 <View style={styles.containerBody}>
                     <Text style={styles.title}>{strings.loginTitle}</Text>
