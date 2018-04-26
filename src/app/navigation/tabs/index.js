@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {TabNavigator, TabBarBottom} from 'react-navigation';
 import {View, Image} from 'react-native';
 import Wallet from '../wallet';
@@ -22,29 +23,78 @@ const nav = {
         navigationOptions: {
             title: strings.menuWallet
         },
-        _icon: 'wallet',
-        _iconW: 19,
-        _iconH: 19
+        icon: 'wallet',
+        iconW: 19,
+        iconH: 19
     },
     [SCREEN_GAME]: {
         screen: Game,
         navigationOptions: {
             title: strings.menuGame
         },
-        _icon: 'game',
-        _iconW: 20,
-        _iconH: 20
+        icon: 'game',
+        iconW: 20,
+        iconH: 20
     },
     [SCREEN_MESSAGES]: {
         screen: Messages,
         navigationOptions: {
             title: strings.menuMessages
         },
-        _icon: 'messages',
-        _iconW: 20,
-        _iconH: 13
+        icon: 'messages',
+        iconW: 20,
+        iconH: 13
     }
 };
+
+const TabBarIcon = connect(state => ({
+    messagesUnread: state.messages.messagesUnread
+}))(({
+    navItem: {
+        icon,
+        iconW,
+        iconH
+    },
+    focused,
+    messagesUnread
+}) => {
+    const iconName = `${icon}${focused ? 'Active' : ''}`;
+
+    if (icon === 'messages' && messagesUnread) {
+        return (
+            <View>
+                <Image
+                    style={{
+                        width: iconW,
+                        height: iconH
+                    }}
+                    source={images[iconName]}
+                />
+                <Image
+                    style={{
+                        position: 'absolute',
+                        right: -5,
+                        top: -5,
+                        width: 10,
+                        height: 10
+                    }}
+                    source={images.notify}
+                />
+            </View>
+        );
+    }
+
+    return (
+        <Image
+            style={{
+                width: iconW,
+                height: iconH
+            }}
+            source={images[iconName]}
+        />
+    );
+});
+
 
 // https://reactnavigation.org/docs/tab-navigator.html
 
@@ -54,15 +104,10 @@ const Tabs = TabNavigator(nav, {
         tabBarIcon: ({focused}) => {
             const {routeName} = navigation.state;
             const navItem = nav[routeName];
-            const iconName = `${navItem._icon}${focused ? 'Active' : ''}`;
-            const source = images[iconName];
             return (
-                <Image
-                    style={{
-                        width: navItem._iconW,
-                        height: navItem._iconH
-                    }}
-                    source={source}
+                <TabBarIcon
+                    navItem={navItem}
+                    focused={focused}
                 />
             );
         }

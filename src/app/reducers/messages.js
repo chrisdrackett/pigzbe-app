@@ -7,7 +7,8 @@ import {
 export const initialState = {
     messages: [],
     messagesLoading: false,
-    messagesError: null
+    messagesError: null,
+    messagesUnread: true
 };
 
 export default (state = initialState, action) => {
