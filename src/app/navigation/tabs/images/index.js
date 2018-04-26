@@ -5,5 +5,5 @@ export default {
     gameActive: require('./game-active.png'),
     messages: require('./messages.png'),
     messagesActive: require('./messages-active.png'),
-    messagesUnread: require('./messages-unread.png')
+    notify: require('./notify.png')
 };
