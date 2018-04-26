@@ -9,109 +9,226 @@ exports[`Messages renders correctly with messages 1`] = `
       "backgroundColor": "#003278",
       "flex": 1,
       "justifyContent": "center",
-      "paddingTop": 20,
     }
   }
 >
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
+  <View
     style={
       Object {
-        "color": "#ffffff",
-        "fontFamily": "Poppins",
-        "fontSize": 18,
-        "marginBottom": 20,
-        "marginLeft": 20,
-        "marginRight": 20,
-        "marginTop": 20,
-        "textAlign": "center",
+        "alignItems": "center",
+        "flex": 1,
+        "flexBasis": 162,
+        "flexGrow": 0,
+        "height": 162,
+        "justifyContent": "flex-start",
+        "width": "100%",
       }
     }
   >
-    Your Updates
-  </Text>
-  <RCTScrollView
-    data={
-      Array [
+    <Image
+      source={
         Object {
-          "date": "2018-04-20T12:00+01:00",
-          "key": "1",
-          "link": "https://pigzbe.com",
-          "text": "Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.",
-        },
+          "testUri": "../../../assets/images/pigzbe_logo_inapp.png",
+        }
+      }
+      style={
         Object {
-          "date": "2018-04-20T09:00+01:00",
-          "key": "2",
-          "text": "Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.",
-        },
-      ]
-    }
-    disableVirtualization={false}
-    getItem={[Function]}
-    getItemCount={[Function]}
-    horizontal={false}
-    initialNumToRender={10}
-    invertStickyHeaders={undefined}
-    keyExtractor={[Function]}
-    maxToRenderPerBatch={10}
-    numColumns={1}
-    onContentSizeChange={[Function]}
-    onEndReachedThreshold={2}
-    onLayout={[Function]}
-    onMomentumScrollEnd={[Function]}
-    onScroll={[Function]}
-    onScrollBeginDrag={[Function]}
-    onScrollEndDrag={[Function]}
-    renderItem={[Function]}
-    scrollEventThrottle={50}
-    stickyHeaderIndices={Array []}
-    updateCellsBatchingPeriod={50}
-    viewabilityConfigCallbackPairs={Array []}
-    windowSize={21}
-  >
-    <View>
-      <View
-        onLayout={[Function]}
-        style={null}
-      >
-        <View
-          style={
-            Object {
-              "borderBottomColor": "#ffffff",
-              "borderBottomWidth": 1,
-              "paddingBottom": 20,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 20,
-            }
+          "height": 25,
+          "marginBottom": 10,
+          "marginTop": 34,
+          "width": 65,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#ffffff",
+          "fontFamily": "Poppins",
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "marginLeft": 20,
+          "marginRight": 20,
+          "marginTop": 10,
+          "textAlign": "center",
+        }
+      }
+    >
+      Your Updates
+    </Text>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "bottom": 0,
+          "flex": 1,
+          "justifyContent": "flex-end",
+          "position": "absolute",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/pig/pig.png",
           }
+        }
+        style={
+          Object {
+            "height": 35,
+            "width": 81,
+          }
+        }
+      />
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#F7F7FA",
+        "flex": 1,
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <RCTScrollView
+      data={
+        Array [
+          Object {
+            "date": "2018-04-20T12:00+01:00",
+            "key": "1",
+            "link": "https://pigzbe.com",
+            "text": "Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.",
+          },
+          Object {
+            "date": "2018-04-20T09:00+01:00",
+            "key": "2",
+            "text": "Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.",
+          },
+        ]
+      }
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      invertStickyHeaders={undefined}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+          style={null}
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            collapsable={undefined}
-            hasTVPreferredFocus={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "opacity": 1,
+                "borderBottomColor": "#E1E1E1",
+                "borderBottomWidth": 1,
+                "paddingBottom": 20,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+                "paddingTop": 20,
               }
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
+          >
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
+              accessible={true}
+              collapsable={undefined}
+              hasTVPreferredFocus={undefined}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              testID={undefined}
+              tvParallaxProperties={undefined}
+            >
+              <View>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#003278",
+                      "fontFamily": "Poppins",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "marginBottom": 5,
+                    }
+                  }
+                >
+                  6 days ago
+                   
+                  April 20, 2018
+                </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#4A4A4A",
+                      "fontFamily": "Poppins",
+                      "fontSize": 14,
+                    }
+                  }
+                >
+                  Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#E1E1E1",
+                "borderBottomWidth": 1,
+                "paddingBottom": 20,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+                "paddingTop": 20,
+              }
+            }
           >
             <View>
               <Text
@@ -120,13 +237,15 @@ exports[`Messages renders correctly with messages 1`] = `
                 ellipsizeMode="tail"
                 style={
                   Object {
-                    "color": "#ffffff",
+                    "color": "#003278",
                     "fontFamily": "Poppins",
                     "fontSize": 14,
+                    "fontWeight": "bold",
+                    "marginBottom": 5,
                   }
                 }
               >
-                5 days ago
+                6 days ago
                  
                 April 20, 2018
               </Text>
@@ -136,70 +255,20 @@ exports[`Messages renders correctly with messages 1`] = `
                 ellipsizeMode="tail"
                 style={
                   Object {
-                    "color": "#ffffff",
+                    "color": "#4A4A4A",
                     "fontFamily": "Poppins",
-                    "fontSize": 16,
+                    "fontSize": 14,
                   }
                 }
               >
-                Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.
+                Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.
               </Text>
             </View>
           </View>
         </View>
       </View>
-      <View
-        onLayout={[Function]}
-        style={null}
-      >
-        <View
-          style={
-            Object {
-              "borderBottomColor": "#ffffff",
-              "borderBottomWidth": 1,
-              "paddingBottom": 20,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 20,
-            }
-          }
-        >
-          <View>
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "Poppins",
-                  "fontSize": 14,
-                }
-              }
-            >
-              5 days ago
-               
-              April 20, 2018
-            </Text>
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "Poppins",
-                  "fontSize": 16,
-                }
-              }
-            >
-              Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  </RCTScrollView>
+    </RCTScrollView>
+  </View>
 </View>
 `;
 
@@ -212,55 +281,120 @@ exports[`Messages renders correctly without messages 1`] = `
       "backgroundColor": "#003278",
       "flex": 1,
       "justifyContent": "center",
-      "paddingTop": 20,
     }
   }
 >
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
+  <View
     style={
       Object {
-        "color": "#ffffff",
-        "fontFamily": "Poppins",
-        "fontSize": 18,
-        "marginBottom": 20,
-        "marginLeft": 20,
-        "marginRight": 20,
-        "marginTop": 20,
-        "textAlign": "center",
+        "alignItems": "center",
+        "flex": 1,
+        "flexBasis": 162,
+        "flexGrow": 0,
+        "height": 162,
+        "justifyContent": "flex-start",
+        "width": "100%",
       }
     }
   >
-    Your Updates
-  </Text>
-  <RCTScrollView
-    data={Array []}
-    disableVirtualization={false}
-    getItem={[Function]}
-    getItemCount={[Function]}
-    horizontal={false}
-    initialNumToRender={10}
-    invertStickyHeaders={undefined}
-    keyExtractor={[Function]}
-    maxToRenderPerBatch={10}
-    numColumns={1}
-    onContentSizeChange={[Function]}
-    onEndReachedThreshold={2}
-    onLayout={[Function]}
-    onMomentumScrollEnd={[Function]}
-    onScroll={[Function]}
-    onScrollBeginDrag={[Function]}
-    onScrollEndDrag={[Function]}
-    renderItem={[Function]}
-    scrollEventThrottle={50}
-    stickyHeaderIndices={Array []}
-    updateCellsBatchingPeriod={50}
-    viewabilityConfigCallbackPairs={Array []}
-    windowSize={21}
+    <Image
+      source={
+        Object {
+          "testUri": "../../../assets/images/pigzbe_logo_inapp.png",
+        }
+      }
+      style={
+        Object {
+          "height": 25,
+          "marginBottom": 10,
+          "marginTop": 34,
+          "width": 65,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#ffffff",
+          "fontFamily": "Poppins",
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "marginLeft": 20,
+          "marginRight": 20,
+          "marginTop": 10,
+          "textAlign": "center",
+        }
+      }
+    >
+      Your Updates
+    </Text>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "bottom": 0,
+          "flex": 1,
+          "justifyContent": "flex-end",
+          "position": "absolute",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/pig/pig.png",
+          }
+        }
+        style={
+          Object {
+            "height": 35,
+            "width": 81,
+          }
+        }
+      />
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#F7F7FA",
+        "flex": 1,
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
   >
-    <View />
-  </RCTScrollView>
+    <RCTScrollView
+      data={Array []}
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      invertStickyHeaders={undefined}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View />
+    </RCTScrollView>
+  </View>
 </View>
 `;

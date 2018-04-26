@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pig renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "bottom": 0,
+      "flex": 1,
+      "justifyContent": "flex-end",
+      "position": "absolute",
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "testUri": "../../../src/app/components/pig/pig.png",
+      }
+    }
+    style={
+      Object {
+        "height": 35,
+        "width": 81,
+      }
+    }
+  />
+</View>
+`;

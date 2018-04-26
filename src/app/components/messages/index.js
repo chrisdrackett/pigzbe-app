@@ -9,6 +9,8 @@ import {
 import styles from './styles';
 import {messagesLoad} from '../../actions';
 import Loader from '../loader';
+import Logo from '../logo';
+import Pig from '../pig';
 import Alert from '../alert';
 import Message from './message';
 import isDesktop from '../../utils/is-desktop';
@@ -30,21 +32,27 @@ class Messages extends Component {
 
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>
-                    {strings.messagesTitle}
-                </Text>
-                {isDesktop ? (
-                    <ScrollView>
-                        {messages.map((item, i) => (
-                            <Message key={i} {...item}/>
-                        ))}
-                    </ScrollView>
-                ) : (
-                    <FlatList
-                        data={messages}
-                        renderItem={({item}) => <Message {...item}/>}
-                    />
-                )}
+                <View style={styles.containerHeader}>
+                    <Logo/>
+                    <Text style={styles.title}>
+                        {strings.messagesTitle}
+                    </Text>
+                    <Pig/>
+                </View>
+                <View style={styles.containerBody}>
+                    {isDesktop ? (
+                        <ScrollView>
+                            {messages.map((item, i) => (
+                                <Message key={i} {...item}/>
+                            ))}
+                        </ScrollView>
+                    ) : (
+                        <FlatList
+                            data={messages}
+                            renderItem={({item}) => <Message {...item}/>}
+                        />
+                    )}
+                </View>
                 <Loader
                     isLoading={loading}
                     message={strings.messagesLoading}
