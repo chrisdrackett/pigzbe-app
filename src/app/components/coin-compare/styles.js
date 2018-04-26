@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
     color,
     fontFamily
@@ -9,9 +9,10 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        minWidth: (Dimensions.get('window').width / 4) - 1,
+        flexShrink: 0,
         marginBottom: 20,
-        width: '25%'
+        width: '33%',
+        minWidth: '33%'
     },
     coin: {
         marginBottom: 15
