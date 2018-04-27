@@ -16,6 +16,7 @@ import {
     strings,
     SCREEN_HELP
 } from '../../constants';
+import DevPanel from '../dev-panel';
 
 class Login extends Component {
     state = {
@@ -64,6 +65,7 @@ class Login extends Component {
                 <Alert
                     error={error}
                 />
+                <DevPanel/>
             </View>
         );
     }

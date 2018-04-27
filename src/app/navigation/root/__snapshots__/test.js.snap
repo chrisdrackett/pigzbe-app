@@ -282,5 +282,49 @@ exports[`Navigation: Root renders correctly 1`] = `
       </Text>
     </View>
   </View>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    collapsable={undefined}
+    hasTVPreferredFocus={undefined}
+    hitSlop={undefined}
+    isTVSelectable={true}
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "height": 18,
+        "opacity": 1,
+        "position": "absolute",
+        "right": 20,
+        "top": 34,
+        "width": 18,
+      }
+    }
+    testID={undefined}
+    tvParallaxProperties={undefined}
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../assets/images/settings-icon.png",
+        }
+      }
+      style={
+        Object {
+          "height": 18,
+          "width": 18,
+        }
+      }
+    />
+  </View>
 </View>
 `;
