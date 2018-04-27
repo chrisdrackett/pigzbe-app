@@ -293,7 +293,7 @@ exports[`Navigation: Root renders correctly 1`] = `
         "paddingLeft": "9.375%",
         "paddingRight": "9.375%",
         "position": "absolute",
-        "top": 10,
+        "top": 30,
         "width": "100%",
       }
     }

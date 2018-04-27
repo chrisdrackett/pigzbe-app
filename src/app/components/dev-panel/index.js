@@ -12,6 +12,22 @@ import styles from './styles';
 import container from '../../styles';
 import {setUseTestnet} from '../../actions';
 
+const SwitchControl = ({
+    label,
+    value,
+    onValueChange
+}) => (
+    <View style={styles.switch}>
+        <Text style={styles.switchText}>
+            {label}
+        </Text>
+        <Switch
+            value={value}
+            onValueChange={val => onValueChange(val)}
+        />
+    </View>
+);
+
 class DevPanel extends Component {
     state = {
         isOpen: false
@@ -29,15 +45,11 @@ class DevPanel extends Component {
                     <ScrollView>
                         <View style={[container, styles.inner]}>
                             <Text style={styles.title}>Dev panel</Text>
-                            <View style={styles.switch}>
-                                <Text style={styles.text}>
-                                    Use Testnet?
-                                </Text>
-                                <Switch
-                                    value={useTestnet}
-                                    onValueChange={value => dispatch(setUseTestnet(value))}
-                                />
-                            </View>
+                            <SwitchControl
+                                label={'Use Testnet?'}
+                                value={useTestnet}
+                                onValueChange={value => dispatch(setUseTestnet(value))}
+                            />
                         </View>
                         <TouchableOpacity
                             style={styles.closeBtn}

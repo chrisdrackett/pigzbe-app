@@ -8,7 +8,7 @@ import {
 export default StyleSheet.create({
     topBar: {
         position: 'absolute',
-        top: 10,
+        top: 30,
         left: 0,
         flex: 1,
         flexDirection: 'row',
@@ -40,7 +40,7 @@ export default StyleSheet.create({
     },
     closeBtn: {
         position: 'absolute',
-        top: 12,
+        top: 32,
         right: 0,
         paddingRight: paddingH
     },
@@ -69,7 +69,7 @@ export default StyleSheet.create({
         fontFamily,
         fontWeight: 'bold',
         color: color.white,
-        fontSize: 16
+        fontSize: 18
     },
     text: {
         fontFamily,
@@ -80,9 +80,20 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         marginBottom: 25,
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent: 'space-between',
         alignSelf: 'stretch',
-        width: '100%'
+        width: '100%',
+        marginTop: 20,
+        paddingTop: 10,
+        marginBottom: 20,
+        borderTopWidth: 1,
+        borderTopColor: color.greyMedium
+    },
+    switchText: {
+        fontFamily,
+        fontWeight: 'bold',
+        color: color.white,
+        fontSize: 16
     }
 });
