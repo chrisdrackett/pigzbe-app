@@ -1,4 +1,5 @@
 import {
+    authKeychain,
     authLogin,
     profileLoad,
     messagesLoad
@@ -15,4 +16,14 @@ export const load = key => dispatch => {
         .then(() => dispatch(messagesLoad()))
         .catch(error => console.error(error))
         .finally(() => dispatch(loading(false)));
+};
+
+export const tryAutoLoad = () => dispatch => {
+    console.log('tryAutoLoad');
+    dispatch(authKeychain())
+        .then(key => {
+            if (key) {
+                dispatch(load(key));
+            }
+        });
 };
