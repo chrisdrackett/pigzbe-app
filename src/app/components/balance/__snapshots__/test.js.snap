@@ -5,189 +5,22 @@ exports[`Balance renders correctly 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "alignSelf": "stretch",
       "backgroundColor": "#003278",
+      "bottom": 0,
       "flex": 1,
       "justifyContent": "center",
+      "left": 0,
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
     }
   }
 >
-  <Image
-    source={
-      Object {
-        "testUri": "../../../assets/images/pigzbe_logo_inapp.png",
-      }
-    }
-    style={
-      Object {
-        "height": 25,
-        "marginBottom": 10,
-        "width": 65,
-      }
-    }
+  <ActivityIndicator
+    animating={true}
+    color="#E69BE6"
+    hidesWhenStopped={true}
+    size="large"
   />
-  <Image
-    source={
-      Object {
-        "testUri": "../../../src/app/components/avatar/avatar.png",
-      }
-    }
-    style={
-      Object {
-        "borderRadius": 50,
-        "height": 100,
-        "width": 100,
-      }
-    }
-  />
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "#ffffff",
-        "fontFamily": "Poppins",
-        "fontSize": 16,
-        "fontWeight": "bold",
-        "marginTop": 10,
-      }
-    }
-  >
-    Hi
-     
-    Name
-  </Text>
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginTop": 10,
-        "width": "100%",
-      }
-    }
-  >
-    <Image
-      source={
-        Object {
-          "testUri": "../../../assets/images/currency_logo.png",
-        }
-      }
-      style={
-        Object {
-          "height": 19,
-          "marginRight": 10,
-          "width": 23,
-        }
-      }
-    />
-    <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
-      style={
-        Object {
-          "color": "#ffffff",
-          "fontFamily": "Poppins",
-          "fontSize": 40,
-        }
-      }
-    >
-      100.00
-    </Text>
-  </View>
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "#ffffff",
-        "fontFamily": "Poppins",
-        "fontSize": 14,
-        "opacity": 0.6,
-      }
-    }
-  >
-    Wollo balance
-  </Text>
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "#ffffff",
-        "fontFamily": "Poppins",
-        "fontSize": 14,
-        "opacity": 0.6,
-      }
-    }
-  >
-    Your balance converted
-  </Text>
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    onPress={[Function]}
-    style={
-      Object {
-        "color": "#ffffff",
-        "fontFamily": "Poppins",
-        "fontSize": 14,
-        "opacity": 0.6,
-      }
-    }
-  >
-    Prices by CryptoCompare
-  </Text>
-  <View
-    accessibilityComponentType={undefined}
-    accessibilityLabel={undefined}
-    accessibilityTraits={undefined}
-    accessible={true}
-    collapsable={undefined}
-    hasTVPreferredFocus={undefined}
-    hitSlop={undefined}
-    isTVSelectable={true}
-    nativeID={undefined}
-    onLayout={undefined}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "height": 18,
-        "opacity": 1,
-        "position": "absolute",
-        "right": 20,
-        "top": 20,
-        "width": 18,
-      }
-    }
-    testID={undefined}
-    tvParallaxProperties={undefined}
-  >
-    <Image
-      source={
-        Object {
-          "testUri": "../../../assets/images/settings-icon.png",
-        }
-      }
-      style={
-        Object {
-          "height": 18,
-          "width": 18,
-        }
-      }
-    />
-  </View>
 </View>
 `;

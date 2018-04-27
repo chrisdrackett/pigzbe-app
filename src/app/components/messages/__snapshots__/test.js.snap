@@ -192,7 +192,7 @@ exports[`Messages renders correctly with messages 1`] = `
                     }
                   }
                 >
-                  6 days ago
+                  7 days ago
                    
                   April 20, 2018
                 </Text>
@@ -245,7 +245,7 @@ exports[`Messages renders correctly with messages 1`] = `
                   }
                 }
               >
-                6 days ago
+                7 days ago
                  
                 April 20, 2018
               </Text>

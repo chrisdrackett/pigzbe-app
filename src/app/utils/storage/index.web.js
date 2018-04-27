@@ -1,6 +1,4 @@
-const key = 'state';
-
-export const load = () => {
+export const load = key => {
     return new Promise(resolve => {
         let saved = localStorage.getItem(key);
         try {
@@ -11,12 +9,12 @@ export const load = () => {
     });
 };
 
-export const save = state => {
-    localStorage.setItem(key, JSON.stringify(state));
+export const save = (key, ob) => {
+    localStorage.setItem(key, JSON.stringify(ob));
     return Promise.resolve();
 };
 
-export const clear = () => {
-    localStorage.clear();
+export const clear = key => {
+    localStorage.removeItem(key);
     return Promise.resolve();
 };
