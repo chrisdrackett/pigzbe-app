@@ -5,10 +5,7 @@ import {
     View,
     Image
 } from 'react-native';
-import {
-    authLogin,
-    profileLoad
-} from '../../actions';
+import {load} from '../../actions';
 import styles from './styles';
 import Button from '../button';
 import TextInput from '../text-input';
@@ -29,13 +26,9 @@ class Login extends Component {
         const {
             dispatch,
             navigation,
-            error,
-            isLoggingIn,
-            isLoadingProfile
+            isLoading,
+            error
         } = this.props;
-
-        console.log('asdjahsdjkahsd');
-        console.log(styles.container);
 
         return (
             <View style={styles.container}>
@@ -56,10 +49,7 @@ class Login extends Component {
                     />
                     <Button
                         label={strings.loginSubmitButtonLabel}
-                        onPress={() => {
-                            dispatch(authLogin(this.state.inputText))
-                                .then(() => dispatch(profileLoad()));
-                        }}
+                        onPress={() => dispatch(load(this.state.inputText))}
                         disabled={!this.state.inputText}
                     />
                     <Button
@@ -69,8 +59,7 @@ class Login extends Component {
                     />
                 </View>
                 <Loader
-                    isLoading={isLoggingIn || isLoadingProfile}
-                    message={isLoggingIn ? strings.loginLoadingAccount : strings.loginLoadingProfile}
+                    isLoading={isLoading}
                 />
                 <Alert
                     error={error}
@@ -80,12 +69,12 @@ class Login extends Component {
     }
 }
 
+// export for test
 export const LoginComponent = Login;
 
 export default connect(
     state => ({
-        error: state.auth.error,
-        isLoggingIn: state.auth.isLoggingIn,
-        isLoadingProfile: state.profile.isLoadingProfile
+        isLoading: state.loader.isLoading,
+        error: state.auth.error
     })
 )(Login);

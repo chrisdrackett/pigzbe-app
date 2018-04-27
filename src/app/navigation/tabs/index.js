@@ -48,7 +48,7 @@ const nav = {
 };
 
 const TabBarIcon = connect(state => ({
-    messagesUnread: state.messages.messagesUnread
+    messagesNotify: state.messages.messagesNotify
 }))(({
     navItem: {
         icon,
@@ -56,11 +56,11 @@ const TabBarIcon = connect(state => ({
         iconH
     },
     focused,
-    messagesUnread
+    messagesNotify
 }) => {
     const iconName = `${icon}${focused ? 'Active' : ''}`;
 
-    if (icon === 'messages' && messagesUnread) {
+    if (icon === 'messages' && messagesNotify) {
         return (
             <View>
                 <Image

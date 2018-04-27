@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {Balance} from './';
+import {BalanceComponent} from './';
 
 const props = {
     balance: '100.0000',
@@ -10,7 +10,7 @@ const props = {
 
 describe('Balance', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<Balance {...props}/>).toJSON();
+        const tree = renderer.create(<BalanceComponent {...props}/>).toJSON();
         expect(tree).toMatchSnapshot();
     });
 });

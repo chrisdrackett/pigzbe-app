@@ -1,12 +1,12 @@
 import {AsyncStorage} from 'react-native';
 
-const key = '@PigzbeStore:state';
+const getKey = key => `@PigzbeStore:${key}`;
 
-export const load = async () => {
+export const load = async key => {
     let value = null;
 
     try {
-        value = await AsyncStorage.getItem(key);
+        value = await AsyncStorage.getItem(getKey(key));
         if (value) {
             value = JSON.parse(value);
         }
@@ -17,14 +17,14 @@ export const load = async () => {
     return value && typeof value === 'object' ? value : {};
 };
 
-export const save = async state => {
+export const save = async (key, ob) => {
     try {
-        await AsyncStorage.setItem(key, JSON.stringify(state));
+        await AsyncStorage.setItem(getKey(key), JSON.stringify(ob));
     } catch (error) {
         console.error(error);
     }
 };
 
-export const clear = async () => {
-    await AsyncStorage.removeItem(key);
+export const clear = async key => {
+    await AsyncStorage.removeItem(getKey(key));
 };
