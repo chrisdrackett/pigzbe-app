@@ -5,7 +5,7 @@ import {
     View,
     Image
 } from 'react-native';
-import {load} from '../../actions';
+import {tryAutoLoad, load} from '../../actions';
 import styles from './styles';
 import Button from '../button';
 import TextInput from '../text-input';
@@ -21,6 +21,10 @@ import DevPanel from '../dev-panel';
 class Login extends Component {
     state = {
         inputText: 'SAXYJU6Q67IXM4DSOFGVJ2L2I7C2SQJSV2MDR2E64AKML5ZXO25RMISJ'
+    }
+
+    componentDidMount() {
+        this.props.dispatch(tryAutoLoad());
     }
 
     render() {
