@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {
     Text,
     View,
-    ScrollView,
     TouchableOpacity
 } from 'react-native';
 import {
@@ -17,8 +16,8 @@ import Button from '../button';
 import TextInput from '../text-input';
 import Loader from '../loader';
 import Avatar from '../avatar';
-import Logo from '../logo';
 import Checkbox from '../checkbox';
+import BaseView from '../base-view';
 import {pickImage} from '../../utils/image-picker';
 import isEmail from './is-email';
 import {
@@ -87,6 +86,15 @@ class Profile extends Component {
         });
     }
 
+    onPressAvatar = async () => {
+        try {
+            const {uri} = await pickImage();
+            this.setState({image: uri});
+        } catch (e) {
+            console.log('error', e);
+        }
+    }
+
     render() {
         const {
             dispatch,
@@ -106,19 +114,14 @@ class Profile extends Component {
         } = this.state;
 
         return (
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <BaseView scrollViewStyle={styles.scrollContainer}>
                 <View style={styles.container}>
-                    <Logo/>
                     <Text style={styles.title}>
                         {hasProfile ? strings.accountEdit : strings.accountCreate}
                     </Text>
                     <TouchableOpacity
                         style={styles.avatar}
-                        onPress={() => {
-                            pickImage()
-                                .then(({uri}) => this.setState({image: uri}))
-                                .catch(err => console.log('error', err));
-                        }}>
+                        onPress={this.onPressAvatar}>
                         <Avatar image={image}/>
                         <Text style={styles.avatarText}>
                             {hasProfile ? strings.accountChangeImage : strings.accountAddImage}
@@ -180,7 +183,7 @@ class Profile extends Component {
                 <Loader
                     isLoading={isUpdating}
                 />
-            </ScrollView>
+            </BaseView>
         );
     }
 }

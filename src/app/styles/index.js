@@ -29,3 +29,7 @@ export const container = {
     alignItems: 'center',
     justifyContent: 'center'
 };
+
+export const scrollView = {
+  backgroundColor: color.blue,
+}
