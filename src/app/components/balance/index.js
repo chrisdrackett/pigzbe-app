@@ -2,21 +2,18 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
     Text,
-    TouchableOpacity,
     View,
-    Image,
-    ScrollView
+    Image
 } from 'react-native';
 import Avatar from '../avatar';
 import styles from './styles';
 import {
-    strings,
-    SCREEN_PROFILE
+    strings
 } from '../../constants';
 import ConvertBalance from '../convert-balance';
-import Logo from '../logo';
 import Graph from '../balance-graph';
 import Loader from '../loader';
+import BaseView from '../base-view';
 
 const coins = ['xlm', 'btc', 'eth', 'eur', 'usd', 'jpy', 'gbp'];
 
@@ -54,8 +51,7 @@ class Balance extends Component {
       }
 
       return (
-          <ScrollView contentContainerStyle={styles.container}>
-              <Logo/>
+          <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container}>
               <Avatar image={image}/>
               <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
               <View style={styles.balanceContainer}>
@@ -67,13 +63,7 @@ class Balance extends Component {
               <Image style={styles.pig} source={require('../../../../assets/images/pig.png')} />
               <Graph balance={balance} balanceConvert={balance * exchange.USD}/>
               <ConvertBalance coins={coins.filter(c => c !== 'usd')} exchange={exchange} balance={balance}/>
-              <TouchableOpacity
-                  style={styles.settings}
-                  onPress={() => navigation.navigate(SCREEN_PROFILE)}
-              >
-                  <Image style={styles.settingsIcon} source={require('../../../../assets/images/settings-icon.png')} />
-              </TouchableOpacity>
-          </ScrollView>
+          </BaseView>
       );
   }
 }

@@ -49,15 +49,4 @@ export default StyleSheet.create({
         fontSize: 14,
         opacity: 0.6
     },
-    settingsIcon: {
-        width: 18,
-        height: 18
-    },
-    settings: {
-        width: 18,
-        height: 18,
-        position: 'absolute',
-        top: 34,
-        right: 20
-    }
 });

@@ -9,9 +9,9 @@ import {
 
 export default StyleSheet.create({
     scrollContainer: {
+        position: 'relative',
         backgroundColor: color.blue,
-        alignSelf: 'stretch',
-        flex: 1
+        alignSelf: 'stretch'
     },
     container: {
         ...container,
@@ -49,18 +49,19 @@ export default StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 20,
+        marginBottom: 0,
         marginTop: 10
     },
     subscribe: {
-        flex: 1,
         flexDirection: 'row',
-        marginBottom: 25,
-        alignItems: 'flex-start',
+        marginTop: 20,
+        marginBottom: 30,
+        alignItems: 'center',
         justifyContent: 'space-between',
-        alignSelf: 'stretch',
-        width: '100%',
-        flexGrow: 1
+        paddingLeft: 20,
+        paddingRight: 20,
+        alignSelf: 'stretch'
+        // width: '100%',
     },
     subscribeText: {
         fontFamily,
@@ -71,7 +72,6 @@ export default StyleSheet.create({
     },
     buttonContainer: {
         alignSelf: 'stretch',
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-end',
         flexGrow: 2

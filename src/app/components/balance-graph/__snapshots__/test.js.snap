@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Balance Graph renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignSelf": "stretch",
+      "backgroundColor": "#154A96",
+      "minHeight": 130,
+      "paddingBottom": 20,
+      "paddingTop": 10,
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "testUri": "../../../assets/images/graph.png",
+      }
+    }
+    style={
+      Object {
+        "height": 44,
+        "marginLeft": -15,
+        "width": 296,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignSelf": "stretch",
+        "flex": 1,
+        "flexDirection": "row",
+        "marginTop": 20,
+        "paddingLeft": 30,
+        "paddingRight": 30,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "width": "50%",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/coin-icon/images/coin-wlo.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 35,
+              "width": 35,
+            },
+            Object {
+              "marginRight": 10,
+            },
+          ]
+        }
+      />
+      <View>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#ffffff",
+              "fontFamily": "Poppins",
+              "fontWeight": "bold",
+            }
+          }
+        >
+          Wollo
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#ffffff",
+              "fontFamily": "Poppins",
+              "fontWeight": "bold",
+              "opacity": 0.6,
+            }
+          }
+        >
+          100.00
+        </Text>
+      </View>
+    </View>
+    <View
+      style={Object {}}
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#ffffff",
+            "fontFamily": "Poppins",
+            "fontWeight": "bold",
+            "marginRight": 3,
+            "textAlign": "right",
+          }
+        }
+      >
+        $
+        1231.00
+      </Text>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#95C664",
+            "borderRadius": 15,
+            "marginTop": 3,
+            "paddingLeft": 10,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#ffffff",
+              "fontFamily": "Poppins",
+              "fontWeight": "bold",
+            }
+          }
+        >
+          12.41%
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
