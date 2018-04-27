@@ -19,6 +19,7 @@ export const load = async () => {
         }
     } catch (err) {
         error = new Error(KEYCHAIN_NO_ACCESS);
+        console.log(err);
     }
 
     return {
