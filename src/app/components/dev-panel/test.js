@@ -1,10 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import DevPanel from './';
+import {DevPanelComponent} from './';
 
 describe('DevPanel', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<DevPanel/>).toJSON();
+        const tree = renderer.create(<DevPanelComponent/>).toJSON();
         expect(tree).toMatchSnapshot();
     });
 });

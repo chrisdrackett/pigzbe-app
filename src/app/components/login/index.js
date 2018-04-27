@@ -31,6 +31,8 @@ class Login extends Component {
             error
         } = this.props;
 
+        console.log(error);
+
         return (
             <View style={styles.container}>
                 <View style={styles.containerHeader}>
@@ -59,20 +61,17 @@ class Login extends Component {
                         onPress={() => navigation.navigate(SCREEN_HELP)}
                     />
                 </View>
+                <DevPanel/>
                 <Loader
                     isLoading={isLoading}
                 />
                 <Alert
                     error={error}
                 />
-                <DevPanel/>
             </View>
         );
     }
 }
-
-// export for test
-export const LoginComponent = Login;
 
 export default connect(
     state => ({

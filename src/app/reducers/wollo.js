@@ -1,20 +1,29 @@
+import {USE_TESTNET} from '../constants';
+
 import {
-    UPDATE_ACCOUNT,
-    UPDATE_BALANCE
+    WOLLO_USE_TESTNET,
+    WOLLO_UPDATE_ACCOUNT,
+    WOLLO_UPDATE_BALANCE
 } from '../actions';
 
 export const initialState = {
+    useTestnet: USE_TESTNET,
     balance: '0'
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case UPDATE_ACCOUNT:
+        case WOLLO_USE_TESTNET:
+            return {
+                ...state,
+                useTestnet: action.useTestnet
+            };
+        case WOLLO_UPDATE_ACCOUNT:
             return {
                 ...state,
                 account: action.account
             };
-        case UPDATE_BALANCE:
+        case WOLLO_UPDATE_BALANCE:
             return {
                 ...state,
                 balance: action.balance

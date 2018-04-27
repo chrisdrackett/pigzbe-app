@@ -150,7 +150,7 @@ describe('Reducers', () => {
             };
 
             expect(wolloReducer(undefined, {
-                type: actions.UPDATE_ACCOUNT,
+                type: actions.WOLLO_UPDATE_ACCOUNT,
                 account
             }))
                 .toEqual(Object.assign({}, wolloState, {
@@ -162,7 +162,7 @@ describe('Reducers', () => {
             const balance = '123';
 
             expect(wolloReducer(undefined, {
-                type: actions.UPDATE_BALANCE,
+                type: actions.WOLLO_UPDATE_BALANCE,
                 balance
             }))
                 .toEqual(Object.assign({}, wolloState, {

@@ -34,7 +34,7 @@ exports[`Alert renders correctly with error prop 1`] = `
       }
     }
   >
-    Testing
+    Error: Testing
   </Text>
   <View
     style={
