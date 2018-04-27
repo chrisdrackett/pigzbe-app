@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
     Text,
-    TextInput,
     View,
-    Switch,
     TouchableOpacity
 } from 'react-native';
 import {
@@ -15,11 +13,13 @@ import {
 } from '../../actions';
 import styles from './styles';
 import Button from '../button';
+import TextInput from '../text-input';
 import Loader from '../loader';
 import Avatar from '../avatar';
+import Checkbox from '../checkbox';
+import BaseView from '../base-view';
 import {pickImage} from '../../utils/image-picker';
 import isEmail from './is-email';
-import {color} from '../../styles';
 import {
     strings,
     SCREEN_BALANCE,
@@ -47,8 +47,8 @@ class Profile extends Component {
             email
         } = this.state;
 
-        const validName = !!name.trim();
-        const validEmail = isEmail(email);
+        const validName = name && !!name.trim();
+        const validEmail = email && isEmail(email);
 
         this.setState({
             validName,
@@ -86,6 +86,15 @@ class Profile extends Component {
         });
     }
 
+    onPressAvatar = async () => {
+        try {
+            const {uri} = await pickImage();
+            this.setState({image: uri});
+        } catch (e) {
+            console.log('error', e);
+        }
+    }
+
     render() {
         const {
             dispatch,
@@ -105,82 +114,76 @@ class Profile extends Component {
         } = this.state;
 
         return (
-            <View style={styles.container}>
-                <Text style={styles.title}>
-                    {hasProfile ? strings.accountEdit : strings.accountCreate}
-                </Text>
-                <TouchableOpacity
-                    style={styles.avatar}
-                    onPress={() => {
-                        pickImage()
-                            .then(({uri}) => this.setState({image: uri}))
-                            .catch(err => console.log('error', err));
-                    }}>
-                    <Avatar image={image}/>
-                    <Text style={styles.avatarText}>
-                        {hasProfile ? strings.accountChangeImage : strings.accountAddImage}
+            <BaseView scrollViewStyle={styles.scrollContainer}>
+                <View style={styles.container}>
+                    <Text style={styles.title}>
+                        {hasProfile ? strings.accountEdit : strings.accountCreate}
                     </Text>
-                </TouchableOpacity>
-                <TextInput
-                    style={validName ? styles.input : styles.inputError}
-                    placeholder={strings.accountNamePlaceholder}
-                    placeholderTextColor={color.white}
-                    value={name}
-                    onChangeText={value => this.setState({name: value})}
-                />
-                <TextInput
-                    style={validEmail ? styles.input : styles.inputError}
-                    placeholder={strings.accountEmailPlaceholder}
-                    placeholderTextColor={color.white}
-                    value={email}
-                    onChangeText={value => this.setState({email: value})}
-                />
-                <View style={styles.subscribe}>
-                    <Text style={styles.subscribeText}>
-                        {strings.accountMailingListOptIn}
-                    </Text>
-                    <Switch
-                        value={subscribe}
-                        onValueChange={value => this.setState({subscribe: value})}
+                    <TouchableOpacity
+                        style={styles.avatar}
+                        onPress={this.onPressAvatar}>
+                        <Avatar image={image}/>
+                        <Text style={styles.avatarText}>
+                            {hasProfile ? strings.accountChangeImage : strings.accountAddImage}
+                        </Text>
+                    </TouchableOpacity>
+                    <TextInput
+                        error={!validName}
+                        placeholder={strings.accountNamePlaceholder}
+                        value={name}
+                        onChangeText={value => this.setState({name: value})}
                     />
-                </View>
-                <Button
-                    label={hasProfile ? strings.accountSaveButtonLabel : strings.accountSubmitButtonLabel}
-                    onPress={() => this.save()}
-                />
-                {hasProfile ? (
-                    <Button
-                        label={strings.accountCancelButtonLabel}
-                        onPress={() => navigation.navigate(SCREEN_BALANCE)}
+                    <TextInput
+                        error={!validEmail}
+                        placeholder={strings.accountEmailPlaceholder}
+                        value={email}
+                        onChangeText={value => this.setState({email: value})}
                     />
-                ) : null}
-                {hasProfile ? (
                     <View style={styles.subscribe}>
-                        <Button
-                            label={strings.accountLogoutButtonLabel}
-                            plain
-                            onPress={() => dispatch(authLogout())}
-                        />
-                        <Button
-                            label="Clear data"
-                            plain
-                            onPress={() => dispatch(profileClear())}
+                        <Text style={styles.subscribeText}>
+                            {strings.accountMailingListOptIn}
+                        </Text>
+                        <Checkbox
+                            value={subscribe}
+                            onValueChange={() => this.setState({subscribe: !this.state.subscribe})}
                         />
                     </View>
-                ) : (
-                    <Button
-                        label={strings.accountPrivacyButtonLabel}
-                        plain
-                        onPress={() => navigation.navigate(SCREEN_PRIVACY)}
-                    />
-                )}
-                {error && (
-                    <Text style={styles.error}>{error.message}</Text>
-                )}
+                    <View style={styles.buttonContainer}>
+                        <Button
+                            label={hasProfile ? strings.accountSaveButtonLabel : strings.accountSubmitButtonLabel}
+                            onPress={() => this.save()}
+                        />
+                        {hasProfile ? (
+                            <Button
+                                label={strings.accountCancelButtonLabel}
+                                onPress={() => navigation.navigate(SCREEN_BALANCE)}
+                            />
+                        ) : null}
+                        {hasProfile ? (
+                            <Button
+                                label={strings.accountLogoutButtonLabel}
+                                plain
+                                onPress={() => {
+                                    dispatch(authLogout());
+                                    dispatch(profileClear());
+                                }}
+                            />
+                        ) : (
+                            <Button
+                                label={strings.accountPrivacyButtonLabel}
+                                plain
+                                onPress={() => navigation.navigate(SCREEN_PRIVACY)}
+                            />
+                        )}
+                        {error && (
+                            <Text style={styles.error}>{error.message}</Text>
+                        )}
+                    </View>
+                </View>
                 <Loader
                     isLoading={isUpdating}
                 />
-            </View>
+            </BaseView>
         );
     }
 }

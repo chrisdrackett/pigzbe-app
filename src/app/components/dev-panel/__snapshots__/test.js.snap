@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DevPanel renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "flexDirection": "row",
+      "justifyContent": "space-between",
+      "left": 0,
+      "paddingLeft": "9.375%",
+      "paddingRight": "9.375%",
+      "position": "absolute",
+      "top": 10,
+      "width": "100%",
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#95C664",
+          "color": "#ffffff",
+          "fontFamily": "Poppins",
+          "fontSize": 12,
+          "fontWeight": "bold",
+          "paddingLeft": 4,
+          "paddingRight": 4,
+        },
+        Object {
+          "backgroundColor": "#ff0000",
+        },
+      ]
+    }
+  >
+    LIVENET
+  </Text>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    collapsable={undefined}
+    hasTVPreferredFocus={undefined}
+    hitSlop={undefined}
+    isTVSelectable={true}
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "height": 18,
+        "opacity": 1,
+        "width": 18,
+      }
+    }
+    testID={undefined}
+    tvParallaxProperties={undefined}
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../assets/images/settings-icon.png",
+        }
+      }
+      style={
+        Object {
+          "height": 18,
+          "width": 18,
+        }
+      }
+    />
+  </View>
+</View>
+`;

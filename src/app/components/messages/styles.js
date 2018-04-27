@@ -7,32 +7,50 @@ import {
 
 export default StyleSheet.create({
     container,
+    containerHeader: {
+        height: 162,
+        flexBasis: 162,
+        flexGrow: 0,
+        width: '100%',
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    containerBody: {
+        backgroundColor: color.greyLight,
+        width: '100%',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    title: {
+        fontFamily,
+        color: color.white,
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginLeft: 20,
+        marginRight: 20,
+        marginTop: 10,
+        textAlign: 'center'
+    },
     message: {
         paddingLeft: 20,
         paddingRight: 20,
         paddingTop: 20,
         paddingBottom: 20,
         borderBottomWidth: 1,
-        borderBottomColor: color.white
-    },
-    title: {
-        fontFamily,
-        color: color.white,
-        fontSize: 18,
-        marginLeft: 20,
-        marginRight: 20,
-        marginTop: 20,
-        marginBottom: 20,
-        textAlign: 'center'
+        borderBottomColor: color.greyMedium
     },
     date: {
         fontFamily,
-        color: color.white,
-        fontSize: 14
+        color: color.blue,
+        fontWeight: 'bold',
+        fontSize: 14,
+        marginBottom: 5
     },
     text: {
         fontFamily,
-        color: color.white,
-        fontSize: 16
+        color: color.greyDark,
+        fontSize: 14
     }
 });

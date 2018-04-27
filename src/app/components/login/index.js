@@ -2,22 +2,21 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
     Text,
-    TextInput,
-    View
+    View,
+    Image
 } from 'react-native';
-import {
-    authLogin,
-    profileLoad
-} from '../../actions';
+import {load} from '../../actions';
 import styles from './styles';
 import Button from '../button';
+import TextInput from '../text-input';
 import Loader from '../loader';
 import Alert from '../alert';
-import {color} from '../../styles';
+import Pig from '../pig';
 import {
     strings,
     SCREEN_HELP
 } from '../../constants';
+import DevPanel from '../dev-panel';
 
 class Login extends Component {
     state = {
@@ -28,37 +27,43 @@ class Login extends Component {
         const {
             dispatch,
             navigation,
-            error,
-            isLoggingIn,
-            isLoadingProfile
+            isLoading,
+            error
         } = this.props;
+
+        console.log(error);
 
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>{strings.loginTagline}</Text>
-                <Text style={styles.title}>{strings.loginTitle}</Text>
-                <Text style={styles.title}>{strings.loginSubtitle}</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder={strings.loginPlaceholder}
-                    placeholderTextColor={color.white}
-                    onChangeText={inputText => this.setState({inputText})}
-                />
-                <Button
-                    label={strings.loginSubmitButtonLabel}
-                    onPress={() => {
-                        dispatch(authLogin(this.state.inputText))
-                            .then(() => dispatch(profileLoad()));
-                    }}
-                />
-                <Button
-                    label={strings.loginHelpButtonLabel}
-                    plain
-                    onPress={() => navigation.navigate(SCREEN_HELP)}
-                />
+                <View style={styles.containerHeader}>
+                    <Image style={styles.backgroundImage} source={require('./header.png')} />
+                    <Image style={styles.image} source={require('../../../../assets/images/pigzbe_logo.png')} />
+                    <Text style={styles.tagline}>{strings.loginTagline}</Text>
+                    <Pig/>
+                </View>
+                <View style={styles.containerBody}>
+                    <Text style={styles.title}>{strings.loginTitle}</Text>
+                    <Text style={styles.subtitle}>{strings.loginSubtitle}</Text>
+                    <TextInput
+                        error={!!error}
+                        value={this.state.inputText}
+                        placeholder={strings.loginPlaceholder}
+                        onChangeText={inputText => this.setState({inputText})}
+                    />
+                    <Button
+                        label={strings.loginSubmitButtonLabel}
+                        onPress={() => dispatch(load(this.state.inputText))}
+                        disabled={!this.state.inputText}
+                    />
+                    <Button
+                        label={strings.loginHelpButtonLabel}
+                        plain
+                        onPress={() => navigation.navigate(SCREEN_HELP)}
+                    />
+                </View>
+                <DevPanel/>
                 <Loader
-                    isLoading={isLoggingIn || isLoadingProfile}
-                    message={isLoggingIn ? strings.loginLoadingAccount : strings.loginLoadingProfile}
+                    isLoading={isLoading}
                 />
                 <Alert
                     error={error}
@@ -68,12 +73,9 @@ class Login extends Component {
     }
 }
 
-export const LoginComponent = Login;
-
 export default connect(
     state => ({
-        error: state.auth.error,
-        isLoggingIn: state.auth.isLoggingIn,
-        isLoadingProfile: state.profile.isLoadingProfile
+        isLoading: state.loader.isLoading,
+        error: state.auth.error
     })
 )(Login);

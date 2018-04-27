@@ -3,22 +3,34 @@ import {
     container,
     input,
     color,
-    fontFamily
+    fontFamily,
+    paddingH
 } from '../../styles';
 
 export default StyleSheet.create({
-    container,
+    scrollContainer: {
+        position: 'relative',
+        backgroundColor: color.blue,
+        alignSelf: 'stretch'
+    },
+    container: {
+        ...container,
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
+        justifyContent: 'flex-start'
+    },
     avatar: {
-        flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom: 20
     },
     avatarText: {
         fontFamily,
         color: color.white,
-        fontSize: 20,
+        fontSize: 14,
+        opacity: 0.6,
         textAlign: 'center',
-        marginBottom: 20
+        marginTop: 20
     },
     loader: {
         flex: 1,
@@ -34,19 +46,35 @@ export default StyleSheet.create({
     title: {
         fontFamily,
         color: color.white,
-        fontSize: 20,
+        fontSize: 16,
+        fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 20
+        marginBottom: 0,
+        marginTop: 10
     },
     subscribe: {
-        flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginTop: 20,
+        marginBottom: 30,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingRight: 20,
+        alignSelf: 'stretch'
+        // width: '100%',
     },
     subscribeText: {
         fontFamily,
         color: color.white,
-        fontSize: 20,
+        fontSize: 14,
+        fontWeight: 'bold',
         marginRight: 10
+    },
+    buttonContainer: {
+        alignSelf: 'stretch',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        flexGrow: 2
     },
     error: {
         fontFamily,

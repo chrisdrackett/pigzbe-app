@@ -34,7 +34,7 @@ exports[`Alert renders correctly with error prop 1`] = `
       }
     }
   >
-    Testing
+    Error: Testing
   </Text>
   <View
     style={
@@ -76,17 +76,19 @@ exports[`Alert renders correctly with error prop 1`] = `
           Array [
             Object {
               "alignSelf": "stretch",
-              "color": "#000000",
+              "color": "#003278",
               "fontFamily": "Poppins",
-              "fontSize": 18,
-              "height": 50,
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "height": 45,
               "paddingLeft": 20,
               "paddingRight": 20,
               "paddingTop": 10,
               "textAlign": "center",
             },
             Object {
-              "color": "#ffffff",
+              "color": "#b3c1d6",
+              "fontSize": 14,
               "textDecorationColor": "#ffffff",
               "textDecorationLine": "underline",
               "textDecorationStyle": "solid",

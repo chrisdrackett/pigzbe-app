@@ -4,9 +4,14 @@ import {
     PROFILE_AVAILABLE
 } from '../actions';
 
+const isUndefined = value => typeof value === 'undefined';
+const valueOrDefault = (value, defaultValue) => {
+    return isUndefined(value) ? defaultValue : value;
+};
+
 export const initialState = {
-    name: 'name',
-    email: 'email@example.com',
+    name: '',
+    email: '',
     image: '',
     subscribe: true,
     hasProfile: false,
@@ -23,10 +28,10 @@ export default (state = initialState, action) => {
         case PROFILE_UPDATE:
             return {
                 ...state,
-                name: action.name,
-                email: action.email,
-                image: action.image,
-                subscribe: action.subscribe
+                name: valueOrDefault(action.name, ''),
+                email: valueOrDefault(action.email, ''),
+                image: valueOrDefault(action.image, null),
+                subscribe: valueOrDefault(action.subscribe, true)
             };
         case PROFILE_AVAILABLE:
             return {

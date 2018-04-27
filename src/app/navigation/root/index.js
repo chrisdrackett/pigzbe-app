@@ -8,18 +8,18 @@ export default connect(
     state => ({
         isLoggedIn: state.auth.isLoggedIn,
         hasProfile: state.profile.hasProfile,
-        isLoadingProfile: state.profile.isLoadingProfile
+        isLoading: state.loader.isLoading
     })
 )(({
     isLoggedIn,
     hasProfile,
-    isLoadingProfile
+    isLoading
 }) => {
-    if (isLoggedIn && hasProfile) {
+    if (isLoggedIn && hasProfile && !isLoading) {
         return <Tabs/>;
     }
 
-    if (isLoggedIn && !isLoadingProfile) {
+    if (isLoggedIn && !isLoading) {
         return <Create/>;
     }
 

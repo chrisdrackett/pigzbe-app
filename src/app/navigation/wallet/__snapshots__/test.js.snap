@@ -5,131 +5,22 @@ exports[`Navigation: Wallet renders correctly 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "alignSelf": "stretch",
       "backgroundColor": "#003278",
+      "bottom": 0,
       "flex": 1,
       "justifyContent": "center",
-      "paddingTop": 20,
+      "left": 0,
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
     }
   }
 >
-  <Image
-    source={
-      Object {
-        "testUri": "../../../src/app/components/avatar/avatar.png",
-      }
-    }
-    style={
-      Object {
-        "borderRadius": 50,
-        "height": 100,
-        "width": 100,
-      }
-    }
-  />
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "#ffffff",
-        "fontFamily": "Poppins",
-        "fontSize": 18,
-      }
-    }
-  >
-    Hi
-     
-    name
-  </Text>
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "#ffffff",
-        "fontFamily": "Poppins",
-        "fontSize": 40,
-      }
-    }
-  >
-    0
-  </Text>
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "#ffffff",
-        "fontFamily": "Poppins",
-        "fontSize": 18,
-      }
-    }
-  >
-    Wollo balance
-  </Text>
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "#ffffff",
-        "fontFamily": "Poppins",
-        "fontSize": 18,
-      }
-    }
-  >
-    Your balance converted
-  </Text>
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    onPress={[Function]}
-    style={
-      Object {
-        "color": "#ffffff",
-        "fontFamily": "Poppins",
-        "fontSize": 18,
-      }
-    }
-  >
-    Prices by CryptoCompare
-  </Text>
-  <View
-    accessibilityComponentType={undefined}
-    accessibilityLabel={undefined}
-    accessibilityTraits={undefined}
-    accessible={true}
-    collapsable={undefined}
-    hasTVPreferredFocus={undefined}
-    hitSlop={undefined}
-    isTVSelectable={true}
-    nativeID={undefined}
-    onLayout={undefined}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "backgroundColor": "#FDDF06",
-        "height": 40,
-        "opacity": 1,
-        "position": "absolute",
-        "right": 20,
-        "top": 40,
-        "width": 40,
-      }
-    }
-    testID={undefined}
-    tvParallaxProperties={undefined}
+  <ActivityIndicator
+    animating={true}
+    color="#E69BE6"
+    hidesWhenStopped={true}
+    size="large"
   />
 </View>
 `;

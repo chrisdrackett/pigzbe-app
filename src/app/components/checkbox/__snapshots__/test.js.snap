@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox renders correctly 1`] = `
+<View
+  onClick={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "borderColor": "#ffffff",
+        "borderRadius": 15,
+        "borderStyle": "solid",
+        "borderWidth": 1,
+        "height": 30,
+        "justifyContent": "center",
+        "width": 30,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "#ffffff",
+          "borderRadius": 8,
+          "height": 16,
+          "opacity": 0.3,
+          "width": 16,
+        }
+      }
+    />
+  </View>
+</View>
+`;

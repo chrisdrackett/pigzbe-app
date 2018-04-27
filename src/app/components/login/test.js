@@ -1,6 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {LoginComponent} from './';
+import {Provider} from 'react-redux';
+import {store} from '../../';
+import Login from './';
 
 const props = {
     error: null,
@@ -10,7 +12,11 @@ const props = {
 
 describe('Login', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<LoginComponent {...props}/>).toJSON();
+        const tree = renderer.create((
+            <Provider store={store}>
+                <Login {...props}/>
+            </Provider>
+        )).toJSON();
         expect(tree).toMatchSnapshot();
     });
 });

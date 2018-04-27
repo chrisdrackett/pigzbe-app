@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Coin renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "flexShrink": 0,
+      "justifyContent": "center",
+      "marginBottom": 20,
+      "minWidth": "26%",
+      "width": "26%",
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "testUri": "../../../src/app/components/coin-icon/images/coin-btc.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 35,
+          "width": 35,
+        },
+        Object {
+          "marginBottom": 15,
+        },
+      ]
+    }
+  />
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "#4A4A4A",
+        "fontFamily": "Poppins",
+        "fontSize": 14,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    BTC
+  </Text>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "#4A4A4A",
+        "fontFamily": "Poppins",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "opacity": 0.5,
+      }
+    }
+  >
+    1231.12312
+  </Text>
+</View>
+`;

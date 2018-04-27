@@ -1,0 +1,504 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConvertBalance renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "stretch",
+      "backgroundColor": "#F7F7FA",
+      "flex": 1,
+      "justifyContent": "center",
+      "paddingBottom": 20,
+      "paddingTop": 20,
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "#4A4A4A",
+        "fontFamily": "Poppins",
+        "fontSize": 14,
+      }
+    }
+  >
+    Your balance converted
+  </Text>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    onPress={[Function]}
+    style={
+      Object {
+        "color": "#4A4A4A",
+        "fontFamily": "Poppins",
+        "fontSize": 12,
+      }
+    }
+  >
+    Prices by CryptoCompare
+  </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "alignSelf": "stretch",
+        "flex": 1,
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "space-between",
+        "marginTop": 20,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexShrink": 0,
+          "justifyContent": "center",
+          "marginBottom": 20,
+          "minWidth": "26%",
+          "width": "26%",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/coin-icon/images/coin-xlm.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 35,
+              "width": 35,
+            },
+            Object {
+              "marginBottom": 15,
+            },
+          ]
+        }
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        XLM
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "opacity": 0.5,
+          }
+        }
+      >
+        1223.00000
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexShrink": 0,
+          "justifyContent": "center",
+          "marginBottom": 20,
+          "minWidth": "26%",
+          "width": "26%",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/coin-icon/images/coin-btc.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 35,
+              "width": 35,
+            },
+            Object {
+              "marginBottom": 15,
+            },
+          ]
+        }
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        BTC
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "opacity": 0.5,
+          }
+        }
+      >
+        0.05458
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexShrink": 0,
+          "justifyContent": "center",
+          "marginBottom": 20,
+          "minWidth": "26%",
+          "width": "26%",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/coin-icon/images/coin-eth.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 35,
+              "width": 35,
+            },
+            Object {
+              "marginBottom": 15,
+            },
+          ]
+        }
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        ETH
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "opacity": 0.5,
+          }
+        }
+      >
+        0.75043
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexShrink": 0,
+          "justifyContent": "center",
+          "marginBottom": 20,
+          "minWidth": "26%",
+          "width": "26%",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/coin-icon/images/coin-eur.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 35,
+              "width": 35,
+            },
+            Object {
+              "marginBottom": 15,
+            },
+          ]
+        }
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        EUR
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "opacity": 0.5,
+          }
+        }
+      >
+        423.03570
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexShrink": 0,
+          "justifyContent": "center",
+          "marginBottom": 20,
+          "minWidth": "26%",
+          "width": "26%",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/coin-icon/images/coin-usd.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 35,
+              "width": 35,
+            },
+            Object {
+              "marginBottom": 15,
+            },
+          ]
+        }
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        USD
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "opacity": 0.5,
+          }
+        }
+      >
+        511.58090
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexShrink": 0,
+          "justifyContent": "center",
+          "marginBottom": 20,
+          "minWidth": "26%",
+          "width": "26%",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/coin-icon/images/coin-jpy.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 35,
+              "width": 35,
+            },
+            Object {
+              "marginBottom": 15,
+            },
+          ]
+        }
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        JPY
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "opacity": 0.5,
+          }
+        }
+      >
+        57847.90000
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexShrink": 0,
+          "justifyContent": "center",
+          "marginBottom": 20,
+          "minWidth": "26%",
+          "width": "26%",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/coin-icon/images/coin-gbp.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 35,
+              "width": 35,
+            },
+            Object {
+              "marginBottom": 15,
+            },
+          ]
+        }
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        GBP
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "opacity": 0.5,
+          }
+        }
+      >
+        369.71290
+      </Text>
+    </View>
+  </View>
+</View>
+`;

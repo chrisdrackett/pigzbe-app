@@ -72,7 +72,7 @@ describe('Actions', () => {
 
         it('should create an action to updateBalance', () => {
             expect(actions.updateBalance('1')).toEqual({
-                type: actions.UPDATE_BALANCE,
+                type: actions.WOLLO_UPDATE_BALANCE,
                 balance: '1'
             });
         });

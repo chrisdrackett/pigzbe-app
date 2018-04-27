@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CoinIcon renders correctly 1`] = `
+<Image
+  source={
+    Object {
+      "testUri": "../../../src/app/components/coin-icon/images/coin-btc.png",
+    }
+  }
+  style={
+    Object {
+      "height": 35,
+      "width": 35,
+    }
+  }
+/>
+`;
