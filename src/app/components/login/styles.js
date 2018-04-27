@@ -3,7 +3,8 @@ import {StyleSheet} from 'react-native';
 import {
     container,
     color,
-    fontFamily
+    fontFamily,
+    paddingH
 } from '../../styles';
 
 export default StyleSheet.create({
@@ -18,12 +19,11 @@ export default StyleSheet.create({
     containerBody: {
         height: '50%',
         width: '100%',
-        paddingLeft: '9.375%',
-        paddingRight: '9.375%',
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
         flex: 1,
         justifyContent: 'center'
     },
-
     backgroundImage: {
         position: 'absolute',
         width: '100%',

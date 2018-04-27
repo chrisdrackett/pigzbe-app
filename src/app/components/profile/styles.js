@@ -3,15 +3,21 @@ import {
     container,
     input,
     color,
-    fontFamily
+    fontFamily,
+    paddingH
 } from '../../styles';
 
 export default StyleSheet.create({
+    scrollContainer: {
+        backgroundColor: color.blue,
+        alignSelf: 'stretch',
+        flex: 1
+    },
     container: {
         ...container,
-        paddingLeft: '9.375%',
-        paddingRight: '9.375%',
-        flex: 0
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
+        justifyContent: 'flex-start'
     },
     avatar: {
         alignItems: 'center',
@@ -49,13 +55,12 @@ export default StyleSheet.create({
     subscribe: {
         flex: 1,
         flexDirection: 'row',
-        marginTop: 25,
         marginBottom: 25,
-        alignSelf: 'stretch',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'space-between',
-        paddingLeft: 10,
-        paddingRight: 10
+        alignSelf: 'stretch',
+        width: '100%',
+        flexGrow: 1
     },
     subscribeText: {
         fontFamily,
@@ -63,6 +68,13 @@ export default StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         marginRight: 10
+    },
+    buttonContainer: {
+        alignSelf: 'stretch',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        flexGrow: 2
     },
     error: {
         fontFamily,

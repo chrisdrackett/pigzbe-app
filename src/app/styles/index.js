@@ -1,5 +1,3 @@
-import isDesktop from '../utils/is-desktop';
-
 export const fontFamily = 'Poppins';
 
 export const color = {
@@ -19,10 +17,10 @@ export const color = {
     greyDark: '#4A4A4A',
     greyMedium: '#E1E1E1',
     darkPurple: '#4A4A4A',
-    green: '#95C664',
+    green: '#95C664'
 };
 
-export const paddingTop = isDesktop ? 0 : 0;
+export const paddingH = '9.375%';
 
 export const container = {
     alignSelf: 'stretch',
@@ -30,25 +28,4 @@ export const container = {
     backgroundColor: color.blue,
     alignItems: 'center',
     justifyContent: 'center'
-};
-
-export const input = {
-    fontFamily,
-    alignSelf: 'stretch',
-    color: color.white,
-    fontSize: 14,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 10,
-    height: 45,
-    borderColor: color.white,
-    borderWidth: 1,
-    borderRadius: 25,
-    marginBottom: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 10
 };

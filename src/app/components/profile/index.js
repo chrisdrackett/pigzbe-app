@@ -48,8 +48,8 @@ class Profile extends Component {
             email
         } = this.state;
 
-        const validName = !!name.trim();
-        const validEmail = isEmail(email);
+        const validName = name && !!name.trim();
+        const validEmail = email && isEmail(email);
 
         this.setState({
             validName,
@@ -105,80 +105,78 @@ class Profile extends Component {
             isUpdating
         } = this.state;
 
-        console.log(image);
-
         return (
-            <ScrollView contentContainerStyle={styles.container}>
-                <Logo/>
-                <Text style={styles.title}>
-                    {hasProfile ? strings.accountEdit : strings.accountCreate}
-                </Text>
-                <TouchableOpacity
-                    style={styles.avatar}
-                    onPress={() => {
-                        pickImage()
-                            .then(({uri}) => this.setState({image: uri}))
-                            .catch(err => console.log('error', err));
-                    }}>
-                    <Avatar image={image}/>
-                    <Text style={styles.avatarText}>
-                        {hasProfile ? strings.accountChangeImage : strings.accountAddImage}
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
+                <View style={styles.container}>
+                    <Logo/>
+                    <Text style={styles.title}>
+                        {hasProfile ? strings.accountEdit : strings.accountCreate}
                     </Text>
-                </TouchableOpacity>
-                <TextInput
-                    error={!validName}
-                    placeholder={strings.accountNamePlaceholder}
-                    value={name}
-                    onChangeText={value => this.setState({name: value})}
-                />
-                <TextInput
-                    error={!validEmail}
-                    placeholder={strings.accountEmailPlaceholder}
-                    value={email}
-                    onChangeText={value => this.setState({email: value})}
-                />
-                <View style={styles.subscribe}>
-                    <Text style={styles.subscribeText}>
-                        {strings.accountMailingListOptIn}
-                    </Text>
-                    <Checkbox
-                        value={subscribe}
-                        onValueChange={() => this.setState({subscribe: !this.state.subscribe})}
+                    <TouchableOpacity
+                        style={styles.avatar}
+                        onPress={() => {
+                            pickImage()
+                                .then(({uri}) => this.setState({image: uri}))
+                                .catch(err => console.log('error', err));
+                        }}>
+                        <Avatar image={image}/>
+                        <Text style={styles.avatarText}>
+                            {hasProfile ? strings.accountChangeImage : strings.accountAddImage}
+                        </Text>
+                    </TouchableOpacity>
+                    <TextInput
+                        error={!validName}
+                        placeholder={strings.accountNamePlaceholder}
+                        value={name}
+                        onChangeText={value => this.setState({name: value})}
                     />
-                </View>
-                <Button
-                    label={hasProfile ? strings.accountSaveButtonLabel : strings.accountSubmitButtonLabel}
-                    onPress={() => this.save()}
-                />
-                {hasProfile ? (
-                    <Button
-                        label={strings.accountCancelButtonLabel}
-                        onPress={() => navigation.navigate(SCREEN_BALANCE)}
+                    <TextInput
+                        error={!validEmail}
+                        placeholder={strings.accountEmailPlaceholder}
+                        value={email}
+                        onChangeText={value => this.setState({email: value})}
                     />
-                ) : null}
-                {hasProfile ? (
                     <View style={styles.subscribe}>
-                        <Button
-                            label={strings.accountLogoutButtonLabel}
-                            plain
-                            onPress={() => dispatch(authLogout())}
-                        />
-                        <Button
-                            label="Clear data"
-                            plain
-                            onPress={() => dispatch(profileClear())}
+                        <Text style={styles.subscribeText}>
+                            {strings.accountMailingListOptIn}
+                        </Text>
+                        <Checkbox
+                            value={subscribe}
+                            onValueChange={() => this.setState({subscribe: !this.state.subscribe})}
                         />
                     </View>
-                ) : (
-                    <Button
-                        label={strings.accountPrivacyButtonLabel}
-                        plain
-                        onPress={() => navigation.navigate(SCREEN_PRIVACY)}
-                    />
-                )}
-                {error && (
-                    <Text style={styles.error}>{error.message}</Text>
-                )}
+                    <View style={styles.buttonContainer}>
+                        <Button
+                            label={hasProfile ? strings.accountSaveButtonLabel : strings.accountSubmitButtonLabel}
+                            onPress={() => this.save()}
+                        />
+                        {hasProfile ? (
+                            <Button
+                                label={strings.accountCancelButtonLabel}
+                                onPress={() => navigation.navigate(SCREEN_BALANCE)}
+                            />
+                        ) : null}
+                        {hasProfile ? (
+                            <Button
+                                label={strings.accountLogoutButtonLabel}
+                                plain
+                                onPress={() => {
+                                    dispatch(authLogout());
+                                    dispatch(profileClear());
+                                }}
+                            />
+                        ) : (
+                            <Button
+                                label={strings.accountPrivacyButtonLabel}
+                                plain
+                                onPress={() => navigation.navigate(SCREEN_PRIVACY)}
+                            />
+                        )}
+                        {error && (
+                            <Text style={styles.error}>{error.message}</Text>
+                        )}
+                    </View>
+                </View>
                 <Loader
                     isLoading={isUpdating}
                 />

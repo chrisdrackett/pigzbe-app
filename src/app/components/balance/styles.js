@@ -2,8 +2,7 @@ import {StyleSheet} from 'react-native';
 import {
     container,
     color,
-    fontFamily,
-    paddingTop
+    fontFamily
 } from '../../styles';
 
 export default StyleSheet.create({
@@ -55,11 +54,10 @@ export default StyleSheet.create({
         height: 18
     },
     settings: {
-        // backgroundColor: color.yellow,
         width: 18,
         height: 18,
         position: 'absolute',
-        top: paddingTop + 34,
+        top: 34,
         right: 20
     }
 });
