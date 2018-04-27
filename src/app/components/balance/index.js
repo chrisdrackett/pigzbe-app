@@ -1,37 +1,80 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
     Text,
-    TouchableOpacity,
-    View
+    View,
+    Image
 } from 'react-native';
 import Avatar from '../avatar';
 import styles from './styles';
-import {SCREEN_PROFILE} from '../../constants';
+import {
+    strings
+} from '../../constants';
+import ConvertBalance from '../convert-balance';
+import Graph from '../balance-graph';
+import Loader from '../loader';
+import BaseView from '../base-view';
+
+const coins = ['xlm', 'btc', 'eth', 'eur', 'usd', 'jpy', 'gbp'];
+
+class Balance extends Component {
+
+  state = {
+      exchange: null
+  }
+
+  componentWillMount() {
+      this.getExhange();
+  }
+
+  getExhange = async () => {
+      const values = await (await fetch(`https://min-api.cryptocompare.com/data/price?fsym=XLM&tsyms=${coins.toString().toUpperCase()}`, {
+          method: 'GET'
+      })).json();
+
+      this.setState({
+          exchange: {...values}
+      });
+  }
+
+  render () {
+      const {exchange} = this.state;
+      const {
+          balance,
+          name,
+          image,
+          navigation
+      } = this.props;
+
+      if (!exchange) {
+          return <Loader isLoading />;
+      }
+
+      return (
+          <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container}>
+              <Avatar image={image}/>
+              <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
+              <View style={styles.balanceContainer}>
+                  <Image style={styles.currencyLogo} source={require('../../../../assets/images/currency_logo.png')} />
+                  <Text style={styles.balance}>{Number(balance).toFixed(2)}</Text>
+              </View>
+
+              <Text style={styles.label}>{strings.walletBalance}</Text>
+              <Image style={styles.pig} source={require('../../../../assets/images/pig.png')} />
+              <Graph balance={balance} balanceConvert={balance * exchange.USD}/>
+              <ConvertBalance coins={coins.filter(c => c !== 'usd')} exchange={exchange} balance={balance}/>
+          </BaseView>
+      );
+  }
+}
+
+// export for test
+export const BalanceComponent = Balance;
 
 export default connect(
     state => ({
         balance: state.wollo.balance,
-        publicKey: state.auth.publicKey,
         name: state.profile.name,
         image: state.profile.image
     })
-)(({
-    balance,
-    name,
-    image,
-    navigation
-}) => (
-    <View style={styles.container}>
-        <Avatar image={image}/>
-        <Text style={styles.welcome}>Hi {name}</Text>
-        <Text style={styles.balance}>
-            {balance.length ? balance : 'Loading...'}
-        </Text>
-        <Text style={styles.label}>Wollo balance</Text>
-        <TouchableOpacity
-            style={styles.settings}
-            onPress={() => navigation.navigate(SCREEN_PROFILE)}
-        />
-    </View>
-));
+)(Balance);

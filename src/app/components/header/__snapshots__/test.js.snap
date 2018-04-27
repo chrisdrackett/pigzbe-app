@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#003278",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "testUri": "../../../assets/images/pigzbe_logo_inapp.png",
+      }
+    }
+    style={
+      Object {
+        "height": 25,
+        "marginBottom": 10,
+        "marginTop": 34,
+        "width": 65,
+      }
+    }
+  />
+</View>
+`;

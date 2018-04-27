@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logo renders correctly 1`] = `
+<Image
+  source={
+    Object {
+      "testUri": "../../../assets/images/pigzbe_logo_inapp.png",
+    }
+  }
+  style={
+    Object {
+      "height": 25,
+      "marginBottom": 10,
+      "marginTop": 34,
+      "width": 65,
+    }
+  }
+/>
+`;

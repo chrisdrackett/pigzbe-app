@@ -1,6 +1,6 @@
 import Stellar from '../stellar';
 import {loadAccount} from './wollo';
-import wait from './wait';
+// import wait from './wait';
 
 export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
 export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
@@ -17,12 +17,13 @@ export const authLogin = secretKey => dispatch => {
     } catch (e) {}
 
     if (!keypair) {
-        dispatch({type: AUTH_LOGIN_FAIL, error: new Error('Invalid key')});
-        return Promise.reject();
+        const error = new Error('Invalid key');
+        dispatch({type: AUTH_LOGIN_FAIL, error});
+        return Promise.reject(error);
     }
 
     return dispatch(loadAccount(keypair.publicKey()))
-        .then(() => wait(0.25))
+        // .then(() => wait(0.25))
         .then(() => dispatch({type: AUTH_LOGIN, keypair}))
         .catch(error => dispatch({type: AUTH_LOGIN_FAIL, error}));
 };

@@ -41,6 +41,7 @@
 		737668C692734A2FB82B8FF5 /* PoppinsRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD8846EBE538406B8BC99CEA /* PoppinsRegular.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		E274BE150B88407C8A6F924A /* PoppinsSemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7F93EAD8BA04C4B839ADAF2 /* PoppinsSemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -363,6 +364,7 @@
 		A34C01AC67334AE59B1C566C /* RNRandomBytes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNRandomBytes.xcodeproj; path = "../node_modules/react-native-randombytes/RNRandomBytes.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		CD8846EBE538406B8BC99CEA /* PoppinsRegular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = PoppinsRegular.ttf; path = ../assets/fonts/PoppinsRegular.ttf; sourceTree = "<group>"; };
+		D7F93EAD8BA04C4B839ADAF2 /* PoppinsSemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = PoppinsSemiBold.ttf; path = ../assets/fonts/PoppinsSemiBold.ttf; sourceTree = "<group>"; };
 		EA84EC2661ED44B9B07C9A83 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		F67D132210AE441BBB5A08EC /* libRNRandomBytes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRandomBytes.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -636,6 +638,7 @@
 			isa = PBXGroup;
 			children = (
 				CD8846EBE538406B8BC99CEA /* PoppinsRegular.ttf */,
+				D7F93EAD8BA04C4B839ADAF2 /* PoppinsSemiBold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1140,6 +1143,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				737668C692734A2FB82B8FF5 /* PoppinsRegular.ttf in Resources */,
+				E274BE150B88407C8A6F924A /* PoppinsSemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

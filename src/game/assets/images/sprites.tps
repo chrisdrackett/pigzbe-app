@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.4.0</string>
         <key>fileName</key>
-        <string>/Users/ianmcgregor/Documents/dev/pigzbe-app/src/screens/game/images/sprites.tps</string>
+        <string>/Users/ianmcgregor/Documents/dev/pigzbe/pigzbe-app/src/game/assets/images/sprites.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -253,6 +253,19 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">wollo.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>12,12,23,24</rect>
+                <key>scale9Paddings</key>
+                <rect>12,12,23,24</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
@@ -262,6 +275,7 @@
             <filename>ground_low.png</filename>
             <filename>ground_slope_down.png</filename>
             <filename>ground_slope_up.png</filename>
+            <filename>wollo.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
