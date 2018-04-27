@@ -52,6 +52,11 @@ export default StyleSheet.create({
         opacity: 0.6,
         fontWeight: 'bold'
     },
+    valuePercentage: {
+      color: color.white,
+      fontFamily,
+      fontWeight: 'bold'
+    },
     balanceTotal: {
     },
     percentage: {

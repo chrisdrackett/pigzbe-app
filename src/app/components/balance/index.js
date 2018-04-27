@@ -18,7 +18,7 @@ import Logo from '../logo';
 import Graph from '../balance-graph';
 import Loader from '../loader';
 
-const coins = ['xlm', 'btc', 'eth', 'eur', 'usd', 'jpy'];
+const coins = ['xlm', 'btc', 'eth', 'eur', 'usd', 'jpy', 'gbp'];
 
 class Balance extends Component {
 
@@ -66,7 +66,7 @@ class Balance extends Component {
               <Text style={styles.label}>{strings.walletBalance}</Text>
               <Image style={styles.pig} source={require('../../../../assets/images/pig.png')} />
               <Graph balance={balance} balanceConvert={balance * exchange.USD}/>
-              <ConvertBalance coins={coins} exchange={exchange} balance={balance}/>
+              <ConvertBalance coins={coins.filter(c => c !== 'usd')} exchange={exchange} balance={balance}/>
               <TouchableOpacity
                   style={styles.settings}
                   onPress={() => navigation.navigate(SCREEN_PROFILE)}

@@ -18,7 +18,7 @@ const Graph = ({balance, balanceConvert}) => (
             <View style={styles.balanceTotal}>
                 <Text style={styles.balanceConvert}>${Number(balanceConvert).toFixed(2)}</Text>
                 <View style={styles.percentage}>
-                    <Text style={styles.value}>12.41%</Text>
+                    <Text style={styles.valuePercentage}>12.41%</Text>
                 </View>
             </View>
         </View>
