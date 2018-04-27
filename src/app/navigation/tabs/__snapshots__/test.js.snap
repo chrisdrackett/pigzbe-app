@@ -487,37 +487,19 @@ exports[`Navigation: Tabs renders correctly 1`] = `
                   }
                 }
               >
-                <View>
-                  <Image
-                    source={
-                      Object {
-                        "testUri": "../../../src/app/navigation/tabs/images/messages-active.png",
-                      }
+                <Image
+                  source={
+                    Object {
+                      "testUri": "../../../src/app/navigation/tabs/images/messages-active.png",
                     }
-                    style={
-                      Object {
-                        "height": 13,
-                        "width": 20,
-                      }
+                  }
+                  style={
+                    Object {
+                      "height": 13,
+                      "width": 20,
                     }
-                  />
-                  <Image
-                    source={
-                      Object {
-                        "testUri": "../../../src/app/navigation/tabs/images/notify.png",
-                      }
-                    }
-                    style={
-                      Object {
-                        "height": 10,
-                        "position": "absolute",
-                        "right": -5,
-                        "top": -5,
-                        "width": 10,
-                      }
-                    }
-                  />
-                </View>
+                  }
+                />
               </View>
               <View
                 collapsable={undefined}
@@ -534,37 +516,19 @@ exports[`Navigation: Tabs renders correctly 1`] = `
                   }
                 }
               >
-                <View>
-                  <Image
-                    source={
-                      Object {
-                        "testUri": "../../../src/app/navigation/tabs/images/messages.png",
-                      }
+                <Image
+                  source={
+                    Object {
+                      "testUri": "../../../src/app/navigation/tabs/images/messages.png",
                     }
-                    style={
-                      Object {
-                        "height": 13,
-                        "width": 20,
-                      }
+                  }
+                  style={
+                    Object {
+                      "height": 13,
+                      "width": 20,
                     }
-                  />
-                  <Image
-                    source={
-                      Object {
-                        "testUri": "../../../src/app/navigation/tabs/images/notify.png",
-                      }
-                    }
-                    style={
-                      Object {
-                        "height": 10,
-                        "position": "absolute",
-                        "right": -5,
-                        "top": -5,
-                        "width": 10,
-                      }
-                    }
-                  />
-                </View>
+                  }
+                />
               </View>
             </View>
             <Text

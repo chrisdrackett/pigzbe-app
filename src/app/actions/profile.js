@@ -1,5 +1,5 @@
 import {load, save, clear} from '../utils/storage';
-import wait from './wait';
+// import wait from './wait';
 
 const storageKey = 'profile';
 
@@ -13,7 +13,7 @@ export const profileLoading = value => ({type: PROFILE_LOADING, value});
 export const profileLoad = () => dispatch => {
     dispatch(profileLoading(true));
     return load(storageKey)
-        .then(data => wait(0.5, data))
+        // .then(data => wait(0.5, data))
         .then(data => {
             dispatch({type: PROFILE_UPDATE, ...data});
             dispatch(profileAvailable(!!data.name));

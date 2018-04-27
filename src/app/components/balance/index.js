@@ -78,6 +78,9 @@ class Balance extends Component {
   }
 }
 
+// export for test
+export const BalanceComponent = Balance;
+
 export default connect(
     state => ({
         balance: state.wollo.balance,

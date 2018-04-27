@@ -7,7 +7,7 @@ import {
     ScrollView
 } from 'react-native';
 import styles from './styles';
-import {messagesLoad} from '../../actions';
+import {messagesLoad, messagesMarkRead} from '../../actions';
 import Loader from '../loader';
 import Logo from '../logo';
 import Pig from '../pig';
@@ -20,6 +20,10 @@ import {
 
 class Messages extends Component {
     componentDidMount() {
+        this.props.dispatch(messagesMarkRead());
+    }
+
+    updateMessages() {
         this.props.dispatch(messagesLoad());
     }
 
@@ -65,6 +69,7 @@ class Messages extends Component {
     }
 }
 
+// export for test
 export const MessagesComponent = Messages;
 
 export default connect(state => ({
