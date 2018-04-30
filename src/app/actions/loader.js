@@ -1,4 +1,5 @@
 import {
+    authTouchId,
     authKeychain,
     authLogin,
     profileLoad,
@@ -23,7 +24,9 @@ export const tryAutoLoad = () => dispatch => {
     dispatch(authKeychain())
         .then(key => {
             if (key) {
-                dispatch(load(key));
+                dispatch(authTouchId())
+                    .then(() => dispatch(load(key)))
+                    .catch(error => console.log(error));
             }
         });
 };

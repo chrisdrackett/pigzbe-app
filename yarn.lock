@@ -7290,6 +7290,10 @@ react-native-safe-area-view@^0.7.0:
   dependencies:
     prop-types "^15.6.0"
 
+react-native-touch-id@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-touch-id/-/react-native-touch-id-4.0.1.tgz#f284410d16ae142c1bd539284bebf92f5ff6a8e2"
+
 react-native-web@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.6.0.tgz#46c843ab83c569246dc43ba745033c1bb4d22930"

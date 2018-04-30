@@ -1,12 +1,15 @@
 import Stellar from '../stellar';
 import {loadAccount} from './wollo';
-// import wait from './wait';
 import {load, save, clear} from '../utils/keychain';
+import {authenticate} from '../utils/touch-id';
+// import wait from './wait';
 
 export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
 export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
 export const AUTH_LOGIN = 'AUTH_LOGIN';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+
+export const authTouchId = () => () => authenticate();
 
 export const authKeychain = () => () => {
     return load()
