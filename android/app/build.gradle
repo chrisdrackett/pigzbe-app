@@ -101,8 +101,8 @@ android {
         applicationId "com.pigzbeapp"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "1.1.4"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -137,6 +137,8 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-touch-id')
+    compile project(':react-native-keychain')
     compile project(':react-native-randombytes')
     compile project(':react-native-image-picker')
     compile fileTree(dir: "libs", include: ["*.jar"])

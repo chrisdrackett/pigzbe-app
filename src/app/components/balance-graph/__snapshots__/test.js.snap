@@ -5,27 +5,13 @@ exports[`Balance Graph renders correctly 1`] = `
   style={
     Object {
       "alignSelf": "stretch",
-      "backgroundColor": "#154A96",
+      "backgroundColor": "rgb(21, 74, 150)",
       "minHeight": 130,
       "paddingBottom": 20,
       "paddingTop": 10,
     }
   }
 >
-  <Image
-    source={
-      Object {
-        "testUri": "../../../assets/images/graph.png",
-      }
-    }
-    style={
-      Object {
-        "height": 44,
-        "marginLeft": -15,
-        "width": 296,
-      }
-    }
-  />
   <View
     style={
       Object {
@@ -73,7 +59,7 @@ exports[`Balance Graph renders correctly 1`] = `
           ellipsizeMode="tail"
           style={
             Object {
-              "color": "#ffffff",
+              "color": "rgb(255, 255, 255)",
               "fontFamily": "Poppins",
               "fontWeight": "bold",
             }
@@ -87,10 +73,9 @@ exports[`Balance Graph renders correctly 1`] = `
           ellipsizeMode="tail"
           style={
             Object {
-              "color": "#ffffff",
+              "color": "rgba(255, 255, 255, 0.6)",
               "fontFamily": "Poppins",
               "fontWeight": "bold",
-              "opacity": 0.6,
             }
           }
         >
@@ -99,7 +84,14 @@ exports[`Balance Graph renders correctly 1`] = `
       </View>
     </View>
     <View
-      style={Object {}}
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "justifyContent": "flex-end",
+        }
+      }
     >
       <Text
         accessible={true}
@@ -107,7 +99,7 @@ exports[`Balance Graph renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#ffffff",
+            "color": "rgb(255, 255, 255)",
             "fontFamily": "Poppins",
             "fontWeight": "bold",
             "marginRight": 3,
@@ -118,32 +110,6 @@ exports[`Balance Graph renders correctly 1`] = `
         $
         1231.00
       </Text>
-      <View
-        style={
-          Object {
-            "backgroundColor": "#95C664",
-            "borderRadius": 15,
-            "marginTop": 3,
-            "paddingLeft": 10,
-            "paddingRight": 10,
-          }
-        }
-      >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={
-            Object {
-              "color": "#ffffff",
-              "fontFamily": "Poppins",
-              "fontWeight": "bold",
-            }
-          }
-        >
-          12.41%
-        </Text>
-      </View>
     </View>
   </View>
 </View>

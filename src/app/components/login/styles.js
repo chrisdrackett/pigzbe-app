@@ -59,12 +59,11 @@ export default StyleSheet.create({
     },
     subtitle: {
         fontFamily,
-        color: color.white,
+        color: color.whiteOpacity60,
         fontSize: 14,
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 20,
-        opacity: 0.6,
         textAlign: 'center'
     },
     error: {

@@ -17,7 +17,7 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     containerBody: {
-        backgroundColor: color.greyLight,
+        backgroundColor: color.lightGrey,
         width: '100%',
         flex: 1,
         justifyContent: 'center',
@@ -39,7 +39,7 @@ export default StyleSheet.create({
         paddingTop: 20,
         paddingBottom: 20,
         borderBottomWidth: 1,
-        borderBottomColor: color.greyMedium
+        borderBottomColor: color.mediumGrey
     },
     date: {
         fontFamily,
@@ -50,7 +50,7 @@ export default StyleSheet.create({
     },
     text: {
         fontFamily,
-        color: color.greyDark,
+        color: color.darkGrey,
         fontSize: 14
     }
 });

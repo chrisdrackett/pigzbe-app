@@ -6,7 +6,7 @@ exports[`Navigation: Root renders correctly 1`] = `
     Object {
       "alignItems": "center",
       "alignSelf": "stretch",
-      "backgroundColor": "#003278",
+      "backgroundColor": "rgb(0, 50, 120)",
       "flex": 1,
       "justifyContent": "center",
     }
@@ -26,7 +26,7 @@ exports[`Navigation: Root renders correctly 1`] = `
     <Image
       source={
         Object {
-          "testUri": "../../../src/app/components/login/header.png",
+          "testUri": "../../../src/app/components/login/images/header.png",
         }
       }
       style={
@@ -41,7 +41,7 @@ exports[`Navigation: Root renders correctly 1`] = `
     <Image
       source={
         Object {
-          "testUri": "../../../assets/images/pigzbe_logo.png",
+          "testUri": "../../../src/app/components/login/images/pigzbe_logo.png",
         }
       }
       style={
@@ -57,7 +57,7 @@ exports[`Navigation: Root renders correctly 1`] = `
       ellipsizeMode="tail"
       style={
         Object {
-          "color": "#ffffff",
+          "color": "rgb(255, 255, 255)",
           "fontFamily": "Poppins",
           "fontSize": 16,
           "fontWeight": "bold",
@@ -117,7 +117,7 @@ exports[`Navigation: Root renders correctly 1`] = `
       ellipsizeMode="tail"
       style={
         Object {
-          "color": "#ffffff",
+          "color": "rgb(255, 255, 255)",
           "fontFamily": "Poppins",
           "fontSize": 16,
           "fontWeight": "bold",
@@ -136,13 +136,12 @@ exports[`Navigation: Root renders correctly 1`] = `
       ellipsizeMode="tail"
       style={
         Object {
-          "color": "#ffffff",
+          "color": "rgba(255, 255, 255, 0.6)",
           "fontFamily": "Poppins",
           "fontSize": 14,
           "marginBottom": 20,
           "marginLeft": 20,
           "marginRight": 20,
-          "opacity": 0.6,
           "textAlign": "center",
         }
       }
@@ -153,14 +152,14 @@ exports[`Navigation: Root renders correctly 1`] = `
       allowFontScaling={true}
       onChangeText={[Function]}
       placeholder="Your key"
-      placeholderTextColor="#97abc7"
+      placeholderTextColor="rgba(255, 255, 255, 0.6)"
       style={
         Object {
           "alignSelf": "stretch",
-          "borderColor": "#ffffff",
+          "borderColor": "rgb(255, 255, 255)",
           "borderRadius": 22.5,
           "borderWidth": 1,
-          "color": "#ffffff",
+          "color": "rgb(255, 255, 255)",
           "fontFamily": "Poppins",
           "fontSize": 14,
           "fontWeight": "bold",
@@ -192,8 +191,8 @@ exports[`Navigation: Root renders correctly 1`] = `
       style={
         Object {
           "alignSelf": "stretch",
-          "backgroundColor": "#FDDF06",
-          "borderColor": "#FDDF06",
+          "backgroundColor": "rgb(253, 223, 6)",
+          "borderColor": "rgb(253, 223, 6)",
           "borderRadius": 22.5,
           "borderWidth": 1,
           "marginBottom": 10,
@@ -210,7 +209,7 @@ exports[`Navigation: Root renders correctly 1`] = `
         style={
           Object {
             "alignSelf": "stretch",
-            "color": "#003278",
+            "color": "rgb(0, 50, 120)",
             "fontFamily": "Poppins",
             "fontSize": 16,
             "fontWeight": "bold",
@@ -258,7 +257,7 @@ exports[`Navigation: Root renders correctly 1`] = `
           Array [
             Object {
               "alignSelf": "stretch",
-              "color": "#003278",
+              "color": "rgb(0, 50, 120)",
               "fontFamily": "Poppins",
               "fontSize": 16,
               "fontWeight": "bold",
@@ -269,9 +268,9 @@ exports[`Navigation: Root renders correctly 1`] = `
               "textAlign": "center",
             },
             Object {
-              "color": "#b3c1d6",
+              "color": "rgba(255, 255, 255, 0.7)",
               "fontSize": 14,
-              "textDecorationColor": "#ffffff",
+              "textDecorationColor": "rgb(255, 255, 255)",
               "textDecorationLine": "underline",
               "textDecorationStyle": "solid",
             },
@@ -304,8 +303,8 @@ exports[`Navigation: Root renders correctly 1`] = `
       ellipsizeMode="tail"
       style={
         Object {
-          "backgroundColor": "#95C664",
-          "color": "#ffffff",
+          "backgroundColor": "rgb(149, 198, 100)",
+          "color": "rgb(255, 255, 255)",
           "fontFamily": "Poppins",
           "fontSize": 12,
           "fontWeight": "bold",
@@ -346,7 +345,7 @@ exports[`Navigation: Root renders correctly 1`] = `
       <Image
         source={
           Object {
-            "testUri": "../../../assets/images/settings-icon.png",
+            "testUri": "../../../src/app/components/header/images/settings-icon.png",
           }
         }
         style={

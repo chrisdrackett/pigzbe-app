@@ -5,7 +5,7 @@ exports[`Header renders correctly 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "#003278",
+      "backgroundColor": "rgb(0, 50, 120)",
       "justifyContent": "center",
     }
   }
@@ -13,7 +13,7 @@ exports[`Header renders correctly 1`] = `
   <Image
     source={
       Object {
-        "testUri": "../../../assets/images/pigzbe_logo_inapp.png",
+        "testUri": "../../../src/app/components/logo/images/pigzbe_logo_inapp.png",
       }
     }
     style={

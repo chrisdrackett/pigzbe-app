@@ -91,3 +91,6 @@ app.on('activate', () => {
 // code. You can also put them in separate files and require them here.
 
 exports.openURL = pageURL => shell.openExternal(pageURL);
+
+// FIXME: current version of keytar not working current version of electron
+// exports.keytar = require('keytar');

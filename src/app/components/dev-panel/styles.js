@@ -88,7 +88,7 @@ export default StyleSheet.create({
         paddingTop: 10,
         marginBottom: 20,
         borderTopWidth: 1,
-        borderTopColor: color.greyMedium
+        borderTopColor: color.mediumGrey
     },
     switchText: {
         fontFamily,

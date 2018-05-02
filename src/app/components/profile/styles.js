@@ -26,9 +26,8 @@ export default StyleSheet.create({
     },
     avatarText: {
         fontFamily,
-        color: color.white,
+        color: color.whiteOpacity60,
         fontSize: 14,
-        opacity: 0.6,
         textAlign: 'center',
         marginTop: 20
     },
@@ -60,8 +59,7 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         paddingLeft: 20,
         paddingRight: 20,
-        alignSelf: 'stretch'
-        // width: '100%',
+        alignSelf: 'stretch',
     },
     subscribeText: {
         fontFamily,
@@ -84,6 +82,6 @@ export default StyleSheet.create({
     input,
     inputError: {
         ...input,
-        borderColor: '#ff0000'
+        borderColor: color.red
     }
 });

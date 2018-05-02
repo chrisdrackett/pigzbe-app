@@ -70,7 +70,7 @@ class DevPanel extends Component {
                 <TouchableOpacity
                     style={styles.settings}
                     onPress={() => this.setState({isOpen: true})}>
-                    <Image style={styles.settingsIcon} source={require('../../../../assets/images/settings-icon.png')} />
+                    <Image style={styles.settingsIcon} source={require('../header/images/settings-icon.png')} />
                 </TouchableOpacity>
             </View>
         );

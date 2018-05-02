@@ -6,7 +6,7 @@ exports[`ConvertBalance renders correctly 1`] = `
     Object {
       "alignItems": "center",
       "alignSelf": "stretch",
-      "backgroundColor": "#F7F7FA",
+      "backgroundColor": "rgb(247, 247, 250)",
       "flex": 1,
       "justifyContent": "center",
       "paddingBottom": 20,
@@ -20,7 +20,7 @@ exports[`ConvertBalance renders correctly 1`] = `
     ellipsizeMode="tail"
     style={
       Object {
-        "color": "#4A4A4A",
+        "color": "rgb(74, 74, 74)",
         "fontFamily": "Poppins",
         "fontSize": 14,
       }
@@ -35,7 +35,7 @@ exports[`ConvertBalance renders correctly 1`] = `
     onPress={[Function]}
     style={
       Object {
-        "color": "#4A4A4A",
+        "color": "rgb(74, 74, 74)",
         "fontFamily": "Poppins",
         "fontSize": 12,
       }
@@ -95,7 +95,7 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgb(74, 74, 74)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
@@ -110,11 +110,10 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgba(74, 74, 74, 0.5)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
-            "opacity": 0.5,
           }
         }
       >
@@ -158,7 +157,7 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgb(74, 74, 74)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
@@ -173,11 +172,10 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgba(74, 74, 74, 0.5)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
-            "opacity": 0.5,
           }
         }
       >
@@ -221,7 +219,7 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgb(74, 74, 74)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
@@ -236,11 +234,10 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgba(74, 74, 74, 0.5)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
-            "opacity": 0.5,
           }
         }
       >
@@ -284,7 +281,7 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgb(74, 74, 74)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
@@ -299,11 +296,10 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgba(74, 74, 74, 0.5)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
-            "opacity": 0.5,
           }
         }
       >
@@ -347,7 +343,7 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgb(74, 74, 74)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
@@ -362,11 +358,10 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgba(74, 74, 74, 0.5)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
-            "opacity": 0.5,
           }
         }
       >
@@ -410,7 +405,7 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgb(74, 74, 74)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
@@ -425,11 +420,10 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgba(74, 74, 74, 0.5)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
-            "opacity": 0.5,
           }
         }
       >
@@ -473,7 +467,7 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgb(74, 74, 74)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
@@ -488,11 +482,10 @@ exports[`ConvertBalance renders correctly 1`] = `
         ellipsizeMode="tail"
         style={
           Object {
-            "color": "#4A4A4A",
+            "color": "rgba(74, 74, 74, 0.5)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
-            "opacity": 0.5,
           }
         }
       >

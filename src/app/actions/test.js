@@ -8,9 +8,7 @@ describe('Actions', () => {
         });
 
         it('should create an action to logout', () => {
-            expect(actions.authLogout()).toEqual({
-                type: actions.AUTH_LOGOUT
-            });
+            expect(actions.authLogout()).toEqual(expect.any(Function));
         });
     });
 

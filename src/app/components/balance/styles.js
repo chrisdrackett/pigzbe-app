@@ -35,8 +35,6 @@ export default StyleSheet.create({
     },
     pig: {
         marginTop: 20,
-        width: 81,
-        height: 38
     },
     balance: {
         fontFamily,
@@ -45,8 +43,7 @@ export default StyleSheet.create({
     },
     label: {
         fontFamily,
-        color: color.white,
+        color: color.whiteOpacity60,
         fontSize: 14,
-        opacity: 0.6
     },
 });

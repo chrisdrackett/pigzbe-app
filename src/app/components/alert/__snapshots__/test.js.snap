@@ -5,7 +5,7 @@ exports[`Alert renders correctly with error prop 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "#ff0000",
+      "backgroundColor": "rgb(255, 0, 0)",
       "flex": 1,
       "flexDirection": "row",
       "height": 80,
@@ -23,7 +23,7 @@ exports[`Alert renders correctly with error prop 1`] = `
     ellipsizeMode="tail"
     style={
       Object {
-        "color": "#ffffff",
+        "color": "rgb(255, 255, 255)",
         "fontFamily": "Poppins",
         "fontSize": 16,
         "marginBottom": 20,
@@ -76,7 +76,7 @@ exports[`Alert renders correctly with error prop 1`] = `
           Array [
             Object {
               "alignSelf": "stretch",
-              "color": "#003278",
+              "color": "rgb(0, 50, 120)",
               "fontFamily": "Poppins",
               "fontSize": 16,
               "fontWeight": "bold",
@@ -87,9 +87,9 @@ exports[`Alert renders correctly with error prop 1`] = `
               "textAlign": "center",
             },
             Object {
-              "color": "#b3c1d6",
+              "color": "rgba(255, 255, 255, 0.7)",
               "fontSize": 14,
-              "textDecorationColor": "#ffffff",
+              "textDecorationColor": "rgb(255, 255, 255)",
               "textDecorationLine": "underline",
               "textDecorationStyle": "solid",
             },

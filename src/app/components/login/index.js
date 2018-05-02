@@ -5,7 +5,7 @@ import {
     View,
     Image
 } from 'react-native';
-import {load} from '../../actions';
+import {tryAutoLoad, load} from '../../actions';
 import styles from './styles';
 import Button from '../button';
 import TextInput from '../text-input';
@@ -23,6 +23,10 @@ class Login extends Component {
         inputText: 'SAXYJU6Q67IXM4DSOFGVJ2L2I7C2SQJSV2MDR2E64AKML5ZXO25RMISJ'
     }
 
+    componentDidMount() {
+        this.props.dispatch(tryAutoLoad());
+    }
+
     render() {
         const {
             dispatch,
@@ -36,8 +40,8 @@ class Login extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.containerHeader}>
-                    <Image style={styles.backgroundImage} source={require('./header.png')} />
-                    <Image style={styles.image} source={require('../../../../assets/images/pigzbe_logo.png')} />
+                    <Image style={styles.backgroundImage} source={require('./images/header.png')} />
+                    <Image style={styles.image} source={require('./images/pigzbe_logo.png')} />
                     <Text style={styles.tagline}>{strings.loginTagline}</Text>
                     <Pig/>
                 </View>
