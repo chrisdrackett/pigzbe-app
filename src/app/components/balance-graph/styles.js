@@ -47,17 +47,20 @@ export default StyleSheet.create({
         marginTop: 20
     },
     value: {
-        color: color.white,
+        color: color.whiteOnBlueOpacity60,
         fontFamily,
-        opacity: 0.6,
         fontWeight: 'bold'
     },
     valuePercentage: {
-      color: color.white,
-      fontFamily,
-      fontWeight: 'bold'
+        color: color.white,
+        fontFamily,
+        fontWeight: 'bold'
     },
     balanceTotal: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end'
     },
     percentage: {
         borderRadius: 15,
