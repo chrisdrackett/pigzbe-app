@@ -47,7 +47,7 @@ export default StyleSheet.create({
         marginTop: 20
     },
     value: {
-        color: color.whiteOnBlueOpacity60,
+        color: color.whiteOpacity60,
         fontFamily,
         fontWeight: 'bold'
     },

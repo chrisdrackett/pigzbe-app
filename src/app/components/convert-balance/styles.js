@@ -28,11 +28,11 @@ export default StyleSheet.create({
     title: {
         fontFamily,
         fontSize: 14,
-        color: color.darkPurple
+        color: color.darkGrey
     },
     label: {
         fontFamily,
         fontSize: 12,
-        color: color.darkPurple
+        color: color.darkGrey
     }
 });

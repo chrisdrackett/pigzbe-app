@@ -43,8 +43,7 @@ export default StyleSheet.create({
     },
     label: {
         fontFamily,
-        color: color.white,
+        color: color.whiteOpacity60,
         fontSize: 14,
-        opacity: 0.6
     },
 });

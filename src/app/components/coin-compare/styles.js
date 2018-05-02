@@ -21,13 +21,12 @@ export default StyleSheet.create({
         fontFamily,
         fontSize: 14,
         fontWeight: 'bold',
-        color: color.darkPurple
+        color: color.darkGrey
     },
     value: {
         fontFamily,
         fontWeight: 'bold',
         fontSize: 14,
-        color: color.darkPurple,
-        opacity: 0.5
+        color: color.darkGreyOpacity50,
     }
 });

@@ -1,23 +1,22 @@
 export const fontFamily = 'Poppins';
 
 export const color = {
-    black: '#000000',
-    white: '#ffffff',
-    pink: '#E69BE6',
-    blue: '#003278',
-    mediumBlue: '#154A96',
-    yellow: '#FDDF06',
-    red: '#ff0000',
-    grey: '#9B9B9B',
-    lightGrey: '#F7F7FA',
-    blueOnYellowOpacity40: '#979933',
-    whiteOnBlueOpacity70: '#b3c1d6',
-    whiteOnBlueOpacity60: '#97abc7',
-    greyLight: '#F7F7FA',
-    greyDark: '#4A4A4A',
-    greyMedium: '#E1E1E1',
-    darkPurple: '#4A4A4A',
-    green: '#95C664'
+    black: 'rgb(0, 0, 0)',
+    white: 'rgb(255, 255, 255)',
+    whiteOpacity60: 'rgba(255, 255, 255, 0.6)',
+    whiteOpacity70: 'rgba(255, 255, 255, 0.7)',
+    pink: 'rgb(230, 155, 230)',
+    blue: 'rgb(0, 50, 120)',
+    blueOpacity40: 'rgba(0, 50, 120, 0.4)',
+    mediumBlue: 'rgb(21, 74, 150)',
+    yellow: 'rgb(253, 223, 6)',
+    red: 'rgb(255, 0, 0)',
+    green: 'rgb(149, 198, 100)',
+    grey: 'rgb(155, 155, 155)',
+    lightGrey: 'rgb(247, 247, 250)',
+    mediumGrey: 'rgb(225, 225, 225)',
+    darkGrey: 'rgb(74, 74, 74)',
+    darkGreyOpacity50: 'rgba(74, 74, 74, 0.5)',
 };
 
 export const paddingH = '9.375%';
@@ -31,5 +30,5 @@ export const container = {
 };
 
 export const scrollView = {
-  backgroundColor: color.blue,
-}
+    backgroundColor: color.blue,
+};

@@ -12,7 +12,7 @@ export default ({
     <TextInput
         style={error ? [styles.input, styles.error] : styles.input}
         placeholder={placeholder}
-        placeholderTextColor={color.whiteOnBlueOpacity60}
+        placeholderTextColor={color.whiteOpacity60}
         onChangeText={inputText => onChangeText(inputText)}
         value={value}
     />

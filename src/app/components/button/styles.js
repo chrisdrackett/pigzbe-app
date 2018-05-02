@@ -27,10 +27,10 @@ export default StyleSheet.create({
         textAlign: 'center'
     },
     buttonDisabled: {
-        color: color.blueOnYellowOpacity40
+        color: color.blueOpacity40
     },
     buttonPlain: {
-        color: color.whiteOnBlueOpacity70,
+        color: color.whiteOpacity70,
         fontSize: 14,
         textDecorationLine: 'underline',
         textDecorationStyle: 'solid',
