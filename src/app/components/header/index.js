@@ -9,7 +9,7 @@ const Header = ({showSettings, navigation}) => (
         <Logo />
         {showSettings &&
             <TouchableOpacity style={styles.settings} onPress={() => navigation.navigate(SCREEN_PROFILE)}>
-                <Image style={styles.settingsIcon} source={require('../../../../assets/images/settings-icon.png')} />
+                <Image style={styles.settingsIcon} source={require('./images/settings-icon.png')} />
             </TouchableOpacity>
         }
     </View>

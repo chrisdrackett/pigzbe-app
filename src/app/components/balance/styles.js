@@ -35,8 +35,6 @@ export default StyleSheet.create({
     },
     pig: {
         marginTop: 20,
-        width: 81,
-        height: 38
     },
     balance: {
         fontFamily,

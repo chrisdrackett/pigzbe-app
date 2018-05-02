@@ -40,8 +40,8 @@ class Login extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.containerHeader}>
-                    <Image style={styles.backgroundImage} source={require('./header.png')} />
-                    <Image style={styles.image} source={require('../../../../assets/images/pigzbe_logo.png')} />
+                    <Image style={styles.backgroundImage} source={require('./images/header.png')} />
+                    <Image style={styles.image} source={require('./images/pigzbe_logo.png')} />
                     <Text style={styles.tagline}>{strings.loginTagline}</Text>
                     <Pig/>
                 </View>
