@@ -122,7 +122,7 @@ class Profile extends Component {
                     <TouchableOpacity
                         style={styles.avatar}
                         onPress={this.onPressAvatar}>
-                        <Avatar image={image}/>
+                        <Avatar select image={image}/>
                         <Text style={styles.avatarText}>
                             {hasProfile ? strings.accountChangeImage : strings.accountAddImage}
                         </Text>

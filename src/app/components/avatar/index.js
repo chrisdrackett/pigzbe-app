@@ -1,14 +1,15 @@
 import React from 'react';
 import {Image} from 'react-native';
 import styles from './styles';
-import avatarImg from './avatar.png';
-import profileSelect from '../../../../assets/images/profile.png'
+import profileUnset from './images/unset.png';
+import profileSelect from './images/profile.png';
 
 export default ({
-    image
+    image,
+    select
 }) => (
     <Image
-        source={image ? {uri: image} : profileSelect}
-        style={image ? styles.avatarImage : styles.avatarImageSelect}
+        source={image ? {uri: image} : select ? profileSelect : profileUnset}
+        style={image ? styles.avatarImage : select ? styles.avatarImageSelect : styles.avatarImageUnset}
     />
 );
