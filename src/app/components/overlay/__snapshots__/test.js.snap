@@ -20,7 +20,7 @@ exports[`Overlay renders correctly 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "backgroundColor": "#FDDF06",
+      "backgroundColor": "rgb(253, 223, 6)",
       "bottom": 20,
       "height": 40,
       "left": 20,

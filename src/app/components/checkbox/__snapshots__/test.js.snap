@@ -14,7 +14,7 @@ exports[`Checkbox renders correctly 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "#ffffff",
+        "borderColor": "rgb(255, 255, 255)",
         "borderRadius": 15,
         "borderStyle": "solid",
         "borderWidth": 1,
@@ -27,7 +27,7 @@ exports[`Checkbox renders correctly 1`] = `
     <View
       style={
         Object {
-          "backgroundColor": "#ffffff",
+          "backgroundColor": "rgb(255, 255, 255)",
           "borderRadius": 8,
           "height": 16,
           "opacity": 0.3,

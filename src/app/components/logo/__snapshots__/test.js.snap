@@ -4,7 +4,7 @@ exports[`Logo renders correctly 1`] = `
 <Image
   source={
     Object {
-      "testUri": "../../../assets/images/pigzbe_logo_inapp.png",
+      "testUri": "../../../src/app/components/logo/images/pigzbe_logo_inapp.png",
     }
   }
   style={

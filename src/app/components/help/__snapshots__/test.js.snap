@@ -6,7 +6,7 @@ exports[`Help renders correctly 1`] = `
     Object {
       "alignItems": "center",
       "alignSelf": "stretch",
-      "backgroundColor": "#003278",
+      "backgroundColor": "rgb(0, 50, 120)",
       "flex": 1,
       "justifyContent": "center",
     }
@@ -18,7 +18,7 @@ exports[`Help renders correctly 1`] = `
     ellipsizeMode="tail"
     style={
       Object {
-        "color": "#ffffff",
+        "color": "rgb(255, 255, 255)",
         "fontFamily": "Poppins",
         "fontSize": 18,
       }
@@ -32,7 +32,7 @@ exports[`Help renders correctly 1`] = `
     ellipsizeMode="tail"
     style={
       Object {
-        "color": "#ffffff",
+        "color": "rgb(255, 255, 255)",
         "fontFamily": "Poppins",
         "fontSize": 16,
       }
@@ -73,7 +73,7 @@ exports[`Help renders correctly 1`] = `
         Array [
           Object {
             "alignSelf": "stretch",
-            "color": "#003278",
+            "color": "rgb(0, 50, 120)",
             "fontFamily": "Poppins",
             "fontSize": 16,
             "fontWeight": "bold",
@@ -84,9 +84,9 @@ exports[`Help renders correctly 1`] = `
             "textAlign": "center",
           },
           Object {
-            "color": "#b3c1d6",
+            "color": "rgba(255, 255, 255, 0.7)",
             "fontSize": 14,
-            "textDecorationColor": "#ffffff",
+            "textDecorationColor": "rgb(255, 255, 255)",
             "textDecorationLine": "underline",
             "textDecorationStyle": "solid",
           },

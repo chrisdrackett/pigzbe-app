@@ -24,8 +24,8 @@ exports[`DevPanel renders correctly 1`] = `
     style={
       Array [
         Object {
-          "backgroundColor": "#95C664",
-          "color": "#ffffff",
+          "backgroundColor": "rgb(149, 198, 100)",
+          "color": "rgb(255, 255, 255)",
           "fontFamily": "Poppins",
           "fontSize": 12,
           "fontWeight": "bold",
@@ -33,7 +33,7 @@ exports[`DevPanel renders correctly 1`] = `
           "paddingRight": 4,
         },
         Object {
-          "backgroundColor": "#ff0000",
+          "backgroundColor": "rgb(255, 0, 0)",
         },
       ]
     }
@@ -70,7 +70,7 @@ exports[`DevPanel renders correctly 1`] = `
     <Image
       source={
         Object {
-          "testUri": "../../../assets/images/settings-icon.png",
+          "testUri": "../../../src/app/components/header/images/settings-icon.png",
         }
       }
       style={

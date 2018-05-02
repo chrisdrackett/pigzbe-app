@@ -5,14 +5,14 @@ exports[`TextInput renders correctly 1`] = `
   allowFontScaling={true}
   onChangeText={[Function]}
   placeholder={undefined}
-  placeholderTextColor="#97abc7"
+  placeholderTextColor="rgba(255, 255, 255, 0.6)"
   style={
     Object {
       "alignSelf": "stretch",
-      "borderColor": "#ffffff",
+      "borderColor": "rgb(255, 255, 255)",
       "borderRadius": 22.5,
       "borderWidth": 1,
-      "color": "#ffffff",
+      "color": "rgb(255, 255, 255)",
       "fontFamily": "Poppins",
       "fontSize": 14,
       "fontWeight": "bold",

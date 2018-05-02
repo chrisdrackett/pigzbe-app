@@ -38,7 +38,7 @@ exports[`Coin renders correctly 1`] = `
     ellipsizeMode="tail"
     style={
       Object {
-        "color": "#4A4A4A",
+        "color": "rgb(74, 74, 74)",
         "fontFamily": "Poppins",
         "fontSize": 14,
         "fontWeight": "bold",
@@ -53,11 +53,10 @@ exports[`Coin renders correctly 1`] = `
     ellipsizeMode="tail"
     style={
       Object {
-        "color": "#4A4A4A",
+        "color": "rgba(74, 74, 74, 0.5)",
         "fontFamily": "Poppins",
         "fontSize": 14,
         "fontWeight": "bold",
-        "opacity": 0.5,
       }
     }
   >
