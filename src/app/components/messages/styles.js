@@ -52,5 +52,14 @@ export default StyleSheet.create({
         fontFamily,
         color: color.darkGrey,
         fontSize: 14
+    },
+    border: {
+        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        height: 5,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1
     }
 });

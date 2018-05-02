@@ -16,6 +16,7 @@ import {
     fontFamily
 } from '../../styles';
 import images from './images';
+import styles from './styles';
 
 const nav = {
     [SCREEN_WALLET]: {
@@ -71,13 +72,7 @@ const TabBarIcon = connect(state => ({
                     source={images[iconName]}
                 />
                 <Image
-                    style={{
-                        position: 'absolute',
-                        right: -5,
-                        top: -5,
-                        width: 10,
-                        height: 10
-                    }}
+                    style={styles.notify}
                     source={images.notify}
                 />
             </View>
@@ -135,19 +130,8 @@ const Tabs = TabNavigator(nav, {
 });
 
 export default () => (
-    <View style={{
-        alignSelf: 'stretch',
-        flex: 1
-    }}>
-        <View style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.05)',
-            height: 5,
-            position: 'absolute',
-            bottom: 50,
-            left: 0,
-            right: 0,
-            zIndex: 1
-        }}/>
+    <View style={styles.container}>
+        <View style={styles.border}/>
         <Tabs/>
     </View>
 );

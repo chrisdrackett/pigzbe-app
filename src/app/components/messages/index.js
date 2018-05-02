@@ -44,6 +44,7 @@ class Messages extends Component {
                     <Pig/>
                 </View>
                 <View style={styles.containerBody}>
+                    <View style={styles.border}/>
                     {isDesktop ? (
                         <ScrollView>
                             {messages.map((item, i) => (
