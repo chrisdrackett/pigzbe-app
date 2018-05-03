@@ -5,29 +5,40 @@ import {
 } from 'react-native';
 import styles from './styles';
 
-const getButtonStyle = (plain, disabled) => {
+const getButtonHitStyle = (plain, style) => {
     if (plain) {
-        return [styles.button, styles.buttonPlain];
+        return null;
+    }
+
+    return [styles.buttonHit, style];
+};
+
+const getButtonTextStyle = (plain, disabled, textStyle) => {
+    if (plain) {
+        return [styles.button, styles.buttonPlain, textStyle];
     }
 
     if (disabled) {
-        return [styles.button, styles.buttonDisabled];
+        return [styles.button, styles.buttonDisabled, textStyle];
     }
 
-    return styles.button;
+    return [styles.button, textStyle];
 };
 
 export default ({
     label,
     onPress,
     plain,
-    disabled
+    disabled,
+    style,
+    textStyle
 }) => (
     <TouchableOpacity
-        style={plain ? null : styles.buttonHit}
+        disabled={disabled}
+        style={getButtonHitStyle(plain, style)}
         onPress={() => disabled ? false : onPress()}>
         <Text
-            style={getButtonStyle(plain, disabled)}>
+            style={getButtonTextStyle(plain, disabled, textStyle)}>
             {label}
         </Text>
     </TouchableOpacity>

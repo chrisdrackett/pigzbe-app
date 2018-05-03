@@ -3,74 +3,97 @@ import {connect} from 'react-redux';
 import {
     Text,
     View,
-    TouchableOpacity
+    FlatList,
+    ScrollView
 } from 'react-native';
-import {
-    profileUpdate,
-    profileAvailable
-} from '../../actions';
 import styles from './styles';
-import Button from '../button';
 import Loader from '../loader';
-import BaseView from '../base-view';
+import Logo from '../logo';
+import Pig from '../pig';
+import Alert from '../alert';
+import Transaction from './transaction';
+import {Wollo} from '../balance';
+import Button from '../button';
+import isDesktop from '../../utils/is-desktop';
+import {SCREEN_BALANCE} from '../../constants';
 import {
-    strings,
-    SCREEN_BALANCE
-} from '../../constants';
+    loadEscrowAccount,
+    validateTransaction
+} from '../../actions';
 
 class Escrow extends Component {
-    constructor(props) {
-        super(props);
+    async componentDidMount() {
+        const {dispatch, transactions} = this.props;
 
-        this.state = {
-            name: props.name,
-            email: props.email,
-            image: props.image,
-            subscribe: props.subscribe,
-            validName: true,
-            validEmail: true,
-            isUpdating: false
-        };
+        await dispatch(loadEscrowAccount());
+
+        for (const transaction of transactions) {
+            await dispatch(validateTransaction(transaction.xdr));
+        }
+    }
+
+    updateMessages() {
     }
 
     render() {
         const {
-            dispatch,
             error,
             navigation,
-            escrow
+            balance,
+            transactions,
+            loading
         } = this.props;
 
-        const {
-            isUpdating
-        } = this.state;
-
         return (
-            <BaseView scrollViewStyle={styles.scrollContainer}>
-                <View style={styles.container}>
+            <View style={styles.container}>
+                <View style={styles.containerHeader}>
+                    <Logo/>
                     <Text style={styles.title}>
-                        Escrow
+                        Your Escrow Account
                     </Text>
-                    <Text style={styles.title}>
-                        transactions: {escrow.transactions.length}
-                    </Text>
+                    <Wollo balance={balance}/>
+                    <Pig/>
+                </View>
+                <View style={styles.containerBody}>
+                    <View style={styles.border}/>
+                    {isDesktop ? (
+                        <ScrollView style={{width: '100%'}}>
+                            {transactions.map((item, i) => (
+                                <Transaction key={i} {...item}/>
+                            ))}
+                        </ScrollView>
+                    ) : (
+                        <FlatList
+                            data={transactions}
+                            renderItem={({item}) => (
+                                <Transaction {...item}/>
+                            )}
+                        />
+                    )}
+                </View>
+                <View style={styles.button}>
                     <Button
                         label={'Back'}
                         onPress={() => navigation.navigate(SCREEN_BALANCE)}
                     />
                 </View>
                 <Loader
-                    isLoading={isUpdating}
+                    isLoading={loading}
                 />
-            </BaseView>
+                <Alert
+                    error={error}
+                />
+            </View>
         );
     }
 }
 
+// export for test
 export const EscrowComponent = Escrow;
 
-export default connect(
-    state => ({
-        escrow: state.wollo.escrow
-    })
-)(Escrow);
+export default connect(state => ({
+    balance: state.escrow.balance,
+    transactions: state.escrow.transactions,
+    loading: state.escrow.loading,
+    error: state.escrow.error
+}))(Escrow);

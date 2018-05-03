@@ -1,87 +1,109 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {
     container,
-    input,
     color,
     fontFamily,
     paddingH
 } from '../../styles';
 
 export default StyleSheet.create({
-    scrollContainer: {
-        position: 'relative',
-        backgroundColor: color.blue,
-        alignSelf: 'stretch'
-    },
-    container: {
-        ...container,
-        paddingLeft: paddingH,
-        paddingRight: paddingH,
-        justifyContent: 'flex-start'
-    },
-    avatar: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 20
-    },
-    avatarText: {
-        fontFamily,
-        color: color.whiteOpacity60,
-        fontSize: 14,
-        textAlign: 'center',
-        marginTop: 20
-    },
-    loader: {
+    container,
+    containerHeader: {
+        height: 245,
+        flexBasis: 245,
+        flexGrow: 0,
+        width: '100%',
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: 0
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    containerBody: {
+        flexGrow: 1,
+        backgroundColor: color.lightGrey,
+        alignSelf: 'stretch',
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center'
     },
     title: {
         fontFamily,
         color: color.white,
         fontSize: 16,
         fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 0,
-        marginTop: 10
+        marginLeft: 20,
+        marginRight: 20,
+        marginTop: 10,
+        textAlign: 'center'
     },
-    subscribe: {
-        flexDirection: 'row',
-        marginTop: 20,
-        marginBottom: 30,
-        alignItems: 'center',
-        justifyContent: 'space-between',
+    transaction: {
+        flex: 1,
+        width: Dimensions.get('window').width,
         paddingLeft: 20,
         paddingRight: 20,
-        alignSelf: 'stretch',
+        paddingTop: 20,
+        paddingBottom: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: color.mediumGrey
     },
-    subscribeText: {
-        fontFamily,
-        color: color.white,
-        fontSize: 14,
-        fontWeight: 'bold',
-        marginRight: 10
-    },
-    buttonContainer: {
+    inner: {
         alignSelf: 'stretch',
+        flex: 1,
+        justifyContent: 'space-between',
         alignItems: 'center',
-        justifyContent: 'flex-end',
-        flexGrow: 2
+        flexDirection: 'row'
     },
-    error: {
+    button: {
+        height: 95,
+        flexBasis: 95,
+        flexGrow: 0,
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
+        paddingTop: 20,
+        paddingBottom: 10,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'stretch',
+    },
+    detail: {
+    },
+    date: {
         fontFamily,
-        color: color.red,
-        fontSize: 18
+        color: color.blue,
+        fontWeight: 'bold',
+        fontSize: 14,
+        marginBottom: 2
     },
-    input,
-    inputError: {
-        ...input,
-        borderColor: color.red
-    }
+    amount: {
+        fontFamily,
+        color: color.darkGrey,
+        fontSize: 20
+    },
+    border: {
+        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        height: 5,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1
+    },
+    disabled: {
+        backgroundColor: color.grey,
+        borderColor: color.grey
+    },
+    claimed: {
+        backgroundColor: color.green,
+        borderColor: color.green,
+    },
+    claimedText: {
+        color: color.white,
+    },
+    disabledText: {
+        color: color.whiteOpacity60,
+    },
+    btn: {
+        width: 100,
+        flexBasis: 100
+    },
 });

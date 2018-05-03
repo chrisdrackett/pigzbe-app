@@ -20,6 +20,16 @@ import Button from '../button';
 
 const coins = ['xlm', 'btc', 'eth', 'eur', 'usd', 'jpy', 'gbp'];
 
+export const Wollo = ({balance}) => (
+    <View style={styles.wolloContainer}>
+        <View style={styles.balanceContainer}>
+            <Image style={styles.currencyLogo} source={require('./images/currency_logo.png')} />
+            <Text style={styles.balance}>{Number(balance).toFixed(2)}</Text>
+        </View>
+        <Text style={styles.label}>{strings.walletBalance}</Text>
+    </View>
+);
+
 class Balance extends Component {
 
   state = {
@@ -58,12 +68,7 @@ class Balance extends Component {
           <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container}>
               <Avatar image={image}/>
               <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
-              <View style={styles.balanceContainer}>
-                  <Image style={styles.currencyLogo} source={require('./images/currency_logo.png')} />
-                  <Text style={styles.balance}>{Number(balance).toFixed(2)}</Text>
-              </View>
-
-              <Text style={styles.label}>{strings.walletBalance}</Text>
+              <Wollo balance={balance}/>
               <Pig style={styles.pig}/>
               <Graph balance={balance} balanceConvert={balance * exchange.USD}/>
               <ConvertBalance coins={coins.filter(c => c !== 'usd')} exchange={exchange} balance={balance}/>
@@ -86,7 +91,7 @@ export const BalanceComponent = Balance;
 export default connect(
     state => ({
         balance: state.wollo.balance,
-        escrow: state.wollo.escrow,
+        escrow: state.escrow.escrowPublicKey,
         name: state.profile.name,
         image: state.profile.image
     })
