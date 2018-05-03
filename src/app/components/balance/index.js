@@ -8,13 +8,15 @@ import {
 import Avatar from '../avatar';
 import styles from './styles';
 import {
-    strings
+    strings,
+    SCREEN_ESCROW
 } from '../../constants';
 import ConvertBalance from '../convert-balance';
 import Graph from '../balance-graph';
 import Loader from '../loader';
 import BaseView from '../base-view';
 import Pig from '../pig';
+import Button from '../button';
 
 const coins = ['xlm', 'btc', 'eth', 'eur', 'usd', 'jpy', 'gbp'];
 
@@ -42,6 +44,7 @@ class Balance extends Component {
       const {exchange} = this.state;
       const {
           balance,
+          escrow,
           name,
           image,
           navigation
@@ -64,6 +67,14 @@ class Balance extends Component {
               <Pig style={styles.pig}/>
               <Graph balance={balance} balanceConvert={balance * exchange.USD}/>
               <ConvertBalance coins={coins.filter(c => c !== 'usd')} exchange={exchange} balance={balance}/>
+              {escrow ? (
+                  <View style={styles.escrow}>
+                      <Button
+                          label={'Escrow account'}
+                          onPress={() => navigation.navigate(SCREEN_ESCROW)}
+                      />
+                  </View>
+              ) : null}
           </BaseView>
       );
   }
@@ -75,6 +86,7 @@ export const BalanceComponent = Balance;
 export default connect(
     state => ({
         balance: state.wollo.balance,
+        escrow: state.wollo.escrow,
         name: state.profile.name,
         image: state.profile.image
     })

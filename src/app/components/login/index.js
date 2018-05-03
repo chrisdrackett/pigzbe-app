@@ -20,7 +20,7 @@ import DevPanel from '../dev-panel';
 
 class Login extends Component {
     state = {
-        inputText: 'SAXYJU6Q67IXM4DSOFGVJ2L2I7C2SQJSV2MDR2E64AKML5ZXO25RMISJ'
+        inputText: 'SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4'
     }
 
     componentDidMount() {

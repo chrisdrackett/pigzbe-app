@@ -3,12 +3,14 @@ import {USE_TESTNET} from '../constants';
 import {
     WOLLO_USE_TESTNET,
     WOLLO_UPDATE_ACCOUNT,
-    WOLLO_UPDATE_BALANCE
+    WOLLO_UPDATE_BALANCE,
+    WOLLO_SET_ESCROW
 } from '../actions';
 
 export const initialState = {
     useTestnet: USE_TESTNET,
-    balance: '0'
+    balance: '0',
+    escrow: null
 };
 
 export default (state = initialState, action) => {
@@ -27,6 +29,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 balance: action.balance
+            };
+        case WOLLO_SET_ESCROW:
+            return {
+                ...state,
+                escrow: action.escrow
             };
         default:
             return state;

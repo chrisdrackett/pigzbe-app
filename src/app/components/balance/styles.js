@@ -2,7 +2,8 @@ import {StyleSheet} from 'react-native';
 import {
     container,
     color,
-    fontFamily
+    fontFamily,
+    paddingH
 } from '../../styles';
 
 export default StyleSheet.create({
@@ -45,5 +46,11 @@ export default StyleSheet.create({
         fontFamily,
         color: color.whiteOpacity60,
         fontSize: 14,
+    },
+    escrow: {
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
+        marginBottom: 10,
+        marginTop: 20
     },
 });

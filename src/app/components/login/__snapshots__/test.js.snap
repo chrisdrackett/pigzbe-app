@@ -169,7 +169,7 @@ exports[`Login renders correctly 1`] = `
           "paddingRight": 20,
         }
       }
-      value="SAXYJU6Q67IXM4DSOFGVJ2L2I7C2SQJSV2MDR2E64AKML5ZXO25RMISJ"
+      value="SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4"
     />
     <View
       accessibilityComponentType={undefined}
