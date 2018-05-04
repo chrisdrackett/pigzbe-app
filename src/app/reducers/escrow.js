@@ -2,7 +2,9 @@ import {
     ESCROW_SET,
     ESCROW_ACCOUNT,
     ESCROW_TX_VALIDATE,
-    ESCROW_TX_RESULT
+    ESCROW_TX_RESULT,
+    ESCROW_SUBMITTING,
+    ESCROW_ERROR
 } from '../actions';
 
 export const initialState = {
@@ -10,7 +12,9 @@ export const initialState = {
     escrowPublicKey: null,
     transactions: [],
     account: null,
-    balance: '0'
+    balance: '0',
+    submitting: false,
+    error: null
 };
 
 export default (state = initialState, action) => {
@@ -43,6 +47,16 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 tx: action.tx
+            };
+        case ESCROW_SUBMITTING:
+            return {
+                ...state,
+                submitting: action.value
+            };
+        case ESCROW_ERROR:
+            return {
+                ...state,
+                error: action.error
             };
         default:
             return state;

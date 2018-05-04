@@ -80,7 +80,7 @@ export default StyleSheet.create({
         fontSize: 20
     },
     border: {
-        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        backgroundColor: color.blackOpacity5,
         height: 5,
         position: 'absolute',
         top: 0,

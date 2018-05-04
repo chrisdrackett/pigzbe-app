@@ -41,7 +41,7 @@ class Escrow extends Component {
             navigation,
             balance,
             transactions,
-            loading
+            submitting
         } = this.props;
 
         return (
@@ -78,7 +78,8 @@ class Escrow extends Component {
                     />
                 </View>
                 <Loader
-                    isLoading={loading}
+                    isLoading={submitting}
+                    transparent
                 />
                 <Alert
                     error={error}
@@ -95,5 +96,6 @@ export default connect(state => ({
     balance: state.escrow.balance,
     transactions: state.escrow.transactions,
     loading: state.escrow.loading,
-    error: state.escrow.error
+    error: state.escrow.error,
+    submitting: state.escrow.submitting
 }))(Escrow);

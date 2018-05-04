@@ -63,7 +63,7 @@ export default connect()(({
             </View>
             <Button
                 label={validation.isExecuted ? 'Done' : 'Claim'}
-                disabled={!validation.isValid || !validation.isExecuted}
+                disabled={!validation.isValid || validation.isExecuted}
                 style={getButtonStyle(validation)}
                 textStyle={getButtonTextStyle(validation)}
                 onPress={() => {

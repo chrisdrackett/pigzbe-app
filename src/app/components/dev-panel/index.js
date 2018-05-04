@@ -49,6 +49,10 @@ const testUsers = [{
     label: 'User with escrow 2',
     publicKey: 'GDHCHMOBVB2GCXOJWMEFF5BYHJZ5PUPFOLISC2D5YJPVYDJOLCSCHNCD',
     secretKey: 'SC2A6EMQMDE4PJWDFYOPRAB2UJU7M3VTDGZXCHOGTGDOTRA5HVW33QDG'
+}, {
+    label: 'User with escrow 3',
+    publicKey: 'GAG6MT2Q4II2JHZI67QP2FHBTV7WAQ3NWVKVASDQHR7DPSP7H3HBVEQA',
+    secretKey: 'SCBLV2OXPIMUHKYJRS3TMPGPBRWEVKWTJB33TW6RZEJ276VWX5GPCPXQ'
 }];
 
 class DevPanel extends Component {
@@ -77,17 +81,19 @@ class DevPanel extends Component {
                             <Text style={styles.switchText}>
                                 Select test user
                             </Text>
-                            <Picker
-                                selectedValue={testUserKey}
-                                onValueChange={value => dispatch(authTestUser(value))}>
-                                {testUsers.map(user => (
-                                    <Picker.Item
-                                        key={user.label}
-                                        label={user.label}
-                                        value={user.secretKey}
-                                    />
-                                ))}
-                            </Picker>
+                            <View style={styles.picker}>
+                                <Picker
+                                    selectedValue={testUserKey}
+                                    onValueChange={value => dispatch(authTestUser(value))}>
+                                    {testUsers.map(user => (
+                                        <Picker.Item
+                                            key={user.label}
+                                            label={user.label}
+                                            value={user.secretKey}
+                                        />
+                                    ))}
+                                </Picker>
+                            </View>
                         </View>
                         <TouchableOpacity
                             style={styles.closeBtn}

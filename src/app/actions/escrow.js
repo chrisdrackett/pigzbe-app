@@ -10,6 +10,8 @@ export const ESCROW_SET = 'ESCROW_SET';
 export const ESCROW_ACCOUNT = 'ESCROW_ACCOUNT';
 export const ESCROW_TX_RESULT = 'ESCROW_TX_RESULT';
 export const ESCROW_TX_VALIDATE = 'ESCROW_TX_VALIDATE';
+export const ESCROW_SUBMITTING = 'ESCROW_SUBMITTING';
+export const ESCROW_ERROR = 'ESCROW_ERROR';
 
 export const loadEscrow = () => (dispatch, getState) => {
     const {publicKey} = getState().auth;
@@ -37,13 +39,23 @@ export const validateTransaction = xdr => dispatch => {
         .then(validation => dispatch({type: ESCROW_TX_VALIDATE, xdr, validation}));
 };
 
-export const submitTransaction = xdr => dispatch => {
+const submitting = value => ({type: ESCROW_SUBMITTING, value});
+
+const escrowError = error => ({type: ESCROW_ERROR, error});
+
+export const submitTransaction = xdr => (dispatch, getState) => {
+    const {destinationPublicKey} = getState().escrow;
+    dispatch(escrowError(null));
+    dispatch(submitting(true));
     return getServer()
         .submitTransaction(new Stellar.Transaction(xdr))
         .then(tx => dispatch({type: ESCROW_TX_RESULT, tx}))
         .then(() => wait(1))
-        .then(() => dispatch(loadAccount()))
-        .then(() => dispatch(loadEscrowAccount()));
+        .then(() => dispatch(validateTransaction(xdr)))
+        .then(() => dispatch(loadAccount(destinationPublicKey)))
+        .then(() => dispatch(loadEscrowAccount()))
+        .catch(error => dispatch(escrowError(error)))
+        .finally(() => dispatch(submitting(false)));
 };
 
 export const viewTransaction = txId => () => openURL(`${getServerURL()}transactions/${txId}`);

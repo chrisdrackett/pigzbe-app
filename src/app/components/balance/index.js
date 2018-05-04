@@ -69,7 +69,7 @@ class Balance extends Component {
           navigation
       } = this.props;
 
-      if (!exchange && !error) {
+      if (!exchange) {
           return <Loader isLoading />;
       }
 
