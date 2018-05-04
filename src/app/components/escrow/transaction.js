@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {Text, View} from 'react-native';
 import styles from './styles';
 import moment from 'moment';
-import BigNumber from 'bignumber.js';
 import Button from '../button';
 import {
     ASSET_CODE
@@ -12,8 +11,7 @@ import {
     submitTransaction,
     viewTransaction
 } from '../../actions';
-
-const amountFormat = amount => new BigNumber(amount).toFormat();
+import moneyFormat from '../../utils/money-format';
 
 const daysToGo = date => {
     const str = moment.unix(date).fromNow();
@@ -58,7 +56,7 @@ export default connect()(({
                     {daysToGo(date)}
                 </Text>
                 <Text style={styles.amount}>
-                    {amountFormat(amount)} {ASSET_CODE}
+                    {moneyFormat(amount)} {ASSET_CODE}
                 </Text>
             </View>
             <Button
