@@ -2,6 +2,7 @@ export const fontFamily = 'Poppins';
 
 export const color = {
     black: 'rgb(0, 0, 0)',
+    blackOpacity5: 'rgba(0, 0, 0, 0.05)',
     white: 'rgb(255, 255, 255)',
     whiteOpacity60: 'rgba(255, 255, 255, 0.6)',
     whiteOpacity70: 'rgba(255, 255, 255, 0.7)',

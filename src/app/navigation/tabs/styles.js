@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {color} from '../../styles';
 
 export default StyleSheet.create({
     container: {
@@ -13,7 +14,7 @@ export default StyleSheet.create({
         height: 10
     },
     border: {
-        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        backgroundColor: color.blackOpacity10,
         height: 5,
         position: 'absolute',
         bottom: 50,

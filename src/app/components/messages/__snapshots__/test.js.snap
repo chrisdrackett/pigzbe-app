@@ -96,6 +96,19 @@ exports[`Messages renders correctly with messages 1`] = `
       }
     }
   >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.05)",
+          "height": 5,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "zIndex": 1,
+        }
+      }
+    />
     <RCTScrollView
       data={
         Array [
@@ -192,7 +205,7 @@ exports[`Messages renders correctly with messages 1`] = `
                     }
                   }
                 >
-                  12 days ago
+                  14 days ago
                    
                   April 20, 2018
                 </Text>
@@ -245,7 +258,7 @@ exports[`Messages renders correctly with messages 1`] = `
                   }
                 }
               >
-                12 days ago
+                14 days ago
                  
                 April 20, 2018
               </Text>
@@ -368,6 +381,19 @@ exports[`Messages renders correctly without messages 1`] = `
       }
     }
   >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.05)",
+          "height": 5,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "zIndex": 1,
+        }
+      }
+    />
     <RCTScrollView
       data={Array []}
       disableVirtualization={false}

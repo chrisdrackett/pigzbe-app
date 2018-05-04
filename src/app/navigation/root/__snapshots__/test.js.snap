@@ -169,7 +169,7 @@ exports[`Navigation: Root renders correctly 1`] = `
           "paddingRight": 20,
         }
       }
-      value="SAXYJU6Q67IXM4DSOFGVJ2L2I7C2SQJSV2MDR2E64AKML5ZXO25RMISJ"
+      value="SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4"
     />
     <View
       accessibilityComponentType={undefined}
@@ -207,18 +207,21 @@ exports[`Navigation: Root renders correctly 1`] = `
         allowFontScaling={true}
         ellipsizeMode="tail"
         style={
-          Object {
-            "alignSelf": "stretch",
-            "color": "rgb(0, 50, 120)",
-            "fontFamily": "Poppins",
-            "fontSize": 16,
-            "fontWeight": "bold",
-            "height": 45,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 10,
-            "textAlign": "center",
-          }
+          Array [
+            Object {
+              "alignSelf": "stretch",
+              "color": "rgb(0, 50, 120)",
+              "fontFamily": "Poppins",
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "height": 45,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 10,
+              "textAlign": "center",
+            },
+            undefined,
+          ]
         }
       >
         Next
@@ -274,6 +277,7 @@ exports[`Navigation: Root renders correctly 1`] = `
               "textDecorationLine": "underline",
               "textDecorationStyle": "solid",
             },
+            undefined,
           ]
         }
       >

@@ -2,7 +2,8 @@ import {StyleSheet} from 'react-native';
 import {
     container,
     color,
-    fontFamily
+    fontFamily,
+    paddingH
 } from '../../styles';
 
 export default StyleSheet.create({
@@ -14,13 +15,17 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 10
     },
+    wolloContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10
+    },
     balanceContainer: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
-        flexDirection: 'row',
-        marginTop: 10
+        flexDirection: 'row'
     },
     logo: {
         width: 65,
@@ -45,5 +50,18 @@ export default StyleSheet.create({
         fontFamily,
         color: color.whiteOpacity60,
         fontSize: 14,
+    },
+    escrow: {
+        height: 95,
+        flexBasis: 95,
+        flexGrow: 0,
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
+        paddingTop: 20,
+        paddingBottom: 10,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'stretch',
     },
 });

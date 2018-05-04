@@ -12,6 +12,28 @@ describe('Actions', () => {
         });
     });
 
+    describe('Escrow', () => {
+        it('should create an action to load config', () => {
+            expect(actions.loadEscrow()).toEqual(expect.any(Function));
+        });
+
+        it('should create an action to load account', () => {
+            expect(actions.loadEscrowAccount()).toEqual(expect.any(Function));
+        });
+
+        it('should create an action to validate transaction', () => {
+            expect(actions.validateTransaction('')).toEqual(expect.any(Function));
+        });
+
+        it('should create an action to submit transaction', () => {
+            expect(actions.submitTransaction('')).toEqual(expect.any(Function));
+        });
+
+        it('should create an action to view transaction', () => {
+            expect(actions.viewTransaction('')).toEqual(expect.any(Function));
+        });
+    });
+
     describe('Messages', () => {
         it('should create an action to update', () => {
             expect(actions.messagesUpdate([])).toEqual({
@@ -68,11 +90,8 @@ describe('Actions', () => {
             expect(actions.loadAccount()).toEqual(expect.any(Function));
         });
 
-        it('should create an action to updateBalance', () => {
-            expect(actions.updateBalance('1')).toEqual({
-                type: actions.WOLLO_UPDATE_BALANCE,
-                balance: '1'
-            });
+        it('should create an action to setUseTestnet', () => {
+            expect(actions.setUseTestnet(true)).toEqual(expect.any(Function));
         });
     });
 
