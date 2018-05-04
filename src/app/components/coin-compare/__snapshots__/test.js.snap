@@ -15,11 +15,7 @@ exports[`Coin renders correctly 1`] = `
   }
 >
   <Image
-    source={
-      Object {
-        "testUri": "../../../src/app/components/coin-icon/images/coin-btc.png",
-      }
-    }
+    source={undefined}
     style={
       Array [
         Object {
@@ -45,7 +41,7 @@ exports[`Coin renders correctly 1`] = `
       }
     }
   >
-    BTC
+    btc
   </Text>
   <Text
     accessible={true}
@@ -60,7 +56,7 @@ exports[`Coin renders correctly 1`] = `
       }
     }
   >
-    1231.12312
+    1,231.12
   </Text>
 </View>
 `;

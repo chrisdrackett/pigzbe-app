@@ -44,6 +44,8 @@ class Escrow extends Component {
             submitting
         } = this.props;
 
+        console.log(JSON.stringify(this.props, null, 2));
+
         return (
             <View style={styles.container}>
                 <View style={styles.containerHeader}>
@@ -88,9 +90,6 @@ class Escrow extends Component {
         );
     }
 }
-
-// export for test
-export const EscrowComponent = Escrow;
 
 export default connect(state => ({
     balance: state.escrow.balance,

@@ -2,11 +2,7 @@
 
 exports[`CoinIcon renders correctly 1`] = `
 <Image
-  source={
-    Object {
-      "testUri": "../../../src/app/components/coin-icon/images/coin-btc.png",
-    }
-  }
+  source={undefined}
   style={
     Object {
       "height": 35,

@@ -117,7 +117,7 @@ exports[`ConvertBalance renders correctly 1`] = `
           }
         }
       >
-        1223.00000
+        1,223
       </Text>
     </View>
     <View
@@ -179,7 +179,7 @@ exports[`ConvertBalance renders correctly 1`] = `
           }
         }
       >
-        0.05458
+        0.05458249
       </Text>
     </View>
     <View
@@ -241,7 +241,7 @@ exports[`ConvertBalance renders correctly 1`] = `
           }
         }
       >
-        0.75043
+        0.7504328
       </Text>
     </View>
     <View
@@ -303,7 +303,7 @@ exports[`ConvertBalance renders correctly 1`] = `
           }
         }
       >
-        423.03570
+        423.04
       </Text>
     </View>
     <View
@@ -365,7 +365,7 @@ exports[`ConvertBalance renders correctly 1`] = `
           }
         }
       >
-        511.58090
+        511.58
       </Text>
     </View>
     <View
@@ -427,7 +427,7 @@ exports[`ConvertBalance renders correctly 1`] = `
           }
         }
       >
-        57847.90000
+        57,848
       </Text>
     </View>
     <View
@@ -489,7 +489,7 @@ exports[`ConvertBalance renders correctly 1`] = `
           }
         }
       >
-        369.71290
+        369.71
       </Text>
     </View>
   </View>
