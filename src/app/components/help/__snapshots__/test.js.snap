@@ -90,6 +90,7 @@ exports[`Help renders correctly 1`] = `
             "textDecorationLine": "underline",
             "textDecorationStyle": "solid",
           },
+          undefined,
         ]
       }
     >

@@ -93,6 +93,7 @@ exports[`Alert renders correctly with error prop 1`] = `
               "textDecorationLine": "underline",
               "textDecorationStyle": "solid",
             },
+            undefined,
           ]
         }
       >

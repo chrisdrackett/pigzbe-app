@@ -9,11 +9,12 @@ import {color} from '../../styles';
 
 export default ({
     isLoading,
-    message
+    message,
+    transparent
 }) => {
     if (isLoading) {
         return (
-            <View style={styles.loader}>
+            <View style={transparent ? [styles.loader, styles.transparent] : styles.loader}>
                 {message ? (
                     <Text style={styles.message}>{message}</Text>
                 ) : null}

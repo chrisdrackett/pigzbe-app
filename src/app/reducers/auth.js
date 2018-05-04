@@ -2,13 +2,15 @@ import {
     AUTH_LOGIN_START,
     AUTH_LOGIN_FAIL,
     AUTH_LOGIN,
-    AUTH_LOGOUT
+    AUTH_LOGOUT,
+    AUTH_TEST_USER
 } from '../actions';
 
 export const initialState = {
     isLoggingIn: false,
     isLoggedIn: false,
-    error: null
+    error: null,
+    testUserKey: 'SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4'
 };
 
 export default (state = initialState, action) => {
@@ -37,6 +39,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false
+            };
+        case AUTH_TEST_USER:
+            return {
+                ...state,
+                testUserKey: action.testUserKey
             };
         default:
             return state;

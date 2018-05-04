@@ -8,9 +8,9 @@ import {
     strings
 } from '../../constants';
 import openURL from '../../utils/open-url';
-import Coin from '../coin-compare';
+import CoinCompare from '../coin-compare';
 
-const ConvertBalance = ({exchange, balance, coins}) => (
+const ConvertBalance = ({exchange, balance, coins, dps}) => (
     <View style={styles.container}>
         <Text style={styles.title}>{strings.walletConversionTitle}</Text>
         <Text
@@ -19,7 +19,14 @@ const ConvertBalance = ({exchange, balance, coins}) => (
             {strings.walletConversionCreditLabel}
         </Text>
         <View style={styles.containerCoins}>
-            {coins.map(c => <Coin key={c} coin={c} value={exchange[c.toUpperCase()] * balance}/>)}
+            {coins.map(c => (
+                <CoinCompare
+                    key={c}
+                    coin={c}
+                    value={exchange[c] * balance}
+                    dp={dps[c]}
+                />
+            ))}
         </View>
     </View>
 );

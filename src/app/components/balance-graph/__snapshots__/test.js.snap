@@ -79,7 +79,7 @@ exports[`Balance Graph renders correctly 1`] = `
             }
           }
         >
-          100.00
+          100
         </Text>
       </View>
     </View>
@@ -108,7 +108,7 @@ exports[`Balance Graph renders correctly 1`] = `
         }
       >
         $
-        1231.00
+        1,231
       </Text>
     </View>
   </View>

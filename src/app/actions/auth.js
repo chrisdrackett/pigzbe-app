@@ -8,6 +8,7 @@ export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
 export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
 export const AUTH_LOGIN = 'AUTH_LOGIN';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+export const AUTH_TEST_USER = 'AUTH_TEST_USER';
 
 export const authTouchId = () => () => authenticate();
 
@@ -48,3 +49,5 @@ export const authLogout = () => dispatch => {
     clear();
     dispatch({type: AUTH_LOGOUT});
 };
+
+export const authTestUser = testUserKey => ({type: AUTH_TEST_USER, testUserKey});

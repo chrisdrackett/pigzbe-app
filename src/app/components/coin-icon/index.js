@@ -11,6 +11,6 @@ export default ({
 }) => (
     <Image
         style={style ? [styles.coin].concat(style) : styles.coin}
-        source={images[coin.toUpperCase()]}
+        source={images[coin]}
     />
 );

@@ -95,5 +95,10 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         color: color.white,
         fontSize: 16
-    }
+    },
+    picker: {
+        backgroundColor: color.white,
+        borderRadius: 8,
+        marginTop: 10,
+    },
 });
