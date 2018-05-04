@@ -6,11 +6,12 @@ import {
     View,
     TouchableOpacity,
     ScrollView,
-    Switch
+    Switch,
+    Picker
 } from 'react-native';
 import styles from './styles';
 import container from '../../styles';
-import {setUseTestnet} from '../../actions';
+import {setUseTestnet, authTestUser} from '../../actions';
 
 const SwitchControl = ({
     label,
@@ -28,6 +29,28 @@ const SwitchControl = ({
     </View>
 );
 
+const testUsers = [{
+    label: 'None',
+    publicKey: '',
+    secretKey: ''
+}, {
+    label: 'User with Wollo',
+    publicKey: 'GCUPGH4DZZVXNWVMEOXMO2M2524UYY2O6DXDGUR6YRFPNFGVF4LX63TW',
+    secretKey: 'SBBZSQRKV4NDIKRVSXYL3T7NYKR3QP4X23VYGLEWYITFCKFN6Y4GY2PA'
+}, {
+    label: 'User with escrow',
+    publicKey: 'GAER3I4YDEPXCFMUB5J5OXD7QT7F4XPT2NVUOMNIUAMD2UCYOKKPFB2U',
+    secretKey: 'SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4'
+}, {
+    label: 'User with zero Wollo',
+    publicKey: 'GBCJNZC7FDVATWZ2TZDDPCKFCSTYMDHXYQACOC7PIWZKHKVAGOQVBEV7',
+    secretKey: 'SCFSU3FREQAIZVAQDWDHPKPHJLJAH3S7Q2NR47SZJSPOHYTDVW5ARZ54'
+}, {
+    label: 'User with escrow 2',
+    publicKey: 'GDHCHMOBVB2GCXOJWMEFF5BYHJZ5PUPFOLISC2D5YJPVYDJOLCSCHNCD',
+    secretKey: 'SC2A6EMQMDE4PJWDFYOPRAB2UJU7M3VTDGZXCHOGTGDOTRA5HVW33QDG'
+}];
+
 class DevPanel extends Component {
     state = {
         isOpen: false
@@ -36,7 +59,8 @@ class DevPanel extends Component {
     render() {
         const {
             dispatch,
-            useTestnet
+            useTestnet,
+            testUserKey
         } = this.props;
 
         if (this.state.isOpen) {
@@ -50,6 +74,20 @@ class DevPanel extends Component {
                                 value={useTestnet}
                                 onValueChange={value => dispatch(setUseTestnet(value))}
                             />
+                            <Text style={styles.switchText}>
+                                Select test user
+                            </Text>
+                            <Picker
+                                selectedValue={testUserKey}
+                                onValueChange={value => dispatch(authTestUser(value))}>
+                                {testUsers.map(user => (
+                                    <Picker.Item
+                                        key={user.label}
+                                        label={user.label}
+                                        value={user.secretKey}
+                                    />
+                                ))}
+                            </Picker>
                         </View>
                         <TouchableOpacity
                             style={styles.closeBtn}
@@ -82,6 +120,7 @@ export const DevPanelComponent = DevPanel;
 
 export default connect(
     state => ({
+        testUserKey: state.auth.testUserKey,
         useTestnet: state.wollo.useTestnet
     })
 )(DevPanel);

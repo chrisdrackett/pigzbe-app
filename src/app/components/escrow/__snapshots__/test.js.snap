@@ -17,9 +17,9 @@ exports[`Escrow renders correctly 1`] = `
       Object {
         "alignItems": "center",
         "flex": 1,
-        "flexBasis": 162,
+        "flexBasis": 245,
         "flexGrow": 0,
-        "height": 162,
+        "height": 245,
         "justifyContent": "flex-start",
         "width": "100%",
       }
@@ -59,6 +59,70 @@ exports[`Escrow renders correctly 1`] = `
     >
       Your Escrow Account
     </Text>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "justifyContent": "center",
+          "marginTop": 10,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../src/app/components/balance/images/currency_logo.png",
+            }
+          }
+          style={
+            Object {
+              "height": 19,
+              "marginRight": 10,
+              "width": 23,
+            }
+          }
+        />
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "rgb(255, 255, 255)",
+              "fontFamily": "Poppins",
+              "fontSize": 40,
+            }
+          }
+        >
+          NaN
+        </Text>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "rgba(255, 255, 255, 0.6)",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+          }
+        }
+      >
+        Wollo balance
+      </Text>
+    </View>
     <View
       style={
         Object {
@@ -142,14 +206,15 @@ exports[`Escrow renders correctly 1`] = `
     style={
       Object {
         "alignItems": "center",
+        "alignSelf": "stretch",
         "flex": 1,
         "flexBasis": 95,
         "flexGrow": 0,
         "height": 95,
         "justifyContent": "center",
         "paddingBottom": 10,
-        "paddingLeft": 20,
-        "paddingRight": 20,
+        "paddingLeft": "9.375%",
+        "paddingRight": "9.375%",
         "paddingTop": 20,
       }
     }
@@ -190,18 +255,21 @@ exports[`Escrow renders correctly 1`] = `
         allowFontScaling={true}
         ellipsizeMode="tail"
         style={
-          Object {
-            "alignSelf": "stretch",
-            "color": "rgb(0, 50, 120)",
-            "fontFamily": "Poppins",
-            "fontSize": 16,
-            "fontWeight": "bold",
-            "height": 45,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 10,
-            "textAlign": "center",
-          }
+          Array [
+            Object {
+              "alignSelf": "stretch",
+              "color": "rgb(0, 50, 120)",
+              "fontFamily": "Poppins",
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "height": 45,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 10,
+              "textAlign": "center",
+            },
+            undefined,
+          ]
         }
       >
         Back

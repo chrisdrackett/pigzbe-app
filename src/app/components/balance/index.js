@@ -17,6 +17,7 @@ import Loader from '../loader';
 import BaseView from '../base-view';
 import Pig from '../pig';
 import Button from '../button';
+import Alert from '../alert';
 
 const coins = ['xlm', 'btc', 'eth', 'eur', 'usd', 'jpy', 'gbp'];
 
@@ -33,25 +34,33 @@ export const Wollo = ({balance}) => (
 class Balance extends Component {
 
   state = {
-      exchange: null
+      exchange: null,
+      error: null
   }
 
   componentWillMount() {
-      this.getExhange();
+      this.getExchange();
   }
 
-  getExhange = async () => {
-      const values = await (await fetch(`https://min-api.cryptocompare.com/data/price?fsym=XLM&tsyms=${coins.toString().toUpperCase()}`, {
-          method: 'GET'
-      })).json();
+  getExchange = async () => {
+      try {
+          const values = await (await fetch(`https://min-api.cryptocompare.com/data/price?fsym=XLM&tsyms=${coins.toString().toUpperCase()}`, {
+              method: 'GET'
+          })).json();
 
-      this.setState({
-          exchange: {...values}
-      });
+          this.setState({
+              exchange: {...values},
+              error: null
+          });
+      } catch (error) {
+          this.setState({
+              error: new Error('Network error')
+          });
+      }
   }
 
   render () {
-      const {exchange} = this.state;
+      const {exchange, error} = this.state;
       const {
           balance,
           escrow,
@@ -60,7 +69,7 @@ class Balance extends Component {
           navigation
       } = this.props;
 
-      if (!exchange) {
+      if (!exchange && !error) {
           return <Loader isLoading />;
       }
 
@@ -80,6 +89,9 @@ class Balance extends Component {
                       />
                   </View>
               ) : null}
+              <Alert
+                  error={error}
+              />
           </BaseView>
       );
   }

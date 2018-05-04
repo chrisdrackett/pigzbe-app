@@ -291,18 +291,21 @@ Array [
               allowFontScaling={true}
               ellipsizeMode="tail"
               style={
-                Object {
-                  "alignSelf": "stretch",
-                  "color": "rgb(0, 50, 120)",
-                  "fontFamily": "Poppins",
-                  "fontSize": 16,
-                  "fontWeight": "bold",
-                  "height": 45,
-                  "paddingLeft": 20,
-                  "paddingRight": 20,
-                  "paddingTop": 10,
-                  "textAlign": "center",
-                }
+                Array [
+                  Object {
+                    "alignSelf": "stretch",
+                    "color": "rgb(0, 50, 120)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": 45,
+                    "paddingLeft": 20,
+                    "paddingRight": 20,
+                    "paddingTop": 10,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                ]
               }
             >
               Save
@@ -344,18 +347,21 @@ Array [
               allowFontScaling={true}
               ellipsizeMode="tail"
               style={
-                Object {
-                  "alignSelf": "stretch",
-                  "color": "rgb(0, 50, 120)",
-                  "fontFamily": "Poppins",
-                  "fontSize": 16,
-                  "fontWeight": "bold",
-                  "height": 45,
-                  "paddingLeft": 20,
-                  "paddingRight": 20,
-                  "paddingTop": 10,
-                  "textAlign": "center",
-                }
+                Array [
+                  Object {
+                    "alignSelf": "stretch",
+                    "color": "rgb(0, 50, 120)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": 45,
+                    "paddingLeft": 20,
+                    "paddingRight": 20,
+                    "paddingTop": 10,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                ]
               }
             >
               Cancel
@@ -411,6 +417,7 @@ Array [
                     "textDecorationLine": "underline",
                     "textDecorationStyle": "solid",
                   },
+                  undefined,
                 ]
               }
             >
@@ -715,18 +722,21 @@ Array [
               allowFontScaling={true}
               ellipsizeMode="tail"
               style={
-                Object {
-                  "alignSelf": "stretch",
-                  "color": "rgb(0, 50, 120)",
-                  "fontFamily": "Poppins",
-                  "fontSize": 16,
-                  "fontWeight": "bold",
-                  "height": 45,
-                  "paddingLeft": 20,
-                  "paddingRight": 20,
-                  "paddingTop": 10,
-                  "textAlign": "center",
-                }
+                Array [
+                  Object {
+                    "alignSelf": "stretch",
+                    "color": "rgb(0, 50, 120)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": 45,
+                    "paddingLeft": 20,
+                    "paddingRight": 20,
+                    "paddingTop": 10,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                ]
               }
             >
               Next
@@ -782,6 +792,7 @@ Array [
                     "textDecorationLine": "underline",
                     "textDecorationStyle": "solid",
                   },
+                  undefined,
                 ]
               }
             >

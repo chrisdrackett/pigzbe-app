@@ -20,11 +20,25 @@ import DevPanel from '../dev-panel';
 
 class Login extends Component {
     state = {
-        inputText: 'SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4'
+        inputText: ''
     }
 
     componentDidMount() {
-        this.props.dispatch(tryAutoLoad());
+        const {dispatch, testUserKey} = this.props;
+
+        dispatch(tryAutoLoad());
+
+        if (testUserKey) {
+            this.setState({inputText: testUserKey});
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        const {testUserKey} = this.props;
+
+        if (prevProps.testUserKey !== testUserKey) {
+            this.setState({inputText: testUserKey});
+        }
     }
 
     render() {
@@ -34,8 +48,6 @@ class Login extends Component {
             isLoading,
             error
         } = this.props;
-
-        console.log(error);
 
         return (
             <View style={styles.container}>
@@ -79,6 +91,7 @@ class Login extends Component {
 
 export default connect(
     state => ({
+        testUserKey: state.auth.testUserKey,
         isLoading: state.loader.isLoading,
         error: state.auth.error
     })
