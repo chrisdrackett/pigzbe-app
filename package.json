@@ -15,6 +15,7 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "game": "mkdir -p '.build' && node ./scripts/build-game.js && rm -rf '.build'",
+    "game:dev": "GAME_DEV=1 npm run desktop",
     "content": "node ./scripts/contentful.js",
     "test:update": "jest --updateSnapshot",
     "serve:webpack": "webpack-dev-server -d --config './desktop/webpack.config.js' --hot --colors --host '0.0.0.0' --useLocalIp",

@@ -4,11 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const appDirectory = path.resolve(__dirname, '../');
 
+const index = `desktop/index.${process.env.GAME_DEV === '1' ? 'game' : 'web'}.js`;
+
 const babelLoaderConfiguration = {
     test: /\.js$/,
     // Add every directory that needs to be compiled by Babel during the build.
     include: [
-        path.resolve(appDirectory, 'desktop/index.web.js'),
+        path.resolve(appDirectory, index),
         path.resolve(appDirectory, 'src'),
         path.resolve(appDirectory, './'),
         path.resolve(appDirectory, 'node_modules/react-navigation')
@@ -54,7 +56,7 @@ const fontLoaderConfiguration = {
 };
 
 module.exports = {
-    entry: path.resolve(appDirectory, 'desktop/index.web.js'),
+    entry: path.resolve(appDirectory, index),
 
     output: {
         filename: 'bundle.web.js',

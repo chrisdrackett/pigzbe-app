@@ -89,6 +89,7 @@ export default class Game {
     onLoad(app) {
         this.updateDims();
         this.demo = new Demo(app, this.dims);
+        this.resize();
 
         app.start();
         app.ticker.remove(this.update);
