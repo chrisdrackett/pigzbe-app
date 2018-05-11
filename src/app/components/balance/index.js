@@ -22,6 +22,7 @@ import Pig from '../pig';
 import Button from '../button';
 import Alert from '../alert';
 import moneyFormat from '../../utils/money-format';
+import apiURL from '../../utils/api-url';
 
 export const Wollo = ({balance}) => (
     <View style={styles.wolloContainer}>
@@ -46,7 +47,7 @@ class Balance extends Component {
 
   getExchange = async () => {
       try {
-          const values = await (await fetch(`https://min-api.cryptocompare.com/data/price?fsym=XLM&tsyms=${COINS.toString()}`, {
+          const {values} = await (await fetch(`${apiURL()}/compare?coins=${COINS.toString()}`, {
               method: 'GET'
           })).json();
 
