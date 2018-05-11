@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import roundTo from 'usfl/math/round-to';
 // import SoundPlayer from './sound-player';
 import World from './world';
-import Text from './utils/text';
+import Text from '../utils/text';
 
 export default class Demo {
     constructor(app, dims) {

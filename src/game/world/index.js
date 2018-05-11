@@ -1,14 +1,9 @@
 import * as PIXI from 'pixi.js';
-import Ground from './ground';
-import Wollo from './wollo';
-
-const addTilingSprite = (id, w, h) => {
-    const texture = PIXI.Texture.from(id);
-    const sprite = new PIXI.extras.TilingSprite(texture, w || texture.width, h || texture.height);
-    return sprite;
-};
-
-const vertSpace = 150;
+import roundTo from 'usfl/math/round-to';
+// import SoundPlayer from './sound-player';
+import Map from '../map';
+import fps from 'usfl/fps';
+fps.auto();
 
 export default class World {
     constructor(app, dims) {
@@ -18,85 +13,51 @@ export default class World {
     }
 
     createWorld(app, dims) {
-        const {vW, vH} = dims;
+        const {center} = dims;
 
-        const container = new PIXI.Container();
-        app.stage.addChild(container);
+        const map = new Map(app, dims);
+        app.stage.addChild(map.container);
 
-        const hillsBack = addTilingSprite('hillsBack', vW);
-        hillsBack.position.set(0, vH - hillsBack.height + vertSpace - 120);
-        container.addChild(hillsBack);
+        const pig = PIXI.Sprite.from('pig');
+        pig.position.set(center.x - pig.width / 2, center.y - pig.height / 2);
+        app.stage.addChild(pig);
 
-        const hillsFront = addTilingSprite('hillsFront', vW);
-        hillsFront.position.set(0, vH - hillsFront.height + vertSpace - 80);
-        container.addChild(hillsFront);
-
-        const ground = new Ground();
-        ground.container.position.set(0, vH - 400 + vertSpace);
-        container.addChild(ground.container);
-        ground.addInitialSections(vW);
-
-        const clouds = addTilingSprite('clouds', vW);
-        clouds.position.set(0, 80 - vertSpace);
-        container.addChild(clouds);
-        clouds.alpha = 0.5;
-
-        const cloudsLow = addTilingSprite('clouds', vW);
-        cloudsLow.position.set(0, 160 - vertSpace);
-        container.addChild(cloudsLow);
-
-        const wollo = new Wollo();
-        container.addChild(wollo.container);
+        const arrow = new PIXI.Container();
+        const arrowGfx = PIXI.Sprite.from('arrow');
+        arrow.addChild(arrowGfx);
+        app.stage.addChild(arrow);
+        arrowGfx.position.set(0 - arrow.width / 2, 0 - arrow.height / 2);
+        arrow.position.set(center.x, center.y);
 
         this.app = app;
-        this.container = container;
-        this.hillsBack = hillsBack;
-        this.hillsFront = hillsFront;
-        this.ground = ground;
-        this.clouds = clouds;
-        this.cloudsLow = cloudsLow;
-        this.wollo = wollo;
+        this.map = map;
+        this.pig = pig;
+        this.arrow = arrow;
     }
 
-    positionWorld() {
-        const {vW, vH} = this.dims;
-
-        this.hillsBack.width = vW;
-        this.hillsFront.width = vW;
-        this.clouds.width = vW;
-        this.cloudsLow.width = vW;
-
-        this.ground.fillSections(vW);
-
-        this.hillsBack.position.set(0, vH - this.hillsBack.height + vertSpace - 120);
-        this.hillsFront.position.set(0, vH - this.hillsFront.height + vertSpace - 80);
-        this.ground.container.position.set(0, vH - 400 + vertSpace);
-        this.clouds.position.set(0, 80 - vertSpace);
-        this.cloudsLow.position.set(0, 160 - vertSpace);
+    devInfo(vec) {
+        const rendererType = (this.app.renderer instanceof PIXI.CanvasRenderer) ? 'canvas' : 'webgl';
+        const rendererRes = this.app.renderer.resolution;
+        const dpr = window.devicePixelRatio || 1;
+        const {width, height} = this.app.renderer;
+        const info = `${width}/${height}\n${rendererType} res: ${rendererRes} dpr: ${dpr}\nangle: ${roundTo(vec.rotation, 1)}\nx/y: ${roundTo(vec.x)}/${roundTo(vec.y)}`;
+        fps.log(info.replace(/\n/g, '<br>'));
     }
 
-    update(delta, vec) {
-        // console.log('update', delta, vec.x, vec.y);
-        const {center, vW} = this.dims;
+    update(delta, vec, touchOrigin) {
+        this.map.update(delta, vec);
 
-        this.clouds.tilePosition.x -= 0.032 * vec.x * delta;
-        this.cloudsLow.tilePosition.x -= 0.064 * vec.x * delta;
-        this.hillsBack.tilePosition.x -= 0.128 * vec.x * delta;
-        this.hillsFront.tilePosition.x -= 0.64 * vec.x * delta;
-        this.ground.update(2 * vec.x * delta, 0, vW);
-        this.wollo.update(2 * vec.x * delta, 0, center, this.container.position.y);
+        this.arrow.position.set(touchOrigin.x, touchOrigin.y);
+        this.arrow.rotation = vec.rotation;
 
-        this.container.position.y -= vec.y * delta;
-        if (this.container.position.y < 0 - vertSpace) {
-            this.container.position.y = 0 - vertSpace;
-        }
-        if (this.container.position.y > vertSpace) {
-            this.container.position.y = vertSpace;
-        }
+        this.devInfo(vec);
     }
 
     resize(dims) {
         this.dims = dims;
-        this.positionWorld();
+        this.map.resize(dims);
+
+        const {center} = this.dims;
+        this.pig.position.set(center.x - this.pig.width / 2, center.y - this.pig.height / 2);
     }
 }
