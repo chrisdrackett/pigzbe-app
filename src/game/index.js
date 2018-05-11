@@ -1,15 +1,22 @@
 import * as PIXI from 'pixi.js';
-import Demo from './demo';
+import World from './world';
 import {registerFont} from './assets/fonts';
 import angle from 'usfl/math/angle';
 import distance from 'usfl/math/distance';
-// import roundTo from 'usfl/math/round-to';
 import SoundPlayer from './utils/sound-player';
 import images from './assets/images';
 import sounds from './assets/sounds';
 
+const removeFolderNames = json => {
+    return Object.assign(json, {
+        frames: Object.keys(json.frames).reduce((ob, key) => {
+            ob[key.split('/').pop()] = json.frames[key];
+            return ob;
+        }, {})
+    });
+};
 // import as js ob
-const spritesJSON = require('./assets/images/sprites.json');
+const spritesJSON = removeFolderNames(require('./assets/images/textures/objects0.json'));
 
 global.PIXI = PIXI;
 
@@ -66,6 +73,8 @@ export default class Game {
             SoundPlayer.play('music', true);
         });
 
+        console.log('Object.keys(resources)', Object.keys(resources));
+
         Object.keys(resources).map(key =>
             app.loader.add(key, resources[key])
         );
@@ -74,7 +83,7 @@ export default class Game {
             // parse fonts
             registerFont(assets.fontPng.texture);
             // parse spritesheets
-            const spriteSheet = assets.sprites;
+            const spriteSheet = assets.objects0;
             const sheet = new PIXI.Spritesheet(spriteSheet.texture.baseTexture, spritesJSON);
 
             sheet.parse(textures => {
@@ -88,7 +97,8 @@ export default class Game {
 
     onLoad(app) {
         this.updateDims();
-        this.demo = new Demo(app, this.dims);
+        this.world = new World(app, this.dims);
+        this.resize();
 
         app.start();
         app.ticker.remove(this.update);
@@ -96,7 +106,7 @@ export default class Game {
     }
 
     update = delta => {
-        this.demo.update(delta, this.vec, this.touchOrigin);
+        this.world.update(delta, this.vec, this.touchOrigin);
 
         if (!this.isDown) {
             this.vec.x *= 0.9;
@@ -118,7 +128,7 @@ export default class Game {
 
     resume = () => {
         console.log('Game.resume');
-        if (this.demo) {
+        if (this.world) {
             SoundPlayer.stop('music');
             SoundPlayer.play('music', true);
             this.app.ticker.remove(this.update);
@@ -126,12 +136,8 @@ export default class Game {
         }
     }
 
-    touchUp = point => {
+    touchUp = () => {
         this.isDown = false;
-
-        if (this.demo) {
-            this.demo.pointerUp(point);
-        }
     }
 
     touchDown = point => {
@@ -139,10 +145,6 @@ export default class Game {
 
         this.touchOrigin.x = point.x;
         this.touchOrigin.y = point.y;
-
-        if (this.demo) {
-            this.demo.pointerDown(point);
-        }
     }
 
     touchMove = point => {
@@ -176,8 +178,6 @@ export default class Game {
             y: vH / 2
         };
 
-        console.log('1. center', center);
-
         this.dims = {
             vW,
             vH,
@@ -193,7 +193,7 @@ export default class Game {
     resize() {
         const {width, height} = this.el.getBoundingClientRect();
         this.app.renderer.resize(width, height);
-        this.demo.resize(this.updateDims());
+        this.world.resize(this.updateDims());
         this.app.stage.hitArea.width = width;
         this.app.stage.hitArea.height = height;
     }

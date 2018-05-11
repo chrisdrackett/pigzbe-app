@@ -1,5 +1,6 @@
 import {load, save} from '../utils/storage';
-import {loadContent} from './';
+import apiURL from '../utils/api-url';
+// import {loadContent} from './';
 // import {clear} from '../utils/storage';
 // import wait from './wait';
 const storageKey = 'messages';
@@ -16,12 +17,12 @@ export const messagesError = error => ({type: MESSAGES_ERROR, error});
 export const messagesNotify = notify => ({type: MESSAGES_NOTIFY, notify});
 export const messagesMarkRead = () => ({type: MESSAGES_MARK_READ});
 
+export const loadMessages = (query = '') => () => fetch(`${apiURL()}/content/messages?${query}`).then(res => res.json());
+
 export const messagesLoad = () => dispatch => {
     dispatch(messagesLoading(true));
 
-    return dispatch(loadContent('content_type=message'))
-        .then(({items}) => items.map(item => item.fields))
-        .then(messages => messages.sort((a, b) => new Date(b.date) - new Date(a.date)))
+    return dispatch(loadMessages('order=latest'))
         // .then(messages => wait(0.5, messages))
         .then(messages => {
             dispatch(messagesUpdate(messages));

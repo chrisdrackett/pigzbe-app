@@ -1,4 +1,4 @@
-import {USE_TESTNET} from '../constants';
+import {USE_TESTNET, BASE_CURRENCY} from '../constants';
 
 import {
     WOLLO_USE_TESTNET,
@@ -8,7 +8,8 @@ import {
 
 export const initialState = {
     useTestnet: USE_TESTNET,
-    balance: '0'
+    balance: '0',
+    baseCurrency: BASE_CURRENCY
 };
 
 export default (state = initialState, action) => {

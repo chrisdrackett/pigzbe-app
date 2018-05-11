@@ -1,9 +1,10 @@
 import Stellar from '../stellar';
 import {getServer, getServerURL} from '../stellar/server';
 import {validate} from '../stellar/transaction';
-import {loadContent, loadAccount} from './';
+import {loadAccount} from './';
 import wait from './wait';
 import openURL from '../utils/open-url';
+import apiURL from '../utils/api-url';
 import {getWolloBalance} from './';
 
 export const ESCROW_SET = 'ESCROW_SET';
@@ -13,10 +14,11 @@ export const ESCROW_TX_VALIDATE = 'ESCROW_TX_VALIDATE';
 export const ESCROW_SUBMITTING = 'ESCROW_SUBMITTING';
 export const ESCROW_ERROR = 'ESCROW_ERROR';
 
+const load = () => () => fetch(`${apiURL()}/escrow/config`).then(res => res.json());
+
 export const loadEscrow = () => (dispatch, getState) => {
     const {publicKey} = getState().auth;
-    return dispatch(loadContent('sys.id=4NWW9JokdOM4S4kAIo6q4q'))
-        .then(result => result.items.pop().fields.data)
+    return dispatch(load())
         .then(data => {
             const escrow = data.find(e => e.destinationPublicKey === publicKey);
             console.log('loadEscrow', escrow);

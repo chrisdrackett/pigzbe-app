@@ -13,10 +13,12 @@ export default StyleSheet.create({
         height: 18
     },
     settings: {
-        width: 18,
-        height: 18,
+        width: 26,
+        height: 26,
         position: 'absolute',
-        top: 34,
-        right: 20
+        top: 30,
+        right: 16,
+        paddingTop: 4,
+        paddingLeft: 4,
     }
 });

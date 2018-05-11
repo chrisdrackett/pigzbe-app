@@ -9,7 +9,10 @@ import Avatar from '../avatar';
 import styles from './styles';
 import {
     strings,
-    SCREEN_ESCROW
+    SCREEN_ESCROW,
+    COINS,
+    COIN_DPS,
+    ASSET_CODE
 } from '../../constants';
 import ConvertBalance from '../convert-balance';
 import BalanceGraph from '../balance-graph';
@@ -19,16 +22,13 @@ import Pig from '../pig';
 import Button from '../button';
 import Alert from '../alert';
 import moneyFormat from '../../utils/money-format';
-
-const coins = ['XLM', 'BTC', 'ETH', 'EUR', 'USD', 'JPY', 'GBP'];
-const dps = {XLM: 7, BTC: 8, ETH: 8, EUR: 2, USD: 2, JPY: 0, GBP: 2};
-// const BASE_CURRENCY = 'USD';
+import apiURL from '../../utils/api-url';
 
 export const Wollo = ({balance}) => (
     <View style={styles.wolloContainer}>
         <View style={styles.balanceContainer}>
             <Image style={styles.currencyLogo} source={require('./images/currency_logo.png')} />
-            <Text style={styles.balance}>{moneyFormat(balance)}</Text>
+            <Text style={styles.balance}>{moneyFormat(balance, COIN_DPS[ASSET_CODE])}</Text>
         </View>
         <Text style={styles.label}>{strings.walletBalance}</Text>
     </View>
@@ -47,7 +47,7 @@ class Balance extends Component {
 
   getExchange = async () => {
       try {
-          const values = await (await fetch(`https://min-api.cryptocompare.com/data/price?fsym=XLM&tsyms=${coins.toString()}`, {
+          const {values} = await (await fetch(`${apiURL()}/compare?coins=${COINS.toString()}`, {
               method: 'GET'
           })).json();
 
@@ -66,6 +66,7 @@ class Balance extends Component {
       const {exchange, error} = this.state;
       const {
           balance,
+          baseCurrency,
           escrow,
           name,
           image,
@@ -82,8 +83,8 @@ class Balance extends Component {
               <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
               <Wollo balance={balance}/>
               <Pig style={styles.pig}/>
-              <BalanceGraph balance={balance} balanceConvert={balance * exchange.USD}/>
-              <ConvertBalance coins={coins.filter(c => c !== 'USD')} exchange={exchange} balance={balance} dps={dps}/>
+              <BalanceGraph balance={balance} balanceConvert={balance * exchange[baseCurrency]} baseCurrency={baseCurrency}/>
+              <ConvertBalance coins={COINS.filter(c => c !== baseCurrency)} exchange={exchange} balance={balance} dps={COIN_DPS}/>
               {escrow ? (
                   <View style={styles.escrow}>
                       <Button
@@ -106,6 +107,7 @@ export const BalanceComponent = Balance;
 export default connect(
     state => ({
         balance: state.wollo.balance,
+        baseCurrency: state.wollo.baseCurrency,
         escrow: state.escrow.escrowPublicKey,
         name: state.profile.name,
         image: state.profile.image

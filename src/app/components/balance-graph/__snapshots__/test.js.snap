@@ -107,7 +107,6 @@ exports[`Balance Graph renders correctly 1`] = `
           }
         }
       >
-        $
         1,231
       </Text>
     </View>

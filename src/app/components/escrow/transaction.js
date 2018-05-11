@@ -5,7 +5,8 @@ import styles from './styles';
 import moment from 'moment';
 import Button from '../button';
 import {
-    ASSET_CODE
+    ASSET_CODE,
+    COIN_DPS
 } from '../../constants';
 import {
     submitTransaction,
@@ -56,7 +57,7 @@ export default connect()(({
                     {daysToGo(date)}
                 </Text>
                 <Text style={styles.amount}>
-                    {moneyFormat(amount)} {ASSET_CODE}
+                    {moneyFormat(amount, COIN_DPS[ASSET_CODE])} {ASSET_CODE}
                 </Text>
             </View>
             <Button

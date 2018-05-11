@@ -14,7 +14,7 @@ export default StyleSheet.create({
         height: 10
     },
     border: {
-        backgroundColor: color.blackOpacity10,
+        backgroundColor: color.blackOpacity5,
         height: 5,
         position: 'absolute',
         bottom: 50,
