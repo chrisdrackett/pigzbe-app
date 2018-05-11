@@ -134,14 +134,12 @@ function renderObjectLayer(layer) {
             sprite.position.set(x, y);
             flipSprite(object, sprite);
             holder.addChild(sprite);
-            // FIXME: temp
-            object.gfx = sprite;
+            object.sprite = sprite;
         } else {
             const g = getGraphic(object);
             g.position.set(x, y);
             holder.addChild(g);
-            // FIXME: temp
-            object.gfx = g;
+            object.sprite = g;
         }
     });
     return holder;

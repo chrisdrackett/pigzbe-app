@@ -1,7 +1,16 @@
 import {Container} from 'pixi.js';
 import TileMap from '../tiled/tile-map';
+import linkedList from 'usfl/linked-list';
+import SoundPlayer from '../utils/sound-player';
 
 const mapJSON = require('../assets/maps/pigzbe_game.json');
+
+function intersects(obA, obB) {
+    return !(obB.left >= obA.right ||
+           obB.right <= obA.left ||
+           obB.top >= obA.bottom ||
+           obB.bottom <= obA.top);
+}
 
 export default class Map {
     constructor(app, dims) {
@@ -17,6 +26,10 @@ export default class Map {
         app.stage.addChild(container);
 
         const map = new TileMap(mapJSON);
+
+        // console.log('layers', Object.keys(map.layer));
+
+        this.coins = linkedList(map.layer.coins_A.objects.concat(map.layer.coins_B.objects));
 
         const level = map.render();
         container.addChild(level);
@@ -55,6 +68,28 @@ export default class Map {
         this.container.position.y -= vec.y * delta;
 
         this.containWorld();
+
+        const relX = Math.abs(this.container.position.x) + this.dims.center.x;
+        const relY = Math.abs(this.container.position.y) + this.dims.center.y;
+        const hitRect = {
+            top: relY - 50,
+            bottom: relY + 50,
+            left: relX - 50,
+            right: relX + 50,
+        };
+
+        let coin = this.coins.first;
+        while (coin) {
+            const next = coin.next;
+            const hit = intersects(coin, hitRect);
+            if (hit) {
+                // coin.sprite.tint = 0xff0000;
+                coin.sprite.parent.removeChild(coin.sprite);
+                this.coins.remove(coin);
+                SoundPlayer.play('notificationCoinsCaptured');
+            }
+            coin = next;
+        }
     }
 
     resize(dims) {
