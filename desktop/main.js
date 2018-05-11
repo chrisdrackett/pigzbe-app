@@ -10,7 +10,7 @@ let mainWindow;
 
 function createGameWindow() {
     mainWindow = new BrowserWindow({
-        width,
+        width: width * 1.5,
         height
     });
 
