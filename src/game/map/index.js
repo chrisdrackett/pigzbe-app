@@ -72,10 +72,10 @@ export default class Map {
         const relX = Math.abs(this.container.position.x) + this.dims.center.x;
         const relY = Math.abs(this.container.position.y) + this.dims.center.y;
         const hitRect = {
-            top: relY - 50,
-            bottom: relY + 50,
-            left: relX - 50,
-            right: relX + 50,
+            top: relY - 25,
+            bottom: relY + 25,
+            left: relX - 35,
+            right: relX + 35,
         };
 
         let coin = this.coins.first;
