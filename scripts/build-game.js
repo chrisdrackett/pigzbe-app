@@ -106,7 +106,9 @@ webpack(config, (err, stats) => {
                     <meta charset="utf-8">
                     <title>Pigzbe</title>
                     <style>
-                        * {
+                        html,
+                        body,
+                        canvas {
                             margin: 0;
                             padding: 0;
                             width: 100%;
