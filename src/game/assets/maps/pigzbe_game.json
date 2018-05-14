@@ -13,6 +13,44 @@
          "y":0
         }, 
         {
+         "image":"..\/..\/..\/..\/tiled\/assets\/backgrounds\/mountains_01.png",
+         "name":"mountains",
+         "offsetx":0,
+         "offsety":415,
+         "opacity":1,
+         "properties":
+            {
+             "tiling":true
+            },
+         "propertytypes":
+            {
+             "tiling":"bool"
+            },
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "image":"..\/..\/..\/..\/tiled\/assets\/backgrounds\/hills_01.png",
+         "name":"hills",
+         "offsetx":0,
+         "offsety":415,
+         "opacity":1,
+         "properties":
+            {
+             "tiling":true
+            },
+         "propertytypes":
+            {
+             "tiling":"bool"
+            },
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "draworder":"topdown",
          "name":"sky_01",
          "objects":[
@@ -20,7 +58,7 @@
                  "gid":414,
                  "height":545,
                  "id":101,
-                 "name":"",
+                 "name":"sun",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -32,10 +70,10 @@
                  "gid":413,
                  "height":545,
                  "id":103,
-                 "name":"",
+                 "name":"mountains",
                  "rotation":0,
                  "type":"",
-                 "visible":true,
+                 "visible":false,
                  "width":3315,
                  "x":0,
                  "y":960
@@ -44,10 +82,10 @@
                  "gid":412,
                  "height":545,
                  "id":106,
-                 "name":"",
+                 "name":"hills",
                  "rotation":0,
                  "type":"",
-                 "visible":true,
+                 "visible":false,
                  "width":3315,
                  "x":-5,
                  "y":960
@@ -56,7 +94,7 @@
                  "gid":410,
                  "height":545,
                  "id":107,
-                 "name":"",
+                 "name":"clouds2",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -68,7 +106,7 @@
                  "gid":411,
                  "height":545,
                  "id":108,
-                 "name":"",
+                 "name":"clouds1",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -595,7 +633,7 @@
          "name":"underground_decoration",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":52,
          "x":0,
          "y":0

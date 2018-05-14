@@ -21,6 +21,7 @@ function flattenPath(path) {
 }
 
 function getImagelayer(layer) {
+    console.log('getImagelayer', layer);
     return [Object.assign({}, layer, {
         frame: getTextureId(layer.image)
     })];
@@ -77,6 +78,10 @@ function getObjectGroup(layer, mapFrames) {
     return layer.objects.map(object => {
         const frame = mapFrames[object.gid];
         const yOffset = frame ? 0 - object.height : 0;
+        const scale = {
+            x: frame ? object.width / frame.width : 1,
+            y: frame ? object.height / frame.height : 1
+        };
 
         if (object.polygon) {
             const path = flattenPath(object.polygon);
@@ -100,7 +105,8 @@ function getObjectGroup(layer, mapFrames) {
             right: object.x + object.width,
             bottom: y + object.height,
             left: object.x,
-            type
+            type,
+            scale
         });
     });
 }

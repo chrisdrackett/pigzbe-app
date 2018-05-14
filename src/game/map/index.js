@@ -26,16 +26,23 @@ export default class Map {
         app.stage.addChild(container);
 
         const map = new TileMap(mapJSON);
-
-        // console.log('layers', Object.keys(map.layer));
+        console.log('layers', Object.keys(map.layer));
 
         this.coins = linkedList(map.layer.coins_A.objects.concat(map.layer.coins_B.objects));
-
-        const level = map.render();
+        const level = map.render(app.renderer);
         container.addChild(level);
+
+        this.mountains = map.layer.mountains.sprite;
+        this.mountains.width = map.width;
+
+        this.hills = map.layer.hills.sprite;
+        this.hills.width = map.width;
 
         container.position.x = (vW - map.width) / 2;
         container.position.y = (vH - map.height) / 2;
+
+        this.diffX = 0;
+        this.lastX = container.position.x;
 
         this.map = map;
         this.container = container;
@@ -43,6 +50,9 @@ export default class Map {
 
     containWorld() {
         const {vW, vH} = this.dims;
+
+        this.container.position.x = Math.round(this.container.position.x);
+        this.container.position.y = Math.round(this.container.position.y);
 
         if (this.container.position.x > 0) {
             this.container.position.x = 0;
@@ -68,6 +78,8 @@ export default class Map {
         this.container.position.y -= vec.y * delta;
 
         this.containWorld();
+        this.diffX = this.lastX - this.container.position.x;
+        this.lastX = this.container.position.x;
 
         const relX = Math.abs(this.container.position.x) + this.dims.center.x;
         const relY = Math.abs(this.container.position.y) + this.dims.center.y;
@@ -90,6 +102,9 @@ export default class Map {
             }
             coin = next;
         }
+
+        this.mountains.tilePosition.x -= 0.064 * this.diffX * delta;
+        this.hills.tilePosition.x -= 0.128 * this.diffX * delta;
     }
 
     resize(dims) {

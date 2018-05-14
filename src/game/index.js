@@ -30,9 +30,13 @@ export default class Game {
         const app = new PIXI.Application({
             backgroundColor: 0xE0F0FA,
             autoStart: false,
+            roundPixels: true,
+            transparent: true,
+            antialias: false,
+            forceFXAA: false,
             resolution,
-            width: width,
-            height: height
+            width,
+            height
         });
         this.app = app;
         this.el = el;

@@ -4,7 +4,7 @@ import {
     Sprite,
     Texture,
     utils,
-    // RenderTexture,
+    RenderTexture,
     Container,
     Rectangle,
     Graphics,
@@ -28,21 +28,6 @@ function getGraphic(object, color = 0xff0000) {
     container.addChild(graphic);
     return container;
 }
-
-// function renderTileLayer2(layer, app) {
-//     const renderTexture = RenderTexture.create(layer.width, layer.height);
-//     const holder = new Container();
-//     layer.objects.forEach((object) => {
-//         const {frame, x, y} = object;
-//         const sprite = Sprite.from(frame.id);
-//         sprite.position.set(x, y);
-//         holder.addChild(sprite);
-//     });
-//     app.renderer.render(holder, renderTexture);
-//     const sprite = new Sprite(renderTexture);
-//     sprite.position.set(layer.x, layer.y);
-//     return sprite;
-// }
 
 function createFrameTexture(frame) {
     if (!frame) {
@@ -72,10 +57,9 @@ function getSprite(frame) {
 }
 
 function flipSprite(object, sprite) {
-    if (object.flippedH || object.flippedV || object.flippedD) {
-        sprite.tint = 0xff0000;
-    }
-
+    // if (object.flippedH || object.flippedV || object.flippedD) {
+    //     sprite.tint = 0xff0000;
+    // }
     const {width, height} = object.frame;
 
     if (object.flippedH) {
@@ -102,12 +86,20 @@ function flipSprite(object, sprite) {
     }
 }
 
-function renderTileLayer(layer) {
+function renderLayerTexture(layer, holder, renderer) {
+    const renderTexture = RenderTexture.create(layer.width, layer.height);
+    renderer.render(holder, renderTexture);
+    const sprite = new Sprite(renderTexture);
+    sprite.position.set(layer.x, layer.y);
+    return sprite;
+}
+
+function renderTileLayer(layer, renderer) {
     const holder = new Container();
     let animated = false;
+
     layer.objects.forEach(object => {
         const {frame, x, y} = object;
-        // console.log('frame', frame);
         if (!frame) {
             console.log('No frame', object);
         }
@@ -120,21 +112,30 @@ function renderTileLayer(layer) {
         holder.addChild(sprite);
     });
     holder.position.set(layer.x, layer.y);
-    holder.cacheAsBitmap = !animated;
+
+    if (!animated && renderer) {
+        return renderLayerTexture(layer, holder, renderer);
+    }
+    // holder.cacheAsBitmap = !animated;
     return holder;
 }
 
 function renderObjectLayer(layer) {
     const holder = new Container();
     holder.position.set(layer.x, layer.y);
-    layer.objects.forEach((object) => {
-        const {frame, x, y} = object;
+    layer.objects.forEach(object => {
+        const {frame, x, y, scale} = object;
         if (frame) {
             const sprite = getSprite(frame);
+            sprite.scale.set(scale.x, scale.y);
             sprite.position.set(x, y);
             flipSprite(object, sprite);
             holder.addChild(sprite);
             object.sprite = sprite;
+            if (!object.visible) {
+                sprite.visible = false;
+                console.warn('Object invisible:', layer.name, object.name || object);
+            }
         } else {
             const g = getGraphic(object);
             g.position.set(x, y);
@@ -147,14 +148,20 @@ function renderObjectLayer(layer) {
 
 function renderImageLayer(layer) {
     const object = layer.objects[0];
-    const img = Sprite.from(object.frame);
-    img.position.set(layer.x, layer.y);
-    return img;
+    const tiling = layer.properties && layer.properties.tiling;
+    const texture = Texture.from(object.frame);
+    const sprite = tiling ? new extras.TilingSprite(texture, texture.width, texture.height) : new Sprite(texture);
+    // sprite.tint = 0xff0000;
+    layer.sprite = sprite;
+    sprite.position.set(layer.x, layer.y);
+    return sprite;
 }
 
 function createLayerTextures(layer, frames) {
     layer.objects.forEach(object => {
-        createFrameTexture(object.frame);
+        if (typeof object.frame !== 'string') {
+            createFrameTexture(object.frame);
+        }
         if (object.frame.animation) {
             object.frame.animation.forEach(a => {
                 createFrameTexture(frames[a.gid]);
@@ -163,10 +170,10 @@ function createLayerTextures(layer, frames) {
     });
 }
 
-function renderLayer(layer) {
+function renderLayer(layer, renderer) {
     switch (layer.type) {
         case TILE_LAYER:
-            return renderTileLayer(layer);
+            return renderTileLayer(layer, renderer);
             break;
         case OBJECT_LAYER:
             return renderObjectLayer(layer);
@@ -179,11 +186,11 @@ function renderLayer(layer) {
     return null;
 }
 
-export default function renderMap(map) {
+export default function renderMap(map, renderer) {
     const container = new Container();
     map.layers.forEach(layer => {
         createLayerTextures(layer, map.frames);
-        const ob = renderLayer(layer);
+        const ob = renderLayer(layer, renderer);
         if (!ob) {
             console.error('Render layer failed', layer.name);
         }

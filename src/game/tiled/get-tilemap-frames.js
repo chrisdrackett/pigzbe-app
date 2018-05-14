@@ -43,6 +43,9 @@ function getTilesetSheet(tileset) {
 }
 
 function getTilesetItems(tileset) {
+    if (!tileset.tiles) {
+        console.error('Tileset not embedded', tileset.source.split('/').pop());
+    }
     return Object.keys(tileset.tiles)
         .reduce((newOb, localGid) => {
             const tile = tileset.tiles[localGid];

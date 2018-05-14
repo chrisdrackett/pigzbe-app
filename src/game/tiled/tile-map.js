@@ -39,8 +39,8 @@ export default function TileMap(map) {
         tileHeight,
     };
 
-    function render() {
-        return renderMap(tileMap);
+    function render(renderer) {
+        return renderMap(tileMap, renderer);
     }
 
     return Object.assign(tileMap, {render});
