@@ -20,6 +20,8 @@ const spritesJSON = removeFolderNames(require('./assets/images/textures/objects0
 
 global.PIXI = PIXI;
 
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+
 export default class Game {
     constructor(el) {
         this.isDown = false;
