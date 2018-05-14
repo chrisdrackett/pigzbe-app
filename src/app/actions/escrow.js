@@ -23,7 +23,8 @@ export const loadEscrow = () => (dispatch, getState) => {
             const escrow = data.find(e => e.destinationPublicKey === publicKey);
             console.log('loadEscrow', escrow);
             dispatch({type: ESCROW_SET, escrow});
-        });
+        })
+        .catch(error => console.log(error));
 };
 
 export const loadEscrowAccount = () => (dispatch, getState) => {

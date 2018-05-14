@@ -76,5 +76,5 @@ export const MessagesComponent = Messages;
 export default connect(state => ({
     messages: state.messages.messages,
     loading: state.messages.messagesLoading,
-    error: state.messages.error
+    error: state.messages.messagesError
 }))(Messages);

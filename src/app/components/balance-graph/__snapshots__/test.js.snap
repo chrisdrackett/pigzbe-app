@@ -92,24 +92,7 @@ exports[`Balance Graph renders correctly 1`] = `
           "justifyContent": "flex-end",
         }
       }
-    >
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Object {
-            "color": "rgb(255, 255, 255)",
-            "fontFamily": "Poppins",
-            "fontWeight": "bold",
-            "marginRight": 3,
-            "textAlign": "right",
-          }
-        }
-      >
-        1,231
-      </Text>
-    </View>
+    />
   </View>
 </View>
 `;

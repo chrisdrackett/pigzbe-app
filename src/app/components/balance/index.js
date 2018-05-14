@@ -20,7 +20,6 @@ import Loader from '../loader';
 import BaseView from '../base-view';
 import Pig from '../pig';
 import Button from '../button';
-import Alert from '../alert';
 import moneyFormat from '../../utils/money-format';
 import apiURL from '../../utils/api-url';
 
@@ -73,17 +72,17 @@ class Balance extends Component {
           navigation
       } = this.props;
 
-      if (!exchange) {
+      if (!exchange && !error) {
           return <Loader isLoading />;
       }
 
       return (
-          <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container}>
+          <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container} error={error}>
               <Avatar image={image}/>
               <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
               <Wollo balance={balance}/>
               <Pig style={styles.pig}/>
-              <BalanceGraph balance={balance} balanceConvert={balance * exchange[baseCurrency]} baseCurrency={baseCurrency}/>
+              <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
               <ConvertBalance coins={COINS.filter(c => c !== baseCurrency)} exchange={exchange} balance={balance} dps={COIN_DPS}/>
               {escrow ? (
                   <View style={styles.escrow}>
@@ -93,9 +92,6 @@ class Balance extends Component {
                       />
                   </View>
               ) : null}
-              <Alert
-                  error={error}
-              />
           </BaseView>
       );
   }
