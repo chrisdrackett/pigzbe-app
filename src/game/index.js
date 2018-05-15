@@ -112,7 +112,9 @@ export default class Game {
 
         this.world = new World(app, this.w, this.h);
 
-        this.debug = new Debug(app);
+        if (process.env.NODE_ENV === 'development') {
+            this.debug = new Debug(app);
+        }
 
         app.start();
         app.ticker.remove(this.update);
@@ -120,9 +122,11 @@ export default class Game {
     }
 
     update = delta => {
-        this.world.update(delta, this.vec, this.touchOrigin);
+        this.world.update(delta, this.vec);
 
-        this.debug.update(this.vec, this.touchOrigin, this.isDown);
+        if (this.debug) {
+            this.debug.update(this.vec, this.touchOrigin, this.isDown);
+        }
 
         if (!this.isDown) {
             this.vec.x *= 0.9;
