@@ -38,11 +38,11 @@ function createFrameTexture(frame) {
         const rect = new Rectangle(tex.frame.x + frame.x, tex.frame.y + frame.y, frame.width, frame.height);
         utils.TextureCache[frame.id] = new Texture(tex.baseTexture, rect);
     }
+    // utils.TextureCache[frame.id].baseTexture.mipmap = false;
     return utils.TextureCache[frame.id];
 }
 
 function getSprite(frame) {
-    // console.log(' getSprite', frame);
     if (frame.animation) {
         const textures = frame.animation.map(a => ({
             texture: Texture.from(a.id),
@@ -57,9 +57,6 @@ function getSprite(frame) {
 }
 
 function flipSprite(object, sprite) {
-    // if (object.flippedH || object.flippedV || object.flippedD) {
-    //     sprite.tint = 0xff0000;
-    // }
     const {width, height} = object.frame;
 
     if (object.flippedH) {
@@ -100,6 +97,7 @@ function renderTileLayer(layer, renderer) {
 
     layer.objects.forEach(object => {
         const {frame, x, y} = object;
+
         if (!frame) {
             console.log('No frame', object);
         }
@@ -189,12 +187,19 @@ function renderLayer(layer, renderer) {
 export default function renderMap(map, renderer) {
     const container = new Container();
     map.layers.forEach(layer => {
-        createLayerTextures(layer, map.frames);
-        const ob = renderLayer(layer, renderer);
-        if (!ob) {
-            console.error('Render layer failed', layer.name);
+        const isGuide = layer.properties && layer.properties.guide;
+        if (!isGuide) {
+            createLayerTextures(layer, map.frames);
+            const ob = renderLayer(layer, renderer);
+            if (!ob) {
+                console.error('Render layer failed', layer.name);
+            }
+            if (!layer.visible) {
+                ob.visible = false;
+                console.warn('Layer invisible:', layer.name);
+            }
+            container.addChild(ob);
         }
-        container.addChild(ob);
     });
     // app.stage.addChild(container);
 
