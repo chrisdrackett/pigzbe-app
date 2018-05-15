@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="v1.0.3-399-ge7b903e" orientation="orthogonal" renderorder="right-down" width="52" height="24" tilewidth="64" tileheight="64" infinite="0" nextobjectid="154">
- <tileset firstgid="1" source="pigzbe_game_tileset_01.tsx"/>
+ <tileset firstgid="1" source="tiles.tsx"/>
  <tileset firstgid="362" source="foliage_01.tsx"/>
  <tileset firstgid="365" source="foliage_02.tsx"/>
  <tileset firstgid="370" source="grass.tsx"/>
