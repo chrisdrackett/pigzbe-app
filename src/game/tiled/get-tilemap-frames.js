@@ -4,7 +4,7 @@ const getGid = (tileset, localGid) => String(Number(tileset.firstgid) + Number(l
 
 function getFrame(tile, localGid, tileset, appendGid = false) {
     const {name, tilewidth, tileheight} = tileset;
-    const {type, animation} = tile;
+    const {type, animation, imagewidth, imageheight} = tile;
     const image = tile.image || tileset.image;
     const gid = getGid(tileset, localGid);
     const textureId = getTextureId(image);
@@ -14,8 +14,8 @@ function getFrame(tile, localGid, tileset, appendGid = false) {
         id: `${textureId}${appendGid ? gid : ''}`,
         x: tile.x || 0,
         y: tile.y || 0,
-        width: tilewidth,
-        height: tileheight,
+        width: imagewidth || tilewidth,
+        height: imageheight || tileheight,
         tilesetName: name,
         animation,
         type,

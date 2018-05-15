@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="v1.0.3-399-ge7b903e" orientation="orthogonal" renderorder="right-down" width="52" height="24" tilewidth="64" tileheight="64" infinite="0" nextobjectid="154">
+<map version="1.0" tiledversion="v1.0.3-399-ge7b903e" orientation="orthogonal" renderorder="right-down" width="52" height="24" tilewidth="64" tileheight="64" infinite="0" nextobjectid="156">
  <tileset firstgid="1" source="tiles.tsx"/>
  <tileset firstgid="362" source="foliage_01.tsx"/>
  <tileset firstgid="365" source="foliage_02.tsx"/>
  <tileset firstgid="370" source="grass.tsx"/>
  <tileset firstgid="410" source="sky.tsx"/>
- <tileset firstgid="415" source="characters.tsx"/>
- <layer name="sky_02" width="52" height="24" locked="1">
+ <tileset firstgid="416" source="characters.tsx"/>
+ <layer name="sky_02" width="52" height="24" visible="0">
   <data encoding="csv">
 269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,
 269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,
@@ -34,6 +34,15 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup name="sky" locked="1">
+  <object id="154" gid="415" x="0" y="960" width="3328" height="960"/>
+ </objectgroup>
+ <imagelayer name="cloudsHigh" locked="1" offsetx="0" offsety="-97">
+  <image source="assets/backgrounds/clouds_01.png" width="3315" height="545"/>
+ </imagelayer>
+ <imagelayer name="cloudsLow" locked="1" offsetx="0" offsety="104">
+  <image source="assets/backgrounds/clouds_02.png" width="3315" height="545"/>
+ </imagelayer>
  <imagelayer name="mountains" locked="1" offsetx="0" offsety="415">
   <image source="assets/backgrounds/mountains_01.png" width="3315" height="545"/>
   <properties>
@@ -46,12 +55,8 @@
    <property name="tiling" type="bool" value="true"/>
   </properties>
  </imagelayer>
- <objectgroup name="sky_01" locked="1">
+ <objectgroup name="sun" locked="1">
   <object id="101" name="sun" gid="414" x="-14" y="1160" width="3315" height="545"/>
-  <object id="103" name="mountains" gid="413" x="0" y="960" width="3315" height="545" visible="0"/>
-  <object id="106" name="hills" gid="412" x="-5" y="960" width="3315" height="545" visible="0"/>
-  <object id="107" name="clouds2" gid="410" x="0" y="448" width="3315" height="545"/>
-  <object id="108" name="clouds1" gid="411" x="0" y="649" width="3315" height="545"/>
  </objectgroup>
  <objectgroup name="trees" locked="1" offsetx="-64" offsety="128">
   <object id="113" gid="363" x="2188.33" y="713.667" width="256" height="384"/>
@@ -279,7 +284,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,315,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 316,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,316,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,315,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,111,574,99,99,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,111,575,99,99,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -381,9 +386,9 @@
   <object id="58" gid="229" x="1601.75" y="176" width="64" height="64"/>
  </objectgroup>
  <objectgroup name="characters" locked="1">
-  <object id="142" gid="434" x="1157" y="839.504" width="96.3383" height="96.3383"/>
-  <object id="144" gid="494" x="394.667" y="768" width="96.3383" height="96.3383"/>
-  <object id="145" gid="534" x="492.008" y="768" width="96.3383" height="96.3383"/>
-  <object id="151" gid="574" x="982.667" y="1013.33" width="133.333" height="66.6667"/>
+  <object id="142" gid="435" x="1157" y="839.504" width="96.3383" height="96.3383"/>
+  <object id="144" gid="495" x="394.667" y="768" width="96.3383" height="96.3383"/>
+  <object id="145" gid="535" x="492.008" y="768" width="96.3383" height="96.3383"/>
+  <object id="151" gid="575" x="982.667" y="1013.33" width="133.333" height="66.6667"/>
  </objectgroup>
 </map>

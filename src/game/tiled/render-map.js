@@ -192,6 +192,10 @@ export default function renderMap(map, renderer) {
         if (!ob) {
             console.error('Render layer failed', layer.name);
         }
+        if (!layer.visible) {
+            ob.visible = false;
+            console.warn('Layer invisible:', layer.name);
+        }
         container.addChild(ob);
     });
     // app.stage.addChild(container);

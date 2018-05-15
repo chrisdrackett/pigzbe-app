@@ -21,7 +21,6 @@ function flattenPath(path) {
 }
 
 function getImagelayer(layer) {
-    console.log('getImagelayer', layer);
     return [Object.assign({}, layer, {
         frame: getTextureId(layer.image)
     })];
