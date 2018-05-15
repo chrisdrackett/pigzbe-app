@@ -5,6 +5,8 @@ import loader from './loader';
 import messages from './messages';
 import profile from './profile';
 import wollo from './wollo';
+import coins from './coins';
+import connected from './connected';
 
 export default combineReducers({
     auth,
@@ -12,5 +14,7 @@ export default combineReducers({
     loader,
     messages,
     profile,
-    wollo
+    wollo,
+    connected,
+    coins
 });

@@ -10,7 +10,6 @@ import styles from './styles';
 import Loader from '../loader';
 import Logo from '../logo';
 import Pig from '../pig';
-import Alert from '../alert';
 import Transaction from './transaction';
 import {Wollo} from '../balance';
 import Button from '../button';
@@ -82,9 +81,6 @@ class Escrow extends Component {
                 <Loader
                     isLoading={submitting}
                     transparent
-                />
-                <Alert
-                    error={error}
                 />
             </View>
         );

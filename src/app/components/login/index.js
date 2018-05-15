@@ -10,7 +10,6 @@ import styles from './styles';
 import Button from '../button';
 import TextInput from '../text-input';
 import Loader from '../loader';
-import Alert from '../alert';
 import Pig from '../pig';
 import {
     strings,
@@ -80,9 +79,6 @@ class Login extends Component {
                 <DevPanel/>
                 <Loader
                     isLoading={isLoading}
-                />
-                <Alert
-                    error={error}
                 />
             </View>
         );

@@ -1,4 +1,4 @@
-const TIMEOUT_DEFAULT = 3000;
+const TIMEOUT_DEFAULT = 10000;
 
 export default (url, timeout = TIMEOUT_DEFAULT) => new Promise((resolve, reject) => {
     let hasTimedOut = false;
