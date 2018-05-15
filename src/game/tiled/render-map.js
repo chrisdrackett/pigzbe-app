@@ -38,11 +38,11 @@ function createFrameTexture(frame) {
         const rect = new Rectangle(tex.frame.x + frame.x, tex.frame.y + frame.y, frame.width, frame.height);
         utils.TextureCache[frame.id] = new Texture(tex.baseTexture, rect);
     }
+    // utils.TextureCache[frame.id].baseTexture.mipmap = false;
     return utils.TextureCache[frame.id];
 }
 
 function getSprite(frame) {
-    // console.log(' getSprite', frame);
     if (frame.animation) {
         const textures = frame.animation.map(a => ({
             texture: Texture.from(a.id),
@@ -57,9 +57,6 @@ function getSprite(frame) {
 }
 
 function flipSprite(object, sprite) {
-    // if (object.flippedH || object.flippedV || object.flippedD) {
-    //     sprite.tint = 0xff0000;
-    // }
     const {width, height} = object.frame;
 
     if (object.flippedH) {
@@ -100,6 +97,7 @@ function renderTileLayer(layer, renderer) {
 
     layer.objects.forEach(object => {
         const {frame, x, y} = object;
+
         if (!frame) {
             console.log('No frame', object);
         }

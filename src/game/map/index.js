@@ -2,15 +2,11 @@ import {Container} from 'pixi.js';
 import TileMap from '../tiled/tile-map';
 import linkedList from 'usfl/linked-list';
 import SoundPlayer from '../utils/sound-player';
+import Pigzbe from '../pigzbe';
+import Camera from '../camera';
+import intersects from '../utils/intersects';
 
 const mapJSON = require('../assets/maps/pigzbe_game.json');
-
-function intersects(obA, obB) {
-    return !(obB.left >= obA.right ||
-           obB.right <= obA.left ||
-           obB.top >= obA.bottom ||
-           obB.bottom <= obA.top);
-}
 
 export default class Map {
     constructor(app, dims) {
@@ -38,62 +34,39 @@ export default class Map {
         this.hills = map.layer.hills.sprite;
         this.hills.width = map.width;
 
-        container.position.x = (vW - map.width) / 2;
-        container.position.y = (vH - map.height) / 2;
+        const pigzbe = new Pigzbe({
+            x: map.width / 2,
+            y: map.height / 2,
+            maxX: map.width,
+            maxY: map.height,
+        });
+        container.addChild(pigzbe.sprite);
 
-        this.diffX = 0;
-        this.lastX = container.position.x;
+        this.camera = new Camera({
+            target: pigzbe,
+            maxX: map.width,
+            maxY: map.height,
+            x: 0,
+            y: 0,
+            w: vW,
+            h: vH
+        });
 
         this.map = map;
         this.container = container;
-    }
-
-    containWorld() {
-        const {vW, vH} = this.dims;
-
-        this.container.position.x = Math.round(this.container.position.x);
-        this.container.position.y = Math.round(this.container.position.y);
-
-        if (this.container.position.x > 0) {
-            this.container.position.x = 0;
-        }
-
-        const minX = vW - this.map.width;
-        if (this.container.position.x < minX) {
-            this.container.position.x = minX;
-        }
-
-        if (this.container.position.y > 0) {
-            this.container.position.y = 0;
-        }
-
-        const minY = vH - this.map.height;
-        if (this.container.position.y < minY) {
-            this.container.position.y = minY;
-        }
+        this.pigzbe = pigzbe;
     }
 
     update(delta, vec) {
-        this.container.position.x -= vec.x * delta;
-        this.container.position.y -= vec.y * delta;
+        this.pigzbe.update(vec, delta);
+        this.camera.update();
 
-        this.containWorld();
-        this.diffX = this.lastX - this.container.position.x;
-        this.lastX = this.container.position.x;
-
-        const relX = Math.abs(this.container.position.x) + this.dims.center.x;
-        const relY = Math.abs(this.container.position.y) + this.dims.center.y;
-        const hitRect = {
-            top: relY - 25,
-            bottom: relY + 25,
-            left: relX - 35,
-            right: relX + 35,
-        };
+        this.container.position.set(0 - this.camera.x, 0 - this.camera.y);
 
         let coin = this.coins.first;
         while (coin) {
             const next = coin.next;
-            const hit = intersects(coin, hitRect);
+            const hit = intersects(coin, this.pigzbe.hitRect);
             if (hit) {
                 // coin.sprite.tint = 0xff0000;
                 coin.sprite.parent.removeChild(coin.sprite);
@@ -103,12 +76,12 @@ export default class Map {
             coin = next;
         }
 
-        this.mountains.tilePosition.x -= 0.064 * this.diffX * delta;
-        this.hills.tilePosition.x -= 0.128 * this.diffX * delta;
+        this.mountains.tilePosition.x -= 0.064 * this.camera.dx;
+        this.hills.tilePosition.x -= 0.128 * this.camera.dy;
     }
 
     resize(dims) {
         this.dims = dims;
-        this.containWorld();
+        this.camera.resize(dims.vW, dims.vH);
     }
 }

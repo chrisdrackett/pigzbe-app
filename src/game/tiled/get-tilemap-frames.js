@@ -25,7 +25,6 @@ function getFrame(tile, localGid, tileset, appendGid = false) {
 
 function getTilesetSheet(tileset) {
     const {columns, margin, spacing, tilewidth, tileheight, tilecount} = tileset;
-
     const frames = {};
     let x = margin;
     let y = margin;
@@ -56,7 +55,9 @@ function getTilesetItems(tileset) {
 }
 
 function getTilesetFrames(tileset) {
-    const frames = tileset.columns ? getTilesetSheet(tileset) : getTilesetItems(tileset);
+    const images = Object.keys(tileset.tiles).map(key => tileset.tiles[key].image);
+    const isSheet = images.every(i => i === images[0]);
+    const frames = isSheet ? getTilesetSheet(tileset) : getTilesetItems(tileset);
     Object.values(frames).forEach(frame => {
         if (frame.animation) {
             frame.animation = frame.animation.map(a => {

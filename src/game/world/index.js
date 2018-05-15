@@ -18,10 +18,6 @@ export default class World {
         const map = new Map(app, dims);
         app.stage.addChild(map.container);
 
-        const pig = PIXI.Sprite.from('pig');
-        pig.position.set(center.x - pig.width / 2, center.y - pig.height / 2);
-        app.stage.addChild(pig);
-
         const arrow = new PIXI.Container();
         const arrowGfx = PIXI.Sprite.from('arrow');
         arrow.addChild(arrowGfx);
@@ -31,7 +27,6 @@ export default class World {
 
         this.app = app;
         this.map = map;
-        this.pig = pig;
         this.arrow = arrow;
     }
 
@@ -56,8 +51,5 @@ export default class World {
     resize(dims) {
         this.dims = dims;
         this.map.resize(dims);
-
-        const {center} = this.dims;
-        this.pig.position.set(center.x - this.pig.width / 2, center.y - this.pig.height / 2);
     }
 }

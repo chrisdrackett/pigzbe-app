@@ -6,6 +6,7 @@ import distance from 'usfl/math/distance';
 import SoundPlayer from './utils/sound-player';
 import images from './assets/images';
 import sounds from './assets/sounds';
+const {abs, min, cos, sin} = Math;
 
 const removeFolderNames = json => {
     return Object.assign(json, {
@@ -17,26 +18,25 @@ const removeFolderNames = json => {
 };
 // import as js ob
 const spritesJSON = removeFolderNames(require('./assets/images/textures/objects0.json'));
+const tilesJSON = removeFolderNames(require('./assets/images/textures/tiles0.json'));
 
 global.PIXI = PIXI;
-
-PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+// PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
 export default class Game {
     constructor(el) {
         this.isDown = false;
 
         const {width, height} = el.getBoundingClientRect();
-        const resolution = window.devicePixelRatio || 1;
 
         const app = new PIXI.Application({
             backgroundColor: 0xE0F0FA,
             autoStart: false,
-            roundPixels: true,
-            transparent: true,
-            antialias: false,
+            roundPixels: false,
+            transparent: false,
+            antialias: true,
             forceFXAA: false,
-            resolution,
+            resolution: 1,
             width,
             height
         });
@@ -89,20 +89,23 @@ export default class Game {
             // parse fonts
             registerFont(assets.fontPng.texture);
             // parse spritesheets
-            const spriteSheet = assets.objects0;
-            const sheet = new PIXI.Spritesheet(spriteSheet.texture.baseTexture, spritesJSON);
+            const sprites = new PIXI.Spritesheet(assets.objects0.texture.baseTexture, spritesJSON);
+            const tiles = new PIXI.Spritesheet(assets.tiles0.texture.baseTexture, tilesJSON);
 
-            sheet.parse(textures => {
-                console.log('Spritesheet parsed!');
-                console.log(Object.keys(textures));
+            sprites.parse(spriteTextures => {
+                console.log('Sprites parsed!');
+                console.log(Object.keys(spriteTextures));
+                tiles.parse(tileTextures => {
+                    console.log('Tiles parsed!');
+                    console.log(Object.keys(tileTextures));
 
-                this.onLoad(app);
+                    this.onLoad(app);
+                });
             });
         });
     }
 
     onLoad(app) {
-        this.updateDims();
         this.world = new World(app, this.dims);
         this.resize();
 
@@ -117,10 +120,13 @@ export default class Game {
         if (!this.isDown) {
             this.vec.x *= 0.9;
             this.vec.y *= 0.9;
-            if (Math.abs(this.vec.x) < 0.005) {
+
+            const threshold = 0.5;
+
+            if (abs(this.vec.x) < threshold) {
                 this.vec.x = 0;
             }
-            if (Math.abs(this.vec.y) < 0.005) {
+            if (abs(this.vec.y) < threshold) {
                 this.vec.y = 0;
             }
         }
@@ -161,13 +167,13 @@ export default class Game {
         const {touchOrigin} = this;
 
         const rotation = angle(touchOrigin.x, touchOrigin.y, point.x, point.y);
-        const maxDist = Math.min(vW, vH) / 4;
-        const dist = Math.min(distance(touchOrigin.x, touchOrigin.y, point.x, point.y), maxDist);
+        const maxDist = min(vW, vH) / 4;
+        const dist = min(distance(touchOrigin.x, touchOrigin.y, point.x, point.y), maxDist);
         const force = dist / maxDist;
 
         const speed = 10;
-        this.vec.x = Math.cos(rotation) * force * speed;
-        this.vec.y = Math.sin(rotation) * force * speed;
+        this.vec.x = cos(rotation) * force * speed;
+        this.vec.y = sin(rotation) * force * speed;
         this.vec.rotation = rotation;
     }
 
