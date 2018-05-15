@@ -1,11 +1,9 @@
 import {Container} from 'pixi.js';
 import TileMap from '../tiled/tile-map';
-import linkedList from 'usfl/linked-list';
-import SoundPlayer from '../utils/sound-player';
 import Pigzbe from '../pigzbe';
 import Camera from '../camera';
 import Background from '../background';
-import intersects from '../utils/intersects';
+import Coins from '../coins';
 
 const mapJSON = require('../assets/maps/pigzbe_game.json');
 
@@ -21,11 +19,12 @@ export default class World {
         const map = new TileMap(mapJSON);
         console.log('layers', Object.keys(map.layer));
 
-        this.coins = linkedList(map.layer.coins_A.objects.concat(map.layer.coins_B.objects));
         const level = map.render(app.renderer);
         container.addChild(level);
 
         this.background = new Background(map);
+
+        this.coins = new Coins(map);
 
         const pigzbe = new Pigzbe({
             x: map.width / 2,
@@ -56,20 +55,9 @@ export default class World {
 
         this.container.position.set(0 - this.camera.x, 0 - this.camera.y);
 
-        let coin = this.coins.first;
-        while (coin) {
-            const next = coin.next;
-            const hit = intersects(coin, this.pigzbe.hitRect);
-            if (hit) {
-                // coin.sprite.tint = 0xff0000;
-                coin.sprite.parent.removeChild(coin.sprite);
-                this.coins.remove(coin);
-                SoundPlayer.play('notificationCoinsCaptured');
-            }
-            coin = next;
-        }
-
         this.background.update(this.camera);
+
+        this.coins.collide(this.pigzbe.hitRect);
     }
 
     resize(w, h) {
