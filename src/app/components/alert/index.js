@@ -30,12 +30,14 @@ class Alert extends Component {
     }
 
     dismiss() {
-        const {error} = this.props;
+        const {error, onDismiss} = this.props;
 
         this.setState({
             prevError: error,
             dismissed: true
         });
+
+        onDismiss();
     }
 
     render() {

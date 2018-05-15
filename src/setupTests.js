@@ -14,3 +14,24 @@ require('react-native').NativeModules.RNRandomBytes = {
 
 jest.mock('./game/game.html', () => 'html', {virtual: true});
 jest.mock('WebView', () => 'WebView');
+
+// mock NetInfo
+
+jest.mock('NetInfo', () => {
+    return {
+        isConnected: {
+            addEventListener: () => {},
+            removeEventListener: () => {},
+            getConnectionInfo: () => {
+                return new Promise((accept) => {
+                    accept(true);
+                });
+            },
+            fetch: () => {
+                return new Promise((accept) => {
+                    accept(true);
+                });
+            }
+        }
+    };
+});
