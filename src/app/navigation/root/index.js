@@ -10,9 +10,8 @@ import {connectionState} from '../../actions/check-connection';
 class Root extends Component {
 
     componentDidMount() {
-        NetInfo.isConnected.getConnectionInfo().then(this._handleConnectionChange).catch(() => {
-            this.props.dispatch(connectionState({status: false}));
-        });
+        console.log('asdasdasd');
+        NetInfo.isConnected.fetch(this._handleConnectionChange);
         NetInfo.isConnected.addEventListener('connectionChange', this._handleConnectionChange);
     }
 
@@ -21,6 +20,7 @@ class Root extends Component {
     }
 
     _handleConnectionChange = (isConnected) => {
+        console.log('asdasd', isConnected);
         this.props.dispatch(connectionState({status: isConnected}));
     }
 
@@ -41,10 +41,6 @@ class Root extends Component {
         return <Auth/>;
     }
 
-    onDismiss = () => {
-
-    }
-
     render() {
         const {
             error,
@@ -56,7 +52,7 @@ class Root extends Component {
         return (
             <Fragment>
                 {this.getChild()}
-                <Alert error={errorMessage} onDismiss={this.onDismiss} />
+                <Alert error={errorMessage}/>
             </Fragment>
         );
     }
