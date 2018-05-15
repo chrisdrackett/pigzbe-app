@@ -21,7 +21,7 @@ import BaseView from '../base-view';
 import Pig from '../pig';
 import Button from '../button';
 import moneyFormat from '../../utils/money-format';
-import apiURL from '../../utils/api-url';
+import {getExchange} from '../../actions/coins';
 
 export const Wollo = ({balance}) => (
     <View style={styles.wolloContainer}>
@@ -35,66 +35,45 @@ export const Wollo = ({balance}) => (
 
 class Balance extends Component {
 
-  state = {
-      exchange: null,
-      error: null
-  }
+    async componentWillMount() {
+        this.props.dispatch(getExchange());
+    }
 
-  componentWillMount() {
-      this.getExchange();
-  }
+    render () {
+        const {
+            exchange,
+            error,
+            balance,
+            baseCurrency,
+            escrow,
+            name,
+            image,
+            navigation
+        } = this.props;
 
-  getExchange = async () => {
-      try {
-          const {values} = await (await fetch(`${apiURL()}/compare?coins=${COINS.toString()}`, {
-              method: 'GET'
-          })).json();
+        if (!exchange && !error) {
+            return <Loader isLoading />;
+        }
 
-          this.setState({
-              exchange: {...values},
-              error: null
-          });
-      } catch (error) {
-          this.setState({
-              error: new Error('Network error')
-          });
-      }
-  }
-
-  render () {
-      const {exchange, error} = this.state;
-      const {
-          balance,
-          baseCurrency,
-          escrow,
-          name,
-          image,
-          navigation
-      } = this.props;
-
-      if (!exchange && !error) {
-          return <Loader isLoading />;
-      }
-
-      return (
-          <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container} error={error}>
-              <Avatar image={image}/>
-              <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
-              <Wollo balance={balance}/>
-              <Pig style={styles.pig}/>
-              <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
-              <ConvertBalance coins={COINS.filter(c => c !== baseCurrency)} exchange={exchange} balance={balance} dps={COIN_DPS}/>
-              {escrow ? (
-                  <View style={styles.escrow}>
-                      <Button
-                          label={'Escrow account'}
-                          onPress={() => navigation.navigate(SCREEN_ESCROW)}
-                      />
-                  </View>
-              ) : null}
-          </BaseView>
-      );
-  }
+        return (
+            <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container} error={error}>
+                <Avatar image={image}/>
+                <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
+                <Wollo balance={balance}/>
+                <Pig style={styles.pig}/>
+                <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
+                <ConvertBalance coins={COINS.filter(c => c !== baseCurrency)} exchange={exchange} balance={balance} dps={COIN_DPS}/>
+                {escrow ? (
+                    <View style={styles.escrow}>
+                        <Button
+                            label={'Escrow account'}
+                            onPress={() => navigation.navigate(SCREEN_ESCROW)}
+                        />
+                    </View>
+                ) : null}
+            </BaseView>
+        );
+    }
 }
 
 // export for test
@@ -102,6 +81,8 @@ export const BalanceComponent = Balance;
 
 export default connect(
     state => ({
+        error: state.coins.error,
+        exchange: state.coins.exchange,
         balance: state.wollo.balance,
         baseCurrency: state.wollo.baseCurrency,
         escrow: state.escrow.escrowPublicKey,
