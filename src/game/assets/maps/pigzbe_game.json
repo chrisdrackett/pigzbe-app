@@ -6,6 +6,14 @@
          "height":24,
          "name":"sky_02",
          "opacity":1,
+         "properties":
+            {
+             "guide":true
+            },
+         "propertytypes":
+            {
+             "guide":"bool"
+            },
          "type":"tilelayer",
          "visible":false,
          "width":52,
@@ -40,6 +48,14 @@
          "offsetx":0,
          "offsety":-97,
          "opacity":1,
+         "properties":
+            {
+             "tiling":true
+            },
+         "propertytypes":
+            {
+             "tiling":"bool"
+            },
          "type":"imagelayer",
          "visible":true,
          "x":0,
@@ -51,6 +67,14 @@
          "offsetx":0,
          "offsety":104,
          "opacity":1,
+         "properties":
+            {
+             "tiling":true
+            },
+         "propertytypes":
+            {
+             "tiling":"bool"
+            },
          "type":"imagelayer",
          "visible":true,
          "x":0,
@@ -4152,7 +4176,7 @@
                 },
              "5":
                 {
-                 "image":"..\/..\/..\/..\/tiled\/assets\/backgrounds\/sky.png",
+                 "image":"..\/..\/..\/..\/tiled\/assets\/objects\/sky.png",
                  "imageheight":960,
                  "imagewidth":128
                 }

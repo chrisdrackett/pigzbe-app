@@ -187,16 +187,19 @@ function renderLayer(layer, renderer) {
 export default function renderMap(map, renderer) {
     const container = new Container();
     map.layers.forEach(layer => {
-        createLayerTextures(layer, map.frames);
-        const ob = renderLayer(layer, renderer);
-        if (!ob) {
-            console.error('Render layer failed', layer.name);
+        const isGuide = layer.properties && layer.properties.guide;
+        if (!isGuide) {
+            createLayerTextures(layer, map.frames);
+            const ob = renderLayer(layer, renderer);
+            if (!ob) {
+                console.error('Render layer failed', layer.name);
+            }
+            if (!layer.visible) {
+                ob.visible = false;
+                console.warn('Layer invisible:', layer.name);
+            }
+            container.addChild(ob);
         }
-        if (!layer.visible) {
-            ob.visible = false;
-            console.warn('Layer invisible:', layer.name);
-        }
-        container.addChild(ob);
     });
     // app.stage.addChild(container);
 

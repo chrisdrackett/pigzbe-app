@@ -7,6 +7,9 @@
  <tileset firstgid="410" source="sky.tsx"/>
  <tileset firstgid="416" source="characters.tsx"/>
  <layer name="sky_02" width="52" height="24" visible="0">
+  <properties>
+   <property name="guide" type="bool" value="true"/>
+  </properties>
   <data encoding="csv">
 269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,
 269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,269,
@@ -39,9 +42,15 @@
  </objectgroup>
  <imagelayer name="cloudsHigh" locked="1" offsetx="0" offsety="-97">
   <image source="assets/backgrounds/clouds_01.png" width="3315" height="545"/>
+  <properties>
+   <property name="tiling" type="bool" value="true"/>
+  </properties>
  </imagelayer>
  <imagelayer name="cloudsLow" locked="1" offsetx="0" offsety="104">
   <image source="assets/backgrounds/clouds_02.png" width="3315" height="545"/>
+  <properties>
+   <property name="tiling" type="bool" value="true"/>
+  </properties>
  </imagelayer>
  <imagelayer name="mountains" locked="1" offsetx="0" offsety="415">
   <image source="assets/backgrounds/mountains_01.png" width="3315" height="545"/>
