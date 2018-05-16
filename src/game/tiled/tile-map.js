@@ -39,11 +39,18 @@ export default function TileMap(map) {
         tileHeight,
     };
 
-    function render(renderer) {
-        return renderMap(tileMap, renderer);
+    function render(renderer, opts) {
+        return renderMap(tileMap, renderer, opts);
     }
 
-    return Object.assign(tileMap, {render});
+    function renderLayer(layerName, renderer, opts = {}) {
+        return renderMap(tileMap, renderer, Object.assign(opts, {layer: layerName}));
+    }
+
+    return Object.assign(tileMap, {
+        render,
+        renderLayer
+    });
 }
 
 TileMap.OBJECT_LAYER = OBJECT_LAYER;

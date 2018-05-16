@@ -1,4 +1,4 @@
-import {OBJECT_LAYER, TILE_LAYER, IMAGE_LAYER} from './layer-type';
+import {OBJECT_LAYER, TILE_LAYER, IMAGE_LAYER, GROUP_LAYER} from './layer-type';
 
 import {
     Sprite,
@@ -149,13 +149,26 @@ function renderImageLayer(layer) {
     const tiling = layer.properties && layer.properties.tiling;
     const texture = Texture.from(object.frame);
     const sprite = tiling ? new extras.TilingSprite(texture, texture.width, texture.height) : new Sprite(texture);
-    // sprite.tint = 0xff0000;
+    sprite.name = layer.name;
     layer.sprite = sprite;
     sprite.position.set(layer.x, layer.y);
     return sprite;
 }
 
+function renderGroupLayer(group, renderer) {
+    const holder = new Container();
+    group.objects.forEach(layer => {
+        const ob = createLayer(layer, renderer);
+        holder.addChild(ob);
+    });
+    group.container = holder;
+    return holder;
+}
+
 function createLayerTextures(layer, frames) {
+    if (layer.type === GROUP_LAYER) {
+        return;
+    }
     layer.objects.forEach(object => {
         if (typeof object.frame !== 'string') {
             createFrameTexture(object.frame);
@@ -179,25 +192,55 @@ function renderLayer(layer, renderer) {
         case IMAGE_LAYER:
             return renderImageLayer(layer);
             break;
+        case GROUP_LAYER:
+            return renderGroupLayer(layer, renderer);
+            break;
         default:
     }
     return null;
 }
 
-export default function renderMap(map, renderer) {
+function createLayer(layer, renderer) {
+    const ob = renderLayer(layer, renderer);
+    if (!ob) {
+        console.error('Render layer failed', layer.name);
+    }
+    if (!layer.visible) {
+        ob.visible = false;
+        console.warn('Layer invisible:', layer.name);
+    }
+    return ob;
+}
+
+function toArray(value) {
+    return typeof value === 'string' ? [value] : value;
+}
+
+function getLayers(map, opts) {
+    let layers = map.layers;
+    if (opts.layer) {
+        layers = layers.filter(l => l.name === opts.layer);
+    }
+    if (opts.exclude) {
+        const exclude = toArray(opts.exclude);
+        layers = layers.filter(l => !exclude.includes(l.name));
+    }
+    if (opts.include) {
+        const include = toArray(opts.include);
+        layers = layers.filter(l => include.includes(l.name));
+    }
+    return layers;
+}
+
+export default function renderMap(map, renderer, opts = {}) {
     const container = new Container();
-    map.layers.forEach(layer => {
+    const layers = getLayers(map, opts);
+    layers.forEach(layer => {
         const isGuide = layer.properties && layer.properties.guide;
         if (!isGuide) {
             createLayerTextures(layer, map.frames);
-            const ob = renderLayer(layer, renderer);
-            if (!ob) {
-                console.error('Render layer failed', layer.name);
-            }
-            if (!layer.visible) {
-                ob.visible = false;
-                console.warn('Layer invisible:', layer.name);
-            }
+            const ob = createLayer(layer, renderer);
+            layer.container = ob;
             container.addChild(ob);
         }
     });
