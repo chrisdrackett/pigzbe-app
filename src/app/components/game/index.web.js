@@ -33,7 +33,7 @@ export default class GameView extends NavListener {
                     ref={el => (this.el = el)}
                     style={container}
                 />
-                <Overlay/>
+                <Overlay coins={1452}/>
             </View>
         );
     }
