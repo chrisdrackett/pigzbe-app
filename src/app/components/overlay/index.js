@@ -25,13 +25,6 @@ class Overlay extends Component {
         conversionKey: 'banana',
     }
 
-    onClick = (e) => {
-        const key = e.currentTarget.dataset.icon;
-        this.setState({
-            conversionKey: key,
-        });
-    }
-
     conversionString() {
         return `${this.props.coins / conversions[this.state.conversionKey].conversion} ${conversions[this.state.conversionKey].label}`;
     }
@@ -53,7 +46,7 @@ class Overlay extends Component {
                         <Text style={styles.title}>Let's learn!</Text>
                         <Text style={styles.text}>How much is your Wollo worth</Text>
                         <View style={styles.containerButtons}>
-                            {Object.keys(conversions).map(b => <ButtonIcon onClick={this.onClick} key={b} icon={b} />)}
+                            {Object.keys(conversions).map(b => <ButtonIcon onClick={() => this.setState({conversionKey: b})} key={b} icon={b} />)}
                         </View>
                         <Text style={styles.text}>1 Wollo coin is worth {conversions[this.state.conversionKey].conversion} {conversions[this.state.conversionKey].label}</Text>
                         <Text style={styles.text}>Your {this.props.coins} Wollo coins = {this.conversionString()}</Text>
