@@ -1693,8 +1693,8 @@
 	"frame": {"x":3,"y":3,"w":642,"h":545},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":1329,"y":0,"w":642,"h":545},
-	"sourceSize": {"w":3315,"h":545}
+	"spriteSourceSize": {"x":1335,"y":0,"w":642,"h":545},
+	"sourceSize": {"w":3328,"h":545}
 },
 "tree_01":
 {
@@ -1727,6 +1727,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1381,"h":2045},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:389a1aee362f3c32c6bf84e214da75ec:028eadf393860c05787635656644af0c:eadf40f4d979376cd00a2a86e775fd62$"
+	"smartupdate": "$TexturePacker:SmartUpdate:220f9e513720465eb86b1294047a4e53:0f6ae3fe16e49459565cf4695657344c:eadf40f4d979376cd00a2a86e775fd62$"
 }
 }
