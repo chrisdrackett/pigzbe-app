@@ -37,7 +37,7 @@ export default class GameView extends NavListener {
                     domStorageEnabled={true}
                     onMessage={event => this.onMessage(event)}
                 />
-                <Overlay/>
+                <Overlay coins={1531}/>
             </View>
         );
     }
