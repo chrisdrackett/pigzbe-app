@@ -22,11 +22,12 @@ export const load = key => dispatch => {
         .then(() => dispatch(profileLoad()))
         .then(() => dispatch(loadEscrow()))
         .then(() => dispatch(messagesLoad()))
+        .then(() => dispatch(loading(false)))
         .catch(error => {
             console.log(error);
             dispatch(loaderError(error));
-        })
-        .finally(() => dispatch(loading(false)));
+            dispatch(loading(false));
+        });
 };
 
 export const tryAutoLoad = () => dispatch => {
