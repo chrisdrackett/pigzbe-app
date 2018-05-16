@@ -45,6 +45,7 @@ function getTileLayer(layer, mapFrames, tileWidth, tileHeight) {
         const y = row * tileHeight + yOffset;
 
         return {
+            layer: layer.name,
             index,
             tile: gid,
             gid,
@@ -92,6 +93,7 @@ function getObjectGroup(layer, mapFrames) {
         const type = object.type || (frame && frame.type) || '';
 
         return Object.assign({}, object, {
+            layer: layer.name,
             frame,
             y,
             top: y,

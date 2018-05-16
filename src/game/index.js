@@ -113,7 +113,7 @@ export default class Game {
         this.world = new World(app, this.w, this.h);
 
         if (process.env.NODE_ENV === 'development') {
-            this.debug = new Debug(app);
+            this.debug = new Debug(app, this.world);
         }
 
         app.start();

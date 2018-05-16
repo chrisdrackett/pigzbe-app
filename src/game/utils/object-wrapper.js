@@ -28,15 +28,17 @@ export default class ObjectWrapper {
 
             if (isWrapping) {
                 visible = visibleL || item.x - item.width < camera.right - this.w;
+                visible = true;
             }
 
             item.sprite.visible = visible;
 
             if (visible) {
                 item.sprite.position.x = 0 - camera.left + item.x;
+                // item.sprite.position.y = 0 - camera.y + item.y;
 
-                if (isWrapping) {
-                    item.sprite.position.x = 0 - (visibleL ? camera.left : camera.left - this.w) + item.x;
+                if (isWrapping && !visibleL) {
+                    item.sprite.position.x = 0 - camera.left + this.w + item.x;
                 }
             }
 

@@ -1,24 +1,28 @@
-export default class Background {
+export default class Bg {
     constructor(map) {
         this.create(map);
     }
 
     create(map) {
-        this.mountains = map.layer.mountains.sprite;
-        this.mountains.width = map.width;
+        const {container, layer} = map.layer.background;
+
+        this.container = container;
+
+        this.sky = layer.sky.objects[0].sprite;
+
+        this.mountains = layer.mountains.sprite;
         this.mountainsY = this.mountains.position.y;
 
-        this.hills = map.layer.hills.sprite;
-        this.hills.width = map.width;
+        this.hills = layer.hills.sprite;
         this.hillsY = this.hills.position.y;
 
-        this.cloudsLow = map.layer.cloudsLow.sprite;
-        this.cloudsLow.width = map.width;
+        this.cloudsLow = layer.cloudsLow.sprite;
         this.cloudsLowY = this.cloudsLow.position.y;
 
-        this.cloudsHigh = map.layer.cloudsHigh.sprite;
-        this.cloudsHigh.width = map.width;
+        this.cloudsHigh = layer.cloudsHigh.sprite;
         this.cloudsHighY = this.cloudsHigh.position.y;
+
+        this.resize(map.width);
     }
 
     update(camera) {
@@ -32,5 +36,13 @@ export default class Background {
         // this.cloudsLow.position.y = this.hillsY + 8 * yOffset;
         // this.mountains.position.y = this.mountainsY + 12 * yOffset;
         // this.hills.position.y = this.hillsY + 16 * yOffset;
+    }
+
+    resize(w) {
+        this.sky.width = w;
+        this.mountains.width = w;
+        this.hills.width = w;
+        this.cloudsLow.width = w;
+        this.cloudsHigh.width = w;
     }
 }

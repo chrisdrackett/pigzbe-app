@@ -49,7 +49,14 @@ export default class Camera {
         this.lx = this.x;
         this.dy = this.ly - this.y;
         this.ly = this.y;
-        this.rx = this.x % this.wrapW;
+        // this.rx = this.x % this.wrapW;
+        this.rx = this.x;
+        while (this.rx < 0) {
+            this.rx += this.wrapW;
+        }
+        while (this.rx > this.wrapW) {
+            this.rx -= this.wrapW;
+        }
 
         this.top = this.y;
         this.right = this.rx + this.w;

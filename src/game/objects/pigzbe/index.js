@@ -39,7 +39,14 @@ export default class Pigzbe {
 
         this.sprite.position.set(this.x, this.y);
 
-        this.rx = this.x % this.mapW;
+        this.rx = this.x;
+        while (this.rx < 0) {
+            this.rx += this.mapW;
+        }
+        while (this.rx > this.mapW) {
+            this.rx -= this.mapW;
+        }
+
         this.hitRect.top = this.y - 20;
         this.hitRect.bottom = this.y + 20;
         this.hitRect.left = this.rx - 30;

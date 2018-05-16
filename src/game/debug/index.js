@@ -4,11 +4,11 @@ import fps from 'usfl/fps';
 fps.auto();
 
 export default class World {
-    constructor(app) {
-        this.create(app);
+    constructor(app, world) {
+        this.create(app, world);
     }
 
-    create(app) {
+    create(app, world) {
         const arrow = new PIXI.Container();
         const arrowGfx = PIXI.Sprite.from('arrow');
         arrow.addChild(arrowGfx);
@@ -16,6 +16,7 @@ export default class World {
         arrowGfx.position.set(0 - arrow.width / 2, 0 - arrow.height / 2);
 
         this.app = app;
+        this.world = world;
         this.arrow = arrow;
     }
 
@@ -24,7 +25,13 @@ export default class World {
         const rendererRes = this.app.renderer.resolution;
         const dpr = window.devicePixelRatio || 1;
         const {width, height} = this.app.renderer;
-        const info = `${width}/${height}\n${rendererType} res: ${rendererRes} dpr: ${dpr}\nangle: ${roundTo(vec.rotation, 1)}\nx/y: ${roundTo(vec.x)}/${roundTo(vec.y)}`;
+        const info = `
+            ${width}/${height}
+            ${rendererType} res: ${rendererRes} dpr: ${dpr}
+            angle: ${roundTo(vec.rotation, 1)}
+            x/y: ${roundTo(vec.x)}/${roundTo(vec.y)}
+            camera: ${this.world.camera.left} ${this.world.camera.right}
+        `;
         fps.log(info.replace(/\n/g, '<br>'));
     }
 
