@@ -127,14 +127,19 @@ function renderObjectLayer(layer) {
     layer.objects.forEach(object => {
         const {frame, x, y, scale} = object;
         if (frame) {
+            const container = new Container();
             const sprite = getSprite(frame);
-            sprite.scale.set(scale.x, scale.y);
-            sprite.position.set(x, y);
-            flipSprite(object, sprite);
-            holder.addChild(sprite);
+            container.scale.set(scale.x, scale.y);
+            container.position.set(x, y);
+            flipSprite(object, container);
+            container.addChild(sprite);
+            sprite.anchor.set(0.5);
+            sprite.position.set(sprite.width / 2, sprite.height / 2);
+            holder.addChild(container);
             object.sprite = sprite;
+            object.container = container;
             if (!object.visible) {
-                sprite.visible = false;
+                container.visible = false;
                 console.warn('Object invisible:', layer.name, object.name || object);
             }
             // const graphic = new Graphics();

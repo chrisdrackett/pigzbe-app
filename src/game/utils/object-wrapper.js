@@ -22,6 +22,8 @@ export default class ObjectWrapper {
         while (item) {
             const next = item.next;
 
+            const displayObject = item.container || item.sprite;
+
             const visibleL = item.x + item.width > camera.left;
 
             let visible = visibleL && item.x - item.width < camera.right;
@@ -31,14 +33,14 @@ export default class ObjectWrapper {
                 visible = true;
             }
 
-            item.sprite.visible = visible;
+            displayObject.visible = visible;
 
             if (visible) {
-                item.sprite.position.x = 0 - camera.left + item.x;
-                // item.sprite.position.y = 0 - camera.y + item.y;
+                displayObject.position.x = 0 - camera.left + item.x;
+                // displayObject.position.y = 0 - camera.y + item.y;
 
                 if (isWrapping && !visibleL) {
-                    item.sprite.position.x = 0 - camera.left + this.w + item.x;
+                    displayObject.position.x = 0 - camera.left + this.w + item.x;
                 }
             }
 
