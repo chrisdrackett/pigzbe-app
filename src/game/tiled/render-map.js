@@ -121,15 +121,16 @@ function renderTileLayer(layer, renderer) {
     return holder;
 }
 
-function renderObjectLayer(layer) {
+function renderObjectLayer(layer, opts) {
     const holder = new Container();
     holder.position.set(layer.x, layer.y);
     layer.objects.forEach(object => {
         const {frame, x, y, scale} = object;
         if (frame) {
+            console.log('renderObjectLayer', layer.name);
             const container = new Container();
             const sprite = getSprite(frame);
-            container.scale.set(scale.x, scale.y);
+            sprite.scale.set(scale.x, scale.y);
             container.position.set(x, y);
             flipSprite(object, container);
             container.addChild(sprite);
@@ -142,10 +143,12 @@ function renderObjectLayer(layer) {
                 container.visible = false;
                 console.warn('Object invisible:', layer.name, object.name || object);
             }
-            // const graphic = new Graphics();
-            // graphic.lineStyle(2, 0xff0000);
-            // graphic.drawRect(0, 0, object.width, object.height);
-            // sprite.addChild(graphic);
+            if (opts.showObjectRects) {
+                const graphic = new Graphics();
+                graphic.lineStyle(1, 0xff00ff);
+                graphic.drawRect(0, 0, object.width, object.height);
+                container.addChild(graphic);
+            }
         } else {
             const g = getGraphic(object);
             g.position.set(x, y);
@@ -167,14 +170,15 @@ function renderImageLayer(layer) {
     return sprite;
 }
 
-function renderGroupLayer(group, renderer) {
+function renderGroupLayer(group, renderer, opts) {
     const flatten = group.properties && group.properties.flatten;
     const holder = new Container();
     group.objects.forEach(layer => {
-        const ob = createLayer(layer, renderer);
+        const ob = createLayer(layer, renderer, opts);
         holder.addChild(ob);
     });
     if (flatten) {
+        console.log('---->', group.name, 'flatten');
         const sprite = renderLayerTexture(group.objects[0], holder, renderer);
         group.container = sprite;
         return sprite;
@@ -201,27 +205,27 @@ function createLayerTextures(layer, frames) {
     });
 }
 
-function renderLayer(layer, renderer) {
+function renderLayer(layer, renderer, opts) {
     switch (layer.type) {
         case TILE_LAYER:
-            return renderTileLayer(layer, renderer);
+            return renderTileLayer(layer, renderer, opts);
             break;
         case OBJECT_LAYER:
-            return renderObjectLayer(layer);
+            return renderObjectLayer(layer, opts);
             break;
         case IMAGE_LAYER:
-            return renderImageLayer(layer);
+            return renderImageLayer(layer, opts);
             break;
         case GROUP_LAYER:
-            return renderGroupLayer(layer, renderer);
+            return renderGroupLayer(layer, renderer, opts);
             break;
         default:
     }
     return null;
 }
 
-function createLayer(layer, renderer) {
-    const ob = renderLayer(layer, renderer);
+function createLayer(layer, renderer, opts) {
+    const ob = renderLayer(layer, renderer, opts);
     if (!ob) {
         console.error('Render layer failed', layer.name);
     }
@@ -264,7 +268,7 @@ export default function renderMap(map, renderer, opts = {}) {
         const isGuide = layer.properties && layer.properties.guide;
         if (!isGuide) {
             createLayerTextures(layer, map.frames);
-            const ob = createLayer(layer, renderer);
+            const ob = createLayer(layer, renderer, opts);
             layer.container = ob;
             container.addChild(ob);
 

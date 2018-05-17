@@ -12,7 +12,6 @@ export default class Level {
         sunB.position.copy(sunA.position);
         // console.log('sunA', sunA);
         const groundA = map.layer.ground.container;
-        console.log('groundA', groundA);
         const groundB = new Sprite(groundA.texture);
 
         const levelA = new Container();

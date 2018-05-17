@@ -9,6 +9,8 @@ import sounds from './assets/sounds';
 import Debug from './debug';
 const {abs, min, cos, sin} = Math;
 
+const MOVE_SPEED = 8;
+
 const removeFolderNames = json => {
     return Object.assign(json, {
         frames: Object.keys(json.frames).reduce((ob, key) => {
@@ -129,8 +131,8 @@ export default class Game {
         }
 
         if (!this.isDown) {
-            this.vec.x *= 0.9;
-            this.vec.y *= 0.9;
+            this.vec.x *= 0.85;
+            this.vec.y *= 0.85;
 
             const threshold = 0.5;
 
@@ -181,9 +183,8 @@ export default class Game {
         const dist = min(distance(touchOrigin.x, touchOrigin.y, point.x, point.y), maxDist);
         const force = dist / maxDist;
 
-        const speed = 10;
-        this.vec.x = cos(rotation) * force * speed;
-        this.vec.y = sin(rotation) * force * speed;
+        this.vec.x = cos(rotation) * force * MOVE_SPEED;
+        this.vec.y = sin(rotation) * force * MOVE_SPEED;
         this.vec.rotation = rotation;
     }
 

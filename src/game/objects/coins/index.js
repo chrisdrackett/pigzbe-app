@@ -18,7 +18,7 @@ export default class Coins {
         if (visible) {
             const hit = intersects(coin, this.hitRect);
             if (hit) {
-                coin.sprite.parent.removeChild(coin.sprite);
+                coin.container.parent.removeChild(coin.container);
                 coins.remove(coin);
                 SoundPlayer.play('notificationCoinsCaptured');
             }

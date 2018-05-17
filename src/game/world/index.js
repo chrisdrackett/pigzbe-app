@@ -18,8 +18,9 @@ export default class World {
 
     create(app, w, h) {
         const map = new TileMap(mapJSON);
-        map.layer.ground.properties = {flatten: true};
-        map.render(app.renderer);
+        map.render(app.renderer, {
+            showObjectRects: process.env.NODE_ENV === 'development'
+        });
 
         console.log('layers', Object.keys(map.layer));
         console.log('map.width', map.width);
