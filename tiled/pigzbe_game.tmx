@@ -53,14 +53,14 @@
     <property name="tiling" type="bool" value="true"/>
    </properties>
   </imagelayer>
-  <imagelayer name="mountains" locked="1" offsetx="0" offsety="415">
-   <image source="assets/backgrounds/mountains_01.png" width="3328" height="545"/>
+  <imagelayer name="mountains" locked="1" offsetx="0" offsety="388">
+   <image source="assets/backgrounds/mountains_01.png" width="3328" height="600"/>
    <properties>
     <property name="tiling" type="bool" value="true"/>
    </properties>
   </imagelayer>
-  <imagelayer name="hills" locked="1" offsetx="0" offsety="415">
-   <image source="assets/backgrounds/hills_01.png" width="1664" height="545"/>
+  <imagelayer name="hills" locked="1" offsetx="0" offsety="388">
+   <image source="assets/backgrounds/hills_01.png" width="1664" height="600"/>
    <properties>
     <property name="tiling" type="bool" value="true"/>
    </properties>

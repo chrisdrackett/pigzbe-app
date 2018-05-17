@@ -19,7 +19,8 @@ export default class World {
     create(app, w, h) {
         const map = new TileMap(mapJSON);
         map.render(app.renderer, {
-            showObjectRects: process.env.NODE_ENV === 'development'
+            // showObjectRects: process.env.NODE_ENV === 'development'
+            showObjectRects: false
         });
 
         console.log('layers', Object.keys(map.layer));

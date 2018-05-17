@@ -86,7 +86,7 @@
                  "image":"..\/..\/..\/..\/tiled\/assets\/backgrounds\/mountains_01.png",
                  "name":"mountains",
                  "offsetx":0,
-                 "offsety":415,
+                 "offsety":388,
                  "opacity":1,
                  "properties":
                     {
@@ -105,7 +105,7 @@
                  "image":"..\/..\/..\/..\/tiled\/assets\/backgrounds\/hills_01.png",
                  "name":"hills",
                  "offsetx":0,
-                 "offsety":415,
+                 "offsety":388,
                  "opacity":1,
                  "properties":
                     {
@@ -4185,13 +4185,13 @@
              "2":
                 {
                  "image":"..\/..\/..\/..\/tiled\/assets\/backgrounds\/hills_01.png",
-                 "imageheight":545,
+                 "imageheight":600,
                  "imagewidth":1664
                 },
              "3":
                 {
                  "image":"..\/..\/..\/..\/tiled\/assets\/backgrounds\/mountains_01.png",
-                 "imageheight":545,
+                 "imageheight":600,
                  "imagewidth":3328
                 },
              "4":

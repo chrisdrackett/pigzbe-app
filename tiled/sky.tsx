@@ -8,10 +8,10 @@
   <image width="3328" height="545" source="assets/backgrounds/clouds_02.png"/>
  </tile>
  <tile id="2">
-  <image width="1664" height="545" source="assets/backgrounds/hills_01.png"/>
+  <image width="1664" height="600" source="assets/backgrounds/hills_01.png"/>
  </tile>
  <tile id="3">
-  <image width="3328" height="545" source="assets/backgrounds/mountains_01.png"/>
+  <image width="3328" height="600" source="assets/backgrounds/mountains_01.png"/>
  </tile>
  <tile id="4">
   <image width="3328" height="545" source="assets/objects/sun_01.png"/>

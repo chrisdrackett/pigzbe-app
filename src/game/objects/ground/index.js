@@ -10,7 +10,7 @@ export default class Level {
         const [sunA] = map.layer.sun.container.children;
         const sunB = new Sprite(sunA.texture);
         sunB.position.copy(sunA.position);
-        // console.log('sunA', sunA);
+
         const groundA = map.layer.ground.container;
         const groundB = new Sprite(groundA.texture);
 
@@ -19,7 +19,6 @@ export default class Level {
         levelA.addChild(groundA);
 
         const levelB = new Container();
-        // sunB.tint = 0xff0000;
         levelB.addChild(sunB);
         levelB.addChild(groundB);
 

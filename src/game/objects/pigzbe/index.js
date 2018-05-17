@@ -1,5 +1,9 @@
-import {Sprite} from 'pixi.js';
-const {min, max} = Math;
+import {Container, Sprite} from 'pixi.js';
+const {
+    round,
+    min,
+    max
+} = Math;
 
 export default class Pigzbe {
     constructor({x, y, maxX, maxY, mapW}) {
@@ -9,11 +13,13 @@ export default class Pigzbe {
         this.maxY = maxY;
         this.mapW = mapW;
 
-        this.sprite = Sprite.from('pig');
-        this.sprite.anchor.set(0.5);
+        this.sprite = new Container();
+        const pig = Sprite.from('pig');
+        pig.position.set(0 - round(pig.width / 2), 0 - round(pig.height / 2));
+        this.sprite.addChild(pig);
         this.sprite.position.set(x, y);
-        this.w = this.sprite.width;
-        this.h = this.sprite.height;
+        this.w = pig.width;
+        this.h = pig.height;
         this.hw = this.w / 2;
         this.hh = this.h / 2;
 
@@ -37,6 +43,7 @@ export default class Pigzbe {
             this.y = max(this.hh, min(this.y, this.maxY - this.hh));
         }
 
+        // this.sprite.position.set(round(this.x), round(this.y));
         this.sprite.position.set(this.x, this.y);
 
         this.rx = this.x;

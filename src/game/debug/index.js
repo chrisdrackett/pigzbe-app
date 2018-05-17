@@ -30,7 +30,7 @@ export default class World {
             ${rendererType} res: ${rendererRes} dpr: ${dpr}
             angle: ${roundTo(vec.rotation, 1)}
             x/y: ${roundTo(vec.x)}/${roundTo(vec.y)}
-            camera: ${this.world.camera.left} ${this.world.camera.right}
+            camera: ${Math.round(this.world.camera.left)} ${Math.round(this.world.camera.right)}
         `;
         fps.log(info.replace(/\n/g, '<br>'));
     }

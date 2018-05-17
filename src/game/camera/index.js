@@ -1,5 +1,9 @@
 // import lerp from 'usfl/math/lerp';
-const {round, min, max} = Math;
+const {
+    // round,
+    min,
+    max
+} = Math;
 
 export default class Camera {
     constructor({target, w, h, maxX, maxY, wrapW}) {
@@ -32,10 +36,12 @@ export default class Camera {
     update() {
         this.tx = this.target.x - this.hw;
         this.ty = this.target.y - this.hh;
-        this.x = round(this.tx);
-        this.y = round(this.ty);
-        // this.x = round(lerp(this.x, this.tx, 0.1));
-        // this.y = round(lerp(this.y, this.ty, 0.1));
+        this.x = this.tx;
+        this.y = this.ty;
+        // this.x = round(this.tx);
+        // this.y = round(this.ty);
+        // this.x = lerp(this.x, this.tx, 0.1);
+        // this.y = lerp(this.y, this.ty, 0.1);
 
         if (this.maxX) {
             this.x = max(0, min(this.x, this.maxX - this.w));
