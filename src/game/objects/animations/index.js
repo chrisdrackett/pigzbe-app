@@ -2,12 +2,12 @@ import ObjectWrapper from '../../utils/object-wrapper';
 
 const {sin, cos} = Math;
 
-const WATERFALL_ANIM = 'waterfall_anim';
-const GROUND_ANIM = 'ground_anim';
-const OVERGROUND_DECORATION_01 = 'overground_decoration_01';
-const OVERGROUND_DECORATION_02 = 'overground_decoration_02';
-const CHESTS = 'chests';
-const SECRET = 'secret';
+export const WATERFALL_ANIM = 'waterfall_anim';
+export const GROUND_ANIM = 'ground_anim';
+export const OVERGROUND_DECORATION_01 = 'overground_decoration_01';
+export const OVERGROUND_DECORATION_02 = 'overground_decoration_02';
+export const CHESTS = 'chests';
+export const SECRET = 'secret';
 
 export default class Animations {
     constructor(map) {
@@ -17,9 +17,12 @@ export default class Animations {
     create(map) {
         const layers = [WATERFALL_ANIM, GROUND_ANIM, OVERGROUND_DECORATION_01, OVERGROUND_DECORATION_02, CHESTS, SECRET];
         const objects = layers.reduce((arr, name) => arr.concat(map.layer[name].objects), []);
-        const containers = layers.reduce((arr, name) => arr.concat(map.layer[name].container), []);
-        this.wrapper = new ObjectWrapper(objects, containers, map.width);
-        this.container = this.wrapper.container;
+        this.wrapper = new ObjectWrapper(objects, map.width);
+
+        this.containers = layers.reduce((ob, name) => {
+            ob[name] = map.layer[name].container;
+            return ob;
+        }, {});
 
         this.counter = 0;
     }
@@ -31,6 +34,10 @@ export default class Animations {
                 case CHESTS:
                     item.sprite.rotation = sin(this.counter) * 0.2;
                     item.sprite.position.y = item.sprite.height / 2 + cos(this.counter) * 6;
+                    break;
+                case GROUND_ANIM:
+                    item.sprite.position.y = item.sprite.position.y + 0.5;
+                    // console.log('GROUND_ANIM', item.sprite.position.y);
                     break;
                 default:
 

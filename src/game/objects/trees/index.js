@@ -8,10 +8,9 @@ export default class Trees {
 
     create(map) {
         const objects = map.layer.trees.objects;
-        const containers = [map.layer.trees.container];
 
-        this.wrapper = new ObjectWrapper(objects, containers, map.width);
-        this.container = this.wrapper.container;
+        this.wrapper = new ObjectWrapper(objects, map.width);
+        this.container = map.layer.trees.container;
 
         this.counter = 0;
     }

@@ -1,21 +1,16 @@
-import {Container} from 'pixi.js';
 import linkedList from 'usfl/linked-list';
 
 export default class ObjectWrapper {
-    constructor(objects, containers, w) {
-        this.create(objects, containers, w);
+    constructor(objects, w) {
+        this.create(objects, w);
     }
 
-    create(objects, containers, w) {
-        this.container = new Container();
-        containers.forEach(c => this.container.addChild(c));
+    create(objects, w) {
         this.items = linkedList(objects);
         this.w = w;
     }
 
     update(camera, processItem) {
-        this.container.position.y = 0 - camera.y;
-
         const isWrapping = camera.right > this.w;
 
         let item = this.items.first;
@@ -37,7 +32,7 @@ export default class ObjectWrapper {
 
             if (visible) {
                 displayObject.position.x = 0 - camera.left + item.x;
-                // displayObject.position.y = 0 - camera.y + item.y;
+                displayObject.position.y = 0 - camera.y + item.y;
 
                 if (isWrapping && !visibleL) {
                     displayObject.position.x = 0 - camera.left + this.w + item.x;

@@ -24,6 +24,8 @@ const spritesJSON = removeFolderNames(require('./assets/images/textures/objects0
 const tilesJSON = removeFolderNames(require('./assets/images/textures/tiles0.json'));
 
 global.PIXI = PIXI;
+console.log('PIXI.settings.PRECISION_VERTEX', PIXI.settings.PRECISION_VERTEX);
+console.log('PIXI.settings.PRECISION_FRAGMENT', PIXI.settings.PRECISION_FRAGMENT);
 // PIXI.settings.PRECISION_FRAGMENT = 'highp';
 // PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 

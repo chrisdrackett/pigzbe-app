@@ -7,9 +7,8 @@ export default class Characters {
 
     create(map) {
         const objects = map.layer.characters.objects;
-        const containers = [map.layer.characters.container];
-        this.wrapper = new ObjectWrapper(objects, containers, map.width);
-        this.container = this.wrapper.container;
+        this.wrapper = new ObjectWrapper(objects, map.width);
+        this.container = map.layer.characters.container;
     }
 
     processItem = (visible, character) => {

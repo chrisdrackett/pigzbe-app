@@ -9,9 +9,9 @@ export default class Coins {
 
     create(map) {
         const objects = map.layer.coins_A.objects.concat(map.layer.coins_B.objects);
-        const containers = [map.layer.coins_A.container, map.layer.coins_B.container];
-        this.wrapper = new ObjectWrapper(objects, containers, map.width);
-        this.container = this.wrapper.container;
+        this.wrapper = new ObjectWrapper(objects, map.width);
+        this.coinsA = map.layer.coins_A.container;
+        this.coinsB = map.layer.coins_B.container;
     }
 
     collide = (visible, coin, coins) => {

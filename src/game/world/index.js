@@ -7,7 +7,14 @@ import Background from '../objects/background';
 import Coins from '../objects/coins';
 import Characters from '../objects/characters';
 import Trees from '../objects/trees';
-import Animations from '../objects/animations';
+import Animations, {
+    WATERFALL_ANIM,
+    GROUND_ANIM,
+    OVERGROUND_DECORATION_01,
+    OVERGROUND_DECORATION_02,
+    CHESTS,
+    SECRET
+} from '../objects/animations';
 
 const mapJSON = require('../assets/maps/pigzbe_game.json');
 
@@ -35,11 +42,19 @@ export default class World {
         this.ground = new Ground(map, app);
         app.stage.addChild(this.ground.container);
 
-        this.coins = new Coins(map);
-        app.stage.addChild(this.coins.container);
-
         this.anims = new Animations(map);
-        app.stage.addChild(this.anims.container);
+        app.stage.addChild(this.anims.containers[WATERFALL_ANIM]);
+        app.stage.addChild(this.anims.containers[GROUND_ANIM]);
+
+        this.coins = new Coins(map);
+        app.stage.addChild(this.coins.coinsB);
+
+        app.stage.addChild(this.anims.containers[OVERGROUND_DECORATION_02]);
+        app.stage.addChild(this.anims.containers[OVERGROUND_DECORATION_01]);
+        app.stage.addChild(this.anims.containers[CHESTS]);
+        app.stage.addChild(this.anims.containers[SECRET]);
+
+        app.stage.addChild(this.coins.coinsA);
 
         this.characters = new Characters(map);
         app.stage.addChild(this.characters.container);
