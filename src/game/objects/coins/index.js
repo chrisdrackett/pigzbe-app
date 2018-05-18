@@ -28,6 +28,9 @@ export default class Coins {
             return pop;
         });
         this.popPool.fill(3);
+
+        this.coinsCollected = 0;
+        this.totalCoins = objects.length;
     }
 
     collide = (visible, coin, coins) => {
@@ -35,6 +38,8 @@ export default class Coins {
             const hit = intersects(coin, this.hitRect);
             if (hit && !coin.hit) {
                 coin.hit = true;
+
+                this.coinsCollected++;
 
                 coin.container.removeChild(coin.sprite);
 

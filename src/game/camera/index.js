@@ -31,6 +31,9 @@ export default class Camera {
         this.right = w;
         this.bottom = h;
         this.left = 0;
+
+        this.cx = this.hw;
+        this.cy = this.hh;
     }
 
     update() {
@@ -68,6 +71,9 @@ export default class Camera {
         this.right = this.rx + this.w;
         this.bottom = this.y + this.h;
         this.left = this.rx;
+
+        this.cx = this.left + this.hw;
+        this.cy = this.top + this.hh;
     }
 
     resize(w, h) {

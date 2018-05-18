@@ -117,7 +117,7 @@ export default class World {
 
         this.birds.update(this.camera, delta);
 
-        this.tree.update(this.camera);
+        this.tree.update(this.camera, this.coins.coinsCollected, this.coins.totalCoins);
     }
 
     resize(w, h) {

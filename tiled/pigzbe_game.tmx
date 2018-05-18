@@ -410,7 +410,7 @@
   <object id="156" name="frog" gid="655" x="821" y="1023" width="368" height="368"/>
  </objectgroup>
  <objectgroup name="tree">
-  <object id="163" gid="677" x="1505" y="962" width="254" height="382"/>
+  <object id="163" gid="677" x="1505" y="954" width="254" height="382"/>
  </objectgroup>
  <objectgroup name="birds">
   <object id="161" name="birdA" gid="675" x="1005.61" y="156" width="105" height="98"/>
