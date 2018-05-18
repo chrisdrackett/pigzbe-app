@@ -161,7 +161,7 @@ function getLayer(layer, z, tileWidth, tileHeight, mapFrames) {
             };
             break;
         case OBJECT_LAYER:
-            l.map = l.objects.reduce((ob, object) => {
+            l.object = l.objects.reduce((ob, object) => {
                 if (object.name) {
                     if (ob[object.name]) {
                         console.warn('Duplicate object name:', object.name);

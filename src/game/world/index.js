@@ -7,6 +7,8 @@ import Background from '../objects/background';
 import Coins from '../objects/coins';
 import Characters from '../objects/characters';
 import Trees from '../objects/trees';
+import Tree from '../objects/tree';
+import Birds from '../objects/birds';
 import Animations, {
     WATERFALL_ANIM,
     GROUND_ANIM,
@@ -59,6 +61,12 @@ export default class World {
         this.characters = new Characters(map);
         app.stage.addChild(this.characters.container);
 
+        this.birds = new Birds(map);
+        app.stage.addChild(this.birds.container);
+
+        this.tree = new Tree(map);
+        app.stage.addChild(this.tree.container);
+
         const container = new Container();
         app.stage.addChild(container);
 
@@ -106,6 +114,10 @@ export default class World {
         this.anims.update(this.camera);
 
         this.characters.update(this.camera);
+
+        this.birds.update(this.camera, delta);
+
+        this.tree.update(this.camera);
     }
 
     resize(w, h) {

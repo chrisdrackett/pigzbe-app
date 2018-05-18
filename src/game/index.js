@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import World from './world';
-import {registerFont} from './assets/fonts';
+// import {registerFont} from './assets/fonts';
+import parseSpritesheets from './utils/parse-spritesheets';
 import angle from 'usfl/math/angle';
 import distance from 'usfl/math/distance';
 import SoundPlayer from './utils/sound-player';
@@ -11,17 +12,13 @@ const {abs, min, cos, sin} = Math;
 
 const MOVE_SPEED = 8;
 
-const removeFolderNames = json => {
-    return Object.assign(json, {
-        frames: Object.keys(json.frames).reduce((ob, key) => {
-            ob[key.split('/').pop()] = json.frames[key];
-            return ob;
-        }, {})
-    });
+const spritesheets = {
+    tiles0: require('./assets/images/textures/tiles0.json'),
+    objects0: require('./assets/images/textures/objects0.json'),
+    objects1: require('./assets/images/textures/objects1.json'),
+    objects2: require('./assets/images/textures/objects2.json'),
+    objects3: require('./assets/images/textures/objects3.json'),
 };
-// import as js ob
-const spritesJSON = removeFolderNames(require('./assets/images/textures/objects0.json'));
-const tilesJSON = removeFolderNames(require('./assets/images/textures/tiles0.json'));
 
 global.PIXI = PIXI;
 console.log('PIXI.settings.PRECISION_VERTEX', PIXI.settings.PRECISION_VERTEX);
@@ -94,20 +91,17 @@ export default class Game {
 
         app.loader.load((loader, assets) => {
             // parse fonts
-            registerFont(assets.fontPng.texture);
-            // parse spritesheets
-            const sprites = new PIXI.Spritesheet(assets.objects0.texture.baseTexture, spritesJSON);
-            const tiles = new PIXI.Spritesheet(assets.tiles0.texture.baseTexture, tilesJSON);
+            // registerFont(assets.fontPng.texture);
 
-            sprites.parse(spriteTextures => {
-                console.log('Sprites parsed!');
-                console.log(Object.keys(spriteTextures));
-                tiles.parse(tileTextures => {
-                    console.log('Tiles parsed!');
-                    console.log(Object.keys(tileTextures));
+            const sheets = Object.keys(spritesheets).map(key => ({
+                baseTexture: assets[key].texture.baseTexture,
+                json: spritesheets[key]
+            }));
 
-                    this.onLoad(app);
-                });
+            parseSpritesheets(sheets).then(textures => {
+                console.log('Spritesheets parsed.', textures.length, 'textures found.');
+                console.log(Object.keys(textures));
+                this.onLoad(app);
             });
         });
     }

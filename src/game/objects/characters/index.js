@@ -12,6 +12,9 @@ export default class Characters {
     }
 
     processItem = (visible, character) => {
+        // if (character.name.includes('bird')) {
+        //     character.sprite.x -= 1;
+        // }
         if (visible) {
             if (!character.sprite.playing) {
                 character.sprite.play();
