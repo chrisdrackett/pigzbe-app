@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="characters" tilewidth="800" tileheight="800" tilecount="240" columns="0">
+<tileset name="characters" tilewidth="800" tileheight="800" tilecount="261" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00000.png"/>
@@ -650,325 +650,411 @@
   </animation>
  </tile>
  <tile id="160">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00000.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00000.png"/>
  </tile>
  <tile id="161">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00001.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00001.png"/>
  </tile>
  <tile id="162">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00002.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00002.png"/>
  </tile>
  <tile id="163">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00003.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00003.png"/>
  </tile>
  <tile id="164">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00004.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00004.png"/>
  </tile>
  <tile id="165">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00005.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00005.png"/>
  </tile>
  <tile id="166">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00006.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00006.png"/>
  </tile>
  <tile id="167">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00007.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00007.png"/>
  </tile>
  <tile id="168">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00008.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00008.png"/>
  </tile>
  <tile id="169">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00009.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00009.png"/>
  </tile>
  <tile id="170">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00010.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00010.png"/>
  </tile>
  <tile id="171">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00011.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00011.png"/>
  </tile>
  <tile id="172">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00012.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00012.png"/>
  </tile>
  <tile id="173">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00013.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00013.png"/>
  </tile>
  <tile id="174">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00014.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00014.png"/>
  </tile>
  <tile id="175">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00015.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00015.png"/>
  </tile>
  <tile id="176">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00016.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00016.png"/>
  </tile>
  <tile id="177">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00017.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00017.png"/>
  </tile>
  <tile id="178">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00018.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00018.png"/>
  </tile>
  <tile id="179">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00019.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00019.png"/>
  </tile>
  <tile id="180">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00020.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00020.png"/>
  </tile>
  <tile id="181">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00021.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00021.png"/>
  </tile>
  <tile id="182">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00022.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00022.png"/>
  </tile>
  <tile id="183">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00023.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00023.png"/>
  </tile>
  <tile id="184">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00024.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00024.png"/>
  </tile>
  <tile id="185">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00025.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00025.png"/>
  </tile>
  <tile id="186">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00026.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00026.png"/>
  </tile>
  <tile id="187">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00027.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00027.png"/>
  </tile>
  <tile id="188">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00028.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00028.png"/>
  </tile>
  <tile id="189">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00029.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00029.png"/>
  </tile>
  <tile id="190">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00030.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00030.png"/>
  </tile>
  <tile id="191">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00031.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00031.png"/>
  </tile>
  <tile id="192">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00032.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00032.png"/>
  </tile>
  <tile id="193">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00033.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00033.png"/>
  </tile>
  <tile id="194">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00034.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00034.png"/>
  </tile>
  <tile id="195">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00035.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00035.png"/>
  </tile>
  <tile id="196">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00036.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00036.png"/>
  </tile>
  <tile id="197">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00037.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00037.png"/>
  </tile>
  <tile id="198">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00038.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00038.png"/>
  </tile>
  <tile id="199">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00039.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00039.png"/>
  </tile>
  <tile id="200">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00040.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00040.png"/>
  </tile>
  <tile id="201">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00041.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00041.png"/>
  </tile>
  <tile id="202">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00042.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00042.png"/>
  </tile>
  <tile id="203">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00043.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00043.png"/>
  </tile>
  <tile id="204">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00044.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00044.png"/>
  </tile>
  <tile id="205">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00045.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00045.png"/>
  </tile>
  <tile id="206">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00046.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00046.png"/>
  </tile>
  <tile id="207">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00047.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00047.png"/>
  </tile>
  <tile id="208">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00048.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00048.png"/>
  </tile>
  <tile id="209">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00049.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00049.png"/>
  </tile>
  <tile id="210">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00050.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00050.png"/>
  </tile>
  <tile id="211">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00051.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00051.png"/>
  </tile>
  <tile id="212">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00052.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00052.png"/>
  </tile>
  <tile id="213">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00053.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00053.png"/>
  </tile>
  <tile id="214">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00054.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00054.png"/>
  </tile>
  <tile id="215">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00055.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00055.png"/>
  </tile>
  <tile id="216">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00056.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00056.png"/>
  </tile>
  <tile id="217">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00057.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00057.png"/>
  </tile>
  <tile id="218">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00058.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00058.png"/>
  </tile>
  <tile id="219">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00059.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00059.png"/>
  </tile>
  <tile id="220">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00060.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00060.png"/>
  </tile>
  <tile id="221">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00061.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00061.png"/>
  </tile>
  <tile id="222">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00062.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00062.png"/>
  </tile>
  <tile id="223">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00063.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00063.png"/>
  </tile>
  <tile id="224">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00064.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00064.png"/>
  </tile>
  <tile id="225">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00065.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00065.png"/>
  </tile>
  <tile id="226">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00066.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00066.png"/>
  </tile>
  <tile id="227">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00067.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00067.png"/>
  </tile>
  <tile id="228">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00068.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00068.png"/>
  </tile>
  <tile id="229">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00069.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00069.png"/>
  </tile>
  <tile id="230">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00070.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00070.png"/>
  </tile>
  <tile id="231">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00071.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00071.png"/>
  </tile>
  <tile id="232">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00072.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00072.png"/>
  </tile>
  <tile id="233">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00073.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00073.png"/>
  </tile>
  <tile id="234">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00074.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00074.png"/>
  </tile>
  <tile id="235">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00075.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00075.png"/>
  </tile>
  <tile id="236">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00076.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00076.png"/>
  </tile>
  <tile id="237">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00077.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00077.png"/>
  </tile>
  <tile id="238">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00078.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00078.png"/>
  </tile>
  <tile id="239">
-  <image width="800" height="800" source="../../../../Desktop/frog/frog_00079.png"/>
+  <image width="800" height="800" source="assets/objects/frog/frog_00079.png"/>
   <animation>
-   <frame tileid="160" duration="100"/>
-   <frame tileid="161" duration="100"/>
-   <frame tileid="162" duration="100"/>
-   <frame tileid="163" duration="100"/>
-   <frame tileid="164" duration="100"/>
-   <frame tileid="165" duration="100"/>
-   <frame tileid="166" duration="100"/>
-   <frame tileid="167" duration="100"/>
-   <frame tileid="168" duration="100"/>
-   <frame tileid="169" duration="100"/>
-   <frame tileid="170" duration="100"/>
-   <frame tileid="171" duration="100"/>
-   <frame tileid="172" duration="100"/>
-   <frame tileid="173" duration="100"/>
-   <frame tileid="174" duration="100"/>
-   <frame tileid="175" duration="100"/>
-   <frame tileid="176" duration="100"/>
-   <frame tileid="177" duration="100"/>
-   <frame tileid="178" duration="100"/>
-   <frame tileid="179" duration="100"/>
-   <frame tileid="180" duration="100"/>
-   <frame tileid="181" duration="100"/>
-   <frame tileid="182" duration="100"/>
-   <frame tileid="183" duration="100"/>
-   <frame tileid="184" duration="100"/>
-   <frame tileid="185" duration="100"/>
-   <frame tileid="186" duration="100"/>
-   <frame tileid="187" duration="100"/>
-   <frame tileid="188" duration="100"/>
-   <frame tileid="189" duration="100"/>
-   <frame tileid="190" duration="100"/>
-   <frame tileid="191" duration="100"/>
-   <frame tileid="192" duration="100"/>
-   <frame tileid="193" duration="100"/>
-   <frame tileid="194" duration="100"/>
-   <frame tileid="195" duration="100"/>
-   <frame tileid="196" duration="100"/>
-   <frame tileid="197" duration="100"/>
-   <frame tileid="198" duration="100"/>
-   <frame tileid="199" duration="100"/>
-   <frame tileid="200" duration="100"/>
-   <frame tileid="201" duration="100"/>
-   <frame tileid="202" duration="100"/>
-   <frame tileid="203" duration="100"/>
-   <frame tileid="204" duration="100"/>
-   <frame tileid="205" duration="100"/>
-   <frame tileid="206" duration="100"/>
-   <frame tileid="207" duration="100"/>
-   <frame tileid="208" duration="100"/>
-   <frame tileid="209" duration="100"/>
-   <frame tileid="210" duration="100"/>
-   <frame tileid="211" duration="100"/>
-   <frame tileid="212" duration="100"/>
-   <frame tileid="213" duration="100"/>
-   <frame tileid="214" duration="100"/>
-   <frame tileid="215" duration="100"/>
-   <frame tileid="216" duration="100"/>
-   <frame tileid="217" duration="100"/>
-   <frame tileid="218" duration="100"/>
-   <frame tileid="219" duration="100"/>
-   <frame tileid="220" duration="100"/>
-   <frame tileid="221" duration="100"/>
-   <frame tileid="222" duration="100"/>
-   <frame tileid="223" duration="100"/>
-   <frame tileid="224" duration="100"/>
-   <frame tileid="225" duration="100"/>
-   <frame tileid="226" duration="100"/>
-   <frame tileid="227" duration="100"/>
-   <frame tileid="228" duration="100"/>
-   <frame tileid="229" duration="100"/>
-   <frame tileid="230" duration="100"/>
-   <frame tileid="231" duration="100"/>
-   <frame tileid="232" duration="100"/>
-   <frame tileid="233" duration="100"/>
-   <frame tileid="234" duration="100"/>
-   <frame tileid="235" duration="100"/>
-   <frame tileid="236" duration="100"/>
-   <frame tileid="237" duration="100"/>
-   <frame tileid="238" duration="100"/>
-   <frame tileid="239" duration="100"/>
+   <frame tileid="160" duration="50"/>
+   <frame tileid="161" duration="50"/>
+   <frame tileid="162" duration="50"/>
+   <frame tileid="163" duration="50"/>
+   <frame tileid="164" duration="50"/>
+   <frame tileid="165" duration="50"/>
+   <frame tileid="166" duration="50"/>
+   <frame tileid="167" duration="50"/>
+   <frame tileid="168" duration="50"/>
+   <frame tileid="169" duration="50"/>
+   <frame tileid="170" duration="50"/>
+   <frame tileid="171" duration="50"/>
+   <frame tileid="172" duration="50"/>
+   <frame tileid="173" duration="50"/>
+   <frame tileid="174" duration="50"/>
+   <frame tileid="175" duration="50"/>
+   <frame tileid="176" duration="50"/>
+   <frame tileid="177" duration="50"/>
+   <frame tileid="178" duration="50"/>
+   <frame tileid="179" duration="50"/>
+   <frame tileid="180" duration="50"/>
+   <frame tileid="181" duration="50"/>
+   <frame tileid="182" duration="50"/>
+   <frame tileid="183" duration="50"/>
+   <frame tileid="184" duration="50"/>
+   <frame tileid="185" duration="50"/>
+   <frame tileid="186" duration="50"/>
+   <frame tileid="187" duration="50"/>
+   <frame tileid="188" duration="50"/>
+   <frame tileid="189" duration="50"/>
+   <frame tileid="190" duration="50"/>
+   <frame tileid="191" duration="50"/>
+   <frame tileid="192" duration="50"/>
+   <frame tileid="193" duration="50"/>
+   <frame tileid="194" duration="50"/>
+   <frame tileid="195" duration="50"/>
+   <frame tileid="196" duration="50"/>
+   <frame tileid="197" duration="50"/>
+   <frame tileid="198" duration="50"/>
+   <frame tileid="199" duration="50"/>
+   <frame tileid="200" duration="50"/>
+   <frame tileid="201" duration="50"/>
+   <frame tileid="202" duration="50"/>
+   <frame tileid="203" duration="50"/>
+   <frame tileid="204" duration="50"/>
+   <frame tileid="205" duration="50"/>
+   <frame tileid="206" duration="50"/>
+   <frame tileid="207" duration="50"/>
+   <frame tileid="208" duration="50"/>
+   <frame tileid="209" duration="50"/>
+   <frame tileid="210" duration="50"/>
+   <frame tileid="211" duration="50"/>
+   <frame tileid="212" duration="50"/>
+   <frame tileid="213" duration="50"/>
+   <frame tileid="214" duration="50"/>
+   <frame tileid="215" duration="50"/>
+   <frame tileid="216" duration="50"/>
+   <frame tileid="217" duration="50"/>
+   <frame tileid="218" duration="50"/>
+   <frame tileid="219" duration="50"/>
+   <frame tileid="220" duration="50"/>
+   <frame tileid="221" duration="50"/>
+   <frame tileid="222" duration="50"/>
+   <frame tileid="223" duration="50"/>
+   <frame tileid="224" duration="50"/>
+   <frame tileid="225" duration="50"/>
+   <frame tileid="226" duration="50"/>
+   <frame tileid="227" duration="50"/>
+   <frame tileid="228" duration="50"/>
+   <frame tileid="229" duration="50"/>
+   <frame tileid="230" duration="50"/>
+   <frame tileid="231" duration="50"/>
+   <frame tileid="232" duration="50"/>
+   <frame tileid="233" duration="50"/>
+   <frame tileid="234" duration="50"/>
+   <frame tileid="235" duration="50"/>
+   <frame tileid="236" duration="50"/>
+   <frame tileid="237" duration="50"/>
+   <frame tileid="238" duration="50"/>
+   <frame tileid="239" duration="50"/>
   </animation>
+ </tile>
+ <tile id="240">
+  <image width="588" height="550" source="assets/objects/bird/bird_00000.png"/>
+ </tile>
+ <tile id="241">
+  <image width="588" height="550" source="assets/objects/bird/bird_00001.png"/>
+ </tile>
+ <tile id="242">
+  <image width="588" height="550" source="assets/objects/bird/bird_00002.png"/>
+ </tile>
+ <tile id="243">
+  <image width="588" height="550" source="assets/objects/bird/bird_00003.png"/>
+ </tile>
+ <tile id="244">
+  <image width="588" height="550" source="assets/objects/bird/bird_00004.png"/>
+ </tile>
+ <tile id="245">
+  <image width="588" height="550" source="assets/objects/bird/bird_00005.png"/>
+ </tile>
+ <tile id="246">
+  <image width="588" height="550" source="assets/objects/bird/bird_00006.png"/>
+ </tile>
+ <tile id="247">
+  <image width="588" height="550" source="assets/objects/bird/bird_00007.png"/>
+ </tile>
+ <tile id="248">
+  <image width="588" height="550" source="assets/objects/bird/bird_00008.png"/>
+ </tile>
+ <tile id="249">
+  <image width="588" height="550" source="assets/objects/bird/bird_00009.png"/>
+ </tile>
+ <tile id="250">
+  <image width="588" height="550" source="assets/objects/bird/bird_00010.png"/>
+ </tile>
+ <tile id="251">
+  <image width="588" height="550" source="assets/objects/bird/bird_00011.png"/>
+ </tile>
+ <tile id="252">
+  <image width="588" height="550" source="assets/objects/bird/bird_00012.png"/>
+ </tile>
+ <tile id="253">
+  <image width="588" height="550" source="assets/objects/bird/bird_00013.png"/>
+ </tile>
+ <tile id="254">
+  <image width="588" height="550" source="assets/objects/bird/bird_00014.png"/>
+ </tile>
+ <tile id="255">
+  <image width="588" height="550" source="assets/objects/bird/bird_00015.png"/>
+ </tile>
+ <tile id="256">
+  <image width="588" height="550" source="assets/objects/bird/bird_00016.png"/>
+ </tile>
+ <tile id="257">
+  <image width="588" height="550" source="assets/objects/bird/bird_00017.png"/>
+ </tile>
+ <tile id="258">
+  <image width="588" height="550" source="assets/objects/bird/bird_00018.png"/>
+ </tile>
+ <tile id="259">
+  <image width="588" height="550" source="assets/objects/bird/bird_00019.png"/>
+  <animation>
+   <frame tileid="240" duration="50"/>
+   <frame tileid="241" duration="50"/>
+   <frame tileid="242" duration="50"/>
+   <frame tileid="243" duration="50"/>
+   <frame tileid="244" duration="50"/>
+   <frame tileid="245" duration="50"/>
+   <frame tileid="246" duration="50"/>
+   <frame tileid="247" duration="50"/>
+   <frame tileid="248" duration="50"/>
+   <frame tileid="249" duration="50"/>
+   <frame tileid="250" duration="50"/>
+   <frame tileid="251" duration="50"/>
+   <frame tileid="252" duration="50"/>
+   <frame tileid="253" duration="50"/>
+   <frame tileid="254" duration="50"/>
+   <frame tileid="255" duration="50"/>
+   <frame tileid="256" duration="50"/>
+   <frame tileid="257" duration="50"/>
+   <frame tileid="258" duration="50"/>
+   <frame tileid="259" duration="50"/>
+   <frame tileid="260" duration="50"/>
+  </animation>
+ </tile>
+ <tile id="260">
+  <image width="588" height="550" source="assets/objects/bird/bird_00020.png"/>
  </tile>
 </tileset>
