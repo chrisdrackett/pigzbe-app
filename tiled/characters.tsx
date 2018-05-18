@@ -2,64 +2,64 @@
 <tileset name="characters" tilewidth="800" tileheight="800" tilecount="261" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00000.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00000.png"/>
  </tile>
  <tile id="1">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00001.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00001.png"/>
  </tile>
  <tile id="2">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00002.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00002.png"/>
  </tile>
  <tile id="3">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00003.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00003.png"/>
  </tile>
  <tile id="4">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00004.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00004.png"/>
  </tile>
  <tile id="5">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00005.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00005.png"/>
  </tile>
  <tile id="6">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00006.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00006.png"/>
  </tile>
  <tile id="7">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00007.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00007.png"/>
  </tile>
  <tile id="8">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00008.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00008.png"/>
  </tile>
  <tile id="9">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00009.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00009.png"/>
  </tile>
  <tile id="10">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00010.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00010.png"/>
  </tile>
  <tile id="11">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00011.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00011.png"/>
  </tile>
  <tile id="12">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00012.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00012.png"/>
  </tile>
  <tile id="13">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00013.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00013.png"/>
  </tile>
  <tile id="14">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00014.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00014.png"/>
  </tile>
  <tile id="15">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00015.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00015.png"/>
  </tile>
  <tile id="16">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00016.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00016.png"/>
  </tile>
  <tile id="17">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00017.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00017.png"/>
  </tile>
  <tile id="18">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00018.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00018.png"/>
  </tile>
  <tile id="19">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00019.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00019.png"/>
   <animation>
    <frame tileid="0" duration="100"/>
    <frame tileid="1" duration="100"/>
@@ -84,184 +84,184 @@
   </animation>
  </tile>
  <tile id="20">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00000.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00000.png"/>
  </tile>
  <tile id="21">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00001.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00001.png"/>
  </tile>
  <tile id="22">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00002.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00002.png"/>
  </tile>
  <tile id="23">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00003.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00003.png"/>
  </tile>
  <tile id="24">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00004.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00004.png"/>
  </tile>
  <tile id="25">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00005.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00005.png"/>
  </tile>
  <tile id="26">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00006.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00006.png"/>
  </tile>
  <tile id="27">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00007.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00007.png"/>
  </tile>
  <tile id="28">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00008.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00008.png"/>
  </tile>
  <tile id="29">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00009.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00009.png"/>
  </tile>
  <tile id="30">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00010.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00010.png"/>
  </tile>
  <tile id="31">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00011.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00011.png"/>
  </tile>
  <tile id="32">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00012.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00012.png"/>
  </tile>
  <tile id="33">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00013.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00013.png"/>
  </tile>
  <tile id="34">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00014.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00014.png"/>
  </tile>
  <tile id="35">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00015.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00015.png"/>
  </tile>
  <tile id="36">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00016.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00016.png"/>
  </tile>
  <tile id="37">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00017.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00017.png"/>
  </tile>
  <tile id="38">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00018.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00018.png"/>
  </tile>
  <tile id="39">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00019.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00019.png"/>
  </tile>
  <tile id="40">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00020.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00020.png"/>
  </tile>
  <tile id="41">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00021.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00021.png"/>
  </tile>
  <tile id="42">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00022.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00022.png"/>
  </tile>
  <tile id="43">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00023.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00023.png"/>
  </tile>
  <tile id="44">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00024.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00024.png"/>
  </tile>
  <tile id="45">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00025.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00025.png"/>
  </tile>
  <tile id="46">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00026.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00026.png"/>
  </tile>
  <tile id="47">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00027.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00027.png"/>
  </tile>
  <tile id="48">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00028.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00028.png"/>
  </tile>
  <tile id="49">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00029.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00029.png"/>
  </tile>
  <tile id="50">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00030.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00030.png"/>
  </tile>
  <tile id="51">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00031.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00031.png"/>
  </tile>
  <tile id="52">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00032.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00032.png"/>
  </tile>
  <tile id="53">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00033.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00033.png"/>
  </tile>
  <tile id="54">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00034.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00034.png"/>
  </tile>
  <tile id="55">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00035.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00035.png"/>
  </tile>
  <tile id="56">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00036.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00036.png"/>
  </tile>
  <tile id="57">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00037.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00037.png"/>
  </tile>
  <tile id="58">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00038.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00038.png"/>
  </tile>
  <tile id="59">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00039.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00039.png"/>
  </tile>
  <tile id="60">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00040.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00040.png"/>
  </tile>
  <tile id="61">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00041.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00041.png"/>
  </tile>
  <tile id="62">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00042.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00042.png"/>
  </tile>
  <tile id="63">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00043.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00043.png"/>
  </tile>
  <tile id="64">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00044.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00044.png"/>
  </tile>
  <tile id="65">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00045.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00045.png"/>
  </tile>
  <tile id="66">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00046.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00046.png"/>
  </tile>
  <tile id="67">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00047.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00047.png"/>
  </tile>
  <tile id="68">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00048.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00048.png"/>
  </tile>
  <tile id="69">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00049.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00049.png"/>
  </tile>
  <tile id="70">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00050.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00050.png"/>
  </tile>
  <tile id="71">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00051.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00051.png"/>
  </tile>
  <tile id="72">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00052.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00052.png"/>
  </tile>
  <tile id="73">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00053.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00053.png"/>
  </tile>
  <tile id="74">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00054.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00054.png"/>
  </tile>
  <tile id="75">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00055.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00055.png"/>
  </tile>
  <tile id="76">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00056.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00056.png"/>
  </tile>
  <tile id="77">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00057.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00057.png"/>
  </tile>
  <tile id="78">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00058.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00058.png"/>
  </tile>
  <tile id="79">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00059.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_02/sheep_chewing_02_00059.png"/>
   <animation>
    <frame tileid="20" duration="100"/>
    <frame tileid="21" duration="100"/>
@@ -326,124 +326,124 @@
   </animation>
  </tile>
  <tile id="80">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00000.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00000.png"/>
  </tile>
  <tile id="81">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00001.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00001.png"/>
  </tile>
  <tile id="82">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00002.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00002.png"/>
  </tile>
  <tile id="83">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00003.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00003.png"/>
  </tile>
  <tile id="84">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00004.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00004.png"/>
  </tile>
  <tile id="85">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00005.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00005.png"/>
  </tile>
  <tile id="86">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00006.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00006.png"/>
  </tile>
  <tile id="87">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00007.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00007.png"/>
  </tile>
  <tile id="88">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00008.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00008.png"/>
  </tile>
  <tile id="89">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00009.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00009.png"/>
  </tile>
  <tile id="90">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00010.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00010.png"/>
  </tile>
  <tile id="91">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00011.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00011.png"/>
  </tile>
  <tile id="92">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00012.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00012.png"/>
  </tile>
  <tile id="93">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00013.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00013.png"/>
  </tile>
  <tile id="94">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00014.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00014.png"/>
  </tile>
  <tile id="95">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00015.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00015.png"/>
  </tile>
  <tile id="96">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00016.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00016.png"/>
  </tile>
  <tile id="97">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00017.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00017.png"/>
  </tile>
  <tile id="98">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00018.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00018.png"/>
  </tile>
  <tile id="99">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00019.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00019.png"/>
  </tile>
  <tile id="100">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00020.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00020.png"/>
  </tile>
  <tile id="101">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00021.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00021.png"/>
  </tile>
  <tile id="102">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00022.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00022.png"/>
  </tile>
  <tile id="103">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00023.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00023.png"/>
  </tile>
  <tile id="104">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00024.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00024.png"/>
  </tile>
  <tile id="105">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00025.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00025.png"/>
  </tile>
  <tile id="106">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00026.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00026.png"/>
  </tile>
  <tile id="107">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00027.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00027.png"/>
  </tile>
  <tile id="108">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00028.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00028.png"/>
  </tile>
  <tile id="109">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00029.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00029.png"/>
  </tile>
  <tile id="110">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00030.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00030.png"/>
  </tile>
  <tile id="111">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00031.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00031.png"/>
  </tile>
  <tile id="112">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00032.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00032.png"/>
  </tile>
  <tile id="113">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00033.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00033.png"/>
  </tile>
  <tile id="114">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00034.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00034.png"/>
  </tile>
  <tile id="115">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00035.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00035.png"/>
  </tile>
  <tile id="116">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00036.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00036.png"/>
  </tile>
  <tile id="117">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00037.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00037.png"/>
  </tile>
  <tile id="118">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00038.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00038.png"/>
  </tile>
  <tile id="119">
-  <image width="128" height="128" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00039.png"/>
+  <image width="96" height="96" source="assets/objects/sheep_chewing_03/sheep_chewing_03_00039.png"/>
   <animation>
    <frame tileid="80" duration="100"/>
    <frame tileid="81" duration="100"/>
@@ -650,244 +650,244 @@
   </animation>
  </tile>
  <tile id="160">
-  <image width="800" height="800" source="assets/objects/frog/frog_00000.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00000.png"/>
  </tile>
  <tile id="161">
-  <image width="800" height="800" source="assets/objects/frog/frog_00001.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00001.png"/>
  </tile>
  <tile id="162">
-  <image width="800" height="800" source="assets/objects/frog/frog_00002.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00002.png"/>
  </tile>
  <tile id="163">
-  <image width="800" height="800" source="assets/objects/frog/frog_00003.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00003.png"/>
  </tile>
  <tile id="164">
-  <image width="800" height="800" source="assets/objects/frog/frog_00004.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00004.png"/>
  </tile>
  <tile id="165">
-  <image width="800" height="800" source="assets/objects/frog/frog_00005.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00005.png"/>
  </tile>
  <tile id="166">
-  <image width="800" height="800" source="assets/objects/frog/frog_00006.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00006.png"/>
  </tile>
  <tile id="167">
-  <image width="800" height="800" source="assets/objects/frog/frog_00007.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00007.png"/>
  </tile>
  <tile id="168">
-  <image width="800" height="800" source="assets/objects/frog/frog_00008.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00008.png"/>
  </tile>
  <tile id="169">
-  <image width="800" height="800" source="assets/objects/frog/frog_00009.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00009.png"/>
  </tile>
  <tile id="170">
-  <image width="800" height="800" source="assets/objects/frog/frog_00010.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00010.png"/>
  </tile>
  <tile id="171">
-  <image width="800" height="800" source="assets/objects/frog/frog_00011.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00011.png"/>
  </tile>
  <tile id="172">
-  <image width="800" height="800" source="assets/objects/frog/frog_00012.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00012.png"/>
  </tile>
  <tile id="173">
-  <image width="800" height="800" source="assets/objects/frog/frog_00013.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00013.png"/>
  </tile>
  <tile id="174">
-  <image width="800" height="800" source="assets/objects/frog/frog_00014.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00014.png"/>
  </tile>
  <tile id="175">
-  <image width="800" height="800" source="assets/objects/frog/frog_00015.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00015.png"/>
  </tile>
  <tile id="176">
-  <image width="800" height="800" source="assets/objects/frog/frog_00016.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00016.png"/>
  </tile>
  <tile id="177">
-  <image width="800" height="800" source="assets/objects/frog/frog_00017.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00017.png"/>
  </tile>
  <tile id="178">
-  <image width="800" height="800" source="assets/objects/frog/frog_00018.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00018.png"/>
  </tile>
  <tile id="179">
-  <image width="800" height="800" source="assets/objects/frog/frog_00019.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00019.png"/>
  </tile>
  <tile id="180">
-  <image width="800" height="800" source="assets/objects/frog/frog_00020.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00020.png"/>
  </tile>
  <tile id="181">
-  <image width="800" height="800" source="assets/objects/frog/frog_00021.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00021.png"/>
  </tile>
  <tile id="182">
-  <image width="800" height="800" source="assets/objects/frog/frog_00022.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00022.png"/>
  </tile>
  <tile id="183">
-  <image width="800" height="800" source="assets/objects/frog/frog_00023.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00023.png"/>
  </tile>
  <tile id="184">
-  <image width="800" height="800" source="assets/objects/frog/frog_00024.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00024.png"/>
  </tile>
  <tile id="185">
-  <image width="800" height="800" source="assets/objects/frog/frog_00025.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00025.png"/>
  </tile>
  <tile id="186">
-  <image width="800" height="800" source="assets/objects/frog/frog_00026.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00026.png"/>
  </tile>
  <tile id="187">
-  <image width="800" height="800" source="assets/objects/frog/frog_00027.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00027.png"/>
  </tile>
  <tile id="188">
-  <image width="800" height="800" source="assets/objects/frog/frog_00028.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00028.png"/>
  </tile>
  <tile id="189">
-  <image width="800" height="800" source="assets/objects/frog/frog_00029.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00029.png"/>
  </tile>
  <tile id="190">
-  <image width="800" height="800" source="assets/objects/frog/frog_00030.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00030.png"/>
  </tile>
  <tile id="191">
-  <image width="800" height="800" source="assets/objects/frog/frog_00031.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00031.png"/>
  </tile>
  <tile id="192">
-  <image width="800" height="800" source="assets/objects/frog/frog_00032.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00032.png"/>
  </tile>
  <tile id="193">
-  <image width="800" height="800" source="assets/objects/frog/frog_00033.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00033.png"/>
  </tile>
  <tile id="194">
-  <image width="800" height="800" source="assets/objects/frog/frog_00034.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00034.png"/>
  </tile>
  <tile id="195">
-  <image width="800" height="800" source="assets/objects/frog/frog_00035.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00035.png"/>
  </tile>
  <tile id="196">
-  <image width="800" height="800" source="assets/objects/frog/frog_00036.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00036.png"/>
  </tile>
  <tile id="197">
-  <image width="800" height="800" source="assets/objects/frog/frog_00037.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00037.png"/>
  </tile>
  <tile id="198">
-  <image width="800" height="800" source="assets/objects/frog/frog_00038.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00038.png"/>
  </tile>
  <tile id="199">
-  <image width="800" height="800" source="assets/objects/frog/frog_00039.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00039.png"/>
  </tile>
  <tile id="200">
-  <image width="800" height="800" source="assets/objects/frog/frog_00040.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00040.png"/>
  </tile>
  <tile id="201">
-  <image width="800" height="800" source="assets/objects/frog/frog_00041.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00041.png"/>
  </tile>
  <tile id="202">
-  <image width="800" height="800" source="assets/objects/frog/frog_00042.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00042.png"/>
  </tile>
  <tile id="203">
-  <image width="800" height="800" source="assets/objects/frog/frog_00043.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00043.png"/>
  </tile>
  <tile id="204">
-  <image width="800" height="800" source="assets/objects/frog/frog_00044.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00044.png"/>
  </tile>
  <tile id="205">
-  <image width="800" height="800" source="assets/objects/frog/frog_00045.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00045.png"/>
  </tile>
  <tile id="206">
-  <image width="800" height="800" source="assets/objects/frog/frog_00046.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00046.png"/>
  </tile>
  <tile id="207">
-  <image width="800" height="800" source="assets/objects/frog/frog_00047.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00047.png"/>
  </tile>
  <tile id="208">
-  <image width="800" height="800" source="assets/objects/frog/frog_00048.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00048.png"/>
  </tile>
  <tile id="209">
-  <image width="800" height="800" source="assets/objects/frog/frog_00049.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00049.png"/>
  </tile>
  <tile id="210">
-  <image width="800" height="800" source="assets/objects/frog/frog_00050.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00050.png"/>
  </tile>
  <tile id="211">
-  <image width="800" height="800" source="assets/objects/frog/frog_00051.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00051.png"/>
  </tile>
  <tile id="212">
-  <image width="800" height="800" source="assets/objects/frog/frog_00052.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00052.png"/>
  </tile>
  <tile id="213">
-  <image width="800" height="800" source="assets/objects/frog/frog_00053.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00053.png"/>
  </tile>
  <tile id="214">
-  <image width="800" height="800" source="assets/objects/frog/frog_00054.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00054.png"/>
  </tile>
  <tile id="215">
-  <image width="800" height="800" source="assets/objects/frog/frog_00055.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00055.png"/>
  </tile>
  <tile id="216">
-  <image width="800" height="800" source="assets/objects/frog/frog_00056.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00056.png"/>
  </tile>
  <tile id="217">
-  <image width="800" height="800" source="assets/objects/frog/frog_00057.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00057.png"/>
  </tile>
  <tile id="218">
-  <image width="800" height="800" source="assets/objects/frog/frog_00058.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00058.png"/>
  </tile>
  <tile id="219">
-  <image width="800" height="800" source="assets/objects/frog/frog_00059.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00059.png"/>
  </tile>
  <tile id="220">
-  <image width="800" height="800" source="assets/objects/frog/frog_00060.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00060.png"/>
  </tile>
  <tile id="221">
-  <image width="800" height="800" source="assets/objects/frog/frog_00061.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00061.png"/>
  </tile>
  <tile id="222">
-  <image width="800" height="800" source="assets/objects/frog/frog_00062.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00062.png"/>
  </tile>
  <tile id="223">
-  <image width="800" height="800" source="assets/objects/frog/frog_00063.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00063.png"/>
  </tile>
  <tile id="224">
-  <image width="800" height="800" source="assets/objects/frog/frog_00064.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00064.png"/>
  </tile>
  <tile id="225">
-  <image width="800" height="800" source="assets/objects/frog/frog_00065.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00065.png"/>
  </tile>
  <tile id="226">
-  <image width="800" height="800" source="assets/objects/frog/frog_00066.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00066.png"/>
  </tile>
  <tile id="227">
-  <image width="800" height="800" source="assets/objects/frog/frog_00067.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00067.png"/>
  </tile>
  <tile id="228">
-  <image width="800" height="800" source="assets/objects/frog/frog_00068.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00068.png"/>
  </tile>
  <tile id="229">
-  <image width="800" height="800" source="assets/objects/frog/frog_00069.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00069.png"/>
  </tile>
  <tile id="230">
-  <image width="800" height="800" source="assets/objects/frog/frog_00070.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00070.png"/>
  </tile>
  <tile id="231">
-  <image width="800" height="800" source="assets/objects/frog/frog_00071.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00071.png"/>
  </tile>
  <tile id="232">
-  <image width="800" height="800" source="assets/objects/frog/frog_00072.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00072.png"/>
  </tile>
  <tile id="233">
-  <image width="800" height="800" source="assets/objects/frog/frog_00073.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00073.png"/>
  </tile>
  <tile id="234">
-  <image width="800" height="800" source="assets/objects/frog/frog_00074.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00074.png"/>
  </tile>
  <tile id="235">
-  <image width="800" height="800" source="assets/objects/frog/frog_00075.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00075.png"/>
  </tile>
  <tile id="236">
-  <image width="800" height="800" source="assets/objects/frog/frog_00076.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00076.png"/>
  </tile>
  <tile id="237">
-  <image width="800" height="800" source="assets/objects/frog/frog_00077.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00077.png"/>
  </tile>
  <tile id="238">
-  <image width="800" height="800" source="assets/objects/frog/frog_00078.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00078.png"/>
  </tile>
  <tile id="239">
-  <image width="800" height="800" source="assets/objects/frog/frog_00079.png"/>
+  <image width="368" height="368" source="assets/objects/frog/frog_00079.png"/>
   <animation>
    <frame tileid="160" duration="50"/>
    <frame tileid="161" duration="50"/>
@@ -972,64 +972,64 @@
   </animation>
  </tile>
  <tile id="240">
-  <image width="588" height="550" source="assets/objects/bird/bird_00000.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00000.png"/>
  </tile>
  <tile id="241">
-  <image width="588" height="550" source="assets/objects/bird/bird_00001.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00001.png"/>
  </tile>
  <tile id="242">
-  <image width="588" height="550" source="assets/objects/bird/bird_00002.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00002.png"/>
  </tile>
  <tile id="243">
-  <image width="588" height="550" source="assets/objects/bird/bird_00003.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00003.png"/>
  </tile>
  <tile id="244">
-  <image width="588" height="550" source="assets/objects/bird/bird_00004.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00004.png"/>
  </tile>
  <tile id="245">
-  <image width="588" height="550" source="assets/objects/bird/bird_00005.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00005.png"/>
  </tile>
  <tile id="246">
-  <image width="588" height="550" source="assets/objects/bird/bird_00006.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00006.png"/>
  </tile>
  <tile id="247">
-  <image width="588" height="550" source="assets/objects/bird/bird_00007.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00007.png"/>
  </tile>
  <tile id="248">
-  <image width="588" height="550" source="assets/objects/bird/bird_00008.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00008.png"/>
  </tile>
  <tile id="249">
-  <image width="588" height="550" source="assets/objects/bird/bird_00009.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00009.png"/>
  </tile>
  <tile id="250">
-  <image width="588" height="550" source="assets/objects/bird/bird_00010.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00010.png"/>
  </tile>
  <tile id="251">
-  <image width="588" height="550" source="assets/objects/bird/bird_00011.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00011.png"/>
  </tile>
  <tile id="252">
-  <image width="588" height="550" source="assets/objects/bird/bird_00012.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00012.png"/>
  </tile>
  <tile id="253">
-  <image width="588" height="550" source="assets/objects/bird/bird_00013.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00013.png"/>
  </tile>
  <tile id="254">
-  <image width="588" height="550" source="assets/objects/bird/bird_00014.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00014.png"/>
  </tile>
  <tile id="255">
-  <image width="588" height="550" source="assets/objects/bird/bird_00015.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00015.png"/>
  </tile>
  <tile id="256">
-  <image width="588" height="550" source="assets/objects/bird/bird_00016.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00016.png"/>
  </tile>
  <tile id="257">
-  <image width="588" height="550" source="assets/objects/bird/bird_00017.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00017.png"/>
  </tile>
  <tile id="258">
-  <image width="588" height="550" source="assets/objects/bird/bird_00018.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00018.png"/>
  </tile>
  <tile id="259">
-  <image width="588" height="550" source="assets/objects/bird/bird_00019.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00019.png"/>
   <animation>
    <frame tileid="240" duration="50"/>
    <frame tileid="241" duration="50"/>
@@ -1055,6 +1055,6 @@
   </animation>
  </tile>
  <tile id="260">
-  <image width="588" height="550" source="assets/objects/bird/bird_00020.png"/>
+  <image width="105" height="98" source="assets/objects/bird/bird_00020.png"/>
  </tile>
 </tileset>
