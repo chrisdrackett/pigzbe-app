@@ -6,12 +6,12 @@ export const EXCHANGE_LOAD = 'EXCHANGE_LOAD';
 export const getExchange = () => async (dispatch) => {
 
     try {
-        const {values} = await (await fetch(`${apiURL()}/compare?coins=${COINS.toString()}`, {
+        const values = await (await fetch(`${apiURL()}/compare?coins=${COINS.toString()}`, {
             method: 'GET'
         })).json();
 
         dispatch({type: EXCHANGE_LOAD, payload: {
-            exchange: {...values},
+            exchange: values,
             error: null
         }});
 
