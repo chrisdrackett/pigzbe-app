@@ -42,7 +42,7 @@ function createFrameTexture(frame) {
     return utils.TextureCache[frame.id];
 }
 
-function getSprite(frame) {
+function getSprite(frame, tiling = false) {
     if (frame.animation) {
         const textures = frame.animation.map(a => ({
             texture: Texture.from(a.id),
@@ -50,6 +50,12 @@ function getSprite(frame) {
         }));
         const sprite = new extras.AnimatedSprite(textures, true);
         sprite.play();
+        return sprite;
+    }
+
+    if (tiling) {
+        const texture = Texture.from(frame.id);
+        const sprite = new extras.TilingSprite(texture, texture.width, texture.height);
         return sprite;
     }
 
@@ -124,20 +130,31 @@ function renderTileLayer(layer, renderer) {
 function renderObjectLayer(layer, opts) {
     const holder = new Container();
     holder.position.set(layer.x, layer.y);
+
     layer.objects.forEach(object => {
         const {frame, x, y, scale} = object;
-        if (frame) {
-            console.log('renderObjectLayer', layer.name);
+        if (!frame) {
+            const g = getGraphic(object);
+            g.position.set(x, y);
+            holder.addChild(g);
+            object.sprite = g;
+            return holder;
+        }
+        const tiling = object.properties && object.properties.tiling;
+        const sprite = getSprite(frame, tiling);
+        sprite.scale.set(scale.x, scale.y);
+        object.sprite = sprite;
+        if (tiling) {
+            sprite.position.set(x, y);
+            holder.addChild(sprite);
+        } else {
             const container = new Container();
-            const sprite = getSprite(frame);
-            sprite.scale.set(scale.x, scale.y);
-            container.position.set(x, y);
             flipSprite(object, container);
+            container.position.set(x, y);
             container.addChild(sprite);
             sprite.anchor.set(0.5);
             sprite.position.set(sprite.width / 2, sprite.height / 2);
             holder.addChild(container);
-            object.sprite = sprite;
             object.container = container;
             if (!object.visible) {
                 container.visible = false;
@@ -149,11 +166,6 @@ function renderObjectLayer(layer, opts) {
                 graphic.drawRect(0, 0, object.width, object.height);
                 container.addChild(graphic);
             }
-        } else {
-            const g = getGraphic(object);
-            g.position.set(x, y);
-            holder.addChild(g);
-            object.sprite = g;
         }
     });
     return holder;

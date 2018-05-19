@@ -1,6 +1,13 @@
 import * as PIXI from 'pixi.js';
 import roundTo from 'usfl/math/round-to';
 import fps from 'usfl/fps';
+
+window.onerror = msg => {
+    fps.update();
+    fps.log(msg);
+};
+
+fps.style({left: '5px', top: '20px'});
 fps.auto();
 
 export default class World {

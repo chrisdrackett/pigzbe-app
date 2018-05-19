@@ -73,6 +73,9 @@ class DevPanel extends Component {
                     <ScrollView>
                         <View style={[container, styles.inner]}>
                             <Text style={styles.title}>Dev panel</Text>
+                            <Text style={styles.switchText}>
+                                Env dev: {window.__DEV__ ? 'true' : 'false'}
+                            </Text>
                             <SwitchControl
                                 label={'Use Testnet?'}
                                 value={useTestnet}

@@ -14,11 +14,15 @@ const parseSpritesheet = ({baseTexture, json}) => new Promise(resolve => {
     sprites.parse(textures => resolve(textures));
 });
 
-export default async sheets => {
-    const allTextures = [];
-    for (const sheet of sheets) {
-        const textures = await parseSpritesheet(sheet);
-        allTextures.push(...Object.keys(textures));
-    }
-    return allTextures;
+// export default async sheets => {
+//     const allTextures = [];
+//     for (const sheet of sheets) {
+//         const textures = await parseSpritesheet(sheet);
+//         allTextures.push(...Object.keys(textures));
+//     }
+//     return allTextures;
+// };
+export default sheets => {
+    return Promise.all(sheets.map(sheet => parseSpritesheet(sheet)))
+        .then(values => values.reduce((arr, val) => arr.concat(val), []));
 };

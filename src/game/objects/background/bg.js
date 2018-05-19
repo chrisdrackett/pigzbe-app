@@ -10,19 +10,19 @@ export default class Bg {
 
         this.sky = layer.sky.objects[0].sprite;
 
-        this.mountains = layer.mountains.sprite;
-        this.mountainsY = this.mountains.position.y;
+        this.mountains = layer.mountains.objects[0].sprite;
+        // this.mountainsY = this.mountains.position.y;
 
-        this.hills = layer.hills.sprite;
-        this.hillsY = this.hills.position.y;
+        this.hills = layer.hills.objects[0].sprite;
+        this.hills.width = 2048;
+        // this.hillsY = this.hills.position.y;
 
-        this.cloudsLow = layer.cloudsLow.sprite;
-        this.cloudsLowY = this.cloudsLow.position.y;
 
-        this.cloudsHigh = layer.cloudsHigh.sprite;
-        this.cloudsHighY = this.cloudsHigh.position.y;
+        this.cloudsLow = layer.cloudsLow.objects[0].sprite;
+        // this.cloudsLowY = this.cloudsLow.position.y;
 
-        this.resize(map.width);
+        this.cloudsHigh = layer.cloudsHigh.objects[0].sprite;
+        // this.cloudsHighY = this.cloudsHigh.position.y;
     }
 
     update(camera) {
@@ -36,13 +36,5 @@ export default class Bg {
         // this.cloudsLow.position.y = this.hillsY + 8 * yOffset;
         // this.mountains.position.y = this.mountainsY + 12 * yOffset;
         // this.hills.position.y = this.hillsY + 16 * yOffset;
-    }
-
-    resize(w) {
-        this.sky.width = w;
-        this.mountains.width = w;
-        this.hills.width = w;
-        this.cloudsLow.width = w;
-        this.cloudsHigh.width = w;
     }
 }
