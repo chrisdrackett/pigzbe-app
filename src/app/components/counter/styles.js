@@ -32,5 +32,6 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         color: color.blue,
+        lineHeight: 26,
     },
 });

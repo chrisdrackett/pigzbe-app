@@ -9,7 +9,7 @@ document.addEventListener('message', () => {
     }
 });
 
-const postMessage = (name, value = null) => document.postMessage(JSON.stringify({name, value}), '*');
+const postMessage = (name, value = null) => window.postMessage(JSON.stringify({name, value}), '*');
 
 game.app.emitter.on('ready', () => postMessage('ready'));
 

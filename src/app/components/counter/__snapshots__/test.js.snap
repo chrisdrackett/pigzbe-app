@@ -74,6 +74,7 @@ exports[`Counter renders correctly 1`] = `
         "fontFamily": "Poppins",
         "fontSize": 20,
         "fontWeight": "bold",
+        "lineHeight": 26,
       }
     }
   />
