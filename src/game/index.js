@@ -47,7 +47,8 @@ export default class Game {
         });
         this.app = app;
         this.el = el;
-        this.emitter = new EventEmitter();
+
+        app.emitter = new EventEmitter();
 
         this.el.appendChild(app.view);
         app.view.style.width = '100%';
@@ -122,7 +123,7 @@ export default class Game {
             app.start();
             app.ticker.remove(this.update);
             app.ticker.add(this.update);
-            this.emitter.emit('ready');
+            app.emitter.emit('ready');
         });
     }
 
