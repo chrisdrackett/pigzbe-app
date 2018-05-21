@@ -9,8 +9,10 @@ document.addEventListener('message', () => {
     }
 });
 
-const postMessage = msg => document.postMessage(msg, '*');
+const postMessage = (name, value = null) => window.postMessage(JSON.stringify({name, value}), '*');
 
-game.emitter.on('ready', () => postMessage('ready'));
+game.app.emitter.on('ready', () => postMessage('ready'));
+
+game.app.emitter.on('collected', amount => postMessage('collected', amount));
 
 export default game;

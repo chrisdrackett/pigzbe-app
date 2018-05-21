@@ -3,6 +3,7 @@ import authReducer, {initialState as authState} from './auth';
 import messagesReducer, {initialState as messagesState} from './messages';
 import profileReducer, {initialState as profileState} from './profile';
 import wolloReducer, {initialState as wolloState} from './wollo';
+import gameReducer, {initialState as gameState} from './game';
 import * as actions from '../actions';
 
 describe('Reducers', () => {
@@ -170,6 +171,22 @@ describe('Reducers', () => {
                 }));
         });
 
+    });
+
+    describe('Game', () => {
+        it('should return the initial state', () => {
+            expect(gameReducer(undefined, {})).toEqual(gameState);
+        });
+
+        it('should handle wollo collected update', () => {
+            expect(gameReducer(undefined, {
+                type: actions.GAME_WOLLO_COLLECTED,
+                value: 10
+            }))
+                .toEqual(Object.assign({}, gameState, {
+                    wolloCollected: 10
+                }));
+        });
     });
 
 });

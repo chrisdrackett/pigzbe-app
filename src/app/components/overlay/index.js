@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity, Image} from 'react-native';
+import {connect} from 'react-redux';
+import {Text, View, Image} from 'react-native';
 import ButtonIcon from '../button-icon';
+import Counter from '../counter';
 import styles from './styles';
 import images from './images';
 
@@ -26,7 +28,8 @@ class Overlay extends Component {
     }
 
     conversionString() {
-        return `${this.props.coins / conversions[this.state.conversionKey].conversion} ${conversions[this.state.conversionKey].label}`;
+        const {conversion, label} = conversions[this.state.conversionKey];
+        return `${this.props.wolloCollected / conversion} ${label}`;
     }
 
     returnCoinsIcons(num, icon) {
@@ -39,6 +42,8 @@ class Overlay extends Component {
     }
 
     render() {
+        const {wolloCollected} = this.props;
+
         if (this.state.isOpen) {
             return (
                 <View style={styles.overlay}>
@@ -49,11 +54,11 @@ class Overlay extends Component {
                             {Object.keys(conversions).map(b => <ButtonIcon onClick={() => this.setState({conversionKey: b})} key={b} icon={b} />)}
                         </View>
                         <Text style={styles.text}>1 Wollo coin is worth {conversions[this.state.conversionKey].conversion} {conversions[this.state.conversionKey].label}</Text>
-                        <Text style={styles.text}>Your {this.props.coins} Wollo coins = {this.conversionString()}</Text>
+                        <Text style={styles.text}>Your {wolloCollected} Wollo coins = {this.conversionString()}</Text>
                         <View style={styles.containerComparison}>
                             <View style={styles.containerBlockCompare}>
                                 {this.returnCoinsIcons(15, 'wollo')}
-                                <Text style={styles.textCompare}>Your {this.props.coins} Wollo</Text>
+                                <Text style={styles.textCompare}>Your {wolloCollected} Wollo</Text>
                             </View>
                             <Text style={styles.equal}>=</Text>
                             <View style={styles.containerBlockCompare}>
@@ -62,21 +67,27 @@ class Overlay extends Component {
                             </View>
                         </View>
                     </View>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => this.setState({isOpen: false})}
-                    />
+                    <View style={styles.button}>
+                        <Counter
+                            value={wolloCollected}
+                            onPress={() => this.setState({isOpen: false})}
+                        />
+                    </View>
                 </View>
             );
 
         }
         return (
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => this.setState({isOpen: true})}
-            />
+            <View style={styles.button}>
+                <Counter
+                    value={wolloCollected}
+                    onPress={() => this.setState({isOpen: true})}
+                />
+            </View>
         );
     }
 }
 
-export default Overlay;
+export default connect(state => ({
+    wolloCollected: state.game.wolloCollected
+}))(Overlay);

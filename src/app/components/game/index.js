@@ -1,15 +1,17 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {View, WebView} from 'react-native';
 import NavListener from './nav-listener';
 import styles from './styles';
 import Overlay from '../overlay';
 import Loader from '../loader';
+import {gameWolloCollected} from '../../actions';
 
 const localWebURL = require('../../../game/game.html');
 
 // https://facebook.github.io/react-native/docs/webview.html
 
-export default class GameView extends NavListener {
+class GameView extends NavListener {
     state = {
         isLoading: true
     }
@@ -24,10 +26,14 @@ export default class GameView extends NavListener {
 
     onMessage(event) {
         const message = event.nativeEvent.data;
-        console.log('On Message', message);
-        switch (message) {
+        const {name, value} = JSON.parse(message);
+        console.log('On Message', name, value);
+        switch (name) {
             case 'ready':
                 this.setState({isLoading: false});
+                break;
+            case 'collected':
+                this.props.dispatch(gameWolloCollected(value));
                 break;
             default:
         }
@@ -49,9 +55,11 @@ export default class GameView extends NavListener {
                     domStorageEnabled={true}
                     onMessage={event => this.onMessage(event)}
                 />
-                <Overlay coins={1531}/>
+                <Overlay/>
                 <Loader isLoading={this.state.isLoading} message={'Loading'}/>
             </View>
         );
     }
 }
+
+export default connect()(GameView);

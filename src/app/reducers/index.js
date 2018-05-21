@@ -7,6 +7,7 @@ import profile from './profile';
 import wollo from './wollo';
 import coins from './coins';
 import connected from './connected';
+import game from './game';
 
 export default combineReducers({
     auth,
@@ -16,5 +17,6 @@ export default combineReducers({
     profile,
     wollo,
     connected,
-    coins
+    coins,
+    game
 });

@@ -92,9 +92,11 @@ export default class World {
             h
         });
 
+        this.app = app;
         this.map = map;
         this.container = container;
         this.pigzbe = pigzbe;
+        this.coinsCollected = 0;
     }
 
     update(delta, vec) {
@@ -118,6 +120,11 @@ export default class World {
         this.birds.update(this.camera, delta);
 
         this.tree.update(this.camera, this.coins.coinsCollected, this.coins.totalCoins);
+
+        if (this.coins.coinsCollected > this.coinsCollected) {
+            this.coinsCollected = this.coins.coinsCollected;
+            this.app.emitter.emit('collected', this.coinsCollected);
+        }
     }
 
     resize(w, h) {

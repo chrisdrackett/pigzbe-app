@@ -1,12 +1,14 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Game from '../../../game/';
 import NavListener from './nav-listener';
 import Overlay from '../overlay';
 import Loader from '../loader';
 import {container} from '../../styles';
+import {gameWolloCollected} from '../../actions';
 
-export default class GameView extends NavListener {
+class GameView extends NavListener {
     state = {
         isLoading: true
     }
@@ -15,9 +17,14 @@ export default class GameView extends NavListener {
         super.componentDidMount();
 
         this.game = new Game(this.el);
-        this.game.emitter.on('ready', () => {
+
+        this.game.app.emitter.on('ready', () => {
             console.log('GAME READY');
             this.setState({isLoading: false});
+        });
+        this.game.app.emitter.on('collected', amount => {
+            console.log('collected', amount);
+            this.props.dispatch(gameWolloCollected(amount));
         });
     }
 
@@ -42,9 +49,11 @@ export default class GameView extends NavListener {
                     ref={el => (this.el = el)}
                     style={container}
                 />
-                <Overlay coins={1452}/>
+                <Overlay/>
                 <Loader isLoading={this.state.isLoading} message={'Loading'}/>
             </View>
         );
     }
 }
+
+export default connect()(GameView);
