@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="characters" tilewidth="800" tileheight="800" tilecount="261" columns="0">
+<tileset name="characters" tilewidth="368" tileheight="368" tilecount="286" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00000.png"/>
@@ -1056,5 +1056,103 @@
  </tile>
  <tile id="260">
   <image width="105" height="98" source="assets/objects/bird/bird_00020.png"/>
+ </tile>
+ <tile id="261">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00000.png"/>
+ </tile>
+ <tile id="262">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00001.png"/>
+ </tile>
+ <tile id="263">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00002.png"/>
+ </tile>
+ <tile id="264">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00003.png"/>
+ </tile>
+ <tile id="265">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00004.png"/>
+ </tile>
+ <tile id="266">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00005.png"/>
+ </tile>
+ <tile id="267">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00006.png"/>
+ </tile>
+ <tile id="268">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00007.png"/>
+ </tile>
+ <tile id="269">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00008.png"/>
+ </tile>
+ <tile id="270">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00009.png"/>
+ </tile>
+ <tile id="271">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00010.png"/>
+ </tile>
+ <tile id="272">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00011.png"/>
+ </tile>
+ <tile id="273">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00012.png"/>
+ </tile>
+ <tile id="274">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00013.png"/>
+ </tile>
+ <tile id="275">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00014.png"/>
+ </tile>
+ <tile id="276">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00015.png"/>
+ </tile>
+ <tile id="277">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00016.png"/>
+ </tile>
+ <tile id="278">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00017.png"/>
+ </tile>
+ <tile id="279">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00018.png"/>
+ </tile>
+ <tile id="280">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00019.png"/>
+ </tile>
+ <tile id="281">
+  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00020.png"/>
+  <animation>
+   <frame tileid="261" duration="50"/>
+   <frame tileid="262" duration="50"/>
+   <frame tileid="263" duration="50"/>
+   <frame tileid="264" duration="50"/>
+   <frame tileid="265" duration="50"/>
+   <frame tileid="266" duration="50"/>
+   <frame tileid="267" duration="50"/>
+   <frame tileid="268" duration="50"/>
+   <frame tileid="269" duration="50"/>
+   <frame tileid="270" duration="50"/>
+   <frame tileid="271" duration="50"/>
+   <frame tileid="272" duration="50"/>
+   <frame tileid="273" duration="50"/>
+   <frame tileid="274" duration="50"/>
+   <frame tileid="275" duration="50"/>
+   <frame tileid="276" duration="50"/>
+   <frame tileid="277" duration="50"/>
+   <frame tileid="278" duration="50"/>
+   <frame tileid="279" duration="50"/>
+   <frame tileid="280" duration="50"/>
+   <frame tileid="281" duration="50"/>
+  </animation>
+ </tile>
+ <tile id="282">
+  <image width="111" height="115" source="assets/objects/carrots_crate.png"/>
+ </tile>
+ <tile id="283">
+  <image width="116" height="62" source="assets/objects/carrots_floor.png"/>
+ </tile>
+ <tile id="284">
+  <image width="280" height="27" source="assets/objects/intro_text.png"/>
+ </tile>
+ <tile id="285">
+  <image width="180" height="146" source="assets/objects/tapmetolearn@2x.png"/>
  </tile>
 </tileset>

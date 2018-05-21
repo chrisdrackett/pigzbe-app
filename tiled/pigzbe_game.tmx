@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="v1.0.3-399-ge7b903e" orientation="orthogonal" renderorder="right-down" width="52" height="24" tilewidth="64" tileheight="64" infinite="0" nextobjectid="172">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="52" height="24" tilewidth="64" tileheight="64" infinite="0" nextobjectid="188">
  <tileset firstgid="1" source="tiles.tsx"/>
  <tileset firstgid="362" source="foliage_01.tsx"/>
  <tileset firstgid="365" source="foliage_02.tsx"/>
  <tileset firstgid="370" source="grass.tsx"/>
  <tileset firstgid="410" source="sky.tsx"/>
  <tileset firstgid="416" source="characters.tsx"/>
- <tileset firstgid="677" source="tree.tsx"/>
+ <tileset firstgid="702" source="tree.tsx"/>
  <group name="background">
   <layer name="sky_02" width="52" height="24" visible="0" locked="1">
    <properties>
@@ -92,7 +92,7 @@
   <object id="127" gid="364" x="572.667" y="577.666" width="180" height="290.667"/>
   <object id="128" gid="363" x="320" y="640" width="256" height="384"/>
  </objectgroup>
- <group name="ground" locked="1">
+ <group name="ground">
   <properties>
    <property name="flatten" type="bool" value="true"/>
   </properties>
@@ -225,6 +225,10 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
   </layer>
+  <objectgroup name="underground_decoration_02">
+   <object id="180" gid="698" x="2576.83" y="1020.78" width="89.3478" height="92.5676"/>
+   <object id="182" gid="699" x="2789" y="1010" width="116" height="62"/>
+  </objectgroup>
  </group>
  <layer name="waterfall_anim" width="52" height="24" locked="1">
   <data encoding="csv">
@@ -344,12 +348,12 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="chests" locked="1">
+ <objectgroup name="chests" visible="0" locked="1">
   <object id="1" gid="248" x="477" y="961" width="64" height="64"/>
   <object id="2" gid="248" x="1602" y="1344" width="64" height="64"/>
   <object id="3" gid="248" x="2723" y="1325" width="64" height="64"/>
  </objectgroup>
- <layer name="secret" width="52" height="24" locked="1">
+ <layer name="secret" width="52" height="24" visible="0" locked="1">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -406,18 +410,25 @@
   <object id="57" gid="229" x="1571.75" y="225.5" width="64" height="64"/>
   <object id="58" gid="229" x="1601.75" y="176" width="64" height="64"/>
  </objectgroup>
- <objectgroup name="characters" locked="1">
+ <objectgroup name="characters">
   <object id="142" name="sheepC" gid="435" x="677" y="639.504" width="96" height="96"/>
   <object id="144" name="sheepB" gid="495" x="394.667" y="768" width="96" height="96"/>
   <object id="145" name="sheepA" gid="535" x="492.008" y="768" width="96" height="96"/>
   <object id="151" name="fish" gid="575" x="983" y="1013" width="128" height="64"/>
   <object id="156" name="frog" gid="655" x="821" y="1023" width="368" height="368"/>
+  <object id="172" gid="697" x="2678" y="1009" width="102" height="102"/>
  </objectgroup>
- <objectgroup name="tree" locked="1">
-  <object id="163" gid="677" x="1505" y="954" width="254" height="382"/>
+ <objectgroup name="tree">
+  <object id="163" gid="702" x="1504" y="966" width="254" height="382"/>
  </objectgroup>
  <objectgroup name="birds" locked="1">
   <object id="161" name="birdA" gid="675" x="1005.61" y="156" width="105" height="98"/>
   <object id="162" name="birdB" gid="675" x="1376.62" y="356" width="105" height="98"/>
+ </objectgroup>
+ <objectgroup name="intro">
+  <object id="183" gid="700" x="1495" y="736" width="280" height="27"/>
+ </objectgroup>
+ <objectgroup name="chatbubble">
+  <object id="186" gid="701" x="2751" y="908.311" width="92" height="74.6222"/>
  </objectgroup>
 </map>
