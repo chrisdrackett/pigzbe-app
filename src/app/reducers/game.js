@@ -3,7 +3,7 @@ import {
 } from '../actions';
 
 export const initialState = {
-    wolloCollected: 0
+    wolloCollected: 17
 };
 
 export default (state = initialState, action) => {
