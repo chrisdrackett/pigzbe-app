@@ -4,12 +4,13 @@ const game = new Game(document.body);
 
 document.addEventListener('message', () => {
     console.log('Received post message', event.data);
-    // game.onMessage(event.data);
     if (typeof game[event.data] === 'function') {
         game[event.data]();
     }
 });
 
-// document.postMessage('Post message from web', '*');
+const postMessage = msg => document.postMessage(msg, '*');
+
+game.emitter.on('ready', () => postMessage('ready'));
 
 export default game;
