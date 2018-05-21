@@ -24,7 +24,7 @@ exports[`Game renders correctly 1`] = `
   <View
     style={
       Object {
-        "bottom": 20,
+        "bottom": 25,
         "left": 18,
         "position": "absolute",
       }

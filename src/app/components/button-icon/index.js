@@ -1,16 +1,15 @@
 import React from 'react';
 import {TouchableOpacity, Image} from 'react-native';
 import styles from './styles';
-import images from '../overlay/images';
 
-const ButtonIcon = ({icon, onClick}) => (
+const ButtonIcon = ({icon, onClick, selected}) => (
     <TouchableOpacity
-        style={styles.container}
+        style={selected ? [styles.container, styles.selected] : styles.container}
         data-icon={icon}
         onPress={onClick}>
         <Image
             style={styles.image}
-            source={images[icon]}
+            source={icon}
         />
     </TouchableOpacity>
 );
