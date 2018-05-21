@@ -3,12 +3,17 @@ import {View, WebView} from 'react-native';
 import NavListener from './nav-listener';
 import styles from './styles';
 import Overlay from '../overlay';
+import Loader from '../loader';
 
 const localWebURL = require('../../../game/game.html');
 
 // https://facebook.github.io/react-native/docs/webview.html
 
 export default class GameView extends NavListener {
+    state = {
+        isLoading: true
+    }
+
     onBlur() {
         this.sendPostMessage('pause');
     }
@@ -18,7 +23,14 @@ export default class GameView extends NavListener {
     }
 
     onMessage(event) {
-        console.log('On Message', event.nativeEvent.data);
+        const message = event.nativeEvent.data;
+        console.log('On Message', message);
+        switch (message) {
+            case 'ready':
+                this.setState({isLoading: false});
+                break;
+            default:
+        }
     }
 
     sendPostMessage(msg) {
@@ -38,6 +50,7 @@ export default class GameView extends NavListener {
                     onMessage={event => this.onMessage(event)}
                 />
                 <Overlay coins={1531}/>
+                <Loader isLoading={this.state.isLoading} message={'Loading'}/>
             </View>
         );
     }
