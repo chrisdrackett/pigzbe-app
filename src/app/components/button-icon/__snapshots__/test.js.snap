@@ -21,30 +21,26 @@ exports[`ButtonIcon Icon renders correctly 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "rgb(255, 255, 255)",
-      "borderColor": "rgb(253, 223, 6)",
+      "backgroundColor": "rgb(241, 241, 255)",
+      "borderColor": "rgb(241, 241, 255)",
       "borderRadius": 10,
       "borderStyle": "solid",
-      "borderWidth": 1,
-      "height": 80,
+      "borderWidth": 3,
+      "height": 60,
       "justifyContent": "center",
       "opacity": 1,
-      "width": 80,
+      "width": 60,
     }
   }
   testID={undefined}
   tvParallaxProperties={undefined}
 >
   <Image
-    source={
-      Object {
-        "testUri": "../../../src/app/components/overlay/images/banana.png",
-      }
-    }
+    source="banana"
     style={
       Object {
-        "height": 50,
-        "width": 50,
+        "height": 60,
+        "width": 60,
       }
     }
   />

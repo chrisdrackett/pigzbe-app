@@ -20,14 +20,17 @@ export default StyleSheet.create({
         borderRadius: 15,
         backgroundColor: color.white,
         paddingTop: 12,
-        paddingBottom: 20,
+        paddingBottom: 10,
         paddingLeft: 10,
         paddingRight: 10,
-        marginLeft: 16,
-        marginRight: 16,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'stretch',
+        position: 'absolute',
+        top: 30,
+        left: 16,
+        bottom: 25,
+        right: 16,
     },
     close: {
         backgroundColor: color.white,
@@ -101,7 +104,7 @@ export default StyleSheet.create({
     },
     button: {
         position: 'absolute',
-        bottom: 20,
+        bottom: 25,
         left: 18
     }
 });

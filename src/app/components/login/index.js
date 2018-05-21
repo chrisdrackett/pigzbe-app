@@ -16,7 +16,6 @@ import {
     SCREEN_HELP
 } from '../../constants';
 import DevPanel from '../dev-panel';
-import Overlay from '../overlay';
 
 class Login extends Component {
     state = {
@@ -81,7 +80,6 @@ class Login extends Component {
                 <Loader
                     isLoading={isLoading}
                 />
-                <Overlay/>
             </View>
         );
     }

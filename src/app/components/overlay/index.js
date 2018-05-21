@@ -30,7 +30,7 @@ const conversions = {
 
 class Overlay extends Component {
     state = {
-        isOpen: true,
+        isOpen: false,
         conversionKey: 'carrot',
     }
 
@@ -74,12 +74,6 @@ class Overlay extends Component {
                                 </Text>
                             </View>
                         </View>
-                    </View>
-                    <View style={styles.button}>
-                        <Counter
-                            value={wolloCollected}
-                            onPress={() => this.setState({isOpen: false})}
-                        />
                     </View>
                 </View>
             );
