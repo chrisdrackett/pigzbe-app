@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity, Image} from 'react-native';
+import {Text, View, Image} from 'react-native';
 import ButtonIcon from '../button-icon';
+import Counter from '../counter';
 import styles from './styles';
 import images from './images';
 
@@ -62,19 +63,23 @@ class Overlay extends Component {
                             </View>
                         </View>
                     </View>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => this.setState({isOpen: false})}
-                    />
+                    <View style={styles.button}>
+                        <Counter
+                            value={0}
+                            onPress={() => this.setState({isOpen: false})}
+                        />
+                    </View>
                 </View>
             );
 
         }
         return (
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => this.setState({isOpen: true})}
-            />
+            <View style={styles.button}>
+                <Counter
+                    value={0}
+                    onPress={() => this.setState({isOpen: true})}
+                />
+            </View>
         );
     }
 }

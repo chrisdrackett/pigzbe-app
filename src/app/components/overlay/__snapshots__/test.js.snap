@@ -2,34 +2,92 @@
 
 exports[`Overlay renders correctly 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
-  accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
-  isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "backgroundColor": "rgb(253, 223, 6)",
       "bottom": 20,
-      "height": 40,
-      "left": 20,
-      "opacity": 1,
+      "left": 18,
       "position": "absolute",
-      "width": 40,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
-/>
+>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    collapsable={undefined}
+    hasTVPreferredFocus={undefined}
+    hitSlop={undefined}
+    isTVSelectable={true}
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": 14.5,
+        "flexDirection": "row",
+        "height": 29,
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingBottom": 3,
+        "paddingLeft": 3,
+        "paddingRight": 6,
+        "paddingTop": 3,
+      }
+    }
+    testID={undefined}
+    tvParallaxProperties={undefined}
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../src/app/components/counter/images/wollo.png",
+        }
+      }
+      style={
+        Object {
+          "height": 23,
+          "width": 23,
+        }
+      }
+    />
+    <Image
+      source={
+        Object {
+          "testUri": "../../../src/app/components/counter/images/times.png",
+        }
+      }
+      style={
+        Object {
+          "height": 12,
+          "marginLeft": 5,
+          "marginRight": 5,
+          "width": 12,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "rgb(0, 50, 120)",
+          "fontFamily": "Poppins",
+          "fontSize": 20,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      00
+    </Text>
+  </View>
+</View>
 `;
