@@ -8,6 +8,8 @@ import SoundPlayer from './utils/sound-player';
 import images from './assets/images';
 import sounds from './assets/sounds';
 import Debug from './debug';
+import EventEmitter from 'eventemitter3';
+
 const {abs, min, cos, sin} = Math;
 
 const MOVE_SPEED = 8;
@@ -45,6 +47,7 @@ export default class Game {
         });
         this.app = app;
         this.el = el;
+        this.emitter = new EventEmitter();
 
         this.el.appendChild(app.view);
         app.view.style.width = '100%';
@@ -115,9 +118,12 @@ export default class Game {
             this.debug = new Debug(app, this.world);
         }
 
-        app.start();
-        app.ticker.remove(this.update);
-        app.ticker.add(this.update);
+        app.renderer.plugins.prepare.upload(app.stage, () => {
+            app.start();
+            app.ticker.remove(this.update);
+            app.ticker.add(this.update);
+            this.emitter.emit('ready');
+        });
     }
 
     update = delta => {
