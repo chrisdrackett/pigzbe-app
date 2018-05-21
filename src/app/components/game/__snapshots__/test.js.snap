@@ -52,5 +52,46 @@ exports[`Game renders correctly 1`] = `
     testID={undefined}
     tvParallaxProperties={undefined}
   />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(0, 50, 120)",
+        "bottom": 0,
+        "flex": 1,
+        "justifyContent": "center",
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "rgb(255, 255, 255)",
+          "fontFamily": "Poppins",
+          "fontSize": 16,
+          "marginBottom": 20,
+          "marginLeft": 20,
+          "marginRight": 20,
+          "marginTop": 20,
+          "textAlign": "center",
+        }
+      }
+    >
+      Loading
+    </Text>
+    <ActivityIndicator
+      animating={true}
+      color="rgb(230, 155, 230)"
+      hidesWhenStopped={true}
+      size="large"
+    />
+  </View>
 </View>
 `;

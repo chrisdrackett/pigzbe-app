@@ -139,15 +139,11 @@ class Profile extends Component {
                         value={email}
                         onChangeText={value => this.setState({email: value})}
                     />
-                    <View style={styles.subscribe}>
-                        <Text style={styles.subscribeText}>
-                            {strings.accountMailingListOptIn}
-                        </Text>
-                        <Checkbox
-                            value={subscribe}
-                            onValueChange={() => this.setState({subscribe: !this.state.subscribe})}
-                        />
-                    </View>
+                    <Checkbox
+                        text={strings.accountMailingListOptIn}
+                        value={subscribe}
+                        onValueChange={() => this.setState({subscribe: !this.state.subscribe})}
+                    />
                     <View style={styles.buttonContainer}>
                         <Button
                             label={hasProfile ? strings.accountSaveButtonLabel : strings.accountSubmitButtonLabel}

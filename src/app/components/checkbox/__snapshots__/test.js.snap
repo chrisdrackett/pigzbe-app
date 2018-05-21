@@ -2,39 +2,86 @@
 
 exports[`Checkbox renders correctly 1`] = `
 <View
-  onClick={[Function]}
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hasTVPreferredFocus={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
     Object {
       "alignItems": "center",
-      "justifyContent": "center",
+      "alignSelf": "stretch",
+      "flexDirection": "row",
+      "justifyContent": "space-between",
+      "marginBottom": 30,
+      "marginTop": 20,
+      "opacity": 1,
+      "paddingLeft": 20,
+      "paddingRight": 20,
     }
   }
+  testID={undefined}
+  tvParallaxProperties={undefined}
 >
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "rgb(255, 255, 255)",
+        "fontFamily": "Poppins",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "marginRight": 10,
+      }
+    }
+  />
   <View
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "rgb(255, 255, 255)",
-        "borderRadius": 15,
-        "borderStyle": "solid",
-        "borderWidth": 1,
-        "height": 30,
         "justifyContent": "center",
-        "width": 30,
       }
     }
   >
     <View
       style={
         Object {
-          "backgroundColor": "rgb(255, 255, 255)",
-          "borderRadius": 8,
-          "height": 16,
-          "opacity": 0.3,
-          "width": 16,
+          "alignItems": "center",
+          "borderColor": "rgb(255, 255, 255)",
+          "borderRadius": 15,
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "height": 30,
+          "justifyContent": "center",
+          "width": 30,
         }
       }
-    />
+    >
+      <View
+        style={
+          Object {
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderRadius": 8,
+            "height": 16,
+            "opacity": 0.3,
+            "width": 16,
+          }
+        }
+      />
+    </View>
   </View>
 </View>
 `;
