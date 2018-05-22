@@ -1,4 +1,5 @@
 import {load, save, clear} from '../utils/storage';
+import apiURL from '../utils/api-url';
 // import wait from './wait';
 
 const storageKey = 'profile';
@@ -21,9 +22,31 @@ export const profileLoad = () => dispatch => {
         .then(() => dispatch(profileLoading(false)));
 };
 
-export const profileUpdate = data => dispatch => {
-    dispatch({type: PROFILE_UPDATE, ...data});
-    return save(storageKey, data);
+const profileToggleSubscribe = async ({email, subscribe}) => {
+    try {
+        const values = await (await fetch(`${apiURL()}/email/${subscribe ? 'subscribe' : 'unsubscribe'}`, {
+            method: 'POST',
+            body: JSON.stringify({
+                email
+            })
+        })).json();
+
+        return values;
+    } catch (e) {
+        return false;
+    }
+};
+
+export const profileUpdate = data => async (dispatch) => {
+    try {
+        await profileToggleSubscribe({email: data.email, subscribe: data.subscribe});
+        dispatch({type: PROFILE_UPDATE, ...data});
+        return save(storageKey, data);
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+
 };
 
 export const profileAvailable = value => ({type: PROFILE_AVAILABLE, value});
