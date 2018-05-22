@@ -16,13 +16,11 @@ export default StyleSheet.create({
     },
     containerHeader: {
         height: '50%',
-        width: '100%',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
     containerBody: {
-        // height: '50%',
         width: '100%',
         paddingLeft: paddingH,
         paddingRight: paddingH,

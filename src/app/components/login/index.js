@@ -4,7 +4,8 @@ import {
     Text,
     View,
     Image,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Dimensions
 } from 'react-native';
 import {tryAutoLoad, load} from '../../actions';
 import styles from './styles';
@@ -20,7 +21,8 @@ import DevPanel from '../dev-panel';
 
 class Login extends Component {
     state = {
-        inputText: ''
+        inputText: '',
+        deviceWidth: Dimensions.get('window').width
     }
 
     componentDidMount() {
@@ -50,12 +52,16 @@ class Login extends Component {
         } = this.props;
 
         return (
-            <View style={styles.container}>
+            <View style={styles.container} onLayout={() => this.setState({
+                deviceWidth: Dimensions.get('window').width
+            })}>
                 <KeyboardAvoidingView
                     contentContainerStyle={styles.containerBodyKeyb}
                     behavior="position"
                     enabled>
-                    <View style={styles.containerHeader}>
+                    <View style={[styles.containerHeader, {
+                        width: this.state.deviceWidth
+                    }]}>
                         <Image style={styles.backgroundImage} source={require('./images/header.png')} />
                         <Image style={styles.image} source={require('./images/pigzbe_logo.png')} />
                         <Text style={styles.tagline}>{strings.loginTagline}</Text>
