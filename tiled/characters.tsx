@@ -1058,67 +1058,67 @@
   <image width="105" height="98" source="assets/objects/bird/bird_00020.png"/>
  </tile>
  <tile id="261">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00000.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00000.png"/>
  </tile>
  <tile id="262">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00001.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00001.png"/>
  </tile>
  <tile id="263">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00002.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00002.png"/>
  </tile>
  <tile id="264">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00003.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00003.png"/>
  </tile>
  <tile id="265">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00004.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00004.png"/>
  </tile>
  <tile id="266">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00005.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00005.png"/>
  </tile>
  <tile id="267">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00006.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00006.png"/>
  </tile>
  <tile id="268">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00007.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00007.png"/>
  </tile>
  <tile id="269">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00008.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00008.png"/>
  </tile>
  <tile id="270">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00009.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00009.png"/>
  </tile>
  <tile id="271">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00010.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00010.png"/>
  </tile>
  <tile id="272">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00011.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00011.png"/>
  </tile>
  <tile id="273">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00012.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00012.png"/>
  </tile>
  <tile id="274">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00013.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00013.png"/>
  </tile>
  <tile id="275">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00014.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00014.png"/>
  </tile>
  <tile id="276">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00015.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00015.png"/>
  </tile>
  <tile id="277">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00016.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00016.png"/>
  </tile>
  <tile id="278">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00017.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00017.png"/>
  </tile>
  <tile id="279">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00018.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00018.png"/>
  </tile>
  <tile id="280">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00019.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00019.png"/>
  </tile>
  <tile id="281">
-  <image width="128" height="128" source="assets/objects/rabbit/rabbit_00020.png"/>
+  <image width="102" height="102" source="assets/objects/rabbit/rabbit_00020.png"/>
   <animation>
    <frame tileid="261" duration="50"/>
    <frame tileid="262" duration="50"/>
@@ -1144,7 +1144,7 @@
   </animation>
  </tile>
  <tile id="282">
-  <image width="111" height="115" source="assets/objects/carrots_crate.png"/>
+  <image width="89" height="79" source="assets/objects/carrots_crate.png"/>
  </tile>
  <tile id="283">
   <image width="116" height="62" source="assets/objects/carrots_floor.png"/>
