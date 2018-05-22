@@ -8,7 +8,7 @@
   <image width="2048" height="256" source="assets/backgrounds/clouds_02.png"/>
  </tile>
  <tile id="2">
-  <image width="1024" height="512" source="assets/backgrounds/hills_01.png"/>
+  <image width="2048" height="512" source="assets/backgrounds/hills_01.png"/>
  </tile>
  <tile id="3">
   <image width="2048" height="512" source="assets/backgrounds/mountains_01.png"/>
