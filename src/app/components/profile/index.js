@@ -136,6 +136,7 @@ class Profile extends Component {
                         onChangeText={value => this.setState({name: value})}
                     />
                     <TextInput
+                        keyboardType="email-address"
                         error={!validEmail}
                         placeholder={strings.accountEmailPlaceholder}
                         value={email}
