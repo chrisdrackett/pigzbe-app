@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="characters" tilewidth="368" tileheight="368" tilecount="286" columns="0">
+<tileset name="characters" tilewidth="560" tileheight="368" tilecount="286" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="96" height="96" source="assets/objects/sheep_chewing_01/sheep_chewing_01_00000.png"/>
@@ -1149,10 +1149,10 @@
  <tile id="283">
   <image width="116" height="62" source="assets/objects/carrots_floor.png"/>
  </tile>
- <tile id="284">
-  <image width="280" height="27" source="assets/objects/intro_text.png"/>
- </tile>
  <tile id="285">
   <image width="180" height="146" source="assets/objects/tapmetolearn@2x.png"/>
+ </tile>
+ <tile id="286">
+  <image width="560" height="54" source="assets/objects/intro_text@2x.png"/>
  </tile>
 </tileset>

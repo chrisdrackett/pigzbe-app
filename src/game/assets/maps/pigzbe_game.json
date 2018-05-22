@@ -1274,7 +1274,7 @@
          "name":"tree",
          "objects":[
                 {
-                 "gid":702,
+                 "gid":703,
                  "height":382,
                  "id":163,
                  "name":"",
@@ -1330,9 +1330,9 @@
          "name":"intro",
          "objects":[
                 {
-                 "gid":700,
+                 "gid":702,
                  "height":27,
-                 "id":183,
+                 "id":191,
                  "name":"intro",
                  "rotation":0,
                  "type":"",
@@ -1369,7 +1369,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":191,
+ "nextobjectid":194,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"v1.0.3-399-ge7b903e",
@@ -6569,17 +6569,17 @@
                  "imageheight":62,
                  "imagewidth":116
                 },
-             "284":
-                {
-                 "image":"..\/..\/..\/..\/tiled\/assets\/objects\/intro_text.png",
-                 "imageheight":27,
-                 "imagewidth":280
-                },
              "285":
                 {
                  "image":"..\/..\/..\/..\/tiled\/assets\/objects\/tapmetolearn@2x.png",
                  "imageheight":146,
                  "imagewidth":180
+                },
+             "286":
+                {
+                 "image":"..\/..\/..\/..\/tiled\/assets\/objects\/intro_text@2x.png",
+                 "imageheight":54,
+                 "imagewidth":560
                 },
              "29":
                 {
@@ -7291,11 +7291,11 @@
                  "imagewidth":96
                 }
             },
-         "tilewidth":368
+         "tilewidth":560
         }, 
         {
          "columns":0,
-         "firstgid":702,
+         "firstgid":703,
          "grid":
             {
              "height":1,
