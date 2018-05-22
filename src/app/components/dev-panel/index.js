@@ -67,6 +67,10 @@ class DevPanel extends Component {
             testUserKey
         } = this.props;
 
+        if (!window.__DEV__) {
+            return null;
+        }
+
         if (this.state.isOpen) {
             return (
                 <View style={styles.overlay}>

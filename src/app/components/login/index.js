@@ -13,7 +13,7 @@ import Loader from '../loader';
 import Pig from '../pig';
 import {
     strings,
-    SCREEN_HELP
+    // SCREEN_HELP
 } from '../../constants';
 import DevPanel from '../dev-panel';
 
@@ -27,7 +27,7 @@ class Login extends Component {
 
         dispatch(tryAutoLoad());
 
-        if (testUserKey) {
+        if (window.__DEV__ && testUserKey) {
             this.setState({inputText: testUserKey});
         }
     }
@@ -35,7 +35,7 @@ class Login extends Component {
     componentDidUpdate(prevProps) {
         const {testUserKey} = this.props;
 
-        if (prevProps.testUserKey !== testUserKey) {
+        if (window.__DEV__ && prevProps.testUserKey !== testUserKey) {
             this.setState({inputText: testUserKey});
         }
     }
@@ -43,7 +43,7 @@ class Login extends Component {
     render() {
         const {
             dispatch,
-            navigation,
+            // navigation,
             isLoading,
             error
         } = this.props;
@@ -70,11 +70,11 @@ class Login extends Component {
                         onPress={() => dispatch(load(this.state.inputText))}
                         disabled={!this.state.inputText}
                     />
-                    <Button
+                    {/* <Button
                         label={strings.loginHelpButtonLabel}
                         plain
                         onPress={() => navigation.navigate(SCREEN_HELP)}
-                    />
+                    /> */}
                 </View>
                 <DevPanel/>
                 <Loader
