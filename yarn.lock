@@ -3419,7 +3419,7 @@ eventemitter3@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.0.1.tgz#4ce66c3fc5b5a6b9f2245e359e1938f1ab10f960"
 
-events@^1.0.0:
+events@^1.0.0, events@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
 
@@ -8274,6 +8274,13 @@ sockjs@0.3.19:
   dependencies:
     faye-websocket "^0.10.0"
     uuid "^3.0.1"
+
+sono@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/sono/-/sono-2.1.6.tgz#be12ff688b12b36f8f235260bc92185601bc6bb5"
+  dependencies:
+    core-js "^2.4.1"
+    events "^1.1.1"
 
 sort-keys@^2.0.0:
   version "2.0.0"

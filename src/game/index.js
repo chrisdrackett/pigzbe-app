@@ -4,11 +4,11 @@ import World from './world';
 import parseSpritesheets from './utils/parse-spritesheets';
 import angle from 'usfl/math/angle';
 import distance from 'usfl/math/distance';
-import SoundPlayer from './utils/sound-player';
 import images from './assets/images';
 import sounds from './assets/sounds';
 import Debug from './debug';
 import EventEmitter from 'eventemitter3';
+import sono from 'sono';
 
 const {abs, min, cos, sin} = Math;
 
@@ -80,12 +80,19 @@ export default class Game {
     }
 
     load(app, resources) {
-
-        SoundPlayer.load(sounds).then(() => {
-            console.log('PLAY SOUND!');
-            SoundPlayer.stop('music');
-            SoundPlayer.play('music', true);
+        Object.keys(sounds).map(key => {
+            sono.create({
+                id: key,
+                src: sounds[key]
+            });
         });
+
+        const music = sono.get('music');
+        // music.singlePlay = true;
+        music.loop = true;
+        music.stop();
+        music.play();
+        this.music = music;
 
         console.log('Object.keys(resources)', Object.keys(resources));
 
@@ -151,15 +158,19 @@ export default class Game {
 
     pause = () => {
         console.log('Game.pause');
-        SoundPlayer.stop('music');
+        if (this.music) {
+            this.music.pause();
+        }
         this.app.ticker.remove(this.update);
     }
 
     resume = () => {
         console.log('Game.resume');
         if (this.world) {
-            SoundPlayer.stop('music');
-            SoundPlayer.play('music', true);
+            if (this.music) {
+                this.music.stop();
+                this.music.play();
+            }
             this.app.ticker.remove(this.update);
             this.app.ticker.add(this.update);
         }

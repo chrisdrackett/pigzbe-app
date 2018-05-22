@@ -1,9 +1,9 @@
 import {extras, Texture} from 'pixi.js';
 import ObjectWrapper from '../../utils/object-wrapper';
-import SoundPlayer from '../../utils/sound-player';
 import intersects from '../../utils/intersects';
 import array from 'usfl/array/array';
 import objectPool from 'usfl/object-pool';
+import sono from 'sono';
 
 export default class Coins {
     constructor(map) {
@@ -54,7 +54,9 @@ export default class Coins {
                 };
                 pop.play();
 
-                SoundPlayer.play('notificationCoinsCaptured');
+                const sound = sono.get('notificationCoinsCaptured');
+                sound.volume = 0.5;
+                sound.play();
             }
         }
     }
