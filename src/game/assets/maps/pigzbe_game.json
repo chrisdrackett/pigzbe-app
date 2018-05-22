@@ -154,7 +154,7 @@
                          "rotation":0,
                          "type":"",
                          "visible":true,
-                         "width":1664,
+                         "width":3328,
                          "x":0,
                          "y":1106
                         }],
@@ -4400,7 +4400,7 @@
                 {
                  "image":"..\/..\/..\/..\/tiled\/assets\/backgrounds\/hills_01.png",
                  "imageheight":512,
-                 "imagewidth":1024
+                 "imagewidth":2048
                 },
              "3":
                 {

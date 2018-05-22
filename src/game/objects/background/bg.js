@@ -1,3 +1,5 @@
+import * as PIXI from 'pixi.js';
+
 export default class Bg {
     constructor(map) {
         this.create(map);
@@ -11,17 +13,19 @@ export default class Bg {
         this.sky = layer.sky.objects[0].sprite;
 
         this.mountains = layer.mountains.objects[0].sprite;
+        this.mountains.texture.baseTexture.mipmap = false;
         // this.mountainsY = this.mountains.position.y;
 
         this.hills = layer.hills.objects[0].sprite;
-        this.hills.width = 2048;
+        this.hills.texture.baseTexture.mipmap = false;
         // this.hillsY = this.hills.position.y;
 
-
         this.cloudsLow = layer.cloudsLow.objects[0].sprite;
+        this.cloudsLow.texture.baseTexture.mipmap = false;
         // this.cloudsLowY = this.cloudsLow.position.y;
 
         this.cloudsHigh = layer.cloudsHigh.objects[0].sprite;
+        this.cloudsHigh.texture.baseTexture.mipmap = false;
         // this.cloudsHighY = this.cloudsHigh.position.y;
     }
 

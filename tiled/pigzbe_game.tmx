@@ -64,7 +64,7 @@
    </object>
   </objectgroup>
   <objectgroup name="hills" locked="1">
-   <object id="169" name="hills" gid="412" x="0" y="1106" width="1664" height="832">
+   <object id="169" name="hills" gid="412" x="0" y="1106" width="3328" height="832">
     <properties>
      <property name="tiling" type="bool" value="true"/>
     </properties>
