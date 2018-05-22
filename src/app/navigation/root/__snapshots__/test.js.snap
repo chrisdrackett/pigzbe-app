@@ -3,6 +3,7 @@
 exports[`Navigation: Root renders correctly 1`] = `
 Array [
   <View
+    onLayout={[Function]}
     style={
       Object {
         "alignItems": "center",
@@ -38,13 +39,17 @@ Array [
       >
         <View
           style={
-            Object {
-              "alignItems": "center",
-              "flex": 1,
-              "height": "50%",
-              "justifyContent": "center",
-              "width": "100%",
-            }
+            Array [
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "height": "50%",
+                "justifyContent": "center",
+              },
+              Object {
+                "width": 750,
+              },
+            ]
           }
         >
           <Image
