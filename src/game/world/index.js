@@ -74,8 +74,8 @@ export default class World {
         app.stage.addChild(container);
 
         const pigzbe = new Pigzbe({
-            x: map.width / 2,
-            y: map.height / 2,
+            x: map.width * 0.49,
+            y: map.height * 0.40,
             // maxX: map.width,
             maxX: 0,
             maxY: map.height,
