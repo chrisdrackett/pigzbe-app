@@ -1,14 +1,31 @@
 import {StyleSheet} from 'react-native';
 import {
-    color
+    color,
+    fontFamily
 } from '../../styles';
 
 export default StyleSheet.create({
     container: {
+        flexDirection: 'row',
+        marginTop: 20,
+        marginBottom: 30,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingRight: 20,
+        alignSelf: 'stretch',
+    },
+    text: {
+        fontFamily,
+        color: color.white,
+        fontSize: 14,
+        fontWeight: 'bold',
+        marginRight: 10
+    },
+    checkbox: {
         justifyContent: 'center',
         alignItems: 'center'
     },
-
     outer: {
         width: 30,
         height: 30,
@@ -19,7 +36,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-
     innerInactive: {
         width: 16,
         height: 16,
@@ -27,7 +43,6 @@ export default StyleSheet.create({
         opacity: 0.3,
         borderRadius: 8
     },
-
     innerActive: {
         width: 16,
         height: 16,

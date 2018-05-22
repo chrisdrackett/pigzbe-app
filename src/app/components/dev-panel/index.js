@@ -67,12 +67,19 @@ class DevPanel extends Component {
             testUserKey
         } = this.props;
 
+        if (!window.__DEV__) {
+            return null;
+        }
+
         if (this.state.isOpen) {
             return (
                 <View style={styles.overlay}>
                     <ScrollView>
                         <View style={[container, styles.inner]}>
                             <Text style={styles.title}>Dev panel</Text>
+                            <Text style={styles.switchText}>
+                                Env dev: {window.__DEV__ ? 'true' : 'false'}
+                            </Text>
                             <SwitchControl
                                 label={'Use Testnet?'}
                                 value={useTestnet}

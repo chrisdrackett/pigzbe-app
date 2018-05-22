@@ -1,5 +1,5 @@
 import getTextureId from './get-texture-id';
-import {OBJECT_LAYER, TILE_LAYER, IMAGE_LAYER} from './layer-type';
+import {OBJECT_LAYER, TILE_LAYER, IMAGE_LAYER, GROUP_LAYER} from './layer-type';
 
 const FLIPPED_HORIZONTALLY = 0x80000000;
 const FLIPPED_VERTICALLY = 0x40000000;
@@ -18,12 +18,6 @@ function flattenPath(path) {
         arr.push(point.x, point.y);
         return arr;
     }, []);
-}
-
-function getImagelayer(layer) {
-    return [Object.assign({}, layer, {
-        frame: getTextureId(layer.image)
-    })];
 }
 
 function getTileLayer(layer, mapFrames, tileWidth, tileHeight) {
@@ -51,6 +45,7 @@ function getTileLayer(layer, mapFrames, tileWidth, tileHeight) {
         const y = row * tileHeight + yOffset;
 
         return {
+            layer: layer.name,
             index,
             tile: gid,
             gid,
@@ -77,6 +72,10 @@ function getObjectGroup(layer, mapFrames) {
     return layer.objects.map(object => {
         const frame = mapFrames[object.gid];
         const yOffset = frame ? 0 - object.height : 0;
+        const scale = {
+            x: frame ? object.width / frame.width : 1,
+            y: frame ? object.height / frame.height : 1
+        };
 
         if (object.polygon) {
             const path = flattenPath(object.polygon);
@@ -94,15 +93,27 @@ function getObjectGroup(layer, mapFrames) {
         const type = object.type || (frame && frame.type) || '';
 
         return Object.assign({}, object, {
+            layer: layer.name,
             frame,
             y,
             top: y,
             right: object.x + object.width,
             bottom: y + object.height,
             left: object.x,
-            type
+            type,
+            scale
         });
     });
+}
+
+function getImagelayer(layer) {
+    return [Object.assign({}, layer, {
+        frame: getTextureId(layer.image)
+    })];
+}
+
+function getGroupLayer(group, mapFrames, tileW, tileH) {
+    return getLayers(group.layers, tileW, tileH, mapFrames);
 }
 
 function getLayerObjects(layer, mapFrames, tileWidth, tileHeight) {
@@ -113,58 +124,71 @@ function getLayerObjects(layer, mapFrames, tileWidth, tileHeight) {
             return getObjectGroup(layer, mapFrames);
         case IMAGE_LAYER:
             return getImagelayer(layer);
+        case GROUP_LAYER:
+            return getGroupLayer(layer, mapFrames, tileWidth, tileHeight);
         default:
             console.error('Unknown layer type:', layer && layer.type);
     }
     return [];
 }
 
-export default function getTilemapLayers(mapJSON, mapFrames) {
-    const tileWidth = mapJSON.tilewidth;
-    const tileHeight = mapJSON.tileheight;
-
-    return mapJSON.layers.map((layer, z) => {
-        const {offsetx, offsety} = layer;
-        const l = Object.assign({}, layer, {
-            cols: layer.width,
-            rows: layer.height,
-            x: offsetx || 0,
-            y: offsety || 0,
-            z,
-            objects: getLayerObjects(layer, mapFrames, tileWidth, tileHeight),
-            width: layer.width * tileWidth,
-            height: layer.height * tileHeight,
-            tileWidth,
-            tileHeight
-        });
-
-        switch (l.type) {
-            case TILE_LAYER:
-                l.map = l.objects.reduce((ob, object) => {
-                    ob['tile' + object.index] = object;
-                    return ob;
-                }, {});
-                l.tileAt = function(x, y) {
-                    x = Math.floor(x / tileWidth);
-                    y = Math.floor(y / tileHeight);
-                    const index = x + y * l.cols;
-                    return l.map['tile' + index];
-                };
-                break;
-            case OBJECT_LAYER:
-                l.map = l.objects.reduce((ob, object) => {
-                    if (object.name) {
-                        if (ob[object.name]) {
-                            console.warn('Duplicate object name:', object.name);
-                        }
-                        ob[object.name] = object;
-                    }
-                    return ob;
-                }, {});
-                break;
-            default:
-
-        }
-        return l;
+function getLayer(layer, z, tileWidth, tileHeight, mapFrames) {
+    const {offsetx, offsety} = layer;
+    const l = Object.assign({}, layer, {
+        cols: layer.width,
+        rows: layer.height,
+        x: offsetx || 0,
+        y: offsety || 0,
+        z,
+        objects: getLayerObjects(layer, mapFrames, tileWidth, tileHeight),
+        width: layer.width * tileWidth,
+        height: layer.height * tileHeight,
+        tileWidth,
+        tileHeight
     });
+
+    switch (l.type) {
+        case TILE_LAYER:
+            l.map = l.objects.reduce((ob, object) => {
+                ob['tile' + object.index] = object;
+                return ob;
+            }, {});
+            l.tileAt = function(x, y) {
+                x = Math.floor(x / tileWidth);
+                y = Math.floor(y / tileHeight);
+                const index = x + y * l.cols;
+                return l.map['tile' + index];
+            };
+            break;
+        case OBJECT_LAYER:
+            l.object = l.objects.reduce((ob, object) => {
+                if (object.name) {
+                    if (ob[object.name]) {
+                        console.warn('Duplicate object name:', object.name);
+                    }
+                    ob[object.name] = object;
+                }
+                return ob;
+            }, {});
+            break;
+        case GROUP_LAYER:
+            l.layer = l.objects.reduce((ob, object) => {
+                ob[object.name] = object;
+                return ob;
+            }, {});
+            break;
+        default:
+
+    }
+    return l;
+}
+
+function getLayers(layers, tileW, tileH, mapFrames) {
+    return layers.map((layer, z) => getLayer(layer, z, tileW, tileH, mapFrames));
+}
+
+export default function getTilemapLayers(mapJSON, mapFrames) {
+    const tileW = mapJSON.tilewidth;
+    const tileH = mapJSON.tileheight;
+    return getLayers(mapJSON.layers, tileW, tileH, mapFrames);
 }

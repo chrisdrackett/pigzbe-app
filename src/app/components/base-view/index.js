@@ -3,7 +3,13 @@ import {ScrollView} from 'react-native';
 import Header from '../header';
 import styles from './styles';
 
-const BaseView = ({showSettings, navigation, scrollViewStyle, children}) => (
+
+const BaseView = ({
+    showSettings,
+    navigation,
+    scrollViewStyle,
+    children,
+}) => (
     <Fragment>
         <Header showSettings={showSettings} navigation={navigation}/>
         <ScrollView style={styles.scrollView} contentContainerStyle={scrollViewStyle}>

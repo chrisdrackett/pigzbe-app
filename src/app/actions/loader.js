@@ -10,8 +10,11 @@ import {
 const pkg = require('../../../package.json');
 
 export const LOADER_LOADING = 'LOADER_LOADING';
+export const LOADER_ERROR = 'LOADER_ERROR';
 
 const loading = value => ({type: LOADER_LOADING, value});
+
+export const loaderError = error => ({type: LOADER_ERROR, error});
 
 export const load = key => dispatch => {
     dispatch(loading(true));
@@ -19,8 +22,12 @@ export const load = key => dispatch => {
         .then(() => dispatch(profileLoad()))
         .then(() => dispatch(loadEscrow()))
         .then(() => dispatch(messagesLoad()))
-        .catch(error => console.error(error))
-        .finally(() => dispatch(loading(false)));
+        .then(() => dispatch(loading(false)))
+        .catch(error => {
+            console.log(error);
+            dispatch(loaderError(error));
+            dispatch(loading(false));
+        });
 };
 
 export const tryAutoLoad = () => dispatch => {

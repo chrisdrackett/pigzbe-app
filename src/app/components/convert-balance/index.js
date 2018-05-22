@@ -23,7 +23,7 @@ const ConvertBalance = ({exchange, balance, coins, dps}) => (
                 <CoinCompare
                     key={c}
                     coin={c}
-                    value={exchange[c] * balance}
+                    value={exchange ? exchange[c] * balance : 0}
                     dp={dps[c]}
                 />
             ))}

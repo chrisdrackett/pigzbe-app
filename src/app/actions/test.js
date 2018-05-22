@@ -95,4 +95,20 @@ describe('Actions', () => {
         });
     });
 
+    describe('Game', () => {
+        it('should create an action to count wollo collected', () => {
+            expect(actions.gameWolloCollected(10)).toEqual({
+                type: actions.GAME_WOLLO_COLLECTED,
+                value: 10
+            });
+        });
+
+        it('should create an action to open overlay', () => {
+            expect(actions.gameOverlayOpen(true)).toEqual({
+                type: actions.GAME_OVERLAY_OPEN,
+                value: true
+            });
+        });
+    });
+
 });

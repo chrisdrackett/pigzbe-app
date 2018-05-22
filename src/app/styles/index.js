@@ -18,6 +18,8 @@ export const color = {
     mediumGrey: 'rgb(225, 225, 225)',
     darkGrey: 'rgb(74, 74, 74)',
     darkGreyOpacity50: 'rgba(74, 74, 74, 0.5)',
+    purple: 'rgb(72, 70, 148)',
+    lightPurple: 'rgb(241, 241, 255)',
 };
 
 export const paddingH = '9.375%';

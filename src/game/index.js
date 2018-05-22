@@ -1,41 +1,54 @@
 import * as PIXI from 'pixi.js';
 import World from './world';
-import {registerFont} from './assets/fonts';
+// import {registerFont} from './assets/fonts';
+import parseSpritesheets from './utils/parse-spritesheets';
 import angle from 'usfl/math/angle';
 import distance from 'usfl/math/distance';
-import SoundPlayer from './utils/sound-player';
 import images from './assets/images';
 import sounds from './assets/sounds';
+import Debug from './debug';
+import EventEmitter from 'eventemitter3';
+import sono from 'sono';
 
-const removeFolderNames = json => {
-    return Object.assign(json, {
-        frames: Object.keys(json.frames).reduce((ob, key) => {
-            ob[key.split('/').pop()] = json.frames[key];
-            return ob;
-        }, {})
-    });
+const {abs, min, cos, sin} = Math;
+
+const MOVE_SPEED = 8;
+
+const spritesheets = {
+    tiles0: require('./assets/images/textures/tiles0.json'),
+    objects0: require('./assets/images/textures/objects0.json'),
+    objects1: require('./assets/images/textures/objects1.json'),
+    objects2: require('./assets/images/textures/objects2.json'),
+    objects3: require('./assets/images/textures/objects3.json'),
 };
-// import as js ob
-const spritesJSON = removeFolderNames(require('./assets/images/textures/objects0.json'));
 
 global.PIXI = PIXI;
+console.log('PIXI.settings.PRECISION_VERTEX', PIXI.settings.PRECISION_VERTEX);
+console.log('PIXI.settings.PRECISION_FRAGMENT', PIXI.settings.PRECISION_FRAGMENT);
+// PIXI.settings.PRECISION_FRAGMENT = 'highp';
+// PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
 export default class Game {
     constructor(el) {
         this.isDown = false;
 
         const {width, height} = el.getBoundingClientRect();
-        const resolution = window.devicePixelRatio || 1;
 
         const app = new PIXI.Application({
             backgroundColor: 0xE0F0FA,
             autoStart: false,
-            resolution,
-            width: width,
-            height: height
+            roundPixels: false,
+            transparent: false,
+            antialias: true,
+            forceFXAA: false,
+            resolution: 1,
+            width,
+            height
         });
         this.app = app;
         this.el = el;
+
+        app.emitter = new EventEmitter();
 
         this.el.appendChild(app.view);
         app.view.style.width = '100%';
@@ -56,7 +69,8 @@ export default class Game {
 
         window.addEventListener('resize', () => this.resize());
 
-        this.dims = this.updateDims();
+        this.w = 0;
+        this.h = 0;
 
         this.vec = {x: 0, y: 0, rotation: 0};
 
@@ -66,12 +80,19 @@ export default class Game {
     }
 
     load(app, resources) {
-
-        SoundPlayer.load(sounds).then(() => {
-            console.log('PLAY SOUND!');
-            SoundPlayer.stop('music');
-            SoundPlayer.play('music', true);
+        Object.keys(sounds).map(key => {
+            sono.create({
+                id: key,
+                src: sounds[key]
+            });
         });
+
+        const music = sono.get('music');
+        // music.singlePlay = true;
+        music.loop = true;
+        music.stop();
+        music.play();
+        this.music = music;
 
         console.log('Object.keys(resources)', Object.keys(resources));
 
@@ -81,40 +102,55 @@ export default class Game {
 
         app.loader.load((loader, assets) => {
             // parse fonts
-            registerFont(assets.fontPng.texture);
-            // parse spritesheets
-            const spriteSheet = assets.objects0;
-            const sheet = new PIXI.Spritesheet(spriteSheet.texture.baseTexture, spritesJSON);
+            // registerFont(assets.fontPng.texture);
 
-            sheet.parse(textures => {
-                console.log('Spritesheet parsed!');
+            const sheets = Object.keys(spritesheets).map(key => ({
+                baseTexture: assets[key].texture.baseTexture,
+                json: spritesheets[key]
+            }));
+
+            parseSpritesheets(sheets).then(textures => {
+                console.log('Spritesheets parsed.', textures.length, 'textures found.');
                 console.log(Object.keys(textures));
-
                 this.onLoad(app);
             });
         });
     }
 
     onLoad(app) {
-        this.updateDims();
-        this.world = new World(app, this.dims);
         this.resize();
 
-        app.start();
-        app.ticker.remove(this.update);
-        app.ticker.add(this.update);
+        this.world = new World(app, this.w, this.h);
+
+        if (process.env.NODE_ENV === 'development') {
+            this.debug = new Debug(app, this.world);
+        }
+
+        app.renderer.plugins.prepare.upload(app.stage, () => {
+            app.start();
+            app.ticker.remove(this.update);
+            app.ticker.add(this.update);
+            app.emitter.emit('ready');
+        });
     }
 
     update = delta => {
-        this.world.update(delta, this.vec, this.touchOrigin);
+        this.world.update(delta, this.vec);
+
+        if (this.debug) {
+            this.debug.update(this.vec, this.touchOrigin, this.isDown);
+        }
 
         if (!this.isDown) {
-            this.vec.x *= 0.9;
-            this.vec.y *= 0.9;
-            if (Math.abs(this.vec.x) < 0.005) {
+            this.vec.x *= 0.85;
+            this.vec.y *= 0.85;
+
+            const threshold = 0.5;
+
+            if (abs(this.vec.x) < threshold) {
                 this.vec.x = 0;
             }
-            if (Math.abs(this.vec.y) < 0.005) {
+            if (abs(this.vec.y) < threshold) {
                 this.vec.y = 0;
             }
         }
@@ -122,15 +158,19 @@ export default class Game {
 
     pause = () => {
         console.log('Game.pause');
-        SoundPlayer.stop('music');
+        if (this.music) {
+            this.music.pause();
+        }
         this.app.ticker.remove(this.update);
     }
 
     resume = () => {
         console.log('Game.resume');
         if (this.world) {
-            SoundPlayer.stop('music');
-            SoundPlayer.play('music', true);
+            if (this.music) {
+                this.music.stop();
+                this.music.play();
+            }
             this.app.ticker.remove(this.update);
             this.app.ticker.add(this.update);
         }
@@ -151,50 +191,29 @@ export default class Game {
         if (!this.isDown) {
             return;
         }
-        const {vW, vH} = this.dims;
-        const {touchOrigin} = this;
+        const {w, h, touchOrigin} = this;
 
         const rotation = angle(touchOrigin.x, touchOrigin.y, point.x, point.y);
-        const maxDist = Math.min(vW, vH) / 4;
-        const dist = Math.min(distance(touchOrigin.x, touchOrigin.y, point.x, point.y), maxDist);
+        const maxDist = min(w, h) / 4;
+        const dist = min(distance(touchOrigin.x, touchOrigin.y, point.x, point.y), maxDist);
         const force = dist / maxDist;
 
-        const speed = 10;
-        this.vec.x = Math.cos(rotation) * force * speed;
-        this.vec.y = Math.sin(rotation) * force * speed;
+        this.vec.x = cos(rotation) * force * MOVE_SPEED;
+        this.vec.y = sin(rotation) * force * MOVE_SPEED;
         this.vec.rotation = rotation;
-    }
-
-    updateDims = () => {
-        if (!(this.app && this.app.renderer)) {
-            return {};
-        }
-
-        const {width, height, resolution} = this.app.renderer;
-        const vW = width / resolution;
-        const vH = height / resolution;
-        const center = {
-            x: vW / 2,
-            y: vH / 2
-        };
-
-        this.dims = {
-            vW,
-            vH,
-            resolution,
-            width,
-            height,
-            center
-        };
-
-        return this.dims;
     }
 
     resize() {
         const {width, height} = this.el.getBoundingClientRect();
+        const {resolution} = this.app.renderer;
         this.app.renderer.resize(width, height);
-        this.world.resize(this.updateDims());
         this.app.stage.hitArea.width = width;
         this.app.stage.hitArea.height = height;
+
+        this.w = width / resolution;
+        this.h = height / resolution;
+        if (this.world) {
+            this.world.resize(this.w, this.h);
+        }
     }
 }

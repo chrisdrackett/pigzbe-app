@@ -35,6 +35,7 @@ function texturePack(item, callback) {
     const opts = [
         item,
         '--format', 'pixijs',
+        '--size-constraints', 'POT',
         '--data', `${outputName}.json`,
         '--sheet', `${outputName}.png`,
         '--multipack',

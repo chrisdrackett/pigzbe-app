@@ -51,23 +51,6 @@ export default StyleSheet.create({
         marginBottom: 0,
         marginTop: 10
     },
-    subscribe: {
-        flexDirection: 'row',
-        marginTop: 20,
-        marginBottom: 30,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingLeft: 20,
-        paddingRight: 20,
-        alignSelf: 'stretch',
-    },
-    subscribeText: {
-        fontFamily,
-        color: color.white,
-        fontSize: 14,
-        fontWeight: 'bold',
-        marginRight: 10
-    },
     buttonContainer: {
         alignSelf: 'stretch',
         alignItems: 'center',

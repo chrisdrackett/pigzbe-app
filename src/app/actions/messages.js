@@ -1,5 +1,6 @@
 import {load, save} from '../utils/storage';
 import apiURL from '../utils/api-url';
+import fetchJSON from './fetch-json';
 // import {loadContent} from './';
 // import {clear} from '../utils/storage';
 // import wait from './wait';
@@ -17,9 +18,11 @@ export const messagesError = error => ({type: MESSAGES_ERROR, error});
 export const messagesNotify = notify => ({type: MESSAGES_NOTIFY, notify});
 export const messagesMarkRead = () => ({type: MESSAGES_MARK_READ});
 
-export const loadMessages = (query = '') => () => fetch(`${apiURL()}/content/messages?${query}`).then(res => res.json());
+// export const loadMessages = (query = '') => () => fetch(`${apiURL()}/content/messages?${query}`).then(res => res.json());
+export const loadMessages = (query = '') => () => fetchJSON(`${apiURL()}/content/messages?${query}`);
 
 export const messagesLoad = () => dispatch => {
+    console.log('messagesLoad');
     dispatch(messagesLoading(true));
 
     return dispatch(loadMessages('order=latest'))
@@ -32,6 +35,9 @@ export const messagesLoad = () => dispatch => {
             return load(storageKey)
                 .then(data => data.lastDate || 0)
                 .then(lastDate => {
+                    if (!messages) {
+                        throw new Error('Network error');
+                    }
                     const latestDate = messages[0].date;
                     const notify = new Date(latestDate) > new Date(lastDate);
 
@@ -45,7 +51,7 @@ export const messagesLoad = () => dispatch => {
                 });
         })
         .catch(error => {
-            console.error(error.message);
+            console.log(error.message);
             dispatch(messagesLoading(false));
             dispatch(messagesError(error));
         });

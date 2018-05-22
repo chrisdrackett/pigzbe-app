@@ -23,8 +23,10 @@ import isEmail from './is-email';
 import {
     strings,
     SCREEN_BALANCE,
-    SCREEN_PRIVACY
+    PRIVACY_URL
+    // SCREEN_PRIVACY
 } from '../../constants';
+import openURL from '../../utils/open-url';
 
 class Profile extends Component {
     constructor(props) {
@@ -134,20 +136,17 @@ class Profile extends Component {
                         onChangeText={value => this.setState({name: value})}
                     />
                     <TextInput
+                        keyboardType="email-address"
                         error={!validEmail}
                         placeholder={strings.accountEmailPlaceholder}
                         value={email}
                         onChangeText={value => this.setState({email: value})}
                     />
-                    <View style={styles.subscribe}>
-                        <Text style={styles.subscribeText}>
-                            {strings.accountMailingListOptIn}
-                        </Text>
-                        <Checkbox
-                            value={subscribe}
-                            onValueChange={() => this.setState({subscribe: !this.state.subscribe})}
-                        />
-                    </View>
+                    <Checkbox
+                        text={strings.accountMailingListOptIn}
+                        value={subscribe}
+                        onValueChange={() => this.setState({subscribe: !this.state.subscribe})}
+                    />
                     <View style={styles.buttonContainer}>
                         <Button
                             label={hasProfile ? strings.accountSaveButtonLabel : strings.accountSubmitButtonLabel}
@@ -172,7 +171,7 @@ class Profile extends Component {
                             <Button
                                 label={strings.accountPrivacyButtonLabel}
                                 plain
-                                onPress={() => navigation.navigate(SCREEN_PRIVACY)}
+                                onPress={() => openURL(PRIVACY_URL)}
                             />
                         )}
                         {error && (

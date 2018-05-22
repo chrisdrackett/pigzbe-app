@@ -1,9 +1,11 @@
 import {
-    LOADER_LOADING
+    LOADER_LOADING,
+    LOADER_ERROR
 } from '../actions';
 
 export const initialState = {
-    isLoading: false
+    isLoading: false,
+    error: null
 };
 
 export default (state = initialState, action) => {
@@ -12,6 +14,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: action.value
+            };
+        case LOADER_ERROR:
+            return {
+                ...state,
+                error: action.error
             };
         default:
             return state;

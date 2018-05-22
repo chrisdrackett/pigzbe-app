@@ -1,14 +1,21 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {View, WebView} from 'react-native';
 import NavListener from './nav-listener';
 import styles from './styles';
 import Overlay from '../overlay';
+import Loader from '../loader';
+import {gameWolloCollected, gameOverlayOpen} from '../../actions';
 
 const localWebURL = require('../../../game/game.html');
 
 // https://facebook.github.io/react-native/docs/webview.html
 
-export default class GameView extends NavListener {
+class GameView extends NavListener {
+    state = {
+        isLoading: true
+    }
+
     onBlur() {
         this.sendPostMessage('pause');
     }
@@ -18,7 +25,22 @@ export default class GameView extends NavListener {
     }
 
     onMessage(event) {
-        console.log('On Message', event.nativeEvent.data);
+        const {dispatch} = this.props;
+        const message = event.nativeEvent.data;
+        const {name, value} = JSON.parse(message);
+        console.log('On Message', name, value);
+        switch (name) {
+            case 'ready':
+                this.setState({isLoading: false});
+                break;
+            case 'collected':
+                dispatch(gameWolloCollected(value));
+                break;
+            case 'learn':
+                dispatch(gameOverlayOpen(true));
+                break;
+            default:
+        }
     }
 
     sendPostMessage(msg) {
@@ -38,7 +60,10 @@ export default class GameView extends NavListener {
                     onMessage={event => this.onMessage(event)}
                 />
                 <Overlay/>
+                <Loader isLoading={this.state.isLoading} message={'Loading'}/>
             </View>
         );
     }
 }
+
+export default connect()(GameView);

@@ -1,28 +1,34 @@
 import {StyleSheet} from 'react-native';
 
 import {
-    container,
     color,
     fontFamily,
     paddingH
 } from '../../styles';
 
 export default StyleSheet.create({
-    container,
+    container: {
+        alignSelf: 'stretch',
+        flex: 1,
+        backgroundColor: color.blue,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     containerHeader: {
         height: '50%',
-        width: '100%',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
     containerBody: {
-        height: '50%',
         width: '100%',
         paddingLeft: paddingH,
         paddingRight: paddingH,
         flex: 1,
         justifyContent: 'center'
+    },
+    containerBodyKeyb: {
+        backgroundColor: color.blue
     },
     backgroundImage: {
         position: 'absolute',

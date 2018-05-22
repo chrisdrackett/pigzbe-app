@@ -2,6 +2,7 @@
 
 exports[`Navigation: Auth renders correctly 1`] = `
 <View
+  onLayout={[Function]}
   style={
     Object {
       "alignItems": "center",
@@ -13,276 +14,247 @@ exports[`Navigation: Auth renders correctly 1`] = `
   }
 >
   <View
-    style={
+    contentContainerStyle={
       Object {
-        "alignItems": "center",
-        "flex": 1,
-        "height": "50%",
-        "justifyContent": "center",
-        "width": "100%",
+        "backgroundColor": "rgb(0, 50, 120)",
       }
     }
+    enabled={true}
+    keyboardVerticalOffset={0}
+    onLayout={[Function]}
+    style={undefined}
   >
-    <Image
-      source={
-        Object {
-          "testUri": "../../../src/app/components/login/images/header.png",
-        }
-      }
-      style={
-        Object {
-          "height": "100%",
-          "position": "absolute",
-          "width": "100%",
-          "zIndex": 0,
-        }
-      }
-    />
-    <Image
-      source={
-        Object {
-          "testUri": "../../../src/app/components/login/images/pigzbe_logo.png",
-        }
-      }
-      style={
-        Object {
-          "height": 63,
-          "width": 162,
-        }
-      }
-    />
-    <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
-      style={
-        Object {
-          "color": "rgb(255, 255, 255)",
-          "fontFamily": "Poppins",
-          "fontSize": 16,
-          "fontWeight": "bold",
-          "marginBottom": 20,
-          "marginLeft": 20,
-          "marginRight": 20,
-          "marginTop": 10,
-          "position": "relative",
-          "textAlign": "center",
-          "zIndex": 1,
-        }
-      }
-    >
-      Save. Learn. Play.
-    </Text>
     <View
       style={
-        Object {
-          "alignItems": "center",
-          "bottom": 0,
-          "flex": 1,
-          "justifyContent": "flex-end",
-          "position": "absolute",
-        }
-      }
-    >
-      <Image
-        source={
+        Array [
           Object {
-            "testUri": "../../../src/app/components/pig/pig.png",
-          }
-        }
-        style={
+            "backgroundColor": "rgb(0, 50, 120)",
+          },
           Object {
-            "height": 35,
-            "width": 81,
-          }
-        }
-      />
-    </View>
-  </View>
-  <View
-    style={
-      Object {
-        "flex": 1,
-        "height": "50%",
-        "justifyContent": "center",
-        "paddingLeft": "9.375%",
-        "paddingRight": "9.375%",
-        "width": "100%",
-      }
-    }
-  >
-    <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
-      style={
-        Object {
-          "color": "rgb(255, 255, 255)",
-          "fontFamily": "Poppins",
-          "fontSize": 16,
-          "fontWeight": "bold",
-          "marginBottom": 10,
-          "marginLeft": 20,
-          "marginRight": 20,
-          "textAlign": "center",
-        }
+            "bottom": 0,
+          },
+        ]
       }
     >
-      Welcome to Pigzbe
-    </Text>
-    <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
-      style={
-        Object {
-          "color": "rgba(255, 255, 255, 0.6)",
-          "fontFamily": "Poppins",
-          "fontSize": 14,
-          "marginBottom": 20,
-          "marginLeft": 20,
-          "marginRight": 20,
-          "textAlign": "center",
-        }
-      }
-    >
-      Enter your key to access your Wollo account
-    </Text>
-    <TextInput
-      allowFontScaling={true}
-      onChangeText={[Function]}
-      placeholder="Your key"
-      placeholderTextColor="rgba(255, 255, 255, 0.6)"
-      style={
-        Object {
-          "alignSelf": "stretch",
-          "borderColor": "rgb(255, 255, 255)",
-          "borderRadius": 22.5,
-          "borderWidth": 1,
-          "color": "rgb(255, 255, 255)",
-          "fontFamily": "Poppins",
-          "fontSize": 14,
-          "fontWeight": "bold",
-          "height": 45,
-          "marginBottom": 10,
-          "paddingLeft": 30,
-          "paddingRight": 20,
-        }
-      }
-      value="SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4"
-    />
-    <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
-      accessibilityTraits={undefined}
-      accessible={true}
-      collapsable={undefined}
-      hasTVPreferredFocus={undefined}
-      hitSlop={undefined}
-      isTVSelectable={true}
-      nativeID={undefined}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignSelf": "stretch",
-          "backgroundColor": "rgb(253, 223, 6)",
-          "borderColor": "rgb(253, 223, 6)",
-          "borderRadius": 22.5,
-          "borderWidth": 1,
-          "marginBottom": 10,
-          "opacity": 1,
-        }
-      }
-      testID={undefined}
-      tvParallaxProperties={undefined}
-    >
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
+      <View
         style={
           Array [
             Object {
-              "alignSelf": "stretch",
-              "color": "rgb(0, 50, 120)",
-              "fontFamily": "Poppins",
-              "fontSize": 16,
-              "fontWeight": "bold",
-              "height": 45,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 10,
-              "textAlign": "center",
+              "alignItems": "center",
+              "flex": 1,
+              "height": "50%",
+              "justifyContent": "center",
             },
-            undefined,
+            Object {
+              "width": 750,
+            },
           ]
         }
       >
-        Next
-      </Text>
-    </View>
-    <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
-      accessibilityTraits={undefined}
-      accessible={true}
-      collapsable={undefined}
-      hasTVPreferredFocus={undefined}
-      hitSlop={undefined}
-      isTVSelectable={true}
-      nativeID={undefined}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "opacity": 1,
-        }
-      }
-      testID={undefined}
-      tvParallaxProperties={undefined}
-    >
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Array [
+        <Image
+          source={
             Object {
-              "alignSelf": "stretch",
-              "color": "rgb(0, 50, 120)",
+              "testUri": "../../../src/app/components/login/images/header.png",
+            }
+          }
+          style={
+            Object {
+              "height": "100%",
+              "position": "absolute",
+              "width": "100%",
+              "zIndex": 0,
+            }
+          }
+        />
+        <Image
+          source={
+            Object {
+              "testUri": "../../../src/app/components/login/images/pigzbe_logo.png",
+            }
+          }
+          style={
+            Object {
+              "height": 63,
+              "width": 162,
+            }
+          }
+        />
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "rgb(255, 255, 255)",
               "fontFamily": "Poppins",
               "fontSize": 16,
               "fontWeight": "bold",
-              "height": 45,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 10,
+              "marginBottom": 20,
+              "marginLeft": 20,
+              "marginRight": 20,
+              "marginTop": 10,
+              "position": "relative",
               "textAlign": "center",
-            },
+              "zIndex": 1,
+            }
+          }
+        >
+          Save. Learn. Play.
+        </Text>
+        <View
+          style={
             Object {
-              "color": "rgba(255, 255, 255, 0.7)",
+              "alignItems": "center",
+              "bottom": 0,
+              "flex": 1,
+              "justifyContent": "flex-end",
+              "position": "absolute",
+            }
+          }
+        >
+          <Image
+            source={
+              Object {
+                "testUri": "../../../src/app/components/pig/pig.png",
+              }
+            }
+            style={
+              Object {
+                "height": 35,
+                "width": 81,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "justifyContent": "center",
+            "paddingLeft": "9.375%",
+            "paddingRight": "9.375%",
+            "width": "100%",
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "rgb(255, 255, 255)",
+              "fontFamily": "Poppins",
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "marginBottom": 10,
+              "marginLeft": 20,
+              "marginRight": 20,
+              "textAlign": "center",
+            }
+          }
+        >
+          Welcome to Pigzbe
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "rgba(255, 255, 255, 0.6)",
+              "fontFamily": "Poppins",
               "fontSize": 14,
-              "textDecorationColor": "rgb(255, 255, 255)",
-              "textDecorationLine": "underline",
-              "textDecorationStyle": "solid",
-            },
-            undefined,
-          ]
-        }
-      >
-        Help?
-      </Text>
+              "marginBottom": 20,
+              "marginLeft": 20,
+              "marginRight": 20,
+              "textAlign": "center",
+            }
+          }
+        >
+          Enter your key to access your Wollo account
+        </Text>
+        <TextInput
+          allowFontScaling={true}
+          onChangeText={[Function]}
+          placeholder="Your key"
+          placeholderTextColor="rgba(255, 255, 255, 0.6)"
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderRadius": 22.5,
+              "borderWidth": 1,
+              "color": "rgb(255, 255, 255)",
+              "fontFamily": "Poppins",
+              "fontSize": 14,
+              "fontWeight": "bold",
+              "height": 45,
+              "marginBottom": 10,
+              "paddingLeft": 30,
+              "paddingRight": 20,
+            }
+          }
+          value="SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4"
+        />
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hasTVPreferredFocus={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "backgroundColor": "rgb(253, 223, 6)",
+              "borderColor": "rgb(253, 223, 6)",
+              "borderRadius": 22.5,
+              "borderWidth": 1,
+              "marginBottom": 10,
+              "opacity": 1,
+            }
+          }
+          testID={undefined}
+          tvParallaxProperties={undefined}
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "color": "rgb(0, 50, 120)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                  "height": 45,
+                  "paddingLeft": 20,
+                  "paddingRight": 20,
+                  "paddingTop": 10,
+                  "textAlign": "center",
+                },
+                undefined,
+              ]
+            }
+          >
+            Next
+          </Text>
+        </View>
+      </View>
     </View>
   </View>
   <View

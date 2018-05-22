@@ -11,7 +11,6 @@ import {messagesLoad, messagesMarkRead} from '../../actions';
 import Loader from '../loader';
 import Logo from '../logo';
 import Pig from '../pig';
-import Alert from '../alert';
 import Message from './message';
 import isDesktop from '../../utils/is-desktop';
 import {
@@ -62,9 +61,6 @@ class Messages extends Component {
                     isLoading={loading}
                     message={strings.messagesLoading}
                 />
-                <Alert
-                    error={error}
-                />
             </View>
         );
     }
@@ -76,5 +72,5 @@ export const MessagesComponent = Messages;
 export default connect(state => ({
     messages: state.messages.messages,
     loading: state.messages.messagesLoading,
-    error: state.messages.error
+    error: state.messages.messagesError
 }))(Messages);
