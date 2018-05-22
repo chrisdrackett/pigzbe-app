@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="v1.0.3-399-ge7b903e" orientation="orthogonal" renderorder="right-down" width="52" height="24" tilewidth="64" tileheight="64" infinite="0" nextobjectid="191">
+<map version="1.0" tiledversion="v1.0.3-399-ge7b903e" orientation="orthogonal" renderorder="right-down" width="52" height="24" tilewidth="64" tileheight="64" infinite="0" nextobjectid="194">
  <tileset firstgid="1" source="tiles.tsx"/>
  <tileset firstgid="362" source="foliage_01.tsx"/>
  <tileset firstgid="365" source="foliage_02.tsx"/>
  <tileset firstgid="370" source="grass.tsx"/>
  <tileset firstgid="410" source="sky.tsx"/>
  <tileset firstgid="416" source="characters.tsx"/>
- <tileset firstgid="702" source="tree.tsx"/>
+ <tileset firstgid="703" source="tree.tsx"/>
  <group name="background">
   <layer name="sky_02" width="52" height="24" visible="0" locked="1">
    <properties>
@@ -420,14 +420,14 @@
   <object id="190" name="chatbubble" gid="701" x="2751" y="908.311" width="92" height="74.6222"/>
  </objectgroup>
  <objectgroup name="tree">
-  <object id="163" gid="702" x="1504" y="966" width="254" height="382"/>
+  <object id="163" gid="703" x="1504" y="966" width="254" height="382"/>
  </objectgroup>
  <objectgroup name="birds" locked="1">
   <object id="161" name="birdA" gid="675" x="1005.61" y="156" width="105" height="98"/>
   <object id="162" name="birdB" gid="675" x="1376.62" y="356" width="105" height="98"/>
  </objectgroup>
  <objectgroup name="intro">
-  <object id="183" name="intro" gid="700" x="1495" y="736" width="280" height="27"/>
+  <object id="191" name="intro" gid="702" x="1495" y="736" width="280" height="27"/>
  </objectgroup>
  <objectgroup name="chatbubble" visible="0" locked="1">
   <object id="186" name="chatbubble" gid="701" x="2751" y="908.311" width="92" height="74.6222"/>
