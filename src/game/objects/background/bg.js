@@ -1,5 +1,3 @@
-import * as PIXI from 'pixi.js';
-
 export default class Bg {
     constructor(map) {
         this.create(map);
@@ -14,19 +12,15 @@ export default class Bg {
 
         this.mountains = layer.mountains.objects[0].sprite;
         this.mountains.texture.baseTexture.mipmap = false;
-        // this.mountainsY = this.mountains.position.y;
 
         this.hills = layer.hills.objects[0].sprite;
         this.hills.texture.baseTexture.mipmap = false;
-        // this.hillsY = this.hills.position.y;
 
         this.cloudsLow = layer.cloudsLow.objects[0].sprite;
         this.cloudsLow.texture.baseTexture.mipmap = false;
-        // this.cloudsLowY = this.cloudsLow.position.y;
 
         this.cloudsHigh = layer.cloudsHigh.objects[0].sprite;
         this.cloudsHigh.texture.baseTexture.mipmap = false;
-        // this.cloudsHighY = this.cloudsHigh.position.y;
     }
 
     update(camera) {
@@ -34,11 +28,5 @@ export default class Bg {
         this.cloudsLow.tilePosition.x -= 0.064 * camera.dx;
         this.mountains.tilePosition.x -= 0.096 * camera.dx;
         this.hills.tilePosition.x -= 0.128 * camera.dx;
-
-        // const yOffset = -0.5 + camera.y / (camera.maxY - camera.h);
-        // this.cloudsHigh.position.y = this.cloudsHighY + 4 * yOffset;
-        // this.cloudsLow.position.y = this.hillsY + 8 * yOffset;
-        // this.mountains.position.y = this.mountainsY + 12 * yOffset;
-        // this.hills.position.y = this.hillsY + 16 * yOffset;
     }
 }
