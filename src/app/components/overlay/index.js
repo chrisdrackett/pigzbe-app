@@ -6,6 +6,7 @@ import Counter from '../counter';
 import styles from './styles';
 import images from './images';
 import moneyFormat from '../../utils/money-format';
+import {gameOverlayOpen} from '../../actions';
 
 const conversions = {
     carrot: {
@@ -30,21 +31,20 @@ const conversions = {
 
 class Overlay extends Component {
     state = {
-        isOpen: false,
         conversionKey: 'carrot',
     }
 
     render() {
-        const {wolloCollected} = this.props;
+        const {dispatch, wolloCollected, overlayOpen} = this.props;
         const {conversionKey} = this.state;
         const {conversion, label, labelOne, dp} = conversions[conversionKey];
         const compareValue = moneyFormat(String(wolloCollected * conversion), dp);
 
-        if (this.state.isOpen) {
+        if (overlayOpen) {
             return (
                 <View style={styles.overlay}>
                     <View style={styles.container}>
-                        <TouchableOpacity style={styles.close} onPress={() => this.setState({isOpen: false})}>
+                        <TouchableOpacity style={styles.close} onPress={() => dispatch(gameOverlayOpen(false))}>
                             <Image style={styles.closeImg} source={images.close} />
                         </TouchableOpacity>
                         <Image style={styles.rabbit} source={images.rabbit} />
@@ -83,7 +83,7 @@ class Overlay extends Component {
             <View style={styles.button}>
                 <Counter
                     value={wolloCollected}
-                    onPress={() => this.setState({isOpen: true})}
+                    onPress={() => dispatch(gameOverlayOpen(true))}
                 />
             </View>
         );
@@ -91,5 +91,6 @@ class Overlay extends Component {
 }
 
 export default connect(state => ({
-    wolloCollected: state.game.wolloCollected
+    wolloCollected: state.game.wolloCollected,
+    overlayOpen: state.game.overlayOpen
 }))(Overlay);

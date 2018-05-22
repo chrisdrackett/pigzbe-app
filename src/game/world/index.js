@@ -9,6 +9,7 @@ import Characters from '../objects/characters';
 import Trees from '../objects/trees';
 import Tree from '../objects/tree';
 import Birds from '../objects/birds';
+import Intro from '../objects/intro';
 import Animations, {
     WATERFALL_ANIM,
     GROUND_ANIM,
@@ -58,7 +59,9 @@ export default class World {
 
         app.stage.addChild(this.coins.coinsA);
 
-        this.characters = new Characters(map);
+        this.characters = new Characters(map, () => {
+            app.emitter.emit('learn');
+        });
         app.stage.addChild(this.characters.container);
 
         this.birds = new Birds(map);
@@ -79,6 +82,10 @@ export default class World {
             mapW: map.width,
         });
         container.addChild(pigzbe.sprite);
+
+        this.intro = new Intro(map);
+        container.addChild(this.intro.container);
+        app.stage.once('pointerdown', () => this.intro.remove());
 
         this.camera = new Camera({
             target: pigzbe,

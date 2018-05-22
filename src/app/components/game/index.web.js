@@ -6,7 +6,7 @@ import NavListener from './nav-listener';
 import Overlay from '../overlay';
 import Loader from '../loader';
 import {container} from '../../styles';
-import {gameWolloCollected} from '../../actions';
+import {gameWolloCollected, gameOverlayOpen} from '../../actions';
 
 class GameView extends NavListener {
     state = {
@@ -25,6 +25,10 @@ class GameView extends NavListener {
         this.game.app.emitter.on('collected', amount => {
             console.log('collected', amount);
             this.props.dispatch(gameWolloCollected(amount));
+        });
+        this.game.app.emitter.on('learn', () => {
+            console.log('learn');
+            this.props.dispatch(gameOverlayOpen(true));
         });
     }
 
