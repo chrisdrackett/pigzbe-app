@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {
     Text,
     View,
-    Image
+    Image,
+    KeyboardAvoidingView
 } from 'react-native';
 import {tryAutoLoad, load} from '../../actions';
 import styles from './styles';
@@ -50,32 +51,37 @@ class Login extends Component {
 
         return (
             <View style={styles.container}>
-                <View style={styles.containerHeader}>
-                    <Image style={styles.backgroundImage} source={require('./images/header.png')} />
-                    <Image style={styles.image} source={require('./images/pigzbe_logo.png')} />
-                    <Text style={styles.tagline}>{strings.loginTagline}</Text>
-                    <Pig/>
-                </View>
-                <View style={styles.containerBody}>
-                    <Text style={styles.title}>{strings.loginTitle}</Text>
-                    <Text style={styles.subtitle}>{strings.loginSubtitle}</Text>
-                    <TextInput
-                        error={!!error}
-                        value={this.state.inputText}
-                        placeholder={strings.loginPlaceholder}
-                        onChangeText={inputText => this.setState({inputText})}
-                    />
-                    <Button
-                        label={strings.loginSubmitButtonLabel}
-                        onPress={() => dispatch(load(this.state.inputText))}
-                        disabled={!this.state.inputText}
-                    />
-                    {/* <Button
+                <KeyboardAvoidingView
+                    contentContainerStyle={styles.containerBodyKeyb}
+                    behavior="position"
+                    enabled>
+                    <View style={styles.containerHeader}>
+                        <Image style={styles.backgroundImage} source={require('./images/header.png')} />
+                        <Image style={styles.image} source={require('./images/pigzbe_logo.png')} />
+                        <Text style={styles.tagline}>{strings.loginTagline}</Text>
+                        <Pig/>
+                    </View>
+                    <View style={styles.containerBody}>
+                        <Text style={styles.title}>{strings.loginTitle}</Text>
+                        <Text style={styles.subtitle}>{strings.loginSubtitle}</Text>
+                        <TextInput
+                            error={!!error}
+                            value={this.state.inputText}
+                            placeholder={strings.loginPlaceholder}
+                            onChangeText={inputText => this.setState({inputText})}
+                        />
+                        <Button
+                            label={strings.loginSubmitButtonLabel}
+                            onPress={() => dispatch(load(this.state.inputText))}
+                            disabled={!this.state.inputText}
+                        />
+                        {/* <Button
                         label={strings.loginHelpButtonLabel}
                         plain
                         onPress={() => navigation.navigate(SCREEN_HELP)}
                     /> */}
-                </View>
+                    </View>
+                </KeyboardAvoidingView>
                 <DevPanel/>
                 <Loader
                     isLoading={isLoading}
