@@ -52,6 +52,7 @@ export default StyleSheet.create({
         fontSize: 14,
     },
     escrow: {
+        backgroundColor: color.lightGrey,
         height: 95,
         flexBasis: 95,
         flexGrow: 0,

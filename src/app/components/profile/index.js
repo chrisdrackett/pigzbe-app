@@ -23,8 +23,10 @@ import isEmail from './is-email';
 import {
     strings,
     SCREEN_BALANCE,
-    SCREEN_PRIVACY
+    PRIVACY_URL
+    // SCREEN_PRIVACY
 } from '../../constants';
+import openURL from '../../utils/open-url';
 
 class Profile extends Component {
     constructor(props) {
@@ -168,7 +170,7 @@ class Profile extends Component {
                             <Button
                                 label={strings.accountPrivacyButtonLabel}
                                 plain
-                                onPress={() => navigation.navigate(SCREEN_PRIVACY)}
+                                onPress={() => openURL(PRIVACY_URL)}
                             />
                         )}
                         {error && (
