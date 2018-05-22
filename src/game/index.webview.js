@@ -15,4 +15,6 @@ game.app.emitter.on('ready', () => postMessage('ready'));
 
 game.app.emitter.on('collected', amount => postMessage('collected', amount));
 
+game.app.emitter.on('learn', () => postMessage('learn'));
+
 export default game;

@@ -5,7 +5,7 @@ import NavListener from './nav-listener';
 import styles from './styles';
 import Overlay from '../overlay';
 import Loader from '../loader';
-import {gameWolloCollected} from '../../actions';
+import {gameWolloCollected, gameOverlayOpen} from '../../actions';
 
 const localWebURL = require('../../../game/game.html');
 
@@ -25,6 +25,7 @@ class GameView extends NavListener {
     }
 
     onMessage(event) {
+        const {dispatch} = this.props;
         const message = event.nativeEvent.data;
         const {name, value} = JSON.parse(message);
         console.log('On Message', name, value);
@@ -33,7 +34,10 @@ class GameView extends NavListener {
                 this.setState({isLoading: false});
                 break;
             case 'collected':
-                this.props.dispatch(gameWolloCollected(value));
+                dispatch(gameWolloCollected(value));
+                break;
+            case 'learn':
+                dispatch(gameOverlayOpen(true));
                 break;
             default:
         }
