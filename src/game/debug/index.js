@@ -2,11 +2,6 @@ import * as PIXI from 'pixi.js';
 import roundTo from 'usfl/math/round-to';
 import fps from 'usfl/fps';
 
-window.onerror = msg => {
-    fps.update();
-    fps.log(msg);
-};
-
 export default class Debug {
     constructor(app, world) {
         this.create(app, world);

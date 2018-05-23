@@ -1,13 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {View, WebView} from 'react-native';
+import {Platform, View, WebView} from 'react-native';
 import NavListener from './nav-listener';
 import styles from './styles';
 import Overlay from '../overlay';
 import Loader from '../loader';
 import {gameWolloCollected, gameOverlayOpen} from '../../actions';
 
-const localWebURL = require('../../../game/game.html');
+// const localWebURL = require('../../../game/game.html');
+console.log('Platform.OS', Platform.OS);
+const source = Platform.OS === 'android' ? {uri: 'file:///android_asset/game.html'} : require('../../../game/game.html');
 
 // https://facebook.github.io/react-native/docs/webview.html
 
@@ -39,6 +41,12 @@ class GameView extends NavListener {
             case 'learn':
                 dispatch(gameOverlayOpen(true));
                 break;
+            case 'log':
+                console.log('webview log', value);
+                break;
+            case 'error':
+                console.log('webview error', value);
+                break;
             default:
         }
     }
@@ -54,10 +62,12 @@ class GameView extends NavListener {
                 <WebView
                     ref={el => (this.el = el)}
                     style={styles.full}
-                    source={localWebURL}
+                    source={source}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
+                    mediaPlaybackRequiresUserAction={false}
                     onMessage={event => this.onMessage(event)}
+                    onError={event => console.log(event)}
                 />
                 <Overlay/>
                 <Loader isLoading={this.state.isLoading} message={'Loading'}/>

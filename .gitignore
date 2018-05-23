@@ -58,3 +58,5 @@ buck-out/
 /temp/
 /desktop/bundle.web.js
 /src/game/game.html
+/android/app/src/main/assets/game.html
+/android/app/src/main/assets/test.html

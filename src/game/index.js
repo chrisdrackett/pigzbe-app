@@ -45,10 +45,10 @@ export default class Game {
             width,
             height
         });
+        app.emitter = new EventEmitter();
+
         this.app = app;
         this.el = el;
-
-        app.emitter = new EventEmitter();
 
         this.el.appendChild(app.view);
         app.view.style.width = '100%';
@@ -100,6 +100,10 @@ export default class Game {
             app.loader.add(key, resources[key])
         );
 
+        app.loader.onError.add(error => {
+            app.emitter.emit('error', error.message);
+        });
+
         app.loader.load((loader, assets) => {
             // parse fonts
             // registerFont(assets.fontPng.texture);
@@ -126,12 +130,22 @@ export default class Game {
             this.debug = new Debug(app, this.world);
         }
 
-        app.renderer.plugins.prepare.upload(app.stage, () => {
-            app.start();
-            app.ticker.remove(this.update);
-            app.ticker.add(this.update);
-            app.emitter.emit('ready');
-        });
+        const rendererType = (app.renderer instanceof PIXI.CanvasRenderer) ? 'canvas' : 'webgl';
+        app.emitter.emit('log', rendererType);
+
+        if (rendererType === 'canvas') {
+            this.onReady(app);
+            return;
+        }
+
+        app.renderer.plugins.prepare.upload(app.stage, () => this.onReady(app));
+    }
+
+    onReady(app) {
+        app.start();
+        app.ticker.remove(this.update);
+        app.ticker.add(this.update);
+        app.emitter.emit('ready');
     }
 
     update = delta => {
