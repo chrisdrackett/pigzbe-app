@@ -18,11 +18,28 @@ import {
     // SCREEN_HELP
 } from '../../constants';
 import DevPanel from '../dev-panel';
+import isDesktop from '../../utils/is-desktop';
+
+const getWidth = () => Dimensions.get('window').width;
+
+const KeybView = ({children}) => {
+    if (isDesktop) {
+        return children;
+    }
+    return (
+        <KeyboardAvoidingView
+            contentContainerStyle={styles.containerBodyKeyb}
+            behavior="position"
+            enabled>
+            {children}
+        </KeyboardAvoidingView>
+    );
+};
 
 class Login extends Component {
     state = {
         inputText: '',
-        deviceWidth: Dimensions.get('window').width
+        deviceWidth: getWidth()
     }
 
     componentDidMount() {
@@ -30,7 +47,7 @@ class Login extends Component {
 
         dispatch(tryAutoLoad());
 
-        if (window.__DEV__ && testUserKey) {
+        if (__DEV__ && testUserKey) {
             this.setState({inputText: testUserKey});
         }
     }
@@ -38,7 +55,7 @@ class Login extends Component {
     componentDidUpdate(prevProps) {
         const {testUserKey} = this.props;
 
-        if (window.__DEV__ && prevProps.testUserKey !== testUserKey) {
+        if (__DEV__ && prevProps.testUserKey !== testUserKey) {
             this.setState({inputText: testUserKey});
         }
     }
@@ -53,12 +70,9 @@ class Login extends Component {
 
         return (
             <View style={styles.container} onLayout={() => this.setState({
-                deviceWidth: Dimensions.get('window').width
+                deviceWidth: getWidth()
             })}>
-                <KeyboardAvoidingView
-                    contentContainerStyle={styles.containerBodyKeyb}
-                    behavior="position"
-                    enabled>
+                <KeybView>
                     <View style={[styles.containerHeader, {
                         width: this.state.deviceWidth
                     }]}>
@@ -87,7 +101,7 @@ class Login extends Component {
                         onPress={() => navigation.navigate(SCREEN_HELP)}
                     /> */}
                     </View>
-                </KeyboardAvoidingView>
+                </KeybView>
                 <DevPanel/>
                 <Loader
                     isLoading={isLoading}

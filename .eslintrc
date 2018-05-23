@@ -10,7 +10,8 @@
         "expect": true,
         "it": true,
         "testHelpers": true,
-        "graphql": true
+        "graphql": true,
+        "__DEV__": true
     },
     "plugins": [
         "react"

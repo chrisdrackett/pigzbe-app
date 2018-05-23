@@ -7,12 +7,12 @@ window.onerror = msg => {
     fps.log(msg);
 };
 
-fps.style({left: '5px', top: '20px'});
-fps.auto();
-
-export default class World {
+export default class Debug {
     constructor(app, world) {
         this.create(app, world);
+
+        fps.style({left: '5px', top: '20px'});
+        fps.auto();
     }
 
     create(app, world) {

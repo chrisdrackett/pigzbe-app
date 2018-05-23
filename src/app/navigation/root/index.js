@@ -10,7 +10,6 @@ import {connectionState} from '../../actions/check-connection';
 class Root extends Component {
 
     componentDidMount() {
-        console.log('asdasdasd');
         NetInfo.isConnected.fetch(this._handleConnectionChange);
         NetInfo.isConnected.addEventListener('connectionChange', this._handleConnectionChange);
     }
@@ -20,7 +19,7 @@ class Root extends Component {
     }
 
     _handleConnectionChange = (isConnected) => {
-        console.log('asdasd', isConnected);
+        console.log('NetInfo.isConnected', isConnected);
         this.props.dispatch(connectionState({status: isConnected}));
     }
 

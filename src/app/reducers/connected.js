@@ -1,7 +1,8 @@
 import {CHANGE_CONNECTION_STATUS} from '../actions/check-connection';
+import isDesktop from '../utils/is-desktop';
 
 const initialState = {
-    isConnected: false,
+    isConnected: isDesktop,
 };
 
 export default (state = initialState, action) => {

@@ -67,7 +67,7 @@ class DevPanel extends Component {
             testUserKey
         } = this.props;
 
-        if (!window.__DEV__) {
+        if (!__DEV__) {
             return null;
         }
 
@@ -78,7 +78,7 @@ class DevPanel extends Component {
                         <View style={[container, styles.inner]}>
                             <Text style={styles.title}>Dev panel</Text>
                             <Text style={styles.switchText}>
-                                Env dev: {window.__DEV__ ? 'true' : 'false'}
+                                Env dev: {__DEV__ ? 'true' : 'false'}
                             </Text>
                             <SwitchControl
                                 label={'Use Testnet?'}
