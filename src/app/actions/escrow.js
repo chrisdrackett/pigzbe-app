@@ -15,17 +15,15 @@ export const ESCROW_TX_VALIDATE = 'ESCROW_TX_VALIDATE';
 export const ESCROW_SUBMITTING = 'ESCROW_SUBMITTING';
 export const ESCROW_ERROR = 'ESCROW_ERROR';
 
-// const load = () => () => fetch(`${apiURL()}/escrow/config`).then(res => res.json());
-const load = () => () => fetchJSON(`${apiURL()}/escrow/config`);
+const load = (query = '') => () => fetchJSON(`${apiURL()}/escrow/config${query}`);
 
 export const loadEscrow = () => (dispatch, getState) => {
-    console.log('loadEscrow');
     const {publicKey} = getState().auth;
-    return dispatch(load())
-        .then(data => {
-            const escrow = data && data.find(e => e.destinationPublicKey === publicKey);
-            console.log('loadEscrow', escrow);
-            dispatch({type: ESCROW_SET, escrow});
+    return dispatch(load(`?pk=${publicKey}`))
+        .then(escrow => {
+            if (escrow && !escrow.error) {
+                dispatch({type: ESCROW_SET, escrow});
+            }
         })
         .catch(error => console.log(error));
 };
