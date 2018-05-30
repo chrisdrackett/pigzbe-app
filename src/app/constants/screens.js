@@ -7,3 +7,4 @@ export const SCREEN_GAME = 'SCREEN_GAME';
 export const SCREEN_MESSAGES = 'SCREEN_MESSAGES';
 export const SCREEN_HELP = 'SCREEN_HELP';
 export const SCREEN_ESCROW = 'SCREEN_ESCROW';
+export const SCREEN_TRANSFER = 'SCREEN_TRANSFER';

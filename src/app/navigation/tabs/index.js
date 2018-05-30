@@ -5,11 +5,13 @@ import {View, Image} from 'react-native';
 import Wallet from '../wallet';
 import Game from '../../components/game';
 import Messages from '../../components/messages';
+import Transfer from '../../components/transfer';
 import {
     strings,
     SCREEN_WALLET,
     SCREEN_GAME,
-    SCREEN_MESSAGES
+    SCREEN_MESSAGES,
+    SCREEN_TRANSFER
 } from '../../constants';
 import {
     color,
@@ -28,14 +30,14 @@ const nav = {
         iconW: 19,
         iconH: 19
     },
-    [SCREEN_GAME]: {
-        screen: Game,
+    [SCREEN_TRANSFER]: {
+        screen: Transfer,
         navigationOptions: {
-            title: strings.menuGame
+            title: 'Transfer'
         },
-        icon: 'game',
+        icon: 'messages',
         iconW: 20,
-        iconH: 20
+        iconH: 13
     },
     [SCREEN_MESSAGES]: {
         screen: Messages,
@@ -45,7 +47,16 @@ const nav = {
         icon: 'messages',
         iconW: 20,
         iconH: 13
-    }
+    },
+    [SCREEN_GAME]: {
+        screen: Game,
+        navigationOptions: {
+            title: strings.menuGame
+        },
+        icon: 'game',
+        iconW: 20,
+        iconH: 20
+    },
 };
 
 const TabBarIcon = connect(state => ({
