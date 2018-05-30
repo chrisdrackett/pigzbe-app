@@ -14,6 +14,10 @@ export default StyleSheet.create({
         borderWidth: 1,
         marginBottom: 10
     },
+    buttonHitOutline: {
+        backgroundColor: color.transparent,
+        borderColor: color.blue,
+    },
     button: {
         fontFamily,
         fontWeight: 'bold',
@@ -36,5 +40,5 @@ export default StyleSheet.create({
         textDecorationStyle: 'solid',
         fontSize: 14,
         textDecorationColor: color.white
-    }
+    },
 });

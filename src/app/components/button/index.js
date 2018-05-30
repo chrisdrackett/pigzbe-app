@@ -5,12 +5,12 @@ import {
 } from 'react-native';
 import styles from './styles';
 
-const getButtonHitStyle = (plain, style) => {
+const getButtonHitStyle = (plain, style, outline) => {
     if (plain) {
         return null;
     }
 
-    return [styles.buttonHit, style];
+    return outline ? [styles.buttonHit, styles.buttonHitOutline, style] : [styles.buttonHit, style];
 };
 
 const getButtonTextStyle = (plain, disabled, textStyle) => {
@@ -31,11 +31,12 @@ export default ({
     plain,
     disabled,
     style,
-    textStyle
+    textStyle,
+    outline
 }) => (
     <TouchableOpacity
         disabled={disabled}
-        style={getButtonHitStyle(plain, style)}
+        style={getButtonHitStyle(plain, style, outline)}
         onPress={() => disabled ? false : onPress()}>
         <Text
             style={getButtonTextStyle(plain, disabled, textStyle)}>

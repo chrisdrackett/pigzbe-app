@@ -20,6 +20,7 @@ export const color = {
     darkGreyOpacity50: 'rgba(74, 74, 74, 0.5)',
     purple: 'rgb(72, 70, 148)',
     lightPurple: 'rgb(241, 241, 255)',
+    transparent: 'rgba(255, 255, 255, 0)',
 };
 
 export const paddingH = '9.375%';
