@@ -19,14 +19,21 @@ export default StyleSheet.create({
     transparent: {
         backgroundColor: color.blueOpacity40,
     },
+    light: {
+        backgroundColor: color.lightGrey,
+    },
     message: {
         fontFamily,
+        fontWeight: 'bold',
         color: color.white,
-        fontSize: 16,
+        fontSize: 12,
         textAlign: 'center',
         marginTop: 20,
         marginBottom: 20,
         marginLeft: 20,
         marginRight: 20
+    },
+    messageLight: {
+        color: color.blue
     }
 });
