@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
     Text,
-    View,
-    Image
+    View
 } from 'react-native';
 import Avatar from '../avatar';
 import styles from './styles';
@@ -11,8 +10,7 @@ import {
     strings,
     SCREEN_ESCROW,
     COINS,
-    COIN_DPS,
-    ASSET_CODE
+    COIN_DPS
 } from '../../constants';
 import ConvertBalance from '../convert-balance';
 import BalanceGraph from '../balance-graph';
@@ -20,18 +18,8 @@ import Loader from '../loader';
 import BaseView from '../base-view';
 import Pig from '../pig';
 import Button from '../button';
-import moneyFormat from '../../utils/money-format';
+import Wollo from '../wollo';
 import {getExchange} from '../../actions/coins';
-
-export const Wollo = ({balance}) => (
-    <View style={styles.wolloContainer}>
-        <View style={styles.balanceContainer}>
-            <Image style={styles.currencyLogo} source={require('./images/currency_logo.png')} />
-            <Text style={styles.balance}>{moneyFormat(balance, COIN_DPS[ASSET_CODE])}</Text>
-        </View>
-        <Text style={styles.label}>{strings.walletBalance}</Text>
-    </View>
-);
 
 class Balance extends Component {
 
@@ -66,6 +54,7 @@ class Balance extends Component {
                 {escrow ? (
                     <View style={styles.escrow}>
                         <Button
+                            outline
                             label={'Escrow account'}
                             onPress={() => navigation.navigate(SCREEN_ESCROW)}
                         />
