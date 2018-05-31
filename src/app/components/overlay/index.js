@@ -7,24 +7,25 @@ import styles from './styles';
 import images from './images';
 import moneyFormat from '../../utils/money-format';
 import {gameOverlayOpen} from '../../actions';
+import {strings} from '../../constants';
 
 const conversions = {
     carrot: {
         conversion: 1,
-        label: 'carrots',
-        labelOne: 'carrot',
+        label: strings.learnCarrots,
+        labelOne: strings.learnCarrotsSingle,
         dp: 2,
     },
     gold: {
         conversion: 0.0027,
-        label: 'grams of gold',
-        labelOne: 'gram of gold',
+        label: strings.learnGold,
+        labelOne: strings.learnGoldSingle,
         dp: 4,
     },
     dollar: {
         conversion: 0.12,
-        label: 'dollars',
-        labelOne: 'dollar',
+        label: strings.learnDollars,
+        labelOne: strings.learnDollarsSingle,
         dp: 2,
     }
 };
@@ -48,8 +49,8 @@ class Overlay extends Component {
                             <Image style={styles.closeImg} source={images.close} />
                         </TouchableOpacity>
                         <Image style={styles.rabbit} source={images.rabbit} />
-                        <Text style={styles.title}>Let's learn!</Text>
-                        <Text style={styles.text}>How much is Wollo worth in...</Text>
+                        <Text style={styles.title}>{strings.learnTitle}</Text>
+                        <Text style={styles.text}>{strings.learnHowMuch}</Text>
                         <View style={styles.containerButtons}>
                             {Object.keys(conversions).map(b => (
                                 <ButtonIcon
@@ -60,11 +61,13 @@ class Overlay extends Component {
                                 />
                             ))}
                         </View>
-                        <Text style={styles.text}>1 Wollo is worth {conversion} {conversion === 1 ? labelOne : label}</Text>
+                        <Text style={styles.text}>{strings.learnOneWollo} {conversion} {conversion === 1 ? labelOne : label}</Text>
                         <View style={styles.containerComparison}>
                             <View style={styles.containerBlockCompare}>
                                 <Image style={styles.pile} source={images.wollo} />
-                                <Text style={styles.textCompare}>Your {wolloCollected} Wollo</Text>
+                                <Text style={styles.textCompare}>
+                                    {strings.learnCompareStart} {wolloCollected} {strings.learnCompareEnd}
+                                </Text>
                             </View>
                             <Image style={styles.equals} source={images.equals}/>
                             <View style={styles.containerBlockCompare}>

@@ -152,7 +152,7 @@ exports[`Game renders correctly 1`] = `
         }
       }
     >
-      Loading
+      Loading...
     </Text>
   </View>
 </View>

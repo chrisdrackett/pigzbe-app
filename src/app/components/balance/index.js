@@ -55,7 +55,7 @@ class Balance extends Component {
                     <View style={styles.escrow}>
                         <Button
                             outline
-                            label={'Escrow account'}
+                            label={strings.escrowButtonLabel}
                             onPress={() => navigation.navigate(SCREEN_ESCROW)}
                         />
                     </View>

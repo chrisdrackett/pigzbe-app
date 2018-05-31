@@ -8,7 +8,7 @@ import Pig from '../pig';
 import Transaction from './transaction';
 import Wollo from '../wollo';
 import Button from '../button';
-import {SCREEN_BALANCE} from '../../constants';
+import {strings, SCREEN_BALANCE} from '../../constants';
 import {loadEscrowAccount, validateTransaction} from '../../actions';
 import ScrollList from '../scroll-list';
 
@@ -41,26 +41,26 @@ class Escrow extends Component {
                 <View style={styles.containerHeader}>
                     <Logo/>
                     <Text style={styles.title}>
-                        Your Escrow Account
+                        {strings.escrowTitle}
                     </Text>
                     <Wollo balance={balance}/>
                     <Pig/>
                 </View>
                 <ScrollList
                     items={transactions}
-                    ItemComponent={Transaction}
-                >
+                    ItemComponent={Transaction}>
                     <View style={styles.border}/>
                 </ScrollList>
                 <View style={styles.button}>
                     <Button
                         outline
-                        label={'Back'}
+                        label={strings.escrowBackButtonLabel}
                         onPress={() => navigation.navigate(SCREEN_BALANCE)}
                     />
                 </View>
                 <Loader
                     isLoading={submitting}
+                    message={strings.escrowSubmitting}
                     transparent
                 />
             </View>

@@ -1,4 +1,11 @@
 import Game from './';
+import {
+    READY,
+    COLLECTED,
+    LEARN,
+    LOG,
+    ERROR
+} from './constants';
 
 const game = new Game(document.body);
 
@@ -11,15 +18,15 @@ document.addEventListener('message', () => {
 
 const postMessage = (name, value = null) => window.postMessage(JSON.stringify({name, value}), '*');
 
-game.app.emitter.on('ready', () => postMessage('ready'));
+game.app.emitter.on(READY, () => postMessage(READY));
 
-game.app.emitter.on('collected', amount => postMessage('collected', amount));
+game.app.emitter.on(COLLECTED, amount => postMessage(COLLECTED, amount));
 
-game.app.emitter.on('learn', () => postMessage('learn'));
+game.app.emitter.on(LEARN, () => postMessage(LEARN));
 
-game.app.emitter.on('log', message => postMessage('log', message));
+game.app.emitter.on(LOG, message => postMessage(LOG, message));
 
-game.app.emitter.on('error', message => postMessage('error', message));
+game.app.emitter.on(ERROR, message => postMessage(ERROR, message));
 
 window.onerror = (msg, url, lineNo, columnNo, error) => {
     const string = msg.toLowerCase();

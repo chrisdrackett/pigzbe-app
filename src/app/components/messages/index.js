@@ -38,7 +38,7 @@ class Messages extends Component {
                     items={messages}
                     ItemComponent={Message}
                     loading={loading}
-                    loaderMessage={'Loading messages'}
+                    loaderMessage={strings.messagesLoading}
                 >
                     <View style={styles.border}/>
                 </ScrollList>

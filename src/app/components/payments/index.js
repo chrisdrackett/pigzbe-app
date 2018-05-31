@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {loadPayments} from '../../actions';
 import Payment from './payment';
 import ScrollList from '../scroll-list';
+import {strings} from '../../constants';
 
 class Payments extends Component {
 
@@ -16,15 +17,13 @@ class Payments extends Component {
             loading
         } = this.props;
 
-        console.log('payments', payments);
-
         return (
             <ScrollList
-                title={'Transfer History'}
+                title={strings.transferHistory}
                 items={payments}
                 ItemComponent={Payment}
                 loading={loading}
-                loaderMessage={'Loading payments'}
+                loaderMessage={strings.transferHistoryLoading}
             />
         );
     }
