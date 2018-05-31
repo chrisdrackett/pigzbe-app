@@ -29,5 +29,6 @@
   "accountCancelButtonLabel": "Cancel",
   "accountLogoutButtonLabel": "Logout",
   "messagesTitle": "Your Updates",
-  "messagesLoading": "Loading messages..."
+  "messagesLoading": "Loading messages...",
+  "transferButtonLabel": "Transfer Wollo"
 }
