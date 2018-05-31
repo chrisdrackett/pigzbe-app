@@ -1,16 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {
-    Text,
-    View,
-    FlatList,
-    ScrollView
-} from 'react-native';
-import styles from './styles';
-import Loader from '../loader';
 import {loadPayments} from '../../actions';
-import isDesktop from '../../utils/is-desktop';
 import Payment from './payment';
+import ScrollList from '../scroll-list';
 
 class Payments extends Component {
 
@@ -27,26 +19,13 @@ class Payments extends Component {
         console.log('payments', payments);
 
         return (
-            <View style={styles.containerBody}>
-                <Text style={styles.title}>{'Transfer History'}</Text>
-                {isDesktop ? (
-                    <ScrollView>
-                        {payments.map((item, i) => (
-                            <Payment key={i} {...item}/>
-                        ))}
-                    </ScrollView>
-                ) : (
-                    <FlatList
-                        data={payments}
-                        renderItem={({item}) => <Payment {...item}/>}
-                    />
-                )}
-                <Loader
-                    message={'Loading payments'}
-                    isLoading={loading}
-                    light
-                />
-            </View>
+            <ScrollList
+                title={'Transfer History'}
+                items={payments}
+                ItemComponent={Payment}
+                loading={loading}
+                loaderMessage={'Loading payments'}
+            />
         );
     }
 }

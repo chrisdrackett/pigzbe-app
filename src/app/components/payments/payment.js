@@ -1,33 +1,34 @@
 import React from 'react';
 import {
+    Image,
     Text,
     TouchableOpacity,
     View
 } from 'react-native';
 import styles from './styles';
-import moment from 'moment';
 import openURL from '../../utils/open-url';
-
-const daysAgo = date => {
-    const str = moment(date).fromNow();
-    return str.slice(0, 1).toUpperCase() + str.slice(1);
-};
-
-const dateFormat = date => moment(date).format('LL');
+import moneyFormat from '../../utils/money-format';
+import {daysAgo} from '../../utils/date';
+import {ASSET_DPS} from '../../constants';
+import images from './images';
 
 const Inner = ({date, amount, direction, assetCode, memo, address}) => (
     <View>
-        <Text style={styles.date}>
-            {daysAgo(date)} {dateFormat(date)}
-        </Text>
-        <Text style={styles.text}>
-            {amount} {assetCode} {direction}
-        </Text>
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.address}>
-            {address}
-        </Text>
+        <View style={styles.detail}>
+            <View style={styles.info}>
+                <Text style={styles.date}>
+                    {daysAgo(date)}
+                </Text>
+                <Text style={styles.amount}>
+                    {moneyFormat(amount, ASSET_DPS)} {assetCode} <Image style={styles.direction} source={images[direction]}/>
+                </Text>
+            </View>
+            <Text numberOfLines={3} style={styles.address}>
+                {address}
+            </Text>
+        </View>
         {memo ? (
-            <Text style={styles.text}>
+            <Text style={styles.memo}>
                 {memo}
             </Text>
         ) : null}
@@ -35,7 +36,7 @@ const Inner = ({date, amount, direction, assetCode, memo, address}) => (
 );
 
 export default props => (
-    <View style={styles.transaction}>
+    <View style={styles.payment}>
         {props.link ? (
             <TouchableOpacity onPress={() => openURL(props.link)}>
                 <Inner {...props}/>

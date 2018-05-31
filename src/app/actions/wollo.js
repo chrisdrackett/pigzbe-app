@@ -45,6 +45,7 @@ const getPaymentInfo = async (payment, publicKey) => {
     if (payment.type === 'create_account') {
         from = payment.funder;
         to = payment.account;
+        address = payment.funder;
         amount = payment.starting_balance;
         direction = 'in';
     }

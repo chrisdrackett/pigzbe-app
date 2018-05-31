@@ -1,53 +1,15 @@
 import {StyleSheet} from 'react-native';
-import {
-    container,
-    color,
-    fontFamily,
-    paddingH
-} from '../../styles';
+import {color, fontFamily} from '../../styles';
 
 export default StyleSheet.create({
-    container,
-    pig: {
-        marginTop: 20,
-    },
-    title: {
-        fontFamily,
-        fontSize: 14,
-        color: color.darkGrey,
-        marginTop: 10,
-    },
-    containerBody: {
-        backgroundColor: color.lightGrey,
-        width: '100%',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+    payment: {
         alignSelf: 'stretch',
-        position: 'relative',
-    },
-    buttonWrapper: {
-        backgroundColor: color.lightGrey,
-        height: 95,
-        flexBasis: 95,
-        flexGrow: 0,
-        paddingLeft: paddingH,
-        paddingRight: paddingH,
-        paddingTop: 20,
-        paddingBottom: 10,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'stretch',
-    },
-
-    transaction: {
         paddingLeft: 20,
         paddingRight: 20,
         paddingTop: 20,
         paddingBottom: 20,
         borderBottomWidth: 1,
-        borderBottomColor: color.mediumGrey
+        borderBottomColor: color.mediumGrey,
     },
     date: {
         fontFamily,
@@ -56,16 +18,35 @@ export default StyleSheet.create({
         fontSize: 14,
         marginBottom: 5
     },
-    text: {
+    detail: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+    },
+    info: {
+        marginRight: 10,
+    },
+    amount: {
         fontFamily,
         color: color.darkGrey,
-        fontSize: 14
+        fontSize: 16,
+        lineHeight: 1,
+    },
+    direction: {
+        width: 7,
+        height: 15,
+        marginLeft: 5,
     },
     address: {
         fontFamily,
-        color: color.darkGrey,
-        fontSize: 10,
-        maxWidth: '100%',
-        overflow: 'hidden',
+        color: color.grey,
+        fontSize: 12,
+        width: 170,
+    },
+    memo: {
+        fontFamily,
+        color: color.grey,
+        fontSize: 14
     },
 });
