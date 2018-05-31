@@ -17,14 +17,6 @@ export default StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center'
     },
-    containerBody: {
-        flexGrow: 1,
-        backgroundColor: color.lightGrey,
-        alignSelf: 'stretch',
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
     title: {
         fontFamily,
         color: color.white,
@@ -53,6 +45,7 @@ export default StyleSheet.create({
         flexDirection: 'row'
     },
     button: {
+        backgroundColor: color.lightGrey,
         height: 95,
         flexBasis: 95,
         flexGrow: 0,

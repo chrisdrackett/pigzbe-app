@@ -1,21 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {
-    Text,
-    View,
-    FlatList,
-    ScrollView
-} from 'react-native';
+import {Text, View} from 'react-native';
 import styles from './styles';
 import {messagesLoad, messagesMarkRead} from '../../actions';
 import Loader from '../loader';
 import Logo from '../logo';
 import Pig from '../pig';
 import Message from './message';
-import isDesktop from '../../utils/is-desktop';
-import {
-    strings
-} from '../../constants';
+import {strings} from '../../constants';
+import ScrollList from '../scroll-list';
 
 class Messages extends Component {
     componentDidMount() {
@@ -30,7 +23,6 @@ class Messages extends Component {
         const {
             messages,
             loading,
-            error
         } = this.props;
 
         return (
@@ -42,21 +34,14 @@ class Messages extends Component {
                     </Text>
                     <Pig/>
                 </View>
-                <View style={styles.containerBody}>
+                <ScrollList
+                    items={messages}
+                    ItemComponent={Message}
+                    loading={loading}
+                    loaderMessage={'Loading messages'}
+                >
                     <View style={styles.border}/>
-                    {isDesktop ? (
-                        <ScrollView>
-                            {messages.map((item, i) => (
-                                <Message key={i} {...item}/>
-                            ))}
-                        </ScrollView>
-                    ) : (
-                        <FlatList
-                            data={messages}
-                            renderItem={({item}) => <Message {...item}/>}
-                        />
-                    )}
-                </View>
+                </ScrollList>
                 <Loader
                     isLoading={loading}
                     message={strings.messagesLoading}

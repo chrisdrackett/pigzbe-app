@@ -16,13 +16,6 @@ export default StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center'
     },
-    containerBody: {
-        backgroundColor: color.lightGrey,
-        width: '100%',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     title: {
         fontFamily,
         color: color.white,

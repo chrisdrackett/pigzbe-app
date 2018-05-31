@@ -82,7 +82,7 @@ exports[`Escrow renders correctly 1`] = `
         <Image
           source={
             Object {
-              "testUri": "../../../src/app/components/balance/images/currency_logo.png",
+              "testUri": "../../../src/app/components/wollo/images/currency_logo.png",
             }
           }
           style={
@@ -156,8 +156,8 @@ exports[`Escrow renders correctly 1`] = `
         "alignSelf": "stretch",
         "backgroundColor": "rgb(247, 247, 250)",
         "flex": 1,
-        "flexGrow": 1,
-        "justifyContent": "flex-start",
+        "justifyContent": "center",
+        "position": "relative",
       }
     }
   >
@@ -207,6 +207,7 @@ exports[`Escrow renders correctly 1`] = `
       Object {
         "alignItems": "center",
         "alignSelf": "stretch",
+        "backgroundColor": "rgb(247, 247, 250)",
         "flex": 1,
         "flexBasis": 95,
         "flexGrow": 0,
@@ -239,8 +240,8 @@ exports[`Escrow renders correctly 1`] = `
       style={
         Object {
           "alignSelf": "stretch",
-          "backgroundColor": "rgb(253, 223, 6)",
-          "borderColor": "rgb(253, 223, 6)",
+          "backgroundColor": "rgba(255, 255, 255, 0)",
+          "borderColor": "rgb(0, 50, 120)",
           "borderRadius": 22.5,
           "borderWidth": 1,
           "marginBottom": 10,
