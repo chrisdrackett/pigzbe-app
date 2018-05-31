@@ -33,11 +33,11 @@ const nav = {
     [SCREEN_TRANSFER]: {
         screen: Transfer,
         navigationOptions: {
-            title: 'Transfer'
+            title: strings.menuTransfer
         },
-        icon: 'messages',
-        iconW: 20,
-        iconH: 13
+        icon: 'transfer',
+        iconW: 19,
+        iconH: 17
     },
     [SCREEN_MESSAGES]: {
         screen: Messages,

@@ -1,7 +1,8 @@
 {
   "menuWallet": "Wallet",
-  "menuGame": "Game",
+  "menuTransfer": "Transfer",
   "menuMessages": "Messages",
+  "menuGame": "Game",
   "loginTagline": "Save. Learn. Play.",
   "loginTitle": "Welcome to Pigzbe",
   "loginSubtitle": "Enter your key to access your Wollo account",
