@@ -10,18 +10,26 @@ export default StyleSheet.create({
     container,
     pig: {
         marginTop: 20,
+        alignSelf: 'center',
     },
     containerBody: {
         backgroundColor: color.lightGrey,
         width: '100%',
         paddingLeft: paddingH,
         paddingRight: paddingH,
+        paddingBottom: 20,
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
     },
     containerForm: {
         width: '100%',
+    },
+    title: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginBottom: 10
     },
     amount: {
         position: 'relative',
@@ -42,5 +50,26 @@ export default StyleSheet.create({
         fontSize: 14,
         fontStyle: 'italic',
         marginBottom: 5,
+    },
+    buttonWrapper: {
+        marginTop: 20,
+    },
+    amountInputConfirm: {
+        paddingLeft: 42,
+        paddingRight: 0,
+        borderColor: color.lightGrey,
+    },
+    inputConfirm: {
+        paddingLeft: 0,
+        paddingRight: 0,
+        borderColor: color.lightGrey,
+        color: color.grey,
+    },
+    amountMinus: {
+        fontFamily,
+        color: color.red,
+        fontSize: 14,
+        fontStyle: 'italic',
+        marginLeft: 42,
     },
 });

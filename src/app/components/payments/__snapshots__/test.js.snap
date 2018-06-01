@@ -22,7 +22,7 @@ exports[`Payments renders correctly 1`] = `
         "color": "rgb(74, 74, 74)",
         "fontFamily": "Poppins",
         "fontSize": 16,
-        "marginTop": 20,
+        "marginTop": 25,
       }
     }
   >

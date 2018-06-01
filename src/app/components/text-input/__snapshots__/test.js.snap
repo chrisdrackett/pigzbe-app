@@ -1,27 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TextInput renders correctly 1`] = `
-<TextInput
-  allowFontScaling={true}
-  onChangeText={[Function]}
-  placeholder={undefined}
-  placeholderTextColor="rgba(255, 255, 255, 0.6)"
-  style={
-    Object {
-      "alignSelf": "stretch",
-      "borderColor": "rgb(255, 255, 255)",
-      "borderRadius": 22.5,
-      "borderWidth": 1,
-      "color": "rgb(255, 255, 255)",
-      "fontFamily": "Poppins",
-      "fontSize": 14,
-      "fontWeight": "bold",
-      "height": 45,
-      "marginBottom": 10,
-      "paddingLeft": 30,
-      "paddingRight": 20,
+Array [
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "rgb(255, 255, 255)",
+        "fontFamily": "Poppins",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "marginBottom": 10,
+        "marginLeft": 2,
+        "marginTop": 10,
+      }
     }
-  }
-  value=""
-/>
+  >
+    Label
+  </Text>,
+  <TextInput
+    allowFontScaling={true}
+    editable={true}
+    maxLength={undefined}
+    multiline={false}
+    numberOfLines={1}
+    onChangeText={[Function]}
+    placeholder={undefined}
+    placeholderTextColor="rgba(255, 255, 255, 0.6)"
+    style={
+      Array [
+        Object {
+          "alignSelf": "stretch",
+          "borderColor": "rgb(255, 255, 255)",
+          "borderRadius": 22.5,
+          "borderWidth": 1,
+          "color": "rgb(255, 255, 255)",
+          "fontFamily": "Poppins",
+          "fontSize": 14,
+          "fontWeight": "bold",
+          "height": 45,
+          "marginBottom": 10,
+          "paddingLeft": 30,
+          "paddingRight": 20,
+        },
+      ]
+    }
+    value=""
+  />,
+]
 `;

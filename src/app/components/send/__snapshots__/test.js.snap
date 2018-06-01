@@ -28,15 +28,7 @@ Array [
     />
   </View>,
   <RCTScrollView
-    contentContainerStyle={
-      Object {
-        "alignItems": "center",
-        "alignSelf": "stretch",
-        "backgroundColor": "rgb(0, 50, 120)",
-        "flex": 1,
-        "justifyContent": "center",
-      }
-    }
+    contentContainerStyle={undefined}
     style={
       Object {
         "backgroundColor": "rgb(0, 50, 120)",
@@ -45,201 +37,518 @@ Array [
   >
     <View>
       <View
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "justifyContent": "center",
-            "marginTop": 10,
-          }
-        }
+        contentContainerStyle={undefined}
+        enabled={true}
+        keyboardVerticalOffset={0}
+        onLayout={[Function]}
+        style={undefined}
       >
         <View
           style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Image
-            source={
+            Array [
+              undefined,
               Object {
-                "testUri": "../../../src/app/components/wollo/images/currency_logo.png",
-              }
-            }
-            style={
-              Object {
-                "height": 19,
-                "marginRight": 10,
-                "width": 23,
-              }
-            }
-          />
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "rgb(255, 255, 255)",
-                "fontFamily": "Poppins",
-                "fontSize": 40,
-              }
-            }
-          >
-            0
-          </Text>
-        </View>
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={
-            Object {
-              "color": "rgba(255, 255, 255, 0.6)",
-              "fontFamily": "Poppins",
-              "fontSize": 14,
-            }
-          }
-        >
-          Wollo balance
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "marginTop": 20,
-          }
-        }
-      >
-        <Image
-          source={
-            Object {
-              "testUri": "../../../src/app/components/pig/pig.png",
-            }
-          }
-          style={
-            Object {
-              "height": 35,
-              "width": 81,
-            }
-          }
-        />
-      </View>
-      <View
-        style={
-          Object {
-            "backgroundColor": "rgb(247, 247, 250)",
-            "flex": 1,
-            "justifyContent": "center",
-            "paddingLeft": "9.375%",
-            "paddingRight": "9.375%",
-            "width": "100%",
-          }
-        }
-      >
-        <p>
-          Send
-        </p>
-      </View>
-      <View
-        style={
-          Object {
-            "position": "relative",
-            "width": "100%",
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "backgroundColor": "rgba(0, 0, 0, 0.05)",
-              "height": 5,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": -5,
-              "zIndex": 1,
-            }
-          }
-        />
-        <View
-          style={
-            Object {
-              "alignSelf": "stretch",
-              "backgroundColor": "rgb(255, 255, 255)",
-              "flexBasis": 84,
-              "flexGrow": 0,
-              "height": 84,
-              "paddingBottom": 20,
-              "paddingLeft": "9.375%",
-              "paddingRight": "9.375%",
-              "paddingTop": 19,
-            }
+                "bottom": 0,
+              },
+            ]
           }
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            collapsable={undefined}
-            hasTVPreferredFocus={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "alignSelf": "stretch",
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "rgb(0, 50, 120)",
-                "borderRadius": 22.5,
-                "borderWidth": 1,
-                "marginBottom": 10,
-                "opacity": 1,
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "center",
+                "marginTop": 10,
               }
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
           >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Image
+                source={
+                  Object {
+                    "testUri": "../../../src/app/components/wollo/images/currency_logo.png",
+                  }
+                }
+                style={
+                  Object {
+                    "height": 19,
+                    "marginRight": 10,
+                    "width": 23,
+                  }
+                }
+              />
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "color": "rgb(255, 255, 255)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 40,
+                  }
+                }
+              >
+                0
+              </Text>
+            </View>
             <Text
               accessible={true}
               allowFontScaling={true}
               ellipsizeMode="tail"
               style={
-                Array [
-                  Object {
-                    "alignSelf": "stretch",
-                    "color": "rgb(0, 50, 120)",
-                    "fontFamily": "Poppins",
-                    "fontSize": 16,
-                    "fontWeight": "bold",
-                    "height": 45,
-                    "paddingLeft": 20,
-                    "paddingRight": 20,
-                    "paddingTop": 10,
-                    "textAlign": "center",
-                  },
-                  undefined,
-                ]
+                Object {
+                  "color": "rgba(255, 255, 255, 0.6)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 14,
+                }
               }
             >
-              Cancel
+              Wollo balance
             </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "alignSelf": "center",
+                "marginTop": 20,
+              }
+            }
+          >
+            <Image
+              source={
+                Object {
+                  "testUri": "../../../src/app/components/pig/pig.png",
+                }
+              }
+              style={
+                Object {
+                  "height": 35,
+                  "width": 81,
+                }
+              }
+            />
+          </View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgb(247, 247, 250)",
+                "flex": 1,
+                "justifyContent": "flex-start",
+                "paddingBottom": 20,
+                "paddingLeft": "9.375%",
+                "paddingRight": "9.375%",
+                "width": "100%",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "width": "100%",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "flex": 1,
+                    "justifyContent": "flex-start",
+                    "marginBottom": 10,
+                  }
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "rgb(74, 74, 74)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 16,
+                      "marginTop": 25,
+                    }
+                  }
+                >
+                  Transfer Wollo
+                </Text>
+              </View>
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "color": "rgb(255, 255, 255)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "marginBottom": 10,
+                      "marginLeft": 2,
+                      "marginTop": 10,
+                    },
+                    Object {
+                      "color": "rgb(0, 50, 120)",
+                    },
+                  ]
+                }
+              >
+                Send Wollo to
+              </Text>
+              <TextInput
+                allowFontScaling={true}
+                editable={true}
+                maxLength={undefined}
+                multiline={false}
+                numberOfLines={1}
+                onChangeText={[Function]}
+                placeholder="Enter account key"
+                placeholderTextColor="rgb(155, 155, 155)"
+                style={
+                  Array [
+                    Object {
+                      "alignSelf": "stretch",
+                      "borderColor": "rgb(255, 255, 255)",
+                      "borderRadius": 22.5,
+                      "borderWidth": 1,
+                      "color": "rgb(255, 255, 255)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "height": 45,
+                      "marginBottom": 10,
+                      "paddingLeft": 30,
+                      "paddingRight": 20,
+                    },
+                    Object {
+                      "borderColor": "rgb(0, 50, 120)",
+                      "color": "rgb(0, 50, 120)",
+                    },
+                  ]
+                }
+                value=""
+              />
+              <View
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
+              >
+                <Image
+                  source={
+                    Object {
+                      "testUri": "../../../src/app/components/send/images/wollo.png",
+                    }
+                  }
+                  style={
+                    Object {
+                      "bottom": 21,
+                      "height": 23,
+                      "left": 11,
+                      "position": "absolute",
+                      "width": 23,
+                    }
+                  }
+                />
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "color": "rgb(255, 255, 255)",
+                        "fontFamily": "Poppins",
+                        "fontSize": 14,
+                        "fontWeight": "bold",
+                        "marginBottom": 10,
+                        "marginLeft": 2,
+                        "marginTop": 10,
+                      },
+                      Object {
+                        "color": "rgb(0, 50, 120)",
+                      },
+                    ]
+                  }
+                >
+                  How much to send
+                </Text>
+                <TextInput
+                  allowFontScaling={true}
+                  editable={true}
+                  maxLength={undefined}
+                  multiline={false}
+                  numberOfLines={1}
+                  onChangeText={[Function]}
+                  placeholder="Wollo"
+                  placeholderTextColor="rgb(155, 155, 155)"
+                  style={
+                    Array [
+                      Object {
+                        "alignSelf": "stretch",
+                        "borderColor": "rgb(255, 255, 255)",
+                        "borderRadius": 22.5,
+                        "borderWidth": 1,
+                        "color": "rgb(255, 255, 255)",
+                        "fontFamily": "Poppins",
+                        "fontSize": 14,
+                        "fontWeight": "bold",
+                        "height": 45,
+                        "marginBottom": 10,
+                        "paddingLeft": 30,
+                        "paddingRight": 20,
+                      },
+                      Object {
+                        "borderColor": "rgb(0, 50, 120)",
+                        "color": "rgb(0, 50, 120)",
+                      },
+                      Object {
+                        "paddingLeft": 42,
+                      },
+                    ]
+                  }
+                  value=""
+                />
+              </View>
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "color": "rgb(155, 155, 155)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 14,
+                    "fontStyle": "italic",
+                    "marginBottom": 5,
+                  }
+                }
+              >
+                Estimate
+                 
+                €0, $0, ¥0, £0
+              </Text>
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "color": "rgb(255, 255, 255)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "marginBottom": 10,
+                      "marginLeft": 2,
+                      "marginTop": 10,
+                    },
+                    Object {
+                      "color": "rgb(0, 50, 120)",
+                    },
+                  ]
+                }
+              >
+                Add a message?
+              </Text>
+              <TextInput
+                allowFontScaling={true}
+                editable={true}
+                maxLength={28}
+                multiline={false}
+                numberOfLines={1}
+                onChangeText={[Function]}
+                placeholder="Add a message to your Wollo transfer?"
+                placeholderTextColor="rgb(155, 155, 155)"
+                style={
+                  Array [
+                    Object {
+                      "alignSelf": "stretch",
+                      "borderColor": "rgb(255, 255, 255)",
+                      "borderRadius": 22.5,
+                      "borderWidth": 1,
+                      "color": "rgb(255, 255, 255)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "height": 45,
+                      "marginBottom": 10,
+                      "paddingLeft": 30,
+                      "paddingRight": 20,
+                    },
+                    Object {
+                      "borderColor": "rgb(0, 50, 120)",
+                      "color": "rgb(0, 50, 120)",
+                    },
+                  ]
+                }
+                value=""
+              />
+              <View
+                style={
+                  Object {
+                    "marginTop": 20,
+                  }
+                }
+              >
+                <View
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  collapsable={undefined}
+                  hasTVPreferredFocus={undefined}
+                  hitSlop={undefined}
+                  isTVSelectable={true}
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "alignSelf": "stretch",
+                      "backgroundColor": "rgba(255, 255, 255, 0)",
+                      "borderColor": "rgb(0, 50, 120)",
+                      "borderRadius": 22.5,
+                      "borderWidth": 1,
+                      "marginBottom": 10,
+                      "opacity": 1,
+                    }
+                  }
+                  testID={undefined}
+                  tvParallaxProperties={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "alignSelf": "stretch",
+                          "color": "rgb(0, 50, 120)",
+                          "fontFamily": "Poppins",
+                          "fontSize": 16,
+                          "fontWeight": "bold",
+                          "height": 45,
+                          "paddingLeft": 20,
+                          "paddingRight": 20,
+                          "paddingTop": 10,
+                          "textAlign": "center",
+                        },
+                        Object {
+                          "color": "rgba(0, 50, 120, 0.4)",
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    Next
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
+              accessible={true}
+              collapsable={undefined}
+              hasTVPreferredFocus={undefined}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "alignSelf": "stretch",
+                  "backgroundColor": "rgba(255, 255, 255, 0)",
+                  "borderColor": "rgb(0, 50, 120)",
+                  "borderRadius": 22.5,
+                  "borderWidth": 1,
+                  "marginBottom": 10,
+                  "opacity": 1,
+                }
+              }
+              testID={undefined}
+              tvParallaxProperties={undefined}
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "alignSelf": "stretch",
+                      "color": "rgb(0, 50, 120)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 16,
+                      "fontWeight": "bold",
+                      "height": 45,
+                      "paddingLeft": 20,
+                      "paddingRight": 20,
+                      "paddingTop": 10,
+                      "textAlign": "center",
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                Cancel
+              </Text>
+            </View>
           </View>
         </View>
       </View>
     </View>
   </RCTScrollView>,
+  <View
+    style={
+      Object {
+        "position": "relative",
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.05)",
+          "height": 5,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": -5,
+          "zIndex": 1,
+        }
+      }
+    />
+  </View>,
 ]
 `;

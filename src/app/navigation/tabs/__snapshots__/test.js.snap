@@ -473,12 +473,12 @@ exports[`Navigation: Tabs renders correctly 1`] = `
               <Image
                 source={
                   Object {
-                    "testUri": "../../../src/app/navigation/tabs/images/messages-active.png",
+                    "testUri": "../../../src/app/navigation/tabs/images/game-active.png",
                   }
                 }
                 style={
                   Object {
-                    "height": 13,
+                    "height": 20,
                     "width": 20,
                   }
                 }
@@ -502,12 +502,12 @@ exports[`Navigation: Tabs renders correctly 1`] = `
               <Image
                 source={
                   Object {
-                    "testUri": "../../../src/app/navigation/tabs/images/messages.png",
+                    "testUri": "../../../src/app/navigation/tabs/images/game.png",
                   }
                 }
                 style={
                   Object {
-                    "height": 13,
+                    "height": 20,
                     "width": 20,
                   }
                 }
@@ -532,7 +532,7 @@ exports[`Navigation: Tabs renders correctly 1`] = `
               }
             }
           >
-            Messages
+            Game
           </Text>
         </View>
       </View>
@@ -608,12 +608,12 @@ exports[`Navigation: Tabs renders correctly 1`] = `
               <Image
                 source={
                   Object {
-                    "testUri": "../../../src/app/navigation/tabs/images/game-active.png",
+                    "testUri": "../../../src/app/navigation/tabs/images/messages-active.png",
                   }
                 }
                 style={
                   Object {
-                    "height": 20,
+                    "height": 13,
                     "width": 20,
                   }
                 }
@@ -637,12 +637,12 @@ exports[`Navigation: Tabs renders correctly 1`] = `
               <Image
                 source={
                   Object {
-                    "testUri": "../../../src/app/navigation/tabs/images/game.png",
+                    "testUri": "../../../src/app/navigation/tabs/images/messages.png",
                   }
                 }
                 style={
                   Object {
-                    "height": 20,
+                    "height": 13,
                     "width": 20,
                   }
                 }
@@ -667,7 +667,7 @@ exports[`Navigation: Tabs renders correctly 1`] = `
               }
             }
           >
-            Game
+            Messages
           </Text>
         </View>
       </View>

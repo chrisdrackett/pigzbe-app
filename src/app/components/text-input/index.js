@@ -30,7 +30,8 @@ export default ({
     dark,
     numberOfLines = 1,
     maxLength,
-    style
+    style,
+    editable = true
 }) => (
     <Fragment>
         {label ? (
@@ -47,6 +48,7 @@ export default ({
             numberOfLines={numberOfLines}
             multiline={numberOfLines > 1}
             maxLength={maxLength}
+            editable={editable}
         />
     </Fragment>
 );

@@ -10,7 +10,6 @@ exports[`ConvertBalance renders correctly 1`] = `
       "flex": 1,
       "justifyContent": "center",
       "paddingBottom": 20,
-      "paddingTop": 20,
     }
   }
 >
@@ -22,7 +21,8 @@ exports[`ConvertBalance renders correctly 1`] = `
       Object {
         "color": "rgb(74, 74, 74)",
         "fontFamily": "Poppins",
-        "fontSize": 14,
+        "fontSize": 16,
+        "marginTop": 25,
       }
     }
   >
