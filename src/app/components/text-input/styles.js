@@ -20,6 +20,22 @@ export default StyleSheet.create({
         paddingLeft: 30,
         paddingRight: 20
     },
+    dark: {
+        borderColor: color.blue,
+        color: color.blue,
+    },
+    label: {
+        fontFamily,
+        color: color.white,
+        fontSize: 14,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft: 2,
+    },
+    labelDark: {
+        color: color.blue,
+    },
     error: {
         borderColor: color.red
     }

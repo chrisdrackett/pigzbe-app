@@ -63,5 +63,9 @@
   "transferEditButtonLabel": "Edit",
   "transferSendTitle": "Transfer Wollo",
   "transferConfirmTitle": "Confirm transfer",
-  "transferProgress": "Transaction in progress"
+  "transferProgress": "Transaction in progress",
+  "transferSendKey": "Enter account key",
+  "transferSendWollo": "Wollo",
+  "transferSendEstimate": "Estimate",
+  "transferMessagePlaceholder": "Add a message to your Wollo transfer?"
 }
