@@ -11,6 +11,7 @@ import Button from '../button';
 import {strings, SCREEN_BALANCE} from '../../constants';
 import {loadEscrowAccount, validateTransaction} from '../../actions';
 import ScrollList from '../scroll-list';
+import Footer from '../footer';
 
 class Escrow extends Component {
     async componentDidMount() {
@@ -47,17 +48,17 @@ class Escrow extends Component {
                     <Pig/>
                 </View>
                 <ScrollList
+                    border
                     items={transactions}
-                    ItemComponent={Transaction}>
-                    <View style={styles.border}/>
-                </ScrollList>
-                <View style={styles.button}>
+                    ItemComponent={Transaction}
+                />
+                <Footer>
                     <Button
                         outline
                         label={strings.escrowBackButtonLabel}
                         onPress={() => navigation.navigate(SCREEN_BALANCE)}
                     />
-                </View>
+                </Footer>
                 <Loader
                     isLoading={submitting}
                     message={strings.escrowSubmitting}

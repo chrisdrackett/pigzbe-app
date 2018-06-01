@@ -46,13 +46,4 @@ export default StyleSheet.create({
         color: color.darkGrey,
         fontSize: 14
     },
-    border: {
-        backgroundColor: color.blackOpacity5,
-        height: 5,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1
-    }
 });

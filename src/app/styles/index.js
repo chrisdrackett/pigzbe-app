@@ -36,3 +36,14 @@ export const container = {
 export const scrollView = {
     backgroundColor: color.blue,
 };
+
+export const border = {
+    backgroundColor: color.blackOpacity5,
+    // backgroundColor: 'red',
+    height: 5,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1
+};

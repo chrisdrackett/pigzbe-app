@@ -1,9 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {
-    Text,
-    View
-} from 'react-native';
+import {Text} from 'react-native';
 import Avatar from '../avatar';
 import styles from './styles';
 import {
@@ -19,6 +16,7 @@ import BaseView from '../base-view';
 import Pig from '../pig';
 import Button from '../button';
 import Wollo from '../wollo';
+import Footer from '../footer';
 import {getExchange} from '../../actions/coins';
 
 class Balance extends Component {
@@ -44,23 +42,25 @@ class Balance extends Component {
         }
 
         return (
-            <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container} error={error}>
-                <Avatar image={image}/>
-                <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
-                <Wollo balance={balance}/>
-                <Pig style={styles.pig}/>
-                <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
-                <ConvertBalance coins={COINS.filter(c => c !== baseCurrency)} exchange={exchange} balance={balance} dps={COIN_DPS}/>
-                {escrow ? (
-                    <View style={styles.escrow}>
+            <Fragment>
+                <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container} error={error}>
+                    <Avatar image={image}/>
+                    <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
+                    <Wollo balance={balance}/>
+                    <Pig style={styles.pig}/>
+                    <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
+                    <ConvertBalance coins={COINS.filter(c => c !== baseCurrency)} exchange={exchange} balance={balance} dps={COIN_DPS}/>
+                </BaseView>
+                <Footer>
+                    {escrow ? (
                         <Button
                             outline
                             label={strings.escrowButtonLabel}
                             onPress={() => navigation.navigate(SCREEN_ESCROW)}
                         />
-                    </View>
-                ) : null}
-            </BaseView>
+                    ) : null}
+                </Footer>
+            </Fragment>
         );
     }
 }

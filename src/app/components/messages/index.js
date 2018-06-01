@@ -9,6 +9,7 @@ import Pig from '../pig';
 import Message from './message';
 import {strings} from '../../constants';
 import ScrollList from '../scroll-list';
+import Footer from '../footer';
 
 class Messages extends Component {
     componentDidMount() {
@@ -35,13 +36,13 @@ class Messages extends Component {
                     <Pig/>
                 </View>
                 <ScrollList
+                    border
                     items={messages}
                     ItemComponent={Message}
                     loading={loading}
                     loaderMessage={strings.messagesLoading}
-                >
-                    <View style={styles.border}/>
-                </ScrollList>
+                />
+                <Footer/>
                 <Loader
                     isLoading={loading}
                     message={strings.messagesLoading}

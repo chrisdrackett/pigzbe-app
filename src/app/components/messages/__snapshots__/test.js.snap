@@ -138,5 +138,27 @@ exports[`Messages renders correctly without messages 1`] = `
       <View />
     </RCTScrollView>
   </View>
+  <View
+    style={
+      Object {
+        "position": "relative",
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.05)",
+          "height": 5,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": -5,
+          "zIndex": 1,
+        }
+      }
+    />
+  </View>
 </View>
 `;

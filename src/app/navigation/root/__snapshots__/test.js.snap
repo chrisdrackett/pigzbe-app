@@ -368,7 +368,7 @@ Array [
         }
       }
     >
-      Error: Internet is down
+      Error: Connection error
     </Text>
     <View
       style={

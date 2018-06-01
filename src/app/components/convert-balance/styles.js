@@ -11,7 +11,6 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: 20,
         paddingBottom: 20
     },
     containerCoins: {
@@ -24,11 +23,6 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         flexWrap: 'wrap'
-    },
-    title: {
-        fontFamily,
-        fontSize: 14,
-        color: color.darkGrey
     },
     label: {
         fontFamily,

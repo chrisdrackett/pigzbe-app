@@ -1,7 +1,8 @@
 import {StyleSheet} from 'react-native';
-import {color, fontFamily} from '../../styles';
+import {border, color, fontFamily} from '../../styles';
 
 export default StyleSheet.create({
+    border,
     title: {
         fontFamily,
         fontSize: 16,

@@ -17,6 +17,7 @@
   "errorDismiss": "dismiss",
   "errorUnknown": "Operation failed",
   "gameLoading": "Loading...",
+  "errorConnection": "Connection error",
   "accountCreate": "Create Your Account",
   "accountAddImage": "Add Profile Image",
   "accountNamePlaceholder": "Name",
@@ -51,5 +52,16 @@
   "learnGoldSingle": "gram of gold",
   "transferHistory": "Transfer History",
   "transferHistoryLoading": "Loading payments...",
-  "transferButtonLabel": "Transfer Wollo"
+  "transferButtonLabel": "Transfer Wollo",
+  "transferCancelButtonLabel": "Cancel",
+  "transferSendTo": "Send Wollo to",
+  "transferAmount": "How much to send",
+  "transferMessage": "Add a message?",
+  "transferConfirmButtonLabel": "Next",
+  "transferBalanceAfter": "Balance after transfer",
+  "transferSendButtonLabel": "Send",
+  "transferEditButtonLabel": "Edit",
+  "transferSendTitle": "Transfer Wollo",
+  "transferConfirmTitle": "Confirm transfer",
+  "transferProgress": "Transaction in progress"
 }
