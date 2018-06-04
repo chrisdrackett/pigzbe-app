@@ -41,6 +41,8 @@ class Balance extends Component {
             return <Loader isLoading />;
         }
 
+        const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
+
         return (
             <Fragment>
                 <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container} error={error}>
@@ -49,7 +51,7 @@ class Balance extends Component {
                     <Wollo balance={balance}/>
                     <Pig style={styles.pig}/>
                     <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
-                    <ConvertBalance coins={COINS.filter(c => c !== baseCurrency)} exchange={exchange} balance={balance} dps={COIN_DPS}/>
+                    <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
                 </BaseView>
                 <Footer>
                     {escrow ? (

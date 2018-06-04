@@ -7,23 +7,23 @@ import styles from './styles';
 import images from './images';
 import moneyFormat from '../../utils/money-format';
 import {gameOverlayOpen} from '../../actions';
-import {strings} from '../../constants';
+import {strings, COIN_DPS} from '../../constants';
 
 const conversions = {
     carrot: {
-        conversion: 1,
+        coin: 'CARROT',
         label: strings.learnCarrots,
         labelOne: strings.learnCarrotsSingle,
         dp: 2,
     },
     gold: {
-        conversion: 0.0027,
+        coin: 'GOLD',
         label: strings.learnGold,
         labelOne: strings.learnGoldSingle,
         dp: 4,
     },
     dollar: {
-        conversion: 0.12,
+        coin: 'USD',
         label: strings.learnDollars,
         labelOne: strings.learnDollarsSingle,
         dp: 2,
@@ -36,10 +36,14 @@ class Overlay extends Component {
     }
 
     render() {
-        const {dispatch, wolloCollected, overlayOpen} = this.props;
+        const {dispatch, exchange, wolloCollected, overlayOpen} = this.props;
         const {conversionKey} = this.state;
-        const {conversion, label, labelOne, dp} = conversions[conversionKey];
-        const compareValue = moneyFormat(String(wolloCollected * conversion), dp);
+        const {coin, label, labelOne} = conversions[conversionKey];
+
+        console.log('exchange', exchange);
+        const conversion = exchange[coin] || 1;
+        const dps = COIN_DPS[coin] || 0;
+        const compareValue = moneyFormat(String(wolloCollected * conversion), dps);
 
         if (overlayOpen) {
             return (
@@ -94,6 +98,7 @@ class Overlay extends Component {
 }
 
 export default connect(state => ({
+    exchange: state.coins.exchange,
     wolloCollected: state.game.wolloCollected,
     overlayOpen: state.game.overlayOpen
 }))(Overlay);
