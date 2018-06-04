@@ -18,9 +18,9 @@ const getExchange = (exchange, amount) => {
     }).join(', ');
 };
 
-const getBalanceAfter = (balance, amount) => {
-    return moneyFormat(new BigNumber(balance).minus(amount), COIN_DPS[ASSET_CODE]);
-};
+const remainingBalance = (balance, amount) => new BigNumber(balance).minus(amount);
+
+const getBalanceAfter = (balance, amount) => moneyFormat(remainingBalance(balance, amount), COIN_DPS[ASSET_CODE]);
 
 export default class Form extends Component {
     state ={
@@ -45,9 +45,11 @@ export default class Form extends Component {
     }
 
     updateAmount(value) {
+        const {balance, exchange} = this.props;
+
         const amount = value.replace(/[^0-9.]/g, '');
-        const amountValid = amount && Number(amount) > 0;
-        const estimate = getExchange(this.props.exchange, amount);
+        const amountValid = amount && Number(amount) > 0 && remainingBalance(balance, amount).greaterThanOrEqualTo(0);
+        const estimate = getExchange(exchange, amount);
 
         this.setState({
             amount,
