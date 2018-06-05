@@ -28,7 +28,7 @@ export default connect(
 }) => (
     <Fragment>
         <BaseView error={error}>
-            <KeyboardAvoid>
+            <KeyboardAvoid header>
                 <Wollo balance={balance}/>
                 <Pig style={styles.pig}/>
                 <View style={styles.containerBody}>
