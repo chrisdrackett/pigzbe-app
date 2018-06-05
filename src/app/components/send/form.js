@@ -9,6 +9,7 @@ import {isValidPublicKey} from '../../stellar/validation';
 import moneyFormat from '../../utils/money-format';
 import {ASSET_CODE, COIN_SYMBOLS, COIN_DPS} from '../../constants';
 import BigNumber from 'bignumber.js';
+import {sendWollo} from '../../actions';
 
 const getExchange = (exchange, amount) => {
     const coins = ['EUR', 'USD', 'JPY', 'GBP'];
@@ -76,7 +77,10 @@ export default class Form extends Component {
     }
 
     send() {
+        const {dispatch} = this.props;
+        const {key, amount, memo} = this.state;
 
+        dispatch(sendWollo(key, amount, memo));
     }
 
     render() {

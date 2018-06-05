@@ -6,16 +6,23 @@ import {
     WOLLO_USE_TESTNET,
     WOLLO_UPDATE_ACCOUNT,
     WOLLO_UPDATE_BALANCE,
-    WOLLO_UPDATE_PAYMENTS
+    WOLLO_UPDATE_PAYMENTS,
+    WOLLO_SET_SENDING,
+    WOLLO_UPDATE_XLM,
+    WOLLO_UPDATE_ISSUER
 } from '../actions';
 
 export const initialState = {
     useTestnet: USE_TESTNET,
     balance: '0',
+    balanceXLM: '0',
+    minXLM: '0',
+    hasGas: false,
     baseCurrency: BASE_CURRENCY,
     payments: [],
     loading: false,
-    error: null
+    error: null,
+    sending: false,
 };
 
 export default (state = initialState, action) => {
@@ -49,6 +56,23 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 error: action.error
+            };
+        case WOLLO_SET_SENDING:
+            return {
+                ...state,
+                sending: action.sending
+            };
+        case WOLLO_UPDATE_XLM:
+            return {
+                ...state,
+                balanceXLM: action.balanceXLM,
+                minXLM: action.minXLM,
+                hasGas: action.hasGas
+            };
+        case WOLLO_UPDATE_ISSUER:
+            return {
+                ...state,
+                issuer: action.issuer
             };
         default:
             return state;

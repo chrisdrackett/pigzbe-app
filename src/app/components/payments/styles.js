@@ -37,14 +37,14 @@ export default StyleSheet.create({
         fontFamily,
         color: color.darkGrey,
         fontSize: 16,
+        lineHeight: 16,
     },
     direction: {
         width: 7,
         flexBasis: 7,
         flexGrow: 0,
         height: 15,
-        marginLeft: 5,
-        marginTop: 3,
+        marginLeft: 8,
     },
     address: {
         fontFamily,

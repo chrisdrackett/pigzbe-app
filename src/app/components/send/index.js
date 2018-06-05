@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import styles from './styles';
 import {
     strings,
@@ -19,10 +19,13 @@ export default connect(
         error: state.wollo.error,
         balance: state.wollo.balance,
         exchange: state.coins.exchange,
+        sending: state.wollo.sending,
     })
 )(({
+    dispatch,
     balance,
     exchange,
+    sending,
     navigation,
     error
 }) => (
@@ -33,6 +36,7 @@ export default connect(
                 <Pig style={styles.pig}/>
                 <View style={styles.containerBody}>
                     <Form
+                        dispatch={dispatch}
                         exchange={exchange}
                         balance={balance}
                     />
@@ -44,6 +48,11 @@ export default connect(
                 </View>
             </KeyboardAvoid>
         </BaseView>
+        {sending ? (
+            <View style={styles.sending}>
+                <Text style={styles.sendingText}>Sending</Text>
+            </View>
+        ) : null}
         <Footer/>
     </Fragment>
 ));

@@ -10,7 +10,9 @@ export const initialState = {
     isLoggingIn: false,
     isLoggedIn: false,
     error: null,
-    testUserKey: 'SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4'
+    publicKey: null,
+    secretKey: null,
+    testUserKey: 'SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4',
 };
 
 export default (state = initialState, action) => {

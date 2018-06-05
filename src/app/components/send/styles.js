@@ -72,4 +72,20 @@ export default StyleSheet.create({
         fontStyle: 'italic',
         marginLeft: 42,
     },
+    sending: {
+        backgroundColor: color.blueOpacity40,
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    sendingText: {
+        fontFamily,
+        color: color.white,
+        fontSize: 14,
+    },
 });

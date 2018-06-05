@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Text} from 'react-native';
 import styles from './styles';
 import {
     strings,
@@ -15,21 +16,29 @@ import Footer from '../footer';
 export default connect(
     state => ({
         error: state.wollo.error,
-        balance: state.wollo.balance
+        balance: state.wollo.balance,
+        balanceXLM: state.wollo.balanceXLM,
+        minXLM: state.wollo.minXLM,
+        hasGas: state.wollo.hasGas,
     })
 )(({
     balance,
+    balanceXLM,
+    minXLM,
+    hasGas,
     navigation,
-    error
+    error,
 }) => (
     <BaseView scrollViewStyle={styles.container} error={error}>
         <Wollo balance={balance}/>
         <Pig style={styles.pig}/>
         <Payments/>
         <Footer>
+            <Text>XLM: {balanceXLM} MIN: {minXLM}</Text>
             <Button
                 label={strings.transferButtonLabel}
                 onPress={() => navigation.navigate(SCREEN_SEND)}
+                disabled={!hasGas}
                 outline
             />
         </Footer>
