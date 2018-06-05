@@ -27,16 +27,24 @@ export default StyleSheet.create({
     info: {
         marginRight: 10,
     },
+    amountWrapper: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+    },
     amount: {
         fontFamily,
         color: color.darkGrey,
         fontSize: 16,
-        lineHeight: 1,
     },
     direction: {
         width: 7,
+        flexBasis: 7,
+        flexGrow: 0,
         height: 15,
         marginLeft: 5,
+        marginTop: 3,
     },
     address: {
         fontFamily,

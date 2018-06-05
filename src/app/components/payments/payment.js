@@ -19,9 +19,12 @@ const Inner = ({date, amount, direction, assetCode, memo, address}) => (
                 <Text style={styles.date}>
                     {daysAgo(date)}
                 </Text>
-                <Text style={styles.amount}>
-                    {moneyFormat(amount, ASSET_DPS)} {assetCode} <Image style={styles.direction} source={images[direction]}/>
-                </Text>
+                <View style={styles.amountWrapper}>
+                    <Text style={styles.amount}>
+                        {moneyFormat(amount, ASSET_DPS)} {assetCode}
+                    </Text>
+                    <Image style={styles.direction} source={images[direction]}/>
+                </View>
             </View>
             <Text numberOfLines={3} style={styles.address}>
                 {address}
