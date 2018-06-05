@@ -1,2 +1,2 @@
-import Stellar from 'stellar-sdk';
-export default Stellar;
+export * from 'stellar-sdk';
+export default module.exports;

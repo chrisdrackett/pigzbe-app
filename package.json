@@ -29,7 +29,7 @@
     "postversion": "react-native-version"
   },
   "dependencies": {
-    "@pigzbe/react-native-stellar-sdk": "^1.0.2",
+    "@pigzbe/react-native-stellar-sdk": "^1.0.3",
     "babel-polyfill": "^6.26.0",
     "moment": "^2.22.1",
     "path": "^0.12.7",

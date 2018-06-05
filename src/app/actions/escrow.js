@@ -1,4 +1,4 @@
-import Stellar from '../stellar';
+import {Transaction} from '../stellar';
 import {getServer, getServerURL} from '../stellar/server';
 import {validate} from '../stellar/transaction';
 import {loadAccount} from './';
@@ -52,7 +52,7 @@ export const submitTransaction = xdr => (dispatch, getState) => {
     dispatch(escrowError(null));
     dispatch(submitting(true));
     return getServer()
-        .submitTransaction(new Stellar.Transaction(xdr))
+        .submitTransaction(new Transaction(xdr))
         .then(tx => dispatch({type: ESCROW_TX_RESULT, tx}))
         .then(() => wait(1))
         .then(() => dispatch(validateTransaction(xdr)))

@@ -1,4 +1,4 @@
-import Stellar from '../stellar';
+import {Keypair} from '../stellar';
 import {loadAccount} from './wollo';
 import {load, save, clear} from '../utils/keychain';
 import {authenticate} from '../utils/touch-id';
@@ -29,7 +29,7 @@ export const authLogin = secretKey => dispatch => {
     let keypair = null;
 
     try {
-        keypair = Stellar.Keypair.fromSecret(secretKey);
+        keypair = Keypair.fromSecret(secretKey);
     } catch (e) {}
 
     if (!keypair) {

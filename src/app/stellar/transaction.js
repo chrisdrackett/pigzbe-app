@@ -1,9 +1,9 @@
-import Stellar from '../stellar';
+import {Transaction} from './';
 import BigNumber from 'bignumber.js';
 import moment from 'moment';
 import {getServer} from './server';
 
-const getTx = txXDR => new Stellar.Transaction(txXDR);
+const getTx = txXDR => new Transaction(txXDR);
 
 const currentTime = () => new BigNumber(moment().format('X'));
 

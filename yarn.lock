@@ -441,11 +441,11 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@pigzbe/react-native-stellar-sdk@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@pigzbe/react-native-stellar-sdk/-/react-native-stellar-sdk-1.0.2.tgz#90c0af84fe724446d6abac0598db2916dbef40fe"
+"@pigzbe/react-native-stellar-sdk@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@pigzbe/react-native-stellar-sdk/-/react-native-stellar-sdk-1.0.3.tgz#c9afb3e405f5a0ab8b9f664950dcc28c9bbac376"
   dependencies:
-    react-native-randombytes "https://github.com/ianmcgregor/react-native-randombytes.git"
+    react-native-randombytes "^3.2.0"
 
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
@@ -7346,9 +7346,9 @@ react-native-keychain@^3.0.0-rc.3:
   version "3.0.0-rc.3"
   resolved "https://registry.yarnpkg.com/react-native-keychain/-/react-native-keychain-3.0.0-rc.3.tgz#891ea07a564d1bf46b644bc615af21f15a04b12b"
 
-"react-native-randombytes@https://github.com/ianmcgregor/react-native-randombytes.git":
-  version "3.0.0"
-  resolved "https://github.com/ianmcgregor/react-native-randombytes.git#7b581da8c9c540a2a28d77da9bb87a1d34128948"
+react-native-randombytes@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-randombytes/-/react-native-randombytes-3.2.0.tgz#81ad85c854992ad5b36427095aa179acaff84ed0"
   dependencies:
     buffer "^4.9.1"
     sjcl "^1.0.3"
