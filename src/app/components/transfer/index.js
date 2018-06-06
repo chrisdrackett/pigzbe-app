@@ -39,7 +39,7 @@ export default connect(
                 label={strings.transferButtonLabel}
                 onPress={() => {
                     if (!hasGas) {
-                        const errMsg = `Not enough gas for transaction (Balance ${balanceXLM}XLM. Required ${minXLM}XLM)`;
+                        const errMsg = `${strings.transferErrorNoGas} (Balance ${balanceXLM}XLM. Required ${minXLM}XLM)`;
                         dispatch(wolloError(new Error(errMsg)));
                         return;
                     }

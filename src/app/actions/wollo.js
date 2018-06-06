@@ -2,7 +2,7 @@ import {getServer, setServer} from '../stellar/server';
 import {isValidPublicKey} from '../stellar/validation';
 import {paymentHistory, paymentInfo, sendPayment, getAsset} from '../stellar/payment';
 import {getBalance, getMinBalance, getHasGas, getAssetIssuer, getAssetTrusted} from '../stellar/account';
-import {ASSET_CODE} from '../constants';
+import {strings, ASSET_CODE} from '../constants';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
@@ -73,19 +73,19 @@ export const loadPayments = () => (dispatch, getState) => {
 export const sendWollo = (destination, amount, memo) => async (dispatch, getState) => {
 
     if (!isValidPublicKey(destination)) {
-        dispatch(wolloError(new Error('Invalid destination key')));
+        dispatch(wolloError(new Error(strings.transferErrorInvalidKey)));
         return;
     }
 
     if (!amount || isNaN(amount) || Number(amount) === 0) {
-        dispatch(wolloError(new Error('Invalid amount')));
+        dispatch(wolloError(new Error(strings.transferErrorInvalidAmount)));
         return;
     }
 
     dispatch(wolloError(null));
     dispatch(wolloSendComplete(false));
     dispatch(wolloSending(true));
-    dispatch(wolloSendStatus('Checking destination account'));
+    dispatch(wolloSendStatus(strings.transferStatusChecking));
 
     const {secretKey} = getState().auth;
     const {issuer} = getState().wollo;
@@ -99,11 +99,11 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     if (!isTrusted) {
         dispatch(wolloSending(false));
         dispatch(wolloSendStatus(null));
-        dispatch(wolloError(new Error(`Destination account does not trust ${ASSET_CODE}`)));
+        dispatch(wolloError(new Error(strings.transferErrorTrust)));
         return;
     }
 
-    dispatch(wolloSendStatus('Sending Wollo'));
+    dispatch(wolloSendStatus(strings.transferStatusSending));
 
     let result;
 
@@ -116,13 +116,13 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     if (!result) {
         dispatch(wolloSending(false));
         dispatch(wolloSendStatus(null));
-        dispatch(wolloError(new Error('Transfer failed')));
+        dispatch(wolloError(new Error(strings.transferStatusFailed)));
         return;
     }
 
     dispatch(wolloSending(false));
     dispatch(wolloSendComplete(true));
-    dispatch(wolloSendStatus('Transfer complete'));
+    dispatch(wolloSendStatus(strings.transferStatusComplete));
     dispatch(wolloError(null));
     // dispatch(notify('Transfer complete'));
 };

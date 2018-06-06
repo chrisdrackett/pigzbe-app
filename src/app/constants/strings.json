@@ -68,5 +68,14 @@
   "transferSendWollo": "Wollo",
   "transferSendEstimate": "Estimate",
   "transferMessagePlaceholder": "Add a message to your Wollo transfer?",
-  "transferProgressButtonLabel": "Next"
+  "transferProgressButtonLabel": "Next",
+  "transferErrorNoGas": "Not enough gas for transaction",
+  "transferErrorInvalidKey": "Invalid destination key",
+  "transferErrorInvalidAmount": "Invalid amount",
+  "transferErrorInvalidMessage": "Invalid message",
+  "transferErrorTrust": "Destination account does not accept Wollo",
+  "transferStatusChecking": "Checking destination account",
+  "transferStatusSending": "Sending Wollo",
+  "transferStatusFailed": "Transfer failed",
+  "transferStatusComplete": "Transfer complete"
 }

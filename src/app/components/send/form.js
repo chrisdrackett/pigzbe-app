@@ -70,9 +70,9 @@ export default class Form extends Component {
 
         this.setState({
             confirm: keyValid && amountValid && memoValid,
-            keyError: keyValid ? null : new Error('Invalid key'),
-            amountError: amountValid ? null : new Error('Invalid amount'),
-            memoError: memoValid ? null : new Error('Invalid message')
+            keyError: keyValid ? null : new Error(strings.transferErrorInvalidKey),
+            amountError: amountValid ? null : new Error(strings.transferErrorInvalidAmount),
+            memoError: memoValid ? null : new Error(strings.transferErrorInvalidMessage)
         });
     }
 
