@@ -50,7 +50,9 @@ export default StyleSheet.create({
         fontFamily,
         color: color.grey,
         fontSize: 12,
-        width: 170,
+        width: 145,
+        flexBasis: 145,
+        flexGrow: 0,
     },
     memo: {
         fontFamily,
