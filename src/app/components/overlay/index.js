@@ -40,8 +40,7 @@ class Overlay extends Component {
         const {conversionKey} = this.state;
         const {coin, label, labelOne} = conversions[conversionKey];
 
-        console.log('exchange', exchange);
-        const conversion = exchange[coin] || 1;
+        const conversion = exchange && exchange[coin] || 1;
         const dps = COIN_DPS[coin] || 0;
         const compareValue = moneyFormat(String(wolloCollected * conversion), dps);
 

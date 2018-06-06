@@ -1,13 +1,15 @@
 import {USE_TESTNET, BASE_CURRENCY} from '../constants';
 
 import {
-    WOLLO_SET_LOADING,
-    WOLLO_SET_ERROR,
+    WOLLO_LOADING,
+    WOLLO_ERROR,
     WOLLO_USE_TESTNET,
     WOLLO_UPDATE_ACCOUNT,
     WOLLO_UPDATE_BALANCE,
     WOLLO_UPDATE_PAYMENTS,
-    WOLLO_SET_SENDING,
+    WOLLO_SENDING,
+    WOLLO_SEND_COMPLETE,
+    WOLLO_SEND_STATUS,
     WOLLO_UPDATE_XLM,
     WOLLO_UPDATE_ISSUER
 } from '../actions';
@@ -23,6 +25,8 @@ export const initialState = {
     loading: false,
     error: null,
     sending: false,
+    sendStatus: null,
+    sendComplete: false,
 };
 
 export default (state = initialState, action) => {
@@ -47,17 +51,32 @@ export default (state = initialState, action) => {
                 ...state,
                 payments: action.payments
             };
-        case WOLLO_SET_LOADING:
+        case WOLLO_LOADING:
             return {
                 ...state,
                 loading: action.loading
             };
-        case WOLLO_SET_ERROR:
+        case WOLLO_ERROR:
             return {
                 ...state,
                 error: action.error
             };
-        case WOLLO_SET_SENDING:
+        case WOLLO_SENDING:
+            return {
+                ...state,
+                sending: action.sending
+            };
+        case WOLLO_SEND_STATUS:
+            return {
+                ...state,
+                sendStatus: action.sendStatus
+            };
+        case WOLLO_SEND_COMPLETE:
+            return {
+                ...state,
+                sendComplete: action.sendComplete
+            };
+        case WOLLO_SENDING:
             return {
                 ...state,
                 sending: action.sending

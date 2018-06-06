@@ -67,5 +67,6 @@
   "transferSendKey": "Enter account key",
   "transferSendWollo": "Wollo",
   "transferSendEstimate": "Estimate",
-  "transferMessagePlaceholder": "Add a message to your Wollo transfer?"
+  "transferMessagePlaceholder": "Add a message to your Wollo transfer?",
+  "transferProgressButtonLabel": "Next"
 }

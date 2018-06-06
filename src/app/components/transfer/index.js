@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Text} from 'react-native';
 import styles from './styles';
 import {
     strings,
@@ -12,6 +11,7 @@ import Button from '../button';
 import Wollo from '../wollo';
 import Payments from '../payments';
 import Footer from '../footer';
+import {wolloError} from '../../actions';
 
 export default connect(
     state => ({
@@ -22,6 +22,7 @@ export default connect(
         hasGas: state.wollo.hasGas,
     })
 )(({
+    dispatch,
     balance,
     balanceXLM,
     minXLM,
@@ -34,10 +35,16 @@ export default connect(
         <Pig style={styles.pig}/>
         <Payments/>
         <Footer>
-            <Text>XLM: {balanceXLM} MIN: {minXLM}</Text>
             <Button
                 label={strings.transferButtonLabel}
-                onPress={() => navigation.navigate(SCREEN_SEND)}
+                onPress={() => {
+                    if (!hasGas) {
+                        const errMsg = `Not enough gas for transaction (Balance ${balanceXLM}XLM. Required ${minXLM}XLM)`;
+                        dispatch(wolloError(new Error(errMsg)));
+                        return;
+                    }
+                    navigation.navigate(SCREEN_SEND);
+                }}
                 disabled={!hasGas}
                 outline
             />

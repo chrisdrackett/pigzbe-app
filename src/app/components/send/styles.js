@@ -73,7 +73,7 @@ export default StyleSheet.create({
         marginLeft: 42,
     },
     sending: {
-        backgroundColor: color.blueOpacity40,
+        backgroundColor: color.blueOpacity80,
         position: 'absolute',
         top: 0,
         right: 0,

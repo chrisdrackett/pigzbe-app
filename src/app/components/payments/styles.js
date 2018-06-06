@@ -37,7 +37,7 @@ export default StyleSheet.create({
         fontFamily,
         color: color.darkGrey,
         fontSize: 16,
-        lineHeight: 16,
+        lineHeight: 18,
     },
     direction: {
         width: 7,

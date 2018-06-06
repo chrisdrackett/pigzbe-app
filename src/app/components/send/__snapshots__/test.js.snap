@@ -39,7 +39,7 @@ Array [
       <View
         contentContainerStyle={undefined}
         enabled={true}
-        keyboardVerticalOffset={0}
+        keyboardVerticalOffset={-70}
         onLayout={[Function]}
         style={undefined}
       >

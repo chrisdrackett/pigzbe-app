@@ -321,6 +321,9 @@ Array [
                     "paddingTop": 10,
                     "textAlign": "center",
                   },
+                  Object {
+                    "color": "rgba(0, 50, 120, 0.4)",
+                  },
                   undefined,
                 ]
               }
