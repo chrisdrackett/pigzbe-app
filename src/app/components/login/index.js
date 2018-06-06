@@ -4,7 +4,8 @@ import {
     Text,
     View,
     Image,
-    Dimensions
+    Dimensions,
+    Keyboard
 } from 'react-native';
 import {tryAutoLoad, load} from '../../actions';
 import styles from './styles';
@@ -77,7 +78,10 @@ class Login extends Component {
                         />
                         <Button
                             label={strings.loginSubmitButtonLabel}
-                            onPress={() => dispatch(load(this.state.inputText))}
+                            onPress={() => {
+                                Keyboard.dismiss();
+                                dispatch(load(this.state.inputText));
+                            }}
                             disabled={!this.state.inputText}
                         />
                         {/* <Button
