@@ -1,6 +1,6 @@
 import {load, save} from '../utils/storage';
 import apiURL from '../utils/api-url';
-import fetchJSON from './fetch-json';
+import fetchTimeout from '../utils/fetch-timeout';
 // import {loadContent} from './';
 // import {clear} from '../utils/storage';
 // import wait from './wait';
@@ -19,7 +19,7 @@ export const messagesNotify = notify => ({type: MESSAGES_NOTIFY, notify});
 export const messagesMarkRead = () => ({type: MESSAGES_MARK_READ});
 
 // export const loadMessages = (query = '') => () => fetch(`${apiURL()}/content/messages?${query}`).then(res => res.json());
-export const loadMessages = (query = '') => () => fetchJSON(`${apiURL()}/content/messages?${query}`);
+export const loadMessages = (query = '') => () => fetchTimeout(`${apiURL()}/content/messages?${query}`);
 
 export const messagesLoad = () => dispatch => {
     console.log('messagesLoad');

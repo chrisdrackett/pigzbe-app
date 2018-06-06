@@ -4,7 +4,6 @@ import {
     Text,
     View,
     Image,
-    KeyboardAvoidingView,
     Dimensions
 } from 'react-native';
 import {tryAutoLoad, load} from '../../actions';
@@ -18,23 +17,9 @@ import {
     // SCREEN_HELP
 } from '../../constants';
 import DevPanel from '../dev-panel';
-import isDesktop from '../../utils/is-desktop';
+import KeyboardAvoid from '../keyboard-avoid';
 
 const getWidth = () => Dimensions.get('window').width;
-
-const KeybView = ({children}) => {
-    if (isDesktop) {
-        return children;
-    }
-    return (
-        <KeyboardAvoidingView
-            contentContainerStyle={styles.containerBodyKeyb}
-            behavior="position"
-            enabled>
-            {children}
-        </KeyboardAvoidingView>
-    );
-};
 
 class Login extends Component {
     state = {
@@ -72,7 +57,7 @@ class Login extends Component {
             <View style={styles.container} onLayout={() => this.setState({
                 deviceWidth: getWidth()
             })}>
-                <KeybView>
+                <KeyboardAvoid>
                     <View style={[styles.containerHeader, {
                         width: this.state.deviceWidth
                     }]}>
@@ -101,7 +86,7 @@ class Login extends Component {
                         onPress={() => navigation.navigate(SCREEN_HELP)}
                     /> */}
                     </View>
-                </KeybView>
+                </KeyboardAvoid>
                 <DevPanel/>
                 <Loader
                     isLoading={isLoading}

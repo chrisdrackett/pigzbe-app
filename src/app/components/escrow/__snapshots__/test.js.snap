@@ -82,7 +82,7 @@ exports[`Escrow renders correctly 1`] = `
         <Image
           source={
             Object {
-              "testUri": "../../../src/app/components/balance/images/currency_logo.png",
+              "testUri": "../../../src/app/components/wollo/images/currency_logo.png",
             }
           }
           style={
@@ -156,8 +156,8 @@ exports[`Escrow renders correctly 1`] = `
         "alignSelf": "stretch",
         "backgroundColor": "rgb(247, 247, 250)",
         "flex": 1,
-        "flexGrow": 1,
-        "justifyContent": "flex-start",
+        "justifyContent": "center",
+        "position": "relative",
       }
     }
   >
@@ -205,75 +205,95 @@ exports[`Escrow renders correctly 1`] = `
   <View
     style={
       Object {
-        "alignItems": "center",
-        "alignSelf": "stretch",
-        "flex": 1,
-        "flexBasis": 95,
-        "flexGrow": 0,
-        "height": 95,
-        "justifyContent": "center",
-        "paddingBottom": 10,
-        "paddingLeft": "9.375%",
-        "paddingRight": "9.375%",
-        "paddingTop": 20,
+        "position": "relative",
+        "width": "100%",
       }
     }
   >
     <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
-      accessibilityTraits={undefined}
-      accessible={true}
-      collapsable={undefined}
-      hasTVPreferredFocus={undefined}
-      hitSlop={undefined}
-      isTVSelectable={true}
-      nativeID={undefined}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.05)",
+          "height": 5,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": -5,
+          "zIndex": 1,
+        }
+      }
+    />
+    <View
       style={
         Object {
           "alignSelf": "stretch",
-          "backgroundColor": "rgb(253, 223, 6)",
-          "borderColor": "rgb(253, 223, 6)",
-          "borderRadius": 22.5,
-          "borderWidth": 1,
-          "marginBottom": 10,
-          "opacity": 1,
+          "backgroundColor": "rgb(255, 255, 255)",
+          "flexBasis": 84,
+          "flexGrow": 0,
+          "height": 84,
+          "paddingBottom": 20,
+          "paddingLeft": "9.375%",
+          "paddingRight": "9.375%",
+          "paddingTop": 19,
         }
       }
-      testID={undefined}
-      tvParallaxProperties={undefined}
     >
-      <Text
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
         accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
+        collapsable={undefined}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
-              "alignSelf": "stretch",
-              "color": "rgb(0, 50, 120)",
-              "fontFamily": "Poppins",
-              "fontSize": 16,
-              "fontWeight": "bold",
-              "height": 45,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 10,
-              "textAlign": "center",
-            },
-            undefined,
-          ]
+          Object {
+            "alignSelf": "stretch",
+            "backgroundColor": "rgba(255, 255, 255, 0)",
+            "borderColor": "rgb(0, 50, 120)",
+            "borderRadius": 22.5,
+            "borderWidth": 1,
+            "marginBottom": 10,
+            "opacity": 1,
+          }
         }
+        testID={undefined}
+        tvParallaxProperties={undefined}
       >
-        Back
-      </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "alignSelf": "stretch",
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "height": 45,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+                "paddingTop": 10,
+                "textAlign": "center",
+              },
+              undefined,
+            ]
+          }
+        >
+          Back
+        </Text>
+      </View>
     </View>
   </View>
 </View>

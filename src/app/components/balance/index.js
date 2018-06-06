@@ -1,18 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {
-    Text,
-    View,
-    Image
-} from 'react-native';
+import {Text} from 'react-native';
 import Avatar from '../avatar';
 import styles from './styles';
 import {
     strings,
     SCREEN_ESCROW,
     COINS,
-    COIN_DPS,
-    ASSET_CODE
+    COIN_DPS
 } from '../../constants';
 import ConvertBalance from '../convert-balance';
 import BalanceGraph from '../balance-graph';
@@ -20,18 +15,9 @@ import Loader from '../loader';
 import BaseView from '../base-view';
 import Pig from '../pig';
 import Button from '../button';
-import moneyFormat from '../../utils/money-format';
+import Wollo from '../wollo';
+import Footer from '../footer';
 import {getExchange} from '../../actions/coins';
-
-export const Wollo = ({balance}) => (
-    <View style={styles.wolloContainer}>
-        <View style={styles.balanceContainer}>
-            <Image style={styles.currencyLogo} source={require('./images/currency_logo.png')} />
-            <Text style={styles.balance}>{moneyFormat(balance, COIN_DPS[ASSET_CODE])}</Text>
-        </View>
-        <Text style={styles.label}>{strings.walletBalance}</Text>
-    </View>
-);
 
 class Balance extends Component {
 
@@ -55,23 +41,28 @@ class Balance extends Component {
             return <Loader isLoading />;
         }
 
+        const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
+
         return (
-            <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container} error={error}>
-                <Avatar image={image}/>
-                <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
-                <Wollo balance={balance}/>
-                <Pig style={styles.pig}/>
-                <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
-                <ConvertBalance coins={COINS.filter(c => c !== baseCurrency)} exchange={exchange} balance={balance} dps={COIN_DPS}/>
-                {escrow ? (
-                    <View style={styles.escrow}>
+            <Fragment>
+                <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container} error={error}>
+                    <Avatar image={image}/>
+                    <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
+                    <Wollo balance={balance}/>
+                    <Pig style={styles.pig}/>
+                    <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
+                    <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
+                </BaseView>
+                <Footer>
+                    {escrow ? (
                         <Button
-                            label={'Escrow account'}
+                            outline
+                            label={strings.escrowButtonLabel}
                             onPress={() => navigation.navigate(SCREEN_ESCROW)}
                         />
-                    </View>
-                ) : null}
-            </BaseView>
+                    ) : null}
+                </Footer>
+            </Fragment>
         );
     }
 }

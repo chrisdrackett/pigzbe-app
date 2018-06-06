@@ -1,4 +1,4 @@
-import Stellar from './';
+import {Server, Network} from './';
 import {USE_TESTNET} from '../constants';
 
 let server = null;
@@ -12,14 +12,14 @@ export const getServer = () => {
 
 export const setServer = (useTestnet = USE_TESTNET) => {
     if (useTestnet) {
-        Stellar.Network.useTestNetwork();
+        Network.useTestNetwork();
     } else {
-        Stellar.Network.usePublicNetwork();
+        Network.usePublicNetwork();
     }
 
     const uri = useTestnet ? 'https://horizon-testnet.stellar.org' : 'https://horizon.stellar.org';
 
-    server = new Stellar.Server(uri);
+    server = new Server(uri);
 };
 
 export const getServerURL = () => getServer().serverURL.href();

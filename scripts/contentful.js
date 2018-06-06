@@ -26,9 +26,22 @@ const getEntry = id => {
     return axios.get(uri).then(res => res.data);
 };
 
-getEntry('3XEFz4Mf3qqMSaUSeKEM8e')
-    .then(({items}) => items.pop())
-    .then(({fields}) => exportJSON(fields))
-    .catch(error => {
-        console.error(error.message);
+const checkDuplicateKeys = entries => {
+    const keys = [];
+    entries.forEach(entry => {
+        const entryKeys = Object.keys(entry);
+        const duplicateKeys = entryKeys.filter(key => keys.includes(key));
+        if (duplicateKeys.length) {
+            throw new Error(`Duplicate key ${duplicateKeys.join(',')}`);
+        }
+        keys.push(...entryKeys);
     });
+    return entries;
+};
+
+getEntry('5W591xuNMW22EayaUCwyEC')
+    .then(data => data.includes.Entry.map(entry => entry.fields))
+    .then(entries => checkDuplicateKeys(entries))
+    .then(entries => Object.assign({}, ...entries))
+    .then(fields => exportJSON(fields))
+    .catch(error => console.error(error));

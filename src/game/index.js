@@ -9,6 +9,11 @@ import sounds from './assets/sounds';
 import Debug from './debug';
 import EventEmitter from 'eventemitter3';
 import sono from 'sono';
+import {
+    READY,
+    LOG,
+    ERROR
+} from './constants';
 
 const {abs, min, cos, sin} = Math;
 
@@ -101,7 +106,7 @@ export default class Game {
         );
 
         app.loader.onError.add(error => {
-            app.emitter.emit('error', error.message);
+            app.emitter.emit(ERROR, error.message);
         });
 
         app.loader.load((loader, assets) => {
@@ -131,7 +136,7 @@ export default class Game {
         }
 
         const rendererType = (app.renderer instanceof PIXI.CanvasRenderer) ? 'canvas' : 'webgl';
-        app.emitter.emit('log', rendererType);
+        app.emitter.emit(LOG, rendererType);
 
         if (rendererType === 'canvas') {
             this.onReady(app);
@@ -145,7 +150,7 @@ export default class Game {
         app.start();
         app.ticker.remove(this.update);
         app.ticker.add(this.update);
-        app.emitter.emit('ready');
+        app.emitter.emit(READY);
     }
 
     update = delta => {

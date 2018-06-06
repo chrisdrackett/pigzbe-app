@@ -1,2 +1,2 @@
-import Stellar from '@pigzbe/react-native-stellar-sdk';
-export default Stellar;
+export * from '@pigzbe/react-native-stellar-sdk';
+export default module.exports;

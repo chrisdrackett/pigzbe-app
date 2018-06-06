@@ -6,6 +6,7 @@ import Create from '../create';
 import Auth from '../auth';
 import Alert from '../../components/alert';
 import {connectionState} from '../../actions/check-connection';
+import {strings} from '../../constants';
 
 class Root extends Component {
 
@@ -29,6 +30,7 @@ class Root extends Component {
             hasProfile,
             isLoading,
         } = this.props;
+
         if (isLoggedIn && hasProfile && !isLoading) {
             return <Tabs/>;
         }
@@ -46,7 +48,7 @@ class Root extends Component {
             isConnected,
         } = this.props;
 
-        const errorMessage = error || (!isConnected ? new Error('Internet is down') : null);
+        const errorMessage = error || (!isConnected ? new Error(strings.errorConnection) : null);
 
         return (
             <Fragment>

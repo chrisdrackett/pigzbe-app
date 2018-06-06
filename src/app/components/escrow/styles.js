@@ -17,14 +17,6 @@ export default StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center'
     },
-    containerBody: {
-        flexGrow: 1,
-        backgroundColor: color.lightGrey,
-        alignSelf: 'stretch',
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
     title: {
         fontFamily,
         color: color.white,
@@ -53,6 +45,7 @@ export default StyleSheet.create({
         flexDirection: 'row'
     },
     button: {
+        backgroundColor: color.white,
         height: 95,
         flexBasis: 95,
         flexGrow: 0,
@@ -78,15 +71,6 @@ export default StyleSheet.create({
         fontFamily,
         color: color.darkGrey,
         fontSize: 20
-    },
-    border: {
-        backgroundColor: color.blackOpacity5,
-        height: 5,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1
     },
     disabled: {
         backgroundColor: color.grey,

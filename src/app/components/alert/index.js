@@ -1,26 +1,24 @@
 import React, {Component} from 'react';
-import {
-    Text,
-    View
-} from 'react-native';
+import {Text, View} from 'react-native';
 import styles from './styles';
 import Button from '../button';
+import {strings} from '../../constants';
 
 const getErrorDetail = error => {
     if (!error) {
-        return 'Error';
+        return strings.errorUnknown;
     }
     // console.error(error.data ? error.data.extras.result_codes.transaction : error);
 
     if (error.message && error.message.title) {
-        return `Error: ${error.message.title}`;
+        return `${strings.errorMessageStart} ${error.message.title}`.trim();
     }
 
     if (error.message) {
-        return `Error: ${error.message}`;
+        return `${strings.errorMessageStart} ${error.message}`.trim();
     }
 
-    return 'Error';
+    return strings.errorUnknown;
 };
 
 class Alert extends Component {
@@ -49,7 +47,7 @@ class Alert extends Component {
                     <Text style={styles.message}>{getErrorDetail(error)}</Text>
                     <View style={styles.dismiss}>
                         <Button
-                            label={'dismiss'}
+                            label={strings.errorDismiss}
                             plain
                             onPress={() => this.dismiss()}
                         />

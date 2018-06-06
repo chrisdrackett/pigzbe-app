@@ -5,15 +5,8 @@ import {
     View
 } from 'react-native';
 import styles from './styles';
-import moment from 'moment';
 import openURL from '../../utils/open-url';
-
-const daysAgo = date => {
-    const str = moment(date).fromNow();
-    return str.slice(0, 1).toUpperCase() + str.slice(1);
-};
-
-const dateFormat = date => moment(date).format('LL');
+import {daysAgo, dateFormat} from '../../utils/date';
 
 const Inner = ({date, text}) => (
     <View>

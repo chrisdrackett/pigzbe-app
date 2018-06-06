@@ -16,13 +16,6 @@ export default StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center'
     },
-    containerBody: {
-        backgroundColor: color.lightGrey,
-        width: '100%',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     title: {
         fontFamily,
         color: color.white,
@@ -53,13 +46,4 @@ export default StyleSheet.create({
         color: color.darkGrey,
         fontSize: 14
     },
-    border: {
-        backgroundColor: color.blackOpacity5,
-        height: 5,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1
-    }
 });

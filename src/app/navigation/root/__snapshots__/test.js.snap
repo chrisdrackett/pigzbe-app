@@ -15,11 +15,7 @@ Array [
     }
   >
     <View
-      contentContainerStyle={
-        Object {
-          "backgroundColor": "rgb(0, 50, 120)",
-        }
-      }
+      contentContainerStyle={undefined}
       enabled={true}
       keyboardVerticalOffset={0}
       onLayout={[Function]}
@@ -28,9 +24,7 @@ Array [
       <View
         style={
           Array [
-            Object {
-              "backgroundColor": "rgb(0, 50, 120)",
-            },
+            undefined,
             Object {
               "bottom": 0,
             },
@@ -178,24 +172,30 @@ Array [
           </Text>
           <TextInput
             allowFontScaling={true}
+            editable={true}
+            maxLength={undefined}
+            multiline={false}
+            numberOfLines={1}
             onChangeText={[Function]}
             placeholder="Your key"
             placeholderTextColor="rgba(255, 255, 255, 0.6)"
             style={
-              Object {
-                "alignSelf": "stretch",
-                "borderColor": "rgb(255, 255, 255)",
-                "borderRadius": 22.5,
-                "borderWidth": 1,
-                "color": "rgb(255, 255, 255)",
-                "fontFamily": "Poppins",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "height": 45,
-                "marginBottom": 10,
-                "paddingLeft": 30,
-                "paddingRight": 20,
-              }
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "borderColor": "rgb(255, 255, 255)",
+                  "borderRadius": 22.5,
+                  "borderWidth": 1,
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "height": 45,
+                  "marginBottom": 10,
+                  "paddingLeft": 30,
+                  "paddingRight": 20,
+                },
+              ]
             }
             value="SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4"
           />
@@ -368,7 +368,7 @@ Array [
         }
       }
     >
-      Error: Internet is down
+      Error: Connection error
     </Text>
     <View
       style={

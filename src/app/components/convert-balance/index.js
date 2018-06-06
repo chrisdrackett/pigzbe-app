@@ -9,10 +9,11 @@ import {
 } from '../../constants';
 import openURL from '../../utils/open-url';
 import CoinCompare from '../coin-compare';
+import Title from '../title';
 
 const ConvertBalance = ({exchange, balance, coins, dps}) => (
     <View style={styles.container}>
-        <Text style={styles.title}>{strings.walletConversionTitle}</Text>
+        <Title>{strings.walletConversionTitle}</Title>
         <Text
             style={styles.label}
             onPress={() => openURL(strings.walletConversionCreditUrl)}>

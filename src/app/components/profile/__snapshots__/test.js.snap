@@ -134,47 +134,59 @@ Array [
         </View>
         <TextInput
           allowFontScaling={true}
+          editable={true}
+          maxLength={undefined}
+          multiline={false}
+          numberOfLines={1}
           onChangeText={[Function]}
           placeholder="Name"
           placeholderTextColor="rgba(255, 255, 255, 0.6)"
           style={
-            Object {
-              "alignSelf": "stretch",
-              "borderColor": "rgb(255, 255, 255)",
-              "borderRadius": 22.5,
-              "borderWidth": 1,
-              "color": "rgb(255, 255, 255)",
-              "fontFamily": "Poppins",
-              "fontSize": 14,
-              "fontWeight": "bold",
-              "height": 45,
-              "marginBottom": 10,
-              "paddingLeft": 30,
-              "paddingRight": 20,
-            }
+            Array [
+              Object {
+                "alignSelf": "stretch",
+                "borderColor": "rgb(255, 255, 255)",
+                "borderRadius": 22.5,
+                "borderWidth": 1,
+                "color": "rgb(255, 255, 255)",
+                "fontFamily": "Poppins",
+                "fontSize": 14,
+                "fontWeight": "bold",
+                "height": 45,
+                "marginBottom": 10,
+                "paddingLeft": 30,
+                "paddingRight": 20,
+              },
+            ]
           }
           value="Name"
         />
         <TextInput
           allowFontScaling={true}
+          editable={true}
+          maxLength={undefined}
+          multiline={false}
+          numberOfLines={1}
           onChangeText={[Function]}
           placeholder="Email address"
           placeholderTextColor="rgba(255, 255, 255, 0.6)"
           style={
-            Object {
-              "alignSelf": "stretch",
-              "borderColor": "rgb(255, 255, 255)",
-              "borderRadius": 22.5,
-              "borderWidth": 1,
-              "color": "rgb(255, 255, 255)",
-              "fontFamily": "Poppins",
-              "fontSize": 14,
-              "fontWeight": "bold",
-              "height": 45,
-              "marginBottom": 10,
-              "paddingLeft": 30,
-              "paddingRight": 20,
-            }
+            Array [
+              Object {
+                "alignSelf": "stretch",
+                "borderColor": "rgb(255, 255, 255)",
+                "borderRadius": 22.5,
+                "borderWidth": 1,
+                "color": "rgb(255, 255, 255)",
+                "fontFamily": "Poppins",
+                "fontSize": 14,
+                "fontWeight": "bold",
+                "height": 45,
+                "marginBottom": 10,
+                "paddingLeft": 30,
+                "paddingRight": 20,
+              },
+            ]
           }
           value="mail@example.com"
         />
@@ -583,47 +595,59 @@ Array [
         </View>
         <TextInput
           allowFontScaling={true}
+          editable={true}
+          maxLength={undefined}
+          multiline={false}
+          numberOfLines={1}
           onChangeText={[Function]}
           placeholder="Name"
           placeholderTextColor="rgba(255, 255, 255, 0.6)"
           style={
-            Object {
-              "alignSelf": "stretch",
-              "borderColor": "rgb(255, 255, 255)",
-              "borderRadius": 22.5,
-              "borderWidth": 1,
-              "color": "rgb(255, 255, 255)",
-              "fontFamily": "Poppins",
-              "fontSize": 14,
-              "fontWeight": "bold",
-              "height": 45,
-              "marginBottom": 10,
-              "paddingLeft": 30,
-              "paddingRight": 20,
-            }
+            Array [
+              Object {
+                "alignSelf": "stretch",
+                "borderColor": "rgb(255, 255, 255)",
+                "borderRadius": 22.5,
+                "borderWidth": 1,
+                "color": "rgb(255, 255, 255)",
+                "fontFamily": "Poppins",
+                "fontSize": 14,
+                "fontWeight": "bold",
+                "height": 45,
+                "marginBottom": 10,
+                "paddingLeft": 30,
+                "paddingRight": 20,
+              },
+            ]
           }
           value={null}
         />
         <TextInput
           allowFontScaling={true}
+          editable={true}
+          maxLength={undefined}
+          multiline={false}
+          numberOfLines={1}
           onChangeText={[Function]}
           placeholder="Email address"
           placeholderTextColor="rgba(255, 255, 255, 0.6)"
           style={
-            Object {
-              "alignSelf": "stretch",
-              "borderColor": "rgb(255, 255, 255)",
-              "borderRadius": 22.5,
-              "borderWidth": 1,
-              "color": "rgb(255, 255, 255)",
-              "fontFamily": "Poppins",
-              "fontSize": 14,
-              "fontWeight": "bold",
-              "height": 45,
-              "marginBottom": 10,
-              "paddingLeft": 30,
-              "paddingRight": 20,
-            }
+            Array [
+              Object {
+                "alignSelf": "stretch",
+                "borderColor": "rgb(255, 255, 255)",
+                "borderRadius": 22.5,
+                "borderWidth": 1,
+                "color": "rgb(255, 255, 255)",
+                "fontFamily": "Poppins",
+                "fontSize": 14,
+                "fontWeight": "bold",
+                "height": 45,
+                "marginBottom": 10,
+                "paddingLeft": 30,
+                "paddingRight": 20,
+              },
+            ]
           }
           value={null}
         />

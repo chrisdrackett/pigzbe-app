@@ -6,6 +6,16 @@ import styles from './styles';
 import Overlay from '../overlay';
 import Loader from '../loader';
 import {gameWolloCollected, gameOverlayOpen} from '../../actions';
+import {strings} from '../../constants';
+import {
+    PAUSE,
+    RESUME,
+    READY,
+    COLLECTED,
+    LEARN,
+    LOG,
+    ERROR
+} from '../../../game/constants';
 
 // const localWebURL = require('../../../game/game.html');
 console.log('Platform.OS', Platform.OS);
@@ -19,11 +29,11 @@ class GameView extends NavListener {
     }
 
     onBlur() {
-        this.sendPostMessage('pause');
+        this.sendPostMessage(PAUSE);
     }
 
     onFocus() {
-        this.sendPostMessage('resume');
+        this.sendPostMessage(RESUME);
     }
 
     onMessage(event) {
@@ -32,19 +42,19 @@ class GameView extends NavListener {
         const {name, value} = JSON.parse(message);
         console.log('On Message', name, value);
         switch (name) {
-            case 'ready':
+            case READY:
                 this.setState({isLoading: false});
                 break;
-            case 'collected':
+            case COLLECTED:
                 dispatch(gameWolloCollected(value));
                 break;
-            case 'learn':
+            case LEARN:
                 dispatch(gameOverlayOpen(true));
                 break;
-            case 'log':
+            case LOG:
                 console.log('webview log', value);
                 break;
-            case 'error':
+            case ERROR:
                 console.log('webview error', value);
                 break;
             default:
@@ -70,7 +80,10 @@ class GameView extends NavListener {
                     onError={event => console.log(event)}
                 />
                 <Overlay/>
-                <Loader isLoading={this.state.isLoading} message={'Loading'}/>
+                <Loader
+                    isLoading={this.state.isLoading}
+                    message={strings.gameLoading}
+                />
             </View>
         );
     }

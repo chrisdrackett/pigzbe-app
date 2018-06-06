@@ -7,24 +7,25 @@ import styles from './styles';
 import images from './images';
 import moneyFormat from '../../utils/money-format';
 import {gameOverlayOpen} from '../../actions';
+import {strings, COIN_DPS} from '../../constants';
 
 const conversions = {
     carrot: {
-        conversion: 1,
-        label: 'carrots',
-        labelOne: 'carrot',
+        coin: 'CARROT',
+        label: strings.learnCarrots,
+        labelOne: strings.learnCarrotsSingle,
         dp: 2,
     },
     gold: {
-        conversion: 0.0027,
-        label: 'grams of gold',
-        labelOne: 'gram of gold',
+        coin: 'GOLD',
+        label: strings.learnGold,
+        labelOne: strings.learnGoldSingle,
         dp: 4,
     },
     dollar: {
-        conversion: 0.12,
-        label: 'dollars',
-        labelOne: 'dollar',
+        coin: 'USD',
+        label: strings.learnDollars,
+        labelOne: strings.learnDollarsSingle,
         dp: 2,
     }
 };
@@ -35,10 +36,13 @@ class Overlay extends Component {
     }
 
     render() {
-        const {dispatch, wolloCollected, overlayOpen} = this.props;
+        const {dispatch, exchange, wolloCollected, overlayOpen} = this.props;
         const {conversionKey} = this.state;
-        const {conversion, label, labelOne, dp} = conversions[conversionKey];
-        const compareValue = moneyFormat(String(wolloCollected * conversion), dp);
+        const {coin, label, labelOne} = conversions[conversionKey];
+
+        const conversion = exchange && exchange[coin] || 1;
+        const dps = COIN_DPS[coin] || 0;
+        const compareValue = moneyFormat(String(wolloCollected * conversion), dps);
 
         if (overlayOpen) {
             return (
@@ -48,8 +52,8 @@ class Overlay extends Component {
                             <Image style={styles.closeImg} source={images.close} />
                         </TouchableOpacity>
                         <Image style={styles.rabbit} source={images.rabbit} />
-                        <Text style={styles.title}>Let's learn!</Text>
-                        <Text style={styles.text}>How much is Wollo worth in...</Text>
+                        <Text style={styles.title}>{strings.learnTitle}</Text>
+                        <Text style={styles.text}>{strings.learnHowMuch}</Text>
                         <View style={styles.containerButtons}>
                             {Object.keys(conversions).map(b => (
                                 <ButtonIcon
@@ -60,11 +64,13 @@ class Overlay extends Component {
                                 />
                             ))}
                         </View>
-                        <Text style={styles.text}>1 Wollo is worth {conversion} {conversion === 1 ? labelOne : label}</Text>
+                        <Text style={styles.text}>{strings.learnOneWollo} {conversion} {conversion === 1 ? labelOne : label}</Text>
                         <View style={styles.containerComparison}>
                             <View style={styles.containerBlockCompare}>
                                 <Image style={styles.pile} source={images.wollo} />
-                                <Text style={styles.textCompare}>Your {wolloCollected} Wollo</Text>
+                                <Text style={styles.textCompare}>
+                                    {strings.learnCompareStart} {wolloCollected} {strings.learnCompareEnd}
+                                </Text>
                             </View>
                             <Image style={styles.equals} source={images.equals}/>
                             <View style={styles.containerBlockCompare}>
@@ -91,6 +97,7 @@ class Overlay extends Component {
 }
 
 export default connect(state => ({
+    exchange: state.coins.exchange,
     wolloCollected: state.game.wolloCollected,
     overlayOpen: state.game.overlayOpen
 }))(Overlay);

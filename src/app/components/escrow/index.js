@@ -1,24 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {
-    Text,
-    View,
-    FlatList,
-    ScrollView
-} from 'react-native';
+import {Text, View} from 'react-native';
 import styles from './styles';
 import Loader from '../loader';
 import Logo from '../logo';
 import Pig from '../pig';
 import Transaction from './transaction';
-import {Wollo} from '../balance';
+import Wollo from '../wollo';
 import Button from '../button';
-import isDesktop from '../../utils/is-desktop';
-import {SCREEN_BALANCE} from '../../constants';
-import {
-    loadEscrowAccount,
-    validateTransaction
-} from '../../actions';
+import {strings, SCREEN_BALANCE} from '../../constants';
+import {loadEscrowAccount, validateTransaction} from '../../actions';
+import ScrollList from '../scroll-list';
+import Footer from '../footer';
 
 class Escrow extends Component {
     async componentDidMount() {
@@ -36,50 +29,39 @@ class Escrow extends Component {
 
     render() {
         const {
-            error,
             navigation,
             balance,
             transactions,
             submitting
         } = this.props;
 
-        console.log(JSON.stringify(this.props, null, 2));
+        // console.log(JSON.stringify(this.props, null, 2));
 
         return (
             <View style={styles.container}>
                 <View style={styles.containerHeader}>
                     <Logo/>
                     <Text style={styles.title}>
-                        Your Escrow Account
+                        {strings.escrowTitle}
                     </Text>
                     <Wollo balance={balance}/>
                     <Pig/>
                 </View>
-                <View style={styles.containerBody}>
-                    <View style={styles.border}/>
-                    {isDesktop ? (
-                        <ScrollView style={{width: '100%'}}>
-                            {transactions.map((item, i) => (
-                                <Transaction key={i} {...item}/>
-                            ))}
-                        </ScrollView>
-                    ) : (
-                        <FlatList
-                            data={transactions}
-                            renderItem={({item}) => (
-                                <Transaction {...item}/>
-                            )}
-                        />
-                    )}
-                </View>
-                <View style={styles.button}>
+                <ScrollList
+                    border
+                    items={transactions}
+                    ItemComponent={Transaction}
+                />
+                <Footer>
                     <Button
-                        label={'Back'}
+                        outline
+                        label={strings.escrowBackButtonLabel}
                         onPress={() => navigation.navigate(SCREEN_BALANCE)}
                     />
-                </View>
+                </Footer>
                 <Loader
                     isLoading={submitting}
+                    message={strings.escrowSubmitting}
                     transparent
                 />
             </View>

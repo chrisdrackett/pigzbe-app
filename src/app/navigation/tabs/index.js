@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {TabNavigator, TabBarBottom} from 'react-navigation';
 import {View, Image} from 'react-native';
 import Wallet from '../wallet';
 import Game from '../../components/game';
 import Messages from '../../components/messages';
+import Transfer from '../transfer';
 import {
     strings,
     SCREEN_WALLET,
     SCREEN_GAME,
-    SCREEN_MESSAGES
+    SCREEN_MESSAGES,
+    SCREEN_TRANSFER
 } from '../../constants';
 import {
     color,
@@ -28,6 +30,15 @@ const nav = {
         iconW: 19,
         iconH: 19
     },
+    [SCREEN_TRANSFER]: {
+        screen: Transfer,
+        navigationOptions: {
+            title: strings.menuTransfer
+        },
+        icon: 'transfer',
+        iconW: 19,
+        iconH: 17
+    },
     [SCREEN_GAME]: {
         screen: Game,
         navigationOptions: {
@@ -45,7 +56,7 @@ const nav = {
         icon: 'messages',
         iconW: 20,
         iconH: 13
-    }
+    },
 };
 
 const TabBarIcon = connect(state => ({
@@ -90,10 +101,7 @@ const TabBarIcon = connect(state => ({
     );
 });
 
-
-// https://reactnavigation.org/docs/tab-navigator.html
-
-const Tabs = TabNavigator(nav, {
+export default TabNavigator(nav, {
     initialRouteName: SCREEN_WALLET,
     navigationOptions: ({navigation}) => ({
         tabBarIcon: ({focused}) => {
@@ -114,6 +122,7 @@ const Tabs = TabNavigator(nav, {
             height: 50
         },
         style: {
+            backgroundColor: color.white,
             height: 50,
             borderTopWidth: 0
         },
@@ -121,17 +130,10 @@ const Tabs = TabNavigator(nav, {
             fontFamily,
             fontWeight: 'bold',
             fontSize: 10
-        }
+        },
     },
     tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',
     animationEnabled: false,
     swipeEnabled: false
 });
-
-export default () => (
-    <View style={styles.container}>
-        <View style={styles.border}/>
-        <Tabs/>
-    </View>
-);

@@ -9,6 +9,7 @@ export const color = {
     pink: 'rgb(230, 155, 230)',
     blue: 'rgb(0, 50, 120)',
     blueOpacity40: 'rgba(0, 50, 120, 0.4)',
+    blueOpacity80: 'rgba(0, 50, 120, 0.8)',
     mediumBlue: 'rgb(21, 74, 150)',
     yellow: 'rgb(253, 223, 6)',
     red: 'rgb(255, 0, 0)',
@@ -17,9 +18,11 @@ export const color = {
     lightGrey: 'rgb(247, 247, 250)',
     mediumGrey: 'rgb(225, 225, 225)',
     darkGrey: 'rgb(74, 74, 74)',
+    mediumDarkGrey: 'rgb(123, 123, 123)',
     darkGreyOpacity50: 'rgba(74, 74, 74, 0.5)',
     purple: 'rgb(72, 70, 148)',
     lightPurple: 'rgb(241, 241, 255)',
+    transparent: 'rgba(255, 255, 255, 0)',
 };
 
 export const paddingH = '9.375%';
@@ -34,4 +37,15 @@ export const container = {
 
 export const scrollView = {
     backgroundColor: color.blue,
+};
+
+export const border = {
+    backgroundColor: color.blackOpacity5,
+    // backgroundColor: 'red',
+    height: 5,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1
 };

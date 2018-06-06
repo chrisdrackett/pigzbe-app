@@ -7,6 +7,12 @@ import Overlay from '../overlay';
 import Loader from '../loader';
 import {container} from '../../styles';
 import {gameWolloCollected, gameOverlayOpen} from '../../actions';
+import {strings} from '../../constants';
+import {
+    READY,
+    COLLECTED,
+    LEARN
+} from '../../../game/constants';
 
 class GameView extends NavListener {
     state = {
@@ -18,15 +24,15 @@ class GameView extends NavListener {
 
         this.game = new Game(this.el);
 
-        this.game.app.emitter.on('ready', () => {
+        this.game.app.emitter.on(READY, () => {
             console.log('GAME READY');
             this.setState({isLoading: false});
         });
-        this.game.app.emitter.on('collected', amount => {
+        this.game.app.emitter.on(COLLECTED, amount => {
             console.log('collected', amount);
             this.props.dispatch(gameWolloCollected(amount));
         });
-        this.game.app.emitter.on('learn', () => {
+        this.game.app.emitter.on(LEARN, () => {
             console.log('learn');
             this.props.dispatch(gameOverlayOpen(true));
         });
@@ -54,7 +60,10 @@ class GameView extends NavListener {
                     style={container}
                 />
                 <Overlay/>
-                <Loader isLoading={this.state.isLoading} message={'Loading'}/>
+                <Loader
+                    isLoading={this.state.isLoading}
+                    message={strings.gameLoading}
+                />
             </View>
         );
     }

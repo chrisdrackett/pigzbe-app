@@ -1,0 +1,339 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transfer renders correctly 1`] = `
+Array [
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(0, 50, 120)",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../src/app/components/logo/images/pigzbe_logo_inapp.png",
+        }
+      }
+      style={
+        Object {
+          "height": 25,
+          "marginBottom": 10,
+          "marginTop": 34,
+          "width": 65,
+        }
+      }
+    />
+  </View>,
+  <RCTScrollView
+    contentContainerStyle={
+      Object {
+        "alignItems": "center",
+        "alignSelf": "stretch",
+        "backgroundColor": "rgb(0, 50, 120)",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+    style={
+      Object {
+        "backgroundColor": "rgb(0, 50, 120)",
+      }
+    }
+  >
+    <View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "justifyContent": "center",
+            "marginTop": 10,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Image
+            source={
+              Object {
+                "testUri": "../../../src/app/components/wollo/images/currency_logo.png",
+              }
+            }
+            style={
+              Object {
+                "height": 19,
+                "marginRight": 10,
+                "width": 23,
+              }
+            }
+          />
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "rgb(255, 255, 255)",
+                "fontFamily": "Poppins",
+                "fontSize": 40,
+              }
+            }
+          >
+            0
+          </Text>
+        </View>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "rgba(255, 255, 255, 0.6)",
+              "fontFamily": "Poppins",
+              "fontSize": 14,
+            }
+          }
+        >
+          Wollo balance
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 20,
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../src/app/components/pig/pig.png",
+            }
+          }
+          style={
+            Object {
+              "height": 35,
+              "width": 81,
+            }
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "stretch",
+            "backgroundColor": "rgb(247, 247, 250)",
+            "flex": 1,
+            "justifyContent": "center",
+            "position": "relative",
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "rgb(74, 74, 74)",
+              "fontFamily": "Poppins",
+              "fontSize": 16,
+              "marginTop": 25,
+            }
+          }
+        >
+          Transfer History
+        </Text>
+        <RCTScrollView
+          data={Array []}
+          disableVirtualization={false}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          horizontal={false}
+          initialNumToRender={10}
+          invertStickyHeaders={undefined}
+          keyExtractor={[Function]}
+          maxToRenderPerBatch={10}
+          numColumns={1}
+          onContentSizeChange={[Function]}
+          onEndReachedThreshold={2}
+          onLayout={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          renderItem={[Function]}
+          scrollEventThrottle={50}
+          stickyHeaderIndices={Array []}
+          updateCellsBatchingPeriod={50}
+          viewabilityConfigCallbackPairs={Array []}
+          windowSize={21}
+        >
+          <View />
+        </RCTScrollView>
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgb(0, 50, 120)",
+                "bottom": 0,
+                "flex": 1,
+                "justifyContent": "center",
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              },
+              Object {
+                "backgroundColor": "rgb(247, 247, 250)",
+              },
+            ]
+          }
+        >
+          <ActivityIndicator
+            animating={true}
+            color="rgb(0, 50, 120)"
+            hidesWhenStopped={true}
+            size="large"
+          />
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 12,
+                  "fontWeight": "bold",
+                  "marginBottom": 20,
+                  "marginLeft": 20,
+                  "marginRight": 20,
+                  "marginTop": 20,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "rgb(0, 50, 120)",
+                },
+              ]
+            }
+          >
+            Loading payments...
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "position": "relative",
+            "width": "100%",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "rgba(0, 0, 0, 0.05)",
+              "height": 5,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": -5,
+              "zIndex": 1,
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "flexBasis": 84,
+              "flexGrow": 0,
+              "height": 84,
+              "paddingBottom": 20,
+              "paddingLeft": "9.375%",
+              "paddingRight": "9.375%",
+              "paddingTop": 19,
+            }
+          }
+        >
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            collapsable={undefined}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignSelf": "stretch",
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "rgb(0, 50, 120)",
+                "borderRadius": 22.5,
+                "borderWidth": 1,
+                "marginBottom": 10,
+                "opacity": 1,
+              }
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "stretch",
+                    "color": "rgb(0, 50, 120)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": 45,
+                    "paddingLeft": 20,
+                    "paddingRight": 20,
+                    "paddingTop": 10,
+                    "textAlign": "center",
+                  },
+                  Object {
+                    "color": "rgba(0, 50, 120, 0.4)",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              Transfer Wollo
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>,
+]
+`;
