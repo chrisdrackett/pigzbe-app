@@ -14,11 +14,14 @@ exports[`Login renders correctly 1`] = `
   }
 >
   <View
-    contentContainerStyle={undefined}
     enabled={true}
     keyboardVerticalOffset={0}
     onLayout={[Function]}
-    style={undefined}
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
   >
     <View
       style={

@@ -3,56 +3,58 @@
 exports[`Send renders correctly 1`] = `
 Array [
   <View
+    enabled={true}
+    keyboardVerticalOffset={0}
+    onLayout={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "backgroundColor": "rgb(0, 50, 120)",
-        "justifyContent": "center",
+        "flex": 1,
       }
     }
   >
-    <Image
-      source={
-        Object {
-          "testUri": "../../../src/app/components/logo/images/pigzbe_logo_inapp.png",
-        }
-      }
+    <View
       style={
-        Object {
-          "height": 25,
-          "marginBottom": 10,
-          "marginTop": 34,
-          "width": 65,
-        }
+        Array [
+          undefined,
+          Object {
+            "bottom": 0,
+          },
+        ]
       }
-    />
-  </View>,
-  <RCTScrollView
-    contentContainerStyle={undefined}
-    style={
-      Object {
-        "backgroundColor": "rgb(0, 50, 120)",
-      }
-    }
-  >
-    <View>
-      <View
-        contentContainerStyle={undefined}
-        enabled={true}
-        keyboardVerticalOffset={-70}
-        onLayout={[Function]}
-        style={undefined}
-      >
-        <View
-          style={
-            Array [
-              undefined,
-              Object {
-                "bottom": 0,
-              },
-            ]
+    >
+      <RCTScrollView
+        style={
+          Object {
+            "backgroundColor": "rgb(0, 50, 120)",
           }
-        >
+        }
+      >
+        <View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgb(0, 50, 120)",
+                "justifyContent": "center",
+              }
+            }
+          >
+            <Image
+              source={
+                Object {
+                  "testUri": "../../../src/app/components/logo/images/pigzbe_logo_inapp.png",
+                }
+              }
+              style={
+                Object {
+                  "height": 25,
+                  "marginBottom": 10,
+                  "marginTop": 34,
+                  "width": 65,
+                }
+              }
+            />
+          </View>
           <View
             style={
               Object {
@@ -525,9 +527,9 @@ Array [
             </View>
           </View>
         </View>
-      </View>
+      </RCTScrollView>
     </View>
-  </RCTScrollView>,
+  </View>,
   <View
     style={
       Object {
