@@ -3,7 +3,6 @@ import {color, fontFamily} from '../../styles';
 
 export default StyleSheet.create({
     payment: {
-        alignSelf: 'stretch',
         paddingLeft: 20,
         paddingRight: 20,
         paddingTop: 20,

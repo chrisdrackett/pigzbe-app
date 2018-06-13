@@ -173,35 +173,40 @@ Array [
           >
             Enter your key to access your Wollo account
           </Text>
-          <TextInput
-            allowFontScaling={true}
-            editable={true}
-            maxLength={undefined}
-            multiline={false}
-            numberOfLines={1}
-            onChangeText={[Function]}
-            placeholder="Your key"
-            placeholderTextColor="rgba(255, 255, 255, 0.6)"
-            style={
-              Array [
-                Object {
-                  "alignSelf": "stretch",
-                  "borderColor": "rgb(255, 255, 255)",
-                  "borderRadius": 22.5,
-                  "borderWidth": 1,
-                  "color": "rgb(255, 255, 255)",
-                  "fontFamily": "Poppins",
-                  "fontSize": 14,
-                  "fontWeight": "bold",
-                  "height": 45,
-                  "marginBottom": 10,
-                  "paddingLeft": 30,
-                  "paddingRight": 20,
-                },
-              ]
-            }
-            value="SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4"
-          />
+          <View
+            style={undefined}
+          >
+            <TextInput
+              allowFontScaling={true}
+              editable={true}
+              keyboardType="default"
+              maxLength={undefined}
+              multiline={false}
+              numberOfLines={1}
+              onChangeText={[Function]}
+              placeholder="Your key"
+              placeholderTextColor="rgba(255, 255, 255, 0.6)"
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "stretch",
+                    "borderColor": "rgb(255, 255, 255)",
+                    "borderRadius": 22.5,
+                    "borderWidth": 1,
+                    "color": "rgb(255, 255, 255)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                    "height": 45,
+                    "marginBottom": 10,
+                    "paddingLeft": 30,
+                    "paddingRight": 20,
+                  },
+                ]
+              }
+              value="SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4"
+            />
+          </View>
           <View
             accessibilityComponentType={undefined}
             accessibilityLabel={undefined}

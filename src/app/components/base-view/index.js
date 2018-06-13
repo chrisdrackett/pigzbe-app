@@ -12,7 +12,7 @@ const BaseView = ({
 }) => (
     <Fragment>
         <Header showSettings={showSettings} navigation={navigation}/>
-        <ScrollView style={styles.scrollView} contentContainerStyle={scrollViewStyle}>
+        <ScrollView bounces={false} style={styles.scrollView} contentContainerStyle={scrollViewStyle}>
             {children}
         </ScrollView>
     </Fragment>
