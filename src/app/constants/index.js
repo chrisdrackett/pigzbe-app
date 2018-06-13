@@ -14,3 +14,6 @@ export const ASSET_NAME = 'Wollo';
 export const ASSET_DPS = COIN_DPS[ASSET_CODE];
 
 export const PRIVACY_URL = 'https://pigzbe.com/pdf/pigzbe_privacy_notice.pdf';
+
+export const ENV = 'ropsten';
+export const NUM_VALIDATIONS = 7;

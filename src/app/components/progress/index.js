@@ -50,12 +50,13 @@ export default class Progress extends Component {
                         <Text style={error ? [styles.text, styles.error] : styles.text}>
                             {error && error.message || text}
                         </Text>
-                        <Button
-                            disabled={!error && !complete}
-                            label={buttonLabel}
-                            outline
-                            onPress={onPress}
-                        />
+                        {buttonLabel &&
+                            <Button
+                                disabled={!error && !complete}
+                                label={buttonLabel}
+                                outline
+                                onPress={onPress}
+                            />}
                     </View>
                 </View>
             </View>

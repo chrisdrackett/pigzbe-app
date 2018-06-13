@@ -77,5 +77,13 @@
   "transferStatusChecking": "Checking destination account",
   "transferStatusSending": "Sending Wollo",
   "transferStatusFailed": "Transfer failed",
-  "transferStatusComplete": "Transfer complete"
+  "transferStatusComplete": "Transfer complete",
+  "errroEthereumTransactionInvalid": "Ethereum Transaction invalid",
+  "statusValidatingEthereumTransaction": "Validating Ethereum Transaction",
+  "errorPlaymentAlreadyProcessed": "Wollo already claimed",
+  "statusTransferWolloComplete": "Transfer Wollo Complete",
+  "statusWaitingConfirmation": "Waiting Ethereum network confirmation",
+  "errorCreatingStellarAccount": "Error creating Stellar account",
+  "errorBurningTokens": "An error occurred when burning your tokens",
+  "statusErc20Burned": "ERC20 Tokens burned, transfering Wollo"
 }
