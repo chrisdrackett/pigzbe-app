@@ -28,6 +28,7 @@ Array [
     />
   </View>,
   <RCTScrollView
+    bounces={false}
     contentContainerStyle={
       Object {
         "alignSelf": "stretch",
@@ -132,64 +133,74 @@ Array [
             Change profile image?
           </Text>
         </View>
-        <TextInput
-          allowFontScaling={true}
-          editable={true}
-          maxLength={undefined}
-          multiline={false}
-          numberOfLines={1}
-          onChangeText={[Function]}
-          placeholder="Name"
-          placeholderTextColor="rgba(255, 255, 255, 0.6)"
-          style={
-            Array [
-              Object {
-                "alignSelf": "stretch",
-                "borderColor": "rgb(255, 255, 255)",
-                "borderRadius": 22.5,
-                "borderWidth": 1,
-                "color": "rgb(255, 255, 255)",
-                "fontFamily": "Poppins",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "height": 45,
-                "marginBottom": 10,
-                "paddingLeft": 30,
-                "paddingRight": 20,
-              },
-            ]
-          }
-          value="Name"
-        />
-        <TextInput
-          allowFontScaling={true}
-          editable={true}
-          maxLength={undefined}
-          multiline={false}
-          numberOfLines={1}
-          onChangeText={[Function]}
-          placeholder="Email address"
-          placeholderTextColor="rgba(255, 255, 255, 0.6)"
-          style={
-            Array [
-              Object {
-                "alignSelf": "stretch",
-                "borderColor": "rgb(255, 255, 255)",
-                "borderRadius": 22.5,
-                "borderWidth": 1,
-                "color": "rgb(255, 255, 255)",
-                "fontFamily": "Poppins",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "height": 45,
-                "marginBottom": 10,
-                "paddingLeft": 30,
-                "paddingRight": 20,
-              },
-            ]
-          }
-          value="mail@example.com"
-        />
+        <View
+          style={undefined}
+        >
+          <TextInput
+            allowFontScaling={true}
+            editable={true}
+            keyboardType="default"
+            maxLength={undefined}
+            multiline={false}
+            numberOfLines={1}
+            onChangeText={[Function]}
+            placeholder="Name"
+            placeholderTextColor="rgba(255, 255, 255, 0.6)"
+            style={
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "borderColor": "rgb(255, 255, 255)",
+                  "borderRadius": 22.5,
+                  "borderWidth": 1,
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "height": 45,
+                  "marginBottom": 10,
+                  "paddingLeft": 30,
+                  "paddingRight": 20,
+                },
+              ]
+            }
+            value="Name"
+          />
+        </View>
+        <View
+          style={undefined}
+        >
+          <TextInput
+            allowFontScaling={true}
+            editable={true}
+            keyboardType="email-address"
+            maxLength={undefined}
+            multiline={false}
+            numberOfLines={1}
+            onChangeText={[Function]}
+            placeholder="Email address"
+            placeholderTextColor="rgba(255, 255, 255, 0.6)"
+            style={
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "borderColor": "rgb(255, 255, 255)",
+                  "borderRadius": 22.5,
+                  "borderWidth": 1,
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "height": 45,
+                  "marginBottom": 10,
+                  "paddingLeft": 30,
+                  "paddingRight": 20,
+                },
+              ]
+            }
+            value="mail@example.com"
+          />
+        </View>
         <View
           accessibilityComponentType={undefined}
           accessibilityLabel={undefined}
@@ -489,6 +500,7 @@ Array [
     />
   </View>,
   <RCTScrollView
+    bounces={false}
     contentContainerStyle={
       Object {
         "alignSelf": "stretch",
@@ -593,64 +605,74 @@ Array [
             Add Profile Image
           </Text>
         </View>
-        <TextInput
-          allowFontScaling={true}
-          editable={true}
-          maxLength={undefined}
-          multiline={false}
-          numberOfLines={1}
-          onChangeText={[Function]}
-          placeholder="Name"
-          placeholderTextColor="rgba(255, 255, 255, 0.6)"
-          style={
-            Array [
-              Object {
-                "alignSelf": "stretch",
-                "borderColor": "rgb(255, 255, 255)",
-                "borderRadius": 22.5,
-                "borderWidth": 1,
-                "color": "rgb(255, 255, 255)",
-                "fontFamily": "Poppins",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "height": 45,
-                "marginBottom": 10,
-                "paddingLeft": 30,
-                "paddingRight": 20,
-              },
-            ]
-          }
-          value={null}
-        />
-        <TextInput
-          allowFontScaling={true}
-          editable={true}
-          maxLength={undefined}
-          multiline={false}
-          numberOfLines={1}
-          onChangeText={[Function]}
-          placeholder="Email address"
-          placeholderTextColor="rgba(255, 255, 255, 0.6)"
-          style={
-            Array [
-              Object {
-                "alignSelf": "stretch",
-                "borderColor": "rgb(255, 255, 255)",
-                "borderRadius": 22.5,
-                "borderWidth": 1,
-                "color": "rgb(255, 255, 255)",
-                "fontFamily": "Poppins",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "height": 45,
-                "marginBottom": 10,
-                "paddingLeft": 30,
-                "paddingRight": 20,
-              },
-            ]
-          }
-          value={null}
-        />
+        <View
+          style={undefined}
+        >
+          <TextInput
+            allowFontScaling={true}
+            editable={true}
+            keyboardType="default"
+            maxLength={undefined}
+            multiline={false}
+            numberOfLines={1}
+            onChangeText={[Function]}
+            placeholder="Name"
+            placeholderTextColor="rgba(255, 255, 255, 0.6)"
+            style={
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "borderColor": "rgb(255, 255, 255)",
+                  "borderRadius": 22.5,
+                  "borderWidth": 1,
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "height": 45,
+                  "marginBottom": 10,
+                  "paddingLeft": 30,
+                  "paddingRight": 20,
+                },
+              ]
+            }
+            value={null}
+          />
+        </View>
+        <View
+          style={undefined}
+        >
+          <TextInput
+            allowFontScaling={true}
+            editable={true}
+            keyboardType="email-address"
+            maxLength={undefined}
+            multiline={false}
+            numberOfLines={1}
+            onChangeText={[Function]}
+            placeholder="Email address"
+            placeholderTextColor="rgba(255, 255, 255, 0.6)"
+            style={
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "borderColor": "rgb(255, 255, 255)",
+                  "borderRadius": 22.5,
+                  "borderWidth": 1,
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "height": 45,
+                  "marginBottom": 10,
+                  "paddingLeft": 30,
+                  "paddingRight": 20,
+                },
+              ]
+            }
+            value={null}
+          />
+        </View>
         <View
           accessibilityComponentType={undefined}
           accessibilityLabel={undefined}

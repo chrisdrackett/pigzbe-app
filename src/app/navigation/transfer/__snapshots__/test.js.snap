@@ -28,6 +28,7 @@ Array [
     />
   </View>,
   <RCTScrollView
+    bounces={false}
     contentContainerStyle={
       Object {
         "alignItems": "center",
@@ -132,7 +133,7 @@ Array [
       <View
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "stretch",
             "alignSelf": "stretch",
             "backgroundColor": "rgb(247, 247, 250)",
             "flex": 1,
@@ -151,6 +152,7 @@ Array [
               "fontFamily": "Poppins",
               "fontSize": 16,
               "marginTop": 25,
+              "textAlign": "center",
             }
           }
         >

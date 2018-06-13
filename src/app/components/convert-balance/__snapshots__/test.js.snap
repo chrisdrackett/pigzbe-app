@@ -23,6 +23,7 @@ exports[`ConvertBalance renders correctly 1`] = `
         "fontFamily": "Poppins",
         "fontSize": 16,
         "marginTop": 25,
+        "textAlign": "center",
       }
     }
   >

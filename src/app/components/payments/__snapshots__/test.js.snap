@@ -4,7 +4,7 @@ exports[`Payments renders correctly 1`] = `
 <View
   style={
     Object {
-      "alignItems": "center",
+      "alignItems": "stretch",
       "alignSelf": "stretch",
       "backgroundColor": "rgb(247, 247, 250)",
       "flex": 1,
@@ -23,6 +23,7 @@ exports[`Payments renders correctly 1`] = `
         "fontFamily": "Poppins",
         "fontSize": 16,
         "marginTop": 25,
+        "textAlign": "center",
       }
     }
   >
