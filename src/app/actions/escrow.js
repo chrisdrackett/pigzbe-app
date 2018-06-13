@@ -1,6 +1,4 @@
-import {Transaction} from '../stellar';
-import {getServer, getServerURL} from '../stellar/server';
-import {validate} from '../stellar/transaction';
+import {Transaction, getServer, getServerURL, validateTransaction} from '@pigzbe/stellar-utils';
 import {loadAccount} from './';
 import wait from './wait';
 import openURL from '../utils/open-url';
@@ -38,9 +36,13 @@ export const loadEscrowAccount = () => (dispatch, getState) => {
         });
 };
 
-export const validateTransaction = xdr => dispatch => {
-    validate(xdr)
-        .then(validation => dispatch({type: ESCROW_TX_VALIDATE, xdr, validation}));
+export const validateTx = xdr => async dispatch => {
+    try {
+        const validation = await validateTransaction(xdr);
+        dispatch({type: ESCROW_TX_VALIDATE, xdr, validation});
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 const submitting = value => ({type: ESCROW_SUBMITTING, value});
@@ -55,7 +57,7 @@ export const submitTransaction = xdr => (dispatch, getState) => {
         .submitTransaction(new Transaction(xdr))
         .then(tx => dispatch({type: ESCROW_TX_RESULT, tx}))
         .then(() => wait(1))
-        .then(() => dispatch(validateTransaction(xdr)))
+        .then(() => dispatch(validateTx(xdr)))
         .then(() => dispatch(loadAccount(destinationPublicKey)))
         .then(() => dispatch(loadEscrowAccount()))
         .catch(error => dispatch(escrowError(error)))

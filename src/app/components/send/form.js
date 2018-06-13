@@ -5,7 +5,7 @@ import {strings} from '../../constants';
 import Button from '../button';
 import Title from '../title';
 import TextInput from '../text-input';
-import {isValidPublicKey} from '../../stellar/validation';
+import {isValidPublicKey} from '@pigzbe/stellar-utils';
 import moneyFormat from '../../utils/money-format';
 import {ASSET_CODE, COIN_SYMBOLS, COIN_DPS} from '../../constants';
 import BigNumber from 'bignumber.js';
@@ -49,7 +49,7 @@ export default class Form extends Component {
         const {balance, exchange} = this.props;
 
         const amount = value.replace(/[^0-9.]/g, '');
-        const amountValid = amount && Number(amount) > 0 && remainingBalance(balance, amount).greaterThanOrEqualTo(0);
+        const amountValid = amount && Number(amount) > 0 && remainingBalance(balance, amount).isGreaterThanOrEqualTo(0);
         const estimate = getExchange(exchange, amount);
 
         this.setState({
