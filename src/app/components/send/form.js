@@ -120,6 +120,7 @@ export default class Form extends Component {
                         onChangeText={amount => this.updateAmount(amount)}
                         editable={!confirm}
                         style={confirm ? styles.amountInputConfirm : styles.amountInput}
+                        keyboardType="numeric"
                     />
                 </View>
                 <Text style={styles.estimate}>
@@ -132,7 +133,6 @@ export default class Form extends Component {
                     label={strings.transferMessage}
                     placeholder={confirm ? '' : strings.transferMessagePlaceholder}
                     onChangeText={memo => this.updateMemo(memo)}
-                    numberOfLines={1}
                     maxLength={28}
                     editable={!confirm}
                     style={confirm ? styles.inputConfirm : null}

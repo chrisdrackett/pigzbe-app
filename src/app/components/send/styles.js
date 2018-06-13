@@ -71,6 +71,7 @@ export default StyleSheet.create({
         fontSize: 14,
         fontStyle: 'italic',
         marginLeft: 42,
+        marginTop: -20,
     },
     sending: {
         backgroundColor: color.blueOpacity80,
