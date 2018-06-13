@@ -23,6 +23,7 @@ Array [
       }
     >
       <RCTScrollView
+        bounces={false}
         style={
           Object {
             "backgroundColor": "rgb(0, 50, 120)",
@@ -182,6 +183,7 @@ Array [
                       "fontFamily": "Poppins",
                       "fontSize": 16,
                       "marginTop": 25,
+                      "textAlign": "center",
                     }
                   }
                 >
@@ -211,39 +213,44 @@ Array [
               >
                 Send Wollo to
               </Text>
-              <TextInput
-                allowFontScaling={true}
-                editable={true}
-                maxLength={undefined}
-                multiline={false}
-                numberOfLines={1}
-                onChangeText={[Function]}
-                placeholder="Enter account key"
-                placeholderTextColor="rgb(155, 155, 155)"
-                style={
-                  Array [
-                    Object {
-                      "alignSelf": "stretch",
-                      "borderColor": "rgb(255, 255, 255)",
-                      "borderRadius": 22.5,
-                      "borderWidth": 1,
-                      "color": "rgb(255, 255, 255)",
-                      "fontFamily": "Poppins",
-                      "fontSize": 14,
-                      "fontWeight": "bold",
-                      "height": 45,
-                      "marginBottom": 10,
-                      "paddingLeft": 30,
-                      "paddingRight": 20,
-                    },
-                    Object {
-                      "borderColor": "rgb(0, 50, 120)",
-                      "color": "rgb(0, 50, 120)",
-                    },
-                  ]
-                }
-                value=""
-              />
+              <View
+                style={undefined}
+              >
+                <TextInput
+                  allowFontScaling={true}
+                  editable={true}
+                  keyboardType="default"
+                  maxLength={undefined}
+                  multiline={false}
+                  numberOfLines={1}
+                  onChangeText={[Function]}
+                  placeholder="Enter account key"
+                  placeholderTextColor="rgb(155, 155, 155)"
+                  style={
+                    Array [
+                      Object {
+                        "alignSelf": "stretch",
+                        "borderColor": "rgb(255, 255, 255)",
+                        "borderRadius": 22.5,
+                        "borderWidth": 1,
+                        "color": "rgb(255, 255, 255)",
+                        "fontFamily": "Poppins",
+                        "fontSize": 14,
+                        "fontWeight": "bold",
+                        "height": 45,
+                        "marginBottom": 10,
+                        "paddingLeft": 30,
+                        "paddingRight": 20,
+                      },
+                      Object {
+                        "borderColor": "rgb(0, 50, 120)",
+                        "color": "rgb(0, 50, 120)",
+                      },
+                    ]
+                  }
+                  value=""
+                />
+              </View>
               <View
                 style={
                   Object {
@@ -290,42 +297,47 @@ Array [
                 >
                   How much to send
                 </Text>
-                <TextInput
-                  allowFontScaling={true}
-                  editable={true}
-                  maxLength={undefined}
-                  multiline={false}
-                  numberOfLines={1}
-                  onChangeText={[Function]}
-                  placeholder="Wollo"
-                  placeholderTextColor="rgb(155, 155, 155)"
-                  style={
-                    Array [
-                      Object {
-                        "alignSelf": "stretch",
-                        "borderColor": "rgb(255, 255, 255)",
-                        "borderRadius": 22.5,
-                        "borderWidth": 1,
-                        "color": "rgb(255, 255, 255)",
-                        "fontFamily": "Poppins",
-                        "fontSize": 14,
-                        "fontWeight": "bold",
-                        "height": 45,
-                        "marginBottom": 10,
-                        "paddingLeft": 30,
-                        "paddingRight": 20,
-                      },
-                      Object {
-                        "borderColor": "rgb(0, 50, 120)",
-                        "color": "rgb(0, 50, 120)",
-                      },
-                      Object {
-                        "paddingLeft": 42,
-                      },
-                    ]
-                  }
-                  value=""
-                />
+                <View
+                  style={undefined}
+                >
+                  <TextInput
+                    allowFontScaling={true}
+                    editable={true}
+                    keyboardType="numeric"
+                    maxLength={undefined}
+                    multiline={false}
+                    numberOfLines={1}
+                    onChangeText={[Function]}
+                    placeholder="Wollo"
+                    placeholderTextColor="rgb(155, 155, 155)"
+                    style={
+                      Array [
+                        Object {
+                          "alignSelf": "stretch",
+                          "borderColor": "rgb(255, 255, 255)",
+                          "borderRadius": 22.5,
+                          "borderWidth": 1,
+                          "color": "rgb(255, 255, 255)",
+                          "fontFamily": "Poppins",
+                          "fontSize": 14,
+                          "fontWeight": "bold",
+                          "height": 45,
+                          "marginBottom": 10,
+                          "paddingLeft": 30,
+                          "paddingRight": 20,
+                        },
+                        Object {
+                          "borderColor": "rgb(0, 50, 120)",
+                          "color": "rgb(0, 50, 120)",
+                        },
+                        Object {
+                          "paddingLeft": 42,
+                        },
+                      ]
+                    }
+                    value=""
+                  />
+                </View>
               </View>
               <Text
                 accessible={true}
@@ -368,39 +380,44 @@ Array [
               >
                 Add a message?
               </Text>
-              <TextInput
-                allowFontScaling={true}
-                editable={true}
-                maxLength={28}
-                multiline={false}
-                numberOfLines={1}
-                onChangeText={[Function]}
-                placeholder="Add a message to your Wollo transfer?"
-                placeholderTextColor="rgb(155, 155, 155)"
-                style={
-                  Array [
-                    Object {
-                      "alignSelf": "stretch",
-                      "borderColor": "rgb(255, 255, 255)",
-                      "borderRadius": 22.5,
-                      "borderWidth": 1,
-                      "color": "rgb(255, 255, 255)",
-                      "fontFamily": "Poppins",
-                      "fontSize": 14,
-                      "fontWeight": "bold",
-                      "height": 45,
-                      "marginBottom": 10,
-                      "paddingLeft": 30,
-                      "paddingRight": 20,
-                    },
-                    Object {
-                      "borderColor": "rgb(0, 50, 120)",
-                      "color": "rgb(0, 50, 120)",
-                    },
-                  ]
-                }
-                value=""
-              />
+              <View
+                style={undefined}
+              >
+                <TextInput
+                  allowFontScaling={true}
+                  editable={true}
+                  keyboardType="default"
+                  maxLength={28}
+                  multiline={false}
+                  numberOfLines={1}
+                  onChangeText={[Function]}
+                  placeholder="Add a message to your Wollo transfer?"
+                  placeholderTextColor="rgb(155, 155, 155)"
+                  style={
+                    Array [
+                      Object {
+                        "alignSelf": "stretch",
+                        "borderColor": "rgb(255, 255, 255)",
+                        "borderRadius": 22.5,
+                        "borderWidth": 1,
+                        "color": "rgb(255, 255, 255)",
+                        "fontFamily": "Poppins",
+                        "fontSize": 14,
+                        "fontWeight": "bold",
+                        "height": 45,
+                        "marginBottom": 10,
+                        "paddingLeft": 30,
+                        "paddingRight": 20,
+                      },
+                      Object {
+                        "borderColor": "rgb(0, 50, 120)",
+                        "color": "rgb(0, 50, 120)",
+                      },
+                    ]
+                  }
+                  value=""
+                />
+              </View>
               <View
                 style={
                   Object {

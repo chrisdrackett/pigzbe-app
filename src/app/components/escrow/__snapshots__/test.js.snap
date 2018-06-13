@@ -152,7 +152,7 @@ exports[`Escrow renders correctly 1`] = `
   <View
     style={
       Object {
-        "alignItems": "center",
+        "alignItems": "stretch",
         "alignSelf": "stretch",
         "backgroundColor": "rgb(247, 247, 250)",
         "flex": 1,

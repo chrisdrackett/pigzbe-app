@@ -6,7 +6,6 @@ import {
     strings,
     SCREEN_TRANSFER
 } from '../../constants';
-import BaseView from '../base-view';
 import Pig from '../pig';
 import Button from '../button';
 import Wollo from '../wollo';
@@ -38,7 +37,7 @@ export default connect(
 }) => (
     <Fragment>
         <KeyboardAvoid>
-            <ScrollView style={scrollView}>
+            <ScrollView style={scrollView} bounces={false}>
                 <Header/>
                 <Wollo balance={balance}/>
                 <Pig style={styles.pig}/>
