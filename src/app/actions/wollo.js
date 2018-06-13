@@ -1,7 +1,17 @@
-import {getServer, setServer} from '../stellar/server';
-import {isValidPublicKey} from '../stellar/validation';
-import {paymentHistory, paymentInfo, sendPayment, getAsset} from '../stellar/payment';
-import {getBalance, getMinBalance, getHasGas, getAssetIssuer, getAssetTrusted} from '../stellar/account';
+import {
+    getServer,
+    setServer,
+    isValidPublicKey,
+    paymentHistory,
+    paymentInfo,
+    sendPayment,
+    Asset,
+    getBalance,
+    getMinBalance,
+    checkHasGas,
+    getAssetIssuer,
+    checkAssetTrusted
+} from '@pigzbe/stellar-utils';
 import {strings, ASSET_CODE} from '../constants';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
@@ -37,7 +47,7 @@ const updateIssuer = issuer => ({type: WOLLO_UPDATE_ISSUER, issuer});
 const updateXLM = account => dispatch => {
     const balanceXLM = getBalance(account);
     const minXLM = getMinBalance(account);
-    const hasGas = getHasGas(account);
+    const hasGas = checkHasGas(account);
     dispatch({type: WOLLO_UPDATE_XLM, balanceXLM, minXLM, hasGas});
 };
 
@@ -89,12 +99,12 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
 
     const {secretKey} = getState().auth;
     const {issuer} = getState().wollo;
-    const asset = getAsset(ASSET_CODE, issuer);
+    const asset = new Asset(ASSET_CODE, issuer);
 
     // TODO: Check that destination account trusts Wollo
 
     const destAccount = await getServer().loadAccount(destination);
-    const isTrusted = getAssetTrusted(destAccount, asset);
+    const isTrusted = checkAssetTrusted(destAccount, asset);
 
     if (!isTrusted) {
         dispatch(wolloSending(false));
@@ -108,7 +118,7 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     let result;
 
     try {
-        result = await sendPayment(destination, secretKey, amount, memo, asset);
+        result = await sendPayment(secretKey, destination, amount, memo, asset);
     } catch (e) {
         console.error(e);
     }

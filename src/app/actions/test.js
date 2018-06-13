@@ -22,7 +22,7 @@ describe('Actions', () => {
         });
 
         it('should create an action to validate transaction', () => {
-            expect(actions.validateTransaction('')).toEqual(expect.any(Function));
+            expect(actions.validateTx('')).toEqual(expect.any(Function));
         });
 
         it('should create an action to submit transaction', () => {

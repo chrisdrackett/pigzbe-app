@@ -9,7 +9,7 @@ import Transaction from './transaction';
 import Wollo from '../wollo';
 import Button from '../button';
 import {strings, SCREEN_BALANCE} from '../../constants';
-import {loadEscrowAccount, validateTransaction} from '../../actions';
+import {loadEscrowAccount, validateTx} from '../../actions';
 import ScrollList from '../scroll-list';
 import Footer from '../footer';
 
@@ -20,7 +20,7 @@ class Escrow extends Component {
         await dispatch(loadEscrowAccount());
 
         for (const transaction of transactions) {
-            await dispatch(validateTransaction(transaction.xdr));
+            await dispatch(validateTx(transaction.xdr));
         }
     }
 
