@@ -1,19 +1,13 @@
 import {StyleSheet} from 'react-native';
-import {border, color, fontFamily} from '../../styles';
+import {border, color} from '../../styles';
 
 export default StyleSheet.create({
     border,
-    title: {
-        fontFamily,
-        fontSize: 16,
-        color: color.darkGrey,
-        marginTop: 20,
-    },
     container: {
         backgroundColor: color.lightGrey,
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'stretch',
         alignSelf: 'stretch',
         position: 'relative',
     },

@@ -2,18 +2,16 @@ import React from 'react';
 import {
     Image,
     Text,
-    TouchableOpacity,
     View
 } from 'react-native';
 import styles from './styles';
-import openURL from '../../utils/open-url';
 import moneyFormat from '../../utils/money-format';
 import {daysAgo} from '../../utils/date';
 import {ASSET_DPS} from '../../constants';
 import images from './images';
 
-const Inner = ({date, amount, direction, assetCode, memo, address}) => (
-    <View>
+export default ({date, amount, direction, assetCode, memo, address}) => (
+    <View style={styles.payment}>
         <View style={styles.detail}>
             <View style={styles.info}>
                 <Text style={styles.date}>
@@ -35,17 +33,5 @@ const Inner = ({date, amount, direction, assetCode, memo, address}) => (
                 {memo}
             </Text>
         ) : null}
-    </View>
-);
-
-export default props => (
-    <View style={styles.payment}>
-        {props.link ? (
-            <TouchableOpacity onPress={() => openURL(props.link)}>
-                <Inner {...props}/>
-            </TouchableOpacity>
-        ) : (
-            <Inner {...props}/>
-        )}
     </View>
 );
