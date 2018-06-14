@@ -24,6 +24,7 @@ export const color = {
     purple: 'rgb(72, 70, 148)',
     lightPurple: 'rgb(241, 241, 255)',
     transparent: 'rgba(255, 255, 255, 0)',
+    orange: 'rgb(255, 98, 66)',
 };
 
 export const paddingH = '9.375%';

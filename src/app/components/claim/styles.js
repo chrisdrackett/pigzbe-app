@@ -16,8 +16,9 @@ export default StyleSheet.create({
     },
     containerLastStep: {
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'stretch',
         justifyContent: 'center',
+        alignSelf: 'stretch',
     },
     containerLoading: {
         width: 250,
@@ -29,13 +30,16 @@ export default StyleSheet.create({
         paddingRight: paddingH,
     },
     containerBodySteps: {
-        alignItems: 'center',
-        width: '100%',
+        // backgroundColor: 'red',
+        alignItems: 'stretch',
+        // width: '100%',
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     containerBody: {
-        width: '100%',
+        // backgroundColor: 'green',
+        // width: '100%',
+        alignItems: 'stretch',
         paddingLeft: paddingH,
         paddingRight: paddingH,
         flex: 1,
@@ -46,6 +50,7 @@ export default StyleSheet.create({
         color: color.white,
         fontSize: 16,
         fontWeight: 'bold',
+        marginTop: 20,
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 10,
@@ -77,6 +82,10 @@ export default StyleSheet.create({
         color: color.red,
         fontSize: 18
     },
+    warning: {
+        color: color.orange,
+        fontWeight: 'bold',
+    },
     modalConfirm: {
         flex: 1,
         justifyContent: 'center',
@@ -93,13 +102,13 @@ export default StyleSheet.create({
     buttonGreen: {
         width: 200,
         alignSelf: 'center',
-        backgroundColor: 'green',
+        backgroundColor: color.green,
         marginBottom: 10,
     },
     buttonRed: {
         width: 200,
         alignSelf: 'center',
-        backgroundColor: 'red'
+        backgroundColor: color.red
     },
     buttonStyle: {
         borderColor: 'transparent',
@@ -112,31 +121,55 @@ export default StyleSheet.create({
         margin: 0,
         marginTop: 20,
         maxWidth: 300,
-        backgroundColor: '#003278',
+        backgroundColor: color.blue,
     },
     buttonTitleStyle: {
         fontWeight: '600',
     },
     boxKeys: {
         borderRadius: 10,
-        paddingTop: 5,
-        paddingBottom: 5,
-        margin: 0,
+        borderWidth: 1,
+        borderColor: color.white,
+        paddingTop: 20,
+        paddingBottom: 10,
+        paddingLeft: 18,
+        paddingRight: 18,
         marginTop: 20,
+        flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'stretch'
+    },
+    boxKeysTitle: {
+        fontFamily,
+        color: color.white,
+        fontWeight: 'bold',
+        fontSize: 10,
+        textAlign: 'center',
+        backgroundColor: color.blue,
+        marginTop: -28,
+        alignSelf: 'center',
+        paddingLeft: 5,
+        paddingRight: 5,
     },
     boxTx: {
         backgroundColor: color.green
     },
-    boxPrivateKey: {
-        backgroundColor: color.pink
+    boxKeysInner: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 10,
     },
-    boxPublicKey: {
-        backgroundColor: color.lightBlue
-    },
-    boxKeyText: {
+    boxKeysText: {
+        fontFamily,
+        color: color.white,
         fontWeight: 'bold',
-        color: color.blue
+        fontSize: 12,
+        textAlign: 'left',
+        width: 165,
+    },
+    boxKeysCopy: {
+        width: 45,
+        height: 45,
     }
 });
