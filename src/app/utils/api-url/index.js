@@ -1,12 +1,15 @@
-export default function () {
-    switch (process.env.NODE_ENV) {
+import Config from 'react-native-config';
+
+export default () => {
+    console.log('apiURL network =', Config.NETWORK);
+    switch (Config.NETWORK) {
+        case 'private':
         case 'local':
-          return 'http://192.168.1.64:5001';
-        case 'ropsten':
-        case 'development':
-            return 'https://staging.api.pigzbe.com';
+            return `http://${Config.OFFLINE_HOST || '0.0.0.0'}:5001`;
+        case 'mainnet':
+        case 'production':
+            return 'https://api.pigzbe.com';
         default:
             return 'https://staging.api.pigzbe.com';
-            // return 'https://production.api.pigzbe.com';
     }
-}
+};

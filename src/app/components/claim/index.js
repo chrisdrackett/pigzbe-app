@@ -19,14 +19,15 @@ import {userLogin} from '../../actions/eth';
 import {transfer, burn, changeNetwork} from '../../actions/contract';
 import {checkUserCache} from '../../actions/eth';
 import {loadLocalStorage} from '../../actions/content';
+import Config from 'react-native-config';
 
 class Claim extends Component {
   state = {
       step: 0,
       error: null,
       burnInput: '5',
-      mnemonic: 'elephant merit raven monkey path outer paddle bounce exist fringe pet dry',
-      pk: '0x798D23d6a84b2EF7d23c4A25735ED55B72072c24',
+      mnemonic: Config.MNEMONIC || 'elephant merit raven monkey path outer paddle bounce exist fringe pet dry',
+      pk: Config.PK || '0x798D23d6a84b2EF7d23c4A25735ED55B72072c24',
       errorImportingAccount: false,
       modal: {
           visible: false,
@@ -41,7 +42,7 @@ class Claim extends Component {
 
       // clear('burning');
 
-      this.props.changeNetwork(process.env.NODE_ENV || 'ropsten');
+      this.props.changeNetwork(Config.NETWORK);
 
   }
 

@@ -7,7 +7,7 @@ import {
     LOCAL_STORAGE
 } from '../constants/action-types';
 import {getBalance} from './eth';
-import {trustAsset} from './stellar';
+import {trustStellarAsset} from './stellar';
 import {strings} from '../constants';
 
 export const validate = () => async (dispatch, getState) => {
@@ -60,7 +60,7 @@ export const validate = () => async (dispatch, getState) => {
         }
 
         dispatch({type: CLAIM, payload});
-        dispatch(trustAsset());
+        dispatch(trustStellarAsset());
     } catch (e) {
         console.log(e);
         dispatch({type: ERROR, payload: e});

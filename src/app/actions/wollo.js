@@ -13,6 +13,7 @@ import {
     checkAssetTrusted
 } from '@pigzbe/stellar-utils';
 import {strings, ASSET_CODE} from '../constants';
+import Config from 'react-native-config';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
@@ -98,8 +99,8 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     dispatch(wolloSendStatus(strings.transferStatusChecking));
 
     const {secretKey} = getState().auth;
-    const {issuer} = getState().wollo;
-    const asset = new Asset(ASSET_CODE, issuer);
+    // const {issuer} = getState().wollo;
+    const asset = new Asset(ASSET_CODE, Config.STELLAR_TOKEN_ISSUER);
 
     // TODO: Check that destination account trusts Wollo
 

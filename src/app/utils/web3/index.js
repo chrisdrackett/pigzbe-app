@@ -1,6 +1,6 @@
-import {ENV} from '../../constants';
 import bip39 from 'bip39';
 import hdkey from 'ethereumjs-wallet/hdkey';
+import Config from 'react-native-config';
 
 export const generateAddressFromSeed = (seed, publicAddress) => {
     const hdwallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed(seed));
@@ -41,7 +41,7 @@ export const watchConfirmations = ({
             }
         }
 
-        if (ENV === 'local') {
+        if (Config.NETWORK === 'local') {
             resolve(receipt);
             return;
         }
