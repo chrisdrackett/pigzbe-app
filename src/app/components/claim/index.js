@@ -3,7 +3,7 @@ import {
     Text,
     View,
     Modal,
-    Linking,
+    ScrollView,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {utils} from 'web3';
@@ -25,8 +25,8 @@ class Claim extends Component {
       step: 0,
       error: null,
       burnInput: '5',
-      mnemonic: Config.MNEMONIC || 'elephant merit raven monkey path outer paddle bounce exist fringe pet dry',
-      pk: Config.PK || '0x798D23d6a84b2EF7d23c4A25735ED55B72072c24',
+      mnemonic: Config.MNEMONIC,
+      pk: Config.PK,
       errorImportingAccount: false,
       loading: 'Loading Ethereum Interface',
       clickedClose: false,
@@ -38,28 +38,27 @@ class Claim extends Component {
   }
 
   componentWillMount() {
-      // TODO: check if the process has already started and jump steps
-      //
-
-      // clear('burning');
-
       this.props.changeNetwork(Config.NETWORK || 'ropsten');
-
   }
 
   componentWillReceiveProps(nextProps) {
+
       if (nextProps.contract.instance && !this.props.contract.instance) {
-          this.setState({loading: 'Loading your data'});
           this.props.loadLocalStorage();
       }
+
       if (nextProps.localStorage && !this.props.localStorage) {
           console.log('componentWillReceiveProps');
           console.log(nextProps.localStorage);
 
-          if (nextProps.localStorage.coinbase && !nextProps.localStorage.started) {
+          if (nextProps.localStorage.coinbase) {
               this.setState({loading: 'Loading your balance'});
+              nextProps.checkUserCache();
           }
-          nextProps.checkUserCache();
+
+          if (Object.keys(nextProps.localStorage).length === 0 && nextProps.localStorage.constructor === Object) {
+              this.setState({loading: null, step: 0});
+          }
       }
 
       if (nextProps.user.coinbase && this.props.localStorage) {
@@ -68,10 +67,11 @@ class Claim extends Component {
           }
       }
 
-      if (!nextProps.user.coinbase && this.props.localStorage) {
-          this.setState({loading: null});
+      if (this.props.localStorage) {
+          if (this.props.localStorage.complete && this.props.localStorage.stellar) {
+              this.setState({step: 6});
+          }
       }
-
   }
 
   onImportKey = () => {
@@ -174,103 +174,100 @@ class Claim extends Component {
       const tx = localStorage.transactionHash || events.get('transactionHash');
 
       return (
-          <View style={styles.containerBody}>
-              {step < 4 &&
-                  <Steps step={step} onChangeStep={this.onChangeStep}/>
-              }
-              {step === 4 && web3 && contract.instance &&
-                  <View style={styles.containerBodySteps}>
-                      <Logo />
-                      <Text style={styles.title}>Import your Eidoo wallet</Text>
-                      <Text style={styles.subtitle}>We're almost there! Enter your Eidoo wallet address and the 12 word seed below and lets claim.</Text>
-                      <View style={styles.containerBody}>
-                          <TextInput
-                              error={!!errorImportingAccount}
-                              value={pk}
-                              placeholder="Your Eidoo wallet address"
-                              onChangeText={pkText => this.setState({pk: pkText})}
-                          />
-                          <TextInput
-                              error={!!errorImportingAccount}
-                              value={mnemonic}
-                              placeholder="Your 12 word seed, you must include spaces"
-                              onChangeText={mnemonicText => this.setState({mnemonic: mnemonicText})}
-                          />
+          <View style={styles.container}>
+              <Logo />
+              <ScrollView containerStyle={styles.containerBody}>
+                  {step < 4 &&
+                      <Steps step={step} onCloseClaim={this.props.onCloseClaim} onChangeStep={this.onChangeStep}/>
+                  }
+                  {step === 4 && web3 && contract.instance &&
+                      <View style={styles.containerBodySteps}>
+                          <Text style={styles.title}>Import your Eidoo wallet</Text>
+                          <Text style={styles.subtitle}>We're almost there! Enter your Eidoo wallet address and the 12 word seed below and lets claim.</Text>
+                          <View style={styles.containerBody}>
+                              <TextInput
+                                  error={!!errorImportingAccount}
+                                  value={pk}
+                                  placeholder="Your Eidoo wallet address"
+                                  onChangeText={pkText => this.setState({pk: pkText})}
+                              />
+                              <TextInput
+                                  error={!!errorImportingAccount}
+                                  value={mnemonic}
+                                  placeholder="Your 12 word seed, you must include spaces"
+                                  onChangeText={mnemonicText => this.setState({mnemonic: mnemonicText})}
+                              />
+                          </View>
+                          <View style={styles.containerBody}>
+                              <Button
+                                  label="Next"
+                                  disabled={!(this.state.mnemonic || this.state.pk)}
+                                  onPress={this.onImportKey}
+                              />
+                              <Button
+                                  label="Back"
+                                  style=""
+                                  secondary
+                                  onPress={() => {
+                                      this.setState({step: 2});
+                                  }}
+                              />
+                          </View>
                       </View>
-                      <View style={styles.containerBody}>
-                          <Button
-                              label="Next"
-                              disabled={!(this.state.mnemonic || this.state.pk)}
-                              onPress={this.onImportKey}
-                          />
-                          <Button
-                              label="Back"
-                              style=""
-                              secondary
-                              onPress={() => {
-                                  this.setState({step: 2});
-                              }}
-                          />
-                      </View>
-                  </View>
-              }
+                  }
 
-              {step === 5 &&
-                  <View style={styles.containerBodySteps}>
-                      <Logo />
-                      {!localStorage.complete && localStorage.started &&
-                          <Fragment>
-                              <Text style={styles.title}>Continue your application</Text>
-                              <Text style={styles.subtitle}>You didn't finish a previous Wollo claim process. Continue or cancel the process below.</Text>
-                          </Fragment>
-                      }
-                      {!localStorage.complete && !localStorage.started &&
-                          <Fragment>
-                              <Text style={styles.title}>Claim your Wollo</Text>
-                              <Text style={styles.subtitle}>You have {user.balance} ERC20 Tokens in your Eidoo account.</Text>
-                              <Text style={styles.subtitle}>Tap Claim Wollo bellow to convert your tokens to {user.balance} Wollo and create your Pigzbe wallet.</Text>
-                          </Fragment>
-                      }
-                      <View style={styles.containerBody}>
-                          <Button
-                              label={!localStorage.complete && !localStorage.started ? 'Claim Wollo' : 'Continue'}
-                              onPress={this.onSubmitBurn}
-                          />
-                          <Button
-                              label="Back"
-                              style=""
-                              secondary
-                              onPress={() => {
-                                  this.setState({step: 0});
-                              }}
-                          />
+                  {step === 5 &&
+                      <View style={styles.containerBodySteps}>
+                          {!localStorage.complete && localStorage.started &&
+                              <Fragment>
+                                  <Text style={styles.title}>Continue your application</Text>
+                                  <Text style={styles.subtitle}>You didn't finish a previous Wollo claim process. Continue or cancel the process below.</Text>
+                              </Fragment>
+                          }
+                          {!localStorage.complete && !localStorage.started &&
+                              <Fragment>
+                                  <Text style={styles.title}>Claim your Wollo</Text>
+                                  <Text style={styles.subtitle}>You have {user.balance} ERC20 Tokens in your Eidoo account.</Text>
+                                  <Text style={styles.subtitle}>Tap Claim Wollo bellow to convert your tokens to {user.balance} Wollo and create your Pigzbe wallet.</Text>
+                              </Fragment>
+                          }
+                          <View style={styles.containerBody}>
+                              <Button
+                                  label={!localStorage.complete && !localStorage.started ? 'Claim Wollo' : 'Continue'}
+                                  onPress={this.onSubmitBurn}
+                              />
+                              <Button
+                                  label="Back"
+                                  style=""
+                                  secondary
+                                  onPress={() => {
+                                      this.setState({step: 0});
+                                  }}
+                              />
+                          </View>
                       </View>
-                  </View>
-              }
+                  }
 
-              {localStorage.complete && stellar &&
-                  <View style={styles.containerBodySteps}>
-                      <Logo />
-                      <Text style={styles.title}>Whoop!</Text>
-                      <Text style={styles.subtitle}>Congrats! You are now the owner of {user.balance} Wollo, you rock.</Text>
-                      <Text style={styles.subtitle}>Now, before you go any further, it's really IMPORTANT you make a secure copy of your NEW Pigzbe private and public keys just below.</Text>
-                      <Text style={styles.subtitle}>This is your transaction hash from Ethereum: {tx} keep it safe.</Text>
-                      <View>
-                          <Text>Private Key</Text>
-                          <Text style={styles.subtitle}>{stellar.sk}</Text>
+                  {localStorage.complete && stellar &&
+                      <View style={[styles.containerBodySteps, styles.containerLastStep]}>
+                          <Text style={styles.title}>Whoop!</Text>
+                          <Text style={styles.subtitle}>Congrats! You are now the owner of {user.balance} Wollo, you rock.</Text>
+                          <Text style={styles.subtitle}>Now, before you go any further, it's really IMPORTANT you make a secure copy of your NEW Pigzbe private and public keys just below.</Text>
+                          <View style={[styles.boxKeys, styles.boxTx]}>
+                              <Text style={styles.tagline}>Ethereum transaction hash</Text>
+                              <Text style={[styles.subtitle, styles.boxKeyText]}>{tx}</Text>
+                          </View>
+                          <View style={[styles.boxKeys, styles.boxPrivateKey]}>
+                              <Text style={styles.tagline}>Private Key</Text>
+                              <Text style={[styles.subtitle, styles.boxKeyText]}>{stellar.sk}</Text>
+                          </View>
+                          <View style={[styles.boxKeys, styles.boxPublicKey]}>
+                              <Text style={styles.tagline}>Public Key</Text>
+                              <Text style={[styles.subtitle, styles.boxKeyText]}>{stellar.pk}</Text>
+                          </View>
                       </View>
-                      <View>
-                          <Text>Public Key</Text>
-                          <Button
-                              label={stellar.pk}
-                              onPress={() => {
-                                  Linking.openURL(`https://horizon-testnet.stellar.org/accounts/${stellar.pk}`);
-                              }}
-                          />
-                          <Text style={styles.subtitle}>{stellar.pk}</Text>
-                      </View>
-                  </View>
-              }
+                  }
+              </ScrollView>
 
               <Modal animationType="slide" visible={modal.visible}>
                   <View style={styles.modalConfirm}>
@@ -302,17 +299,19 @@ class Claim extends Component {
                   </View>
               </Modal>
 
-              <Progress
-                  active={loading !== null && this.state.clickedClose}
-                  complete={localStorage.complete}
-                  title="Claim progress"
-                  // error={error}
-                  text={loading}
-                  buttonLabel={localStorage.complete ? 'Close' : null}
-                  onPress={() => {
-                      this.setState({step: 6, clickedClose: true});
-                  }}
-              />
+              {!this.state.clickedClose &&
+                  <Progress
+                      active={loading !== null}
+                      complete={localStorage.complete}
+                      title="Claim progress"
+                      // error={error}
+                      text={loading}
+                      buttonLabel={localStorage.complete ? 'Close' : null}
+                      onPress={() => {
+                          this.setState({step: 6, clickedClose: true});
+                      }}
+                  />
+              }
           </View>
       );
   }

@@ -1,7 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 import {
-    container,
     color,
     fontFamily,
     paddingH
@@ -15,17 +14,23 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    containerLastStep: {
+        paddingBottom: 30
+    },
     containerLoading: {
-      width: 250,
-      flex: 1
+        width: 250,
+        flex: 1
+    },
+    containerButtons: {
+        width: '100%',
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
     },
     containerBodySteps: {
-      alignItems: 'center',
-      width: '100%',
-      flex: 1,
-      paddingLeft: paddingH - 10,
-      paddingRight: paddingH - 10,
-      justifyContent: 'center'
+        alignItems: 'center',
+        width: '100%',
+        flex: 1,
+        justifyContent: 'center'
     },
     containerBody: {
         width: '100%',
@@ -109,5 +114,28 @@ export default StyleSheet.create({
     },
     buttonTitleStyle: {
         fontWeight: '600',
+    },
+    boxKeys: {
+        borderRadius: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
+        margin: 0,
+        marginTop: 20,
+        maxWidth: '90%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    boxTx: {
+        backgroundColor: color.green
+    },
+    boxPrivateKey: {
+        backgroundColor: color.pink
+    },
+    boxPublicKey: {
+        backgroundColor: color.lightBlue
+    },
+    boxKeyText: {
+        fontWeight: 'bold',
+        color: color.blue
     }
 });
