@@ -34,7 +34,6 @@
     "contract": "pigzbe-contract deploy"
   },
   "dependencies": {
-    "@pigzbe/react-native-stellar-sdk": "^1.0.3",
     "@pigzbe/stellar-utils": "1.0.7",
     "babel-polyfill": "^6.26.0",
     "bip39": "^2.5.0",
