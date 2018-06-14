@@ -31,7 +31,7 @@ export default class Steps extends Component {
                                 style=""
                                 secondary
                                 onPress={() => {
-                                    onChangeStep(0);
+                                    this.props.onCloseClaim();
                                 }}
                             />
                         </View>
@@ -61,7 +61,7 @@ export default class Steps extends Component {
                                 style=""
                                 secondary
                                 onPress={() => {
-                                    onChangeStep(1);
+                                    onChangeStep(0);
                                 }}
                             />
                         </View>

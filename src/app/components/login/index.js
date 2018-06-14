@@ -58,6 +58,10 @@ class Login extends Component {
         </View>
     )
 
+    onCloseClaim = () => {
+        this.setState({newUser: false});
+    }
+
     render() {
         const {
             dispatch,
@@ -98,7 +102,7 @@ class Login extends Component {
                             </View>
                         </Fragment>
                     }
-                    {newUser && <Claim />}
+                    {newUser && <Claim onCloseClaim={this.onCloseClaim}/>}
                     {existingUser &&
                         <Fragment>
                             {this.getHeaderImage()}

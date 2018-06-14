@@ -19,12 +19,15 @@ export default StyleSheet.create({
       width: 250,
       flex: 1
     },
+    containerButtons : {
+      width: '100%',
+      paddingLeft: paddingH,
+      paddingRight: paddingH,
+    },
     containerBodySteps: {
       alignItems: 'center',
       width: '100%',
       flex: 1,
-      paddingLeft: paddingH - 10,
-      paddingRight: paddingH - 10,
       justifyContent: 'center'
     },
     containerBody: {
@@ -109,5 +112,27 @@ export default StyleSheet.create({
     },
     buttonTitleStyle: {
         fontWeight: '600',
+    },
+    boxKeys: {
+      borderRadius: 10,
+      paddingTop: 5,
+      paddingBottom: 5,
+      margin: 0,
+      marginTop: 20,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    boxTx: {
+      backgroundColor: color.green
+    },
+    boxPrivateKey: {
+      backgroundColor: color.pink
+    },
+    boxPublicKey: {
+      backgroundColor: color.lightBlue
+    },
+    boxKeyText: {
+      fontWeight: "bold",
+      color: color.blue
     }
 });
