@@ -3,6 +3,7 @@ import {
     Text,
     View,
     Modal,
+    ScrollView,
     Linking,
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -25,8 +26,8 @@ class Claim extends Component {
       step: 0,
       error: null,
       burnInput: '5',
-      mnemonic: Config.MNEMONIC || 'elephant merit raven monkey path outer paddle bounce exist fringe pet dry',
-      pk: Config.PK || '0x798D23d6a84b2EF7d23c4A25735ED55B72072c24',
+      mnemonic: Config.MNEMONIC,
+      pk: Config.PK,
       errorImportingAccount: false,
       loading: 'Loading Ethereum Interface',
       clickedClose: false,
@@ -44,22 +45,23 @@ class Claim extends Component {
       // clear('burning');
 
       this.props.changeNetwork(Config.NETWORK || 'ropsten');
-
+      this.props.loadLocalStorage();
   }
 
   componentWillReceiveProps(nextProps) {
-      if (nextProps.contract.instance && !this.props.contract.instance) {
-          this.setState({loading: 'Loading your data'});
-          this.props.loadLocalStorage();
-      }
+
       if (nextProps.localStorage && !this.props.localStorage) {
           console.log('componentWillReceiveProps');
           console.log(nextProps.localStorage);
 
           if (nextProps.localStorage.coinbase && !nextProps.localStorage.started) {
               this.setState({loading: 'Loading your balance'});
+              nextProps.checkUserCache();
           }
-          nextProps.checkUserCache();
+
+          if (Object.keys(nextProps.localStorage).length === 0 && nextProps.localStorage.constructor === Object) {
+              this.setState({loading: null, step: 0});
+          }
       }
 
       if (nextProps.user.coinbase && this.props.localStorage) {
@@ -67,11 +69,6 @@ class Claim extends Component {
               this.setState({step: 5, loading: null});
           }
       }
-
-      if (!nextProps.user.coinbase && this.props.localStorage) {
-          this.setState({loading: null});
-      }
-
   }
 
   onImportKey = () => {
@@ -174,9 +171,9 @@ class Claim extends Component {
       const tx = localStorage.transactionHash || events.get('transactionHash');
 
       return (
-          <View style={styles.containerBody}>
+          <ScrollView containerStyle={styles.containerBody}>
               {step < 4 &&
-                  <Steps step={step} onChangeStep={this.onChangeStep}/>
+                  <Steps step={step} onCloseClaim={this.props.onCloseClaim} onChangeStep={this.onChangeStep}/>
               }
               {step === 4 && web3 && contract.instance &&
                   <View style={styles.containerBodySteps}>
@@ -313,7 +310,7 @@ class Claim extends Component {
                       this.setState({step: 6, clickedClose: true});
                   }}
               />
-          </View>
+          </ScrollView>
       );
   }
 }
