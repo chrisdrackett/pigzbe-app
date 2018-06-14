@@ -4,10 +4,10 @@ import Button from '../../button';
 import styles from '../styles';
 
 const StepWrapper = ({children, onNext, onBack, buttonNextLabel}) => (
-    <View style={styles.containerBodySteps}>
+    <View style={styles.containerBody}>
         {children}
         {onBack && onNext &&
-            <View style={styles.containerBody}>
+            <View style={styles.containerButtons}>
                 <Button label={buttonNextLabel} onPress={onNext} />
                 <Button
                     label="Back"

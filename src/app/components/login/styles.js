@@ -27,14 +27,6 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center'
     },
-    containerBodySteps: {
-      alignItems: 'center',
-      width: '100%',
-      flex: 1,
-      paddingLeft: paddingH - 10,
-      paddingRight: paddingH - 10,
-      justifyContent: 'center'
-    },
     containerBodyKeyb: {
         backgroundColor: color.blue
     },

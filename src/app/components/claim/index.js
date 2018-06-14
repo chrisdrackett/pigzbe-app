@@ -177,7 +177,7 @@ class Claim extends Component {
       return (
           <View style={styles.container}>
               <Logo />
-              <View style={styles.containerBody}>
+              <View style={styles.container}>
                   {step === 1 && <Step1 onNext={() => this.onChangeStep(2)} onBack={this.props.onCloseClaim} />}
                   {step === 2 && <Step2 onNext={() => this.onChangeStep(3)} onBack={() => this.onChangeStep(1)} />}
                   {step === 3 && <Step3 onNext={() => this.onChangeStep(4)} onBack={() => this.onChangeStep(2)} />}

@@ -9,10 +9,10 @@ import {
 export default StyleSheet.create({
     container: {
         alignSelf: 'stretch',
+        width: '100%',
         flex: 1,
         backgroundColor: color.blue,
         alignItems: 'center',
-        justifyContent: 'center'
     },
     containerLastStep: {
         flex: 1,
@@ -24,22 +24,27 @@ export default StyleSheet.create({
         flex: 1
     },
     containerButtons: {
+        position: 'absolute',
+        bottom: 20,
         width: '100%',
+        maxWidth: 280,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    containerFields: {
+        width: '100%',
+        alignSelf: 'stretch',
+        justifyContent: 'center',
         paddingLeft: paddingH,
         paddingRight: paddingH,
-    },
-    containerBodySteps: {
-        alignItems: 'center',
-        width: '100%',
-        flex: 1,
-        justifyContent: 'center'
     },
     containerBody: {
         width: '100%',
-        paddingLeft: paddingH,
-        paddingRight: paddingH,
         flex: 1,
-        justifyContent: 'center'
+        alignSelf: 'stretch',
+        alignItems: 'center',
+        paddingTop: 10,
     },
     title: {
         fontFamily,
@@ -48,7 +53,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 20,
         marginRight: 20,
-        marginBottom: 10,
+        marginBottom: 20,
         textAlign: 'center'
     },
     tagline: {
@@ -67,7 +72,7 @@ export default StyleSheet.create({
     subtitle: {
         fontFamily,
         color: color.whiteOpacity60,
-        fontSize: 14,
+        fontSize: 15,
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 20,

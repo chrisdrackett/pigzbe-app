@@ -7,7 +7,7 @@ export default ({onNext, onBack}) => (
     <StepWrapper onNext={onNext} onBack={onBack}>
         <Text style={styles.title}>Your 12 words (seed)</Text>
         <Text style={styles.subtitle}>Firstly open the Eidoo App.</Text>
-        <View style={styles.containerBody}>
+        <View style={styles.container}>
             <Text style={styles.subtitle}>1. Go to Preferences</Text>
             <Text style={styles.subtitle}>2. Tap Backup Wallet and Backup Now</Text>
             <Text style={styles.subtitle}>3. Enter your password to unlock your wallet</Text>
