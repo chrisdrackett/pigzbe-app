@@ -39,22 +39,20 @@ class Claim extends Component {
   }
 
   componentWillMount() {
-      // TODO: check if the process has already started and jump steps
-      //
-
-      // clear('burning');
-
       this.props.changeNetwork(Config.NETWORK || 'ropsten');
-      this.props.loadLocalStorage();
   }
 
   componentWillReceiveProps(nextProps) {
+
+      if (nextProps.contract.instance && !this.props.contract.instance) {
+          this.props.loadLocalStorage();
+      }
 
       if (nextProps.localStorage && !this.props.localStorage) {
           console.log('componentWillReceiveProps');
           console.log(nextProps.localStorage);
 
-          if (nextProps.localStorage.coinbase && !nextProps.localStorage.started) {
+          if (nextProps.localStorage.coinbase) {
               this.setState({loading: 'Loading your balance'});
               nextProps.checkUserCache();
           }
@@ -67,6 +65,12 @@ class Claim extends Component {
       if (nextProps.user.coinbase && this.props.localStorage) {
           if (nextProps.user.balance) {
               this.setState({step: 5, loading: null});
+          }
+      }
+
+      if (this.props.localStorage) {
+          if (this.props.localStorage.complete && this.props.localStorage.stellar) {
+              this.setState({step: 6});
           }
       }
   }
@@ -246,25 +250,22 @@ class Claim extends Component {
               }
 
               {localStorage.complete && stellar &&
-                  <View style={styles.containerBodySteps}>
+                  <View style={[styles.containerBodySteps, styles.containerLastStep]}>
                       <Logo />
                       <Text style={styles.title}>Whoop!</Text>
                       <Text style={styles.subtitle}>Congrats! You are now the owner of {user.balance} Wollo, you rock.</Text>
                       <Text style={styles.subtitle}>Now, before you go any further, it's really IMPORTANT you make a secure copy of your NEW Pigzbe private and public keys just below.</Text>
-                      <Text style={styles.subtitle}>This is your transaction hash from Ethereum: {tx} keep it safe.</Text>
-                      <View>
-                          <Text>Private Key</Text>
-                          <Text style={styles.subtitle}>{stellar.sk}</Text>
+                      <View style={[styles.boxKeys, styles.boxTx]}>
+                          <Text style={styles.tagline}>Ethereum transaction hash</Text>
+                          <Text style={[styles.subtitle, styles.boxKeyText]}>{tx}</Text>
                       </View>
-                      <View>
-                          <Text>Public Key</Text>
-                          <Button
-                              label={stellar.pk}
-                              onPress={() => {
-                                  Linking.openURL(`https://horizon-testnet.stellar.org/accounts/${stellar.pk}`);
-                              }}
-                          />
-                          <Text style={styles.subtitle}>{stellar.pk}</Text>
+                      <View style={[styles.boxKeys, styles.boxPrivateKey]}>
+                          <Text style={styles.tagline}>Private Key</Text>
+                          <Text style={[styles.subtitle, styles.boxKeyText]}>{stellar.sk}</Text>
+                      </View>
+                      <View style={[styles.boxKeys, styles.boxPublicKey]}>
+                          <Text style={styles.tagline}>Public Key</Text>
+                          <Text style={[styles.subtitle, styles.boxKeyText]}>{stellar.pk}</Text>
                       </View>
                   </View>
               }
@@ -299,17 +300,20 @@ class Claim extends Component {
                   </View>
               </Modal>
 
-              <Progress
-                  active={loading !== null && this.state.clickedClose}
-                  complete={localStorage.complete}
-                  title="Claim progress"
-                  // error={error}
-                  text={loading}
-                  buttonLabel={localStorage.complete ? 'Close' : null}
-                  onPress={() => {
-                      this.setState({step: 6, clickedClose: true});
-                  }}
-              />
+              {!this.state.clickedClose &&
+                  <View style={styles.containerBody}>
+                      <Progress
+                          active={loading !== null}
+                          complete={localStorage.complete}
+                          title="Claim progress"
+                          // error={error}
+                          text={loading}
+                          buttonLabel={localStorage.complete ? 'Close' : null}
+                          onPress={() => {
+                              this.setState({step: 6, clickedClose: true});
+                          }}
+                      />
+                  </View>}
           </ScrollView>
       );
   }

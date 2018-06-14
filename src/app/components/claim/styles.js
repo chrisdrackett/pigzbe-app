@@ -15,20 +15,23 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    containerLoading: {
-      width: 250,
-      flex: 1
+    containerLastStep: {
+        paddingBottom: 30
     },
-    containerButtons : {
-      width: '100%',
-      paddingLeft: paddingH,
-      paddingRight: paddingH,
+    containerLoading: {
+        width: 250,
+        flex: 1
+    },
+    containerButtons: {
+        width: '100%',
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
     },
     containerBodySteps: {
-      alignItems: 'center',
-      width: '100%',
-      flex: 1,
-      justifyContent: 'center'
+        alignItems: 'center',
+        width: '100%',
+        flex: 1,
+        justifyContent: 'center'
     },
     containerBody: {
         width: '100%',
@@ -114,25 +117,26 @@ export default StyleSheet.create({
         fontWeight: '600',
     },
     boxKeys: {
-      borderRadius: 10,
-      paddingTop: 5,
-      paddingBottom: 5,
-      margin: 0,
-      marginTop: 20,
-      justifyContent: 'center',
-      alignItems: 'center'
+        borderRadius: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
+        margin: 0,
+        marginTop: 20,
+        maxWidth: '90%',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     boxTx: {
-      backgroundColor: color.green
+        backgroundColor: color.green
     },
     boxPrivateKey: {
-      backgroundColor: color.pink
+        backgroundColor: color.pink
     },
     boxPublicKey: {
-      backgroundColor: color.lightBlue
+        backgroundColor: color.lightBlue
     },
     boxKeyText: {
-      fontWeight: "bold",
-      color: color.blue
+        fontWeight: 'bold',
+        color: color.blue
     }
 });
