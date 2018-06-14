@@ -3,8 +3,12 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const appDirectory = path.resolve(__dirname, '../');
+const envFilePath = path.resolve(appDirectory, '.env');
 
 const index = `desktop/index.${process.env.GAME_DEV === '1' ? 'game' : 'web'}.js`;
+
+const {config} = require('dotenv');
+const env = config({path: envFilePath}).parsed;
 
 const babelLoaderConfiguration = {
     test: /\.js$/,
@@ -81,7 +85,8 @@ module.exports = {
         // wish to include additional optimizations.
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-            __DEV__: process.env.NODE_ENV === 'production' || true
+            __DEV__: process.env.NODE_ENV === 'production' || true,
+            __REACT_WEB_CONFIG__: JSON.stringify(env)
         })
     ],
 
@@ -89,7 +94,10 @@ module.exports = {
         // If you're working on a multi-platform React Native app, web-specific
         // module implementations should be written in files using the extension
         // `.web.js`.
-        extensions: ['.web.js', '.js']
+        extensions: ['.web.js', '.js'],
+        alias: {
+            'react-native-config': 'react-web-config'
+        }
     },
 
     devServer: {
