@@ -1,11 +1,12 @@
 import {Record} from 'immutable';
 import {save} from '../../utils/storage';
 import {
-    LOCAL_STORAGE
+    LOCAL_STORAGE,
 } from '../../constants/action-types';
 
 const initialState = new Record({
     localStorage: null,
+    burningLoadingStage: 0,
 })();
 
 export default (state = initialState, action) => {
@@ -16,7 +17,6 @@ export default (state = initialState, action) => {
             return state
                 .set('localStorage', localStorage);
         }
-
 
         default:
             return state;

@@ -6,13 +6,14 @@ import {
     STELLAR,
     NETWORK_CHANGE,
     LOCAL_STORAGE,
-    BURNED
+    BURNED,
 } from '../constants/action-types';
 import getAPIURL from '../utils/api-url';
 import {watchConfirmations} from '../utils/web3';
 import Contract from '../constants/contract';
 import {getBalance} from './eth';
 import {validate} from './api';
+import {loadLocalStorage} from './content';
 import {NUM_VALIDATIONS, strings} from '../constants';
 import {Keypair} from '@pigzbe/stellar-utils';
 import Config from 'react-native-config';
@@ -61,6 +62,8 @@ const getContract = () => async (dispatch, getState) => {
             dispatch(getBalance());
         }
 
+        dispatch(loadLocalStorage());
+
         return null;
     } catch (e) {
         console.log(e);
@@ -71,7 +74,7 @@ const getContract = () => async (dispatch, getState) => {
     }
 };
 
-export const changeNetwork = (network) => (dispatch) => {
+export const init = (network) => (dispatch) => {
     console.log('changeNetwork');
     dispatch({
         type: NETWORK_CHANGE,

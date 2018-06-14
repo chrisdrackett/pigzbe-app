@@ -3,13 +3,14 @@ import {
     // clear,
     load
 } from '../utils/storage';
+import {checkUserCache} from './eth';
 
 export const loadLocalStorage = () => async (dispatch) => {
-    console.log('loadLocalStorage');
     const payload = await load('burning');
-    console.log('AAAAAAA', payload);
     dispatch({
         type: LOCAL_STORAGE,
         payload
     });
+
+    dispatch(checkUserCache());
 };

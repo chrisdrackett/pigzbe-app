@@ -1,7 +1,6 @@
 import {Record} from 'immutable';
-// import { NotificationManager } from 'react-notifications';
 import {
-    ACTIVITY,
+    // ACTIVITY,
     CLAIM,
     TRANSFER,
     LOADING,
@@ -14,23 +13,24 @@ const initialState = new Record({
     claim: null,
     transfer: null,
     loading: null,
+    error: null,
     transactionHash: null,
 })();
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case ACTIVITY: {
-            let events = state.activity.concat([]);
-            if (!action.payload.transactionHash) {
-                return state;
-            }
-            if (events.filter(e => e.transactionHash === action.payload.transactionHash).length > 0) {
-                return state;
-            }
-            events = events.concat([action.payload]);
-            return state
-                .set('activity', events);
-        }
+        // case ACTIVITY: {
+        //     let events = state.activity.concat([]);
+        //     if (!action.payload.transactionHash) {
+        //         return state;
+        //     }
+        //     if (events.filter(e => e.transactionHash === action.payload.transactionHash).length > 0) {
+        //         return state;
+        //     }
+        //     events = events.concat([action.payload]);
+        //     return state
+        //         .set('activity', events);
+        // }
 
         case BURNED:
             return state
@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
             // console.log(action.payload.message || action.payload, action.payload.title || '');
             // NotificationManager.error(action.payload.message || action.payload, action.payload.title || '');
             return state
-                .set('loading', action.payload.message);
+                .set('error', action.payload.message);
 
         case LOADING:
             return state
