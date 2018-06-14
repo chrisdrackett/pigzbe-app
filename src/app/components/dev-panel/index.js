@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import styles from './styles';
 import container from '../../styles';
+import Button from '../button';
+import {clear} from '../../utils/storage';
 import {setUseTestnet, authTestUser} from '../../actions';
 
 const SwitchControl = ({
@@ -89,6 +91,13 @@ class DevPanel extends Component {
                                 value={useTestnet}
                                 onValueChange={value => dispatch(setUseTestnet(value))}
                             />
+                            <View style={styles.claimBlock}>
+                                <Text style={styles.switchText}>Claim tool</Text>
+                                <Button style={styles.claimClearButton} label="Clear cache burning" onPress={() => {
+                                    console.log('clear');
+                                    clear('burning');
+                                }} />
+                            </View>
                             <Text style={styles.switchText}>
                                 Select test user
                             </Text>

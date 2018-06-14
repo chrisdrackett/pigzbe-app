@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 import {
+    container,
     color,
     fontFamily,
     paddingH
@@ -13,6 +14,10 @@ export default StyleSheet.create({
         backgroundColor: color.blue,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    containerLoading: {
+      width: 250,
+      flex: 1
     },
     containerBodySteps: {
       alignItems: 'center',

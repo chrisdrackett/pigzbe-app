@@ -23,14 +23,12 @@ export const getBalance = () => async (dispatch, getState) => {
 };
 
 export const checkUserCache = () => (dispatch, getState) => {
-    console.log('checkUserCache');
-    console.log(localStorage);
     const {localStorage} = getState().content;
-    if (!localStorage) {
+    const {coinbase, privateKey} = localStorage;
+    if (!coinbase || !privateKey) {
         return;
     }
 
-    const {coinbase, privateKey} = localStorage;
     dispatch({
         type: USER_LOGIN,
         payload: {
