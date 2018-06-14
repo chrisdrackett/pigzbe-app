@@ -76,6 +76,19 @@ export default StyleSheet.create({
         color: color.white,
         fontSize: 14
     },
+    claimBlock: {
+      borderTopWidth: 1,
+      borderTopColor: color.mediumGrey,
+      borderBottomWidth: 1,
+      borderBottomColor: color.mediumGrey,
+      flex: 1,
+      marginBottom: 25,
+      paddingTop: 25,
+    },
+    claimClearButton: {
+      marginBottom: 20,
+      marginTop: 20,
+    },
     switch: {
         flex: 1,
         flexDirection: 'row',

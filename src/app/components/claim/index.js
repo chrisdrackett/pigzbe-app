@@ -12,9 +12,8 @@ import TextInput from '../text-input';
 import Logo from '../logo';
 import styles from './styles';
 import Steps from './steps';
+import Loader from '../loader';
 import Progress from '../progress';
-import {clear} from '../../utils/storage';
-
 import {userLogin} from '../../actions/eth';
 import {transfer, burn, changeNetwork} from '../../actions/contract';
 import {checkUserCache} from '../../actions/eth';
@@ -28,6 +27,8 @@ class Claim extends Component {
       mnemonic: 'elephant merit raven monkey path outer paddle bounce exist fringe pet dry',
       pk: '0x798D23d6a84b2EF7d23c4A25735ED55B72072c24',
       errorImportingAccount: false,
+      loading: 'Loading Ethereum Interface',
+      clickedClose: false,
       modal: {
           visible: false,
           message: '',
@@ -39,26 +40,35 @@ class Claim extends Component {
       // TODO: check if the process has already started and jump steps
       //
 
-      // clear('burning');
-
       this.props.changeNetwork(process.env.NODE_ENV || 'ropsten');
 
   }
 
   componentWillReceiveProps(nextProps) {
-      console.log('!!!!!');
       if (nextProps.contract.instance && !this.props.contract.instance) {
+          this.setState({loading: 'Loading your data'});
           this.props.loadLocalStorage();
       }
       if (nextProps.localStorage && !this.props.localStorage) {
+          console.log('componentWillReceiveProps');
+          console.log(nextProps.localStorage);
+
+          if (nextProps.localStorage.coinbase && !nextProps.localStorage.started) {
+              this.setState({loading: 'Loading your balance'});
+          }
           nextProps.checkUserCache();
       }
-      console.log(nextProps.user);
-      console.log(this.props.localStorage.complete);
-      console.log(this.props.localStorage.started);
-      if (nextProps.user.coinbase && !this.props.localStorage.complete && this.props.localStorage.started && this.state.step <= 4) {
-          this.setState({step: 5});
+
+      if (nextProps.user.coinbase && this.props.localStorage) {
+          if (nextProps.user.balance) {
+              this.setState({step: 5, loading: null});
+          }
       }
+
+      if (!nextProps.user.coinbase && this.props.localStorage) {
+          this.setState({loading: null});
+      }
+
   }
 
   onImportKey = () => {
@@ -68,12 +78,13 @@ class Claim extends Component {
           return;
       }
 
+      this.setState({loading: true});
+
       let publicKey = pk;
       if (pk.substr(0, 2) !== '0x') {
           publicKey = `0x${pk}`;
       }
       this.props.userLogin(mnemonic, publicKey);
-      this.setState({step: 5});
   }
 
   onChangeStep = (step) => {
@@ -146,12 +157,18 @@ class Claim extends Component {
           localStorage,
       } = this.props;
 
-      console.log(localStorage);
+      console.log(this.state.loading);
+
+      if (!web3 || !contract.instance || !localStorage || this.state.loading !== null) {
+          return (
+              <View style={styles.containerLoading}>
+                  <Loader isLoading message={this.state.loading} />
+              </View>
+          );
+      }
 
       const stellar = (localStorage.stellar && localStorage.started) ? localStorage.stellar : (user.stellar ? user.stellar : null);
       const tx = localStorage.transactionHash || events.get('transactionHash');
-
-      console.log(loading);
 
       return (
           <View style={styles.containerBody}>
@@ -198,44 +215,22 @@ class Claim extends Component {
               {step === 5 &&
                   <View style={styles.containerBodySteps}>
                       <Logo />
-                      <Text style={styles.title}>Claim your Wollo</Text>
-                      <Text style={styles.subtitle}>You have {user.balance} ERC20 Tokens in your Eidoo account.</Text>
-                      <Text style={styles.subtitle}>Tap Claim Wollo bellow to convert your tokens to {user.balance} Wollo and create your Pigzbe wallet.</Text>
-                      <View style={styles.containerBody}>
-                          <Button
-                              label="Claim Wollo"
-                              onPress={this.onSubmitBurn}
-                          />
-                          <Button
-                              label="Back"
-                              style=""
-                              secondary
-                              onPress={() => {
-                                  this.setState({step: 0});
-                              }}
-                          />
-                      </View>
-                  </View>
-              }
-
-              {step === 6 &&
-                  <View style={styles.containerBodySteps}>
-                      <Logo />
-                      <Text style={styles.title}>Claim your Wollo</Text>
                       {!localStorage.complete && localStorage.started &&
                           <Fragment>
-                              <Text style={styles.subtitle}>Your claim process has already started, click on Resume bellow to continue the process</Text>
+                              <Text style={styles.title}>Continue your application</Text>
+                              <Text style={styles.subtitle}>You didn't finish a previous Wollo claim process. Continue or cancel the process below.</Text>
                           </Fragment>
                       }
                       {!localStorage.complete && !localStorage.started &&
                           <Fragment>
+                              <Text style={styles.title}>Claim your Wollo</Text>
                               <Text style={styles.subtitle}>You have {user.balance} ERC20 Tokens in your Eidoo account.</Text>
                               <Text style={styles.subtitle}>Tap Claim Wollo bellow to convert your tokens to {user.balance} Wollo and create your Pigzbe wallet.</Text>
                           </Fragment>
                       }
                       <View style={styles.containerBody}>
                           <Button
-                              label={!localStorage.complete && !localStorage.started ? 'Claim Wollo' : 'Resume'}
+                              label={!localStorage.complete && !localStorage.started ? 'Claim Wollo' : 'Continue'}
                               onPress={this.onSubmitBurn}
                           />
                           <Button
@@ -250,7 +245,7 @@ class Claim extends Component {
                   </View>
               }
 
-              {localStorage.complete === 7 && stellar &&
+              {localStorage.complete && stellar &&
                   <View style={styles.containerBodySteps}>
                       <Logo />
                       <Text style={styles.title}>Whoop!</Text>
@@ -305,14 +300,14 @@ class Claim extends Component {
               </Modal>
 
               <Progress
-                  active={loading !== null}
+                  active={loading !== null && this.state.clickedClose}
                   complete={localStorage.complete}
                   title="Claim progress"
                   // error={error}
                   text={loading}
-                  buttonLabel={localStorage.complete ? 'Claiming complete' : null}
+                  buttonLabel={localStorage.complete ? 'Close' : null}
                   onPress={() => {
-                      this.setState({step: 6});
+                      this.setState({step: 6, clickedClose: true});
                   }}
               />
           </View>
