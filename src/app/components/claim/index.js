@@ -1,14 +1,11 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {
-    Text,
     View,
-    ScrollView,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {utils} from 'web3';
 import Config from 'react-native-config';
 
-import Button from '../button';
 import Logo from '../logo';
 import styles from './styles';
 import {
@@ -180,7 +177,7 @@ class Claim extends Component {
       return (
           <View style={styles.container}>
               <Logo />
-              <ScrollView containerStyle={styles.containerBody}>
+              <View style={styles.containerBody}>
                   {step === 1 && <Step1 onNext={() => this.onChangeStep(2)} onBack={this.props.onCloseClaim} />}
                   {step === 2 && <Step2 onNext={() => this.onChangeStep(3)} onBack={() => this.onChangeStep(1)} />}
                   {step === 3 && <Step3 onNext={() => this.onChangeStep(4)} onBack={() => this.onChangeStep(2)} />}
@@ -216,7 +213,7 @@ class Claim extends Component {
                           tx={tx}
                       />
                   }
-              </ScrollView>
+              </View>
 
               <Modal
                   visible={modal.visible}

@@ -15,7 +15,9 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     containerLastStep: {
-        paddingBottom: 30
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     containerLoading: {
         width: 250,
@@ -121,7 +123,6 @@ export default StyleSheet.create({
         paddingBottom: 5,
         margin: 0,
         marginTop: 20,
-        maxWidth: '90%',
         justifyContent: 'center',
         alignItems: 'center'
     },
