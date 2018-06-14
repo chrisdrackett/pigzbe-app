@@ -1,7 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 import {
-    container,
     color,
     fontFamily,
     paddingH

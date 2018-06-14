@@ -4,7 +4,6 @@ import {
     View,
 } from 'react-native';
 import Button from '../button';
-import Logo from '../logo';
 import styles from './styles';
 
 export default class Steps extends Component {
@@ -14,7 +13,7 @@ export default class Steps extends Component {
             <Fragment>
                 {step === 0 &&
                     <View style={styles.containerBodySteps}>
-                        <Logo />
+
                         <Text style={styles.title}>Before we begin</Text>
                         <Text style={styles.subtitle}>Follow a few simple steps to create a Pigzbe wallet and claim your Wollo. It's easy.</Text>
                         <Text style={styles.subtitle}>Before you begin, you will need your public address and 12 memorable words (seed) from your Eidoo wallet.</Text><Text style={styles.subtitle}>Before you begin, you will need your public address and 12 memorable words (seed) from your Eidoo wallet.</Text>
@@ -40,7 +39,7 @@ export default class Steps extends Component {
 
                 {step === 2 &&
                     <View style={styles.containerBodySteps}>
-                        <Logo />
+
                         <Text style={styles.title}>Your 12 words (seed)</Text>
                         <Text style={styles.subtitle}>Firstly open the Eidoo App.</Text>
                         <View style={styles.containerBody}>
@@ -70,7 +69,7 @@ export default class Steps extends Component {
 
                 {step === 3 &&
                     <View style={styles.containerBodySteps}>
-                        <Logo />
+
                         <Text style={styles.title}>Your Eidoo Wallet Address</Text>
                         <Text style={styles.subtitle}>Next up in the Eidoo app.</Text>
                         <View style={styles.containerBody}>
