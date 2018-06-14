@@ -7,7 +7,7 @@ import {
     Dimensions,
     Keyboard
 } from 'react-native';
-import {tryAutoLoad, load} from '../../actions';
+import {setUseTestnet, tryAutoLoad, load} from '../../actions';
 import styles from './styles';
 import Button from '../button';
 import TextInput from '../text-input';
@@ -32,7 +32,9 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        const {testUserKey} = this.props;
+        const {dispatch, testUserKey, useTestnet} = this.props;
+
+        dispatch(setUseTestnet(useTestnet));
 
         if (__DEV__ && testUserKey) {
             this.setState({inputText: testUserKey});
@@ -141,6 +143,7 @@ export default connect(
     state => ({
         testUserKey: state.auth.testUserKey,
         isLoading: state.loader.isLoading,
-        error: state.auth.error
+        error: state.auth.error,
+        useTestnet: state.wollo.useTestnet
     })
 )(Login);

@@ -1,8 +1,7 @@
-import {Keypair, useTestnet} from '@pigzbe/stellar-utils';
+import {Keypair} from '@pigzbe/stellar-utils';
 import {loadAccount} from './wollo';
 import {load, save, clear} from '../utils/keychain';
 import {authenticate} from '../utils/touch-id';
-import Config from 'react-native-config';
 
 export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
 export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
@@ -13,10 +12,6 @@ export const AUTH_TEST_USER = 'AUTH_TEST_USER';
 export const authTouchId = () => () => authenticate();
 
 export const authKeychain = () => () => {
-    if (Config.STELLAR_USE_TESTNET) {
-        useTestnet();
-    }
-
     return load()
         .then(result => {
             if (result.error) {
