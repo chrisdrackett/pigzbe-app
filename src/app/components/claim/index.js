@@ -224,7 +224,7 @@ class Claim extends Component {
               />
 
               <Progress
-                  active={loading !== null && !localStorage.complete}
+                  active={loading !== null && !localStorage.complete && !errorBurning}
                   complete={localStorage.complete}
                   title="Claim progress"
                   error={errorBurning}

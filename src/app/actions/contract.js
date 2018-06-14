@@ -137,9 +137,9 @@ export const burn = (amount) => async (dispatch, getState) => {
 
             if (payload.error) {
                 console.log('payload error', payload.error);
-                dispatch({type: ERROR, payload});
-                dispatch({type: LOADING, payload: strings.errorCreatingStellarAccount});
-                setTimeout(dispatch, 4000, {type: LOADING, payload: null});
+                // dispatch({type: ERROR, payload});
+                dispatch({type: ERROR, payload: strings.errorCreatingStellarAccount});
+                // setTimeout(dispatch, 4000, {type: LOADING, payload: null});
                 return;
             }
 
@@ -186,8 +186,8 @@ export const burn = (amount) => async (dispatch, getState) => {
             dispatch({type: LOADING, payload: 'Transaction accepted!\n\nWaiting for network confirmations\n\nThis step can take a while, it\'s safe to come back later'});
 
             if (!transactionHash) {
-                dispatch({type: LOADING, payload: strings.errorBurningTokens});
-                setTimeout(dispatch, 6000, {type: LOADING, payload: null});
+                dispatch({type: ERROR, payload: strings.errorBurningTokens});
+                // setTimeout(dispatch, 6000, {type: LOADING, payload: null});
                 return;
             }
         } else {
@@ -209,8 +209,8 @@ export const burn = (amount) => async (dispatch, getState) => {
 
             if (validateTransaction.from.toLowerCase() !== coinbase.toLowerCase()) {
                 console.log('error', validateTransaction);
-                dispatch({type: LOADING, payload: strings.errorEthereumTransactionInvalid});
-                setTimeout(dispatch, 4000, {type: LOADING, payload: null});
+                dispatch({type: ERROR, payload: strings.errorEthereumTransactionInvalid});
+                // setTimeout(dispatch, 4000, {type: LOADING, payload: null});
                 return;
             }
 
