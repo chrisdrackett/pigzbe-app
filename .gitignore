@@ -63,4 +63,5 @@ buck-out/
 
 # Pigzbe ignore files
 .env.json
+.env
 /src/app/constants/erc20-contract.json

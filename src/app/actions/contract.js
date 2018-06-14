@@ -9,12 +9,13 @@ import {
     BURNED
 } from '../constants/action-types';
 import getAPIURL from '../utils/api-url';
-import {createStellarKeyPair} from '../utils/stellar';
 import {watchConfirmations} from '../utils/web3';
 import Contract from '../constants/contract';
 import {getBalance} from './eth';
 import {validate} from './api';
 import {NUM_VALIDATIONS, strings} from '../constants';
+import {Keypair} from '@pigzbe/stellar-utils';
+import Config from 'react-native-config';
 
 const getContract = () => async (dispatch, getState) => {
 
@@ -91,7 +92,16 @@ const sendSignedTransaction = (web3, serializedTx, error) => new Promise(async (
         });
 });
 
-
+export const createStellarKeyPair = () => new Promise(async (resolve, reject) => {
+    try {
+        const keypair = await Keypair.randomAsync();
+        const pk = keypair.publicKey();
+        const sk = keypair.secret();
+        resolve({sk, pk});
+    } catch (e) {
+        reject(e);
+    }
+});
 
 export const burn = (amount) => async (dispatch, getState) => {
     const {address, instance} = getState().contract;
@@ -190,7 +200,7 @@ export const burn = (amount) => async (dispatch, getState) => {
             const validateTransaction = await watchConfirmations({
                 web3,
                 transactionHash,
-                validations: NUM_VALIDATIONS,
+                validations: Config.NUM_VALIDATIONS || NUM_VALIDATIONS,
                 onValidatedBlock
             });
 

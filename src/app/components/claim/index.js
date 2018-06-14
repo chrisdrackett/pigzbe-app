@@ -3,7 +3,7 @@ import {
     Text,
     View,
     Modal,
-    ScrollView,
+    Linking,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {utils} from 'web3';
@@ -18,14 +18,15 @@ import {userLogin} from '../../actions/eth';
 import {transfer, burn, changeNetwork} from '../../actions/contract';
 import {checkUserCache} from '../../actions/eth';
 import {loadLocalStorage} from '../../actions/content';
+import Config from 'react-native-config';
 
 class Claim extends Component {
   state = {
       step: 0,
       error: null,
       burnInput: '5',
-      mnemonic: 'elephant merit raven monkey path outer paddle bounce exist fringe pet dry',
-      pk: '0x798D23d6a84b2EF7d23c4A25735ED55B72072c24',
+      mnemonic: Config.MNEMONIC || 'elephant merit raven monkey path outer paddle bounce exist fringe pet dry',
+      pk: Config.PK || '0x798D23d6a84b2EF7d23c4A25735ED55B72072c24',
       errorImportingAccount: false,
       loading: 'Loading Ethereum Interface',
       clickedClose: false,
@@ -37,7 +38,13 @@ class Claim extends Component {
   }
 
   componentWillMount() {
-      this.props.changeNetwork(process.env.NODE_ENV || 'ropsten');
+      // TODO: check if the process has already started and jump steps
+      //
+
+      // clear('burning');
+
+      this.props.changeNetwork(Config.NETWORK || 'ropsten');
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -57,11 +64,11 @@ class Claim extends Component {
 
       if (nextProps.user.coinbase && this.props.localStorage) {
           if (nextProps.user.balance) {
-              this.setState({step: this.props.localStorage.complete && this.props.localStorage.stellar ? 6 : 5, loading: null});
+              this.setState({step: 5, loading: null});
           }
       }
 
-      if (!nextProps.user.coinbase && nextProps.localStorage) {
+      if (!nextProps.user.coinbase && this.props.localStorage) {
           this.setState({loading: null});
       }
 
@@ -166,12 +173,10 @@ class Claim extends Component {
       const stellar = (localStorage.stellar && localStorage.started) ? localStorage.stellar : (user.stellar ? user.stellar : null);
       const tx = localStorage.transactionHash || events.get('transactionHash');
 
-      console.log(step);
-
       return (
-          <ScrollView containerStyle={styles.containerBody}>
+          <View style={styles.containerBody}>
               {step < 4 &&
-                  <Steps step={step} onCloseClaim={this.props.onCloseClaim} onChangeStep={this.onChangeStep}/>
+                  <Steps step={step} onChangeStep={this.onChangeStep}/>
               }
               {step === 4 && web3 && contract.instance &&
                   <View style={styles.containerBodySteps}>
@@ -249,18 +254,20 @@ class Claim extends Component {
                       <Text style={styles.title}>Whoop!</Text>
                       <Text style={styles.subtitle}>Congrats! You are now the owner of {user.balance} Wollo, you rock.</Text>
                       <Text style={styles.subtitle}>Now, before you go any further, it's really IMPORTANT you make a secure copy of your NEW Pigzbe private and public keys just below.</Text>
-                      <View style={[styles.boxKeys, styles.boxTx]}>
-                          <Text style={styles.tagline}>Ethereum Transaction Hash</Text>
-                          <Text style={[styles.subtitle, styles.boxKeyText]}>{tx}</Text>
+                      <Text style={styles.subtitle}>This is your transaction hash from Ethereum: {tx} keep it safe.</Text>
+                      <View>
+                          <Text>Private Key</Text>
+                          <Text style={styles.subtitle}>{stellar.sk}</Text>
                       </View>
-                      <View style={[styles.boxKeys, styles.boxPrivateKey]}>
-                          <Text style={styles.tagline}>Private Key</Text>
-                          <Text style={[styles.subtitle, styles.boxKeyText]}>{stellar.sk}</Text>
-                      </View>
-                      <View style={[styles.boxKeys, styles.boxPublicKey]}>
-                          <Text style={styles.tagline}>Public Key</Text>
-                          <Text style={[styles.subtitle, styles.boxKeyText]}>{stellar.pk}</Text>
-
+                      <View>
+                          <Text>Public Key</Text>
+                          <Button
+                              label={stellar.pk}
+                              onPress={() => {
+                                  Linking.openURL(`https://horizon-testnet.stellar.org/accounts/${stellar.pk}`);
+                              }}
+                          />
+                          <Text style={styles.subtitle}>{stellar.pk}</Text>
                       </View>
                   </View>
               }
@@ -306,7 +313,7 @@ class Claim extends Component {
                       this.setState({step: 6, clickedClose: true});
                   }}
               />
-          </ScrollView>
+          </View>
       );
   }
 }
