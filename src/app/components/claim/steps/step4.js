@@ -18,20 +18,20 @@ export default ({
         <Text style={styles.subtitle}>We're almost there! Enter your Eidoo wallet address and the 12 word seed below and lets claim.</Text>
         <View style={styles.containerFields}>
             <TextInput
-                style={{paddingTop: 10, paddingBottom: 10}}
                 error={!!error}
                 value={pk}
-                numberOfLines={4}
+                numberOfLines={2}
                 placeholder="Your Eidoo wallet address"
                 onChangeText={onChangePk}
+                returnKeyType="done"
             />
             <TextInput
-                style={{paddingTop: 10, paddingBottom: 10}}
                 error={!!error}
                 value={mnemonic}
-                numberOfLines={5}
+                numberOfLines={3}
                 placeholder="Your 12 word seed, you must include spaces"
                 onChangeText={onChangeMnemonic}
+                returnKeyType="done"
             />
         </View>
     </StepWrapper>

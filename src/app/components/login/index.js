@@ -122,6 +122,7 @@ class Login extends Component {
                                         value={this.state.inputText}
                                         placeholder={strings.loginPlaceholder}
                                         onChangeText={inputText => this.setState({inputText})}
+                                        returnKeyType="done"
                                     />
                                     <Button
                                         label={strings.loginSubmitButtonLabel}

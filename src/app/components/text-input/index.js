@@ -3,6 +3,10 @@ import {TextInput, Text, View} from 'react-native';
 import styles from './styles';
 import {color} from '../../styles';
 
+const getHeight = (numberOfLines, margin = 0) => ({
+    height: Math.floor(30 + 15 * numberOfLines + margin)
+});
+
 const getStyle = (error, dark, numberOfLines, extra) => {
     let style = [styles.input];
 
@@ -14,11 +18,11 @@ const getStyle = (error, dark, numberOfLines, extra) => {
         style = style.concat(styles.error);
     }
 
-    if (numberOfLines > 1) {
-        style = style.concat({
-            height: 45 + 12 * (numberOfLines - 1)
-        });
-    }
+    style = style.concat(getHeight(numberOfLines));
+
+    style = style.concat({
+        paddingTop: numberOfLines > 1 ? 15 : 12
+    });
 
     if (extra) {
         style = style.concat(extra);
@@ -38,7 +42,8 @@ export default ({
     maxLength,
     style,
     editable = true,
-    keyboardType = 'default'
+    keyboardType = 'default',
+    returnKeyType = 'default',
 }) => (
     <Fragment>
         {label ? (
@@ -46,7 +51,7 @@ export default ({
                 {label}
             </Text>
         ) : null}
-        <View style={styles.wrapper}>
+        <View style={getHeight(numberOfLines, 10)}>
             <TextInput
                 style={getStyle(error, dark, numberOfLines, style)}
                 placeholder={placeholder}
@@ -58,6 +63,8 @@ export default ({
                 maxLength={maxLength}
                 editable={editable}
                 keyboardType={keyboardType}
+                returnKeyType={returnKeyType}
+                blurOnSubmit={true}
             />
         </View>
     </Fragment>
