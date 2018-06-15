@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
-import {
-    View,
-} from 'react-native';
 import {connect} from 'react-redux';
+import {View} from 'react-native';
 import {utils} from 'web3';
 import Config from 'react-native-config';
-
 import Logo from '../logo';
 import styles from './styles';
 import {
@@ -19,6 +16,7 @@ import {
 import Loader from '../loader';
 import Progress from '../progress';
 import Modal from './modal';
+import Container from '../container';
 import {userLogin} from '../../actions/eth';
 import {transfer, burn, init} from '../../actions/contract';
 
@@ -134,11 +132,21 @@ class Claim extends Component {
       });
   }
 
+  closeProgress = () => {
+      this.setState({clickedClose: true});
+  }
+
   onChangeMnemonic = (mnemonic) => {
       this.setState({mnemonic});
   }
   onChangePk = (pk) => {
       this.setState({pk});
+  }
+
+  confirmCopy = () => {
+      const {localStorage, user, onCompleteClaim} = this.props;
+      const stellar = user.stellar || localStorage.stellar;
+      onCompleteClaim(stellar.sk);
   }
 
   render () {
@@ -158,16 +166,16 @@ class Claim extends Component {
           events,
           web3,
           localStorage,
-          errorBurning,
+          errorBurning
       } = this.props;
 
       console.log(this.state.loading);
 
       if (!web3 || !contract.instance || !localStorage || this.state.loading !== null) {
           return (
-              <View style={styles.containerLoading}>
+              <Container style={styles.containerLoading}>
                   <Loader isLoading message={this.state.loading} />
-              </View>
+              </Container>
           );
       }
 
@@ -175,9 +183,11 @@ class Claim extends Component {
       const tx = localStorage.transactionHash || events.get('transactionHash');
 
       return (
-          <View style={styles.container}>
-              <Logo />
-              <View style={styles.containerBody}>
+          <Container>
+              <View style={styles.header}>
+                  <Logo />
+              </View>
+              <Container>
                   {step === 1 && <Step1 onNext={() => this.onChangeStep(2)} onBack={this.props.onCloseClaim} />}
                   {step === 2 && <Step2 onNext={() => this.onChangeStep(3)} onBack={() => this.onChangeStep(1)} />}
                   {step === 3 && <Step3 onNext={() => this.onChangeStep(4)} onBack={() => this.onChangeStep(2)} />}
@@ -211,9 +221,10 @@ class Claim extends Component {
                           userBalance={user.balance}
                           stellar={stellar}
                           tx={tx}
+                          onNext={this.confirmCopy}
                       />
                   }
-              </View>
+              </Container>
 
               <Modal
                   visible={modal.visible}
@@ -222,15 +233,18 @@ class Claim extends Component {
                   onConfirm={this.onConfirmedSubmitBurn}
                   onCancel={this.closeModal}
               />
-
-              <Progress
-                  active={loading !== null && !localStorage.complete}
-                  complete={localStorage.complete}
-                  title="Claim progress"
-                  error={errorBurning}
-                  text={loading}
-              />
-          </View>
+              {!this.state.clickedClose ? (
+                  <Progress
+                      active={loading !== null && !localStorage.complete && !errorBurning}
+                      complete={localStorage.complete}
+                      title={localStorage.complete ? 'Congrats' : 'Claim progress'}
+                      error={errorBurning}
+                      text={localStorage.complete ? `Congrats! You are now the owner of ${user.balance} Wollo, you rock.` : loading}
+                      buttonLabel={localStorage.complete ? 'Next' : null}
+                      onPress={this.closeProgress}
+                  />
+              ) : null}
+          </Container>
       );
   }
 }

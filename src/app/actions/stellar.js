@@ -1,6 +1,6 @@
 import {Asset, trustAsset} from '@pigzbe/stellar-utils';
 import {claim} from './api';
-import {LOADING, LOCAL_STORAGE} from '../constants/action-types';
+import {LOADING, LOCAL_STORAGE, ERROR} from '../constants/action-types';
 import {strings} from '../constants';
 import Config from 'react-native-config';
 
@@ -41,11 +41,11 @@ export const trustStellarAsset = () => async (dispatch, getState) => {
     } catch (e) {
         console.log(e);
         dispatch({
-            type: LOADING,
+            type: ERROR,
             payload: errorTrustingStellarAsset,
         });
 
-        setTimeout(dispatch, 6000, {type: LOADING, payload: null});
+        // setTimeout(dispatch, 6000, {type: LOADING, payload: null});
     }
 
 

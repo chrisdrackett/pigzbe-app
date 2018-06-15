@@ -37,7 +37,7 @@ export const validate = () => async (dispatch, getState) => {
 
             if (payload.error) {
                 console.log(payload);
-                dispatch({type: LOADING, payload: strings.errorEthereumTransactionInvalid});
+                dispatch({type: ERROR, payload: strings.errorEthereumTransactionInvalid});
                 setTimeout(dispatch, 5000, {type: LOADING, payload: null});
                 return;
             }
@@ -91,14 +91,14 @@ export const claim = () => async (dispatch, getState) => {
 
             if (payload.error) {
                 if (payload.error === 1) {
-                    dispatch({type: LOADING, payload: strings.errorPaymentAlreadyProcessed});
+                    dispatch({type: ERROR, payload: strings.errorPaymentAlreadyProcessed});
                 } else {
-                    dispatch({type: LOADING, payload: payload.message});
+                    dispatch({type: ERROR, payload: payload.message});
                 }
-                setTimeout(dispatch, 2000, {
-                    type: LOADING,
-                    payload: null
-                });
+                // setTimeout(dispatch, 2000, {
+                //     type: LOADING,
+                //     payload: null
+                // });
 
                 return;
             }

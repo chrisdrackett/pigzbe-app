@@ -8,9 +8,10 @@ import {
 
 export default StyleSheet.create({
     container: {
-        alignSelf: 'stretch',
+        // alignSelf: 'stretch',
         flex: 1,
-        backgroundColor: color.blue,
+        // backgroundColor: color.blue,
+        backgroundColor: 'red',
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -21,19 +22,18 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     containerBody: {
-        width: '100%',
+        alignItems: 'stretch',
         paddingLeft: paddingH,
         paddingRight: paddingH,
-        flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'space-between',
+        paddingBottom: 20,
     },
-    containerBodySteps: {
-      alignItems: 'center',
-      width: '100%',
-      flex: 1,
-      paddingLeft: paddingH - 10,
-      paddingRight: paddingH - 10,
-      justifyContent: 'center'
+    containerText: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'stretch',
+        flexGrow: 1,
+        paddingTop: 20,
     },
     containerBodyKeyb: {
         backgroundColor: color.blue

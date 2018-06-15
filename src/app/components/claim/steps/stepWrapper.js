@@ -2,12 +2,18 @@ import React from 'react';
 import {View} from 'react-native';
 import Button from '../../button';
 import styles from '../styles';
+import Container from '../../container';
+import KeyboardAvoid from '../../keyboard-avoid';
 
 const StepWrapper = ({children, onNext, onBack, buttonNextLabel}) => (
-    <View style={styles.containerBodySteps}>
-        {children}
+    <Container style={styles.containerBody}>
+        <KeyboardAvoid>
+            <View style={styles.containerChildren}>
+                {children}
+            </View>
+        </KeyboardAvoid>
         {onBack && onNext &&
-            <View style={styles.containerBody}>
+            <View style={styles.containerButtons}>
                 <Button label={buttonNextLabel} onPress={onNext} />
                 <Button
                     label="Back"
@@ -15,7 +21,7 @@ const StepWrapper = ({children, onNext, onBack, buttonNextLabel}) => (
                     onPress={onBack}
                 />
             </View>}
-    </View>
+    </Container>
 );
 
 StepWrapper.defaultProps = {

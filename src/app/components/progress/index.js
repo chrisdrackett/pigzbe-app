@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import styles from './styles';
 import Bar from './bar';
 import Button from '../button';
@@ -45,7 +45,11 @@ export default class Progress extends Component {
             <View style={styles.overlay}>
                 <View style={styles.container}>
                     <Text style={styles.title}>{title}</Text>
-                    <Bar active={active} error={error}/>
+                    {complete ? (
+                        <Image style={styles.check} source={require('./images/check.png')}/>
+                    ) : (
+                        <Bar active={active} error={error}/>
+                    )}
                     <View style={styles.inner}>
                         <Text style={error ? [styles.text, styles.error] : styles.text}>
                             {error && error.message || text}

@@ -4,7 +4,6 @@ import {
     Text,
     View,
     Image,
-    Dimensions,
     Keyboard
 } from 'react-native';
 import {setUseTestnet, tryAutoLoad, load} from '../../actions';
@@ -20,15 +19,22 @@ import {
 import DevPanel from '../dev-panel';
 import KeyboardAvoid from '../keyboard-avoid';
 import Claim from '../claim';
+import Container from '../container';
 
-const getWidth = () => Dimensions.get('window').width;
+const Header = () => (
+    <Container style={styles.containerHeader}>
+        <Image style={styles.backgroundImage} source={require('./images/header.png')} />
+        <Image style={styles.image} source={require('./images/pigzbe_logo.png')} />
+        <Text style={styles.tagline}>{strings.loginTagline}</Text>
+        <Pig/>
+    </Container>
+);
 
 class Login extends Component {
     state = {
         inputText: '',
         newUserSteps: 0,
-        existingUser: false,
-        deviceWidth: getWidth()
+        existingUser: false
     }
 
     componentDidMount() {
@@ -49,17 +55,6 @@ class Login extends Component {
         }
     }
 
-    getHeaderImage = () => (
-        <View style={[styles.containerHeader, {
-            width: this.state.deviceWidth
-        }]}>
-            <Image style={styles.backgroundImage} source={require('./images/header.png')} />
-            <Image style={styles.image} source={require('./images/pigzbe_logo.png')} />
-            <Text style={styles.tagline}>{strings.loginTagline}</Text>
-            <Pig/>
-        </View>
-    )
-
     onCloseClaim = () => {
         this.setState({newUser: false});
     }
@@ -69,76 +64,87 @@ class Login extends Component {
             dispatch,
             // navigation,
             isLoading,
-            error
+            error,
+            claimSecret
         } = this.props;
 
         const {newUser, existingUser} = this.state;
 
+        console.log('claimSecret', claimSecret);
+
         return (
-            <View style={styles.container} onLayout={() => this.setState({
-                deviceWidth: getWidth()
-            })}>
-                <KeyboardAvoid>
-
-                    {(!newUser && !existingUser) &&
+            <Container>
+                {(!newUser && !existingUser) &&
                         <Fragment>
-                            {this.getHeaderImage()}
-                            <View style={styles.containerBody}>
-                                <Text style={styles.title}>{strings.loginTitle}</Text>
-                                <Text style={styles.subtitle}>New to Pizbe? Create an account below and claim your Wollo</Text>
-                                <Button
-                                    label="New User"
-                                    onPress={() => {
-                                        this.setState({newUser: true});
-                                    }}
-                                />
-                                <Button
-                                    label="Existing User"
-                                    style=""
-                                    secondary
-                                    onPress={() => {
-                                        dispatch(tryAutoLoad());
-                                        this.setState({existingUser: true});
-                                    }}
-                                />
-                            </View>
+                            <Header/>
+                            <Container body>
+                                <View style={styles.containerText}>
+                                    <Text style={styles.title}>{strings.loginTitle}</Text>
+                                    <Text style={styles.subtitle}>New to Pizbe? Create an account below and claim your Wollo</Text>
+                                </View>
+                                <View>
+                                    <Button
+                                        label="New User"
+                                        onPress={() => {
+                                            this.setState({newUser: true});
+                                        }}
+                                    />
+                                    <Button
+                                        label="Existing User"
+                                        style=""
+                                        secondary
+                                        onPress={() => {
+                                            dispatch(tryAutoLoad());
+                                            this.setState({existingUser: true});
+                                        }}
+                                    />
+                                </View>
+                            </Container>
                         </Fragment>
-                    }
-                    {newUser && <Claim onCloseClaim={this.onCloseClaim}/>}
-                    {existingUser &&
-                        <Fragment>
-                            {this.getHeaderImage()}
-
-                            <View style={styles.containerBody}>
-                                <Text style={styles.title}>{strings.loginTitle}</Text>
-                                <Text style={styles.subtitle}>{strings.loginSubtitle}</Text>
-                                <TextInput
-                                    error={!!error}
-                                    value={this.state.inputText}
-                                    placeholder={strings.loginPlaceholder}
-                                    onChangeText={inputText => this.setState({inputText})}
-                                />
-                                <Button
-                                    label={strings.loginSubmitButtonLabel}
-                                    onPress={() => {
-                                        Keyboard.dismiss();
-                                        dispatch(load(this.state.inputText));
-                                    }}
-                                    disabled={!this.state.inputText}
-                                />
+                }
+                {newUser && (
+                    <Claim
+                        onCloseClaim={this.onCloseClaim}
+                        onCompleteClaim={sk => dispatch(load(sk))}
+                    />
+                )}
+                {existingUser &&
+                        <KeyboardAvoid>
+                            <Header/>
+                            <Container body>
+                                <View style={styles.containerText}>
+                                    <Text style={styles.title}>{strings.loginTitle}</Text>
+                                    <Text style={styles.subtitle}>{strings.loginSubtitle}</Text>
+                                </View>
+                                <View>
+                                    <TextInput
+                                        error={!!error}
+                                        value={this.state.inputText}
+                                        placeholder={strings.loginPlaceholder}
+                                        onChangeText={inputText => this.setState({inputText})}
+                                    />
+                                    <Button
+                                        label={strings.loginSubmitButtonLabel}
+                                        onPress={() => {
+                                            Keyboard.dismiss();
+                                            dispatch(load(this.state.inputText));
+                                        }}
+                                        disabled={!this.state.inputText}
+                                    />
+                                </View>
                                 {/* <Button
                                     label={strings.loginHelpButtonLabel}
                                     plain
                                     onPress={() => navigation.navigate(SCREEN_HELP)}
                                 /> */}
-                            </View>
-                        </Fragment>}
-                </KeyboardAvoid>
+                            </Container>
+                        </KeyboardAvoid>
+                }
                 <DevPanel/>
                 <Loader
                     isLoading={isLoading}
                 />
-            </View>
+            </Container>
         );
     }
 }

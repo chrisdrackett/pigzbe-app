@@ -11,11 +11,20 @@ export default class Bar extends Component {
         Animated.timing(this.state.progress, {
             toValue: 222,
             duration: 4000,
-        }).start();
+        }).start(this.loop);
+    }
+
+    loop = () => {
+        this.setState({progress: new Animated.Value(23)});
+        this.animate();
     }
 
     componentDidMount() {
         this.animate();
+    }
+
+    componentWillUnmount() {
+        Animated.timing(this.state.progress).stop();
     }
 
     render() {

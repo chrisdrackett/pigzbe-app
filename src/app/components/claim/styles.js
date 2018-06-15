@@ -8,11 +8,23 @@ import {
 
 export default StyleSheet.create({
     container: {
-        alignSelf: 'stretch',
         flex: 1,
         backgroundColor: color.blue,
+        backgroundColor: 'magenta',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+    },
+    header: {
+        alignSelf: 'stretch',
+        backgroundColor: color.blue,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 69,
+        flexBasis: 69,
+        flexGrow: 0,
+        position: 'relative',
+        zIndex: 1,
     },
     containerLastStep: {
         flex: 1,
@@ -24,26 +36,23 @@ export default StyleSheet.create({
         width: 250,
         flex: 1
     },
-    containerButtons: {
-        width: '100%',
-        paddingLeft: paddingH,
-        paddingRight: paddingH,
-    },
-    containerBodySteps: {
-        // backgroundColor: 'red',
+    containerChildren: {
+        alignSelf: 'stretch',
         alignItems: 'stretch',
-        // width: '100%',
-        flex: 1,
-        justifyContent: 'center',
+    },
+    alignLeft: {
+        textAlign: 'left',
+    },
+    containerButtons: {
+    },
+    containerFields: {
     },
     containerBody: {
-        // backgroundColor: 'green',
-        // width: '100%',
         alignItems: 'stretch',
         paddingLeft: paddingH,
         paddingRight: paddingH,
-        flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'space-between',
+        paddingBottom: 20,
     },
     title: {
         fontFamily,
@@ -53,7 +62,7 @@ export default StyleSheet.create({
         marginTop: 20,
         marginLeft: 20,
         marginRight: 20,
-        marginBottom: 10,
+        marginBottom: 20,
         textAlign: 'center'
     },
     tagline: {
@@ -77,6 +86,24 @@ export default StyleSheet.create({
         marginRight: 20,
         marginBottom: 20,
         textAlign: 'center'
+    },
+    list: {
+    },
+    listItem: {
+        marginBottom: 20,
+        paddingLeft: 30,
+        position: 'relative',
+    },
+    text: {
+        fontFamily,
+        color: color.whiteOpacity60,
+        fontSize: 14,
+        textAlign: 'left'
+    },
+    num: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
     },
     error: {
         color: color.red,
@@ -148,8 +175,8 @@ export default StyleSheet.create({
         backgroundColor: color.blue,
         marginTop: -28,
         alignSelf: 'center',
-        paddingLeft: 5,
-        paddingRight: 5,
+        paddingLeft: 8,
+        paddingRight: 8,
     },
     boxTx: {
         backgroundColor: color.green
@@ -171,5 +198,49 @@ export default StyleSheet.create({
     boxKeysCopy: {
         width: 45,
         height: 45,
+    },
+    confirmCopyOverlay: {
+        backgroundColor: color.blueOpacity80,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    confirmCopyContainer: {
+        borderRadius: 10,
+        backgroundColor: color.white,
+        paddingTop: 22,
+        paddingBottom: 6,
+        paddingLeft: 14,
+        paddingRight: 14,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 263,
+    },
+    checkbox: {
+        position: 'relative',
+        paddingLeft: 50,
+    },
+    checkboxCheck: {
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: color.blue,
+        width: 30,
+        height: 30,
+        position: 'absolute',
+        top: 6,
+        left: 6,
+    },
+    checkboxActive: {
+        backgroundColor: color.blue,
+    },
+    checkboxText: {
+        marginLeft: 0,
+        marginRight: 20,
+        textAlign: 'left',
     }
 });

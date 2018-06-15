@@ -30,6 +30,8 @@ export default StyleSheet.create({
         borderRadius: 11.5,
         height: 23,
         width: 222,
+        marginTop: 14,
+        marginBottom: 14,
     },
     barInner: {
         position: 'absolute',
@@ -44,12 +46,16 @@ export default StyleSheet.create({
         width: 222,
         backgroundColor: color.red,
     },
+    check: {
+        width: 52,
+        height: 51,
+    },
     title: {
         fontFamily,
         color: color.darkGrey,
         fontSize: 16,
         textAlign: 'center',
-        marginBottom: 40,
+        marginBottom: 26,
     },
     inner: {
         width: 216,
@@ -59,7 +65,7 @@ export default StyleSheet.create({
         color: color.mediumDarkGrey,
         fontSize: 14,
         textAlign: 'center',
-        marginTop: 30,
+        marginTop: 16,
         marginBottom: 30,
     },
     error: {

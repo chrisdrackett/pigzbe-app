@@ -17,7 +17,7 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderRadius: 22.5,
         marginBottom: 10,
-        paddingLeft: 30,
+        paddingLeft: 20,
         paddingRight: 20
     },
     dark: {
