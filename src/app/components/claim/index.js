@@ -67,7 +67,7 @@ class Claim extends Component {
       }
   }
 
-  onImportKey = () => {
+  onImportKey = async () => {
       const {mnemonic, pk} = this.state;
 
       const badAddress = pk.trim() === '' || !utils.isAddress(pk);
@@ -78,13 +78,16 @@ class Claim extends Component {
           return;
       }
 
-      this.setState({loading: 'Loading your Ethereum account'});
-
       let publicKey = pk;
       if (pk.substr(0, 2) !== '0x') {
           publicKey = `0x${pk}`;
       }
-      this.props.userLogin(mnemonic, publicKey);
+
+      const success = await this.props.userLogin(mnemonic, publicKey);
+
+      if (success) {
+          this.setState({loading: 'Loading your Ethereum account'});
+      }
   }
 
   onChangeStep = (step) => {

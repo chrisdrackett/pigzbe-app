@@ -77,8 +77,9 @@ export const userLogin = (mnemonic, pk) => async (dispatch, getState) => {
 
         dispatch(getBalance());
 
+        return true;
     } catch (e) {
-        console.log(e);
         dispatch({type: ERROR, payload: e});
+        return false;
     }
 };

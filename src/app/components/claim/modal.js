@@ -17,14 +17,14 @@ export default ({
                 <Fragment>
                     <Text style={styles.modalTitle}>The estimated gas for this transaction is</Text>
                     <Text style={[styles.modalTitle, styles.modalTitleCost]}>{estimatedCost}</Text>
-                    <Text>Are you sure you want to burn your tokens? They will be automatically converted into Stellar Wollo Tokens</Text>
+                    <Text style={styles.modalText}>Are you sure you want to burn your tokens? They will be automatically converted into Stellar Wollo Tokens</Text>
                     <View>
                         <Button
                             label="Confirm"
                             onPress={onConfirm}
                         />
                         <Button
-                            label="No"
+                            label="Cancel"
                             onPress={onCancel}
                             style={{
                                 backgroundColor: color.blue,
@@ -40,7 +40,7 @@ export default ({
 
             {message !== 'confirm' && message !== '' &&
                 <Fragment>
-                    <Text>{message}</Text>
+                    <Text style={styles.modalTitle}>{message}</Text>
                 </Fragment>
             }
         </View>
