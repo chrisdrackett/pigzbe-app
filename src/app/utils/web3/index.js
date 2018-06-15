@@ -2,6 +2,15 @@ import bip39 from 'bip39';
 import hdkey from 'ethereumjs-wallet/hdkey';
 import Config from 'react-native-config';
 
+export const isValidSeed = seed => {
+    const numWords = seed.trim().split(/\s+/g).length;
+    console.log('num words', numWords);
+    if (numWords !== 12) {
+        return false;
+    }
+    return bip39.validateMnemonic(seed);
+};
+
 export const generateAddressFromSeed = (seed, publicAddress) => {
     const hdwallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed(seed));
     const wallet_hdpath = 'm/44\'/60\'/0\'/0/';
@@ -11,9 +20,14 @@ export const generateAddressFromSeed = (seed, publicAddress) => {
     while (account.address.toLowerCase() !== publicAddress.toLowerCase()) {
         const wallet = hdwallet.derivePath(wallet_hdpath + counter).getWallet();
         const address = '0x' + wallet.getAddress().toString('hex');
+        console.log('address', address);
         const privateKey = wallet.getPrivateKey().toString('hex');
         account = {address: address, privateKey: privateKey};
         counter++;
+        console.log('counter', counter);
+        if (counter > 100) {
+            throw new Error('Please check your 12 memorable words');
+        }
     }
 
     return account;

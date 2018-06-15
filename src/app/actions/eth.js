@@ -7,7 +7,7 @@ import {
     ERROR,
     LOADING
 } from '../constants/action-types';
-import {generateAddressFromSeed} from '../utils/web3';
+import {isValidSeed, generateAddressFromSeed} from '../utils/web3';
 
 export const getBalance = () => async (dispatch, getState) => {
     try {
@@ -46,6 +46,14 @@ export const userLogin = (mnemonic, pk) => async (dispatch, getState) => {
     dispatch({type: LOADING, payload: null});
 
     try {
+        if (!isValidSeed(mnemonic)) {
+            throw new Error('Please check your 12 memorable words');
+        }
+
+        if (!web3.utils.isAddress(pk)) {
+            throw new Error('Please check your wallet address');
+        }
+
         const address = generateAddressFromSeed(mnemonic, pk);
         const account = web3.eth.accounts.privateKeyToAccount(`0x${address.privateKey}`);
         const coinbase = account.address;
@@ -70,6 +78,7 @@ export const userLogin = (mnemonic, pk) => async (dispatch, getState) => {
         dispatch(getBalance());
 
     } catch (e) {
+        console.log(e);
         dispatch({type: ERROR, payload: e});
     }
 };

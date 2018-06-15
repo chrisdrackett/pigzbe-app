@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import {Modal, View, Text} from 'react-native';
 import Button from '../button';
 import styles from './styles';
+import {color} from '../../styles';
 
 export default ({
     visible,
@@ -24,9 +25,14 @@ export default ({
                         />
                         <Button
                             label="No"
-                            style=""
-                            secondary
                             onPress={onCancel}
+                            style={{
+                                backgroundColor: color.blue,
+                                borderColor: color.blue,
+                            }}
+                            textStyle={{
+                                color: color.white
+                            }}
                         />
                     </View>
                 </Fragment>

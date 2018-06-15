@@ -19,15 +19,17 @@ import Modal from './modal';
 import Container from '../container';
 import {userLogin} from '../../actions/eth';
 import {transfer, burn, init} from '../../actions/contract';
+import {isValidSeed} from '../../utils/web3';
 
 class Claim extends Component {
   state = {
       step: 1,
       error: null,
       burnInput: '5',
-      mnemonic: Config.MNEMONIC,
-      pk: Config.PK,
-      errorImportingAccount: false,
+      mnemonic: Config.MNEMONIC || '',
+      pk: Config.PK || '',
+      badAddress: false,
+      badSeed: false,
       loading: 'Loading Ethereum Interface',
       clickedClose: false,
       modal: {
@@ -67,8 +69,12 @@ class Claim extends Component {
 
   onImportKey = () => {
       const {mnemonic, pk} = this.state;
-      if (pk === '' || mnemonic === '') {
-          this.setState({errorImportingAccount: true});
+
+      const badAddress = pk.trim() === '' || !utils.isAddress(pk);
+      const badSeed = mnemonic.trim() === '' || !isValidSeed(mnemonic);
+      this.setState({badAddress, badSeed});
+
+      if (badAddress || badSeed) {
           return;
       }
 
@@ -155,7 +161,8 @@ class Claim extends Component {
           estimatedCost,
           mnemonic,
           pk,
-          errorImportingAccount,
+          badAddress,
+          badSeed,
           step,
           modal,
       } = this.state;
@@ -170,6 +177,7 @@ class Claim extends Component {
       } = this.props;
 
       console.log(this.state.loading);
+      console.log(errorBurning);
 
       if (!web3 || !contract.instance || !localStorage || this.state.loading !== null) {
           return (
@@ -195,7 +203,8 @@ class Claim extends Component {
                       <Step4
                           onNext={this.onImportKey}
                           onBack={() => this.onChangeStep(3)}
-                          error={errorImportingAccount}
+                          badAddress={badAddress}
+                          badSeed={badSeed}
                           pk={pk}
                           mnemonic={mnemonic}
                           onChangeMnemonic={this.onChangeMnemonic}

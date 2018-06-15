@@ -38,8 +38,10 @@ export default class Progress extends Component {
             buttonLabel,
             onPress,
             complete,
-            error
+            error = null
         } = this.props;
+
+        const errorMessage = (error && error.message) || error;
 
         return (
             <View style={styles.overlay}>
@@ -51,8 +53,8 @@ export default class Progress extends Component {
                         <Bar active={active} error={error}/>
                     )}
                     <View style={styles.inner}>
-                        <Text style={error ? [styles.text, styles.error] : styles.text}>
-                            {error && error.message || text}
+                        <Text style={errorMessage ? [styles.text, styles.error] : styles.text}>
+                            {errorMessage || text}
                         </Text>
                         {buttonLabel &&
                             <Button
