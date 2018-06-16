@@ -4,7 +4,7 @@ import styles from './styles';
 import {color} from '../../styles';
 
 const getHeight = (numberOfLines, margin = 0) => ({
-    height: Math.floor(30 + 15 * numberOfLines + margin)
+    height: 24 + 21 * numberOfLines + margin
 });
 
 const getStyle = (error, dark, numberOfLines, extra) => {
@@ -21,7 +21,7 @@ const getStyle = (error, dark, numberOfLines, extra) => {
     style = style.concat(getHeight(numberOfLines));
 
     style = style.concat({
-        paddingTop: numberOfLines > 1 ? 15 : 12
+        paddingTop: numberOfLines > 1 ? 11 : 2
     });
 
     if (extra) {
@@ -43,7 +43,7 @@ export default ({
     style,
     editable = true,
     keyboardType = 'default',
-    returnKeyType = 'default',
+    returnKeyType = 'done',
 }) => (
     <Fragment>
         {label ? (

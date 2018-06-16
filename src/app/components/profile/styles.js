@@ -1,23 +1,18 @@
 import {StyleSheet} from 'react-native';
 import {
-    container,
     input,
     color,
-    fontFamily,
-    paddingH
+    fontFamily
 } from '../../styles';
 
 export default StyleSheet.create({
-    scrollContainer: {
-        position: 'relative',
+    outer: {
         backgroundColor: color.blue,
-        alignSelf: 'stretch'
-    },
-    container: {
-        ...container,
-        paddingLeft: paddingH,
-        paddingRight: paddingH,
-        justifyContent: 'flex-start'
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
     },
     avatar: {
         alignItems: 'center',
@@ -50,12 +45,6 @@ export default StyleSheet.create({
         textAlign: 'center',
         marginBottom: 0,
         marginTop: 10
-    },
-    buttonContainer: {
-        alignSelf: 'stretch',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        flexGrow: 2
     },
     error: {
         fontFamily,

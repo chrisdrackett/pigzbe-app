@@ -12,8 +12,10 @@ import {
 import styles from './styles';
 import container from '../../styles';
 import Button from '../button';
-import {clear} from '../../utils/storage';
+import Storage from '../../utils/storage';
+import Keychain from '../../utils/keychain';
 import {setUseTestnet, authTestUser} from '../../actions';
+import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY} from '../../constants';
 
 const SwitchControl = ({
     label,
@@ -95,7 +97,9 @@ class DevPanel extends Component {
                                 <Text style={styles.switchText}>Claim tool</Text>
                                 <Button style={styles.claimClearButton} label="Clear cache burning" onPress={() => {
                                     console.log('clear');
-                                    clear('burning');
+                                    Storage.clear('burning');
+                                    Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
+                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY);
                                 }} />
                             </View>
                             <Text style={styles.switchText}>
@@ -113,6 +117,15 @@ class DevPanel extends Component {
                                         />
                                     ))}
                                 </Picker>
+                            </View>
+                            <View style={styles.claimBlock}>
+                                <Text style={styles.switchText}>User data</Text>
+                                <Button style={styles.claimClearButton} label="Clear user data" onPress={() => {
+                                    console.log('clear');
+                                    Storage.clear('profile');
+                                    Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
+                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY);
+                                }} />
                             </View>
                         </View>
                         <TouchableOpacity

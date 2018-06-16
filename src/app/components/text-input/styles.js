@@ -11,7 +11,7 @@ export default StyleSheet.create({
         alignSelf: 'stretch',
         color: color.white,
         fontSize: 14,
-        lineHeight: 15,
+        // lineHeight: 15,
         fontWeight: 'bold',
         borderColor: color.white,
         borderWidth: 1,
