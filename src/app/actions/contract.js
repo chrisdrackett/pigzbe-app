@@ -4,6 +4,7 @@ import {
     CONTRACT_UPDATE,
     LOADING,
     STELLAR,
+    PRIVATE_KEY,
     NETWORK_CHANGE,
     LOCAL_STORAGE,
     BURNED,
@@ -17,6 +18,8 @@ import {loadLocalStorage} from './content';
 import {NUM_VALIDATIONS, strings} from '../constants';
 import {Keypair} from '@pigzbe/stellar-utils';
 import Config from 'react-native-config';
+import {load, save} from '../utils/keychain';
+import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY} from '../constants';
 
 const getContract = () => async (dispatch, getState) => {
 
@@ -74,14 +77,45 @@ const getContract = () => async (dispatch, getState) => {
     }
 };
 
-export const init = (network) => (dispatch) => {
+const getKeys = () => async dispatch => {
+    console.log('INIT KEYS');
+    try {
+        const stellar = await load(KEYCHAIN_ID_STELLAR_KEY);
+        const eth = await load(KEYCHAIN_ID_ETH_KEY);
+
+        if (stellar.key) {
+            const keypair = Keypair.fromSecret(stellar.key);
+            console.log('INIT KEYS STELLAR', keypair.publicKey());
+
+            dispatch({type: STELLAR, payload: {
+                pk: keypair.publicKey(),
+                sk: keypair.secret()
+            }});
+        }
+
+        if (eth.key) {
+            console.log('INIT KEYS ETHER', eth.key);
+            dispatch({type: PRIVATE_KEY, payload: {
+                privateKey: eth.key
+            }});
+        }
+
+        return true;
+    } catch (e) {
+        return false;
+    }
+};
+
+export const init = (network) => async (dispatch) => {
     console.log('changeNetwork');
     dispatch({
         type: NETWORK_CHANGE,
         payload: network
     });
 
-    dispatch(getContract());
+    await dispatch(getContract());
+
+    await dispatch(getKeys());
 };
 
 const sendSignedTransaction = (web3, serializedTx, error) => new Promise(async (resolve, reject) => {
@@ -95,29 +129,28 @@ const sendSignedTransaction = (web3, serializedTx, error) => new Promise(async (
         });
 });
 
-export const createStellarKeyPair = () => new Promise(async (resolve, reject) => {
-    try {
-        const keypair = await Keypair.randomAsync();
-        const pk = keypair.publicKey();
-        const sk = keypair.secret();
-        resolve({sk, pk});
-    } catch (e) {
-        reject(e);
-    }
-});
-
 export const burn = (amount) => async (dispatch, getState) => {
     const {address, instance} = getState().contract;
-    const {coinbase, privateKey} = getState().user;
+    const {coinbase, stellar, privateKey} = getState().user;
     const {localStorage} = getState().content;
     const web3 = getState().web3.instance;
 
     dispatch({type: LOADING, payload: strings.statusWaitingConfirmation});
 
     try {
-        const stellar = localStorage.stellar || await createStellarKeyPair();
+        const result = await load(KEYCHAIN_ID_STELLAR_KEY);
+        const keypair = (stellar && stellar.sk && Keypair.fromSecret(stellar.sk)) || await Keypair.randomAsync();
 
-        dispatch({type: STELLAR, payload: stellar});
+        console.log('keypair', keypair.publicKey());
+
+        if (!result.key) {
+            await save(KEYCHAIN_ID_STELLAR_KEY, keypair.secret());
+        }
+
+        dispatch({type: STELLAR, payload: {
+            pk: keypair.publicKey(),
+            sk: keypair.secret()
+        }});
 
         if (!localStorage.started) {
             console.log(`${getAPIURL()}/stellar`);
@@ -127,7 +160,7 @@ export const burn = (amount) => async (dispatch, getState) => {
                 cache: 'no-cache',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    pk: stellar.pk,
+                    pk: keypair.publicKey(),
                     eth: coinbase,
                     value: amount,
                 })
@@ -146,7 +179,7 @@ export const burn = (amount) => async (dispatch, getState) => {
             dispatch({
                 type: LOCAL_STORAGE,
                 payload: {
-                    stellar: stellar,
+                    stellar: {pk: keypair.publicKey()},
                     ethAddress: coinbase,
                     value: amount,
                     started: true,

@@ -5,15 +5,16 @@ import {
     USER_LOGOUT,
     USER_BALANCE,
     STELLAR,
+    PRIVATE_KEY,
 } from '../../constants/action-types';
 
 const initialState = new Record({
     coinbase: null,
-    privateKey: null,
     balance: null,
     supply: null,
     loggedIn: false,
     stellar: null,
+    privateKey: null,
 })();
 
 export default (state = initialState, action) => {
@@ -21,12 +22,17 @@ export default (state = initialState, action) => {
         case USER_LOGOUT:
             return state
                 .set('loggedIn', false)
-                .set('privateKey', null)
                 .set('coinbase', null);
 
         case STELLAR:
+            console.log('========> stellar', action.payload);
             return state
                 .set('stellar', Object.assign({}, action.payload));
+
+        case PRIVATE_KEY:
+            console.log('========> privateKey', action.payload);
+            return state
+                .set('privateKey', action.payload.privateKey);
 
         case USER_BALANCE:
             return state
@@ -35,7 +41,6 @@ export default (state = initialState, action) => {
         case USER_LOGIN:
             return state
                 .set('loggedIn', true)
-                .set('privateKey', action.payload.privateKey)
                 .set('coinbase', action.payload.coinbase);
 
         default:

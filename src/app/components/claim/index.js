@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {utils} from 'web3';
 import Config from 'react-native-config';
 import Logo from '../logo';
@@ -153,8 +153,7 @@ class Claim extends Component {
   }
 
   confirmCopy = () => {
-      const {localStorage, user, onCompleteClaim} = this.props;
-      const stellar = user.stellar || localStorage.stellar;
+      const {user: {stellar}, onCompleteClaim} = this.props;
       onCompleteClaim(stellar.sk);
   }
 
@@ -181,6 +180,9 @@ class Claim extends Component {
 
       console.log(this.state.loading);
       console.log(errorBurning);
+      console.log('user.stellar', user.stellar);
+
+      console.log(JSON.stringify(localStorage, null, 2));
 
       if (!web3 || !contract.instance || !localStorage || this.state.loading !== null) {
           return (
@@ -190,19 +192,19 @@ class Claim extends Component {
           );
       }
 
-      const stellar = (localStorage.stellar && localStorage.started) ? localStorage.stellar : (user.stellar ? user.stellar : null);
       const tx = localStorage.transactionHash || events.get('transactionHash');
 
       return (
-          <Container>
-              <View style={styles.header}>
-                  <Logo />
-              </View>
+          <ScrollView bounces={false} style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
               <Container>
-                  {step === 1 && <Step1 onNext={() => this.onChangeStep(2)} onBack={this.props.onCloseClaim} />}
-                  {step === 2 && <Step2 onNext={() => this.onChangeStep(3)} onBack={() => this.onChangeStep(1)} />}
-                  {step === 3 && <Step3 onNext={() => this.onChangeStep(4)} onBack={() => this.onChangeStep(2)} />}
-                  {step === 4 &&
+                  <View style={styles.header}>
+                      <Logo />
+                  </View>
+                  <Container>
+                      {step === 1 && <Step1 onNext={() => this.onChangeStep(2)} onBack={this.props.onCloseClaim} />}
+                      {step === 2 && <Step2 onNext={() => this.onChangeStep(3)} onBack={() => this.onChangeStep(1)} />}
+                      {step === 3 && <Step3 onNext={() => this.onChangeStep(4)} onBack={() => this.onChangeStep(2)} />}
+                      {step === 4 &&
                       <Step4
                           onNext={this.onImportKey}
                           onBack={() => this.onChangeStep(3)}
@@ -213,9 +215,9 @@ class Claim extends Component {
                           onChangeMnemonic={this.onChangeMnemonic}
                           onChangePk={this.onChangePk}
                       />
-                  }
+                      }
 
-                  {step === 5 &&
+                      {step === 5 &&
                       <Step5
                           continueApplication={!localStorage.complete && localStorage.started}
                           startApplication={!localStorage.complete && !localStorage.started}
@@ -226,37 +228,38 @@ class Claim extends Component {
                           }}
                           userBalance={user.balance}
                       />
-                  }
+                      }
 
-                  {localStorage.complete && stellar &&
+                      {localStorage.complete && user.stellar &&
                       <Step6
                           userBalance={user.balance}
-                          stellar={stellar}
+                          stellar={user.stellar}
                           tx={tx}
                           onNext={this.confirmCopy}
                       />
-                  }
-              </Container>
+                      }
+                  </Container>
 
-              <Modal
-                  visible={modal.visible}
-                  message={modal.message}
-                  estimatedCost={estimatedCost}
-                  onConfirm={this.onConfirmedSubmitBurn}
-                  onCancel={this.closeModal}
-              />
-              {!this.state.clickedClose ? (
-                  <Progress
-                      active={loading !== null && !localStorage.complete && !errorBurning}
-                      complete={localStorage.complete}
-                      title={localStorage.complete ? 'Congrats' : 'Claim progress'}
-                      error={errorBurning}
-                      text={localStorage.complete ? `Congrats! You are now the owner of ${user.balance} Wollo, you rock.` : loading}
-                      buttonLabel={localStorage.complete ? 'Next' : null}
-                      onPress={this.closeProgress}
+                  <Modal
+                      visible={modal.visible}
+                      message={modal.message}
+                      estimatedCost={estimatedCost}
+                      onConfirm={this.onConfirmedSubmitBurn}
+                      onCancel={this.closeModal}
                   />
-              ) : null}
-          </Container>
+                  {!this.state.clickedClose ? (
+                      <Progress
+                          active={loading !== null && !localStorage.complete && !errorBurning}
+                          complete={localStorage.complete}
+                          title={localStorage.complete ? 'Congrats' : 'Claim progress'}
+                          error={errorBurning}
+                          text={localStorage.complete ? `Congrats! You are now the owner of ${user.balance} Wollo, you rock.` : loading}
+                          buttonLabel={localStorage.complete ? 'Next' : null}
+                          onPress={this.closeProgress}
+                      />
+                  ) : null}
+              </Container>
+          </ScrollView>
       );
   }
 }

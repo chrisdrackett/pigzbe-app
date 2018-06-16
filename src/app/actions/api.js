@@ -47,7 +47,7 @@ export const validate = () => async (dispatch, getState) => {
             dispatch({
                 type: LOCAL_STORAGE,
                 payload: {
-                    stellarAccount: payload.stellar,
+                    stellarAccount: {pk: payload.stellar.pk},
                     receipt: payload.receipt,
                 }
             });

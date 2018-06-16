@@ -5,9 +5,12 @@ import {
     USER_LOGIN,
     LOCAL_STORAGE,
     ERROR,
-    LOADING
+    LOADING,
+    PRIVATE_KEY
 } from '../constants/action-types';
 import {isValidSeed, generateAddressFromSeed} from '../utils/web3';
+import {load, save} from '../utils/keychain';
+import {KEYCHAIN_ID_ETH_KEY} from '../constants';
 
 export const getBalance = () => async (dispatch, getState) => {
     try {
@@ -22,18 +25,26 @@ export const getBalance = () => async (dispatch, getState) => {
 
 };
 
-export const checkUserCache = () => (dispatch, getState) => {
+export const checkUserCache = () => async (dispatch, getState) => {
     const {localStorage} = getState().content;
-    const {coinbase, privateKey} = localStorage;
-    if (!coinbase || !privateKey) {
+    const {coinbase} = localStorage;
+    const privateKey = await load(KEYCHAIN_ID_ETH_KEY);
+
+    if (!coinbase || !privateKey.key) {
         return;
     }
 
     dispatch({
         type: USER_LOGIN,
         payload: {
-            coinbase,
-            privateKey
+            coinbase
+        },
+    });
+
+    dispatch({
+        type: PRIVATE_KEY,
+        payload: {
+            privateKey: privateKey.key
         },
     });
 
@@ -58,20 +69,26 @@ export const userLogin = (mnemonic, pk) => async (dispatch, getState) => {
         const account = web3.eth.accounts.privateKeyToAccount(`0x${address.privateKey}`);
         const coinbase = account.address;
 
+        await save(KEYCHAIN_ID_ETH_KEY, address.privateKey);
+
         dispatch({
             type: LOCAL_STORAGE,
             payload: {
-                coinbase,
-                privateKey: address.privateKey,
-                mnemonic
+                coinbase
             }
+        });
+
+        dispatch({
+            type: PRIVATE_KEY,
+            payload: {
+                privateKey: address.privateKey
+            },
         });
 
         dispatch({
             type: USER_LOGIN,
             payload: {
-                coinbase,
-                privateKey: address.privateKey
+                coinbase
             },
         });
 

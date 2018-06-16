@@ -7,7 +7,7 @@ import KeyboardAvoid from '../../keyboard-avoid';
 
 const StepWrapper = ({children, onNext, onBack, buttonNextLabel}) => (
     <Container style={styles.containerBody}>
-        <KeyboardAvoid offset={20}>
+        <KeyboardAvoid offset={80}>
             <View style={styles.containerChildren}>
                 {children}
             </View>

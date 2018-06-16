@@ -44,6 +44,7 @@ export default StyleSheet.create({
         textAlign: 'left',
     },
     containerButtons: {
+        paddingTop: 20,
     },
     containerFields: {
     },

@@ -3,9 +3,10 @@ import {claim} from './api';
 import {LOADING, LOCAL_STORAGE, ERROR} from '../constants/action-types';
 import {strings} from '../constants';
 import Config from 'react-native-config';
+import {load} from '../utils/keychain';
+import {KEYCHAIN_ID_STELLAR_KEY} from '../constants';
 
 export const trustStellarAsset = () => async (dispatch, getState) => {
-    const {stellar} = getState().user;
     const {localStorage} = getState().content;
     const {
         statusTrustingStellarAsset,
@@ -21,6 +22,8 @@ export const trustStellarAsset = () => async (dispatch, getState) => {
 
     try {
         if (!localStorage.wolloTrusted) {
+            const {stellar} = getState().user;
+            console.log('stellar', stellar);
             const asset = new Asset(Config.STELLAR_TOKEN_CODE, Config.STELLAR_TOKEN_ISSUER);
             await trustAsset(stellar.sk, asset);
             dispatch({
