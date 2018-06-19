@@ -35,7 +35,7 @@ export default connect(
     error
 }) => (
     <Fragment>
-        <KeyboardAvoid>
+        <KeyboardAvoid containerStyle={{flexGrow: 1}}>
             <ScrollView style={styles.scrollView} contentContainerStyle={[styles.contentContainer, styles.container]} bounces={false}>
                 <Header/>
                 <Wollo balance={balance}/>

@@ -10,15 +10,15 @@ export default StyleSheet.create({
         flex: 1
     },
     contentContainer: {
+        backgroundColor: color.blue,
         flexGrow: 1,
-        backgroundColor: 'red',
     },
     container: {
-        alignSelf: 'stretch',
-        flex: 1,
-        backgroundColor: color.blue,
-        alignItems: 'center',
-        justifyContent: 'center'
+        // alignSelf: 'stretch',
+        // flex: 1,
+        // backgroundColor: color.blue,
+        // alignItems: 'center',
+        // justifyContent: 'center'
     },
     pig: {
         marginTop: 20,
