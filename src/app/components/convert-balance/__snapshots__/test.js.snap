@@ -48,9 +48,9 @@ exports[`ConvertBalance renders correctly 1`] = `
     style={
       Object {
         "alignItems": "flex-start",
-        "alignSelf": "stretch",
         "flex": 1,
         "flexDirection": "row",
+        "flexGrow": 0,
         "flexWrap": "wrap",
         "justifyContent": "space-between",
         "marginTop": 20,

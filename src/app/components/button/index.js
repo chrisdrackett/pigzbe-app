@@ -11,10 +11,14 @@ const getButtonHitStyle = (plain, style, outline, secondary = false) => {
     }
 
     if (secondary) {
-        return [styles.buttonSecondary, style];
+        return [styles.buttonHit, styles.buttonHitSecondary, style];
     }
 
-    return outline ? [styles.buttonHit, styles.buttonHitOutline, style] : [styles.buttonHit, style];
+    if (outline) {
+        return [styles.buttonHit, styles.buttonHitOutline, style];
+    }
+
+    return [styles.buttonHit, style];
 };
 
 const getButtonTextStyle = (plain, disabled, textStyle) => {

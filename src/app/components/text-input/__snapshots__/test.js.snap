@@ -21,10 +21,15 @@ Array [
     Label
   </Text>,
   <View
-    style={undefined}
+    style={
+      Object {
+        "height": 55,
+      }
+    }
   >
     <TextInput
       allowFontScaling={true}
+      blurOnSubmit={true}
       editable={true}
       keyboardType="default"
       maxLength={undefined}
@@ -33,6 +38,7 @@ Array [
       onChangeText={[Function]}
       placeholder={undefined}
       placeholderTextColor="rgba(255, 255, 255, 0.6)"
+      returnKeyType="done"
       style={
         Array [
           Object {
@@ -44,10 +50,16 @@ Array [
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
-            "height": 45,
             "marginBottom": 10,
-            "paddingLeft": 30,
+            "paddingLeft": 20,
             "paddingRight": 20,
+            "paddingTop": 12,
+          },
+          Object {
+            "height": 45,
+          },
+          Object {
+            "paddingTop": 2,
           },
         ]
       }

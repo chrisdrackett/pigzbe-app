@@ -1,13 +1,25 @@
 import {StyleSheet} from 'react-native';
 import {
-    container,
     color,
     fontFamily,
     paddingH
 } from '../../styles';
 
 export default StyleSheet.create({
-    container,
+    scrollView: {
+        flex: 1
+    },
+    contentContainer: {
+        backgroundColor: color.blue,
+        flexGrow: 1,
+    },
+    container: {
+        // alignSelf: 'stretch',
+        // flex: 1,
+        // backgroundColor: color.blue,
+        // alignItems: 'center',
+        // justifyContent: 'center'
+    },
     pig: {
         marginTop: 20,
         alignSelf: 'center',

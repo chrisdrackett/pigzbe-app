@@ -14,7 +14,7 @@ export default StyleSheet.create({
         paddingBottom: 20
     },
     containerCoins: {
-        alignSelf: 'stretch',
+        flexGrow: 0,
         flex: 1,
         flexDirection: 'row',
         marginTop: 20,
