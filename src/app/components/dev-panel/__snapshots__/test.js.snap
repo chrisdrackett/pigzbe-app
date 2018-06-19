@@ -59,9 +59,13 @@ exports[`DevPanel renders correctly 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "height": 18,
+        "height": 38,
         "opacity": 1,
-        "width": 18,
+        "paddingBottom": 10,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 10,
+        "width": 38,
       }
     }
     testID={undefined}
