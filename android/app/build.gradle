@@ -102,7 +102,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 16
-        versionName "1.2.6"
+        versionName "1.2.7"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-config')
     compile project(':react-native-touch-id')
     compile project(':react-native-keychain')
     compile project(':react-native-randombytes')

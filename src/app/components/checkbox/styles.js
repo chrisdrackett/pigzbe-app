@@ -7,8 +7,8 @@ import {
 export default StyleSheet.create({
     container: {
         flexDirection: 'row',
-        marginTop: 20,
-        marginBottom: 30,
+        marginTop: 10,
+        marginBottom: 20,
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingLeft: 20,

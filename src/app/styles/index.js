@@ -11,6 +11,7 @@ export const color = {
     blueOpacity40: 'rgba(0, 50, 120, 0.4)',
     blueOpacity80: 'rgba(0, 50, 120, 0.8)',
     mediumBlue: 'rgb(21, 74, 150)',
+    lightBlue: '#249EB8',
     yellow: 'rgb(253, 223, 6)',
     red: 'rgb(255, 0, 0)',
     green: 'rgb(149, 198, 100)',
@@ -23,6 +24,7 @@ export const color = {
     purple: 'rgb(72, 70, 148)',
     lightPurple: 'rgb(241, 241, 255)',
     transparent: 'rgba(255, 255, 255, 0)',
+    orange: 'rgb(255, 98, 66)',
 };
 
 export const paddingH = '9.375%';

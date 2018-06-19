@@ -28,3 +28,5 @@ export const save = async (key, ob) => {
 export const clear = async key => {
     await AsyncStorage.removeItem(getKey(key));
 };
+
+export default module.exports;

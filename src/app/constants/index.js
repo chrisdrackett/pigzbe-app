@@ -2,8 +2,6 @@ export const strings = require('./strings.json');
 
 export * from './screens';
 
-export const USE_TESTNET = true;
-
 export const BASE_CURRENCY = 'USD';
 export const COINS = ['XLM', 'BTC', 'ETH', 'EUR', 'USD', 'JPY', 'GBP', 'GOLD'];
 export const COIN_DPS = {XLM: 6, BTC: 6, ETH: 6, EUR: 2, USD: 2, JPY: 0, GBP: 2, GOLD: 6};
@@ -14,3 +12,8 @@ export const ASSET_NAME = 'Wollo';
 export const ASSET_DPS = COIN_DPS[ASSET_CODE];
 
 export const PRIVACY_URL = 'https://pigzbe.com/pdf/pigzbe_privacy_notice.pdf';
+
+export const NUM_VALIDATIONS = 7;
+
+export const KEYCHAIN_ID_STELLAR_KEY = 'com.pigzbe.PigzbeApp.stellarKey';
+export const KEYCHAIN_ID_ETH_KEY = 'com.pigzbe.PigzbeApp.ethKey';

@@ -14,6 +14,14 @@ export default StyleSheet.create({
         borderWidth: 1,
         marginBottom: 10
     },
+    buttonSecondary: {
+        alignSelf: 'stretch',
+        backgroundColor: color.white,
+        borderColor: color.white,
+        borderRadius: 22.5,
+        borderWidth: 1,
+        marginBottom: 10
+    },
     buttonHitOutline: {
         backgroundColor: color.transparent,
         borderColor: color.blue,

@@ -31,8 +31,12 @@ export default StyleSheet.create({
         backgroundColor: color.red
     },
     settings: {
-        width: 18,
-        height: 18
+        width: 38,
+        height: 38,
+        paddingTop: 10,
+        paddingRight: 10,
+        paddingBottom: 10,
+        paddingLeft: 10,
     },
     settingsIcon: {
         width: 18,
@@ -41,8 +45,13 @@ export default StyleSheet.create({
     closeBtn: {
         position: 'absolute',
         top: 32,
-        right: 0,
-        paddingRight: paddingH
+        right: paddingH,
+        paddingRight: 10,
+        width: 38,
+        height: 38,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 10,
     },
     closeBtnText: {
         fontFamily,
@@ -75,6 +84,19 @@ export default StyleSheet.create({
         fontFamily,
         color: color.white,
         fontSize: 14
+    },
+    claimBlock: {
+        borderTopWidth: 1,
+        borderTopColor: color.mediumGrey,
+        borderBottomWidth: 1,
+        borderBottomColor: color.mediumGrey,
+        flex: 1,
+        marginBottom: 25,
+        paddingTop: 25,
+    },
+    claimClearButton: {
+        marginBottom: 20,
+        marginTop: 20,
     },
     switch: {
         flex: 1,

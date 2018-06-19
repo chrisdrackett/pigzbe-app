@@ -12,7 +12,7 @@ export const initialState = {
     error: null,
     publicKey: null,
     secretKey: null,
-    testUserKey: 'SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4',
+    testUserKey: null,
 };
 
 export default (state = initialState, action) => {

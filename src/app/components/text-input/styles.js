@@ -11,14 +11,15 @@ export default StyleSheet.create({
         alignSelf: 'stretch',
         color: color.white,
         fontSize: 14,
+        // lineHeight: 15,
         fontWeight: 'bold',
-        height: 45,
         borderColor: color.white,
         borderWidth: 1,
         borderRadius: 22.5,
         marginBottom: 10,
-        paddingLeft: 30,
-        paddingRight: 20
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 12,
     },
     dark: {
         borderColor: color.blue,

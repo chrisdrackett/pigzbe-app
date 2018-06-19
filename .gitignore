@@ -60,3 +60,8 @@ buck-out/
 /src/game/game.html
 /android/app/src/main/assets/game.html
 /android/app/src/main/assets/test.html
+
+# Pigzbe ignore files
+.env.json
+.env
+/src/app/constants/erc20-contract.json

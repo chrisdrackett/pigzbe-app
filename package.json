@@ -1,10 +1,14 @@
 {
   "name": "PigzbeApp",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/pigzbe/pigzbe-app.git"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": "8.10.0"
   },
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -26,18 +30,26 @@
     "start:electron": "wait-on 'http://localhost:8080' && npm run launch:electron",
     "launch:electron": "electron './desktop/main.js'",
     "build:webpack": "webpack -p --config './desktop/webpack.config.js'",
-    "postversion": "react-native-version"
+    "postversion": "react-native-version",
+    "contract": "pigzbe-contract deploy"
   },
   "dependencies": {
     "@pigzbe/stellar-utils": "1.0.7",
     "babel-polyfill": "^6.26.0",
+    "bip39": "^2.5.0",
+    "ethereumjs-tx": "^1.3.4",
+    "ethereumjs-wallet": "^0.6.0",
+    "immutable": "^3.8.2",
     "moment": "^2.22.1",
+    "node-libs-browser": "^2.1.0",
     "path": "^0.12.7",
+    "pigzbe-erc20-contract": "git+ssh://git@github.com/pigzbe/erc20-contract",
     "pixi.js": "^4.7.3",
     "react": "16.3.1",
     "react-art": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-native": "0.55.3",
+    "react-native-config": "^0.11.5",
     "react-native-image-picker": "^0.26.7",
     "react-native-keychain": "^3.0.0-rc.3",
     "react-native-touch-id": "^4.0.1",
@@ -45,12 +57,14 @@
     "react-native-web": "^0.6.0",
     "react-navigation": "^1.5.11",
     "react-redux": "^5.0.7",
+    "react-web-config": "^1.0.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
     "sono": "^2.1.6",
     "stellar-sdk": "^0.8.0",
     "url": "^0.11.0",
     "usfl": "^3.2.3",
+    "web3": "^1.0.0-beta.34",
     "xmldom-qsa": "^1.0.3"
   },
   "devDependencies": {

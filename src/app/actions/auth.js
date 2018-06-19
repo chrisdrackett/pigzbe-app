@@ -1,9 +1,8 @@
-import {Keypair, setServer} from '@pigzbe/stellar-utils';
+import {Keypair} from '@pigzbe/stellar-utils';
 import {loadAccount} from './wollo';
 import {load, save, clear} from '../utils/keychain';
 import {authenticate} from '../utils/touch-id';
-// import wait from './wait';
-import {USE_TESTNET} from '../constants';
+import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY} from '../constants';
 
 export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
 export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
@@ -13,21 +12,18 @@ export const AUTH_TEST_USER = 'AUTH_TEST_USER';
 
 export const authTouchId = () => () => authenticate();
 
-export const authKeychain = () => () => {
-    return load()
-        .then(result => {
-            if (result.error) {
-                console.log('Error:', result.error.message);
-            }
-            return result;
-        })
-        .then(result => result.key);
+export const authKeychain = () => async () => {
+    const result = await load(KEYCHAIN_ID_STELLAR_KEY);
+
+    if (result.error) {
+        console.log('Error:', result.error.message);
+    }
+
+    return result.key;
 };
 
 export const authLogin = secretKey => dispatch => {
     dispatch({type: AUTH_LOGIN_START});
-
-    setServer(USE_TESTNET);
 
     let keypair = null;
 
@@ -44,12 +40,13 @@ export const authLogin = secretKey => dispatch => {
     return dispatch(loadAccount(keypair.publicKey()))
         // .then(() => wait(0.25))
         .then(() => dispatch({type: AUTH_LOGIN, keypair}))
-        .then(() => save(keypair.secret()))
+        .then(() => save(KEYCHAIN_ID_STELLAR_KEY, keypair.secret()))
         .catch(error => dispatch({type: AUTH_LOGIN_FAIL, error}));
 };
 
 export const authLogout = () => dispatch => {
-    clear();
+    clear(KEYCHAIN_ID_STELLAR_KEY);
+    clear(KEYCHAIN_ID_ETH_KEY);
     dispatch({type: AUTH_LOGOUT});
 };
 

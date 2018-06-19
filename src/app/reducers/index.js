@@ -9,6 +9,12 @@ import coins from './coins';
 import connected from './connected';
 import game from './game';
 
+import user from './claim/user';
+import events from './claim/events';
+import contract from './claim/contract';
+import content from './claim/content';
+import web3 from './claim/web3';
+
 export default combineReducers({
     auth,
     escrow,
@@ -18,5 +24,11 @@ export default combineReducers({
     wollo,
     connected,
     coins,
-    game
+    game,
+    // claim reducers
+    user,
+    events,
+    contract,
+    content,
+    web3,
 });

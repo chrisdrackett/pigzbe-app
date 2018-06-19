@@ -3,7 +3,9 @@ import {connect} from 'react-redux';
 import {
     Text,
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView,
+    Dimensions
 } from 'react-native';
 import {
     profileUpdate,
@@ -17,7 +19,9 @@ import TextInput from '../text-input';
 import Loader from '../loader';
 import Avatar from '../avatar';
 import Checkbox from '../checkbox';
-import BaseView from '../base-view';
+import Header from '../header';
+import Container from '../container';
+import KeyboardAvoid from '../keyboard-avoid';
 import {pickImage} from '../../utils/image-picker';
 import isEmail from './is-email';
 import {
@@ -116,73 +120,82 @@ class Profile extends Component {
         } = this.state;
 
         return (
-            <BaseView scrollViewStyle={styles.scrollContainer}>
-                <View style={styles.container}>
-                    <Text style={styles.title}>
-                        {hasProfile ? strings.accountEdit : strings.accountCreate}
-                    </Text>
-                    <TouchableOpacity
-                        style={styles.avatar}
-                        onPress={this.onPressAvatar}>
-                        <Avatar select image={image}/>
-                        <Text style={styles.avatarText}>
-                            {hasProfile ? strings.accountChangeImage : strings.accountAddImage}
-                        </Text>
-                    </TouchableOpacity>
-                    <TextInput
-                        error={!validName}
-                        placeholder={strings.accountNamePlaceholder}
-                        value={name}
-                        onChangeText={value => this.setState({name: value})}
-                    />
-                    <TextInput
-                        keyboardType="email-address"
-                        error={!validEmail}
-                        placeholder={strings.accountEmailPlaceholder}
-                        value={email}
-                        onChangeText={value => this.setState({email: value})}
-                    />
-                    <Checkbox
-                        text={strings.accountMailingListOptIn}
-                        value={subscribe}
-                        onValueChange={() => this.setState({subscribe: !this.state.subscribe})}
-                    />
-                    <View style={styles.buttonContainer}>
-                        <Button
-                            label={hasProfile ? strings.accountSaveButtonLabel : strings.accountSubmitButtonLabel}
-                            onPress={() => this.save()}
+            <View style={styles.outer}>
+                <ScrollView bounces={false} style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
+                    <Container body style={{
+                        paddingBottom: hasProfile ? 10 : 20,
+                    }}>
+                        <KeyboardAvoid>
+                            <View>
+                                <Header/>
+                                <Text style={styles.title}>
+                                    {hasProfile ? strings.accountEdit : strings.accountCreate}
+                                </Text>
+                                <TouchableOpacity
+                                    style={styles.avatar}
+                                    onPress={this.onPressAvatar}>
+                                    <Avatar select image={image}/>
+                                    <Text style={styles.avatarText}>
+                                        {hasProfile ? strings.accountChangeImage : strings.accountAddImage}
+                                    </Text>
+                                </TouchableOpacity>
+                                <TextInput
+                                    error={!validName}
+                                    placeholder={strings.accountNamePlaceholder}
+                                    value={name}
+                                    onChangeText={value => this.setState({name: value})}
+                                />
+                                <TextInput
+                                    keyboardType="email-address"
+                                    error={!validEmail}
+                                    placeholder={strings.accountEmailPlaceholder}
+                                    value={email}
+                                    onChangeText={value => this.setState({email: value})}
+                                />
+                                <Checkbox
+                                    text={strings.accountMailingListOptIn}
+                                    value={subscribe}
+                                    onValueChange={() => this.setState({subscribe: !this.state.subscribe})}
+                                />
+                            </View>
+                        </KeyboardAvoid>
+                        <View>
+                            <Button
+                                label={hasProfile ? strings.accountSaveButtonLabel : strings.accountSubmitButtonLabel}
+                                onPress={() => this.save()}
+                            />
+                            {hasProfile ? (
+                                <Button
+                                    label={strings.accountCancelButtonLabel}
+                                    onPress={() => navigation.navigate(SCREEN_BALANCE)}
+                                />
+                            ) : null}
+                            {hasProfile ? (
+                                <Button
+                                    label={strings.accountLogoutButtonLabel}
+                                    plain
+                                    onPress={() => {
+                                        dispatch(authLogout());
+                                        dispatch(profileClear());
+                                    }}
+                                />
+                            ) : (
+                                <Button
+                                    label={strings.accountPrivacyButtonLabel}
+                                    plain
+                                    onPress={() => openURL(PRIVACY_URL)}
+                                />
+                            )}
+                            {error && (
+                                <Text style={styles.error}>{error.message}</Text>
+                            )}
+                        </View>
+                        <Loader
+                            isLoading={isUpdating}
                         />
-                        {hasProfile ? (
-                            <Button
-                                label={strings.accountCancelButtonLabel}
-                                onPress={() => navigation.navigate(SCREEN_BALANCE)}
-                            />
-                        ) : null}
-                        {hasProfile ? (
-                            <Button
-                                label={strings.accountLogoutButtonLabel}
-                                plain
-                                onPress={() => {
-                                    dispatch(authLogout());
-                                    dispatch(profileClear());
-                                }}
-                            />
-                        ) : (
-                            <Button
-                                label={strings.accountPrivacyButtonLabel}
-                                plain
-                                onPress={() => openURL(PRIVACY_URL)}
-                            />
-                        )}
-                        {error && (
-                            <Text style={styles.error}>{error.message}</Text>
-                        )}
-                    </View>
-                </View>
-                <Loader
-                    isLoading={isUpdating}
-                />
-            </BaseView>
+                    </Container>
+                </ScrollView>
+            </View>
         );
     }
 }
