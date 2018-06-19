@@ -38,7 +38,7 @@ export const container = {
 };
 
 export const scrollView = {
-    backgroundColor: color.blue,
+    backgroundColor: color.lightGrey,
 };
 
 export const border = {

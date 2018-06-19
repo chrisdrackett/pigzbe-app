@@ -10,6 +10,7 @@ export default ({children, offset = 0}) => {
         <KeyboardAvoidingView
             keyboardVerticalOffset={offset}
             style={{flex: 1}}
+            contentContainerStyle={{flexGrow: 1}}
             behavior="position"
             enabled>
             {children}

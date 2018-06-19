@@ -65,7 +65,8 @@ const testUsers = [{
 
 class DevPanel extends Component {
     state = {
-        isOpen: false
+        isOpen: false,
+        isHidden: false
     }
 
     render() {
@@ -75,7 +76,7 @@ class DevPanel extends Component {
             testUserKey
         } = this.props;
 
-        if (!__DEV__) {
+        if (!__DEV__ || this.state.isHidden) {
             return null;
         }
 
@@ -125,6 +126,11 @@ class DevPanel extends Component {
                                     Storage.clear('profile');
                                     Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY);
+                                }} />
+                            </View>
+                            <View style={styles.claimBlock}>
+                                <Button style={styles.claimClearButton} label="Hide panel" onPress={() => {
+                                    this.setState({isHidden: true});
                                 }} />
                             </View>
                         </View>

@@ -3,7 +3,6 @@ import {ScrollView} from 'react-native';
 import Header from '../header';
 import styles from './styles';
 
-
 const BaseView = ({
     showSettings,
     navigation,
@@ -12,7 +11,7 @@ const BaseView = ({
 }) => (
     <Fragment>
         <Header showSettings={showSettings} navigation={navigation}/>
-        <ScrollView bounces={false} style={styles.scrollView} contentContainerStyle={scrollViewStyle}>
+        <ScrollView bounces={false} style={styles.scrollView} contentContainerStyle={[styles.contentContainer, scrollViewStyle]}>
             {children}
         </ScrollView>
     </Fragment>

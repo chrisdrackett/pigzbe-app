@@ -14,7 +14,6 @@ import KeyboardAvoid from '../keyboard-avoid';
 import Form from './form';
 import Progress from '../progress';
 import Header from '../header';
-import {scrollView} from '../../styles';
 
 export default connect(
     state => ({
@@ -37,7 +36,7 @@ export default connect(
 }) => (
     <Fragment>
         <KeyboardAvoid>
-            <ScrollView style={scrollView} bounces={false}>
+            <ScrollView style={styles.scrollView} contentContainerStyle={[styles.contentContainer, styles.container]} bounces={false}>
                 <Header/>
                 <Wollo balance={balance}/>
                 <Pig style={styles.pig}/>
