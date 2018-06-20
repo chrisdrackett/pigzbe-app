@@ -40,8 +40,8 @@ class Alert extends Component {
         const {prevError, dismissed} = this.state;
         const {error} = this.props;
         const showError = !dismissed || prevError !== error;
-
         if (error && showError) {
+            console.log(error);
             return (
                 <View style={styles.error}>
                     <Text style={styles.message}>{getErrorDetail(error)}</Text>

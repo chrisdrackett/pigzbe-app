@@ -9,7 +9,6 @@ import {
     getBalance,
     getMinBalance,
     checkHasGas,
-    getAssetIssuer,
     checkAssetTrusted
 } from '@pigzbe/stellar-utils';
 import {strings, ASSET_CODE} from '../constants';
@@ -25,7 +24,6 @@ export const WOLLO_UPDATE_PAYMENTS = 'WOLLO_UPDATE_PAYMENTS';
 export const WOLLO_SENDING = 'WOLLO_SENDING';
 export const WOLLO_SEND_COMPLETE = 'WOLLO_SEND_COMPLETE';
 export const WOLLO_SEND_STATUS = 'WOLLO_SEND_STATUS';
-export const WOLLO_UPDATE_ISSUER = 'WOLLO_UPDATE_ISSUER';
 
 export const getWolloBalance = account => getBalance(account, ASSET_CODE);
 
@@ -43,8 +41,6 @@ export const setUseTestnet = useTestnet => dispatch => {
 
 const updateBalance = balance => ({type: WOLLO_UPDATE_BALANCE, balance});
 
-const updateIssuer = issuer => ({type: WOLLO_UPDATE_ISSUER, issuer});
-
 const updateXLM = account => dispatch => {
     const balanceXLM = getBalance(account);
     const minXLM = getMinBalance(account);
@@ -52,18 +48,15 @@ const updateXLM = account => dispatch => {
     dispatch({type: WOLLO_UPDATE_XLM, balanceXLM, minXLM, hasGas});
 };
 
-export const loadAccount = publicKey => dispatch => {
-    return getServer().loadAccount(publicKey)
-        .then(account => {
-            dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
-            dispatch(updateBalance(getWolloBalance(account)));
-            dispatch(updateIssuer(getAssetIssuer(account, ASSET_CODE)));
-            dispatch(updateXLM(account));
-            return account;
-        });
+export const loadAccount = publicKey => async dispatch => {
+    const account = await getServer().loadAccount(publicKey);
+    dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
+    dispatch(updateBalance(getWolloBalance(account)));
+    dispatch(updateXLM(account));
+    return account;
 };
 
-export const loadPayments = () => (dispatch, getState) => {
+export const loadPayments = () => async (dispatch, getState) => {
     const {publicKey} = getState().auth;
 
     dispatch(wolloLoading(true));
@@ -98,11 +91,8 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     dispatch(wolloSending(true));
     dispatch(wolloSendStatus(strings.transferStatusChecking));
 
-    const {secretKey} = getState().auth;
-    // const {issuer} = getState().wollo;
+    const {secretKey, publicKey} = getState().auth;
     const asset = new Asset(ASSET_CODE, Config.STELLAR_TOKEN_ISSUER);
-
-    // TODO: Check that destination account trusts Wollo
 
     const destAccount = await getServer().loadAccount(destination);
     const isTrusted = checkAssetTrusted(destAccount, asset);
@@ -135,5 +125,5 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     dispatch(wolloSendComplete(true));
     dispatch(wolloSendStatus(strings.transferStatusComplete));
     dispatch(wolloError(null));
-    // dispatch(notify('Transfer complete'));
+    dispatch(loadAccount(publicKey));
 };

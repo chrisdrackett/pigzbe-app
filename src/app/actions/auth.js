@@ -1,9 +1,8 @@
 import {Keypair} from '@pigzbe/stellar-utils';
 import {loadAccount} from './wollo';
 import Keychain from '../utils/keychain';
-import Storage from '../utils/storage';
 import {authenticate} from '../utils/touch-id';
-import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY} from '../constants';
+import {KEYCHAIN_ID_STELLAR_KEY} from '../constants';
 
 export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
 export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
@@ -45,10 +44,8 @@ export const authLogin = secretKey => dispatch => {
         .catch(error => dispatch({type: AUTH_LOGIN_FAIL, error}));
 };
 
-export const authLogout = () => dispatch => {
-    Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
-    Keychain.clear(KEYCHAIN_ID_ETH_KEY);
-    Storage.clear('burning');
+export const authLogout = () => async dispatch => {
+    await Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
     dispatch({type: AUTH_LOGOUT});
 };
 
