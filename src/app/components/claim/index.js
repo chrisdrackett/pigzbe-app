@@ -18,6 +18,7 @@ import Progress from '../progress';
 import Modal from './modal';
 import Container from '../container';
 import {userLogin} from '../../actions/eth';
+import {clearClaimData} from '../../actions/content';
 import {transfer, burn, init} from '../../actions/contract';
 import {isValidSeed} from '../../utils/web3';
 
@@ -163,6 +164,7 @@ class Claim extends Component {
 
   confirmCopy = () => {
       const {user: {stellar}, onCompleteClaim} = this.props;
+      this.props.clearClaimData();
       onCompleteClaim(stellar.sk);
   }
 
@@ -285,5 +287,6 @@ export default connect(({user, web3, events, contract, content}) => ({
     init,
     transfer,
     burn,
+    clearClaimData,
 },
 )(Claim);

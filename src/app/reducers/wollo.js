@@ -13,8 +13,7 @@ import {
     WOLLO_SENDING,
     WOLLO_SEND_COMPLETE,
     WOLLO_SEND_STATUS,
-    WOLLO_UPDATE_XLM,
-    WOLLO_UPDATE_ISSUER
+    WOLLO_UPDATE_XLM
 } from '../actions';
 
 export const initialState = {
@@ -90,11 +89,6 @@ export default (state = initialState, action) => {
                 balanceXLM: action.balanceXLM,
                 minXLM: action.minXLM,
                 hasGas: action.hasGas
-            };
-        case WOLLO_UPDATE_ISSUER:
-            return {
-                ...state,
-                issuer: action.issuer
             };
         default:
             return state;
