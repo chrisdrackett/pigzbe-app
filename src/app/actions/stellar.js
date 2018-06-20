@@ -1,24 +1,15 @@
 import {Asset, trustAsset} from '@pigzbe/stellar-utils';
 import {claim} from './api';
 import {LOADING, LOCAL_STORAGE, ERROR} from '../constants/action-types';
-import {strings} from '../constants';
 import Config from 'react-native-config';
-import {load} from '../utils/keychain';
-import {KEYCHAIN_ID_STELLAR_KEY} from '../constants';
 
 export const trustStellarAsset = () => async (dispatch, getState) => {
     const {localStorage} = getState().content;
-    const {
-        statusTrustingStellarAsset,
-        statusStellarTokenTrusted,
-        errorTrustingStellarAsset
-    } = strings;
 
     dispatch({
         type: LOADING,
-        payload: statusTrustingStellarAsset,
+        payload: 'Trusting WLO asset',
     });
-
 
     try {
         if (!localStorage.wolloTrusted) {
@@ -28,7 +19,7 @@ export const trustStellarAsset = () => async (dispatch, getState) => {
             await trustAsset(stellar.sk, asset);
             dispatch({
                 type: LOADING,
-                payload: statusStellarTokenTrusted,
+                payload: 'WLO asset trusted',
             });
 
             dispatch({
@@ -45,10 +36,8 @@ export const trustStellarAsset = () => async (dispatch, getState) => {
         console.log(e);
         dispatch({
             type: ERROR,
-            payload: errorTrustingStellarAsset,
+            payload: 'Error trusting Stellar asset',
         });
-
-        // setTimeout(dispatch, 6000, {type: LOADING, payload: null});
     }
 
 

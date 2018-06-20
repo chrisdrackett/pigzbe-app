@@ -32,7 +32,7 @@ const Header = () => (
 
 class Login extends Component {
     state = {
-        inputText: 'SBBZSQRKV4NDIKRVSXYL3T7NYKR3QP4X23VYGLEWYITFCKFN6Y4GY2PA',
+        inputText: '',
         newUserSteps: 0,
         existingUser: false
     }

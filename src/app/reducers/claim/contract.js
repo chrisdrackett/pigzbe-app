@@ -15,7 +15,7 @@ const initialState = new Record({
 export default (state = initialState, action) => {
     switch (action.type) {
         case NETWORK_CHANGE:
-        console.log(action.payload);
+            console.log('NETWORK_CHANGE', action.payload);
             return state
                 .set('network', action.payload);
         case CONTRACT_UPDATE :

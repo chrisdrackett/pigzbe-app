@@ -17,7 +17,7 @@ export default ({
                 <Fragment>
                     <Text style={styles.modalTitle}>The estimated gas for this transaction is</Text>
                     <Text style={[styles.modalTitle, styles.modalTitleCost]}>{estimatedCost}</Text>
-                    <Text style={styles.modalText}>Are you sure you want to burn your tokens? They will be automatically converted into Stellar Wollo Tokens</Text>
+                    <Text style={styles.modalText}>Are you sure you want to burn your tokens? They will be automatically converted into Wollo tokens.</Text>
                     <View>
                         <Button
                             label="Confirm"
