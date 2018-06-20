@@ -15,10 +15,10 @@ import Contract from '../constants/contract';
 import {getBalance} from './eth';
 import {validate} from './api';
 import {loadLocalStorage} from './content';
-import {NUM_VALIDATIONS, strings} from '../constants';
+import {NUM_VALIDATIONS} from '../constants';
 import {Keypair} from '@pigzbe/stellar-utils';
 import Config from 'react-native-config';
-import {load, save} from '../utils/keychain';
+import Keychain from '../utils/keychain';
 import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY} from '../constants';
 
 const getContract = () => async (dispatch, getState) => {
@@ -30,7 +30,7 @@ const getContract = () => async (dispatch, getState) => {
         const web3 = getState().web3.instance;
         const {coinbase} = getState().user;
 
-        console.log(network);
+        console.log('contract.network:', network);
 
         const deployedContract = new web3.eth.Contract(Contract[network].ABI, Contract[network].ADDRESS, {
             gasPrice: await web3.eth.getGasPrice(),
@@ -80,8 +80,8 @@ const getContract = () => async (dispatch, getState) => {
 const getKeys = () => async dispatch => {
     console.log('INIT KEYS');
     try {
-        const stellar = await load(KEYCHAIN_ID_STELLAR_KEY);
-        const eth = await load(KEYCHAIN_ID_ETH_KEY);
+        const stellar = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
+        const eth = await Keychain.load(KEYCHAIN_ID_ETH_KEY);
 
         if (stellar.key) {
             const keypair = Keypair.fromSecret(stellar.key);
@@ -135,16 +135,16 @@ export const burn = (amount) => async (dispatch, getState) => {
     const {localStorage} = getState().content;
     const web3 = getState().web3.instance;
 
-    dispatch({type: LOADING, payload: strings.statusWaitingConfirmation});
+    dispatch({type: LOADING, payload: 'Waiting Ethereum network confirmation'});
 
     try {
-        const result = await load(KEYCHAIN_ID_STELLAR_KEY);
+        const result = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
         const keypair = (stellar && stellar.sk && Keypair.fromSecret(stellar.sk)) || await Keypair.randomAsync();
 
         console.log('keypair', keypair.publicKey());
 
         if (!result.key) {
-            await save(KEYCHAIN_ID_STELLAR_KEY, keypair.secret());
+            await Keychain.save(KEYCHAIN_ID_STELLAR_KEY, keypair.secret());
         }
 
         dispatch({type: STELLAR, payload: {
@@ -171,7 +171,7 @@ export const burn = (amount) => async (dispatch, getState) => {
             if (payload.error) {
                 console.log('payload error', payload.error);
                 // dispatch({type: ERROR, payload});
-                dispatch({type: ERROR, payload: strings.errorCreatingStellarAccount});
+                dispatch({type: ERROR, payload: 'Error creating Stellar account'});
                 // setTimeout(dispatch, 4000, {type: LOADING, payload: null});
                 return;
             }
@@ -207,7 +207,7 @@ export const burn = (amount) => async (dispatch, getState) => {
             tx.sign(bufferPrivateKey);
             const serializedTx = '0x' + tx.serialize().toString('hex');
 
-            transactionHash = await sendSignedTransaction(web3, serializedTx, strings.errorBurningTokens);
+            transactionHash = await sendSignedTransaction(web3, serializedTx, 'An error occurred when burning your tokens');
 
             dispatch({
                 type: LOCAL_STORAGE,
@@ -219,7 +219,7 @@ export const burn = (amount) => async (dispatch, getState) => {
             dispatch({type: LOADING, payload: 'Transaction accepted!\n\nWaiting for network confirmations\n\nThis step can take a while, it\'s safe to come back later'});
 
             if (!transactionHash) {
-                dispatch({type: ERROR, payload: strings.errorBurningTokens});
+                dispatch({type: ERROR, payload: 'An error occurred when burning your tokens'});
                 // setTimeout(dispatch, 6000, {type: LOADING, payload: null});
                 return;
             }
@@ -231,18 +231,20 @@ export const burn = (amount) => async (dispatch, getState) => {
             dispatch({type: LOADING, payload: 'Transaction accepted!\n\nWaiting for network confirmations\n\nThis step can take a while, it\'s safe to come back later'});
             console.log(transactionHash);
 
-            const onValidatedBlock = (blocks) => dispatch({type: LOADING, payload: `Blocks confirmed: ${blocks}\n\nThis step can take a while, it\'s safe to come back later`});
+            const validations = Config.NUM_VALIDATIONS || NUM_VALIDATIONS;
+
+            const onValidatedBlock = (blocks) => dispatch({type: LOADING, payload: `Blocks confirmed: ${blocks} / ${validations}\n\nThis step can take a while, it\'s safe to come back later`});
 
             const validateTransaction = await watchConfirmations({
                 web3,
                 transactionHash,
-                validations: Config.NUM_VALIDATIONS || NUM_VALIDATIONS,
+                validations,
                 onValidatedBlock
             });
 
             if (validateTransaction.from.toLowerCase() !== coinbase.toLowerCase()) {
                 console.log('error', validateTransaction);
-                dispatch({type: ERROR, payload: strings.errorEthereumTransactionInvalid});
+                dispatch({type: ERROR, payload: 'Ethereum Transaction invalid'});
                 // setTimeout(dispatch, 4000, {type: LOADING, payload: null});
                 return;
             }
@@ -251,7 +253,7 @@ export const burn = (amount) => async (dispatch, getState) => {
 
             dispatch({
                 type: LOADING,
-                payload: strings.statusErc20Burned,
+                payload: 'ERC20 Tokens burned, transfering Wollo',
             });
 
             dispatch({

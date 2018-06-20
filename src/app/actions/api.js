@@ -72,7 +72,7 @@ export const claim = () => async (dispatch, getState) => {
     const {localStorage} = getState().content;
     const transactionHash = localStorage.transactionHash || getState().events.transactionHash;
 
-    dispatch({type: LOADING, payload: strings.statusValidatingEthereumTransaction});
+    dispatch({type: LOADING, payload: 'Validating Ethereum Transaction'});
 
     try {
         let payload;
@@ -117,7 +117,7 @@ export const claim = () => async (dispatch, getState) => {
         dispatch({type: TRANSFER, payload});
         dispatch(getBalance());
         // dispatch(getActivity());
-        dispatch({type: LOADING, payload: strings.statusTransferWolloComplete});
+        dispatch({type: LOADING, payload: 'Transfer Wollo Complete'});
         setTimeout(dispatch, 2000, {
             type: LOADING,
             payload: null,

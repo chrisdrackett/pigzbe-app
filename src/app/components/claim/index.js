@@ -21,16 +21,17 @@ import {userLogin} from '../../actions/eth';
 import {transfer, burn, init} from '../../actions/contract';
 import {isValidSeed} from '../../utils/web3';
 
+const numTokensToBurn = balance => Config.NUM_TOKENS_TO_BURN || balance;
+
 class Claim extends Component {
   state = {
       step: 1,
       error: null,
-      burnInput: '5',
-      mnemonic: Config.MNEMONIC || '',
-      pk: Config.PK || '',
+      mnemonic: (__DEV__ && Config.MNEMONIC) || '',
+      pk: (__DEV__ && Config.PK) || '',
       badAddress: false,
       badSeed: false,
-      loading: 'Loading Ethereum Interface',
+      loading: 'Loading...',
       clickedClose: false,
       modal: {
           visible: false,
@@ -46,7 +47,6 @@ class Claim extends Component {
   componentWillReceiveProps(nextProps) {
 
       if (nextProps.localStorage && !this.props.localStorage) {
-          console.log('componentWillReceiveProps');
           console.log(nextProps.localStorage);
 
           if (Object.keys(nextProps.localStorage).length === 0 && nextProps.localStorage.constructor === Object) {
@@ -55,10 +55,8 @@ class Claim extends Component {
       }
 
       if (this.props.localStorage) {
-          if (nextProps.user.coinbase) {
-              if (nextProps.user.balance) {
-                  this.setState({step: 5, loading: null});
-              }
+          if (nextProps.user.coinbase && nextProps.user.balance) {
+              this.setState({step: 5, loading: null});
           }
 
           if (this.props.localStorage.complete && this.props.localStorage.stellar) {
@@ -96,7 +94,12 @@ class Claim extends Component {
 
   onSubmitBurn = async () => {
       const {localStorage, contract, user} = this.props;
-      const {burnInput} = this.state;
+      const numTokens = numTokensToBurn(user.balance);
+
+      console.log('contract.network', contract.network);
+      console.log('user.balance', user.balance);
+      console.log('numTokens', numTokens);
+
       if (localStorage.transactionHash && localStorage.value) {
           this.props.burn(Number(localStorage.value));
           return;
@@ -111,7 +114,7 @@ class Claim extends Component {
 
       try {
           const gasPrice = await this.props.web3.eth.getGasPrice();
-          const estimatedGas = await contract.instance.methods.burn(burnInput).estimateGas({from: user.coinbase});
+          const estimatedGas = await contract.instance.methods.burn(numTokens).estimateGas({from: user.coinbase});
           this.setState({
               estimatedCost: `${utils.fromWei(String(estimatedGas * gasPrice), 'ether')} ETH`,
           });
@@ -129,7 +132,13 @@ class Claim extends Component {
 
   onConfirmedSubmitBurn = () => {
       this.closeModal();
-      this.props.burn(Number(this.state.burnInput));
+
+      const numTokens = numTokensToBurn(this.props.user.balance);
+
+      console.log('this.props.user.balance', this.props.user.balance);
+      console.log('numTokens', numTokens);
+
+      this.props.burn(Number(numTokens));
   }
 
   closeModal = () => {
@@ -178,10 +187,6 @@ class Claim extends Component {
           errorBurning
       } = this.props;
 
-      console.log(this.state.loading);
-      console.log(errorBurning);
-      console.log('user.stellar', user.stellar);
-
       console.log(JSON.stringify(localStorage, null, 2));
 
       if (!web3 || !contract.instance || !localStorage || this.state.loading !== null) {
@@ -219,6 +224,9 @@ class Claim extends Component {
 
                       {step === 5 &&
                       <Step5
+                          tx={tx}
+                          pk={pk}
+                          userBalance={user.balance}
                           continueApplication={!localStorage.complete && localStorage.started}
                           startApplication={!localStorage.complete && !localStorage.started}
                           buttonNextLabel={!localStorage.complete && !localStorage.started ? 'Claim Wollo' : 'Continue'}
@@ -226,7 +234,6 @@ class Claim extends Component {
                           onBack={() => {
                               this.onChangeStep(1);
                           }}
-                          userBalance={user.balance}
                       />
                       }
 
@@ -254,7 +261,8 @@ class Claim extends Component {
                           title={localStorage.complete ? 'Congrats' : 'Claim progress'}
                           error={errorBurning}
                           text={localStorage.complete ? `Congrats! You are now the owner of ${user.balance} Wollo, you rock.` : loading}
-                          buttonLabel={localStorage.complete ? 'Next' : null}
+                          // buttonLabel={localStorage.complete || errorBurning ? 'Next' : null}
+                          buttonLabel={'Next'}
                           onPress={this.closeProgress}
                       />
                   ) : null}

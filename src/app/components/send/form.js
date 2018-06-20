@@ -108,6 +108,7 @@ export default class Form extends Component {
                     onChangeText={key => this.updateKey(key)}
                     editable={!confirm}
                     style={confirm ? styles.inputConfirm : null}
+                    numberOfLines={2}
                 />
                 <View style={styles.amount}>
                     <Image style={styles.wollo} source={require('./images/wollo.png')}/>
