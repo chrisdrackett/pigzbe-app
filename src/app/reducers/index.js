@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import auth from './auth';
+import config from './config';
 import escrow from './escrow';
 import loader from './loader';
 import messages from './messages';
@@ -17,6 +18,7 @@ import web3 from './claim/web3';
 
 export default combineReducers({
     auth,
+    config,
     escrow,
     loader,
     messages,
