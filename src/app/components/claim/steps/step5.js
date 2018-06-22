@@ -57,7 +57,9 @@ export default ({
             <Fragment>
                 <Text style={styles.title}>Claim your Wollo</Text>
                 <Text style={styles.subtitle}>You have <Text style={{fontWeight: 'bold'}}>{userBalance} ERC20 Tokens</Text> in your Eidoo account.</Text>
-                <Text style={styles.subtitle}>Tap <Text style={{fontWeight: 'bold'}}>Claim Wollo</Text> bellow to convert your tokens to <Text style={{fontWeight: 'bold'}}>{userBalance} Wollo</Text> and create your Pigzbe wallet.</Text>
+                {userBalance && (
+                    <Text style={styles.subtitle}>Tap <Text style={{fontWeight: 'bold'}}>Claim Wollo</Text> bellow to convert your tokens to <Text style={{fontWeight: 'bold'}}>{userBalance} Wollo</Text> and create your Pigzbe wallet.</Text>
+                )}
             </Fragment>
         }
     </StepWrapper>

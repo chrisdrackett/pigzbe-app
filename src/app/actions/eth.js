@@ -13,13 +13,17 @@ import {load, save} from '../utils/keychain';
 import {KEYCHAIN_ID_ETH_KEY} from '../constants';
 
 export const getBalance = () => async (dispatch, getState) => {
+    console.log('getBalance');
     try {
+        console.log('getBalance > coinbase', getState().user.get('coinbase'));
         const web3 = getState().web3.instance;
         const contract = getState().contract.instance;
         const balance = await contract.methods.balanceOf(getState().user.get('coinbase')).call();
+        console.log('getBalance balance', balance, web3.utils.toDecimal(balance));
         dispatch({type: USER_BALANCE, payload: web3.utils.toDecimal(balance)});
 
     } catch (e) {
+        console.log(e);
         dispatch({type: ERROR, payload: e});
     }
 
@@ -96,6 +100,7 @@ export const userLogin = (mnemonic, pk) => async (dispatch, getState) => {
 
         return true;
     } catch (e) {
+        console.log(e);
         dispatch({type: ERROR, payload: e});
         return false;
     }
