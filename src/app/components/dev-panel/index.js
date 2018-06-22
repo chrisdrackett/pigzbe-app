@@ -148,7 +148,7 @@ class DevPanel extends Component {
             <View style={styles.topBar}>
                 <Text
                     style={useTestnet ? styles.net : [styles.net, styles.netLive]}>
-                    {useTestnet ? 'TESTNET' : 'LIVENET'}
+                    {useTestnet ? 'TESTNET' : 'MAINNET'}
                 </Text>
                 <TouchableOpacity
                     style={styles.settings}

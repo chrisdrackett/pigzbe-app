@@ -1,7 +1,4 @@
 import {BASE_CURRENCY} from '../constants';
-import Config from 'react-native-config';
-
-console.log('Config', Config);
 
 import {
     WOLLO_LOADING,
@@ -17,7 +14,7 @@ import {
 } from '../actions';
 
 export const initialState = {
-    useTestnet: !(Config.STELLAR_USE_TESTNET === 'false'),
+    useTestnet: false,
     balance: '0',
     balanceXLM: '0',
     minXLM: '0',

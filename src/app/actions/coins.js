@@ -1,14 +1,12 @@
-import apiURL from '../utils/api-url';
 import {COINS} from '../constants';
+import {apiURL} from '../selectors';
 
 export const EXCHANGE_LOAD = 'EXCHANGE_LOAD';
 
-export const getExchange = () => async (dispatch) => {
-
+export const getExchange = () => async (dispatch, getState) => {
     try {
-        const values = await (await fetch(`${apiURL()}/compare?coins=${COINS.toString()}`, {
-            method: 'GET'
-        })).json();
+        const api = apiURL(getState());
+        const values = await (await fetch(`${api}/compare?coins=${COINS.toString()}`)).json();
 
         dispatch({type: EXCHANGE_LOAD, payload: {
             exchange: values,

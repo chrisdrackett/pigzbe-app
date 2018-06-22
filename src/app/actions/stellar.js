@@ -1,10 +1,12 @@
 import {Asset, trustAsset} from '@pigzbe/stellar-utils';
 import {claim} from './api';
 import {LOADING, LOCAL_STORAGE, ERROR} from '../constants/action-types';
-import Config from 'react-native-config';
 
 export const trustStellarAsset = () => async (dispatch, getState) => {
     const {localStorage} = getState().content;
+    const {network, stellar} = getState().config;
+    const {code, address} = stellar.networks[network];
+    const {user} = getState();
 
     dispatch({
         type: LOADING,
@@ -13,10 +15,8 @@ export const trustStellarAsset = () => async (dispatch, getState) => {
 
     try {
         if (!localStorage.wolloTrusted) {
-            const {stellar} = getState().user;
-            console.log('stellar', stellar);
-            const asset = new Asset(Config.STELLAR_TOKEN_CODE, Config.STELLAR_TOKEN_ISSUER);
-            await trustAsset(stellar.sk, asset);
+            const asset = new Asset(code, address);
+            await trustAsset(user.stellar.sk, asset);
             dispatch({
                 type: LOADING,
                 payload: 'WLO asset trusted',

@@ -1,6 +1,5 @@
 import bip39 from 'bip39';
 import hdkey from 'ethereumjs-wallet/hdkey';
-import Config from 'react-native-config';
 
 export const isValidSeed = seed => {
     const numWords = seed.trim().split(/\s+/g).length;
@@ -33,6 +32,7 @@ export const generateAddressFromSeed = (seed, publicAddress) => {
 
 
 export const watchConfirmations = ({
+    network,
     web3,
     transactionHash,
     validations,
@@ -53,7 +53,7 @@ export const watchConfirmations = ({
             }
         }
 
-        if (Config.NETWORK === 'local') {
+        if (network === 'local') {
             resolve(receipt);
             return;
         }

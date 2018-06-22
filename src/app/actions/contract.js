@@ -9,30 +9,31 @@ import {
     LOCAL_STORAGE,
     BURNED,
 } from '../constants/action-types';
-import getAPIURL from '../utils/api-url';
 import {watchConfirmations} from '../utils/web3';
-import Contract from '../constants/contract';
 import {getBalance} from './eth';
 import {validate} from './api';
 import {loadLocalStorage} from './content';
 import {NUM_VALIDATIONS} from '../constants';
 import {Keypair} from '@pigzbe/stellar-utils';
-import Config from 'react-native-config';
 import Keychain from '../utils/keychain';
 import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY} from '../constants';
+import {apiURL} from '../selectors';
 
 const getContract = () => async (dispatch, getState) => {
 
     console.log('getContract');
 
     try {
-        const {network} = getState().contract;
+        const {network, ethereum} = getState().config;
         const web3 = getState().web3.instance;
         const {coinbase} = getState().user;
 
-        console.log('contract.network:', network);
+        console.log('network:', network);
+        console.log('ethereum:', ethereum);
 
-        const deployedContract = new web3.eth.Contract(Contract[network].ABI, Contract[network].ADDRESS, {
+        const {address} = ethereum.networks[network];
+
+        const deployedContract = new web3.eth.Contract(ethereum.abi, address, {
             gasPrice: await web3.eth.getGasPrice(),
             gas: 6721975,
         });
@@ -53,7 +54,7 @@ const getContract = () => async (dispatch, getState) => {
             payload: {
                 owner: results[3],
                 instance: deployedContract,
-                address: Contract[network].ADDRESS,
+                address: address,
                 abi: deployedContract.abi,
                 supply: results[0],
                 name: results[1],
@@ -106,11 +107,13 @@ const getKeys = () => async dispatch => {
     }
 };
 
-export const init = (network) => async (dispatch) => {
+export const initWeb3 = () => async (dispatch, getState) => {
     console.log('changeNetwork');
+    const {network, ethereum} = getState().config;
+    const {provider} = ethereum.networks[network];
     dispatch({
         type: NETWORK_CHANGE,
-        payload: network
+        payload: {network, provider}
     });
 
     await dispatch(getContract());
@@ -133,7 +136,9 @@ export const burn = (amount) => async (dispatch, getState) => {
     const {address, instance} = getState().contract;
     const {coinbase, stellar, privateKey} = getState().user;
     const {localStorage} = getState().content;
+    const {network} = getState().config;
     const web3 = getState().web3.instance;
+    const api = apiURL(getState());
 
     dispatch({type: LOADING, payload: 'Waiting Ethereum network confirmation'});
 
@@ -153,8 +158,8 @@ export const burn = (amount) => async (dispatch, getState) => {
         }});
 
         if (!localStorage.started) {
-            console.log(`${getAPIURL()}/stellar`);
-            const payload = await (await fetch(`${getAPIURL()}/stellar`, {
+            console.log(`${api}/stellar`);
+            const payload = await (await fetch(`${api}/stellar`, {
                 method: 'POST',
                 mode: 'cors',
                 cache: 'no-cache',
@@ -231,11 +236,12 @@ export const burn = (amount) => async (dispatch, getState) => {
             dispatch({type: LOADING, payload: 'Transaction accepted!\n\nWaiting for network confirmations\n\nThis step can take a while, it\'s safe to come back later'});
             console.log(transactionHash);
 
-            const validations = Config.NUM_VALIDATIONS || NUM_VALIDATIONS;
+            const validations = NUM_VALIDATIONS;
 
             const onValidatedBlock = (blocks) => dispatch({type: LOADING, payload: `Blocks confirmed: ${blocks} / ${validations}\n\nThis step can take a while, it\'s safe to come back later`});
 
             const validateTransaction = await watchConfirmations({
+                network,
                 web3,
                 transactionHash,
                 validations,

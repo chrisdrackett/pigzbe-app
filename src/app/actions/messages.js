@@ -1,9 +1,7 @@
-import {load, save} from '../utils/storage';
-import apiURL from '../utils/api-url';
+import Storage from '../utils/storage';
 import fetchTimeout from '../utils/fetch-timeout';
-// import {loadContent} from './';
-// import {clear} from '../utils/storage';
-// import wait from './wait';
+import {apiURL} from '../selectors';
+
 const storageKey = 'messages';
 
 export const MESSAGES_LOADING = 'MESSAGES_LOADING';
@@ -18,41 +16,33 @@ export const messagesError = error => ({type: MESSAGES_ERROR, error});
 export const messagesNotify = notify => ({type: MESSAGES_NOTIFY, notify});
 export const messagesMarkRead = () => ({type: MESSAGES_MARK_READ});
 
-// export const loadMessages = (query = '') => () => fetch(`${apiURL()}/content/messages?${query}`).then(res => res.json());
-export const loadMessages = (query = '') => () => fetchTimeout(`${apiURL()}/content/messages?${query}`);
+export const messagesLoad = () => async (dispatch, getState) => {
+    try {
+        const api = apiURL(getState());
 
-export const messagesLoad = () => dispatch => {
-    console.log('messagesLoad');
-    dispatch(messagesLoading(true));
+        dispatch(messagesLoading(true));
 
-    return dispatch(loadMessages('order=latest'))
-        // .then(messages => wait(0.5, messages))
-        .then(messages => {
-            dispatch(messagesUpdate(messages));
+        const messages = await fetchTimeout(`${api}/content/messages?order=latest`);
 
-            // clear(storageKey);
+        if (!messages) {
+            throw new Error('Network error');
+        }
 
-            return load(storageKey)
-                .then(data => data.lastDate || 0)
-                .then(lastDate => {
-                    if (!messages) {
-                        throw new Error('Network error');
-                    }
-                    const latestDate = messages[0].date;
-                    const notify = new Date(latestDate) > new Date(lastDate);
+        dispatch(messagesUpdate(messages));
 
-                    // console.log('lastDate', lastDate);
-                    // console.log('latestDate', latestDate);
+        const data = await Storage.load(storageKey);
+        const lastDate = data.lastDate || 0;
+        const latestDate = messages[0].date;
+        const notify = new Date(latestDate) > new Date(lastDate);
+        dispatch(messagesNotify(notify));
 
-                    dispatch(messagesNotify(notify));
+        await Storage.save(storageKey, {lastDate: latestDate});
 
-                    return save(storageKey, {lastDate: latestDate})
-                        .then(() => dispatch(messagesLoading(false)));
-                });
-        })
-        .catch(error => {
-            console.log(error.message);
-            dispatch(messagesLoading(false));
-            dispatch(messagesError(error));
-        });
+        dispatch(messagesLoading(false));
+
+    } catch (error) {
+        console.log(error.message);
+        dispatch(messagesLoading(false));
+        dispatch(messagesError(error));
+    }
 };

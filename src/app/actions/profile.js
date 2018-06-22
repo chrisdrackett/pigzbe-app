@@ -1,6 +1,5 @@
-import {load, save, clear} from '../utils/storage';
-import apiURL from '../utils/api-url';
-// import wait from './wait';
+import Storage from '../utils/storage';
+import {apiURL} from '../selectors';
 
 const storageKey = 'profile';
 
@@ -11,20 +10,19 @@ export const PROFILE_CLEAR = 'PROFILE_CLEAR';
 
 export const profileLoading = value => ({type: PROFILE_LOADING, value});
 
-export const profileLoad = () => dispatch => {
+export const profileLoad = () => async dispatch => {
     dispatch(profileLoading(true));
-    return load(storageKey)
-        // .then(data => wait(0.5, data))
-        .then(data => {
-            dispatch({type: PROFILE_UPDATE, ...data});
-            dispatch(profileAvailable(!!data.name));
-        })
-        .then(() => dispatch(profileLoading(false)));
+    try {
+        const data = await Storage.load(storageKey);
+        dispatch({type: PROFILE_UPDATE, ...data});
+        dispatch(profileAvailable(!!data.name));
+    } catch (error) {}
+    dispatch(profileLoading(false));
 };
 
-const profileToggleSubscribe = async ({email, subscribe}) => {
+const profileToggleSubscribe = async ({api, email, subscribe}) => {
     try {
-        const values = await (await fetch(`${apiURL()}/email/${subscribe ? 'subscribe' : 'unsubscribe'}`, {
+        const values = await (await fetch(`${api}/email/${subscribe ? 'subscribe' : 'unsubscribe'}`, {
             method: 'POST',
             body: JSON.stringify({
                 email
@@ -37,11 +35,12 @@ const profileToggleSubscribe = async ({email, subscribe}) => {
     }
 };
 
-export const profileUpdate = data => async (dispatch) => {
+export const profileUpdate = data => async (dispatch, getState) => {
     try {
-        await profileToggleSubscribe({email: data.email, subscribe: data.subscribe});
+        const api = apiURL(getState());
+        await profileToggleSubscribe({api, email: data.email, subscribe: data.subscribe});
         dispatch({type: PROFILE_UPDATE, ...data});
-        return save(storageKey, data);
+        return Storage.save(storageKey, data);
     } catch (e) {
         console.log(e);
         return null;
@@ -53,5 +52,5 @@ export const profileAvailable = value => ({type: PROFILE_AVAILABLE, value});
 
 export const profileClear = () => dispatch => {
     dispatch(profileAvailable(false));
-    return clear(storageKey);
+    return Storage.clear(storageKey);
 };
