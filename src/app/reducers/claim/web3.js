@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case NETWORK_CHANGE: {
             return state
-                .set('instance', new Web3(new Web3.providers.HttpProvider(action.payload.provider)));
+                .set('instance', new Web3(new Web3.providers.HttpProvider(action.payload.rpc)));
         }
 
         default:
