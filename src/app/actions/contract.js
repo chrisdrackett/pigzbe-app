@@ -31,7 +31,7 @@ const getContract = () => async (dispatch, getState) => {
         console.log('network:', network);
         console.log('ethereum:', ethereum);
 
-        const {address} = ethereum.networks[network];
+        const address = ethereum.networks[network].address.trim();
 
         const deployedContract = new web3.eth.Contract(ethereum.abi, address, {
             gasPrice: await web3.eth.getGasPrice(),
@@ -110,10 +110,11 @@ const getKeys = () => async dispatch => {
 export const initWeb3 = () => async (dispatch, getState) => {
     console.log('changeNetwork');
     const {network, ethereum} = getState().config;
-    const {provider} = ethereum.networks[network];
+    const {rpc} = ethereum.networks[network];
+    console.log('rpc', rpc);
     dispatch({
         type: NETWORK_CHANGE,
-        payload: {network, provider}
+        payload: {network, rpc}
     });
 
     await dispatch(getContract());
