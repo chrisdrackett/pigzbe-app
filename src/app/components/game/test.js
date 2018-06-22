@@ -1,8 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
-import {store} from '../../';
 import Game from './';
+import coins from '../../reducers/coins';
+import game from '../../reducers/game';
+import {mockStore} from '../../../setupTests';
 
 describe('Game', () => {
     test('renders correctly', () => {
@@ -11,7 +13,7 @@ describe('Game', () => {
             addListener: jest.fn()
         };
         const tree = renderer.create((
-            <Provider store={store}>
+            <Provider store={mockStore({coins, game})}>
                 <Game navigation={navigation}/>
             </Provider>
         )).toJSON();

@@ -56,57 +56,5 @@ exports[`Payments renders correctly 1`] = `
   >
     <View />
   </RCTScrollView>
-  <View
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgb(0, 50, 120)",
-          "bottom": 0,
-          "flex": 1,
-          "justifyContent": "center",
-          "left": 0,
-          "position": "absolute",
-          "right": 0,
-          "top": 0,
-        },
-        Object {
-          "backgroundColor": "rgb(247, 247, 250)",
-        },
-      ]
-    }
-  >
-    <ActivityIndicator
-      animating={true}
-      color="rgb(0, 50, 120)"
-      hidesWhenStopped={true}
-      size="large"
-    />
-    <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
-      style={
-        Array [
-          Object {
-            "color": "rgb(255, 255, 255)",
-            "fontFamily": "Poppins",
-            "fontSize": 12,
-            "fontWeight": "bold",
-            "marginBottom": 20,
-            "marginLeft": 20,
-            "marginRight": 20,
-            "marginTop": 20,
-            "textAlign": "center",
-          },
-          Object {
-            "color": "rgb(0, 50, 120)",
-          },
-        ]
-      }
-    >
-      Loading payments...
-    </Text>
-  </View>
 </View>
 `;

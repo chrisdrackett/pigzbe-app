@@ -3,6 +3,11 @@
 exports[`Send renders correctly 1`] = `
 Array [
   <View
+    contentContainerStyle={
+      Object {
+        "flexGrow": 1,
+      }
+    }
     enabled={true}
     keyboardVerticalOffset={0}
     onLayout={[Function]}
@@ -15,7 +20,9 @@ Array [
     <View
       style={
         Array [
-          undefined,
+          Object {
+            "flexGrow": 1,
+          },
           Object {
             "bottom": 0,
           },
@@ -24,9 +31,18 @@ Array [
     >
       <RCTScrollView
         bounces={false}
+        contentContainerStyle={
+          Array [
+            Object {
+              "backgroundColor": "rgb(0, 50, 120)",
+              "flexGrow": 1,
+            },
+            Object {},
+          ]
+        }
         style={
           Object {
-            "backgroundColor": "rgb(0, 50, 120)",
+            "flex": 1,
           }
         }
       >
@@ -214,18 +230,24 @@ Array [
                 Send Wollo to
               </Text>
               <View
-                style={undefined}
+                style={
+                  Object {
+                    "height": 76,
+                  }
+                }
               >
                 <TextInput
                   allowFontScaling={true}
+                  blurOnSubmit={true}
                   editable={true}
                   keyboardType="default"
                   maxLength={undefined}
-                  multiline={false}
-                  numberOfLines={1}
+                  multiline={true}
+                  numberOfLines={2}
                   onChangeText={[Function]}
                   placeholder="Enter account key"
                   placeholderTextColor="rgb(155, 155, 155)"
+                  returnKeyType="done"
                   style={
                     Array [
                       Object {
@@ -237,14 +259,20 @@ Array [
                         "fontFamily": "Poppins",
                         "fontSize": 14,
                         "fontWeight": "bold",
-                        "height": 45,
                         "marginBottom": 10,
-                        "paddingLeft": 30,
+                        "paddingLeft": 20,
                         "paddingRight": 20,
+                        "paddingTop": 12,
                       },
                       Object {
                         "borderColor": "rgb(0, 50, 120)",
                         "color": "rgb(0, 50, 120)",
+                      },
+                      Object {
+                        "height": 66,
+                      },
+                      Object {
+                        "paddingTop": 11,
                       },
                     ]
                   }
@@ -298,10 +326,15 @@ Array [
                   How much to send
                 </Text>
                 <View
-                  style={undefined}
+                  style={
+                    Object {
+                      "height": 55,
+                    }
+                  }
                 >
                   <TextInput
                     allowFontScaling={true}
+                    blurOnSubmit={true}
                     editable={true}
                     keyboardType="numeric"
                     maxLength={undefined}
@@ -310,6 +343,7 @@ Array [
                     onChangeText={[Function]}
                     placeholder="Wollo"
                     placeholderTextColor="rgb(155, 155, 155)"
+                    returnKeyType="done"
                     style={
                       Array [
                         Object {
@@ -321,14 +355,20 @@ Array [
                           "fontFamily": "Poppins",
                           "fontSize": 14,
                           "fontWeight": "bold",
-                          "height": 45,
                           "marginBottom": 10,
-                          "paddingLeft": 30,
+                          "paddingLeft": 20,
                           "paddingRight": 20,
+                          "paddingTop": 12,
                         },
                         Object {
                           "borderColor": "rgb(0, 50, 120)",
                           "color": "rgb(0, 50, 120)",
+                        },
+                        Object {
+                          "height": 45,
+                        },
+                        Object {
+                          "paddingTop": 2,
                         },
                         Object {
                           "paddingLeft": 42,
@@ -381,10 +421,15 @@ Array [
                 Add a message?
               </Text>
               <View
-                style={undefined}
+                style={
+                  Object {
+                    "height": 55,
+                  }
+                }
               >
                 <TextInput
                   allowFontScaling={true}
+                  blurOnSubmit={true}
                   editable={true}
                   keyboardType="default"
                   maxLength={28}
@@ -393,6 +438,7 @@ Array [
                   onChangeText={[Function]}
                   placeholder="Add a message to your Wollo transfer?"
                   placeholderTextColor="rgb(155, 155, 155)"
+                  returnKeyType="done"
                   style={
                     Array [
                       Object {
@@ -404,14 +450,20 @@ Array [
                         "fontFamily": "Poppins",
                         "fontSize": 14,
                         "fontWeight": "bold",
-                        "height": 45,
                         "marginBottom": 10,
-                        "paddingLeft": 30,
+                        "paddingLeft": 20,
                         "paddingRight": 20,
+                        "paddingTop": 12,
                       },
                       Object {
                         "borderColor": "rgb(0, 50, 120)",
                         "color": "rgb(0, 50, 120)",
+                      },
+                      Object {
+                        "height": 45,
+                      },
+                      Object {
+                        "paddingTop": 2,
                       },
                     ]
                   }

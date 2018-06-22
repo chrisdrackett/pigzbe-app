@@ -69,6 +69,8 @@ class Escrow extends Component {
     }
 }
 
+export const EscrowTestComponent = Escrow;
+
 export default connect(state => ({
     balance: state.escrow.balance,
     transactions: state.escrow.transactions,

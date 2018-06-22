@@ -1,10 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
-import {store} from '../../';
-import Escrow from './';
+import {mockStore} from '../../../setupTests';
+import {EscrowTestComponent} from './';
 
 const props = {
+    dispatch: () => {},
     navigation: {},
     balance: '2500000.0000000',
     transactions: [],
@@ -45,8 +46,8 @@ const props = {
 describe('Escrow', () => {
     test('renders correctly', () => {
         const tree = renderer.create((
-            <Provider store={store}>
-                <Escrow {...props}/>
+            <Provider store={mockStore()}>
+                <EscrowTestComponent {...props}/>
             </Provider>
         )).toJSON();
         expect(tree).toMatchSnapshot();
