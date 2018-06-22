@@ -56,7 +56,7 @@ class Claim extends Component {
       }
 
       if (this.props.localStorage) {
-          if (nextProps.user.coinbase && nextProps.user.balance) {
+          if (nextProps.user.coinbase && typeof nextProps.user.balance === 'number') {
               this.setState({step: 5, loading: null});
           }
 
@@ -83,6 +83,8 @@ class Claim extends Component {
       }
 
       const success = await this.props.userLogin(mnemonic, publicKey);
+
+      console.log('user login ', success);
 
       if (success) {
           this.setState({loading: 'Loading your Ethereum account'});
@@ -231,11 +233,9 @@ class Claim extends Component {
                           userBalance={user.balance}
                           continueApplication={!localStorage.complete && localStorage.started}
                           startApplication={!localStorage.complete && !localStorage.started}
-                          buttonNextLabel={!localStorage.complete && !localStorage.started ? 'Claim Wollo' : 'Continue'}
-                          onNext={this.onSubmitBurn}
-                          onBack={() => {
-                              this.onChangeStep(1);
-                          }}
+                          buttonNextLabel={!user.balance ? 'Back' : !localStorage.complete && !localStorage.started ? 'Claim Wollo' : 'Continue'}
+                          onNext={user.balance ? this.onSubmitBurn : this.props.onCloseClaim}
+                          onBack={user.balance ? () => this.onChangeStep(1) : null}
                       />
                       }
 

@@ -12,14 +12,16 @@ const StepWrapper = ({children, onNext, onBack, buttonNextLabel}) => (
                 {children}
             </View>
         </KeyboardAvoid>
-        {onBack && onNext &&
+        {(onBack || onNext) &&
             <View style={styles.containerButtons}>
                 <Button label={buttonNextLabel} onPress={onNext} />
-                <Button
-                    label="Back"
-                    secondary
-                    onPress={onBack}
-                />
+                {onBack &&
+                    <Button
+                        label="Back"
+                        secondary
+                        onPress={onBack}
+                    />
+                }
             </View>}
     </Container>
 );
