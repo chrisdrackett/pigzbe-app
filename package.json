@@ -32,8 +32,7 @@
     "start:electron": "wait-on 'http://localhost:8080' && npm run launch:electron",
     "launch:electron": "electron './desktop/main.js'",
     "build:webpack": "webpack -p --config './desktop/webpack.config.js'",
-    "postversion": "react-native-version",
-    "contract": "pigzbe-contract deploy"
+    "postversion": "react-native-version"
   },
   "dependencies": {
     "@pigzbe/stellar-utils": "1.0.7",
@@ -45,7 +44,6 @@
     "moment": "^2.22.1",
     "node-libs-browser": "^2.1.0",
     "path": "^0.12.7",
-    "pigzbe-erc20-contract": "git+ssh://git@github.com/pigzbe/erc20-contract",
     "pixi.js": "^4.7.3",
     "react": "16.3.1",
     "react-art": "^16.3.2",
@@ -62,6 +60,7 @@
     "react-web-config": "^1.0.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
     "sono": "^2.1.6",
     "stellar-sdk": "^0.8.0",
     "url": "^0.11.0",

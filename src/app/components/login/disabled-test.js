@@ -1,8 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
-import {store} from '../../';
 import Login from './';
+import auth from '../../reducers/auth';
+import wollo from '../../reducers/wollo';
+import {mockStore} from '../../../setupTests';
 
 const props = {
     error: null,
@@ -13,7 +15,7 @@ const props = {
 describe('Login', () => {
     test('renders correctly', () => {
         const tree = renderer.create((
-            <Provider store={store}>
+            <Provider store={mockStore({auth, wollo})}>
                 <Login {...props}/>
             </Provider>
         )).toJSON();

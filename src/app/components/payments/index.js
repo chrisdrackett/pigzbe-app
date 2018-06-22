@@ -29,9 +29,6 @@ class Payments extends Component {
     }
 }
 
-// export for test
-export const PaymentsComponent = Payments;
-
 export default connect(
     state => ({
         loading: state.wollo.loading,

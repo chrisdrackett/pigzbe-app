@@ -6,20 +6,18 @@ import {
     Image,
     Keyboard
 } from 'react-native';
-import {setUseTestnet, tryAutoLoad, load} from '../../actions';
+import {setUseTestnet, tryAutoLoad, load, configInit} from '../../actions';
 import styles from './styles';
 import Button from '../button';
 import TextInput from '../text-input';
 import Loader from '../loader';
 import Pig from '../pig';
-import {
-    strings,
-    // SCREEN_HELP
-} from '../../constants';
+import {strings} from '../../constants';
 import DevPanel from '../dev-panel';
 import KeyboardAvoid from '../keyboard-avoid';
 import Claim from '../claim';
 import Container from '../container';
+import Config from 'react-native-config';
 
 const Header = () => (
     <Container style={styles.containerHeader}>
@@ -34,17 +32,40 @@ class Login extends Component {
     state = {
         inputText: '',
         newUserSteps: 0,
-        existingUser: false
+        existingUser: false,
+        isStarting: true,
+        failed: false
+    }
+
+    async init() {
+        const {dispatch, testUserKey} = this.props;
+
+        this.setState({isStarting: true, failed: false});
+
+        try {
+            const {NETWORK, CONFIG_URL} = Config;
+            const configURL = NETWORK ? `${CONFIG_URL}?network=${NETWORK}` : CONFIG_URL;
+            const config = await (await fetch(configURL)).json();
+            if (config.message === 'Missing Authentication Token') {
+                throw new Error('Failed to load config');
+            }
+            dispatch(configInit(config));
+            dispatch(setUseTestnet(config.network !== config.NETWORK_MAINNET));
+
+            const inputText = __DEV__ && testUserKey ? testUserKey : '';
+            this.setState({isStarting: false, inputText});
+        } catch (error) {
+            console.log('------> ERROR');
+            console.log(error);
+            this.setState({
+                isStarting: false,
+                failed: true
+            });
+        }
     }
 
     componentDidMount() {
-        const {dispatch, testUserKey, useTestnet} = this.props;
-
-        dispatch(setUseTestnet(useTestnet));
-
-        if (__DEV__ && testUserKey) {
-            this.setState({inputText: testUserKey});
-        }
+        this.init();
     }
 
     componentDidUpdate(prevProps) {
@@ -60,21 +81,29 @@ class Login extends Component {
     }
 
     render() {
-        const {
-            dispatch,
-            // navigation,
-            isLoading,
-            error,
-            claimSecret
-        } = this.props;
-
-        const {newUser, existingUser} = this.state;
-
-        console.log('claimSecret', claimSecret);
+        const {dispatch, isLoading, error} = this.props;
+        const {isStarting, newUser, existingUser, failed} = this.state;
 
         return (
             <Container>
-                {(!newUser && !existingUser) &&
+                {failed && (
+                    <Fragment>
+                        <Header/>
+                        <Container body>
+                            <View style={styles.containerText}>
+                                <Text style={styles.title}>Error</Text>
+                                <Text style={styles.subtitle}>Could not connect to network. Please check your internet connection and try again.</Text>
+                            </View>
+                            <View>
+                                <Button
+                                    label="Try again"
+                                    onPress={() => this.init()}
+                                />
+                            </View>
+                        </Container>
+                    </Fragment>
+                )}
+                {(!failed && !newUser && !existingUser) &&
                         <Fragment>
                             <Header/>
                             <Container body>
@@ -133,17 +162,12 @@ class Login extends Component {
                                         disabled={!this.state.inputText}
                                     />
                                 </View>
-                                {/* <Button
-                                    label={strings.loginHelpButtonLabel}
-                                    plain
-                                    onPress={() => navigation.navigate(SCREEN_HELP)}
-                                /> */}
                             </Container>
                         </KeyboardAvoid>
                 }
                 <DevPanel/>
                 <Loader
-                    isLoading={isLoading}
+                    isLoading={isLoading || isStarting}
                 />
             </Container>
         );

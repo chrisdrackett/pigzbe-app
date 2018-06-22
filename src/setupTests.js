@@ -1,3 +1,10 @@
+import './app/global';
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import {combineReducers} from 'redux';
+
+export const mockStore = reducers => createStore(combineReducers(reducers || {dummy: (state = {}) => state}), applyMiddleware(thunk));
+
 global.window = global;
 
 // mock fetch

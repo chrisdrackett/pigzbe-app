@@ -1,4 +1,4 @@
-import getAPIURL from '../utils/api-url';
+import {apiURL} from '../selectors';
 import {
     ERROR,
     CLAIM,
@@ -14,6 +14,7 @@ export const validate = () => async (dispatch, getState) => {
     const {stellar} = getState().user;
     const {localStorage} = getState().content;
     const transactionHash = localStorage.transactionHash || getState().events.transactionHash;
+    const api = apiURL(getState());
 
     console.log('validate');
     console.log(transactionHash);
@@ -24,7 +25,7 @@ export const validate = () => async (dispatch, getState) => {
         let payload;
 
         if (!(localStorage.stellarAccount && localStorage.receipt)) {
-            payload = await (await fetch(`${getAPIURL()}/claim`, {
+            payload = await (await fetch(`${api}/claim`, {
                 method: 'POST',
                 mode: 'cors',
                 cache: 'no-cache',
@@ -71,6 +72,7 @@ export const claim = () => async (dispatch, getState) => {
     const {stellar} = getState().user;
     const {localStorage} = getState().content;
     const transactionHash = localStorage.transactionHash || getState().events.transactionHash;
+    const api = apiURL(getState());
 
     dispatch({type: LOADING, payload: 'Validating Ethereum Transaction'});
 
@@ -78,7 +80,7 @@ export const claim = () => async (dispatch, getState) => {
         let payload;
 
         if (!localStorage.complete) {
-            payload = await (await fetch(`${getAPIURL()}/transfer`, {
+            payload = await (await fetch(`${api}/transfer`, {
                 method: 'POST',
                 mode: 'cors',
                 cache: 'no-cache',

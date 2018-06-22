@@ -38,7 +38,7 @@ exports[`DevPanel renders correctly 1`] = `
       ]
     }
   >
-    LIVENET
+    MAINNET
   </Text>
   <View
     accessibilityComponentType={undefined}

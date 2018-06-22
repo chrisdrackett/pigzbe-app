@@ -19,7 +19,7 @@ import Modal from './modal';
 import Container from '../container';
 import {userLogin} from '../../actions/eth';
 import {clearClaimData} from '../../actions/content';
-import {transfer, burn, init} from '../../actions/contract';
+import {transfer, burn, initWeb3} from '../../actions/contract';
 import {isValidSeed} from '../../utils/web3';
 
 const numTokensToBurn = balance => Config.NUM_TOKENS_TO_BURN || balance;
@@ -42,7 +42,7 @@ class Claim extends Component {
   }
 
   componentWillMount() {
-      this.props.init(Config.NETWORK);
+      this.props.initWeb3();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -284,7 +284,7 @@ export default connect(({user, web3, events, contract, content}) => ({
     errorBurning: events.get('error')
 }), {
     userLogin,
-    init,
+    initWeb3,
     transfer,
     burn,
     clearClaimData,
