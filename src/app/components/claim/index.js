@@ -22,7 +22,6 @@ import {clearClaimData} from '../../actions/content';
 import {transfer, burn, initWeb3} from '../../actions/contract';
 import {isValidSeed} from '../../utils/web3';
 
-const numTokensToBurn = balance => Config.NUM_TOKENS_TO_BURN || balance;
 
 class Claim extends Component {
   state = {
@@ -96,12 +95,16 @@ class Claim extends Component {
   }
 
   onSubmitBurn = async () => {
-      const {localStorage, contract, user} = this.props;
-      const numTokens = numTokensToBurn(user.balance);
+      const {config, localStorage, contract, user} = this.props;
 
-      console.log('contract.network', contract.network);
+      const {network, stellar} = config;
+      const {maxClaimTokens} = stellar.networks[network];
+
+      const amountBurn = Math.min(user.balance, maxClaimTokens);
+
       console.log('user.balance', user.balance);
-      console.log('numTokens', numTokens);
+      console.log('maxClaimTokens', maxClaimTokens);
+      console.log('amountBurn', amountBurn);
 
       if (localStorage.transactionHash && localStorage.value) {
           this.props.burn(Number(localStorage.value));
@@ -117,7 +120,7 @@ class Claim extends Component {
 
       try {
           const gasPrice = await this.props.web3.eth.getGasPrice();
-          const estimatedGas = await contract.instance.methods.burn(numTokens).estimateGas({from: user.coinbase});
+          const estimatedGas = await contract.instance.methods.burn(amountBurn).estimateGas({from: user.coinbase});
           this.setState({
               estimatedCost: `${utils.fromWei(String(estimatedGas * gasPrice), 'ether')} ETH`,
           });
@@ -136,12 +139,17 @@ class Claim extends Component {
   onConfirmedSubmitBurn = () => {
       this.closeModal();
 
-      const numTokens = numTokensToBurn(this.props.user.balance);
+      const {config, user} = this.props;
+      const {network, stellar} = config;
+      const {maxClaimTokens} = stellar.networks[network];
 
-      console.log('this.props.user.balance', this.props.user.balance);
-      console.log('numTokens', numTokens);
+      const amountBurn = Math.min(user.balance, maxClaimTokens);
 
-      this.props.burn(Number(numTokens));
+      console.log('user.balance', user.balance);
+      console.log('maxClaimTokens', maxClaimTokens);
+      console.log('amountBurn', amountBurn);
+
+      this.props.burn(amountBurn);
   }
 
   closeModal = () => {
@@ -274,7 +282,8 @@ class Claim extends Component {
   }
 }
 
-export default connect(({user, web3, events, contract, content}) => ({
+export default connect(({config, user, web3, events, contract, content}) => ({
+    config,
     user,
     events,
     contract,
