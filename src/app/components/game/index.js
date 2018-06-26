@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Platform, View, WebView, Text, TouchableOpacity} from 'react-native';
+import {Platform, View, WebView} from 'react-native';
 import NavListener from './nav-listener';
 import styles from './styles';
 import Overlay from '../overlay';
@@ -18,39 +18,11 @@ import {
     ACCELEROMETER
 } from '../../../game/constants';
 import Controller, {OINK} from '../controller';
+import ControllerInfo from '../controller/controller-info';
 
 // const localWebURL = require('../../../game/game.html');
 console.log('Platform.OS', Platform.OS);
 const source = Platform.OS === 'android' ? {uri: 'file:///android_asset/game.html'} : require('../../../game/game.html');
-
-// https://facebook.github.io/react-native/docs/webview.html
-
-const ControllerInfo = ({scanning, connected, onPress}) => (
-    <TouchableOpacity
-        onPress={onPress}
-        style={{
-            position: 'absolute',
-            bottom: 25,
-            right: 18,
-            backgroundColor: scanning ? '#ffaa00' : connected ? '#00ff00' : '#ccc',
-            height: 29,
-            borderRadius: 29 / 2,
-            paddingTop: 3,
-            paddingBottom: 3,
-            paddingLeft: 3,
-            paddingRight: 6,
-        }}>
-        <Text style={{
-            color: '#000',
-            textAlign: 'center',
-            fontWeight: 'bold',
-            fontSize: 20,
-            lineHeight: 26,
-        }}>
-            {scanning ? 'Scanning' : connected ? 'Connected' : 'Idle' }
-        </Text>
-    </TouchableOpacity>
-);
 
 class GameView extends NavListener {
     state = {

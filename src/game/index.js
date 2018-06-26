@@ -225,10 +225,10 @@ export default class Game {
         if (!this.isDown) {
             return;
         }
-        const {w, h, touchOrigin} = this;
+        const {touchOrigin} = this;
 
         const rotation = angle(touchOrigin.x, touchOrigin.y, point.x, point.y);
-        const maxDist = min(w, h) / 4;
+        const maxDist = 80;
         const dist = min(distance(touchOrigin.x, touchOrigin.y, point.x, point.y), maxDist);
         const force = dist / maxDist;
 
