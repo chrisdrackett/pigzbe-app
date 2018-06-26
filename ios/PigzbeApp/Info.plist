@@ -41,6 +41,8 @@
 	<string>Allow Pigzbe to use your camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Give Pigzbe permission to access your photos</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Allow Pigzbe to access bluetooth to connect the Pigzbe controller</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>PoppinsRegular.ttf</string>
