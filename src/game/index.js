@@ -14,6 +14,7 @@ import {
     LOG,
     ERROR
 } from './constants';
+import map from 'usfl/math/map';
 
 const {abs, min, cos, sin} = Math;
 
@@ -172,6 +173,20 @@ export default class Game {
             if (abs(this.vec.y) < threshold) {
                 this.vec.y = 0;
             }
+        }
+    }
+
+    accelerometer = ({x, y}) => {
+        const MIN = 500;
+        const MAX = 4000;
+        const FORCE = 1.2;
+
+        if (abs(y) > MIN) {
+            this.vec.x = MOVE_SPEED * map(y, -MAX, MAX, -FORCE, FORCE, true);
+        }
+
+        if (abs(x) > MIN) {
+            this.vec.y = MOVE_SPEED * map(x, -MAX, MAX, -FORCE, FORCE, true);
         }
     }
 

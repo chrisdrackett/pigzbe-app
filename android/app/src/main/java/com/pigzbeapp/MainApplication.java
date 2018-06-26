@@ -3,6 +3,7 @@ package com.pigzbeapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import it.innove.BleManagerPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.rnfingerprint.FingerprintAuthPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new BleManagerPackage(),
             new ReactNativeConfigPackage(),
           new ImagePickerPackage(),
           new FingerprintAuthPackage(),

@@ -10,9 +10,10 @@ import {
 const game = new Game(document.body);
 
 document.addEventListener('message', () => {
-    console.log('Received post message', event.data);
-    if (typeof game[event.data] === 'function') {
-        game[event.data]();
+    const msg = JSON.parse(event.data);
+    console.log('Received post message', msg);
+    if (typeof game[msg.command] === 'function') {
+        game[msg.command](msg.data);
     }
 });
 
