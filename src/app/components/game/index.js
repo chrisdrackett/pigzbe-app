@@ -17,7 +17,7 @@ import {
     ERROR,
     ACCELEROMETER
 } from '../../../game/constants';
-import Controller, {OINK} from '../controller';
+import Controller, {VIBRATE} from '../controller';
 import ControllerInfo from '../controller/controller-info';
 
 // const localWebURL = require('../../../game/game.html');
@@ -65,8 +65,8 @@ class GameView extends NavListener {
         this.postingAccelerometer = true;
     }
 
-    oink() {
-        const result = Controller.send(OINK);
+    onCollect() {
+        const result = Controller.send(VIBRATE);
         console.log('result', result);
     }
 
@@ -78,9 +78,10 @@ class GameView extends NavListener {
         switch (name) {
             case READY:
                 this.setState({isLoading: false});
-                Controller.scan();
+                // Controller.scan();
                 break;
             case COLLECTED:
+                this.onCollect();
                 dispatch(gameWolloCollected(value));
                 break;
             case LEARN:
@@ -118,7 +119,7 @@ class GameView extends NavListener {
                 <ControllerInfo
                     scanning={this.state.scanning}
                     connected={this.state.connected}
-                    onPress={() => Controller.disconnect()}
+                    onPress={this.state.connected ? () => Controller.disconnect() : () => Controller.scan()}
                 />
                 <Loader
                     isLoading={this.state.isLoading}

@@ -5,8 +5,9 @@ export default StyleSheet.create({
         position: 'absolute',
         bottom: 25,
         right: 18,
-        width: 45,
-        height: 24,
+        width: 49,
+        height: 28,
+        padding: 2,
     },
     image: {
         width: 45,

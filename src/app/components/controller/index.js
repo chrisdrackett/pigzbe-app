@@ -68,8 +68,8 @@ class Controller extends EventEmitter {
     onDisconnect = async data => {
         console.log('Disconnected from ' + data.peripheral);
         this.emit('disconnect');
-        await time(3);
-        this.scan();
+        // await time(3);
+        // this.scan();
     }
 
     onUpdate = data => {
@@ -106,20 +106,20 @@ class Controller extends EventEmitter {
 
         this.deviceId = peripheral.id;
 
-        await time(0.4);
+        await time(0.2);
 
         const peripheralInfo = await BleManager.retrieveServices(peripheral.id);
         console.log(peripheralInfo);
 
-        await time(0.4);
+        await time(0.2);
 
         await BleManager.startNotification(peripheral.id, SERVICE, ACCELEROMETER);
 
-        await time(0.4);
+        // await time(0.2);
 
-        await BleManager.startNotification(peripheral.id, SERVICE, BUTTON);
+        // await BleManager.startNotification(peripheral.id, SERVICE, BUTTON);
 
-        await time(0.4);
+        await time(0.2);
 
         await BleManager.startNotification(peripheral.id, SERVICE, OUT);
     }

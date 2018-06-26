@@ -101,8 +101,8 @@ export default class Pigzbe {
             this.oy = 0;
         }
 
-        this.bg.position.x = this.ox;
-        this.bg.position.y = this.oy;
+        this.bg.position.x = this.ox * 0.5;
+        this.bg.position.y = this.oy * 0.5;
 
         this.feet.position.x = this.ox * -0.5;
         this.feet.position.y = this.oy * 0.5;

@@ -33,7 +33,8 @@ export default class Coins {
         this.totalCoins = objects.length;
     }
 
-    collide = (visible, coin, coins) => {
+    // collide = (visible, coin, coins) => {
+    collide = (visible, coin) => {
         if (visible) {
             const hit = intersects(coin, this.hitRect);
             if (hit && !coin.hit) {
@@ -48,9 +49,10 @@ export default class Coins {
                 pop.gotoAndStop(0);
                 pop.visible = true;
                 pop.onComplete = () => {
-                    coin.container.parent.removeChild(coin.container);
-                    coins.remove(coin);
+                    // coin.container.parent.removeChild(coin.container);
+                    // coins.remove(coin);
                     this.popPool.dispose(pop);
+                    coin.container.removeChild(pop);
                 };
                 pop.play();
 
@@ -58,6 +60,9 @@ export default class Coins {
                 sound.volume = 0.5;
                 sound.play();
             }
+        } else if (coin.hit) {
+            coin.hit = false;
+            coin.container.addChild(coin.sprite);
         }
     }
 
