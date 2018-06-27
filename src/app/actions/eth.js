@@ -13,14 +13,13 @@ import {load, save} from '../utils/keychain';
 import {KEYCHAIN_ID_ETH_KEY} from '../constants';
 
 export const getBalance = () => async (dispatch, getState) => {
-    console.log('getBalance');
     try {
         console.log('getBalance > coinbase', getState().user.get('coinbase'));
         const web3 = getState().web3.instance;
         const contract = getState().contract.instance;
         const balance = await contract.methods.balanceOf(getState().user.get('coinbase')).call();
-        console.log('getBalance balance', balance, web3.utils.toDecimal(balance));
-        dispatch({type: USER_BALANCE, payload: web3.utils.toDecimal(balance)});
+        console.log('getBalance balance', balance, web3.utils.fromWei(balance, 'ether'));
+        dispatch({type: USER_BALANCE, payload: Number(web3.utils.fromWei(balance, 'ether'))});
 
     } catch (e) {
         console.log(e);
