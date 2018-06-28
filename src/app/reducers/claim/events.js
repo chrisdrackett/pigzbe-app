@@ -37,10 +37,8 @@ export default (state = initialState, action) => {
                 .set('transactionHash', action.payload);
 
         case ERROR:
-            // console.log(action.payload.message || action.payload, action.payload.title || '');
-            // NotificationManager.error(action.payload.message || action.payload, action.payload.title || '');
             return state
-                .set('error', action.payload.message);
+                .set('error', action.payload);
 
         case LOADING:
             return state

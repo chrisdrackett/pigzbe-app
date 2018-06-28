@@ -10,7 +10,8 @@ import {
 
 const initialState = new Record({
     coinbase: null,
-    balance: null,
+    balanceWei: null,
+    balanceWollo: null,
     supply: null,
     loggedIn: false,
     stellar: null,
@@ -25,18 +26,17 @@ export default (state = initialState, action) => {
                 .set('coinbase', null);
 
         case STELLAR:
-            console.log('========> stellar', action.payload);
             return state
                 .set('stellar', Object.assign({}, action.payload));
 
         case PRIVATE_KEY:
-            console.log('========> privateKey', action.payload);
             return state
                 .set('privateKey', action.payload.privateKey);
 
         case USER_BALANCE:
             return state
-                .set('balance', action.payload);
+                .set('balanceWei', action.payload.balanceWei)
+                .set('balanceWollo', action.payload.balanceWollo);
 
         case USER_LOGIN:
             return state

@@ -33,6 +33,8 @@ const getContract = () => async (dispatch, getState) => {
 
         const address = ethereum.networks[network].address.trim();
 
+        console.log('address', address);
+
         const deployedContract = new web3.eth.Contract(ethereum.abi, address, {
             gasPrice: await web3.eth.getGasPrice(),
             gas: 6721975,
@@ -79,14 +81,12 @@ const getContract = () => async (dispatch, getState) => {
 };
 
 const getKeys = () => async dispatch => {
-    console.log('INIT KEYS');
     try {
         const stellar = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
         const eth = await Keychain.load(KEYCHAIN_ID_ETH_KEY);
 
         if (stellar.key) {
             const keypair = Keypair.fromSecret(stellar.key);
-            console.log('INIT KEYS STELLAR', keypair.publicKey());
 
             dispatch({type: STELLAR, payload: {
                 pk: keypair.publicKey(),
@@ -95,7 +95,6 @@ const getKeys = () => async dispatch => {
         }
 
         if (eth.key) {
-            console.log('INIT KEYS ETHER', eth.key);
             dispatch({type: PRIVATE_KEY, payload: {
                 privateKey: eth.key
             }});
@@ -283,6 +282,6 @@ export const burn = (amount) => async (dispatch, getState) => {
 
     } catch (e) {
         console.log(e);
-        dispatch({type: ERROR, payload: e});
+        dispatch({type: ERROR, payload: e.message});
     }
 };
