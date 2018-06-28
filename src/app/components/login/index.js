@@ -46,6 +46,7 @@ class Login extends Component {
             const {NETWORK, CONFIG_URL} = Config;
             const configURL = NETWORK ? `${CONFIG_URL}?network=${NETWORK}` : CONFIG_URL;
             const config = await (await fetch(configURL)).json();
+            // console.log(JSON.stringify(config, null, 2));
             if (config.message === 'Missing Authentication Token') {
                 throw new Error('Failed to load config');
             }

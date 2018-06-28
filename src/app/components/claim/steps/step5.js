@@ -4,9 +4,9 @@ import styles from '../styles';
 import StepWrapper from './stepWrapper';
 import KeyHolder from './key-holder';
 
-const copyTx = async (tx, pk, userBalance) => {
+const copyTx = async (tx, pk, userBalance, error) => {
     const title = 'Ethereum Transaction Details';
-    const message = `${title}\n\nBalance: ${userBalance}\n\nPublic Key: ${pk}\n\n\nTransaction hash: ${tx}`;
+    const message = `${title}\n\nBalance: ${userBalance}\n\nPublic Key: ${pk}\n\nTransaction hash: ${tx}\n\nError: ${error}`;
 
     const result = await Share.share({
         title,
@@ -34,7 +34,8 @@ export default ({
     buttonNextLabel,
     userBalance,
     tx,
-    pk
+    pk,
+    error
 }) => (
     <StepWrapper onNext={onNext} onBack={onBack} buttonNextLabel={buttonNextLabel}>
         {continueApplication &&
@@ -47,7 +48,7 @@ export default ({
                         <KeyHolder
                             title={'Transaction hash:'}
                             content={tx}
-                            onPress={() => copyTx(tx, pk, userBalance)}
+                            onPress={() => copyTx(tx, pk, userBalance, error)}
                         />
                     </Fragment>
                 )}

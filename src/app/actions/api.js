@@ -8,7 +8,6 @@ import {
 } from '../constants/action-types';
 import {getBalance} from './eth';
 import {trustStellarAsset} from './stellar';
-import {strings} from '../constants';
 
 export const validate = () => async (dispatch, getState) => {
     const {stellar} = getState().user;
@@ -38,7 +37,7 @@ export const validate = () => async (dispatch, getState) => {
 
             if (payload.error) {
                 console.log(payload);
-                dispatch({type: ERROR, payload: strings.errorEthereumTransactionInvalid});
+                dispatch({type: ERROR, payload: 'Invalid transaction'});
                 setTimeout(dispatch, 5000, {type: LOADING, payload: null});
                 return;
             }
@@ -91,17 +90,14 @@ export const claim = () => async (dispatch, getState) => {
                 })
             })).json();
 
+            console.log(payload);
+
             if (payload.error) {
                 if (payload.error === 1) {
-                    dispatch({type: ERROR, payload: strings.errorPaymentAlreadyProcessed});
+                    dispatch({type: ERROR, payload: 'Payment already made'});
                 } else {
                     dispatch({type: ERROR, payload: payload.message});
                 }
-                // setTimeout(dispatch, 2000, {
-                //     type: LOADING,
-                //     payload: null
-                // });
-
                 return;
             }
 

@@ -21,7 +21,7 @@ import {userLogin} from '../../actions/eth';
 import {clearClaimData} from '../../actions/content';
 import {transfer, burn, initWeb3} from '../../actions/contract';
 import {isValidSeed} from '../../utils/web3';
-
+import BigNumber from 'bignumber.js';
 
 class Claim extends Component {
   state = {
@@ -47,15 +47,13 @@ class Claim extends Component {
   componentWillReceiveProps(nextProps) {
 
       if (nextProps.localStorage && !this.props.localStorage) {
-          console.log(nextProps.localStorage);
-
           if (Object.keys(nextProps.localStorage).length === 0 && nextProps.localStorage.constructor === Object) {
               this.setState({loading: null, step: 1});
           }
       }
 
       if (this.props.localStorage) {
-          if (nextProps.user.coinbase && typeof nextProps.user.balance === 'number') {
+          if (nextProps.user.coinbase && nextProps.user.balanceWollo) {
               this.setState({step: 5, loading: null});
           }
 
@@ -83,8 +81,6 @@ class Claim extends Component {
 
       const success = await this.props.userLogin(mnemonic, publicKey);
 
-      console.log('user login ', success);
-
       if (success) {
           this.setState({loading: 'Loading your Ethereum account'});
       }
@@ -94,20 +90,28 @@ class Claim extends Component {
       this.setState({step});
   }
 
-  onSubmitBurn = async () => {
-      const {config, localStorage, contract, user} = this.props;
+  getNumBurnTokens() {
+      const {config, user} = this.props;
 
       const {network, stellar} = config;
       const {maxClaimTokens} = stellar.networks[network];
 
-      const amountBurn = Math.min(user.balance, maxClaimTokens);
+      const maxAmount = new BigNumber(maxClaimTokens).plus(Math.random()).times(10 ** 18).toString();
+      const amountBurn = BigNumber.min(user.balanceWei, maxAmount).toString();
 
-      console.log('user.balance', user.balance);
-      console.log('maxClaimTokens', maxClaimTokens);
+      console.log('maxAmount', maxAmount);
       console.log('amountBurn', amountBurn);
+      console.log('user.balanceWollo', user.balanceWollo);
+      console.log('user.balanceWei', user.balanceWei);
+
+      return amountBurn;
+  }
+
+  onSubmitBurn = async () => {
+      const {localStorage, contract, user} = this.props;
 
       if (localStorage.transactionHash && localStorage.value) {
-          this.props.burn(Number(localStorage.value));
+          this.props.burn(localStorage.value);
           return;
       }
 
@@ -119,8 +123,10 @@ class Claim extends Component {
       });
 
       try {
+          const amountBurn = this.getNumBurnTokens();
           const gasPrice = await this.props.web3.eth.getGasPrice();
           const estimatedGas = await contract.instance.methods.burn(amountBurn).estimateGas({from: user.coinbase});
+
           this.setState({
               estimatedCost: `${utils.fromWei(String(estimatedGas * gasPrice), 'ether')} ETH`,
           });
@@ -139,15 +145,7 @@ class Claim extends Component {
   onConfirmedSubmitBurn = () => {
       this.closeModal();
 
-      const {config, user} = this.props;
-      const {network, stellar} = config;
-      const {maxClaimTokens} = stellar.networks[network];
-
-      const amountBurn = Math.min(user.balance, maxClaimTokens);
-
-      console.log('user.balance', user.balance);
-      console.log('maxClaimTokens', maxClaimTokens);
-      console.log('amountBurn', amountBurn);
+      const amountBurn = this.getNumBurnTokens();
 
       this.props.burn(amountBurn);
   }
@@ -199,7 +197,8 @@ class Claim extends Component {
           errorBurning
       } = this.props;
 
-      console.log(JSON.stringify(localStorage, null, 2));
+      // console.log(JSON.stringify(localStorage, null, 2));
+      // console.log('errorBurning', errorBurning);
 
       if (!web3 || !contract.instance || !localStorage || this.state.loading !== null) {
           return (
@@ -236,20 +235,21 @@ class Claim extends Component {
 
                       {step === 5 &&
                       <Step5
+                          error={errorBurning || localStorage.error}
                           tx={tx}
                           pk={pk}
-                          userBalance={user.balance}
+                          userBalance={user.balanceWollo}
                           continueApplication={!localStorage.complete && localStorage.started}
                           startApplication={!localStorage.complete && !localStorage.started}
-                          buttonNextLabel={!user.balance ? 'Back' : !localStorage.complete && !localStorage.started ? 'Claim Wollo' : 'Continue'}
-                          onNext={user.balance ? this.onSubmitBurn : this.props.onCloseClaim}
-                          onBack={user.balance ? () => this.onChangeStep(1) : null}
+                          buttonNextLabel={!user.balanceWollo ? 'Back' : !localStorage.complete && !localStorage.started ? 'Claim Wollo' : 'Continue'}
+                          onNext={user.balanceWollo ? this.onSubmitBurn : this.props.onCloseClaim}
+                          onBack={user.balanceWollo ? () => this.onChangeStep(1) : null}
                       />
                       }
 
                       {localStorage.complete && user.stellar &&
                       <Step6
-                          userBalance={user.balance}
+                          userBalance={user.balanceWollo}
                           stellar={user.stellar}
                           tx={tx}
                           onNext={this.confirmCopy}
@@ -270,7 +270,7 @@ class Claim extends Component {
                           complete={localStorage.complete}
                           title={localStorage.complete ? 'Congrats' : 'Claim progress'}
                           error={errorBurning}
-                          text={localStorage.complete ? `Congrats! You are now the owner of ${user.balance} Wollo, you rock.` : loading}
+                          text={localStorage.complete ? `Congrats! You are now the owner of ${user.balanceWollo} Wollo, you rock.` : loading}
                           // buttonLabel={localStorage.complete || errorBurning ? 'Next' : null}
                           buttonLabel={'Next'}
                           onPress={this.closeProgress}

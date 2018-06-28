@@ -11,19 +11,22 @@ import {
 import {isValidSeed, generateAddressFromSeed} from '../utils/web3';
 import {load, save} from '../utils/keychain';
 import {KEYCHAIN_ID_ETH_KEY} from '../constants';
+import BigNumber from 'bignumber.js';
 
 export const getBalance = () => async (dispatch, getState) => {
     try {
-        console.log('getBalance > coinbase', getState().user.get('coinbase'));
         const web3 = getState().web3.instance;
         const contract = getState().contract.instance;
-        const balance = await contract.methods.balanceOf(getState().user.get('coinbase')).call();
-        console.log('getBalance balance', balance, web3.utils.fromWei(balance, 'ether'));
-        dispatch({type: USER_BALANCE, payload: Number(web3.utils.fromWei(balance, 'ether'))});
+        const balanceWei = await contract.methods.balanceOf(getState().user.get('coinbase')).call();
+        const balanceWollo = new BigNumber(web3.utils.fromWei(balanceWei, 'ether')).toFixed(7, BigNumber.ROUND_DOWN);
+        dispatch({type: USER_BALANCE, payload: {
+            balanceWei,
+            balanceWollo
+        }});
 
     } catch (e) {
         console.log(e);
-        dispatch({type: ERROR, payload: e});
+        dispatch({type: ERROR, payload: e.message});
     }
 
 };
@@ -100,7 +103,7 @@ export const userLogin = (mnemonic, pk) => async (dispatch, getState) => {
         return true;
     } catch (e) {
         console.log(e);
-        dispatch({type: ERROR, payload: e});
+        dispatch({type: ERROR, payload: e.message});
         return false;
     }
 };
