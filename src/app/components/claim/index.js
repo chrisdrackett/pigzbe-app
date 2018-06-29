@@ -90,23 +90,6 @@ class Claim extends Component {
       this.setState({step});
   }
 
-  getNumBurnTokens() {
-      const {config, user} = this.props;
-
-      const {network, stellar} = config;
-      const {maxClaimTokens} = stellar.networks[network];
-
-      const maxAmount = new BigNumber(maxClaimTokens).plus(Math.random()).times(10 ** 18).toString();
-      const amountBurn = BigNumber.min(user.balanceWei, maxAmount).toString();
-
-      console.log('maxAmount', maxAmount);
-      console.log('amountBurn', amountBurn);
-      console.log('user.balanceWollo', user.balanceWollo);
-      console.log('user.balanceWei', user.balanceWei);
-
-      return amountBurn;
-  }
-
   onSubmitBurn = async () => {
       const {localStorage, contract, user} = this.props;
 
@@ -123,7 +106,7 @@ class Claim extends Component {
       });
 
       try {
-          const amountBurn = this.getNumBurnTokens();
+          const amountBurn = user.balanceWei;
           const gasPrice = await this.props.web3.eth.getGasPrice();
           const estimatedGas = await contract.instance.methods.burn(amountBurn).estimateGas({from: user.coinbase});
 
@@ -145,9 +128,7 @@ class Claim extends Component {
   onConfirmedSubmitBurn = () => {
       this.closeModal();
 
-      const amountBurn = this.getNumBurnTokens();
-
-      this.props.burn(amountBurn);
+      this.props.burn(this.props.user.balanceWei);
   }
 
   closeModal = () => {

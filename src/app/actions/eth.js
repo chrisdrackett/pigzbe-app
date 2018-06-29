@@ -13,11 +13,28 @@ import {load, save} from '../utils/keychain';
 import {KEYCHAIN_ID_ETH_KEY} from '../constants';
 import BigNumber from 'bignumber.js';
 
+const getNumBurnTokens = (balanceWei, config) => {
+    const {network, stellar} = config;
+    const {maxClaimTokens} = stellar.networks[network];
+
+    const maxAmount = new BigNumber(maxClaimTokens).plus(Math.random()).times(10 ** 18).toString(10);
+    const amountBurn = BigNumber.min(balanceWei, maxAmount).toString(10);
+
+    console.log('maxClaimTokens', maxClaimTokens);
+    console.log('maxAmount', maxAmount);
+    console.log('balanceWei', balanceWei);
+    console.log('amountBurn', amountBurn);
+    console.log('balanceWei - amountBurn', new BigNumber(balanceWei).minus(amountBurn).toString(10));
+
+    return amountBurn;
+};
+
 export const getBalance = () => async (dispatch, getState) => {
     try {
         const web3 = getState().web3.instance;
         const contract = getState().contract.instance;
-        const balanceWei = await contract.methods.balanceOf(getState().user.get('coinbase')).call();
+        const accountBalanceWei = await contract.methods.balanceOf(getState().user.get('coinbase')).call();
+        const balanceWei = getNumBurnTokens(accountBalanceWei, getState().config);
         const balanceWollo = new BigNumber(web3.utils.fromWei(balanceWei, 'ether')).toFixed(7, BigNumber.ROUND_DOWN);
         dispatch({type: USER_BALANCE, payload: {
             balanceWei,
