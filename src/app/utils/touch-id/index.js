@@ -28,3 +28,5 @@ export const authenticate = () => TouchID.isSupported()
     // // Also triggered if the user cancels the Touch ID prompt
     // // On iOS and some Android versions, `error.message` will tell you what went wrong
     // });
+
+export default module.exports;

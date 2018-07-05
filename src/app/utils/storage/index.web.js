@@ -18,3 +18,5 @@ export const clear = key => {
     localStorage.removeItem(key);
     return Promise.resolve();
 };
+
+export default module.exports;
