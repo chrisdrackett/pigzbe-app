@@ -40,3 +40,5 @@ export const clear = () => Promise.resolve();
 // };
 //
 // export const clear = async () => await keytar.deletePassword(service, account);
+
+export default module.exports;
