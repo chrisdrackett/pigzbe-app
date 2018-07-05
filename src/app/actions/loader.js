@@ -16,9 +16,9 @@ const loading = value => ({type: LOADER_LOADING, value});
 
 export const loaderError = error => ({type: LOADER_ERROR, error});
 
-export const load = key => dispatch => {
+export const load = passcode => dispatch => {
     dispatch(loading(true));
-    return dispatch(authLogin(key))
+    return dispatch(authLogin(passcode))
         .then(() => dispatch(profileLoad()))
         .then(() => dispatch(loadEscrow()))
         .then(() => dispatch(messagesLoad()))
@@ -33,10 +33,10 @@ export const load = key => dispatch => {
 export const tryAutoLoad = () => dispatch => {
     console.log('tryAutoLoad');
     dispatch(authKeychain())
-        .then(key => {
-            if (key) {
+        .then(passcode => {
+            if (passcode) {
                 dispatch(authTouchId())
-                    .then(() => dispatch(load(key)))
+                    .then(() => dispatch(load(passcode)))
                     .catch(error => console.log(error));
             }
         });

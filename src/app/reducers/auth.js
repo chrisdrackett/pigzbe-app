@@ -1,4 +1,5 @@
 import {
+    AUTH_CREATE,
     AUTH_LOGIN_START,
     AUTH_LOGIN_FAIL,
     AUTH_LOGIN,
@@ -7,6 +8,7 @@ import {
 } from '../actions';
 
 export const initialState = {
+    passcode: null,
     isLoggingIn: false,
     isLoggedIn: false,
     error: null,
@@ -17,6 +19,11 @@ export const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case AUTH_CREATE:
+            return {
+                ...state,
+                passcode: action.passcode
+            };
         case AUTH_LOGIN_START:
             return {
                 ...state,
@@ -34,8 +41,8 @@ export default (state = initialState, action) => {
                 ...state,
                 isLoggingIn: false,
                 isLoggedIn: true,
-                publicKey: action.keypair.publicKey(),
-                secretKey: action.keypair.secret()
+                // publicKey: action.keypair.publicKey(),
+                // secretKey: action.keypair.secret()
             };
         case AUTH_LOGOUT:
             return {

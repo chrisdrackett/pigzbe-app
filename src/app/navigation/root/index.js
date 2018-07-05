@@ -1,8 +1,6 @@
 import React, {Fragment, Component} from 'react';
 import {connect} from 'react-redux';
 import {NetInfo} from 'react-native';
-import Tabs from '../tabs';
-import Create from '../create';
 import Auth from '../auth';
 import Alert from '../../components/alert';
 import {connectionState} from '../../actions/check-connection';
@@ -24,24 +22,6 @@ class Root extends Component {
         this.props.dispatch(connectionState({status: isConnected}));
     }
 
-    getChild() {
-        const {
-            isLoggedIn,
-            hasProfile,
-            isLoading,
-        } = this.props;
-
-        if (isLoggedIn && hasProfile && !isLoading) {
-            return <Tabs/>;
-        }
-
-        if (isLoggedIn && !isLoading) {
-            return <Create/>;
-        }
-
-        return <Auth/>;
-    }
-
     render() {
         const {
             error,
@@ -52,7 +32,7 @@ class Root extends Component {
 
         return (
             <Fragment>
-                {this.getChild()}
+                <Auth/>
                 <Alert error={errorMessage}/>
             </Fragment>
         );
@@ -67,9 +47,6 @@ const filterErrors = (state) => {
 export default connect(
     state => ({
         error: filterErrors(state),
-        isLoggedIn: state.auth.isLoggedIn,
-        hasProfile: state.profile.hasProfile,
-        isLoading: state.loader.isLoading,
         isConnected: state.connected.isConnected,
     })
 )(Root);
