@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
-import {TabNavigator, TabBarBottom} from 'react-navigation';
+import {createBottomTabNavigator} from 'react-navigation';
 import {View, Image} from 'react-native';
 import Wallet from '../wallet';
 import Game from '../../components/game';
@@ -101,7 +101,7 @@ const TabBarIcon = connect(state => ({
     );
 });
 
-export default TabNavigator(nav, {
+export default createBottomTabNavigator(nav, {
     initialRouteName: SCREEN_WALLET,
     navigationOptions: ({navigation}) => ({
         tabBarIcon: ({focused}) => {
@@ -132,8 +132,6 @@ export default TabNavigator(nav, {
             fontSize: 10
         },
     },
-    tabBarComponent: TabBarBottom,
-    tabBarPosition: 'bottom',
     animationEnabled: false,
     swipeEnabled: false
 });
