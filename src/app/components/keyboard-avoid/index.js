@@ -1,6 +1,7 @@
 import React from 'react';
 import {KeyboardAvoidingView} from 'react-native';
 import isDesktop from '../../utils/is-desktop';
+import isAndroid from '../../utils/is-android';
 
 export default ({children, offset = 0, containerStyle}) => {
     if (isDesktop) {
@@ -11,7 +12,7 @@ export default ({children, offset = 0, containerStyle}) => {
             keyboardVerticalOffset={offset}
             style={{flex: 1}}
             contentContainerStyle={containerStyle}
-            behavior="position"
+            behavior={isAndroid ? null : 'position'}
             enabled>
             {children}
         </KeyboardAvoidingView>
