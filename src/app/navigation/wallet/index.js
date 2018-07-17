@@ -1,4 +1,4 @@
-import {SwitchNavigator} from 'react-navigation';
+import {createSwitchNavigator} from 'react-navigation';
 import Balance from '../../components/balance';
 import Profile from '../../components/profile';
 import Escrow from '../../components/escrow';
@@ -20,6 +20,6 @@ const nav = {
     }
 };
 
-export default SwitchNavigator(nav, {
+export default createSwitchNavigator(nav, {
     initialRouteName: SCREEN_BALANCE
 });
