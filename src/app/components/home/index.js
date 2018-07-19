@@ -29,7 +29,7 @@ class Login extends Component {
     }
 
     async init() {
-        const {dispatch, testUserKey} = this.props;
+        const {dispatch} = this.props;
 
         this.setState({isStarting: true, failed: false});
 
@@ -44,8 +44,7 @@ class Login extends Component {
             dispatch(configInit(config));
             dispatch(setUseTestnet(config.network !== config.NETWORK_MAINNET));
 
-            const inputText = __DEV__ && testUserKey ? testUserKey : '';
-            this.setState({isStarting: false, inputText});
+            this.setState({isStarting: false});
 
             dispatch(tryAutoLoad());
         } catch (error) {
@@ -60,14 +59,6 @@ class Login extends Component {
 
     componentDidMount() {
         this.init();
-    }
-
-    componentDidUpdate(prevProps) {
-        const {testUserKey} = this.props;
-
-        if (__DEV__ && prevProps.testUserKey !== testUserKey) {
-            this.setState({inputText: testUserKey});
-        }
     }
 
     render() {
@@ -126,7 +117,6 @@ class Login extends Component {
 
 export default connect(
     state => ({
-        testUserKey: state.auth.testUserKey,
         isLoading: state.loader.isLoading,
         error: state.auth.error,
         useTestnet: state.wollo.useTestnet

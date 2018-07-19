@@ -4,7 +4,8 @@ import {
     authLogin,
     profileLoad,
     messagesLoad,
-    loadEscrow
+    loadEscrow,
+    loadWallet
 } from './';
 
 const pkg = require('../../../package.json');
@@ -19,6 +20,7 @@ export const loaderError = error => ({type: LOADER_ERROR, error});
 export const load = passcode => dispatch => {
     dispatch(loading(true));
     return dispatch(authLogin(passcode))
+        .then(() => dispatch(loadWallet()))
         .then(() => dispatch(profileLoad()))
         .then(() => dispatch(loadEscrow()))
         .then(() => dispatch(messagesLoad()))

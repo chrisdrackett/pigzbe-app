@@ -10,7 +10,9 @@ import {
     WOLLO_SENDING,
     WOLLO_SEND_COMPLETE,
     WOLLO_SEND_STATUS,
-    WOLLO_UPDATE_XLM
+    WOLLO_UPDATE_XLM,
+    WOLLO_KEYPAIR,
+    WOLLO_TEST_USER
 } from '../actions';
 
 export const initialState = {
@@ -26,6 +28,10 @@ export const initialState = {
     sending: false,
     sendStatus: null,
     sendComplete: false,
+    publicKey: null,
+    secretKey: null,
+    // testUserKey: 'SBBZSQRKV4NDIKRVSXYL3T7NYKR3QP4X23VYGLEWYITFCKFN6Y4GY2PA',
+    testUserKey: null,
 };
 
 export default (state = initialState, action) => {
@@ -34,6 +40,17 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 useTestnet: action.useTestnet
+            };
+        case WOLLO_TEST_USER:
+            return {
+                ...state,
+                testUserKey: action.testUserKey
+            };
+        case WOLLO_KEYPAIR:
+            return {
+                ...state,
+                publicKey: action.keypair.publicKey(),
+                secretKey: action.keypair.secret()
             };
         case WOLLO_UPDATE_ACCOUNT:
             return {

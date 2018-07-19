@@ -17,14 +17,6 @@ class Login extends Component {
         inputText: ''
     }
 
-    componentDidUpdate(prevProps) {
-        const {testUserKey} = this.props;
-
-        if (__DEV__ && prevProps.testUserKey !== testUserKey) {
-            this.setState({inputText: testUserKey});
-        }
-    }
-
     render() {
         const {dispatch, isLoading, error, navigation} = this.props;
 
@@ -74,7 +66,6 @@ class Login extends Component {
 
 export default connect(
     state => ({
-        testUserKey: state.auth.testUserKey,
         isLoading: state.loader.isLoading,
         error: state.auth.error
     })
