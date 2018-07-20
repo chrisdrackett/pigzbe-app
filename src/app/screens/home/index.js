@@ -3,12 +3,12 @@ import {connect} from 'react-redux';
 import {Text, View, Image} from 'react-native';
 import {setUseTestnet, tryAutoLoad, configInit} from '../../actions';
 import styles from './styles';
-import Button from '../button';
-import Loader from '../loader';
-import Pig from '../pig';
+import Button from '../../components/button';
+import Loader from '../../components/loader';
+import Pig from '../../components/pig';
 import {strings} from '../../constants';
 import DevPanel from '../dev-panel';
-import Container from '../container';
+import Container from '../../components/container';
 import Config from 'react-native-config';
 import {SCREEN_LOGIN, SCREEN_DEVICE_AUTH} from '../../constants';
 

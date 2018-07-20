@@ -3,13 +3,13 @@ import {connect} from 'react-redux';
 import {Text, View} from 'react-native';
 import styles from './styles';
 import {messagesLoad, messagesMarkRead} from '../../actions';
-import Loader from '../loader';
-import Logo from '../logo';
-import Pig from '../pig';
+import Loader from '../../components/loader';
+import Logo from '../../components/logo';
+import Pig from '../../components/pig';
 import Message from './message';
 import {strings} from '../../constants';
-import ScrollList from '../scroll-list';
-import Footer from '../footer';
+import ScrollList from '../../components/scroll-list';
+import Footer from '../../components/footer';
 
 class Messages extends Component {
     componentDidMount() {

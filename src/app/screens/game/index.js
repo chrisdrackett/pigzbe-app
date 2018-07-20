@@ -4,7 +4,7 @@ import {Platform, View, WebView} from 'react-native';
 import NavListener from './nav-listener';
 import styles from './styles';
 import Overlay from '../overlay';
-import Loader from '../loader';
+import Loader from '../../components/loader';
 import {gameWolloCollected, gameOverlayOpen} from '../../actions';
 import {strings} from '../../constants';
 import {

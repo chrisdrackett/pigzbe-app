@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Text} from 'react-native';
-import Avatar from '../avatar';
+import Avatar from '../../components/avatar';
 import styles from './styles';
 import {
     strings,
@@ -9,14 +9,14 @@ import {
     COINS,
     COIN_DPS
 } from '../../constants';
-import ConvertBalance from '../convert-balance';
-import BalanceGraph from '../balance-graph';
-import Loader from '../loader';
-import BaseView from '../base-view';
-import Pig from '../pig';
-import Button from '../button';
-import Wollo from '../wollo';
-import Footer from '../footer';
+import ConvertBalance from '../../components/convert-balance';
+import BalanceGraph from '../../components/balance-graph';
+import Loader from '../../components/loader';
+import BaseView from '../../components/base-view';
+import Pig from '../../components/pig';
+import Button from '../../components/button';
+import Wollo from '../../components/wollo';
+import Footer from '../../components/footer';
 import {getExchange} from '../../actions/coins';
 
 class Balance extends Component {

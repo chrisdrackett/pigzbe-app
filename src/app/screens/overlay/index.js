@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
-import ButtonIcon from '../button-icon';
-import Counter from '../counter';
+import ButtonIcon from '../../components/button-icon';
+import Counter from '../../components/counter';
 import styles from './styles';
 import images from './images';
 import moneyFormat from '../../utils/money-format';

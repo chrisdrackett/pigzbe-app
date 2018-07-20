@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import container from '../../styles';
-import Button from '../button';
+import Button from '../../components/button';
 import Storage from '../../utils/storage';
 import Keychain from '../../utils/keychain';
 import {setUseTestnet, wolloTestUser} from '../../actions';
@@ -153,7 +153,7 @@ class DevPanel extends Component {
                 <TouchableOpacity
                     style={styles.settings}
                     onPress={() => this.setState({isOpen: true})}>
-                    <Image style={styles.settingsIcon} source={require('../header/images/settings-icon.png')} />
+                    <Image style={styles.settingsIcon} source={require('../../components/header/images/settings-icon.png')} />
                 </TouchableOpacity>
             </View>
         );

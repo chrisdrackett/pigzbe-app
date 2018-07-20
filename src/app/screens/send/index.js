@@ -6,14 +6,14 @@ import {
     strings,
     SCREEN_TRANSFER
 } from '../../constants';
-import Pig from '../pig';
-import Button from '../button';
-import Wollo from '../wollo';
-import Footer from '../footer';
-import KeyboardAvoid from '../keyboard-avoid';
+import Pig from '../../components/pig';
+import Button from '../../components/button';
+import Wollo from '../../components/wollo';
+import Footer from '../../components/footer';
+import KeyboardAvoid from '../../components/keyboard-avoid';
 import Form from './form';
-import Progress from '../progress';
-import Header from '../header';
+import Progress from '../../components/progress';
+import Header from '../../components/header';
 
 export default connect(
     state => ({

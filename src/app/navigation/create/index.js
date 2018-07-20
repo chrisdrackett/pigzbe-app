@@ -1,6 +1,6 @@
 import {createSwitchNavigator} from 'react-navigation';
-import Profile from '../../components/profile';
-import Privacy from '../../components/privacy';
+import Profile from '../../screens/profile';
+import Privacy from '../../screens/privacy';
 import {
     SCREEN_PROFILE,
     SCREEN_PRIVACY

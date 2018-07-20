@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Text, View, Keyboard, Image} from 'react-native';
 import styles from './styles';
-import Button from '../button';
-import TextInput from '../text-input';
-import Loader from '../loader';
-import KeyboardAvoid from '../keyboard-avoid';
-import Container from '../container';
+import Button from '../../components/button';
+import TextInput from '../../components/text-input';
+import Loader from '../../components/loader';
+import KeyboardAvoid from '../../components/keyboard-avoid';
+import Container from '../../components/container';
 import {SCREEN_CREATE_ACCOUNT} from '../../constants';
-import Header from '../header';
+import Header from '../../components/header';
 import {
     deviceAuthOnline,
     deviceAuthRegister,

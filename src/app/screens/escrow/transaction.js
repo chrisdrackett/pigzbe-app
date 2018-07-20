@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Text, View} from 'react-native';
 import styles from './styles';
 import moment from 'moment';
-import Button from '../button';
+import Button from '../../components/button';
 import {
     ASSET_CODE,
     COIN_DPS

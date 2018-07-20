@@ -1,6 +1,6 @@
 import {createSwitchNavigator} from 'react-navigation';
-import Transfer from '../../components/transfer';
-import Send from '../../components/send';
+import Transfer from '../../screens/transfer';
+import Send from '../../screens/send';
 import {
     SCREEN_TRANSFER,
     SCREEN_SEND

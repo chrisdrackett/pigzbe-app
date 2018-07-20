@@ -5,12 +5,12 @@ import {
     strings,
     SCREEN_SEND
 } from '../../constants';
-import BaseView from '../base-view';
-import Pig from '../pig';
-import Button from '../button';
-import Wollo from '../wollo';
-import Payments from '../payments';
-import Footer from '../footer';
+import BaseView from '../../components/base-view';
+import Pig from '../../components/pig';
+import Button from '../../components/button';
+import Wollo from '../../components/wollo';
+import Payments from '../../components/payments';
+import Footer from '../../components/footer';
 import {wolloError} from '../../actions';
 
 export default connect(
