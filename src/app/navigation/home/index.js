@@ -2,7 +2,7 @@ import {SwitchNavigator} from 'react-navigation';
 import Home from '../../components/home';
 import CreateAccount from '../../components/create-account';
 import Login from '../../components/login';
-import DeviceAuth from '../../components/device-auth';
+import DeviceAuth from '../../screens/device-auth';
 import {
     SCREEN_HOME,
     SCREEN_LOGIN,
