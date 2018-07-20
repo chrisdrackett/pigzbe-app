@@ -8,19 +8,22 @@ import {
 export default StyleSheet.create({
     buttonHit: {
         alignSelf: 'stretch',
-        backgroundColor: color.yellow,
-        borderColor: color.yellow,
-        borderRadius: 22.5,
-        borderWidth: 1,
-        marginBottom: 10,
-    },
-    buttonHitSecondary: {
         backgroundColor: color.white,
         borderColor: color.white,
+        borderRadius: 22.5,
+        borderWidth: 1,
+        marginBottom: 10
+    },
+    buttonHitSecondary: {
+        backgroundColor: color.mediumBlue,
+        borderColor: color.white
     },
     buttonHitOutline: {
         backgroundColor: color.transparent,
-        borderColor: color.blue,
+        borderColor: color.blue
+    },
+    buttonTextSecondary: {
+        color: color.white
     },
     button: {
         fontFamily,
@@ -44,5 +47,5 @@ export default StyleSheet.create({
         textDecorationStyle: 'solid',
         fontSize: 14,
         textDecorationColor: color.white
-    },
+    }
 });

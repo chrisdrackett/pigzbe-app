@@ -51,6 +51,7 @@
     "react-dom": "16.4.1",
     "react-native": "0.56.0",
     "react-native-config": "0.11.5",
+    "react-native-confirmation-code-input": "^1.0.4",
     "react-native-image-picker": "0.26.10",
     "react-native-keychain": "3.0.0-rc.3",
     "react-native-touch-id": "4.0.4",

@@ -16,6 +16,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     containerHeader: {
+        backgroundColor: color.blue,
         height: '50%',
         flex: 1,
         justifyContent: 'center',
@@ -26,14 +27,14 @@ export default StyleSheet.create({
         paddingLeft: paddingH,
         paddingRight: paddingH,
         justifyContent: 'space-between',
-        paddingBottom: 20,
+        paddingBottom: 20
     },
     containerText: {
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'stretch',
         flexGrow: 1,
-        paddingTop: 20,
+        paddingTop: 20
     },
     containerBodyKeyb: {
         backgroundColor: color.blue
@@ -61,9 +62,9 @@ export default StyleSheet.create({
     tagline: {
         fontFamily,
         color: color.white,
-        fontSize: 16,
+        fontSize: 22,
         fontWeight: 'bold',
-        marginTop: 10,
+        marginTop: 30,
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 20,
@@ -73,8 +74,8 @@ export default StyleSheet.create({
     },
     subtitle: {
         fontFamily,
-        color: color.whiteOpacity60,
-        fontSize: 14,
+        color: color.white,
+        fontSize: 16,
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 20,

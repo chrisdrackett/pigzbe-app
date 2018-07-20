@@ -14,7 +14,7 @@ import {SCREEN_LOGIN, SCREEN_CREATE_ACCOUNT} from '../../constants';
 
 const Header = () => (
     <Container style={styles.containerHeader}>
-        <Image style={styles.backgroundImage} source={require('./images/header.png')} />
+        {/* <Image style={styles.backgroundImage} source={require('./images/header.png')} /> */}
         <Image style={styles.image} source={require('./images/pigzbe_logo.png')} />
         <Text style={styles.tagline}>{strings.loginTagline}</Text>
         <Pig/>
@@ -61,8 +61,16 @@ class Login extends Component {
         this.init();
     }
 
+    onClickLogin = () => {
+        this.props.navigation.navigate(SCREEN_LOGIN);
+    }
+
+    onClickCreateAccount = () => {
+        this.props.navigation.navigate(SCREEN_CREATE_ACCOUNT);
+    }
+
     render() {
-        const {isLoading, navigation} = this.props;
+        const {isLoading} = this.props;
         const {isStarting, failed} = this.state;
 
         return (
@@ -92,16 +100,8 @@ class Login extends Component {
                                 <Text style={styles.subtitle}>New to Pizbe? Create an account below and claim your Wollo</Text>
                             </View>
                             <View>
-                                <Button
-                                    label="Log in"
-                                    onPress={() => navigation.navigate(SCREEN_LOGIN)}
-                                />
-                                <Button
-                                    label="Create account"
-                                    style=""
-                                    secondary
-                                    onPress={() => navigation.navigate(SCREEN_CREATE_ACCOUNT)}
-                                />
+                                <Button label="New User" onPress={this.onClickCreateAccount} />
+                                <Button label="Existing User" secondary onPress={this.onClickLogin} />
                             </View>
                         </Container>
                     </Fragment>

@@ -1,10 +1,9 @@
 import {StyleSheet} from 'react-native';
-import {
-    color
-} from '../../styles';
+// import {
+//     color
+// } from '../../styles';
 export default StyleSheet.create({
     container: {
-        backgroundColor: color.blue,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -21,6 +20,6 @@ export default StyleSheet.create({
         paddingTop: 10,
         paddingRight: 10,
         paddingBottom: 10,
-        paddingLeft: 10,
+        paddingLeft: 10
     }
 });
