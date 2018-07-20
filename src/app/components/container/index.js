@@ -22,14 +22,16 @@ export default class Container extends Component {
         deviceWidth: getWidth()
     }
 
+    onLayout = () => {
+        this.setState({deviceWidth: getWidth()});
+    }
+
     render() {
         const {children, body, style} = this.props;
         const {deviceWidth} = this.state;
 
         return (
-            <View style={getStyle(deviceWidth, body, style)} onLayout={() => this.setState({
-                deviceWidth: getWidth()
-            })}>
+            <View style={getStyle(deviceWidth, body, style)} onLayout={this.onLayout}>
                 {children}
             </View>
         );

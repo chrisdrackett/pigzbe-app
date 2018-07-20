@@ -21,7 +21,7 @@ const getButtonHitStyle = (plain, style, outline, secondary = false) => {
     return [styles.buttonHit, style];
 };
 
-const getButtonTextStyle = (plain, disabled, textStyle) => {
+const getButtonTextStyle = (plain, disabled, secondary = false, textStyle = {}) => {
     if (plain) {
         return [styles.button, styles.buttonPlain, textStyle];
     }
@@ -30,7 +30,9 @@ const getButtonTextStyle = (plain, disabled, textStyle) => {
         return [styles.button, styles.buttonDisabled, textStyle];
     }
 
-    return [styles.button, textStyle];
+    const style = secondary ? [styles.buttonTextSecondary, textStyle] : textStyle;
+
+    return [styles.button, style];
 };
 
 export default ({
@@ -48,7 +50,7 @@ export default ({
         style={getButtonHitStyle(plain, style, outline, secondary)}
         onPress={() => disabled ? false : onPress()}>
         <Text
-            style={getButtonTextStyle(plain, disabled, textStyle)}>
+            style={getButtonTextStyle(plain, disabled, secondary, textStyle)}>
             {label}
         </Text>
     </TouchableOpacity>

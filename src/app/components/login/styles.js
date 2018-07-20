@@ -10,7 +10,7 @@ export default StyleSheet.create({
     container: {
         // alignSelf: 'stretch',
         flex: 1,
-        // backgroundColor: color.blue,
+        backgroundColor: color.blue,
         backgroundColor: 'red',
         alignItems: 'center',
         justifyContent: 'center'
@@ -26,14 +26,14 @@ export default StyleSheet.create({
         paddingLeft: paddingH,
         paddingRight: paddingH,
         justifyContent: 'space-between',
-        paddingBottom: 20,
+        paddingBottom: 20
     },
     containerText: {
-        alignItems: 'center',
-        justifyContent: 'center',
+        // alignItems: 'center',
+        // justifyContent: 'center',
         alignSelf: 'stretch',
         flexGrow: 1,
-        paddingTop: 20,
+        paddingTop: 20
     },
     containerBodyKeyb: {
         backgroundColor: color.blue
@@ -51,10 +51,10 @@ export default StyleSheet.create({
     title: {
         fontFamily,
         color: color.white,
-        fontSize: 16,
+        fontSize: 22,
         fontWeight: 'bold',
-        marginLeft: 20,
-        marginRight: 20,
+        // marginLeft: 20,
+        // marginRight: 20,
         marginBottom: 10,
         textAlign: 'center'
     },
