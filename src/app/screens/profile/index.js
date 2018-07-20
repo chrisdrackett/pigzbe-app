@@ -14,14 +14,14 @@ import {
     authLogout
 } from '../../actions';
 import styles from './styles';
-import Button from '../button';
-import TextInput from '../text-input';
-import Loader from '../loader';
-import Avatar from '../avatar';
-import Checkbox from '../checkbox';
-import Header from '../header';
-import Container from '../container';
-import KeyboardAvoid from '../keyboard-avoid';
+import Button from '../../components/button';
+import TextInput from '../../components/text-input';
+import Loader from '../../components/loader';
+import Avatar from '../../components/avatar';
+import Checkbox from '../../components/checkbox';
+import Header from '../../components/header';
+import Container from '../../components/container';
+import KeyboardAvoid from '../../components/keyboard-avoid';
 import {pickImage} from '../../utils/image-picker';
 import isEmail from './is-email';
 import {

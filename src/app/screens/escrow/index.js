@@ -2,16 +2,16 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Text, View} from 'react-native';
 import styles from './styles';
-import Loader from '../loader';
-import Logo from '../logo';
-import Pig from '../pig';
+import Loader from '../../components/loader';
+import Logo from '../../components/logo';
+import Pig from '../../components/pig';
 import Transaction from './transaction';
-import Wollo from '../wollo';
-import Button from '../button';
+import Wollo from '../../components/wollo';
+import Button from '../../components/button';
 import {strings, SCREEN_BALANCE} from '../../constants';
 import {loadEscrowAccount, validateTx} from '../../actions';
-import ScrollList from '../scroll-list';
-import Footer from '../footer';
+import ScrollList from '../../components/scroll-list';
+import Footer from '../../components/footer';
 
 class Escrow extends Component {
     async componentDidMount() {

@@ -1,7 +1,7 @@
 import {createSwitchNavigator} from 'react-navigation';
-import Balance from '../../components/balance';
-import Profile from '../../components/profile';
-import Escrow from '../../components/escrow';
+import Balance from '../../screens/balance';
+import Profile from '../../screens/profile';
+import Escrow from '../../screens/escrow';
 import {
     SCREEN_BALANCE,
     SCREEN_PROFILE,

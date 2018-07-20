@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import {createBottomTabNavigator} from 'react-navigation';
 import {View, Image} from 'react-native';
 import Wallet from '../wallet';
-import Game from '../../components/game';
-import Messages from '../../components/messages';
+import Game from '../../screens/game';
+import Messages from '../../screens/messages';
 import Transfer from '../transfer';
 import {
     strings,
