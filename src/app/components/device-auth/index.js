@@ -5,10 +5,9 @@ import styles from './styles';
 import Button from '../button';
 import TextInput from '../text-input';
 import Loader from '../loader';
-import {strings} from '../../constants';
 import KeyboardAvoid from '../keyboard-avoid';
 import Container from '../container';
-import {SCREEN_HOME, SCREEN_CREATE_ACCOUNT} from '../../constants';
+import {SCREEN_CREATE_ACCOUNT} from '../../constants';
 import Header from '../header';
 import {
     deviceAuthOnline,
@@ -22,9 +21,9 @@ const qrSize = 150;
 
 class DeviceAuth extends Component {
     state = {
-        email: 'ian@pigzbe.com',
-        phone: '7956288894',
-        country: '44',
+        email: '',
+        phone: '',
+        country: '',
         code: '',
     }
 

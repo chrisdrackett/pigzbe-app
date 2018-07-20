@@ -47,7 +47,7 @@ class Login extends Component {
             this.setState({isStarting: false});
 
             dispatch(tryAutoLoad());
-            this.props.navigation.navigate(SCREEN_DEVICE_AUTH);
+            // this.props.navigation.navigate(SCREEN_DEVICE_AUTH);
         } catch (error) {
             console.log('------> ERROR');
             console.log(error);
