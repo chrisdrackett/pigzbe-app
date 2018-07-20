@@ -14,7 +14,7 @@ import container from '../../styles';
 import Button from '../button';
 import Storage from '../../utils/storage';
 import Keychain from '../../utils/keychain';
-import {setUseTestnet, authTestUser} from '../../actions';
+import {setUseTestnet, wolloTestUser} from '../../actions';
 import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY} from '../../constants';
 
 const SwitchControl = ({
@@ -109,7 +109,7 @@ class DevPanel extends Component {
                             <View style={styles.picker}>
                                 <Picker
                                     selectedValue={testUserKey}
-                                    onValueChange={value => dispatch(authTestUser(value))}>
+                                    onValueChange={value => dispatch(wolloTestUser(value))}>
                                     {testUsers.map(user => (
                                         <Picker.Item
                                             key={user.label}
@@ -165,7 +165,7 @@ export const DevPanelComponent = DevPanel;
 
 export default connect(
     state => ({
-        testUserKey: state.auth.testUserKey,
+        testUserKey: state.wollo.testUserKey,
         useTestnet: state.wollo.useTestnet
     })
 )(DevPanel);

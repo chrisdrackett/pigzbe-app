@@ -1,4 +1,5 @@
 import {
+    Keypair,
     getServer,
     setServer,
     isValidPublicKey,
@@ -11,7 +12,8 @@ import {
     checkHasGas,
     checkAssetTrusted
 } from '@pigzbe/stellar-utils';
-import {strings, ASSET_CODE} from '../constants';
+import {strings, ASSET_CODE, KEYCHAIN_ID_STELLAR_KEY} from '../constants';
+import Keychain from '../utils/keychain';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
@@ -23,6 +25,8 @@ export const WOLLO_UPDATE_PAYMENTS = 'WOLLO_UPDATE_PAYMENTS';
 export const WOLLO_SENDING = 'WOLLO_SENDING';
 export const WOLLO_SEND_COMPLETE = 'WOLLO_SEND_COMPLETE';
 export const WOLLO_SEND_STATUS = 'WOLLO_SEND_STATUS';
+export const WOLLO_TEST_USER = 'WOLLO_TEST_USER';
+export const WOLLO_KEYPAIR = 'WOLLO_KEYPAIR';
 
 export const getWolloBalance = account => getBalance(account, ASSET_CODE);
 
@@ -47,6 +51,33 @@ const updateXLM = account => dispatch => {
     dispatch({type: WOLLO_UPDATE_XLM, balanceXLM, minXLM, hasGas});
 };
 
+export const loadWallet = () => async (dispatch, getState) => {
+    const stellar = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
+    const {testUserKey} = getState().wollo;
+
+    console.log('stellar', stellar);
+
+    let keypair = null;
+
+    const secretKey = testUserKey || stellar.key;
+
+    console.log('secretKey', secretKey);
+
+    if (secretKey) {
+        try {
+            keypair = Keypair.fromSecret(secretKey);
+            dispatch({type: WOLLO_KEYPAIR, keypair});
+        } catch (e) {}
+    }
+
+    if (!keypair) {
+        const error = new Error('Invalid key');
+        return Promise.reject(error);
+    }
+
+    return dispatch(loadAccount(keypair.publicKey()));
+};
+
 export const loadAccount = publicKey => async dispatch => {
     const account = await getServer().loadAccount(publicKey);
     dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
@@ -56,7 +87,7 @@ export const loadAccount = publicKey => async dispatch => {
 };
 
 export const loadPayments = () => async (dispatch, getState) => {
-    const {publicKey} = getState().auth;
+    const {publicKey} = getState().wollo;
 
     dispatch(wolloLoading(true));
     dispatch(wolloError(null));
@@ -90,7 +121,7 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     dispatch(wolloSending(true));
     dispatch(wolloSendStatus(strings.transferStatusChecking));
 
-    const {secretKey, publicKey} = getState().auth;
+    const {secretKey, publicKey} = getState().wollo;
     const {network, stellar} = getState().config;
     const {code, address} = stellar.networks[network];
     const asset = new Asset(code, address);
@@ -128,3 +159,5 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     dispatch(wolloError(null));
     dispatch(loadAccount(publicKey));
 };
+
+export const wolloTestUser = testUserKey => ({type: WOLLO_TEST_USER, testUserKey});

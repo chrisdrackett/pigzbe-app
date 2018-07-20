@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Text, View, Keyboard} from 'react-native';
-import {load} from '../../actions';
+import {authCreate} from '../../actions';
 import styles from './styles';
 import Button from '../button';
 import TextInput from '../text-input';
@@ -12,7 +12,7 @@ import Container from '../container';
 import {SCREEN_HOME} from '../../constants';
 import Header from '../header';
 
-class Login extends Component {
+class CreateAccount extends Component {
     state = {
         inputText: ''
     }
@@ -26,14 +26,14 @@ class Login extends Component {
                     <Header/>
                     <Container body>
                         <View style={styles.containerText}>
-                            <Text style={styles.title}>{strings.loginTitle}</Text>
-                            <Text style={styles.subtitle}>{strings.loginSubtitle}</Text>
+                            <Text style={styles.title}>{'Create Account'}</Text>
+                            <Text style={styles.subtitle}>{'Enter a passcode'}</Text>
                         </View>
                         <View>
                             <TextInput
                                 error={!!error}
                                 value={this.state.inputText}
-                                placeholder={strings.loginPlaceholder}
+                                placeholder={'Passcode'}
                                 onChangeText={inputText => this.setState({inputText})}
                                 returnKeyType="done"
                             />
@@ -41,7 +41,7 @@ class Login extends Component {
                                 label={strings.loginSubmitButtonLabel}
                                 onPress={() => {
                                     Keyboard.dismiss();
-                                    dispatch(load(this.state.inputText));
+                                    dispatch(authCreate(this.state.inputText));
                                 }}
                                 disabled={!this.state.inputText}
                             />
@@ -69,4 +69,4 @@ export default connect(
         isLoading: state.loader.isLoading,
         error: state.auth.error
     })
-)(Login);
+)(CreateAccount);

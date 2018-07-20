@@ -16,7 +16,7 @@ export const ESCROW_ERROR = 'ESCROW_ERROR';
 export const loadEscrow = () => async (dispatch, getState) => {
     try {
         const api = apiURL(getState());
-        const {publicKey} = getState().auth;
+        const {publicKey} = getState().wollo;
         const escrow = await fetchTimeout(`${api}/escrow/config?pk=${publicKey}`);
 
         if (escrow && !escrow.error) {

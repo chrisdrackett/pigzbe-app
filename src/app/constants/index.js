@@ -15,5 +15,6 @@ export const PRIVACY_URL = 'https://pigzbe.com/pdf/pigzbe_privacy_notice.pdf';
 
 export const NUM_VALIDATIONS = 7;
 
+export const KEYCHAIN_ID_PASSCODE = 'com.pigzbe.PigzbeApp.passcode';
 export const KEYCHAIN_ID_STELLAR_KEY = 'com.pigzbe.PigzbeApp.stellarKey';
 export const KEYCHAIN_ID_ETH_KEY = 'com.pigzbe.PigzbeApp.ethKey';
