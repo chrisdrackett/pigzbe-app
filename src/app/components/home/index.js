@@ -10,7 +10,7 @@ import {strings} from '../../constants';
 import DevPanel from '../dev-panel';
 import Container from '../container';
 import Config from 'react-native-config';
-import {SCREEN_LOGIN, SCREEN_CREATE_ACCOUNT} from '../../constants';
+import {SCREEN_LOGIN, SCREEN_DEVICE_AUTH} from '../../constants';
 
 const Header = () => (
     <Container style={styles.containerHeader}>
@@ -47,6 +47,7 @@ class Login extends Component {
             this.setState({isStarting: false});
 
             dispatch(tryAutoLoad());
+            // this.props.navigation.navigate(SCREEN_DEVICE_AUTH);
         } catch (error) {
             console.log('------> ERROR');
             console.log(error);
@@ -100,7 +101,7 @@ class Login extends Component {
                                     label="Create account"
                                     style=""
                                     secondary
-                                    onPress={() => navigation.navigate(SCREEN_CREATE_ACCOUNT)}
+                                    onPress={() => navigation.navigate(SCREEN_DEVICE_AUTH)}
                                 />
                             </View>
                         </Container>
