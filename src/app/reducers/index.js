@@ -9,6 +9,7 @@ import wollo from './wollo';
 import coins from './coins';
 import connected from './connected';
 import game from './game';
+import deviceAuth from './device-auth';
 
 import user from './claim/user';
 import events from './claim/events';
@@ -27,6 +28,7 @@ export default combineReducers({
     connected,
     coins,
     game,
+    deviceAuth,
     // claim reducers
     user,
     events,
