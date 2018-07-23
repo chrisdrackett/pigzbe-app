@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import TextInput from '../../text-input';
+import TextInput from '../../../components/text-input';
 import styles from '../styles';
 import StepWrapper from './stepWrapper';
 

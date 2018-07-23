@@ -10,6 +10,10 @@ const valueOrDefault = (value, defaultValue) => {
 
 export const initialState = {
     enableTouchId: false,
+    subscribe: false,
+    email: null,
+    phone: null,
+    country: null,
 };
 
 export default (state = initialState, action) => {
@@ -22,7 +26,11 @@ export default (state = initialState, action) => {
         case SETTINGS_UPDATE:
             return {
                 ...state,
-                enableTouchId: valueOrDefault(action.enableTouchId, false)
+                enableTouchId: valueOrDefault(action.enableTouchId, state.enableTouchId),
+                subscribe: valueOrDefault(action.subscribe, state.subscribe),
+                email: valueOrDefault(action.email, state.email),
+                phone: valueOrDefault(action.phone, state.phone),
+                country: valueOrDefault(action.country, state.country),
             };
         default:
             return state;

@@ -15,7 +15,7 @@ import Button from '../../components/button';
 import Storage from '../../utils/storage';
 import Keychain from '../../utils/keychain';
 import {setUseTestnet, wolloTestUser} from '../../actions';
-import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY} from '../../constants';
+import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY, STORAGE_KEY_SETTINGS, STORAGE_KEY_BURNING} from '../../constants';
 
 const SwitchControl = ({
     label,
@@ -98,7 +98,7 @@ class DevPanel extends Component {
                                 <Text style={styles.switchText}>Claim tool</Text>
                                 <Button style={styles.claimClearButton} label="Clear cache burning" onPress={() => {
                                     console.log('clear');
-                                    Storage.clear('burning');
+                                    Storage.clear(STORAGE_KEY_BURNING);
                                     Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY);
                                 }} />
@@ -123,7 +123,7 @@ class DevPanel extends Component {
                                 <Text style={styles.switchText}>User data</Text>
                                 <Button style={styles.claimClearButton} label="Clear user data" onPress={() => {
                                     console.log('clear');
-                                    Storage.clear('profile');
+                                    Storage.clear(STORAGE_KEY_SETTINGS);
                                     Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY);
                                 }} />

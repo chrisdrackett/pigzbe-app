@@ -1,4 +1,5 @@
 import {apiURL} from '../selectors';
+import {settingsUpdate} from './';
 
 export const DEVICE_AUTH_ONLINE = 'DEVICE_AUTH_ONLINE';
 export const DEVICE_AUTH_ERROR = 'DEVICE_AUTH_ERROR';
@@ -36,7 +37,7 @@ export const deviceAuthRegister = (email, phone, country) => async (dispatch, ge
         console.log('result', result);
         if (result.success) {
             const {user: {id}, qr_code} = result;
-            dispatch({type: DEVICE_AUTH_REGSITERED, id, qrCode: qr_code});
+            dispatch({type: DEVICE_AUTH_REGSITERED, id, qrCode: qr_code, email, phone, country});
             dispatch(deviceAuthLogin());
         } else {
             dispatch({type: DEVICE_AUTH_ERROR, error: new Error(result.message.message || result.message)});
@@ -72,12 +73,13 @@ export const deviceAuthVerify = code => async (dispatch, getState) => {
 
     try {
         const api = apiURL(getState());
-        const {id} = getState().deviceAuth;
+        const {id, email, phone, country} = getState().deviceAuth;
         const result = await (await fetch(`${api}/auth/verify?id=${id}&code=${code}`)).json();
 
         console.log('result', result);
         if (result.success) {
             dispatch({type: DEVICE_AUTH_VERIFY_SUCCESS});
+            dispatch(settingsUpdate({email, phone, country}));
         } else {
             dispatch({type: DEVICE_AUTH_VERIFY_FAIL});
             dispatch({type: DEVICE_AUTH_ERROR, error: new Error(result.message.message || result.message)});

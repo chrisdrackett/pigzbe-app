@@ -1,7 +1,6 @@
 /*eslint no-undefined: 0*/
 import authReducer, {initialState as authState} from './auth';
 import messagesReducer, {initialState as messagesState} from './messages';
-import profileReducer, {initialState as profileState} from './profile';
 import wolloReducer, {initialState as wolloState} from './wollo';
 import gameReducer, {initialState as gameState} from './game';
 import * as actions from '../actions';
@@ -93,49 +92,6 @@ describe('Reducers', () => {
             }))
                 .toEqual(Object.assign({}, messagesState, {
                     messagesError: error
-                }));
-        });
-    });
-
-    describe('Profile', () => {
-        it('should return the initial state', () => {
-            expect(profileReducer(undefined, {})).toEqual(profileState);
-        });
-
-        it('should handle loading', () => {
-            expect(profileReducer(undefined, {
-                type: actions.PROFILE_LOADING,
-                value: true
-            }))
-                .toEqual(Object.assign({}, profileState, {
-                    isLoadingProfile: true
-                }));
-        });
-
-        it('should handle update', () => {
-            const profile = {
-                name: 'Name',
-                email: 'mail@example.com',
-                image: null,
-                subscribe: false
-            };
-
-            expect(profileReducer(undefined, {
-                type: actions.PROFILE_UPDATE,
-                ...profile
-            }))
-                .toEqual(Object.assign({}, profileState, {
-                    ...profile
-                }));
-        });
-
-        it('should handle availability', () => {
-            expect(profileReducer(undefined, {
-                type: actions.PROFILE_AVAILABLE,
-                value: true
-            }))
-                .toEqual(Object.assign({}, profileState, {
-                    hasProfile: true
                 }));
         });
     });

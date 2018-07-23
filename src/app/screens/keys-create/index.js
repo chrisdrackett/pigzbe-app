@@ -9,7 +9,7 @@ import Container from '../../components/container';
 import {SCREEN_SAVE_KEYS, SCREEN_IMPORT_KEYS} from '../../constants';
 import Header from '../../components/header';
 
-class CreateKeys extends Component {
+class KeysCreate extends Component {
     onCreate = () => {
         this.props.dispatch(createKeys());
         this.props.navigation.navigate(SCREEN_SAVE_KEYS);
@@ -49,4 +49,4 @@ export default connect(
     state => ({
         error: state.wollo.error
     })
-)(CreateKeys);
+)(KeysCreate);

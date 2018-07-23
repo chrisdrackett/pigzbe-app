@@ -9,6 +9,7 @@ import KeyboardAvoid from '../../components/keyboard-avoid';
 import Container from '../../components/container';
 import {SCREEN_TOUCH_ID} from '../../constants';
 import Header from '../../components/header';
+import isEmail from '../../utils/is-email';
 import {
     deviceAuthOnline,
     deviceAuthRegister,
@@ -37,18 +38,44 @@ class DeviceAuth extends Component {
         }
     }
 
+    onChangeEmail = email => this.setState({email})
+
+    onChangePhone = phone => this.setState({phone})
+
+    onChangeCountry = country => this.setState({country})
+
+    onChangeCode = code => this.setState({code})
+
+    onSend = () => {
+        Keyboard.dismiss();
+
+        const emailValid = this.state.email && isEmail(this.state.email);
+
+        if (!emailValid) {
+            return;
+        }
+
+        this.props.dispatch(deviceAuthRegister(this.state.email, this.state.phone, this.state.country));
+    }
+
+    onResend = () => this.props.dispatch(deviceAuthLogin())
+
+    onVerify = () => {
+        if (!this.state.code) {
+            return;
+        }
+        this.props.dispatch(deviceAuthVerify(this.state.code));
+    }
+
+    onBack = () => this.props.dispatch(deviceAuthClear())
+
     render() {
         const {
-            dispatch,
             isLoading,
             error,
             navigation,
-            // online,
             id,
             qrCode,
-            // verified,
-            // failCount,
-            // requested
         } = this.props;
 
         return (
@@ -59,13 +86,9 @@ class DeviceAuth extends Component {
                         <View style={styles.containerText}>
                             <Text style={styles.title}>{'Verify your device'}</Text>
                             <Text style={styles.subtitle}>{'Before we begin, enter your mobile number to verify your mobile device.'}</Text>
-                            {/* <Text style={styles.subtitle}>Online: {online ? 'true' : 'false'}</Text> */}
                             {error && (
                                 <Text style={styles.subtitle}>{error.message}</Text>
                             )}
-                            {/* <Text style={styles.subtitle}>requested: {requested ? 'true' : 'false'}</Text> */}
-                            {/* <Text style={styles.subtitle}>verified: {verified ? 'true' : 'false'}</Text> */}
-                            {/* <Text style={styles.subtitle}>failCount: {failCount}</Text> */}
                         </View>
                         {id && (
                             <View style={styles.containerText}>
@@ -77,30 +100,21 @@ class DeviceAuth extends Component {
                                     error={!!error}
                                     value={this.state.code}
                                     placeholder={'code'}
-                                    onChangeText={code => this.setState({code})}
+                                    onChangeText={this.onChangeCode}
                                     returnKeyType="done"
                                 />
                                 <Button
                                     label={'Resend code'}
-                                    onPress={() => {
-                                        dispatch(deviceAuthLogin());
-                                    }}
+                                    onPress={this.onResend}
                                 />
                                 <Button
                                     label={'Verify'}
-                                    onPress={() => {
-                                        if (!this.state.code) {
-                                            return;
-                                        }
-                                        dispatch(deviceAuthVerify(this.state.code));
-                                    }}
+                                    onPress={this.onVerify}
                                 />
                                 <Button
                                     secondary
                                     label={'Back'}
-                                    onPress={() => {
-                                        dispatch(deviceAuthClear());
-                                    }}
+                                    onPress={this.onBack}
                                 />
                             </View>
                         )}
@@ -110,29 +124,26 @@ class DeviceAuth extends Component {
                                     error={!!error}
                                     value={this.state.email}
                                     placeholder={'Email address'}
-                                    onChangeText={email => this.setState({email})}
+                                    onChangeText={this.onChangeEmail}
                                     returnKeyType="done"
                                 />
                                 <TextInput
                                     error={!!error}
                                     value={this.state.phone}
                                     placeholder={'Phone'}
-                                    onChangeText={phone => this.setState({phone})}
+                                    onChangeText={this.onChangePhone}
                                     returnKeyType="done"
                                 />
                                 <TextInput
                                     error={!!error}
                                     value={this.state.country}
                                     placeholder={'Country Code'}
-                                    onChangeText={country => this.setState({country})}
+                                    onChangeText={this.onChangeCountry}
                                     returnKeyType="done"
                                 />
                                 <Button
                                     label={'Send Code'}
-                                    onPress={() => {
-                                        Keyboard.dismiss();
-                                        dispatch(deviceAuthRegister(this.state.email, this.state.phone, this.state.country));
-                                    }}
+                                    onPress={this.onSend}
                                     disabled={!(this.state.email && this.state.phone && this.state.country)}
                                 />
                                 {__DEV__ && (

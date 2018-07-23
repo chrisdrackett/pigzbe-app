@@ -1,9 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
-import Button from '../../button';
+import Button from '../../../components/button';
 import styles from '../styles';
-import Container from '../../container';
-import KeyboardAvoid from '../../keyboard-avoid';
+import Container from '../../../components/container';
+import KeyboardAvoid from '../../../components/keyboard-avoid';
 
 const StepWrapper = ({children, onNext, onBack, buttonNextLabel}) => (
     <Container style={styles.containerBody}>

@@ -1,7 +1,5 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Text} from 'react-native';
-import Avatar from '../../components/avatar';
 import styles from './styles';
 import {
     strings,
@@ -32,8 +30,6 @@ class Balance extends Component {
             balance,
             baseCurrency,
             escrow,
-            name,
-            image,
             navigation
         } = this.props;
 
@@ -46,8 +42,6 @@ class Balance extends Component {
         return (
             <Fragment>
                 <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container} error={error}>
-                    <Avatar image={image}/>
-                    <Text style={styles.welcome}>{strings.walletGreeting} {name}</Text>
                     <Wollo balance={balance}/>
                     <Pig style={styles.pig}/>
                     <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
@@ -77,7 +71,5 @@ export default connect(
         balance: state.wollo.balance,
         baseCurrency: state.wollo.baseCurrency,
         escrow: state.escrow.escrowPublicKey,
-        name: state.profile.name,
-        image: state.profile.image
     })
 )(Balance);

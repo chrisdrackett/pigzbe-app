@@ -2,7 +2,6 @@ import {
     authTouchId,
     authKeychain,
     authLogin,
-    profileLoad,
     messagesLoad,
     // loadEscrow,
     // loadWallet
@@ -30,7 +29,6 @@ export const load = passcode => async dispatch => {
         // await dispatch(loadWallet());
         // await dispatch(loadEscrow());
         await dispatch(messagesLoad());
-        await dispatch(profileLoad());
         dispatch(loading(false));
     } catch (error) {
         console.log(error);

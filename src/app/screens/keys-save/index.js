@@ -9,7 +9,7 @@ import {SCREEN_CREATE_KEYS} from '../../constants';
 import Header from '../../components/header';
 import {saveKeys} from '../../actions';
 
-class SaveKeys extends Component {
+class KeysSave extends Component {
     onSave = () => {
         this.props.dispatch(saveKeys());
     }
@@ -50,4 +50,4 @@ export default connect(
     state => ({
         secretKey: state.wollo.secretKey
     })
-)(SaveKeys);
+)(KeysSave);
