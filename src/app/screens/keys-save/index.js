@@ -10,13 +10,9 @@ import Header from '../../components/header';
 import {saveKeys} from '../../actions';
 
 class KeysSave extends Component {
-    onSave = () => {
-        this.props.dispatch(saveKeys());
-    }
+    onSave = () => this.props.dispatch(saveKeys())
 
-    onBack = () => {
-        this.props.navigation.navigate(SCREEN_CREATE_KEYS);
-    }
+    onBack = () => this.props.navigation.navigate(SCREEN_CREATE_KEYS)
 
     render() {
         const {secretKey} = this.props;
