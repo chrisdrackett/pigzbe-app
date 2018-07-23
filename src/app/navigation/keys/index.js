@@ -1,7 +1,7 @@
 import {createSwitchNavigator} from 'react-navigation';
-import CreateKeys from '../../screens/create-keys';
-import ImportKeys from '../../screens/import-keys';
-import SaveKeys from '../../screens/save-keys';
+import KeysCreate from '../../screens/keys-create';
+import KeysImport from '../../screens/keys-import';
+import KeysSave from '../../screens/keys-save';
 import {
     SCREEN_CREATE_KEYS,
     SCREEN_IMPORT_KEYS,
@@ -10,13 +10,13 @@ import {
 
 const nav = {
     [SCREEN_CREATE_KEYS]: {
-        screen: CreateKeys
+        screen: KeysCreate
     },
     [SCREEN_IMPORT_KEYS]: {
-        screen: ImportKeys
+        screen: KeysImport
     },
     [SCREEN_SAVE_KEYS]: {
-        screen: SaveKeys
+        screen: KeysSave
     },
 };
 

@@ -20,3 +20,4 @@ export const KEYCHAIN_ID_STELLAR_KEY = 'com.pigzbe.PigzbeApp.stellarKey';
 export const KEYCHAIN_ID_ETH_KEY = 'com.pigzbe.PigzbeApp.ethKey';
 
 export const STORAGE_KEY_SETTINGS = 'settings';
+export const STORAGE_KEY_BURNING = 'burning';

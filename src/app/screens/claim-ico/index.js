@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {ScrollView, View} from 'react-native';
 import {utils} from 'web3';
 import Config from 'react-native-config';
-import Logo from '../logo';
+import Logo from '../../components/logo';
 import styles from './styles';
 import {
     Step1,
@@ -13,15 +13,14 @@ import {
     Step5,
     Step6,
 } from './steps';
-import Loader from '../loader';
-import Progress from '../progress';
+import Loader from '../../components/loader';
+import Progress from '../../components/progress';
 import Modal from './modal';
-import Container from '../container';
+import Container from '../../components/container';
 import {userLogin} from '../../actions/eth';
 import {clearClaimData} from '../../actions/content';
 import {transfer, burn, initWeb3} from '../../actions/contract';
 import {isValidSeed} from '../../utils/web3';
-import BigNumber from 'bignumber.js';
 
 class Claim extends Component {
   state = {

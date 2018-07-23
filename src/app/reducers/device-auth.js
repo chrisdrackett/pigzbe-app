@@ -18,6 +18,9 @@ export const initialState = {
     verified: false,
     requested: false,
     failCount: 0,
+    email: null,
+    phone: null,
+    country: null
 };
 
 export default (state = initialState, action) => {
@@ -31,7 +34,10 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 id: action.id,
-                qrCode: action.qrCode
+                qrCode: action.qrCode,
+                email: action.email,
+                phone: action.phone,
+                country: action.country,
             };
         case DEVICE_AUTH_CLEAR:
             return {

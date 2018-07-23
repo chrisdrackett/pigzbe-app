@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {ScrollView, View, Text, TouchableOpacity, Share} from 'react-native';
 import styles from '../styles';
-import Button from '../../button';
-import Container from '../../container';
+import Button from '../../../components/button';
+import Container from '../../../components/container';
 import {color} from '../../../styles';
 import KeyHolder from './key-holder';
 

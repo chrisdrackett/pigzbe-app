@@ -10,7 +10,7 @@ import Header from '../../components/header';
 import TextInput from '../../components/text-input';
 import {importKey} from '../../actions';
 
-class ImportKeys extends Component {
+class KeysImport extends Component {
     state = {
         inputText: ''
     }
@@ -64,4 +64,4 @@ export default connect(
         secretKey: state.wollo.secretKey,
         error: state.wollo.error
     })
-)(ImportKeys);
+)(KeysImport);

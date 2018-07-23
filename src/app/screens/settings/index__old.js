@@ -4,8 +4,7 @@ import {
     Text,
     View,
     TouchableOpacity,
-    ScrollView,
-    Dimensions
+    ScrollView
 } from 'react-native';
 import {
     profileUpdate,
@@ -23,16 +22,15 @@ import Header from '../../components/header';
 import Container from '../../components/container';
 import KeyboardAvoid from '../../components/keyboard-avoid';
 import {pickImage} from '../../utils/image-picker';
-import isEmail from './is-email';
+import isEmail from '../../utils/is-email';
 import {
     strings,
     SCREEN_BALANCE,
     PRIVACY_URL
-    // SCREEN_PRIVACY
 } from '../../constants';
 import openURL from '../../utils/open-url';
 
-class Profile extends Component {
+class Settings extends Component {
     constructor(props) {
         super(props);
 
@@ -110,11 +108,8 @@ class Profile extends Component {
         } = this.props;
 
         const {
-            name,
             email,
-            image,
             subscribe,
-            validName,
             validEmail,
             isUpdating
         } = this.state;
@@ -128,35 +123,33 @@ class Profile extends Component {
                         <KeyboardAvoid>
                             <View>
                                 <Header/>
-                                <Text style={styles.title}>
-                                    {hasProfile ? strings.accountEdit : strings.accountCreate}
-                                </Text>
-                                <TouchableOpacity
+                                <Text style={styles.title}>{'Settings'}</Text>
+                                {/* <TouchableOpacity
                                     style={styles.avatar}
                                     onPress={this.onPressAvatar}>
                                     <Avatar select image={image}/>
                                     <Text style={styles.avatarText}>
                                         {hasProfile ? strings.accountChangeImage : strings.accountAddImage}
                                     </Text>
-                                </TouchableOpacity>
-                                <TextInput
+                                </TouchableOpacity> */}
+                                {/* <TextInput
                                     error={!validName}
                                     placeholder={strings.accountNamePlaceholder}
                                     value={name}
                                     onChangeText={value => this.setState({name: value})}
-                                />
-                                <TextInput
+                                /> */}
+                                {/* <TextInput
                                     keyboardType="email-address"
                                     error={!validEmail}
                                     placeholder={strings.accountEmailPlaceholder}
                                     value={email}
                                     onChangeText={value => this.setState({email: value})}
-                                />
-                                <Checkbox
+                                /> */}
+                                {/* <Checkbox
                                     text={strings.accountMailingListOptIn}
                                     value={subscribe}
                                     onValueChange={() => this.setState({subscribe: !this.state.subscribe})}
-                                />
+                                /> */}
                             </View>
                         </KeyboardAvoid>
                         <View>
@@ -200,14 +193,12 @@ class Profile extends Component {
     }
 }
 
-export const ProfileComponent = Profile;
-
 export default connect(
     state => ({
-        name: state.profile.name,
-        email: state.profile.email,
-        image: state.profile.image,
-        subscribe: state.profile.subscribe,
-        hasProfile: state.profile.hasProfile
+        enableTouchId: state.settings.enableTouchId,
+        email: state.settings.email,
+        phone: state.settings.phone,
+        country: state.settings.country,
+        subscribe: state.settings.subscribe,
     })
-)(Profile);
+)(Settings);

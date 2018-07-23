@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {Modal, View, Text} from 'react-native';
-import Button from '../button';
+import Button from '../../components/button';
 import styles from './styles';
 import {color} from '../../styles';
 
