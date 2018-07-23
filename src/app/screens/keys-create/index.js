@@ -25,8 +25,9 @@ class KeysCreate extends Component {
                 <Header/>
                 <Container body>
                     <View style={styles.containerText}>
-                        <Text style={styles.title}>{'Create Keys'}</Text>
-                        <Text style={styles.subtitle}>{'Lorem ipsum.'}</Text>
+                        <Text style={styles.title}>{'Create Your Keys'}</Text>
+                        <Text style={styles.subtitle}>We will now create your Public and Private wallet keys.</Text>
+                        <Text style={styles.subtitle}>Your Private Key must remain confidential and you will be asked to save this in a safe place in the next step.</Text>
                     </View>
                     <View>
                         <Button

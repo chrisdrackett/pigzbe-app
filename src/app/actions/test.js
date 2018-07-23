@@ -63,7 +63,7 @@ describe('Actions', () => {
 
     describe('Wollo', () => {
         it('should create an action to load account', () => {
-            expect(actions.loadAccount()).toEqual(expect.any(Function));
+            expect(actions.loadWallet()).toEqual(expect.any(Function));
         });
 
         it('should create an action to setUseTestnet', () => {

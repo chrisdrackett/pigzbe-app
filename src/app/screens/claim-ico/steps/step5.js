@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import {Text, Share} from 'react-native';
 import styles from '../styles';
 import StepWrapper from './stepWrapper';
-import KeyHolder from './key-holder';
+import KeyHolder from '../../../components/key-holder';
 
 const copyTx = async (tx, pk, userBalance, error) => {
     const title = 'Ethereum Transaction Details';

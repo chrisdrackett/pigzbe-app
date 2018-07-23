@@ -23,10 +23,8 @@ export const load = passcode => async dispatch => {
     dispatch(loading(true));
 
     try {
-        // await dispatch(initWeb3());
         await dispatch(authLogin(passcode));
         await dispatch(loadKeys());
-        // await dispatch(loadWallet());
         // await dispatch(loadEscrow());
         await dispatch(messagesLoad());
         dispatch(loading(false));
