@@ -7,7 +7,7 @@ import TextInput from '../../components/text-input';
 import Loader from '../../components/loader';
 import KeyboardAvoid from '../../components/keyboard-avoid';
 import Container from '../../components/container';
-import {SCREEN_CREATE_ACCOUNT} from '../../constants';
+import {SCREEN_SET_PASSCODE} from '../../constants';
 import Header from '../../components/header';
 import {
     deviceAuthOnline,
@@ -33,7 +33,7 @@ class DeviceAuth extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.verified && !prevProps.verified) {
-            this.props.navigation.navigate(SCREEN_CREATE_ACCOUNT);
+            this.props.navigation.navigate(SCREEN_SET_PASSCODE);
         }
     }
 
@@ -139,7 +139,7 @@ class DeviceAuth extends Component {
                                     <Button
                                         secondary
                                         label={'Skip'}
-                                        onPress={() => navigation.navigate(SCREEN_CREATE_ACCOUNT)}
+                                        onPress={() => navigation.navigate(SCREEN_SET_PASSCODE)}
                                     />
                                 )}
                             </View>
