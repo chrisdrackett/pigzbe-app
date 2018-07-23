@@ -6,6 +6,8 @@ const getIconSource = (icon) => {
     switch (icon) {
         case 'tick':
             return require('./images/tick.png');
+        case 'code':
+            return require('./images/code.png');
         default:
             return null;
     }

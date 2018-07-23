@@ -28,7 +28,7 @@ class DeviceAuth extends Component {
     state = {
         email: '',
         phone: '',
-        country: 0,
+        country: '0',
         code: '',
     }
 
@@ -85,17 +85,18 @@ class DeviceAuth extends Component {
             qrCode,
         } = this.props;
 
-        const countrySelected = countryCodes[this.state.country];
-        console.log(countrySelected);
+        const countrySelected = countryCodes[Number(this.state.country)];
+        const phoneNumber = `+${countryCodes[Number(this.state.country)].code} ${this.state.phone}`;
 
         return (
             <Container>
                 <KeyboardAvoid>
                     <Header/>
-                    <StepHeader title={'Get Started'} icon="tick"/>
+                    <StepHeader title={!id ? 'Get Started' : 'Enter Code'} icon={!id ? 'tick' : 'code'}/>
                     <Container body style={styles.containerStep}>
                         <View style={styles.containerText}>
-                            <Text style={styles.subtitle}>{'Before we begin, enter your mobile number to verify your mobile device.'}</Text>
+                            {!id && <Text style={styles.subtitle}>{'Before we begin, enter your mobile number to verify your mobile device.'}</Text>}
+                            {id && <Text style={styles.subtitle}>{`Now enter the code we sent to ${phoneNumber}`}</Text>}
                             {error && (
                                 <Text style={styles.subtitle}>{error.message}</Text>
                             )}
@@ -133,6 +134,9 @@ class DeviceAuth extends Component {
                                 <TextInput
                                     dark
                                     error={!!error}
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    keyboardType="email-address"
                                     value={this.state.email}
                                     placeholder={'Email address'}
                                     onChangeText={this.onChangeEmail}
