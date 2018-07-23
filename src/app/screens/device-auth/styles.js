@@ -27,7 +27,7 @@ export default StyleSheet.create({
         backgroundColor: color.mediumBlue,
         flex: 1,
         width: '100%',
-        borderRadius: 15,
+        borderRadius: 10,
     },
     dropdownTextHighlightStyle: {
         color: color.blue,

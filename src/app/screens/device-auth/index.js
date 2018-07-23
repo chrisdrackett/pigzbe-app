@@ -130,13 +130,14 @@ class DeviceAuth extends Component {
                         )}
                         {!id && (
                             <View>
-                                {/* <TextInput
+                                <TextInput
+                                    dark
                                     error={!!error}
                                     value={this.state.email}
                                     placeholder={'Email address'}
                                     onChangeText={this.onChangeEmail}
                                     returnKeyType="done"
-                                /> */}
+                                />
                                 <TextInput
                                     dark
                                     extra={{textAlign: 'center'}}
@@ -177,7 +178,7 @@ class DeviceAuth extends Component {
                                 <Button
                                     label={'Send Code'}
                                     onPress={this.onSend}
-                                    disabled={!(this.state.phone && this.state.country)}
+                                    disabled={!(this.state.email && this.state.phone && this.state.country)}
                                 />
                                 {__DEV__ && (
                                     <Button
