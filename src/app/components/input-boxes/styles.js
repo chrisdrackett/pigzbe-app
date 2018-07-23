@@ -3,9 +3,8 @@ import {color} from '../../styles';
 
 export default StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     textView: {
         height: 45,
@@ -16,5 +15,8 @@ export default StyleSheet.create({
     },
     text: {
         height: 45
+    },
+    codeInputStyle: {
+        borderRadius: 10
     }
 });

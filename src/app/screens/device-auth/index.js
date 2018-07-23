@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Text, View, Keyboard, Image} from 'react-native';
+import {Dimensions, Text, View, Keyboard, Image} from 'react-native';
+import Dropdown from 'react-native-modal-dropdown';
+
 import styles from './styles';
 import Button from '../../components/button';
 import TextInput from '../../components/text-input';
@@ -17,6 +19,8 @@ import {
     deviceAuthClear,
     deviceAuthVerify
 } from '../../actions';
+import StepHeader from '../../components/step-header';
+import countryCodes from './country-codes';
 
 const qrSize = 150;
 
@@ -24,7 +28,7 @@ class DeviceAuth extends Component {
     state = {
         email: '',
         phone: '',
-        country: '',
+        country: 0,
         code: '',
     }
 
@@ -42,7 +46,10 @@ class DeviceAuth extends Component {
 
     onChangePhone = phone => this.setState({phone})
 
-    onChangeCountry = country => this.setState({country})
+    onChangeCountry = (value) => {
+        console.log(value);
+        this.setState({country: value});
+    }
 
     onChangeCode = code => this.setState({code})
 
@@ -55,7 +62,7 @@ class DeviceAuth extends Component {
             return;
         }
 
-        this.props.dispatch(deviceAuthRegister(this.state.email, this.state.phone, this.state.country));
+        this.props.dispatch(deviceAuthRegister(this.state.email, this.state.phone, countryCodes[this.state.country].code));
     }
 
     onResend = () => this.props.dispatch(deviceAuthLogin())
@@ -78,13 +85,16 @@ class DeviceAuth extends Component {
             qrCode,
         } = this.props;
 
+        const countrySelected = countryCodes[this.state.country];
+        console.log(countrySelected);
+
         return (
             <Container>
                 <KeyboardAvoid>
                     <Header/>
-                    <Container body>
+                    <StepHeader title={'Get Started'} icon="tick"/>
+                    <Container body style={styles.containerStep}>
                         <View style={styles.containerText}>
-                            <Text style={styles.title}>{'Verify your device'}</Text>
                             <Text style={styles.subtitle}>{'Before we begin, enter your mobile number to verify your mobile device.'}</Text>
                             {error && (
                                 <Text style={styles.subtitle}>{error.message}</Text>
@@ -120,31 +130,53 @@ class DeviceAuth extends Component {
                         )}
                         {!id && (
                             <View>
-                                <TextInput
+                                {/* <TextInput
                                     error={!!error}
                                     value={this.state.email}
                                     placeholder={'Email address'}
                                     onChangeText={this.onChangeEmail}
                                     returnKeyType="done"
-                                />
+                                /> */}
                                 <TextInput
+                                    dark
+                                    extra={{textAlign: 'center'}}
                                     error={!!error}
+                                    keyboardType="number-pad"
                                     value={this.state.phone}
-                                    placeholder={'Phone'}
+                                    placeholder={'Your mobile number'}
                                     onChangeText={this.onChangePhone}
                                     returnKeyType="done"
                                 />
-                                <TextInput
+                                <Dropdown
+                                    options={countryCodes.map(c => c.country)}
+                                    style={styles.picker}
+                                    defaultValue={countryCodes[0].country}
+                                    selectedValue={countrySelected.country}
+                                    textStyle={styles.dropdownButton}
+                                    dropdownTextStyle={[styles.dropdownButton, styles.dropdownItem]}
+                                    dropdownStyle={styles.dropdownStyle}
+                                    onSelect={this.onChangeCountry}
+                                    adjustFrame={(obj) => {
+                                        console.log(obj);
+                                        const width = Dimensions.get('window').width * 0.9;
+                                        return {
+                                            ...obj,
+                                            width,
+                                            left: (Dimensions.get('window').width - width) / 2
+                                        };
+                                    }}
+                                />
+                                {/* <TextInput
                                     error={!!error}
                                     value={this.state.country}
                                     placeholder={'Country Code'}
                                     onChangeText={this.onChangeCountry}
                                     returnKeyType="done"
-                                />
+                                /> */}
                                 <Button
                                     label={'Send Code'}
                                     onPress={this.onSend}
-                                    disabled={!(this.state.email && this.state.phone && this.state.country)}
+                                    disabled={!(this.state.phone && this.state.country)}
                                 />
                                 {__DEV__ && (
                                     <Button

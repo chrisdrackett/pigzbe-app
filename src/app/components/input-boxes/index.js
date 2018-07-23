@@ -26,7 +26,11 @@ export default class extends Component {
       return (
           <View style={styles.container}>
               <CodeInput
+                  autoFocus
+                  codeInputStyle={styles.codeInputStyle}
                   space={4}
+                  codeLength={boxes}
+                  keyboardType="number-pad"
                   size={width}
                   inputPosition="left"
                   onFulfill={this.onFulfill}

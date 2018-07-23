@@ -3,7 +3,7 @@ import {color, paddingH} from '../../styles';
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: color.mediumBlue,
+        backgroundColor: color.blue,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
@@ -14,5 +14,8 @@ export default StyleSheet.create({
         paddingRight: paddingH,
         justifyContent: 'space-between',
         paddingBottom: 20
+    },
+    light: {
+        backgroundColor: color.mediumBlue,
     }
 });

@@ -95,14 +95,14 @@ class Login extends Component {
                 ) : (
                     <Fragment>
                         <Header/>
-                        <Container body>
+                        <Container body light>
                             <View style={styles.containerText}>
                                 <Text style={styles.title}>{strings.loginTitle}</Text>
                                 <Text style={styles.subtitle}>New to Pizbe? Create an account below and claim your Wollo</Text>
                             </View>
                             <View>
-                                <Button label="New User" onPress={this.onClickCreateAccount} />
-                                <Button label="Existing User" secondary onPress={this.onClickLogin} />
+                                <Button label="Let's get started" onPress={this.onClickCreateAccount} />
+                                <Button label="I already have an account" plain onPress={this.onClickLogin} />
                             </View>
                         </Container>
                     </Fragment>
