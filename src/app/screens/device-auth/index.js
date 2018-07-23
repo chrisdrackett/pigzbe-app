@@ -156,11 +156,12 @@ class DeviceAuth extends Component {
                                     dropdownTextStyle={[styles.dropdownButton, styles.dropdownItem]}
                                     dropdownStyle={styles.dropdownStyle}
                                     onSelect={this.onChangeCountry}
+                                    dropdownTextHighlightStyle={styles.dropdownTextHighlightStyle}
                                     adjustFrame={(obj) => {
-                                        console.log(obj);
-                                        const width = Dimensions.get('window').width * 0.9;
+                                        const width = Dimensions.get('window').width * 0.85;
                                         return {
                                             ...obj,
+                                            top: obj.top + 75,
                                             width,
                                             left: (Dimensions.get('window').width - width) / 2
                                         };

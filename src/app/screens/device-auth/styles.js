@@ -24,12 +24,16 @@ export default StyleSheet.create({
         alignSelf: 'center'
     },
     dropdownStyle: {
-        backgroundColor: color.blue,
+        backgroundColor: color.mediumBlue,
         flex: 1,
         width: '100%',
+        borderRadius: 15,
+    },
+    dropdownTextHighlightStyle: {
+        color: color.blue,
     },
     dropdownItem: {
-        backgroundColor: color.blue,
+        backgroundColor: color.mediumBlue,
         color: color.white,
     },
     dropdownButton: {
