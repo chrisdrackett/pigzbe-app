@@ -8,10 +8,9 @@ export default StyleSheet.create({
     },
     textView: {
         height: 45,
-        borderColor: color.white,
+        borderColor: color.mediumBlue,
         borderWidth: 1,
         borderRadius: 5,
-        marginLeft: 5
     },
     text: {
         height: 45

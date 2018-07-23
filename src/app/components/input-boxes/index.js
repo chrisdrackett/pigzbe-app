@@ -28,7 +28,6 @@ export default class extends Component {
               <CodeInput
                   autoFocus
                   codeInputStyle={styles.codeInputStyle}
-                  space={4}
                   codeLength={boxes}
                   keyboardType="number-pad"
                   size={width}

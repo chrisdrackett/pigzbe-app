@@ -12,6 +12,7 @@ import Container from '../../components/container';
 import {SCREEN_TOUCH_ID} from '../../constants';
 import Header from '../../components/header';
 import isEmail from '../../utils/is-email';
+import InputBoxes from '../../components/input-boxes';
 import {
     deviceAuthOnline,
     deviceAuthRegister,
@@ -81,9 +82,12 @@ class DeviceAuth extends Component {
             isLoading,
             error,
             navigation,
-            id,
-            qrCode,
+            // id,
+            // qrCode,
         } = this.props;
+
+        const id = '2833288';
+        const qrCode = 'https://s3.amazonaws.com/qr-codes-9f266de4dd32a7244bf6862baea01379/_t4H4gwwzYb5l333uRPsbMgQXaRAthfTBEzBCJ2TM-s.png';
 
         const countrySelected = countryCodes[Number(this.state.country)];
         const phoneNumber = `+${countryCodes[Number(this.state.country)].code} ${this.state.phone}`;
@@ -107,13 +111,7 @@ class DeviceAuth extends Component {
                                 {qrCode && (
                                     <Image source={{uri: qrCode}} style={{width: qrSize, height: qrSize}}/>
                                 )}
-                                <TextInput
-                                    error={!!error}
-                                    value={this.state.code}
-                                    placeholder={'code'}
-                                    onChangeText={this.onChangeCode}
-                                    returnKeyType="done"
-                                />
+                                <InputBoxes boxes={7}/>
                                 <Button
                                     label={'Resend code'}
                                     onPress={this.onResend}
