@@ -7,3 +7,4 @@ export * from './profile';
 export * from './wollo';
 export * from './game';
 export * from './device-auth';
+export * from './settings';
