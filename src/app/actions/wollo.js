@@ -81,7 +81,11 @@ export const loadWallet = () => async (dispatch, getState) => {
 
 export const setKeys = (keypair, keysSaved) => ({type: WOLLO_KEYPAIR, keypair, keysSaved});
 
-export const saveKeys = () => ({type: WOLLO_KEYPAIR_SAVED});
+export const saveKeys = () => async (dispatch, getState) => {
+    const {secretKey} = getState().wollo;
+    await Keychain.save(KEYCHAIN_ID_STELLAR_KEY, secretKey);
+    dispatch({type: WOLLO_KEYPAIR_SAVED});
+};
 
 export const createKeys = () => async dispatch => {
     const keypair = Keypair.random();
