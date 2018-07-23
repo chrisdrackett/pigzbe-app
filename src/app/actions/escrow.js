@@ -1,5 +1,5 @@
-import {Transaction, getServer, getServerURL, validateTransaction} from '@pigzbe/stellar-utils';
-import {loadAccount} from './';
+import {loadAccount, Transaction, getServer, getServerURL, validateTransaction} from '@pigzbe/stellar-utils';
+import {loadWallet} from './';
 import wait from './wait';
 import openURL from '../utils/open-url';
 import {getWolloBalance} from './';
@@ -30,7 +30,7 @@ export const loadEscrow = () => async (dispatch, getState) => {
 export const loadEscrowAccount = () => async (dispatch, getState) => {
     try {
         const {escrowPublicKey} = getState().escrow;
-        const account = await getServer().loadAccount(escrowPublicKey);
+        const account = await loadAccount(escrowPublicKey);
         const balance = getWolloBalance(account);
         dispatch({type: ESCROW_ACCOUNT, account, balance});
         return account;
@@ -64,7 +64,7 @@ export const submitTransaction = xdr => async (dispatch, getState) => {
         await wait(1);
         await dispatch(validateTx(xdr));
         console.log('2. DONE validateTx');
-        await dispatch(loadAccount(destinationPublicKey));
+        await dispatch(loadWallet(destinationPublicKey));
         dispatch(loadEscrowAccount());
     } catch (error) {
         dispatch(escrowError(error));
