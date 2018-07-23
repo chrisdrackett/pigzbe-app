@@ -4,7 +4,6 @@ import {Text, View, Keyboard} from 'react-native';
 import {load} from '../../actions';
 import styles from './styles';
 import Button from '../../components/button';
-import TextInput from '../../components/text-input';
 import Loader from '../../components/loader';
 import {strings} from '../../constants';
 import KeyboardAvoid from '../../components/keyboard-avoid';
@@ -16,6 +15,11 @@ import InputBoxes from '../../components/input-boxes';
 class Login extends Component {
     state = {
         inputText: ''
+    }
+
+    onCodeEntered = code => {
+        console.log(code);
+        this.props.dispatch(load(code));
     }
 
     render() {
@@ -31,7 +35,10 @@ class Login extends Component {
                             {/* <Text style={styles.subtitle}>{strings.loginSubtitle}</Text> */}
                         </View>
                         <View>
-                            <InputBoxes boxes={6}/>
+                            <InputBoxes
+                                boxes={6}
+                                onFulfill={this.onCodeEntered}
+                            />
                             {/* <TextInput
                                 error={!!error}
                                 value={this.state.inputText}

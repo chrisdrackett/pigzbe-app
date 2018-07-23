@@ -10,11 +10,13 @@ export default class extends Component {
   }
 
   static defaultProps = {
-      boxes: 4
+      boxes: 4,
+      onFulfill: () => {}
   }
 
   onFulfill = (e) => {
       console.log(e);
+      this.props.onFulfill(e);
   }
 
   render() {

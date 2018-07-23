@@ -27,6 +27,7 @@ export const WOLLO_SEND_COMPLETE = 'WOLLO_SEND_COMPLETE';
 export const WOLLO_SEND_STATUS = 'WOLLO_SEND_STATUS';
 export const WOLLO_TEST_USER = 'WOLLO_TEST_USER';
 export const WOLLO_KEYPAIR = 'WOLLO_KEYPAIR';
+export const WOLLO_KEYPAIR_SAVED = 'WOLLO_KEYPAIR_SAVED';
 
 export const getWolloBalance = account => getBalance(account, ASSET_CODE);
 
@@ -76,6 +77,52 @@ export const loadWallet = () => async (dispatch, getState) => {
     }
 
     return dispatch(loadAccount(keypair.publicKey()));
+};
+
+export const setKeys = (keypair, keysSaved) => ({type: WOLLO_KEYPAIR, keypair, keysSaved});
+
+export const saveKeys = () => ({type: WOLLO_KEYPAIR_SAVED});
+
+export const createKeys = () => async dispatch => {
+    const keypair = Keypair.random();
+    dispatch(setKeys(keypair, false));
+};
+
+export const importKey = secretKey => async dispatch => {
+    try {
+        const keypair = Keypair.fromSecret(secretKey);
+        dispatch(setKeys(keypair, true));
+    } catch (error) {
+        console.log(error);
+        dispatch(wolloError(error));
+    }
+};
+
+export const loadKeys = () => async (dispatch, getState) => {
+    const stellar = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
+    const {testUserKey} = getState().wollo;
+
+    console.log('stellar', stellar);
+    console.log('testUserKey', testUserKey);
+
+    let keypair = null;
+
+    const secretKey = testUserKey || stellar.key;
+
+    console.log('secretKey', secretKey);
+
+    if (secretKey) {
+        try {
+            keypair = Keypair.fromSecret(secretKey);
+            dispatch(setKeys(keypair, true));
+        } catch (e) {}
+    }
+
+    if (keypair) {
+        return dispatch(loadAccount(keypair.publicKey()));
+    }
+
+    return null;
 };
 
 export const loadAccount = publicKey => async dispatch => {

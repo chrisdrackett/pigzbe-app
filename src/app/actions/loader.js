@@ -4,8 +4,9 @@ import {
     authLogin,
     profileLoad,
     messagesLoad,
-    loadEscrow,
-    loadWallet
+    // loadEscrow,
+    // loadWallet
+    loadKeys
 } from './';
 
 const pkg = require('../../../package.json');
@@ -17,31 +18,53 @@ const loading = value => ({type: LOADER_LOADING, value});
 
 export const loaderError = error => ({type: LOADER_ERROR, error});
 
-export const load = passcode => dispatch => {
+export const load = passcode => async dispatch => {
+    console.log('====> load', passcode);
     dispatch(loading(true));
-    return dispatch(authLogin(passcode))
-        .then(() => dispatch(loadWallet()))
-        .then(() => dispatch(profileLoad()))
-        .then(() => dispatch(loadEscrow()))
-        .then(() => dispatch(messagesLoad()))
-        .then(() => dispatch(loading(false)))
-        .catch(error => {
-            console.log(error);
-            dispatch(loaderError(error));
-            dispatch(loading(false));
-        });
+
+    try {
+        // await dispatch(initWeb3());
+        await dispatch(authLogin(passcode));
+        await dispatch(loadKeys());
+        // await dispatch(loadWallet());
+        // await dispatch(loadEscrow());
+        await dispatch(messagesLoad());
+        await dispatch(profileLoad());
+        dispatch(loading(false));
+    } catch (error) {
+        console.log(error);
+        dispatch(loaderError(error));
+        dispatch(loading(false));
+    }
 };
 
-export const tryAutoLoad = () => dispatch => {
-    console.log('tryAutoLoad');
-    dispatch(authKeychain())
-        .then(passcode => {
-            if (passcode) {
-                dispatch(authTouchId())
-                    .then(() => dispatch(load(passcode)))
-                    .catch(error => console.log(error));
-            }
-        });
+// export const load = passcode => dispatch => {
+//     dispatch(loading(true));
+//     return dispatch(authLogin(passcode))
+//         .then(() => dispatch(loadWallet()))
+//         .then(() => dispatch(profileLoad()))
+//         .then(() => dispatch(loadEscrow()))
+//         .then(() => dispatch(messagesLoad()))
+//         .then(() => dispatch(loading(false)))
+//         .catch(error => {
+//             console.log(error);
+//             dispatch(loaderError(error));
+//             dispatch(loading(false));
+//         });
+// };
+
+export const tryAutoLoad = () => async dispatch => {
+    const passcode = await dispatch(authKeychain());
+    if (!passcode) {
+        return;
+    }
+
+    try {
+        await dispatch(authTouchId());
+        dispatch(load(passcode));
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const loadContent = query => () => {
