@@ -1,7 +1,6 @@
 import {
     Keypair,
     loadAccount,
-    getServer,
     setServer,
     isValidPublicKey,
     paymentHistory,
@@ -56,9 +55,10 @@ const updateXLM = account => dispatch => {
 export const setKeys = (keypair, keysSaved) => ({type: WOLLO_KEYPAIR, keypair, keysSaved});
 
 export const saveKeys = () => async (dispatch, getState) => {
-    const {secretKey} = getState().wollo;
+    const {publicKey, secretKey} = getState().wollo;
     await Keychain.save(KEYCHAIN_ID_STELLAR_KEY, secretKey);
     dispatch({type: WOLLO_KEYPAIR_SAVED});
+    await dispatch(loadWallet(publicKey));
 };
 
 export const createKeys = () => async dispatch => {
@@ -67,9 +67,12 @@ export const createKeys = () => async dispatch => {
 };
 
 export const importKey = secretKey => async dispatch => {
+    console.log('importKey');
     try {
         const keypair = Keypair.fromSecret(secretKey);
+        console.log('importKey', keypair.publicKey());
         dispatch(setKeys(keypair, true));
+        await dispatch(saveKeys());
     } catch (error) {
         console.log(error);
         dispatch(wolloError(error));
@@ -96,6 +99,12 @@ export const loadKeys = () => async (dispatch, getState) => {
     }
 
     return null;
+};
+
+export const clearKeys = () => async dispatch => {
+    console.log('clearKeys');
+    await Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
+    dispatch(setKeys(null));
 };
 
 export const loadWallet = publicKey => async dispatch => {

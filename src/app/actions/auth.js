@@ -1,7 +1,7 @@
 import Keychain from '../utils/keychain';
 import {authenticate} from '../utils/touch-id';
 import {KEYCHAIN_ID_PASSCODE} from '../constants';
-import {load} from './';
+import {clearKeys} from './';
 
 export const AUTH_CREATE = 'AUTH_CREATE';
 export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
@@ -26,7 +26,8 @@ export const authKeychain = () => async () => {
 export const authCreate = passcode => async dispatch => {
     dispatch({type: AUTH_CREATE, passcode});
     await Keychain.save(KEYCHAIN_ID_PASSCODE, passcode);
-    dispatch(load(passcode));
+    await dispatch(clearKeys());
+    await dispatch(authLogin(passcode));
 };
 
 export const authLogin = passcode => async dispatch => {

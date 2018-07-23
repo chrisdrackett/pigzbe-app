@@ -49,6 +49,14 @@ export default (state = initialState, action) => {
                 testUserKey: action.testUserKey
             };
         case WOLLO_KEYPAIR:
+            if (!action.keypair) {
+                return {
+                    ...state,
+                    publicKey: null,
+                    secretKey: null,
+                    keysSaved: false
+                };
+            }
             return {
                 ...state,
                 publicKey: action.keypair.publicKey(),
