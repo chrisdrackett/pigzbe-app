@@ -18,3 +18,5 @@ export const NUM_VALIDATIONS = 7;
 export const KEYCHAIN_ID_PASSCODE = 'com.pigzbe.PigzbeApp.passcode';
 export const KEYCHAIN_ID_STELLAR_KEY = 'com.pigzbe.PigzbeApp.stellarKey';
 export const KEYCHAIN_ID_ETH_KEY = 'com.pigzbe.PigzbeApp.ethKey';
+
+export const STORAGE_KEY_SETTINGS = 'settings';

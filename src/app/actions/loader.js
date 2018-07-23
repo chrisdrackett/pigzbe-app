@@ -6,7 +6,8 @@ import {
     messagesLoad,
     // loadEscrow,
     // loadWallet
-    loadKeys
+    loadKeys,
+    settingsLoad
 } from './';
 
 const pkg = require('../../../package.json');
@@ -38,22 +39,14 @@ export const load = passcode => async dispatch => {
     }
 };
 
-// export const load = passcode => dispatch => {
-//     dispatch(loading(true));
-//     return dispatch(authLogin(passcode))
-//         .then(() => dispatch(loadWallet()))
-//         .then(() => dispatch(profileLoad()))
-//         .then(() => dispatch(loadEscrow()))
-//         .then(() => dispatch(messagesLoad()))
-//         .then(() => dispatch(loading(false)))
-//         .catch(error => {
-//             console.log(error);
-//             dispatch(loaderError(error));
-//             dispatch(loading(false));
-//         });
-// };
+export const tryAutoLoad = () => async (dispatch, getState) => {
+    await dispatch(settingsLoad());
+    const {enableTouchId} = getState().settings;
+    console.log('enableTouchId', enableTouchId);
+    if (!enableTouchId) {
+        return;
+    }
 
-export const tryAutoLoad = () => async dispatch => {
     const passcode = await dispatch(authKeychain());
     if (!passcode) {
         return;
