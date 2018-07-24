@@ -20,6 +20,7 @@ import {getExchange} from '../../actions/coins';
 class Balance extends Component {
 
     async componentWillMount() {
+        console.log('Balance componentWillMount');
         this.props.dispatch(getExchange());
     }
 

@@ -10,17 +10,18 @@ import {
     Step2,
     Step3,
     Step4,
-    Step5,
-    Step6,
+    Step5
 } from './steps';
 import Loader from '../../components/loader';
 import Progress from '../../components/progress';
 import Modal from './modal';
 import Container from '../../components/container';
 import {userLogin} from '../../actions/eth';
+import {refreshBalance} from '../../actions/wollo';
 import {clearClaimData} from '../../actions/content';
 import {transfer, burn, initWeb3} from '../../actions/contract';
 import {isValidSeed} from '../../utils/web3';
+import {SCREEN_BALANCE} from '../../constants';
 
 class Claim extends Component {
   state = {
@@ -150,11 +151,21 @@ class Claim extends Component {
       this.setState({pk});
   }
 
-  confirmCopy = () => {
-      const {user: {stellar}, onCompleteClaim} = this.props;
-      this.props.clearClaimData();
-      onCompleteClaim(stellar.sk);
+  onCloseClaim = () => {
+      this.props.navigation.navigate(SCREEN_BALANCE);
   }
+
+  onCompleteClaim = () => {
+      this.props.clearClaimData();
+      this.props.refreshBalance();
+      this.props.navigation.navigate(SCREEN_BALANCE);
+  }
+
+  onStep1 = () => this.onChangeStep(1)
+  onStep2 = () => this.onChangeStep(2)
+  onStep3 = () => this.onChangeStep(3)
+  onStep4 = () => this.onChangeStep(4)
+  onStep5 = () => this.onChangeStep(5)
 
   render () {
 
@@ -197,13 +208,13 @@ class Claim extends Component {
                       <Logo />
                   </View>
                   <Container>
-                      {step === 1 && <Step1 onNext={() => this.onChangeStep(2)} onBack={this.props.onCloseClaim} />}
-                      {step === 2 && <Step2 onNext={() => this.onChangeStep(3)} onBack={() => this.onChangeStep(1)} />}
-                      {step === 3 && <Step3 onNext={() => this.onChangeStep(4)} onBack={() => this.onChangeStep(2)} />}
+                      {step === 1 && <Step1 onNext={this.onStep2} onBack={this.onCloseClaim} />}
+                      {step === 2 && <Step2 onNext={this.onStep3} onBack={this.onStep1} />}
+                      {step === 3 && <Step3 onNext={this.onStep4} onBack={this.onStep2} />}
                       {step === 4 &&
                       <Step4
                           onNext={this.onImportKey}
-                          onBack={() => this.onChangeStep(3)}
+                          onBack={this.onStep3}
                           badAddress={badAddress}
                           badSeed={badSeed}
                           pk={pk}
@@ -222,17 +233,8 @@ class Claim extends Component {
                           continueApplication={!localStorage.complete && localStorage.started}
                           startApplication={!localStorage.complete && !localStorage.started}
                           buttonNextLabel={!user.balanceWollo ? 'Back' : !localStorage.complete && !localStorage.started ? 'Claim Wollo' : 'Continue'}
-                          onNext={user.balanceWollo ? this.onSubmitBurn : this.props.onCloseClaim}
-                          onBack={user.balanceWollo ? () => this.onChangeStep(1) : null}
-                      />
-                      }
-
-                      {localStorage.complete && user.stellar &&
-                      <Step6
-                          userBalance={user.balanceWollo}
-                          stellar={user.stellar}
-                          tx={tx}
-                          onNext={this.confirmCopy}
+                          onNext={user.balanceWollo ? this.onSubmitBurn : this.onCloseClaim}
+                          onBack={user.balanceWollo ? this.onStep1 : null}
                       />
                       }
                   </Container>
@@ -253,7 +255,7 @@ class Claim extends Component {
                           text={localStorage.complete ? `Congrats! You are now the owner of ${user.balanceWollo} Wollo, you rock.` : loading}
                           // buttonLabel={localStorage.complete || errorBurning ? 'Next' : null}
                           buttonLabel={'Next'}
-                          onPress={this.closeProgress}
+                          onPress={localStorage.complete ? this.onCompleteClaim : this.closeProgress}
                       />
                   ) : null}
               </Container>
@@ -277,5 +279,6 @@ export default connect(({config, user, web3, events, contract, content}) => ({
     transfer,
     burn,
     clearClaimData,
+    refreshBalance
 },
 )(Claim);

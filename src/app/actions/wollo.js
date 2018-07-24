@@ -119,6 +119,11 @@ export const loadWallet = publicKey => async dispatch => {
     }
 };
 
+export const refreshBalance = () => async (dispatch, getState) => {
+    const {publicKey} = getState().wollo;
+    dispatch(loadWallet(publicKey));
+};
+
 export const loadPayments = () => async (dispatch, getState) => {
     const {publicKey} = getState().wollo;
 

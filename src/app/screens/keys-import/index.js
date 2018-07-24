@@ -15,13 +15,11 @@ class KeysImport extends Component {
         inputText: ''
     }
 
-    onImport = () => {
-        this.props.dispatch(importKey(this.state.inputText));
-    }
+    onImport = () => this.props.dispatch(importKey(this.state.inputText))
 
-    onBack = () => {
-        this.props.navigation.navigate(SCREEN_CREATE_KEYS);
-    }
+    onBack = () => this.props.navigation.navigate(SCREEN_CREATE_KEYS)
+
+    onChangeText = inputText => this.setState({inputText})
 
     render() {
         const {secretKey, error} = this.props;
@@ -39,7 +37,7 @@ class KeysImport extends Component {
                             error={!!error}
                             value={this.state.inputText}
                             placeholder={'secret key'}
-                            onChangeText={inputText => this.setState({inputText})}
+                            onChangeText={this.onChangeText}
                             numberOfLines={4}
                             returnKeyType="done"
                         />
@@ -62,6 +60,6 @@ class KeysImport extends Component {
 export default connect(
     state => ({
         secretKey: state.wollo.secretKey,
-        error: state.wollo.error
+        error: state.wollo.error,
     })
 )(KeysImport);

@@ -19,6 +19,15 @@ import Keychain from '../utils/keychain';
 import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY} from '../constants';
 import {apiURL} from '../selectors';
 
+// const getEthGasStationGasPrice = async () => {
+//     try {
+//         const ethgasstation = await (await fetch('https://ethgasstation.info/json/ethgasAPI.json')).json();
+//         return ethgasstation.safeLow;
+//     } catch (e) {}
+//
+//     return null;
+// };
+
 const getContract = () => async (dispatch, getState) => {
 
     console.log('getContract');
@@ -35,8 +44,14 @@ const getContract = () => async (dispatch, getState) => {
 
         console.log('address', address);
 
+        const gasPrice = await web3.eth.getGasPrice();
+        console.log('contract gasPrice', gasPrice);
+
+        // const ethGasStationGasPrice = await getEthGasStationGasPrice();
+        // console.log('ethGasStationGasPrice', ethGasStationGasPrice);
+
         const deployedContract = new web3.eth.Contract(ethereum.abi, address, {
-            gasPrice: await web3.eth.getGasPrice(),
+            gasPrice,
             gas: 6721975,
         });
 
@@ -198,9 +213,15 @@ export const burn = (amount) => async (dispatch, getState) => {
             const bufferPrivateKey = new Buffer(privateKey, 'hex');
             const data = instance.methods.burn(amount).encodeABI();
 
+            const gasPrice = await web3.eth.getGasPrice();
+            console.log('burn gasPrice', gasPrice);
+
+            // const ethGasStationGasPrice = await getEthGasStationGasPrice();
+            // console.log('ethGasStationGasPrice', ethGasStationGasPrice);
+
             const rawTx = {
                 nonce: web3.utils.toHex(await web3.eth.getTransactionCount(coinbase)),
-                gasPrice: web3.utils.toHex(await web3.eth.getGasPrice()),
+                gasPrice: web3.utils.toHex(gasPrice),
                 gasLimit: web3.utils.toHex(4700000),
                 value: web3.utils.toHex(0),
                 to: address,
