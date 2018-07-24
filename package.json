@@ -32,7 +32,8 @@
     "start:electron": "wait-on 'http://localhost:8080' && npm run launch:electron",
     "launch:electron": "electron './desktop/main.js'",
     "build:webpack": "webpack -p --config './desktop/webpack.config.js'",
-    "postversion": "react-native-version"
+    "postversion": "react-native-version",
+    "storybook": "storybook start -p 7007"
   },
   "dependencies": {
     "@pigzbe/stellar-utils": "1.1.0",
@@ -72,6 +73,7 @@
     "xmldom-qsa": "1.0.3"
   },
   "devDependencies": {
+    "@storybook/react-native": "^3.4.8",
     "async": "2.6.1",
     "babel-eslint": "8.2.6",
     "babel-jest": "23.4.0",
