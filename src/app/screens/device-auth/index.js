@@ -146,7 +146,7 @@ class DeviceAuth extends Component {
                             </View>
                         )}
                         {!id && (
-                            <View>
+                            <View style={{width: '90%', alignSelf: 'center'}}>
                                 <TextInput
                                     dark
                                     error={!!error}
@@ -155,6 +155,7 @@ class DeviceAuth extends Component {
                                     keyboardType="email-address"
                                     value={this.state.email}
                                     placeholder={'Email address'}
+                                    style={{width: '100%'}}
                                     onChangeText={this.onChangeEmail}
                                     returnKeyType="done"
                                 />
@@ -164,6 +165,7 @@ class DeviceAuth extends Component {
                                     error={!!error}
                                     keyboardType="number-pad"
                                     value={this.state.phone}
+                                    style={{width: '100%'}}
                                     placeholder={'Your mobile number'}
                                     onChangeText={this.onChangePhone}
                                     returnKeyType="done"
