@@ -23,6 +23,13 @@ export default StyleSheet.create({
         width: '95%',
         alignSelf: 'center'
     },
+    containerStepScroll: {
+        marginTop: -10,
+        backgroundColor: color.white,
+        borderTopRightRadius: 15,
+        borderTopLeftRadius: 15,
+        alignSelf: 'center',
+    },
     dropdownStyle: {
         backgroundColor: color.mediumBlue,
         flex: 1,

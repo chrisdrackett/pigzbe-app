@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Dimensions, Text, View, Keyboard, Image} from 'react-native';
+import {Dimensions, ScrollView, Text, View, Keyboard, Image} from 'react-native';
 import Dropdown from 'react-native-modal-dropdown';
 
 import styles from './styles';
@@ -22,6 +22,7 @@ import {
 } from '../../actions';
 import StepHeader from '../../components/step-header';
 import countryCodes from './country-codes';
+import {color} from '../../styles';
 
 const qrSize = 150;
 
@@ -47,12 +48,12 @@ class DeviceAuth extends Component {
 
     onChangePhone = phone => this.setState({phone})
 
-    onChangeCountry = (value) => {
-        console.log(value);
-        this.setState({country: value});
-    }
+    onChangeCountry = value => this.setState({country: value})
 
-    onChangeCode = code => this.setState({code})
+    onChangeCode = code => {
+        console.log(code);
+        this.setState({code});
+    }
 
     onSend = () => {
         Keyboard.dismiss();
@@ -97,7 +98,7 @@ class DeviceAuth extends Component {
                 <KeyboardAvoid>
                     <Header/>
                     <StepHeader title={!id ? 'Get Started' : 'Enter Code'} icon={!id ? 'tick' : 'code'}/>
-                    <Container body style={styles.containerStep}>
+                    <ScrollView style={styles.containerStepScroll}>
                         <View style={styles.containerText}>
                             {!id && <Text style={styles.subtitle}>{'Before we begin, enter your mobile number to verify your mobile device.'}</Text>}
                             {id && <Text style={styles.subtitle}>{`Now enter the code we sent to ${phoneNumber}`}</Text>}
@@ -106,22 +107,42 @@ class DeviceAuth extends Component {
                             )}
                         </View>
                         {id && (
-                            <View style={styles.containerText}>
-                                <Text style={styles.subtitle}>{id}</Text>
+                            <View>
+                                {/* <Text style={styles.subtitle}>{id}</Text> */}
                                 {qrCode && (
-                                    <Image source={{uri: qrCode}} style={{width: qrSize, height: qrSize}}/>
+                                    <Image source={{uri: qrCode}} style={{alignSelf: 'center', width: qrSize, height: qrSize}}/>
                                 )}
-                                <InputBoxes boxes={7}/>
+                                <InputBoxes
+                                    onFulfill={this.onChangeCode}
+                                    boxes={7}
+                                    padding={10}
+                                    boxSize={{
+                                        width: 35,
+                                        height: 45,
+                                    }}
+                                    style={{marginBottom: 10}}
+                                />
                                 <Button
+                                    plain
+                                    textStyle={{color: color.blue}}
                                     label={'Resend code'}
                                     onPress={this.onResend}
                                 />
                                 <Button
+                                    secondary
+                                    style={{
+                                        alignSelf: 'center',
+                                        width: '90%'
+                                    }}
                                     label={'Verify'}
                                     onPress={this.onVerify}
                                 />
                                 <Button
-                                    secondary
+                                    style={{
+                                        alignSelf: 'center',
+                                        width: '90%'
+                                    }}
+                                    outline
                                     label={'Back'}
                                     onPress={this.onBack}
                                 />
@@ -191,7 +212,7 @@ class DeviceAuth extends Component {
                                 )}
                             </View>
                         )}
-                    </Container>
+                    </ScrollView>
                 </KeyboardAvoid>
                 <Loader
                     isLoading={isLoading}
