@@ -13,8 +13,6 @@ export default StyleSheet.create({
     },
     containerBody: {
         alignItems: 'stretch',
-        paddingLeft: paddingH,
-        paddingRight: paddingH,
         justifyContent: 'space-between',
         paddingBottom: 20
     },
@@ -27,9 +25,11 @@ export default StyleSheet.create({
         borderTopRightRadius: 15,
         borderTopLeftRadius: 15,
         flex: 1,
+        flexGrow: 1,
+
     },
     scroll: {
-        paddingLeft: paddingH,
-        paddingRight: paddingH,
-    }
+        // marginLeft: paddingH,
+        // marginRight: paddingH,
+    },
 });

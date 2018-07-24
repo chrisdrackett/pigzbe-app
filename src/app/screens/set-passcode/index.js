@@ -1,16 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Text, View, Keyboard} from 'react-native';
+import {Keyboard} from 'react-native';
 import {authCreate} from '../../actions';
-import styles from './styles';
 import Button from '../../components/button';
 import Loader from '../../components/loader';
 import {strings} from '../../constants';
-import KeyboardAvoid from '../../components/keyboard-avoid';
-import Container from '../../components/container';
 import {SCREEN_CREATE_KEYS} from '../../constants';
-import Header from '../../components/header';
 import InputBoxes from '../../components/input-boxes';
+import StepModule from '../../components/step-module';
 
 class SetPasscode extends Component {
     state = {
@@ -54,47 +51,47 @@ class SetPasscode extends Component {
         const {isLoading} = this.props;
 
         return (
-            <Container>
-                <KeyboardAvoid>
-                    <Header/>
-                    <Container body>
-                        <View style={styles.containerText}>
-                            <Text style={styles.title}>{this.state.code ? 'Re-enter Passcode' : 'Set Passcode'}</Text>
-                            <Text style={styles.subtitle}>{'Set up a backup 6 digit passcode.'}</Text>
-                        </View>
-                        <View>
-                            {this.state.code ? (
-                                <InputBoxes
-                                    boxes={6}
-                                    onFulfill={this.onCodeConfirmed}
-                                />
-                            ) : (
-                                <InputBoxes
-                                    boxes={6}
-                                    onFulfill={this.onCodeEntered}
-                                />
-                            )}
-                            {this.state.code && (
-                                <Fragment>
-                                    <Button
-                                        label={strings.loginSubmitButtonLabel}
-                                        onPress={this.onSubmit}
-                                        disabled={!this.state.confirmed}
-                                    />
-                                    <Button
-                                        secondary
-                                        label={'Reset'}
-                                        onPress={this.onReset}
-                                    />
-                                </Fragment>
-                            )}
-                        </View>
-                    </Container>
-                </KeyboardAvoid>
+            <StepModule
+                title={this.state.code ? 'Re-enter Passcode' : 'Set Passcode'}
+                icon="touch-id"
+                scroll={false}
+                tagline="Set up a backup 6 digit passcode."
+            >
+                <Fragment>
+                    {this.state.code ? (
+                        <InputBoxes
+                            boxes={6}
+                            onFulfill={this.onCodeConfirmed}
+                        />
+                    ) : (
+                        <InputBoxes
+                            boxes={6}
+                            onFulfill={this.onCodeEntered}
+                        />
+                    )}
+                    {this.state.code && (
+                        <Fragment>
+                            <Button
+                                label={strings.loginSubmitButtonLabel}
+                                onPress={this.onSubmit}
+                                disabled={!this.state.confirmed}
+                            />
+                            <Button
+                                secondary
+                                label={'Reset'}
+                                onPress={this.onReset}
+                            />
+                        </Fragment>
+                    )}
+                </Fragment>
+
                 <Loader
+                    white
                     isLoading={isLoading}
                 />
-            </Container>
+
+            </StepModule>
+
         );
     }
 }

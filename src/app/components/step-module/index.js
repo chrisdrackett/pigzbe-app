@@ -7,33 +7,39 @@ import KeyboardAvoid from '../../components/keyboard-avoid';
 import styles from './styles';
 
 export default class extends Component {
-    render() {
-        const {
-            title,
-            icon,
-            tagline,
-            error,
-            children,
-        } = this.props;
 
-        return (
-            <Container>
-                <KeyboardAvoid>
-                    <Header/>
-                    <StepHeader title={title} icon={icon}/>
-                    <Container white scroll>
-                        <View style={styles.containerText}>
-                            <Text style={styles.subtitle}>{tagline}</Text>
-                            {error && (
-                                <Text style={styles.subtitle}>{error.message}</Text>
-                            )}
-                        </View>
-                        <View style={styles.containerBody}>
-                            {children}
-                        </View>
-                    </Container>
-                </KeyboardAvoid>
-            </Container>
-        );
-    }
+  static defaultProps = {
+      scroll: false
+  }
+
+  render() {
+      const {
+          title,
+          icon,
+          tagline,
+          error,
+          scroll,
+          children,
+      } = this.props;
+
+      return (
+          <Container style={styles.wrapper}>
+              <Header/>
+              <StepHeader title={title} icon={icon}/>
+              <Container white scroll={scroll}>
+                  <KeyboardAvoid>
+                      <View style={styles.containerText}>
+                          <Text style={styles.subtitle}>{tagline}</Text>
+                          {error && (
+                              <Text style={styles.subtitle}>{error.message}</Text>
+                          )}
+                      </View>
+                      <View style={styles.containerText}>
+                          {children}
+                      </View>
+                  </KeyboardAvoid>
+              </Container>
+          </Container>
+      );
+  }
 }

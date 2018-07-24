@@ -8,11 +8,14 @@ import {
 
 export default StyleSheet.create({
     containerText: {
-        alignItems: 'center',
+        alignItems: 'stretch',
         justifyContent: 'center',
         alignSelf: 'stretch',
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
         flexGrow: 1,
         paddingTop: 20,
+        flex: 1,
     },
     subtitle: {
         fontFamily,
@@ -23,10 +26,10 @@ export default StyleSheet.create({
         marginBottom: 20,
         textAlign: 'center'
     },
-    containerBody: {
-        alignSelf: 'center',
+    wrapper: {
         alignItems: 'stretch',
-        justifyContent: 'center',
-        paddingBottom: 20
-    },
+        flexGrow: 1,
+        flex: 1,
+        alignSelf: 'center'
+    }
 });

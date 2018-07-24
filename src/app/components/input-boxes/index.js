@@ -40,7 +40,10 @@ export default class extends Component {
                   space={4}
                   codeLength={boxes}
                   onFulfill={onFulfill}
-                  containerStyle={style}
+                  containerStyle={[style, {
+                      width: '90%',
+                      alignSelf: 'center',
+                  }]}
                   codeInputStyle={{borderRadius: 5, borderWidth: 1, height: boxSize.height || width * 1.45}}
               />
           </View>

@@ -97,19 +97,38 @@ class DeviceAuth extends Component {
             <StepModule
                 title={!id ? 'Get Started' : 'Enter Code'}
                 icon={!id ? 'tick' : 'code'}
+                scroll
                 tagline={!id
                     ? 'Before we begin, enter your mobile number to verify your mobile device.'
-                    : `Now enter the code we sent to ${phoneNumber}`
+                    : `Now enter the code we sent to \n${phoneNumber}`
                 }
                 error={error}>
                 <Fragment>
                     {id && (
                         <Fragment>
-                            {qrCode && <Image source={{uri: qrCode}} style={{alignSelf: 'center', width: qrSize, height: qrSize}}/> }
-                            <InputBoxes onFulfill={this.onChangeCode} boxes={7} padding={10} boxSize={{width: 35, height: 45}} style={{marginBottom: 10}}/>
-                            <Button plain textStyle={{color: color.blue}} label={'Resend code'} onPress={this.onResend} />
-                            <Button secondary style={{alignSelf: 'center', width: '90%'}} label={'Verify'} onPress={this.onVerify} />
-                            <Button style={{alignSelf: 'center', width: '90%'}} outline label={'Back'} onPress={this.onBack} />
+                            {qrCode && <Image source={{uri: qrCode}} style={{marginTop: -30, alignSelf: 'center', width: qrSize, height: qrSize}}/> }
+                            <InputBoxes
+                                onFulfill={this.onChangeCode}
+                                boxes={7}
+                                padding={10}
+                                boxSize={{width: 35, height: 45}}
+                                style={{marginBottom: 10}}
+                            />
+                            <Button
+                                plain
+                                textStyle={{color: color.blue}}
+                                label={'Resend code'}
+                                onPress={this.onResend}
+                            />
+                            <Button
+                                secondary
+                                label={'Verify'}
+                                onPress={this.onVerify}
+                            />
+                            <Button
+                                outline label={'Back'}
+                                onPress={this.onBack}
+                            />
                         </Fragment>
                     )}
                     {!id && (
