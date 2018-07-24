@@ -1,11 +1,11 @@
 import {StyleSheet} from 'react-native';
-// import {
-//     color
-// } from '../../styles';
+import {color} from '../../styles';
+
 export default StyleSheet.create({
     container: {
+        backgroundColor: color.blue,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     settingsIcon: {
         width: 18,

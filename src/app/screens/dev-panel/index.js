@@ -108,7 +108,7 @@ class DevPanel extends Component {
                             </Text>
                             <View style={styles.picker}>
                                 <Picker
-                                    selectedValue={testUserKey}
+                                    selectedValue={testUserKey || ''}
                                     onValueChange={value => dispatch(wolloTestUser(value))}>
                                     {testUsers.map(user => (
                                         <Picker.Item
