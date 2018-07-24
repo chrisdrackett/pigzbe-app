@@ -22,6 +22,9 @@ export default StyleSheet.create({
     light: {
         backgroundColor: color.lightGrey,
     },
+    white: {
+        backgroundColor: color.whiteOpacity60,
+    },
     message: {
         fontFamily,
         fontWeight: 'bold',

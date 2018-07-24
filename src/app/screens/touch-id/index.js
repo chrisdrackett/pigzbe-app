@@ -1,13 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Text, View} from 'react-native';
-import styles from './styles';
 import Button from '../../components/button';
 // import {strings} from '../../constants';
-import Container from '../../components/container';
 import {SCREEN_SET_PASSCODE} from '../../constants';
-import Header from '../../components/header';
 import {settingsEnableTouchId} from '../../actions';
+import StepModule from '../../components/step-module';
 
 class TouchId extends Component {
     onEnable = () => {
@@ -21,26 +18,24 @@ class TouchId extends Component {
 
     render() {
         return (
-            <Container>
-                <Header/>
-                <Container body>
-                    <View style={styles.containerText}>
-                        <Text style={styles.title}>{'Use Touch ID?'}</Text>
-                        <Text style={styles.subtitle}>{'We use your phone’s security in combination with it’s in-built hardware to secure your account.'}</Text>
-                    </View>
-                    <View>
-                        <Button
-                            label={'Enable Touch ID'}
-                            onPress={this.onEnable}
-                        />
-                        <Button
-                            secondary
-                            label={'Just use a passcode'}
-                            onPress={this.onSkip}
-                        />
-                    </View>
-                </Container>
-            </Container>
+            <StepModule
+                title="Use Touch ID?"
+                icon="touch-id"
+                tagline="We use your phone’s security in combination with it’s in-built hardware to secure your account."
+            >
+                <Fragment>
+                    <Button
+                        label={'Enable Touch ID'}
+                        onPress={this.onEnable}
+                    />
+                    <Button
+                        secondary
+                        label={'Just use a passcode'}
+                        onPress={this.onSkip}
+                    />
+                </Fragment>
+
+            </StepModule>
         );
     }
 }

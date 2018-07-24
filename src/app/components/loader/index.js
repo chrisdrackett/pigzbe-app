@@ -7,13 +7,17 @@ import {
 import styles from './styles';
 import {color} from '../../styles';
 
-const getViewStyle = (transparent, light) => {
+const getViewStyle = (transparent, light, white) => {
     if (transparent) {
         return [styles.loader, styles.transparent];
     }
 
     if (light) {
         return [styles.loader, styles.light];
+    }
+
+    if (white) {
+        return [styles.loader, styles.white];
     }
 
     return styles.loader;
@@ -31,12 +35,13 @@ export default ({
     isLoading,
     message,
     transparent,
+    white,
     light
 }) => {
     if (isLoading) {
         return (
-            <View style={getViewStyle(transparent, light)}>
-                <ActivityIndicator size="large" color={light ? color.blue : color.pink} />
+            <View style={getViewStyle(transparent, light, white)}>
+                <ActivityIndicator size="large" color={(light || white) ? color.blue : color.pink} />
                 {message ? (
                     <Text style={getTextStyle(light)}>{message}</Text>
                 ) : null}

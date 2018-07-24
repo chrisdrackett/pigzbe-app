@@ -5,8 +5,11 @@ export default StyleSheet.create({
     container: {
         backgroundColor: color.blue,
         flex: 1,
+    },
+    justifyCenter: {
+        alignSelf: 'stretch',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     containerBody: {
         alignItems: 'stretch',
@@ -17,5 +20,17 @@ export default StyleSheet.create({
     },
     light: {
         backgroundColor: color.mediumBlue,
+    },
+    white: {
+        marginTop: -10,
+        backgroundColor: color.white,
+        borderTopRightRadius: 15,
+        borderTopLeftRadius: 15,
+        width: '100%',
+        alignSelf: 'center'
+    },
+    scroll: {
+        width: '100%',
+        alignSelf: 'stretch'
     }
 });
