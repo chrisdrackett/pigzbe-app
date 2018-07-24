@@ -83,12 +83,9 @@ class DeviceAuth extends Component {
             isLoading,
             error,
             navigation,
-            // id,
-            // qrCode,
+            id,
+            qrCode,
         } = this.props;
-
-        const id = '2833288';
-        const qrCode = 'https://s3.amazonaws.com/qr-codes-9f266de4dd32a7244bf6862baea01379/_t4H4gwwzYb5l333uRPsbMgQXaRAthfTBEzBCJ2TM-s.png';
 
         const countrySelected = countryCodes[Number(this.state.country)];
         const phoneNumber = `+${countryCodes[Number(this.state.country)].code} ${this.state.phone}`;
