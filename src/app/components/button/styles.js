@@ -41,8 +41,9 @@ export default StyleSheet.create({
         color: color.blueOpacity40
     },
     buttonPlain: {
-        color: color.whiteOpacity70,
+        color: color.white,
         fontSize: 14,
+        fontWeight: 'normal',
         textDecorationLine: 'underline',
         textDecorationStyle: 'solid',
         fontSize: 14,

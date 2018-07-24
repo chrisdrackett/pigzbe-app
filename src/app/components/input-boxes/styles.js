@@ -3,18 +3,19 @@ import {color} from '../../styles';
 
 export default StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     textView: {
         height: 45,
-        borderColor: color.white,
+        borderColor: color.mediumBlue,
         borderWidth: 1,
         borderRadius: 5,
-        marginLeft: 5
     },
     text: {
         height: 45
+    },
+    codeInputStyle: {
+        borderRadius: 10
     }
 });

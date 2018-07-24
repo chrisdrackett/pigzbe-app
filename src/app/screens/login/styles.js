@@ -9,7 +9,7 @@ import {
 export default StyleSheet.create({
     container: {
         // alignSelf: 'stretch',
-        flex: 1,
+        flex: 0,
         backgroundColor: color.blue,
         backgroundColor: 'red',
         alignItems: 'center',

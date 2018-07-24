@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Dimensions, TextInput, View} from 'react-native';
+import {Dimensions, View} from 'react-native';
 import CodeInput from 'react-native-confirmation-code-input';
-import styles from './styles';
+import {color} from '../../styles';
 
 export default class extends Component {
   state = {
@@ -11,25 +11,37 @@ export default class extends Component {
 
   static defaultProps = {
       boxes: 4,
-      onFulfill: () => {}
-  }
-
-  onFulfill = (e) => {
-      console.log(e);
-      this.props.onFulfill(e);
+      padding: 0,
+      style: null,
+      boxSize: {width: null, height: null}
   }
 
   render() {
-      const {boxes} = this.props;
-      const width = (Dimensions.get('window').width - 50) / boxes;
+      const {
+          boxes,
+          boxSize,
+          onFulfill,
+          padding,
+          style
+      } = this.props;
+
+      const width = boxSize.width || ~~(((Dimensions.get('window').width * 0.75) - padding) / boxes);
 
       return (
-          <View style={styles.container}>
+          <View>
               <CodeInput
-                  space={4}
+                  activeColor={color.blue}
+                  inactiveColor={color.mediumBlue}
+                  autoFocus={false}
+                  ignoreCase={true}
+                  inputPosition="center"
+                  keyboardType="number-pad"
                   size={width}
-                  inputPosition="left"
-                  onFulfill={this.onFulfill}
+                  space={4}
+                  codeLength={boxes}
+                  onFulfill={onFulfill}
+                  containerStyle={style}
+                  codeInputStyle={{borderRadius: 5, borderWidth: 1, height: boxSize.height || width * 1.45}}
               />
           </View>
       );

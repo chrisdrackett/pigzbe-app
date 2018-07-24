@@ -43,6 +43,8 @@ export default ({
     style,
     editable = true,
     keyboardType = 'default',
+    autoCapitalize = 'sentences',
+    autoCorrect = true,
     returnKeyType = 'done',
 }) => (
     <Fragment>
@@ -55,6 +57,8 @@ export default ({
             <TextInput
                 style={getStyle(error, dark, numberOfLines, style)}
                 placeholder={placeholder}
+                autoCapitalize={autoCapitalize}
+                autoCorrect={autoCorrect}
                 placeholderTextColor={dark ? color.grey : color.whiteOpacity60}
                 onChangeText={inputText => onChangeText(inputText)}
                 value={value}

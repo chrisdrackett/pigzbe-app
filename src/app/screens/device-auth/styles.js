@@ -15,6 +15,49 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    containerStep: {
+        marginTop: -10,
+        backgroundColor: color.white,
+        borderTopRightRadius: 15,
+        borderTopLeftRadius: 15,
+        width: '95%',
+        alignSelf: 'center'
+    },
+    containerStepScroll: {
+        marginTop: -10,
+        backgroundColor: color.white,
+        borderTopRightRadius: 15,
+        borderTopLeftRadius: 15,
+        alignSelf: 'center',
+    },
+    dropdownStyle: {
+        backgroundColor: color.mediumBlue,
+        flex: 1,
+        width: '100%',
+        borderRadius: 10,
+    },
+    dropdownTextHighlightStyle: {
+        color: color.blue,
+    },
+    dropdownItem: {
+        backgroundColor: color.mediumBlue,
+        color: color.white,
+    },
+    dropdownButton: {
+        fontSize: 14,
+        fontFamily,
+        alignSelf: 'center',
+        marginTop: 10,
+        marginBottom: 10,
+        fontWeight: 'bold',
+        color: color.blue
+    },
+    input: {
+        color: color.blue,
+    },
+    inputContainer: {
+        borderColor: color.blue,
+    },
     containerHeader: {
         height: '50%',
         flex: 1,
@@ -50,7 +93,7 @@ export default StyleSheet.create({
     },
     title: {
         fontFamily,
-        color: color.white,
+        color: color.blue,
         fontSize: 16,
         fontWeight: 'bold',
         marginLeft: 20,
@@ -60,7 +103,7 @@ export default StyleSheet.create({
     },
     tagline: {
         fontFamily,
-        color: color.white,
+        color: color.blue,
         fontSize: 16,
         fontWeight: 'bold',
         marginTop: 10,
@@ -73,7 +116,7 @@ export default StyleSheet.create({
     },
     subtitle: {
         fontFamily,
-        color: color.whiteOpacity60,
+        color: color.blue,
         fontSize: 14,
         marginLeft: 20,
         marginRight: 20,

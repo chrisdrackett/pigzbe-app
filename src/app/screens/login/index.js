@@ -34,11 +34,14 @@ class Login extends Component {
                             <Text style={styles.title}>{strings.loginTitle}</Text>
                             {/* <Text style={styles.subtitle}>{strings.loginSubtitle}</Text> */}
                         </View>
-                        <View>
+                        <View style={styles.containerText}>
                             <InputBoxes
                                 boxes={6}
                                 onFulfill={this.onCodeEntered}
                             />
+                        </View>
+                        <View>
+
                             {/* <TextInput
                                 error={!!error}
                                 value={this.state.inputText}
