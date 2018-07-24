@@ -5,7 +5,7 @@ import KeyHolder from '../../src/app/components/key-holder';
 
 storiesOf('KeyHolder')
     .add('default view', () => (
-        <View style={{backgroundColor: 'black'}}>
+        <View style={{backgroundColor: 'black', padding: 18}}>
             <KeyHolder
                 title={'Secret Key'}
                 content={'SBBZSQRKV4NDIKRVSXYL3T7NYKR3QP4X23VYGLEWYITFCKFN6Y4GY2PA'}
