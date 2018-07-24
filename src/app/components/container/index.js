@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, ScrollView, Dimensions} from 'react-native';
 import styles from './styles';
+import {paddingH} from '../../styles';
 
 const getWidth = () => Dimensions.get('window').width;
 
@@ -20,10 +21,16 @@ const getStyle = (deviceWidth, body, style, light, white, scroll) => {
 
     if (white) {
         s = s.concat(styles.white);
+        s = s.concat([{
+            width: deviceWidth - (paddingH * 2),
+            maxWidth: deviceWidth - (paddingH * 2),
+            minWidth: deviceWidth - (paddingH * 2)
+        }]);
     }
 
     if (!scroll) {
         s = s.concat(styles.justifyCenter);
+    } else {
         s = s.concat(styles.scroll);
     }
 

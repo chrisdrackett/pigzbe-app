@@ -26,11 +26,10 @@ export default StyleSheet.create({
         backgroundColor: color.white,
         borderTopRightRadius: 15,
         borderTopLeftRadius: 15,
-        width: '100%',
-        alignSelf: 'center'
+        flex: 1,
     },
     scroll: {
-        width: '100%',
-        alignSelf: 'stretch'
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
     }
 });

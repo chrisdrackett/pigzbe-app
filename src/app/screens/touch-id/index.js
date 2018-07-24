@@ -25,11 +25,12 @@ class TouchId extends Component {
             >
                 <Fragment>
                     <Button
+                        secondary
                         label={'Enable Touch ID'}
                         onPress={this.onEnable}
                     />
                     <Button
-                        secondary
+                        outline
                         label={'Just use a passcode'}
                         onPress={this.onSkip}
                     />

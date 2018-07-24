@@ -24,12 +24,9 @@ export default StyleSheet.create({
         textAlign: 'center'
     },
     containerBody: {
+        alignSelf: 'center',
         alignItems: 'stretch',
-        flex: 1,
         justifyContent: 'center',
-        width: '100%',
-        paddingLeft: paddingH,
-        paddingRight: paddingH,
         paddingBottom: 20
     },
 });
