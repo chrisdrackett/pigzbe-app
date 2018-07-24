@@ -17,15 +17,17 @@ export default StyleSheet.create({
         paddingRight: 20,
         marginTop: 20,
         marginBottom: 20,
-        width: 300,
+        // width: 300,
     },
     content: {
         fontFamily,
         color: color.white,
         fontSize: 14,
-        fontWeight: 'bold',
     },
     normal: {
         fontWeight: 'normal',
+    },
+    bold: {
+        fontWeight: 'bold',
     },
 });

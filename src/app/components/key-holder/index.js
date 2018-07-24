@@ -7,7 +7,7 @@ export default ({title, content, onPress}) => (
         onPress={onPress}>
         <View style={styles.box}>
             <Text style={styles.content}>
-                <Text style={styles.normal}>{title}</Text> {content}
+                {title} {content}
             </Text>
         </View>
     </TouchableOpacity>
