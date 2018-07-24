@@ -62,8 +62,20 @@ export const saveKeys = () => async (dispatch, getState) => {
 };
 
 export const createKeys = () => async dispatch => {
-    const keypair = Keypair.random();
-    dispatch(setKeys(keypair, false));
+    try {
+        let keypair;
+
+        if (typeof Keypair.randomAsync === 'function') {
+            keypair = await Keypair.randomAsync();
+        } else {
+            keypair = Keypair.random();
+        }
+
+        return dispatch(setKeys(keypair, false));
+    } catch (e) {
+        console.log(e);
+    }
+    return null;
 };
 
 export const importKey = secretKey => async dispatch => {

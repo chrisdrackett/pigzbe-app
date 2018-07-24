@@ -10,8 +10,8 @@ import {SCREEN_SAVE_KEYS, SCREEN_IMPORT_KEYS} from '../../constants';
 import Header from '../../components/header';
 
 class KeysCreate extends Component {
-    onCreate = () => {
-        this.props.dispatch(createKeys());
+    onCreate = async () => {
+        await this.props.dispatch(createKeys());
         this.props.navigation.navigate(SCREEN_SAVE_KEYS);
     }
 

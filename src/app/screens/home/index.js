@@ -97,7 +97,7 @@ class Login extends Component {
                         <Header/>
                         <Container body light>
                             <View style={styles.containerText}>
-                                <Text style={styles.title}>{strings.loginTitle}</Text>
+                                <Text style={styles.title}>Welcome to Pigzbe</Text>
                                 <Text style={styles.subtitle}>New to Pizbe? Create an account below and claim your Wollo</Text>
                             </View>
                             <View>
