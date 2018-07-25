@@ -32,11 +32,13 @@ class Login extends Component {
                 title={'Enter your Passcode'}
                 scroll={false}
                 tagline={`Login with your ${PASSCODE_LENGTH}-digit passcode`}
-            >
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
-                    <View style={{position: 'absolute', top: -330, left: 0, alignItems: 'center', backgroundColor: 'red', width: '100%'}}>
+                headerChildren={(
+                    <View style={{marginTop: 10}}>
                         <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                     </View>
+                )}
+            >
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
                     <NumPad
                         length={PASSCODE_LENGTH}
                         onInput={this.onInput}

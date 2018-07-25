@@ -1,10 +1,8 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import {authCreate} from '../../actions';
-// import Button from '../../components/button';
 import Loader from '../../components/loader';
-// import {strings} from '../../constants';
 import {PASSCODE_LENGTH} from '../../constants';
 import StepModule from '../../components/step-module';
 import NumPad from '../../components/num-pad';
@@ -60,37 +58,24 @@ class SetPasscode extends Component {
                 title={this.state.code ? 'Re-enter Passcode' : 'Passcode needed'}
                 scroll={false}
                 tagline="Please create a back-up passcode to log in in the event your Touch ID doesn’t work."
-            >
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
-                    <View style={{position: 'absolute', top: -330, left: 0, alignItems: 'center', backgroundColor: 'red', width: '100%'}}>
+                headerChildren={(
+                    <View style={{marginTop: 10}}>
                         <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                     </View>
+                )}
+            >
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
                     <NumPad
                         key={this.state.code ? 'confirm' : 'enter'}
                         length={PASSCODE_LENGTH}
                         onInput={this.onInput}
                         onFull={this.state.code ? this.onCodeConfirmed : this.onCodeEntered}
                     />
-                    {/* {this.state.code && (
-                        <Fragment>
-                            <Button
-                                label={strings.loginSubmitButtonLabel}
-                                onPress={this.onSubmit}
-                                disabled={!this.state.confirmed}
-                            />
-                            <Button
-                                secondary
-                                label={'Reset'}
-                                onPress={this.onReset}
-                            />
-                        </Fragment>
-                    )} */}
                 </View>
                 <Loader
                     white
                     isLoading={isLoading}
                 />
-
             </StepModule>
 
         );
