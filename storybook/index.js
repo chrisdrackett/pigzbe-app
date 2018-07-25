@@ -10,6 +10,7 @@ function loadStories() {
     require('./stories/step-module.js');
     require('./stories/modal.js');
     require('./stories/balance.js');
+    require('./stories/passcode.js');
 }
 
 configure(loadStories, module);

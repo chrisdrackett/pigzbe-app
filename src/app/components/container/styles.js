@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {
     color,
-    // paddingH
+    paddingH
 } from '../../styles';
 
 export default StyleSheet.create({
@@ -17,7 +17,9 @@ export default StyleSheet.create({
     containerBody: {
         // alignItems: 'stretch',
         // justifyContent: 'space-between',
-        paddingBottom: 20
+        paddingBottom: 20,
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
     },
     light: {
         backgroundColor: color.mediumBlue,
