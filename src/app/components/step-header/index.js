@@ -1,28 +1,17 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
 import styles from './styles';
-
-const getIconSource = (icon) => {
-    switch (icon) {
-        case 'tick':
-            return require('./images/tick.png');
-        case 'code':
-            return require('./images/code.png');
-        case 'touch-id':
-            return require('./images/touch-id.png');
-        default:
-            return null;
-    }
-};
+import icons from './images';
 
 const StepHeader = ({title, icon}) => {
 
-    const iconSource = getIconSource(icon);
+    console.log(icons);
+    console.log(icons[icon]);
 
     return (
         <View style={styles.container}>
             <Text style={styles.header}>{title}</Text>
-            {iconSource && <Image style={styles.image} source={iconSource} />}
+            {icons[icon] && <Image style={styles.image} source={icons[icon]} />}
         </View>
     );
 };

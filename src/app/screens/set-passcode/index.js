@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Keyboard, View} from 'react-native';
+import {Keyboard} from 'react-native';
 import {authCreate} from '../../actions';
 import Button from '../../components/button';
 import Loader from '../../components/loader';
@@ -59,7 +59,7 @@ class SetPasscode extends Component {
                 scroll={false}
                 tagline="Set up a backup 6 digit passcode."
             >
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
+                <Fragment>
                     {this.state.code ? (
                         <InputBoxes
                             boxes={6}
@@ -87,7 +87,7 @@ class SetPasscode extends Component {
                             />
                         </Fragment>
                     )}
-                </View>
+                </Fragment>
                 <Loader
                     white
                     isLoading={isLoading}
