@@ -64,7 +64,7 @@ class SetPasscode extends Component {
                 scroll={false}
                 tagline="Please create a back-up passcode to log in in the event your Touch ID doesn’t work."
             >
-                <Fragment>
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
                     <View style={{position: 'absolute', top: -330, left: 0, alignItems: 'center', backgroundColor: 'red', width: '100%'}}>
                         <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                     </View>
@@ -88,7 +88,7 @@ class SetPasscode extends Component {
                             />
                         </Fragment>
                     )} */}
-                </Fragment>
+                </View>
                 <Loader
                     white
                     isLoading={isLoading}

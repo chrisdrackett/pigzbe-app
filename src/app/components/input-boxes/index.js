@@ -13,6 +13,7 @@ export default class extends Component {
       boxes: 4,
       padding: 0,
       style: null,
+      secure: false,
       boxSize: {width: null, height: null}
   }
 
@@ -22,7 +23,8 @@ export default class extends Component {
           boxSize,
           onFulfill,
           padding,
-          style
+          style,
+          secure
       } = this.props;
 
       const width = boxSize.width || ~~(((Dimensions.get('window').width * 0.75) - padding) / boxes);
@@ -33,7 +35,8 @@ export default class extends Component {
                   activeColor={color.blue}
                   inactiveColor={color.mediumBlue}
                   autoFocus={false}
-                  ignoreCase={true}
+                  ignoreCase
+                  secureTextEntry={secure}
                   inputPosition="center"
                   keyboardType="number-pad"
                   size={width}
