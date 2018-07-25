@@ -8,6 +8,8 @@ const getIconSource = (icon) => {
             return require('./images/tick.png');
         case 'code':
             return require('./images/code.png');
+        case 'touch-id':
+            return require('./images/touch-id.png');
         default:
             return null;
     }

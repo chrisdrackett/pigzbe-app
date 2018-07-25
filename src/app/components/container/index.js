@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {View, Dimensions} from 'react-native';
+import {View, ScrollView, Dimensions} from 'react-native';
 import styles from './styles';
+import {paddingH} from '../../styles';
 
 const getWidth = () => Dimensions.get('window').width;
 
-const getStyle = (deviceWidth, body, style, light) => {
-    let s = [styles.container, {width: deviceWidth}];
+const getStyle = (deviceWidth, body, style, light, white, scroll) => {
+    let s = [styles.container, {width: white ? deviceWidth - paddingH * 2 : deviceWidth}];
 
     if (body) {
         s = s.concat(styles.containerBody);
@@ -18,6 +19,14 @@ const getStyle = (deviceWidth, body, style, light) => {
         s = s.concat(styles.light);
     }
 
+    if (white) {
+        s = s.concat(styles.white);
+    }
+
+    if (!scroll) {
+        s = s.concat(styles.justifyCenter);
+    }
+
     return s;
 };
 
@@ -26,20 +35,29 @@ export default class Container extends Component {
         deviceWidth: getWidth()
     }
 
+    static defaultProps = {
+        scroll: false,
+        white: false
+    }
+
     onLayout = () => {
         this.setState({deviceWidth: getWidth()});
     }
 
     render() {
-        const {children, body, style, light} = this.props;
+        const {children, body, style, white, light, scroll} = this.props;
         const {deviceWidth} = this.state;
 
-        console.log(light);
+        const ViewType = scroll ? ScrollView : View;
+        const props = {
+            style: getStyle(deviceWidth, body, style, light, white, scroll),
+            contentContainerStyle: scroll ? [styles.justifyCenter, styles.scroll] : null
+        };
 
         return (
-            <View style={getStyle(deviceWidth, body, style, light)} onLayout={this.onLayout}>
+            <ViewType {...props} onLayout={this.onLayout}>
                 {children}
-            </View>
+            </ViewType>
         );
     }
 }

@@ -9,6 +9,7 @@ export default StyleSheet.create({
     },
     image: {
         marginTop: 20,
+        height: 67
     },
     header: {
         fontFamily,

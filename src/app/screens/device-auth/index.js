@@ -1,16 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Dimensions, ScrollView, Text, View, Keyboard, Image} from 'react-native';
+import {Dimensions, Keyboard, Image} from 'react-native';
 import Dropdown from 'react-native-modal-dropdown';
 
 import styles from './styles';
 import Button from '../../components/button';
 import TextInput from '../../components/text-input';
 import Loader from '../../components/loader';
-import KeyboardAvoid from '../../components/keyboard-avoid';
-import Container from '../../components/container';
 import {SCREEN_TOUCH_ID} from '../../constants';
-import Header from '../../components/header';
 import isEmail from '../../utils/is-email';
 import InputBoxes from '../../components/input-boxes';
 import {
@@ -20,7 +17,7 @@ import {
     deviceAuthClear,
     deviceAuthVerify
 } from '../../actions';
-import StepHeader from '../../components/step-header';
+import StepModule from '../../components/step-module';
 import countryCodes from './country-codes';
 import {color} from '../../styles';
 
@@ -87,136 +84,126 @@ class DeviceAuth extends Component {
             qrCode,
         } = this.props;
 
+        // const id = 2833288;
+        // const qrCode = 'https://s3.amazonaws.com/qr-codes-9f266de4dd32a7244bf6862baea01379/A3-0S-XbnuBmBZyw5Coe1SDSSBYncvW1guTv1znoHkU.png';
+
+        // console.log(id);
+        // console.log(qrCode);
+
         const countrySelected = countryCodes[Number(this.state.country)];
         const phoneNumber = `+${countryCodes[Number(this.state.country)].code} ${this.state.phone}`;
 
         return (
-            <Container>
-                <KeyboardAvoid>
-                    <Header/>
-                    <StepHeader title={!id ? 'Get Started' : 'Enter Code'} icon={!id ? 'tick' : 'code'}/>
-                    <ScrollView style={styles.containerStepScroll}>
-                        <View style={styles.containerText}>
-                            {!id && <Text style={styles.subtitle}>{'Before we begin, enter your mobile number to verify your mobile device.'}</Text>}
-                            {id && <Text style={styles.subtitle}>{`Now enter the code we sent to ${phoneNumber}`}</Text>}
-                            {error && (
-                                <Text style={styles.subtitle}>{error.message}</Text>
-                            )}
-                        </View>
-                        {id && (
-                            <View>
-                                {/* <Text style={styles.subtitle}>{id}</Text> */}
-                                {qrCode && (
-                                    <Image source={{uri: qrCode}} style={{alignSelf: 'center', width: qrSize, height: qrSize}}/>
-                                )}
-                                <InputBoxes
-                                    onFulfill={this.onChangeCode}
-                                    boxes={7}
-                                    padding={10}
-                                    boxSize={{
-                                        width: 35,
-                                        height: 45,
-                                    }}
-                                    style={{marginBottom: 10}}
-                                />
+            <StepModule
+                title={!id ? 'Get Started' : 'Enter Code'}
+                icon={!id ? 'tick' : 'code'}
+                scroll
+                tagline={!id
+                    ? 'Before we begin, enter your mobile number to verify your mobile device.'
+                    : `Now enter the code we sent to \n${phoneNumber}`
+                }
+                error={error}>
+                <Fragment>
+                    {id && (
+                        <Fragment>
+                            {qrCode && <Image source={{uri: qrCode}} style={{marginTop: -30, alignSelf: 'center', width: qrSize, height: qrSize}}/> }
+                            <InputBoxes
+                                onFulfill={this.onChangeCode}
+                                boxes={7}
+                                padding={10}
+                                boxSize={{width: 35, height: 45}}
+                                style={{marginBottom: 10}}
+                            />
+                            <Button
+                                plain
+                                textStyle={{color: color.blue}}
+                                label={'Resend code'}
+                                onPress={this.onResend}
+                            />
+                            <Button
+                                secondary
+                                label={'Verify'}
+                                onPress={this.onVerify}
+                            />
+                            <Button
+                                outline label={'Back'}
+                                onPress={this.onBack}
+                            />
+                        </Fragment>
+                    )}
+                    {!id && (
+                        <Fragment>
+
+                            <TextInput
+                                dark
+                                error={!!error}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                keyboardType="email-address"
+                                value={this.state.email}
+                                placeholder={'Email address'}
+                                onChangeText={this.onChangeEmail}
+                                returnKeyType="done"
+                            />
+                            <TextInput
+                                dark
+                                extra={{textAlign: 'center'}}
+                                error={!!error}
+                                keyboardType="number-pad"
+                                value={this.state.phone}
+                                style={{width: '100%'}}
+                                placeholder={'Your mobile number'}
+                                onChangeText={this.onChangePhone}
+                                returnKeyType="done"
+                            />
+                            <Dropdown
+                                options={countryCodes.map(c => c.country)}
+                                style={styles.picker}
+                                defaultValue={countryCodes[0].country}
+                                selectedValue={countrySelected.country}
+                                textStyle={styles.dropdownButton}
+                                dropdownTextStyle={[styles.dropdownButton, styles.dropdownItem]}
+                                dropdownStyle={styles.dropdownStyle}
+                                onSelect={this.onChangeCountry}
+                                dropdownTextHighlightStyle={styles.dropdownTextHighlightStyle}
+                                adjustFrame={(obj) => {
+                                    const width = Dimensions.get('window').width * 0.85;
+                                    return {
+                                        ...obj,
+                                        top: obj.top + 75,
+                                        width,
+                                        left: (Dimensions.get('window').width - width) / 2
+                                    };
+                                }}
+                            />
+                            {/* <TextInput
+                                error={!!error}
+                                value={this.state.country}
+                                placeholder={'Country Code'}
+                                onChangeText={this.onChangeCountry}
+                                returnKeyType="done"
+                            /> */}
+                            <Button
+                                label={'Send Code'}
+                                secondary
+                                onPress={this.onSend}
+                                disabled={!(this.state.email && this.state.phone && this.state.country)}
+                            />
+                            {__DEV__ && (
                                 <Button
-                                    plain
-                                    textStyle={{color: color.blue}}
-                                    label={'Resend code'}
-                                    onPress={this.onResend}
-                                />
-                                <Button
-                                    secondary
-                                    style={{
-                                        alignSelf: 'center',
-                                        width: '90%'
-                                    }}
-                                    label={'Verify'}
-                                    onPress={this.onVerify}
-                                />
-                                <Button
-                                    style={{
-                                        alignSelf: 'center',
-                                        width: '90%'
-                                    }}
                                     outline
-                                    label={'Back'}
-                                    onPress={this.onBack}
+                                    label={'Skip'}
+                                    onPress={() => navigation.navigate(SCREEN_TOUCH_ID)}
                                 />
-                            </View>
-                        )}
-                        {!id && (
-                            <View style={{width: '90%', alignSelf: 'center'}}>
-                                <TextInput
-                                    dark
-                                    error={!!error}
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    keyboardType="email-address"
-                                    value={this.state.email}
-                                    placeholder={'Email address'}
-                                    style={{width: '100%'}}
-                                    onChangeText={this.onChangeEmail}
-                                    returnKeyType="done"
-                                />
-                                <TextInput
-                                    dark
-                                    extra={{textAlign: 'center'}}
-                                    error={!!error}
-                                    keyboardType="number-pad"
-                                    value={this.state.phone}
-                                    style={{width: '100%'}}
-                                    placeholder={'Your mobile number'}
-                                    onChangeText={this.onChangePhone}
-                                    returnKeyType="done"
-                                />
-                                <Dropdown
-                                    options={countryCodes.map(c => c.country)}
-                                    style={styles.picker}
-                                    defaultValue={countryCodes[0].country}
-                                    selectedValue={countrySelected.country}
-                                    textStyle={styles.dropdownButton}
-                                    dropdownTextStyle={[styles.dropdownButton, styles.dropdownItem]}
-                                    dropdownStyle={styles.dropdownStyle}
-                                    onSelect={this.onChangeCountry}
-                                    dropdownTextHighlightStyle={styles.dropdownTextHighlightStyle}
-                                    adjustFrame={(obj) => {
-                                        const width = Dimensions.get('window').width * 0.85;
-                                        return {
-                                            ...obj,
-                                            top: obj.top + 75,
-                                            width,
-                                            left: (Dimensions.get('window').width - width) / 2
-                                        };
-                                    }}
-                                />
-                                {/* <TextInput
-                                    error={!!error}
-                                    value={this.state.country}
-                                    placeholder={'Country Code'}
-                                    onChangeText={this.onChangeCountry}
-                                    returnKeyType="done"
-                                /> */}
-                                <Button
-                                    label={'Send Code'}
-                                    onPress={this.onSend}
-                                    disabled={!(this.state.email && this.state.phone && this.state.country)}
-                                />
-                                {__DEV__ && (
-                                    <Button
-                                        secondary
-                                        label={'Skip'}
-                                        onPress={() => navigation.navigate(SCREEN_TOUCH_ID)}
-                                    />
-                                )}
-                            </View>
-                        )}
-                    </ScrollView>
-                </KeyboardAvoid>
-                <Loader
-                    isLoading={isLoading}
-                />
-            </Container>
+                            )}
+                        </Fragment>
+                    )}
+                    <Loader
+                        white
+                        isLoading={isLoading}
+                    />
+                </Fragment>
+            </StepModule>
         );
     }
 }
