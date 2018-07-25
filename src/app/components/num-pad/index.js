@@ -24,7 +24,13 @@ const NumKey = ({num, onPress}) => (
 
 export default class NumPad extends Component {
     state = {
-        input: ''
+        input: '',
+    }
+
+    static defaultProps = {
+        length: 6,
+        onInput: () => {},
+        onFull: () => {},
     }
 
     onInput = num => {
@@ -76,9 +82,3 @@ export default class NumPad extends Component {
         );
     }
 }
-
-NumPad.defaultProps = {
-    length: 6,
-    onInput: () => {},
-    onFull: () => {},
-};
