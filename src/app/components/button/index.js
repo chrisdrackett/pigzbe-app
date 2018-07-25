@@ -5,34 +5,56 @@ import {
 } from 'react-native';
 import styles from './styles';
 
-const getButtonHitStyle = (plain, style, outline, secondary = false) => {
+const getButtonHitStyle = (plain, style, outline, secondary = false, disabled = false) => {
     if (plain) {
         return null;
     }
 
+    let s = [styles.buttonHit];
+
     if (secondary) {
-        return [styles.buttonHit, styles.buttonHitSecondary, style];
+        s = s.concat(styles.buttonHitSecondary);
+
+        if (disabled) {
+            s = s.concat(styles.buttonHitSecondaryDisabled);
+        }
     }
 
     if (outline) {
-        return [styles.buttonHit, styles.buttonHitOutline, style];
+        s = s.concat(styles.buttonHitOutline);
+
+        if (disabled) {
+            s = s.concat(styles.buttonHitOutlineDisabled);
+        }
     }
 
-    return [styles.buttonHit, style];
+    s = s.concat(style);
+
+    return s;
 };
 
 const getButtonTextStyle = (plain, disabled, secondary = false, textStyle = {}) => {
+    let s = [styles.button];
+
     if (plain) {
-        return [styles.button, styles.buttonPlain, textStyle];
+        s = s.concat(styles.buttonPlain);
     }
 
     if (disabled) {
-        return [styles.button, styles.buttonDisabled, textStyle];
+        s = s.concat(styles.buttonDisabled);
     }
 
-    const style = secondary ? [styles.buttonTextSecondary, textStyle] : textStyle;
+    if (secondary) {
+        s = s.concat(styles.buttonTextSecondary);
 
-    return [styles.button, style];
+        if (disabled) {
+            s = s.concat(styles.buttonTextSecondaryDisabled);
+        }
+    }
+
+    s = s.concat(textStyle);
+
+    return s;
 };
 
 export default ({
@@ -47,7 +69,7 @@ export default ({
 }) => (
     <TouchableOpacity
         disabled={disabled}
-        style={getButtonHitStyle(plain, style, outline, secondary)}
+        style={getButtonHitStyle(plain, style, outline, secondary, disabled)}
         onPress={() => disabled ? false : onPress()}>
         <Text
             style={getButtonTextStyle(plain, disabled, secondary, textStyle)}>

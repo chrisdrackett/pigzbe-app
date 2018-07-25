@@ -2,8 +2,7 @@ import {StyleSheet} from 'react-native';
 
 import {
     color,
-    fontFamily,
-    paddingH
+    fontFamily
 } from '../../styles';
 
 export default StyleSheet.create({
@@ -30,28 +29,6 @@ export default StyleSheet.create({
     warning: {
         color: color.orange,
         fontWeight: 'bold',
-    },
-    confirmCopyOverlay: {
-        backgroundColor: color.blueOpacity80,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    confirmCopyContainer: {
-        borderRadius: 10,
-        backgroundColor: color.white,
-        paddingTop: 22,
-        paddingBottom: 6,
-        paddingLeft: 14,
-        paddingRight: 14,
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 263,
     },
     checkbox: {
         position: 'relative',

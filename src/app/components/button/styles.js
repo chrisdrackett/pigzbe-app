@@ -18,9 +18,16 @@ export default StyleSheet.create({
         backgroundColor: color.mediumBlue,
         borderColor: color.white
     },
+    buttonHitSecondaryDisabled: {
+        backgroundColor: color.mediumBlueOpacity50,
+        borderColor: color.white
+    },
     buttonHitOutline: {
         backgroundColor: color.transparent,
         borderColor: color.blue
+    },
+    buttonHitOutlineDisabled: {
+        borderColor: color.blueOpacity40
     },
     buttonTextSecondary: {
         color: color.white
@@ -30,10 +37,10 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         alignSelf: 'stretch',
         color: color.blue,
-        fontSize: 16,
+        fontSize: 14,
         paddingLeft: 20,
         paddingRight: 20,
-        paddingTop: 10,
+        paddingTop: 12,
         height: 45,
         textAlign: 'center'
     },

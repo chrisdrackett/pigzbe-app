@@ -8,6 +8,7 @@ function loadStories() {
     require('./stories/button.js');
     require('./stories/text-input.js');
     require('./stories/step-module.js');
+    require('./stories/modal.js');
 }
 
 configure(loadStories, module);
