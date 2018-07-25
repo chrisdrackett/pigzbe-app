@@ -4,6 +4,7 @@ import {STORAGE_KEY_SETTINGS} from '../constants';
 export const SETTINGS_ENABLE_TOUCH_ID = 'SETTINGS_ENABLE_TOUCH_ID';
 export const SETTINGS_UPDATE = 'SETTINGS_UPDATE';
 export const SETTINGS_CLEAR = 'SETTINGS_CLEAR';
+export const SETTINGS_FIRST_TIME = 'SETTINGS_FIRST_TIME';
 
 export const settingsLoad = () => async dispatch => {
     try {
@@ -29,6 +30,8 @@ export const settingsUpdate = data => async (dispatch) => {
 };
 
 export const settingsEnableTouchId = value => ({type: SETTINGS_ENABLE_TOUCH_ID, value});
+
+export const settingsFirstTime = () => ({type: SETTINGS_FIRST_TIME});
 
 // const toggleSubscribe = async ({api, email, subscribe}) => {
 //     try {

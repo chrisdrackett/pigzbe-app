@@ -1,6 +1,6 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import {BalanceComponent} from './';
+import {storiesOf} from '@storybook/react-native';
+import {BalanceComponent} from '../../src/app/screens/balance';
 
 const props = {
     navigation: {
@@ -21,15 +21,16 @@ const props = {
         GBP: 0.091956,
         GOLD: 0.0031452
     },
-    balance: '0',
+    balance: '100',
     baseCurrency: 'USD',
     escrow: null,
-    firstTime: true
+    firstTime: false
 };
 
-describe('Balance', () => {
-    test('renders correctly', () => {
-        const tree = renderer.create(<BalanceComponent {...props}/>).toJSON();
-        expect(tree).toMatchSnapshot();
-    });
-});
+storiesOf('Balance')
+    .add('default view', () => (
+        <BalanceComponent {...props}/>
+    ))
+    .add('first time', () => (
+        <BalanceComponent {...{...props, firstTime: true}}/>
+    ));

@@ -9,6 +9,7 @@ function loadStories() {
     require('./stories/text-input.js');
     require('./stories/step-module.js');
     require('./stories/modal.js');
+    require('./stories/balance.js');
 }
 
 configure(loadStories, module);
@@ -18,3 +19,7 @@ const StorybookUI = getStorybookUI({
     host: 'localhost',
 });
 AppRegistry.registerComponent('PigzbeApp', () => StorybookUI);
+
+if (typeof console !== 'undefined') {
+    console.disableYellowBox = true;
+}
