@@ -11,7 +11,7 @@ export default StyleSheet.create({
         alignItems: 'stretch',
         paddingLeft: paddingH,
         paddingRight: paddingH,
-        paddingTop: 20,
+        paddingTop: 30,
         flex: 0,
     },
     containerBody: {
@@ -22,9 +22,9 @@ export default StyleSheet.create({
     subtitle: {
         fontFamily,
         color: color.blue,
-        fontSize: 14,
-        marginLeft: 20,
-        marginRight: 20,
+        fontSize: 16,
+        marginLeft: 0,
+        marginRight: 0,
         marginBottom: 20,
         textAlign: 'center'
     },

@@ -3,4 +3,5 @@ export default {
     code: require('./code.png'),
     'touch-id': require('./touch-id.png'),
     keys: require('./keys.png'),
+    secure: require('./secure.png'),
 };

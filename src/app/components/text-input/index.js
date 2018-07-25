@@ -53,7 +53,7 @@ export default ({
                 {label}
             </Text>
         ) : null}
-        <View style={getHeight(numberOfLines, 10)}>
+        <View style={[getHeight(numberOfLines, 10), {alignSelf: 'stretch'}]}>
             <TextInput
                 style={getStyle(error, dark, numberOfLines, style)}
                 placeholder={placeholder}

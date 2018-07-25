@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+// import {View} from 'react-native';
 import {createKeys} from '../../actions';
 import Button from '../../components/button';
 // import {strings} from '../../constants';

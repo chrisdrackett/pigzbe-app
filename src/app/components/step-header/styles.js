@@ -13,6 +13,12 @@ export default StyleSheet.create({
         width: 121,
         height: 108,
     },
+    noImage: {
+        marginTop: 0,
+        marginBottom: -25,
+        width: 121,
+        height: 108,
+    },
     header: {
         fontFamily,
         color: color.white,
