@@ -1,29 +1,35 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Keyboard} from 'react-native';
+import {View} from 'react-native';
 import {authCreate} from '../../actions';
-import Button from '../../components/button';
+// import Button from '../../components/button';
 import Loader from '../../components/loader';
-import {strings} from '../../constants';
-import {SCREEN_CREATE_KEYS} from '../../constants';
-import InputBoxes from '../../components/input-boxes';
+// import {strings} from '../../constants';
+// import {SCREEN_CREATE_KEYS} from '../../constants';
 import StepModule from '../../components/step-module';
+import NumPad from '../../components/num-pad';
+import Dots from '../../components/dots';
+
+const PASSCODE_LENGTH = 6;
 
 class SetPasscode extends Component {
     state = {
+        input: '',
         code: null,
         confirmed: false,
         error: false,
     }
 
-    onCodeEntered = code => {
-        console.log('code:', code);
+    onInput = input => this.setState({input})
 
-        this.setState({code});
+    onCodeEntered = code => {
+        console.log('onCodeEntered code:', code);
+
+        this.setState({code, input: ''});
     }
 
     onCodeConfirmed = code => {
-        console.log('code:', code);
+        console.log('onCodeConfirmed code:', code, this.state.code);
 
         const confirmed = code === this.state.code;
 
@@ -31,12 +37,10 @@ class SetPasscode extends Component {
             confirmed,
             error: !confirmed
         });
-    }
 
-    onSubmit = () => {
-        Keyboard.dismiss();
-        this.props.dispatch(authCreate(this.state.code));
-        // this.props.navigation.navigate(SCREEN_CREATE_KEYS);
+        if (confirmed) {
+            this.props.dispatch(authCreate(this.state.code));
+        }
     }
 
     onReset = () => {
@@ -44,6 +48,7 @@ class SetPasscode extends Component {
             confirmed: false,
             error: false,
             code: null,
+            input: '',
         });
     }
 
@@ -54,26 +59,21 @@ class SetPasscode extends Component {
 
         return (
             <StepModule
-                title={this.state.code ? 'Re-enter Passcode' : 'Set Passcode'}
-                icon="touch-id"
+                title={this.state.code ? 'Re-enter Passcode' : 'Passcode needed'}
                 scroll={false}
-                tagline="Set up a backup 6 digit passcode."
+                tagline="Please create a back-up passcode to log in in the event your Touch ID doesn’t work."
             >
-                <Fragment>
-                    {this.state.code ? (
-                        <InputBoxes
-                            boxes={6}
-                            secure
-                            onFulfill={this.onCodeConfirmed}
-                        />
-                    ) : (
-                        <InputBoxes
-                            boxes={6}
-                            secure
-                            onFulfill={this.onCodeEntered}
-                        />
-                    )}
-                    {this.state.code && (
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
+                    <View style={{position: 'absolute', top: -330, left: 0, alignItems: 'center', backgroundColor: 'red', width: '100%'}}>
+                        <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
+                    </View>
+                    <NumPad
+                        key={this.state.code ? 'confirm' : 'enter'}
+                        length={PASSCODE_LENGTH}
+                        onInput={this.onInput}
+                        onFull={this.state.code ? this.onCodeConfirmed : this.onCodeEntered}
+                    />
+                    {/* {this.state.code && (
                         <Fragment>
                             <Button
                                 label={strings.loginSubmitButtonLabel}
@@ -86,8 +86,8 @@ class SetPasscode extends Component {
                                 onPress={this.onReset}
                             />
                         </Fragment>
-                    )}
-                </Fragment>
+                    )} */}
+                </View>
                 <Loader
                     white
                     isLoading={isLoading}
