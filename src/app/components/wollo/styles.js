@@ -6,13 +6,10 @@ import {
 
 export default StyleSheet.create({
     wolloContainer: {
-        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10
     },
     balanceContainer: {
-        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row'
@@ -20,15 +17,17 @@ export default StyleSheet.create({
     currencyLogo: {
         width: 23,
         height: 19,
-        marginRight: 10
+        marginRight: 10,
     },
     balance: {
         fontFamily,
+        fontWeight: 'bold',
         color: color.white,
-        fontSize: 40
+        fontSize: 22,
     },
     label: {
         fontFamily,
+        fontWeight: 'bold',
         color: color.whiteOpacity60,
         fontSize: 14,
     },
