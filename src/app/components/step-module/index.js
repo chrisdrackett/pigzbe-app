@@ -26,7 +26,11 @@ export default class extends Component {
           <Container style={styles.wrapper}>
               <Header/>
               <StepHeader title={title} icon={icon}/>
-              <Container white scroll={scroll}>
+              <Container
+                  white
+                  scroll={scroll}
+                  style={{width: '88.75%', alignSelf: 'center'}}
+              >
                   <KeyboardAvoid>
                       <View style={styles.containerText}>
                           <Text style={styles.subtitle}>{tagline}</Text>

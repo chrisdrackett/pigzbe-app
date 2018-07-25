@@ -27,7 +27,7 @@ export default StyleSheet.create({
         textAlign: 'center'
     },
     wrapper: {
-        alignItems: 'stretch',
+        alignItems: 'center',
         flexGrow: 1,
         flex: 1,
         alignSelf: 'center'
