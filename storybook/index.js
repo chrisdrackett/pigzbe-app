@@ -5,6 +5,9 @@ function loadStories() {
     require('./stories/hello.js');
     require('./stories/key-holder.js');
     require('./stories/num-pad.js');
+    require('./stories/button.js');
+    require('./stories/text-input.js');
+    require('./stories/step-module.js');
 }
 
 configure(loadStories, module);

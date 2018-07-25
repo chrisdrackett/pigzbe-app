@@ -32,6 +32,7 @@ class KeysImport extends Component {
             >
                 <View>
                     <TextInput
+                        dark
                         error={!!error}
                         value={this.state.inputText}
                         placeholder={'secret key'}
