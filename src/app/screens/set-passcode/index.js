@@ -47,6 +47,8 @@ class SetPasscode extends Component {
         });
     }
 
+    onSkip = () => this.props.dispatch(authCreate('111111'))
+
     render() {
         const {isLoading} = this.props;
 
@@ -84,7 +86,6 @@ class SetPasscode extends Component {
                         </Fragment>
                     )}
                 </Fragment>
-
                 <Loader
                     white
                     isLoading={isLoading}
