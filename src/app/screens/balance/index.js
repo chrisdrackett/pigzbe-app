@@ -4,6 +4,7 @@ import styles from './styles';
 import {
     strings,
     SCREEN_ESCROW,
+    SCREEN_SETTINGS,
     COINS,
     COIN_DPS
 } from '../../constants';
@@ -16,12 +17,23 @@ import Button from '../../components/button';
 import Wollo from '../../components/wollo';
 import Footer from '../../components/footer';
 import {getExchange} from '../../actions/coins';
+import {settingsFirstTime} from '../../actions';
+import Modal from '../../components/modal';
+import Title from '../../components/title';
+import Paragraph from '../../components/paragraph';
 
 class Balance extends Component {
 
     async componentWillMount() {
         console.log('Balance componentWillMount');
         this.props.dispatch(getExchange());
+    }
+
+    onCloseModal = () => this.props.dispatch(settingsFirstTime())
+
+    onSettings = () => {
+        this.onCloseModal();
+        this.props.navigation.navigate(SCREEN_SETTINGS);
     }
 
     render () {
@@ -31,12 +43,15 @@ class Balance extends Component {
             balance,
             baseCurrency,
             escrow,
-            navigation
+            navigation,
+            firstTime
         } = this.props;
 
         if (!exchange && !error) {
             return <Loader isLoading />;
         }
+
+        console.log(JSON.stringify(this.props, null, 2));
 
         const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
 
@@ -57,6 +72,23 @@ class Balance extends Component {
                         />
                     ) : null}
                 </Footer>
+                {firstTime && (
+                    <Modal>
+                        <Title dark>Howdy!</Title>
+                        <Paragraph>Welcome to your Pigzbe wallet. To fully activate your wallet you need to transfer funds into it.</Paragraph>
+                        <Paragraph style={{marginBottom: 40}}>If you’re an *ICO, Airdrop, Bounty* or VIP, you can do this via settings.</Paragraph>
+                        <Button
+                            secondary
+                            label={'Good to know!'}
+                            onPress={this.onCloseModal}
+                        />
+                        <Button
+                            outline
+                            label={'Go to settings'}
+                            onPress={this.onSettings}
+                        />
+                    </Modal>
+                )}
             </Fragment>
         );
     }
@@ -72,5 +104,6 @@ export default connect(
         balance: state.wollo.balance,
         baseCurrency: state.wollo.baseCurrency,
         escrow: state.escrow.escrowPublicKey,
+        firstTime: state.settings.firstTime,
     })
 )(Balance);

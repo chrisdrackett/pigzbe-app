@@ -1,6 +1,7 @@
 import {
     SETTINGS_ENABLE_TOUCH_ID,
-    SETTINGS_UPDATE
+    SETTINGS_UPDATE,
+    SETTINGS_FIRST_TIME
 } from '../actions';
 
 const isUndefined = value => typeof value === 'undefined';
@@ -14,10 +15,16 @@ export const initialState = {
     email: null,
     phone: null,
     country: null,
+    firstTime: true,
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case SETTINGS_FIRST_TIME:
+            return {
+                ...state,
+                firstTime: false
+            };
         case SETTINGS_ENABLE_TOUCH_ID:
             return {
                 ...state,
