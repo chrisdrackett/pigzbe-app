@@ -1,5 +1,6 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {View} from 'react-native';
 import Button from '../../components/button';
 // import {strings} from '../../constants';
 import {SCREEN_SET_PASSCODE} from '../../constants';
@@ -24,7 +25,7 @@ class TouchId extends Component {
                 scroll={false}
                 tagline="We use your phone’s security in combination with it’s in-built hardware to secure your account."
             >
-                <Fragment>
+                <View>
                     <Button
                         secondary
                         label={'Enable Touch ID'}
@@ -35,7 +36,7 @@ class TouchId extends Component {
                         label={'Just use a passcode'}
                         onPress={this.onSkip}
                     />
-                </Fragment>
+                </View>
 
             </StepModule>
         );

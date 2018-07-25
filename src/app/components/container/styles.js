@@ -7,7 +7,7 @@ export default StyleSheet.create({
         flex: 1,
     },
     justifyCenter: {
-        alignSelf: 'stretch',
+        alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -22,13 +22,14 @@ export default StyleSheet.create({
     white: {
         marginTop: -10,
         backgroundColor: color.white,
-        borderTopRightRadius: 15,
-        borderTopLeftRadius: 15,
+        borderTopRightRadius: 5,
+        borderTopLeftRadius: 5,
         flex: 1,
         flexGrow: 1,
 
     },
     scroll: {
+        justifyContent: 'flex-start',
         // marginLeft: paddingH,
         // marginRight: paddingH,
     },
