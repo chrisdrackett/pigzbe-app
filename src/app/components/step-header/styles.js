@@ -8,13 +8,16 @@ export default StyleSheet.create({
         marginTop: 20,
     },
     image: {
-        marginTop: 20,
-        height: 67,
-        width: 67,
+        marginTop: 0,
+        marginBottom: -25,
+        width: 121,
+        height: 108,
     },
     noImage: {
-        marginTop: 20,
-        height: 67,
+        marginTop: 0,
+        marginBottom: -25,
+        width: 121,
+        height: 108,
     },
     header: {
         fontFamily,

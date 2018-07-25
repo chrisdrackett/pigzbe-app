@@ -41,11 +41,12 @@ class KeysImport extends Component {
                         returnKeyType="done"
                     />
                     <Button
+                        secondary
                         label={'Import'}
                         onPress={this.onImport}
                     />
                     <Button
-                        secondary
+                        outline
                         label={'Back'}
                         onPress={this.onBack}
                     />

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+// import {View} from 'react-native';
 import {createKeys} from '../../actions';
 import Button from '../../components/button';
 // import {strings} from '../../constants';
@@ -21,21 +21,21 @@ class KeysCreate extends Component {
         return (
             <StepModule
                 title="Create Your Keys"
-                icon="device"
+                icon="keys"
                 scroll={false}
-                tagline="We will now create your Public and Private wallet keys. Your Private Key must remain confidential and you will be asked to save this in a safe place in the next step."
+                tagline={'We will now create your Public and Private wallet keys.\n\nYour Private Key must remain confidential and you will be asked to save this in a safe place in the next step.'}
             >
-                <View>
-                    <Button
-                        secondary
-                        label={'Create Keys'}
-                        onPress={this.onCreate}
-                    />
-                    <Button
-                        label={'Restore with previous keys'}
-                        onPress={this.onImport}
-                    />
-                </View>
+                <Button
+                    secondary
+                    label={'Create Keys'}
+                    onPress={this.onCreate}
+                />
+                <Button
+                    outline
+                    textStyle={{fontSize: 14, paddingTop: 12}}
+                    label={'Restore with previous keys'}
+                    onPress={this.onImport}
+                />
 
             </StepModule>
         );

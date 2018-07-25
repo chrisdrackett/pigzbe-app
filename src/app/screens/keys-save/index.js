@@ -71,11 +71,12 @@ class KeysSave extends Component {
                             onPress={this.onCopy}
                         />
                         <Button
+                            secondary
                             label={'Save Key'}
                             onPress={this.onCopy}
                         />
                         <Button
-                            secondary
+                            outline
                             label={'Next'}
                             disabled={!copied && !isDesktop}
                             onPress={this.onConfirm}
