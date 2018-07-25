@@ -1,15 +1,14 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Text, View, Share} from 'react-native';
-import styles from './styles';
+import {View, Share} from 'react-native';
+// import styles from './styles';
 import Button from '../../components/button';
 // import {strings} from '../../constants';
-import Container from '../../components/container';
-import Header from '../../components/header';
 import KeyHolder from '../../components/key-holder';
 import ConfirmCopy from '../../components/confirm-copy';
 import {saveKeys} from '../../actions';
 import isDesktop from '../../utils/is-desktop';
+import StepModule from '../../components/step-module';
 
 const copyKeys = async (sk, pk) => {
     const title = 'Your Pigzbe Keys';
@@ -58,19 +57,19 @@ class KeysSave extends Component {
         const {copied, showConfirm} = this.state;
 
         return (
-            <Container>
-                <Header/>
-                <Container body>
-                    <View style={styles.containerText}>
-                        <Text style={styles.title}>{'Your Private Key'}</Text>
-                        <Text style={styles.subtitle}>Below is your Pigzbe wallet Private Key. You must make a secure copy now. If you lose your key, you lose your funds.</Text>
+            <Fragment>
+                <StepModule
+                    title="Your Private Key"
+                    icon="secure"
+                    scroll={false}
+                    tagline="Below is your Pigzbe wallet Private Key. You must make a secure copy now. If you lose your key, you lose your funds."
+                >
+                    <View>
                         <KeyHolder
                             title={'Secret Key'}
                             content={secretKey}
                             onPress={this.onCopy}
                         />
-                    </View>
-                    <View>
                         <Button
                             label={'Save Key'}
                             onPress={this.onCopy}
@@ -82,14 +81,14 @@ class KeysSave extends Component {
                             onPress={this.onConfirm}
                         />
                     </View>
-                </Container>
+                </StepModule>
                 {showConfirm ? (
                     <ConfirmCopy
                         onBack={this.onCancel}
                         onNext={this.onComplete}
                     />
                 ) : null}
-            </Container>
+            </Fragment>
         );
     }
 }

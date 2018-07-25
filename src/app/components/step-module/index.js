@@ -20,12 +20,13 @@ export default class extends Component {
           error,
           scroll,
           children,
+          headerChildren
       } = this.props;
 
       return (
           <Container style={styles.wrapper}>
               <Header/>
-              <StepHeader title={title} icon={icon}/>
+              <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader>
               <Container
                   white
                   scroll={scroll}

@@ -12,6 +12,10 @@ export default StyleSheet.create({
         height: 67,
         width: 67,
     },
+    noImage: {
+        marginTop: 20,
+        height: 67,
+    },
     header: {
         fontFamily,
         color: color.white,
