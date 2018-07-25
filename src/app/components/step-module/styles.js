@@ -9,13 +9,15 @@ import {
 export default StyleSheet.create({
     containerText: {
         alignItems: 'stretch',
-        justifyContent: 'center',
-        alignSelf: 'stretch',
         paddingLeft: paddingH,
         paddingRight: paddingH,
-        flexGrow: 1,
         paddingTop: 20,
+        flex: 0,
+    },
+    containerBody: {
+        alignSelf: 'stretch',
         flex: 1,
+        justifyContent: 'flex-end'
     },
     subtitle: {
         fontFamily,

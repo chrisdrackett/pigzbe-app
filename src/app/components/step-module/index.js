@@ -38,7 +38,7 @@ export default class extends Component {
                               <Text style={styles.subtitle}>{error.message}</Text>
                           )}
                       </View>
-                      <View style={styles.containerText}>
+                      <View style={[styles.containerText, styles.containerBody]}>
                           {children}
                       </View>
                   </KeyboardAvoid>

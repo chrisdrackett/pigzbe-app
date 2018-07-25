@@ -21,7 +21,7 @@ import StepModule from '../../components/step-module';
 import countryCodes from './country-codes';
 import {color} from '../../styles';
 
-const qrSize = 150;
+const qrSize = 100;
 
 class DeviceAuth extends Component {
     state = {
@@ -97,22 +97,22 @@ class DeviceAuth extends Component {
             <StepModule
                 title={!id ? 'Get Started' : 'Enter Code'}
                 icon={!id ? 'tick' : 'code'}
-                scroll
+                scroll={false}
                 tagline={!id
                     ? 'Before we begin, enter your mobile number to verify your mobile device.'
-                    : `Now enter the code we sent to \n${phoneNumber}`
+                    : `Now enter the code we sent to ${phoneNumber}`
                 }
                 error={error}>
                 <Fragment>
                     {id && (
                         <Fragment>
-                            {qrCode && <Image source={{uri: qrCode}} style={{marginTop: -30, alignSelf: 'center', width: qrSize, height: qrSize}}/> }
+                            {qrCode && <Image source={{uri: qrCode}} style={{marginTop: -20, marginBottom: 10, alignSelf: 'center', width: qrSize, height: qrSize}}/> }
                             <InputBoxes
                                 onFulfill={this.onChangeCode}
                                 boxes={7}
                                 padding={10}
                                 boxSize={{width: 35, height: 45}}
-                                style={{marginBottom: 10}}
+                                style={{marginTop: 0, marginBottom: 10}}
                             />
                             <Button
                                 plain
@@ -126,7 +126,9 @@ class DeviceAuth extends Component {
                                 onPress={this.onVerify}
                             />
                             <Button
-                                outline label={'Back'}
+                                plain
+                                textStyle={{color: color.blue}}
+                                label={'Back'}
                                 onPress={this.onBack}
                             />
                         </Fragment>
@@ -191,6 +193,8 @@ class DeviceAuth extends Component {
                             />
                             {__DEV__ && (
                                 <Button
+                                    plain
+                                    textStyle={{color: color.blue}}
                                     outline
                                     label={'Skip'}
                                     onPress={() => navigation.navigate(SCREEN_TOUCH_ID)}

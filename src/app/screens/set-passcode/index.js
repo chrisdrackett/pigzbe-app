@@ -60,7 +60,6 @@ class SetPasscode extends Component {
         return (
             <StepModule
                 title={this.state.code ? 'Re-enter Passcode' : 'Passcode needed'}
-                icon="touch-id"
                 scroll={false}
                 tagline="Please create a back-up passcode to log in in the event your Touch ID doesn’t work."
             >
