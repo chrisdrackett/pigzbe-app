@@ -5,12 +5,10 @@ import {authCreate} from '../../actions';
 // import Button from '../../components/button';
 import Loader from '../../components/loader';
 // import {strings} from '../../constants';
-// import {SCREEN_CREATE_KEYS} from '../../constants';
+import {PASSCODE_LENGTH} from '../../constants';
 import StepModule from '../../components/step-module';
 import NumPad from '../../components/num-pad';
 import Dots from '../../components/dots';
-
-const PASSCODE_LENGTH = 6;
 
 class SetPasscode extends Component {
     state = {

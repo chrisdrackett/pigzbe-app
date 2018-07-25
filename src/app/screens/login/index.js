@@ -1,21 +1,23 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Text, View, Keyboard} from 'react-native';
+import {View} from 'react-native';
 import {load} from '../../actions';
-import styles from './styles';
-import Button from '../../components/button';
+// import styles from './styles';
 import Loader from '../../components/loader';
-import {strings} from '../../constants';
-import KeyboardAvoid from '../../components/keyboard-avoid';
-import Container from '../../components/container';
-import {SCREEN_HOME} from '../../constants';
-import Header from '../../components/header';
-import InputBoxes from '../../components/input-boxes';
+import {PASSCODE_LENGTH} from '../../constants';
+import NumPad from '../../components/num-pad';
+import Dots from '../../components/dots';
+import StepModule from '../../components/step-module';
 
 class Login extends Component {
     state = {
-        inputText: ''
+        input: '',
+        code: null,
+        confirmed: false,
+        error: false,
     }
+
+    onInput = input => this.setState({input})
 
     onCodeEntered = code => {
         console.log(code);
@@ -23,55 +25,29 @@ class Login extends Component {
     }
 
     render() {
-        const {dispatch, isLoading, error, navigation} = this.props;
+        const {isLoading} = this.props;
 
         return (
-            <Container>
-                <KeyboardAvoid>
-                    <Header/>
-                    <Container body>
-                        <View style={styles.containerText}>
-                            <Text style={styles.title}>{strings.loginTitle}</Text>
-                            {/* <Text style={styles.subtitle}>{strings.loginSubtitle}</Text> */}
-                        </View>
-                        <View style={styles.containerText}>
-                            <InputBoxes
-                                boxes={6}
-                                onFulfill={this.onCodeEntered}
-                            />
-                        </View>
-                        <View>
-
-                            {/* <TextInput
-                                error={!!error}
-                                value={this.state.inputText}
-                                placeholder={strings.loginPlaceholder}
-                                onChangeText={inputText => this.setState({inputText})}
-                                returnKeyType="done"
-                            /> */}
-                            <Button
-                                label={strings.loginSubmitButtonLabel}
-                                onPress={() => {
-                                    Keyboard.dismiss();
-                                    dispatch(load(this.state.inputText));
-                                }}
-                                disabled={!this.state.inputText}
-                            />
-                            <Button
-                                secondary
-                                label={'Back'}
-                                onPress={() => {
-                                    Keyboard.dismiss();
-                                    navigation.navigate(SCREEN_HOME);
-                                }}
-                            />
-                        </View>
-                    </Container>
-                </KeyboardAvoid>
+            <StepModule
+                title={'Enter your Passcode'}
+                scroll={false}
+                tagline={`Login with your ${PASSCODE_LENGTH}-digit passcode`}
+            >
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
+                    <View style={{position: 'absolute', top: -330, left: 0, alignItems: 'center', backgroundColor: 'red', width: '100%'}}>
+                        <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
+                    </View>
+                    <NumPad
+                        length={PASSCODE_LENGTH}
+                        onInput={this.onInput}
+                        onFull={this.onCodeEntered}
+                    />
+                </View>
                 <Loader
+                    white
                     isLoading={isLoading}
                 />
-            </Container>
+            </StepModule>
         );
     }
 }
