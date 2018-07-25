@@ -17,15 +17,12 @@ export default StyleSheet.create({
         paddingRight: 20,
         marginTop: 20,
         marginBottom: 20,
-        // width: 300,
     },
     content: {
         fontFamily,
         color: color.white,
         fontSize: 14,
-    },
-    normal: {
-        fontWeight: 'normal',
+        textAlign: 'center',
     },
     bold: {
         fontWeight: 'bold',
