@@ -19,5 +19,5 @@ export default StyleSheet.create({
     },
     picker: {
         backgroundColor: color.white
-    }
+    },
 });

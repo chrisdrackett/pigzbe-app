@@ -1,15 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Text, View} from 'react-native';
-import styles from './styles';
 import {messagesLoad, messagesMarkRead} from '../../actions';
 import Loader from '../../components/loader';
-import Logo from '../../components/logo';
-import Pig from '../../components/pig';
 import Message from './message';
 import {strings} from '../../constants';
 import ScrollList from '../../components/scroll-list';
-import Footer from '../../components/footer';
+// import Footer from '../../components/footer';
+import StepModule from '../../components/step-module';
 
 export class Messages extends Component {
     componentDidMount() {
@@ -27,27 +24,25 @@ export class Messages extends Component {
         } = this.props;
 
         return (
-            <View style={styles.container}>
-                <View style={styles.containerHeader}>
-                    <Logo/>
-                    <Text style={styles.title}>
-                        {strings.messagesTitle}
-                    </Text>
-                    <Pig/>
-                </View>
-                <ScrollList
-                    border
-                    items={messages}
-                    ItemComponent={Message}
-                    loading={loading}
-                    loaderMessage={strings.messagesLoading}
-                />
-                <Footer/>
+            <Fragment>
+                <StepModule
+                    title={strings.messagesTitle}
+                    icon="messages"
+                    scroll={true}
+                >
+                    <ScrollList
+                        border
+                        items={messages}
+                        ItemComponent={Message}
+                        loading={loading}
+                        loaderMessage={strings.messagesLoading}
+                    />
+                </StepModule>
                 <Loader
                     isLoading={loading}
                     message={strings.messagesLoading}
                 />
-            </View>
+            </Fragment>
         );
     }
 }

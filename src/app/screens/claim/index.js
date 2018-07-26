@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
-import styles from './styles';
+import {View} from 'react-native';
 import Button from '../../components/button';
 // import {strings} from '../../constants';
-import Container from '../../components/container';
 import {SCREEN_SETTINGS, SCREEN_CLAIM_ICO} from '../../constants';
-import Header from '../../components/header';
+import StepModule from '../../components/step-module';
 
 export default class Claim extends Component {
     onBack = () => this.props.navigation.navigate(SCREEN_SETTINGS)
@@ -18,35 +16,32 @@ export default class Claim extends Component {
 
     render() {
         return (
-            <Container>
-                <Header/>
-                <Container body>
-                    <View style={styles.containerText}>
-                        <Text style={styles.title}>{'Claim Your Wollo'}</Text>
-                        <Text style={styles.subtitle}>{'If you’re an ICO, Airdrop, Bounty or VIP participant, you can now claim your Wollo. Please make your choice below:'}</Text>
-                    </View>
-                    <View>
-                        <Button
-                            label={'Back'}
-                            onPress={this.onBack}
-                        />
-                        <Button
-                            label={'Purchase via Eidoo ICO'}
-                            onPress={this.onICO}
-                        />
-                        <Button
-                            secondary
-                            label={'Airdrop / Bounty'}
-                            onPress={this.onAirdropBounty}
-                        />
-                        <Button
-                            secondary
-                            label={'VIPs'}
-                            onPress={this.onVIPs}
-                        />
-                    </View>
-                </Container>
-            </Container>
+            <StepModule
+                title={'Claim Your Wollo'}
+                text={'If you’re an ICO, Airdrop, Bounty or VIP participant, you can now claim your Wollo. Please make your choice below:'}
+                icon="coins"
+                scroll={false}
+                onBack={this.onBack}
+                pad
+            >
+                <View>
+                    <Button
+                        secondary
+                        label={'Purchase via Eidoo ICO'}
+                        onPress={this.onICO}
+                    />
+                    <Button
+                        secondary
+                        label={'Airdrop / Bounty'}
+                        onPress={this.onAirdropBounty}
+                    />
+                    <Button
+                        secondary
+                        label={'VIPs'}
+                        onPress={this.onVIPs}
+                    />
+                </View>
+            </StepModule>
         );
     }
 }

@@ -28,7 +28,9 @@ export class KeysImport extends Component {
                 title="Import Key"
                 icon="secure"
                 scroll={false}
-                tagline="Lorem ipsum dolor sit amet."
+                text="Lorem ipsum dolor sit amet."
+                error={error}
+                pad
             >
                 <View>
                     <TextInput

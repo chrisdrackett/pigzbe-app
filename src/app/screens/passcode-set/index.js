@@ -57,7 +57,7 @@ export class PasscodeSet extends Component {
             <StepModule
                 title={this.state.code ? 'Re-enter Passcode' : 'Passcode needed'}
                 scroll={false}
-                tagline="Please create a back-up passcode to log in in the event your Touch ID doesn’t work."
+                text="Please create a back-up passcode to log in in the event your Touch ID doesn’t work."
                 headerChildren={(
                     <View style={{marginTop: 30}}>
                         <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>

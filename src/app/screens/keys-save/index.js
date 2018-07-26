@@ -62,7 +62,8 @@ export class KeysSave extends Component {
                     title="Your Private Key"
                     icon="secure"
                     scroll={false}
-                    tagline="Below is your Pigzbe wallet Private Key. You must make a secure copy now. If you lose your key, you lose your funds."
+                    text="Below is your Pigzbe wallet Private Key. You must make a secure copy now. If you lose your key, you lose your funds."
+                    pad
                 >
                     <View>
                         <KeyHolder

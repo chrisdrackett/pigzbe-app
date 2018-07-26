@@ -19,6 +19,8 @@ import {
     PRIVACY_URL
 } from '../../constants';
 import openURL from '../../utils/open-url';
+import StepModule from '../../components/step-module';
+import Paragraph from '../../components/paragraph';
 
 export class Settings extends Component {
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
@@ -44,47 +46,40 @@ export class Settings extends Component {
         } = this.props;
 
         return (
-            <View style={styles.outer}>
-                <ScrollView bounces={false} style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
-                    <Container body>
-                        <KeyboardAvoid>
-                            <View>
-                                <Header/>
-                                <Text style={styles.title}>{'Settings'}</Text>
-                            </View>
-                        </KeyboardAvoid>
-                        <View>
-                            <Button
-                                label={'Back'}
-                                onPress={this.onBack}
-                            />
-                            <Button
-                                label={'Claim Your Wollo'}
-                                onPress={this.onClaim}
-                            />
-                            <Button
-                                label={'View Escrow'}
-                                onPress={this.onEscrow}
-                            />
-                            <Text style={styles.title}>{'enableTouchId: '}{enableTouchId ? 'Yes' : 'No'}</Text>
-                            <Text style={styles.title}>{'subscribe: '}{subscribe ? 'Yes' : 'No'}</Text>
-                            <Text style={styles.title}>{'email: '}{email}</Text>
-                            <Text style={styles.title}>{'phone: '}{phone}</Text>
-                            <Text style={styles.title}>{'country: '}{country}</Text>
-                            <Button
-                                label={strings.accountLogoutButtonLabel}
-                                plain
-                                onPress={this.onLogout}
-                            />
-                            <Button
-                                label={strings.accountPrivacyButtonLabel}
-                                plain
-                                onPress={this.onPrivacy}
-                            />
-                        </View>
-                    </Container>
-                </ScrollView>
-            </View>
+            <StepModule
+                title={'Settings'}
+                icon="settings"
+                scroll={true}
+                onBack={this.onBack}
+                pad
+            >
+                <View>
+                    <Button
+                        secondary
+                        label={'Claim Your Wollo'}
+                        onPress={this.onClaim}
+                    />
+                    <Button
+                        label={'View Escrow'}
+                        onPress={this.onEscrow}
+                    />
+                    <Paragraph>{'enableTouchId: '}{enableTouchId ? 'Yes' : 'No'}</Paragraph>
+                    <Paragraph>{'subscribe: '}{subscribe ? 'Yes' : 'No'}</Paragraph>
+                    <Paragraph>{'email: '}{email}</Paragraph>
+                    <Paragraph>{'phone: '}{phone}</Paragraph>
+                    <Paragraph>{'country: '}{country}</Paragraph>
+                    <Button
+                        label={strings.accountLogoutButtonLabel}
+                        secondary
+                        onPress={this.onLogout}
+                    />
+                    <Button
+                        label={strings.accountPrivacyButtonLabel}
+                        secondary
+                        onPress={this.onPrivacy}
+                    />
+                </View>
+            </StepModule>
         );
     }
 }

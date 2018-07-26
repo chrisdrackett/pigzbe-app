@@ -3,7 +3,6 @@ import {StyleSheet} from 'react-native';
 import {
     paddingH,
     color,
-    fontFamily,
 } from '../../styles';
 
 export default StyleSheet.create({
@@ -21,7 +20,7 @@ export default StyleSheet.create({
         // justifyContent: 'flex-end',
         // backgroundColor: 'blue'
     },
-    bottom: {
+    pad: {
         // alignSelf: 'stretch',
         // flex: 1,
         // justifyContent: 'flex-end',
@@ -30,15 +29,6 @@ export default StyleSheet.create({
         paddingBottom: 12,
         paddingLeft: paddingH,
         paddingRight: paddingH,
-    },
-    subtitle: {
-        fontFamily,
-        color: color.blue,
-        fontSize: 16,
-        marginLeft: 0,
-        marginRight: 0,
-        marginBottom: 20,
-        textAlign: 'center'
     },
     wrapper: {
         // alignItems: 'center',
@@ -53,5 +43,8 @@ export default StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
+    },
+    error: {
+        color: color.red,
     }
 });

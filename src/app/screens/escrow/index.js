@@ -1,17 +1,14 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Text, View} from 'react-native';
-import styles from './styles';
+import {View} from 'react-native';
 import Loader from '../../components/loader';
-import Logo from '../../components/logo';
-import Pig from '../../components/pig';
 import Transaction from './transaction';
 import Wollo from '../../components/wollo';
-import Button from '../../components/button';
 import {strings, SCREEN_BALANCE} from '../../constants';
 import {loadEscrowAccount, validateTx} from '../../actions';
 import ScrollList from '../../components/scroll-list';
-import Footer from '../../components/footer';
+// import Footer from '../../components/footer';
+import StepModule from '../../components/step-module';
 
 export class Escrow extends Component {
     async componentDidMount() {
@@ -24,10 +21,11 @@ export class Escrow extends Component {
         }
     }
 
+    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
+
     render() {
         const {
             dispatch,
-            navigation,
             balance,
             transactions,
             submitting
@@ -36,33 +34,30 @@ export class Escrow extends Component {
         // console.log(JSON.stringify(this.props, null, 2));
 
         return (
-            <View style={styles.container}>
-                <View style={styles.containerHeader}>
-                    <Logo/>
-                    <Text style={styles.title}>
-                        {strings.escrowTitle}
-                    </Text>
-                    <Wollo balance={balance}/>
-                    <Pig/>
-                </View>
-                <ScrollList
-                    border
-                    items={transactions.map(t => ({...t, dispatch}))}
-                    ItemComponent={Transaction}
-                />
-                <Footer>
-                    <Button
-                        outline
-                        label={strings.escrowBackButtonLabel}
-                        onPress={() => navigation.navigate(SCREEN_BALANCE)}
+            <Fragment>
+                <StepModule
+                    title={'Distribution lock-up'}
+                    text={'Your Wollo release schedule:'}
+                    icon="coins"
+                    scroll={true}
+                    headerChildren={(
+                        <View style={{marginBottom: -20}}>
+                            <Wollo balance={balance}/>
+                        </View>
+                    )}
+                >
+                    <ScrollList
+                        border
+                        items={transactions.map(t => ({...t, dispatch}))}
+                        ItemComponent={Transaction}
                     />
-                </Footer>
+                </StepModule>
                 <Loader
                     isLoading={submitting}
                     message={strings.escrowSubmitting}
                     transparent
                 />
-            </View>
+            </Fragment>
         );
     }
 }

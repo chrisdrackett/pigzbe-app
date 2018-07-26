@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import Header from '../../components/header';
 import StepHeader from '../../components/step-header';
 import Container from '../../components/container';
 import KeyboardAvoid from '../../components/keyboard-avoid';
+import Paragraph from '../../components/paragraph';
 import styles from './styles';
 
 export default class extends Component {
@@ -15,19 +16,22 @@ export default class extends Component {
   render() {
       const {
           title,
+          text,
           icon,
-          tagline,
           error,
           scroll,
           children,
           headerChildren,
-          backgroundColor
+          backgroundColor,
+          showSettings,
+          onBack,
+          pad
       } = this.props;
 
       return (
           <Container style={styles.wrapper}>
               <View style={styles.bg}/>
-              <Header/>
+              <Header onBack={onBack} showSettings={showSettings}/>
               <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader>
               <Container
                   white
@@ -36,15 +40,15 @@ export default class extends Component {
                   backgroundColor={backgroundColor}
               >
                   {/* <KeyboardAvoid> */}
-                  {tagline && (
+                  {text && (
                       <View style={styles.containerText}>
-                          <Text style={styles.subtitle}>{tagline}</Text>
+                          <Paragraph>{text}</Paragraph>
                           {error && (
-                              <Text style={styles.subtitle}>{error.message}</Text>
+                              <Paragraph style={styles.error}>{error.message}</Paragraph>
                           )}
                       </View>
                   )}
-                  <View style={[styles.containerBody, tagline ? styles.bottom : null]}>
+                  <View style={[styles.containerBody, pad ? styles.pad : null]}>
                       {children}
                   </View>
                   {/* </KeyboardAvoid> */}

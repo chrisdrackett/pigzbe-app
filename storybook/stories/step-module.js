@@ -11,7 +11,8 @@ stories.add('no icon', () => (
     <StepModule
         title={'No icon'}
         scroll={false}
-        tagline="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis."
+        text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis."
+        pad
     >
         <View>
             <Button
@@ -34,7 +35,8 @@ Object.keys(images).map(key => {
             icon={key}
             title={`Step ${key}`}
             scroll={false}
-            tagline="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis."
+            text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis."
+            pad
         >
             <View>
                 <Button

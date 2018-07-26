@@ -11,8 +11,18 @@ const bold = text => {
     return text;
 };
 
+const format = children => {
+    if (typeof children === 'string') {
+        return bold(children);
+    }
+    if (typeof children === 'object' && Array.isArray(children)) {
+        return children.map(child => format(child));
+    }
+    return children;
+};
+
 export default ({children, style}) => (
     <Text style={[styles.paragraph, style]}>
-        {bold(children)}
+        {format(children)}
     </Text>
 );

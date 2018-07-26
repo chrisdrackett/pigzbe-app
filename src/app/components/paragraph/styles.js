@@ -5,7 +5,7 @@ export default StyleSheet.create({
     paragraph: {
         fontFamily,
         color: color.blue,
-        fontSize: 14,
+        fontSize: 16,
         marginBottom: 20,
         textAlign: 'center',
     },

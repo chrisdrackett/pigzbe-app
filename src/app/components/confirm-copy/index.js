@@ -25,7 +25,7 @@ export default class ConfirmCopy extends Component {
 
         return (
             <Modal>
-                <Title dark>Saved you keys?</Title>
+                <Title dark>Saved your keys?</Title>
                 <Paragraph>
                         You will not be able to view your keys beyond this point. You *MUST* make a secure copy BEFORE you proceed.
                 </Paragraph>
