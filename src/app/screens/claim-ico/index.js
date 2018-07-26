@@ -1,9 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {ScrollView, View} from 'react-native';
 import {utils} from 'web3';
 import Config from 'react-native-config';
-import Logo from '../../components/logo';
 import styles from './styles';
 import {
     Step1,
@@ -218,16 +216,12 @@ export class ClaimICO extends Component {
       const tx = localStorage.transactionHash || events.get('transactionHash');
 
       return (
-          <ScrollView bounces={false} style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
-              <Container>
-                  <View style={styles.header}>
-                      <Logo />
-                  </View>
-                  <Container>
-                      {step === 1 && <Step1 onNext={this.onStep2} onBack={this.onCloseClaim} />}
-                      {step === 2 && <Step2 onNext={this.onStep3} onBack={this.onStep1} />}
-                      {step === 3 && <Step3 onNext={this.onStep4} onBack={this.onStep2} />}
-                      {step === 4 &&
+          <Fragment>
+              <Fragment>
+                  {step === 1 && <Step1 onNext={this.onStep2} onBack={this.onCloseClaim} />}
+                  {step === 2 && <Step2 onNext={this.onStep3} onBack={this.onStep1} />}
+                  {step === 3 && <Step3 onNext={this.onStep4} onBack={this.onStep2} />}
+                  {step === 4 &&
                       <Step4
                           onNext={this.onImportKey}
                           onBack={this.onStep3}
@@ -238,9 +232,9 @@ export class ClaimICO extends Component {
                           onChangeMnemonic={this.onChangeMnemonic}
                           onChangePk={this.onChangePk}
                       />
-                      }
+                  }
 
-                      {step === 5 &&
+                  {step === 5 &&
                       <Step5
                           error={errorBurning || localStorage.error}
                           tx={tx}
@@ -252,30 +246,29 @@ export class ClaimICO extends Component {
                           onNext={user.balanceWollo ? this.onSubmitBurn : this.onCloseClaim}
                           onBack={user.balanceWollo ? this.onStep1 : null}
                       />
-                      }
-                  </Container>
+                  }
+              </Fragment>
 
-                  <Modal
-                      visible={modal.visible}
-                      message={modal.message}
-                      estimatedCost={estimatedCost}
-                      onConfirm={this.onConfirmedSubmitBurn}
-                      onCancel={this.closeModal}
+              <Modal
+                  visible={modal.visible}
+                  message={modal.message}
+                  estimatedCost={estimatedCost}
+                  onConfirm={this.onConfirmedSubmitBurn}
+                  onCancel={this.closeModal}
+              />
+              {!this.state.clickedClose ? (
+                  <Progress
+                      active={loading !== null && !localStorage.complete && !errorBurning}
+                      complete={localStorage.complete}
+                      title={localStorage.complete ? 'Congrats' : 'Claim progress'}
+                      error={errorBurning}
+                      text={localStorage.complete ? `Congrats! You are now the owner of ${user.balanceWollo} Wollo, you rock.` : loading}
+                      // buttonLabel={localStorage.complete || errorBurning ? 'Next' : null}
+                      buttonLabel={'Next'}
+                      onPress={localStorage.complete ? this.onCompleteClaim : this.closeProgress}
                   />
-                  {!this.state.clickedClose ? (
-                      <Progress
-                          active={loading !== null && !localStorage.complete && !errorBurning}
-                          complete={localStorage.complete}
-                          title={localStorage.complete ? 'Congrats' : 'Claim progress'}
-                          error={errorBurning}
-                          text={localStorage.complete ? `Congrats! You are now the owner of ${user.balanceWollo} Wollo, you rock.` : loading}
-                          // buttonLabel={localStorage.complete || errorBurning ? 'Next' : null}
-                          buttonLabel={'Next'}
-                          onPress={localStorage.complete ? this.onCompleteClaim : this.closeProgress}
-                      />
-                  ) : null}
-              </Container>
-          </ScrollView>
+              ) : null}
+          </Fragment>
       );
   }
 }

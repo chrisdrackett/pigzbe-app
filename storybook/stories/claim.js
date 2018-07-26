@@ -9,8 +9,6 @@ import Step3 from '../../src/app/screens/claim-ico/steps/step3';
 import Step4 from '../../src/app/screens/claim-ico/steps/step4';
 import Step5 from '../../src/app/screens/claim-ico/steps/step5';
 
-const steps = [Step1, Step2, Step3, Step4, Step5];
-
 const props = {
     dispatch: () => {},
     navigation: {
@@ -967,7 +965,7 @@ const claim = storiesOf('Claim')
         <ClaimICOWrapper/>
     ));
 
-steps.map((Step, i) => {
+[Step1, Step2, Step3, Step4].map((Step, i) => {
     claim.add(`claim ico step ${i + 1}`, () => (
         <Step
             onBack={() => {}}
@@ -975,3 +973,34 @@ steps.map((Step, i) => {
         />
     ));
 });
+
+claim.add('claim ico step 5 start', () => (
+    <Step5
+        startApplication={true}
+        onBack={() => {}}
+        onNext={() => {}}
+        userBalance={'1000'}
+        buttonNextLabel={'Claim Wollo'}
+    />
+));
+
+claim.add('claim ico step 5 zero', () => (
+    <Step5
+        startApplication={true}
+        onBack={() => {}}
+        onNext={null}
+        userBalance={'0'}
+        buttonNextLabel={'Claim Wollo'}
+    />
+));
+
+claim.add('claim ico continue', () => (
+    <Step5
+        startApplication={false}
+        onBack={() => {}}
+        onNext={() => {}}
+        userBalance={'1000'}
+        buttonNextLabel={'Continue'}
+        tx={'0x58e5a0fc7fbc849eddc100d44e86276168a8c7baaa5604e44ba6f5eb8ba1b7eb'}
+    />
+));
