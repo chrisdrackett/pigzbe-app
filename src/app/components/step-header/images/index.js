@@ -10,4 +10,5 @@ export default {
     eidoo: require('./eidoo.png'),
     settings: require('./settings.png'),
     vip: require('./vip.png'),
+    transfer: require('./transfer.png'),
 };

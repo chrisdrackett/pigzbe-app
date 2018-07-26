@@ -48,12 +48,14 @@ export default StyleSheet.create({
         color: color.blueOpacity40
     },
     buttonPlain: {
-        color: color.white,
+        // color: color.white,
+        color: color.blue,
         fontSize: 14,
-        fontWeight: 'normal',
+        fontWeight: 'bold',
         textDecorationLine: 'underline',
         textDecorationStyle: 'solid',
         fontSize: 14,
-        textDecorationColor: color.white
+        // textDecorationColor: color.white
+        textDecorationColor: color.blue
     }
 });

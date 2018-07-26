@@ -21,8 +21,8 @@ const format = children => {
     return children;
 };
 
-export default ({children, style}) => (
-    <Text style={[styles.paragraph, style]}>
+export default ({size = 16, children, style}) => (
+    <Text style={[styles.paragraph, {fontSize: size}, style]}>
         {format(children)}
     </Text>
 );

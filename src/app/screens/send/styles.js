@@ -69,12 +69,12 @@ export default StyleSheet.create({
     amountInputConfirm: {
         paddingLeft: 42,
         paddingRight: 0,
-        borderColor: color.lightGrey,
+        borderColor: color.transparent,
     },
     inputConfirm: {
         paddingLeft: 0,
         paddingRight: 0,
-        borderColor: color.lightGrey,
+        borderColor: color.transparent,
         color: color.grey,
     },
     amountMinus: {

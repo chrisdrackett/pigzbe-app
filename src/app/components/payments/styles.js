@@ -3,8 +3,8 @@ import {color, fontFamily} from '../../styles';
 
 export default StyleSheet.create({
     payment: {
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: 0,
+        paddingRight: 0,
         paddingTop: 20,
         paddingBottom: 20,
         borderBottomWidth: 1,
@@ -55,7 +55,7 @@ export default StyleSheet.create({
     },
     memo: {
         fontFamily,
-        color: color.grey,
+        color: color.blue,
         fontSize: 14
     },
 });

@@ -3,7 +3,6 @@ import {View, Text, Image} from 'react-native';
 import styles from './styles';
 import {strings} from '../../constants';
 import Button from '../../components/button';
-import Title from '../../components/title';
 import TextInput from '../../components/text-input';
 import {isValidPublicKey} from '@pigzbe/stellar-utils';
 import moneyFormat from '../../utils/money-format';
@@ -39,13 +38,13 @@ export default class Form extends Component {
         estimate: getExchange()
     }
 
-    updateKey(key) {
+    updateKey = key => {
         const keyValid = isValidPublicKey(key);
 
         this.setState({key, keyValid});
     }
 
-    updateAmount(value) {
+    updateAmount = value => {
         const {balance, exchange} = this.props;
 
         const amount = value.replace(/[^0-9.]/g, '');
@@ -59,28 +58,36 @@ export default class Form extends Component {
         });
     }
 
-    updateMemo(memo) {
+    updateMemo = memo => {
         const memoValid = !memo || memo.length < 29;
 
         this.setState({memo, memoValid});
     }
 
-    submit() {
+    submit = () => {
         const {keyValid, amountValid, memoValid} = this.state;
+        const confirm = keyValid && amountValid && memoValid;
 
         this.setState({
-            confirm: keyValid && amountValid && memoValid,
+            confirm,
             keyError: keyValid ? null : new Error(strings.transferErrorInvalidKey),
             amountError: amountValid ? null : new Error(strings.transferErrorInvalidAmount),
             memoError: memoValid ? null : new Error(strings.transferErrorInvalidMessage)
         });
+
+        this.props.onReview(confirm);
     }
 
-    send() {
+    send = () => {
         const {dispatch} = this.props;
         const {key, amount, memo} = this.state;
 
         dispatch(sendWollo(key, amount, memo));
+    }
+
+    edit = () => {
+        this.setState({confirm: false});
+        this.props.onReview(false);
     }
 
     render() {
@@ -94,18 +101,13 @@ export default class Form extends Component {
 
         return (
             <View style={styles.containerForm}>
-                <View style={styles.title}>
-                    <Title>
-                        {confirm ? strings.transferConfirmTitle : strings.transferSendTitle}
-                    </Title>
-                </View>
                 <TextInput
                     dark
                     error={!!keyError}
                     value={this.state.key}
                     label={strings.transferSendTo}
                     placeholder={strings.transferSendKey}
-                    onChangeText={key => this.updateKey(key)}
+                    onChangeText={this.updateKey}
                     editable={!confirm}
                     style={confirm ? styles.inputConfirm : null}
                     numberOfLines={2}
@@ -118,7 +120,7 @@ export default class Form extends Component {
                         value={this.state.amount}
                         label={strings.transferAmount}
                         placeholder={strings.transferSendWollo}
-                        onChangeText={amount => this.updateAmount(amount)}
+                        onChangeText={this.updateAmount}
                         editable={!confirm}
                         style={confirm ? styles.amountInputConfirm : styles.amountInput}
                         keyboardType="numeric"
@@ -127,17 +129,20 @@ export default class Form extends Component {
                 <Text style={styles.estimate}>
                     {strings.transferSendEstimate} {estimate}
                 </Text>
-                <TextInput
-                    dark
-                    error={!!memoError}
-                    value={this.state.memo}
-                    label={strings.transferMessage}
-                    placeholder={confirm ? '' : strings.transferMessagePlaceholder}
-                    onChangeText={memo => this.updateMemo(memo)}
-                    maxLength={28}
-                    editable={!confirm}
-                    style={confirm ? styles.inputConfirm : null}
-                />
+                {!confirm || this.state.memo ? (
+                    <TextInput
+                        dark
+                        error={!!memoError}
+                        value={this.state.memo}
+                        label={strings.transferMessage}
+                        placeholder={confirm ? '' : strings.transferMessagePlaceholder}
+                        onChangeText={this.updateMemo}
+                        maxLength={28}
+                        editable={!confirm}
+                        style={confirm ? styles.inputConfirm : null}
+                        numberOfLines={2}
+                    />
+                ) : null}
                 {confirm ? (
                     <Fragment>
                         <View style={styles.amount}>
@@ -155,27 +160,28 @@ export default class Form extends Component {
                         </Text>
                     </Fragment>
                 ) : null}
+                {confirm && (
+                    <View style={{position: 'absolute', top: 0, right: 0}}>
+                        <Button
+                            plain
+                            label={strings.transferEditButtonLabel}
+                            onPress={this.edit}
+                        />
+                    </View>
+                )}
                 <View style={styles.buttonWrapper}>
                     {confirm ? (
-                        <Fragment>
-                            <Button
-                                label={strings.transferSendButtonLabel}
-                                onPress={() => this.send()}
-                            />
-                            <Button
-                                label={strings.transferEditButtonLabel}
-                                onPress={() => this.setState({
-                                    confirm: false
-                                })}
-                                outline
-                            />
-                        </Fragment>
+                        <Button
+                            secondary
+                            label={'Transfer'}
+                            onPress={this.send}
+                        />
                     ) : (
                         <Button
+                            secondary
                             label={strings.transferConfirmButtonLabel}
                             disabled={!(this.state.key && this.state.amount)}
-                            onPress={() => this.submit()}
-                            outline
+                            onPress={this.submit}
                         />
                     )}
                 </View>

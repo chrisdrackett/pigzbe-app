@@ -1,17 +1,15 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
+import {View} from 'react-native';
 import styles from './styles';
 import {
     strings,
     SCREEN_SEND
 } from '../../constants';
-import BaseView from '../../components/base-view';
-import Pig from '../../components/pig';
 import Button from '../../components/button';
-import Wollo from '../../components/wollo';
 import Payments from '../../components/payments';
-import Footer from '../../components/footer';
 import {loadPayments, wolloError} from '../../actions';
+import StepModule from '../../components/step-module';
 
 export class Transfer extends Component {
     async componentWillMount() {
@@ -33,23 +31,29 @@ export class Transfer extends Component {
         const {error, balance, hasGas, loading, payments} = this.props;
 
         return (
-            <BaseView scrollViewStyle={styles.container} error={error}>
-                <Wollo balance={balance}/>
-                <Pig style={styles.pig}/>
-                <Payments
-                    loading={loading}
-                    balance={balance}
-                    payments={payments}
-                />
-                <Footer>
-                    <Button
-                        label={strings.transferButtonLabel}
-                        onPress={this.onTransfer}
-                        disabled={!hasGas}
-                        outline
+            <StepModule
+                title="Transfer"
+                icon="transfer"
+                scroll={false}
+                error={error}
+                pad
+            >
+                <Fragment>
+                    <Payments
+                        loading={loading}
+                        balance={balance}
+                        payments={payments}
                     />
-                </Footer>
-            </BaseView>
+                    <View style={styles.button}>
+                        <Button
+                            secondary
+                            label={strings.transferButtonLabel}
+                            onPress={this.onTransfer}
+                            disabled={!hasGas}
+                        />
+                    </View>
+                </Fragment>
+            </StepModule>
         );
     }
 }

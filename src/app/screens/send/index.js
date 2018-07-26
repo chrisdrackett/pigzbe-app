@@ -1,47 +1,54 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {View, ScrollView} from 'react-native';
-import styles from './styles';
 import {
     strings,
     SCREEN_TRANSFER
 } from '../../constants';
-import Pig from '../../components/pig';
 import Button from '../../components/button';
-import Wollo from '../../components/wollo';
-import Footer from '../../components/footer';
 import KeyboardAvoid from '../../components/keyboard-avoid';
 import Form from './form';
 import Progress from '../../components/progress';
-import Header from '../../components/header';
+import StepModule from '../../components/step-module';
 
 export class Send extends Component {
+    state = {
+        review: false
+    }
+
     onTransfer = () => this.props.navigation.navigate(SCREEN_TRANSFER)
+
+    onReview = review => this.setState({review})
 
     render() {
         const {dispatch, balance, exchange, sending, sendComplete, sendStatus, error} = this.props;
 
+        // confirm ? strings.transferConfirmTitle : strings.transferSendTitle;
+
         return (
             <Fragment>
-                <KeyboardAvoid containerStyle={{flexGrow: 1}}>
-                    <ScrollView style={styles.scrollView} contentContainerStyle={[styles.contentContainer, styles.container]} bounces={false}>
-                        <Header/>
-                        <Wollo balance={balance}/>
-                        <Pig style={styles.pig}/>
-                        <View style={styles.containerBody}>
+                <StepModule
+                    title={this.state.review ? 'Review Transfer' : 'Transfer Wollo'}
+                    icon="transfer"
+                    scroll={true}
+                    error={error}
+                    pad
+                >
+                    <Fragment>
+                        <KeyboardAvoid containerStyle={{flexGrow: 1}}>
                             <Form
                                 dispatch={dispatch}
                                 exchange={exchange}
                                 balance={balance}
+                                onReview={this.onReview}
                             />
                             <Button
                                 label={strings.transferCancelButtonLabel}
                                 onPress={this.onTransfer}
                                 outline
                             />
-                        </View>
-                    </ScrollView>
-                </KeyboardAvoid>
+                        </KeyboardAvoid>
+                    </Fragment>
+                </StepModule>
                 <Progress
                     active={sending}
                     complete={sendComplete}
@@ -51,7 +58,6 @@ export class Send extends Component {
                     buttonLabel={strings.transferProgressButtonLabel}
                     onPress={this.onTransfer}
                 />
-                <Footer/>
             </Fragment>
         );
     }

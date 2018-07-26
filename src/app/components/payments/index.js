@@ -5,7 +5,6 @@ import {strings} from '../../constants';
 
 export default ({payments, loading}) => (
     <ScrollList
-        title={strings.transferHistory}
         items={payments}
         ItemComponent={Payment}
         loading={loading}

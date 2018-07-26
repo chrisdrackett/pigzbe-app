@@ -28,7 +28,7 @@ export default StyleSheet.create({
     label: {
         fontFamily,
         color: color.white,
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 'bold',
         marginTop: 10,
         marginBottom: 10,
