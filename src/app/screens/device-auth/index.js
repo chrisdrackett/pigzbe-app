@@ -98,7 +98,7 @@ export class DeviceAuth extends Component {
                 title={!id ? 'Get Started' : 'Enter Code'}
                 icon={!id ? 'tick' : 'code'}
                 scroll={false}
-                text={!id
+                content={!id
                     ? 'Before we begin, enter your mobile number to verify your mobile device.'
                     : `Now enter the code we sent to ${phoneNumber}`
                 }

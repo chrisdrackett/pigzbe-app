@@ -18,7 +18,7 @@ export default class Claim extends Component {
         return (
             <StepModule
                 title={'Claim Your Wollo'}
-                text={'If you’re an ICO, Airdrop, Bounty or VIP participant, you can now claim your Wollo. Please make your choice below:'}
+                content={'If you’re an ICO, Airdrop, Bounty or VIP participant, you can now claim your Wollo. Please make your choice below:'}
                 icon="coins"
                 scroll={false}
                 onBack={this.onBack}

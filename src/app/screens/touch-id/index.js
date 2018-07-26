@@ -21,7 +21,7 @@ export class TouchId extends Component {
                 title="Use Touch ID?"
                 icon="touch-id"
                 scroll={false}
-                text="We use your phone’s security in combination with it’s in-built hardware to secure your account."
+                content="We use your phone’s security in combination with it’s in-built hardware to secure your account."
                 pad
             >
                 <View>

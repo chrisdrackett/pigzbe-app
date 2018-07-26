@@ -31,7 +31,7 @@ export class PasscodeLogin extends Component {
             <StepModule
                 title={'Enter your Passcode'}
                 scroll={false}
-                text={`Login with your ${PASSCODE_LENGTH}-digit passcode`}
+                content={`Login with your ${PASSCODE_LENGTH}-digit passcode`}
                 headerChildren={(
                     <View style={{marginTop: 30}}>
                         <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>

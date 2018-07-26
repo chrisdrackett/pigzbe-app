@@ -37,7 +37,7 @@ export class Escrow extends Component {
             <Fragment>
                 <StepModule
                     title={'Distribution lock-up'}
-                    text={'Your Wollo release schedule:'}
+                    content={'Your Wollo release schedule:'}
                     icon="coins"
                     scroll={true}
                     headerChildren={(

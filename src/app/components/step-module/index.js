@@ -16,7 +16,7 @@ export default class extends Component {
   render() {
       const {
           title,
-          text,
+          content,
           icon,
           error,
           scroll,
@@ -40,9 +40,13 @@ export default class extends Component {
                   backgroundColor={backgroundColor}
               >
                   {/* <KeyboardAvoid> */}
-                  {text && (
+                  {content && (
                       <View style={styles.containerText}>
-                          <Paragraph>{text}</Paragraph>
+                          {typeof content === 'string' ? (
+                              <Paragraph>{content}</Paragraph>
+                          ) : (
+                              content
+                          )}
                           {error && (
                               <Paragraph style={styles.error}>{error.message}</Paragraph>
                           )}

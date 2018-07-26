@@ -3,6 +3,13 @@ import React, {Component} from 'react';
 import {storiesOf} from '@storybook/react-native';
 import Claim from '../../src/app/screens/claim';
 import {ClaimICO} from '../../src/app/screens/claim-ico';
+import Step1 from '../../src/app/screens/claim-ico/steps/step1';
+import Step2 from '../../src/app/screens/claim-ico/steps/step2';
+import Step3 from '../../src/app/screens/claim-ico/steps/step3';
+import Step4 from '../../src/app/screens/claim-ico/steps/step4';
+import Step5 from '../../src/app/screens/claim-ico/steps/step5';
+
+const steps = [Step1, Step2, Step3, Step4, Step5];
 
 const props = {
     dispatch: () => {},
@@ -952,10 +959,19 @@ class ClaimICOWrapper extends Component {
     }
 }
 
-storiesOf('Claim')
+const claim = storiesOf('Claim')
     .add('default', () => (
         <Claim {...props}/>
     ))
     .add('claim ico', () => (
         <ClaimICOWrapper/>
     ));
+
+steps.map((Step, i) => {
+    claim.add(`claim ico step ${i + 1}`, () => (
+        <Step
+            onBack={() => {}}
+            onNext={() => {}}
+        />
+    ));
+});

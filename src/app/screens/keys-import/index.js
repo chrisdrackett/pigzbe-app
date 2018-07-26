@@ -28,7 +28,7 @@ export class KeysImport extends Component {
                 title="Import Key"
                 icon="secure"
                 scroll={false}
-                text="Lorem ipsum dolor sit amet."
+                content="Lorem ipsum dolor sit amet."
                 error={error}
                 pad
             >

@@ -1,29 +1,25 @@
 import React from 'react';
-import {View} from 'react-native';
+// import {View} from 'react-native';
 import Button from '../../../components/button';
-import styles from '../styles';
-import Container from '../../../components/container';
-import KeyboardAvoid from '../../../components/keyboard-avoid';
+// import styles from '../styles';
+// import Container from '../../../components/container';
+// import KeyboardAvoid from '../../../components/keyboard-avoid';
+import StepModule from '../../../components/step-module';
 
-const StepWrapper = ({children, onNext, onBack, buttonNextLabel}) => (
-    <Container style={styles.containerBody}>
-        <KeyboardAvoid offset={80}>
-            <View style={styles.containerChildren}>
-                {children}
-            </View>
-        </KeyboardAvoid>
-        {(onBack || onNext) &&
-            <View style={styles.containerButtons}>
-                <Button label={buttonNextLabel} onPress={onNext} />
-                {onBack &&
-                    <Button
-                        label="Back"
-                        secondary
-                        onPress={onBack}
-                    />
-                }
-            </View>}
-    </Container>
+const StepWrapper = ({title, content, children, onNext, onBack, buttonNextLabel}) => (
+    <StepModule
+        title={title}
+        content={content}
+        icon="eidoo"
+        scroll={false}
+        onBack={onBack}
+        pad
+    >
+        {children}
+        {onNext && (
+            <Button secondary label={buttonNextLabel} onPress={onNext} />
+        )}
+    </StepModule>
 );
 
 StepWrapper.defaultProps = {

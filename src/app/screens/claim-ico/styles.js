@@ -90,9 +90,10 @@ export default StyleSheet.create({
     },
     text: {
         fontFamily,
-        color: color.whiteOpacity60,
+        color: color.blue,
         fontSize: 14,
-        textAlign: 'left'
+        textAlign: 'left',
+        marginBottom: 10,
     },
     num: {
         position: 'absolute',
