@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 import ButtonIcon from '../../components/button-icon';
 import Counter from '../../components/counter';
@@ -30,7 +29,7 @@ const conversions = {
     }
 };
 
-class Overlay extends Component {
+export default class Learn extends Component {
     state = {
         conversionKey: 'carrot',
     }
@@ -95,9 +94,3 @@ class Overlay extends Component {
         );
     }
 }
-
-export default connect(state => ({
-    exchange: state.coins.exchange,
-    wolloCollected: state.game.wolloCollected,
-    overlayOpen: state.game.overlayOpen
-}))(Overlay);

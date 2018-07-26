@@ -9,7 +9,7 @@ import TextInput from '../../components/text-input';
 import {importKey} from '../../actions';
 import StepModule from '../../components/step-module';
 
-class KeysImport extends Component {
+export class KeysImport extends Component {
     state = {
         inputText: ''
     }
@@ -58,7 +58,6 @@ class KeysImport extends Component {
 
 export default connect(
     state => ({
-        secretKey: state.wollo.secretKey,
         error: state.wollo.error,
     })
 )(KeysImport);

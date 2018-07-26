@@ -23,7 +23,7 @@ import {color} from '../../styles';
 
 const qrSize = 100;
 
-class DeviceAuth extends Component {
+export class DeviceAuth extends Component {
     state = {
         email: '',
         phone: '',

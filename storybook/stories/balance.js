@@ -3,6 +3,7 @@ import {storiesOf} from '@storybook/react-native';
 import {BalanceComponent} from '../../src/app/screens/balance';
 
 const props = {
+    dispatch: () => {},
     navigation: {
         state: {
             key: 'SCREEN_BALANCE',

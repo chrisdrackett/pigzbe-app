@@ -7,15 +7,13 @@ import {SCREEN_SET_PASSCODE} from '../../constants';
 import {settingsEnableTouchId} from '../../actions';
 import StepModule from '../../components/step-module';
 
-class TouchId extends Component {
+export class TouchId extends Component {
     onEnable = () => {
         this.props.dispatch(settingsEnableTouchId(true));
         this.onSkip();
     }
 
-    onSkip = () => {
-        this.props.navigation.navigate(SCREEN_SET_PASSCODE);
-    }
+    onSkip = () => this.props.navigation.navigate(SCREEN_SET_PASSCODE)
 
     render() {
         return (

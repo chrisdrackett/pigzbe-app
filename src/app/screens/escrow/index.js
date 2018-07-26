@@ -13,7 +13,7 @@ import {loadEscrowAccount, validateTx} from '../../actions';
 import ScrollList from '../../components/scroll-list';
 import Footer from '../../components/footer';
 
-class Escrow extends Component {
+export class Escrow extends Component {
     async componentDidMount() {
         const {dispatch, transactions} = this.props;
 
@@ -24,11 +24,9 @@ class Escrow extends Component {
         }
     }
 
-    updateMessages() {
-    }
-
     render() {
         const {
+            dispatch,
             navigation,
             balance,
             transactions,
@@ -49,7 +47,7 @@ class Escrow extends Component {
                 </View>
                 <ScrollList
                     border
-                    items={transactions}
+                    items={transactions.map(t => ({...t, dispatch}))}
                     ItemComponent={Transaction}
                 />
                 <Footer>
@@ -68,8 +66,6 @@ class Escrow extends Component {
         );
     }
 }
-
-export const EscrowTestComponent = Escrow;
 
 export default connect(state => ({
     balance: state.escrow.balance,

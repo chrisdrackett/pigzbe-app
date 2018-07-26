@@ -36,11 +36,23 @@ storiesOf('Button')
                 label={'Lorem ipsum'}
                 onPress={() => {}}
             />
+            <Button
+                disabled
+                plain
+                label={'Lorem ipsum'}
+                onPress={() => {}}
+            />
         </View>
     ))
     .add('secondary button', () => (
-        <View style={style}>
+        <View style={[style, light]}>
             <Button
+                secondary
+                label={'Lorem ipsum'}
+                onPress={() => {}}
+            />
+            <Button
+                disabled
                 secondary
                 label={'Lorem ipsum'}
                 onPress={() => {}}
@@ -50,6 +62,12 @@ storiesOf('Button')
     .add('outline button', () => (
         <View style={[style, light]}>
             <Button
+                outline
+                label={'Lorem ipsum'}
+                onPress={() => {}}
+            />
+            <Button
+                disabled
                 outline
                 label={'Lorem ipsum'}
                 onPress={() => {}}

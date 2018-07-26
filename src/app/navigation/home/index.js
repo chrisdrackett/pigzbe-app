@@ -1,9 +1,9 @@
 import {createSwitchNavigator} from 'react-navigation';
 import Home from '../../screens/home';
-import Login from '../../screens/login';
+import PasscodeLogin from '../../screens/passcode-login';
 import DeviceAuth from '../../screens/device-auth';
 import TouchId from '../../screens/touch-id';
-import SetPasscode from '../../screens/set-passcode';
+import PasscodeSet from '../../screens/passcode-set';
 import {
     SCREEN_HOME,
     SCREEN_LOGIN,
@@ -17,7 +17,7 @@ const nav = {
         screen: Home
     },
     [SCREEN_LOGIN]: {
-        screen: Login
+        screen: PasscodeLogin
     },
     [SCREEN_DEVICE_AUTH]: {
         screen: DeviceAuth
@@ -26,7 +26,7 @@ const nav = {
         screen: TouchId
     },
     [SCREEN_SET_PASSCODE]: {
-        screen: SetPasscode
+        screen: PasscodeSet
     },
 };
 

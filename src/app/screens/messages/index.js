@@ -11,7 +11,7 @@ import {strings} from '../../constants';
 import ScrollList from '../../components/scroll-list';
 import Footer from '../../components/footer';
 
-class Messages extends Component {
+export class Messages extends Component {
     componentDidMount() {
         this.props.dispatch(messagesMarkRead());
     }
@@ -51,9 +51,6 @@ class Messages extends Component {
         );
     }
 }
-
-// export for test
-export const MessagesComponent = Messages;
 
 export default connect(state => ({
     messages: state.messages.messages,

@@ -8,7 +8,7 @@ import StepModule from '../../components/step-module';
 import NumPad from '../../components/num-pad';
 import Dots from '../../components/dots';
 
-class SetPasscode extends Component {
+export class PasscodeSet extends Component {
     state = {
         input: '',
         code: null,
@@ -82,11 +82,9 @@ class SetPasscode extends Component {
     }
 }
 
-export const SetPasscodeComponent = SetPasscode;
-
 export default connect(
     state => ({
         isLoading: state.loader.isLoading,
         error: state.auth.error
     })
-)(SetPasscode);
+)(PasscodeSet);

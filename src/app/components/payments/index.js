@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import {loadPayments} from '../../actions';
 import Payment from './payment';
 import ScrollList from '../scroll-list';
 import {strings} from '../../constants';
 
-class Payments extends Component {
+export default class Payments extends Component {
 
     async componentWillMount() {
         this.props.dispatch(loadPayments());
@@ -28,11 +27,3 @@ class Payments extends Component {
         );
     }
 }
-
-export default connect(
-    state => ({
-        loading: state.wollo.loading,
-        balance: state.wollo.balance,
-        payments: state.wollo.payments
-    })
-)(Payments);

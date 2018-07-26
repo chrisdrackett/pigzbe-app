@@ -32,7 +32,7 @@ const copyKeys = async (sk, pk) => {
     return result.action !== 'dismissedAction';
 };
 
-class KeysSave extends Component {
+export class KeysSave extends Component {
     state = {
         copied: false,
         showConfirm: false

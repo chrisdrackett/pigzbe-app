@@ -9,7 +9,7 @@ import NumPad from '../../components/num-pad';
 import Dots from '../../components/dots';
 import StepModule from '../../components/step-module';
 
-class Login extends Component {
+export class PasscodeLogin extends Component {
     state = {
         input: '',
         code: null,
@@ -54,11 +54,9 @@ class Login extends Component {
     }
 }
 
-export const LoginComponent = Login;
-
 export default connect(
     state => ({
         isLoading: state.loader.isLoading,
         error: state.auth.error
     })
-)(Login);
+)(PasscodeLogin);

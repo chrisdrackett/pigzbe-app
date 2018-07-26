@@ -21,14 +21,47 @@ const Header = () => (
     </Container>
 );
 
-class Login extends Component {
+export const HomeView = ({onCreate, onLogin}) => (
+    <Fragment>
+        <Header/>
+        <Container body light>
+            <View style={styles.containerText}>
+                <Text style={styles.title}>Welcome to Pigzbe</Text>
+                <Text style={styles.subtitle}>New to Pizbe? Create an account below and claim your Wollo</Text>
+            </View>
+            <View>
+                <Button label="Let's get started" onPress={onCreate} />
+                <Button label="I already have an account" plain onPress={onLogin} />
+            </View>
+        </Container>
+    </Fragment>
+);
+
+export const HomeErrorView = ({onInit}) => (
+    <Fragment>
+        <Header/>
+        <Container body light>
+            <View style={styles.containerText}>
+                <Text style={styles.title}>Error</Text>
+                <Text style={styles.subtitle}>Could not connect to network. Please check your internet connection and try again.</Text>
+            </View>
+            <View>
+                <Button
+                    label="Try again"
+                    onPress={onInit}
+                />
+            </View>
+        </Container>
+    </Fragment>
+);
+
+class Home extends Component {
     state = {
-        inputText: '',
         isStarting: true,
         failed: false
     }
 
-    async init() {
+    init = async () => {
         const {dispatch} = this.props;
 
         this.setState({isStarting: true, failed: false});
@@ -62,13 +95,9 @@ class Login extends Component {
         this.init();
     }
 
-    onClickLogin = () => {
-        this.props.navigation.navigate(SCREEN_LOGIN);
-    }
+    onLogin = () => this.props.navigation.navigate(SCREEN_LOGIN)
 
-    onClickCreateAccount = () => {
-        this.props.navigation.navigate(SCREEN_DEVICE_AUTH);
-    }
+    onCreate = () => this.props.navigation.navigate(SCREEN_DEVICE_AUTH)
 
     render() {
         const {isLoading} = this.props;
@@ -77,35 +106,14 @@ class Login extends Component {
         return (
             <Container>
                 {failed ? (
-                    <Fragment>
-                        <Header/>
-                        <Container body>
-                            <View style={styles.containerText}>
-                                <Text style={styles.title}>Error</Text>
-                                <Text style={styles.subtitle}>Could not connect to network. Please check your internet connection and try again.</Text>
-                            </View>
-                            <View>
-                                <Button
-                                    label="Try again"
-                                    onPress={() => this.init()}
-                                />
-                            </View>
-                        </Container>
-                    </Fragment>
+                    <HomeErrorView
+                        onInit={this.init}
+                    />
                 ) : (
-                    <Fragment>
-                        <Header/>
-                        <Container body light>
-                            <View style={styles.containerText}>
-                                <Text style={styles.title}>Welcome to Pigzbe</Text>
-                                <Text style={styles.subtitle}>New to Pizbe? Create an account below and claim your Wollo</Text>
-                            </View>
-                            <View>
-                                <Button label="Let's get started" onPress={this.onClickCreateAccount} />
-                                <Button label="I already have an account" plain onPress={this.onClickLogin} />
-                            </View>
-                        </Container>
-                    </Fragment>
+                    <HomeView
+                        onCreate={this.onCreate}
+                        onLogin={this.onLogin}
+                    />
                 )}
                 <DevPanel/>
                 <Loader
@@ -119,7 +127,5 @@ class Login extends Component {
 export default connect(
     state => ({
         isLoading: state.loader.isLoading,
-        error: state.auth.error,
-        useTestnet: state.wollo.useTestnet
     })
-)(Login);
+)(Home);

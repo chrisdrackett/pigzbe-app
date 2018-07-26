@@ -14,7 +14,7 @@ const CenteredView = ({children}) => (
     </View>
 );
 
-storiesOf('CenteredView')
+storiesOf('Hello')
     .add('default view', () => (
         <CenteredView>
             <Text>Hello Storybook</Text>

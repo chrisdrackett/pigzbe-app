@@ -20,7 +20,7 @@ import {
 } from '../../constants';
 import openURL from '../../utils/open-url';
 
-class Settings extends Component {
+export class Settings extends Component {
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
 
     onClaim = () => this.props.navigation.navigate(SCREEN_CLAIM)

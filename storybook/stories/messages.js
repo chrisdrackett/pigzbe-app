@@ -1,6 +1,6 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import {Messages} from './';
+import {storiesOf} from '@storybook/react-native';
+import {Messages} from '../../src/app/screens/messages';
 
 const props = {
     dispatch: () => {},
@@ -18,18 +18,7 @@ const props = {
     error: null
 };
 
-describe('Messages', () => {
-    // test('renders correctly with messages', () => {
-    //     const tree = renderer.create(<MessagesComponent {...props}/>).toJSON();
-    //     expect(tree).toMatchSnapshot();
-    // });
-
-    test('renders correctly without messages', () => {
-        const tree = renderer.create(
-            <Messages {...Object.assign({}, props, {
-                messages: []
-            })}/>
-        ).toJSON();
-        expect(tree).toMatchSnapshot();
-    });
-});
+storiesOf('Messages')
+    .add('default', () => (
+        <Messages {...props}/>
+    ));

@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
-import {LoginComponent} from '../../src/app/screens/login';
-import {SetPasscodeComponent} from '../../src/app/screens/set-passcode';
+import {PasscodeLogin} from '../../src/app/screens/passcode-login';
+import {PasscodeSet} from '../../src/app/screens/passcode-set';
 
 const props = {
     isLoading: false,
@@ -11,8 +11,8 @@ const props = {
 
 storiesOf('Passcode')
     .add('login', () => (
-        <LoginComponent {...props}/>
+        <PasscodeLogin {...props}/>
     ))
     .add('set passcode', () => (
-        <SetPasscodeComponent {...props}/>
+        <PasscodeSet {...props}/>
     ));
