@@ -45,6 +45,7 @@ export class ClaimICO extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+      console.log('componentWillReceiveProps', nextProps);
 
       if (nextProps.localStorage && !this.props.localStorage) {
           if (Object.keys(nextProps.localStorage).length === 0 && nextProps.localStorage.constructor === Object) {
@@ -54,12 +55,13 @@ export class ClaimICO extends Component {
 
       if (this.props.localStorage) {
           if (nextProps.user.coinbase && nextProps.user.balanceWollo) {
+              console.log('STAGE 5');
               this.setState({step: 5, loading: null});
           }
 
-          if (this.props.localStorage.complete && this.props.localStorage.stellar) {
-              this.setState({step: 6});
-          }
+          // if (this.props.localStorage.complete && this.props.localStorage.stellar) {
+          //     this.setState({step: 6});
+          // }
       }
   }
 
@@ -188,8 +190,22 @@ export class ClaimICO extends Component {
           errorBurning
       } = this.props;
 
-      // console.log(JSON.stringify(localStorage, null, 2));
+      // console.log(JSON.stringify({
+      //     loading,
+      //     contract,
+      //     user,
+      //     events,
+      //     // web3,
+      //     localStorage,
+      //     errorBurning
+      // }, null, 2));
       // console.log('errorBurning', errorBurning);
+
+      console.log('===> step', step);
+      console.log('web3', web3);
+      console.log('contract.instance', contract.instance);
+      console.log('localStorage', localStorage);
+      console.log('this.state.loading', this.state.loading);
 
       if (!web3 || !contract.instance || !localStorage || this.state.loading !== null) {
           return (

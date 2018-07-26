@@ -11,9 +11,13 @@ import Button from '../../components/button';
 import Wollo from '../../components/wollo';
 import Payments from '../../components/payments';
 import Footer from '../../components/footer';
-import {wolloError} from '../../actions';
+import {loadPayments, wolloError} from '../../actions';
 
 export class Transfer extends Component {
+    async componentWillMount() {
+        this.props.dispatch(loadPayments());
+    }
+
     onTransfer = () => {
         const {hasGas, balanceXLM, minXLM} = this.props;
 
