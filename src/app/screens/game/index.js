@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Platform, View, WebView} from 'react-native';
 import NavListener from './nav-listener';
 import styles from './styles';
-import Overlay from '../overlay';
+import Learn from '../learn';
 import Loader from '../../components/loader';
 import {gameWolloCollected, gameOverlayOpen} from '../../actions';
 import {strings} from '../../constants';
@@ -23,7 +23,7 @@ const source = Platform.OS === 'android' ? {uri: 'file:///android_asset/game.htm
 
 // https://facebook.github.io/react-native/docs/webview.html
 
-class GameView extends NavListener {
+export class GameView extends NavListener {
     state = {
         isLoading: true
     }
@@ -67,6 +67,8 @@ class GameView extends NavListener {
     }
 
     render() {
+        const {dispatch, exchange, wolloCollected, overlayOpen} = this.props;
+
         return (
             <View style={styles.full}>
                 <WebView
@@ -79,7 +81,12 @@ class GameView extends NavListener {
                     onMessage={event => this.onMessage(event)}
                     onError={event => console.log(event)}
                 />
-                <Overlay/>
+                <Learn
+                    dispatch={dispatch}
+                    exchange={exchange}
+                    wolloCollected={wolloCollected}
+                    overlayOpen={overlayOpen}
+                />
                 <Loader
                     isLoading={this.state.isLoading}
                     message={strings.gameLoading}
@@ -89,4 +96,8 @@ class GameView extends NavListener {
     }
 }
 
-export default connect()(GameView);
+export default connect(state => ({
+    exchange: state.coins.exchange,
+    wolloCollected: state.game.wolloCollected,
+    overlayOpen: state.game.overlayOpen
+}))(GameView);

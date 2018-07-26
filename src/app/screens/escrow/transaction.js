@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {Text, View} from 'react-native';
 import styles from './styles';
 import moment from 'moment';
@@ -43,7 +42,7 @@ const getButtonTextStyle = validation => {
     return styles.disabledText;
 };
 
-export default connect()(({
+export default ({
     dispatch,
     date,
     amount,
@@ -75,4 +74,4 @@ export default connect()(({
             />
         </View>
     </View>
-));
+);

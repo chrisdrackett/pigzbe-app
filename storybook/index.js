@@ -10,6 +10,18 @@ function loadStories() {
     require('./stories/step-module.js');
     require('./stories/modal.js');
     require('./stories/balance.js');
+    require('./stories/passcode.js');
+    require('./stories/home.js');
+    require('./stories/keys.js');
+    require('./stories/settings.js');
+    require('./stories/touch-id.js');
+    require('./stories/transfer.js');
+    require('./stories/device-auth.js');
+    require('./stories/messages.js');
+    require('./stories/learn.js');
+    require('./stories/escrow.js');
+    require('./stories/claim.js');
+    require('./stories/game.js');
 }
 
 configure(loadStories, module);

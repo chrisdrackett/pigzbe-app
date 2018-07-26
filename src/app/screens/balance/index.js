@@ -1,9 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import styles from './styles';
+import {View} from 'react-native';
+// import styles from './styles';
+import {color} from '../../styles';
 import {
-    strings,
-    SCREEN_ESCROW,
     SCREEN_SETTINGS,
     COINS,
     COIN_DPS
@@ -11,16 +11,14 @@ import {
 import ConvertBalance from '../../components/convert-balance';
 import BalanceGraph from '../../components/balance-graph';
 import Loader from '../../components/loader';
-import BaseView from '../../components/base-view';
-import Pig from '../../components/pig';
 import Button from '../../components/button';
 import Wollo from '../../components/wollo';
-import Footer from '../../components/footer';
 import {getExchange} from '../../actions/coins';
 import {settingsFirstTime} from '../../actions';
 import Modal from '../../components/modal';
 import Title from '../../components/title';
 import Paragraph from '../../components/paragraph';
+import StepModule from '../../components/step-module';
 
 class Balance extends Component {
 
@@ -55,23 +53,44 @@ class Balance extends Component {
 
         const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
 
+        // return (
+        //     <Fragment>
+        //         <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container} error={error}>
+        //             <Wollo balance={balance}/>
+        //             <Pig style={styles.pig}/>
+        //             <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
+        //             <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
+        //         </BaseView>
+        //         <Footer>
+        //             {escrow ? (
+        //                 <Button
+        //                     outline
+        //                     label={strings.escrowButtonLabel}
+        //                     onPress={() => navigation.navigate(SCREEN_ESCROW)}
+        //                 />
+        //             ) : null}
+        //         </Footer>
+        //
+        //     </Fragment>
+        // );
+
         return (
             <Fragment>
-                <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container} error={error}>
-                    <Wollo balance={balance}/>
-                    <Pig style={styles.pig}/>
-                    <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
-                    <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
-                </BaseView>
-                <Footer>
-                    {escrow ? (
-                        <Button
-                            outline
-                            label={strings.escrowButtonLabel}
-                            onPress={() => navigation.navigate(SCREEN_ESCROW)}
-                        />
-                    ) : null}
-                </Footer>
+                <StepModule
+                    scroll
+                    icon="piggy"
+                    headerChildren={(
+                        <View style={{marginBottom: -20}}>
+                            <Wollo balance={balance}/>
+                        </View>
+                    )}
+                    backgroundColor={color.lightGrey}
+                >
+                    <View>
+                        <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
+                        <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
+                    </View>
+                </StepModule>
                 {firstTime && (
                     <Modal>
                         <Title dark>Howdy!</Title>

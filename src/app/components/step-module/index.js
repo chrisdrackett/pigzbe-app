@@ -20,29 +20,34 @@ export default class extends Component {
           error,
           scroll,
           children,
-          headerChildren
+          headerChildren,
+          backgroundColor
       } = this.props;
 
       return (
           <Container style={styles.wrapper}>
+              <View style={styles.bg}/>
               <Header/>
               <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader>
               <Container
                   white
                   scroll={scroll}
                   style={{width: '88.75%', alignSelf: 'center'}}
+                  backgroundColor={backgroundColor}
               >
-                  <KeyboardAvoid>
+                  {/* <KeyboardAvoid> */}
+                  {tagline && (
                       <View style={styles.containerText}>
                           <Text style={styles.subtitle}>{tagline}</Text>
                           {error && (
                               <Text style={styles.subtitle}>{error.message}</Text>
                           )}
                       </View>
-                      <View style={[styles.containerText, styles.containerBody]}>
-                          {children}
-                      </View>
-                  </KeyboardAvoid>
+                  )}
+                  <View style={[styles.containerBody, tagline ? styles.bottom : null]}>
+                      {children}
+                  </View>
+                  {/* </KeyboardAvoid> */}
               </Container>
           </Container>
       );

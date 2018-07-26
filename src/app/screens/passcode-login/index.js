@@ -9,7 +9,7 @@ import NumPad from '../../components/num-pad';
 import Dots from '../../components/dots';
 import StepModule from '../../components/step-module';
 
-class Login extends Component {
+export class PasscodeLogin extends Component {
     state = {
         input: '',
         code: null,
@@ -33,12 +33,12 @@ class Login extends Component {
                 scroll={false}
                 tagline={`Login with your ${PASSCODE_LENGTH}-digit passcode`}
                 headerChildren={(
-                    <View style={{marginTop: 10}}>
+                    <View style={{marginTop: 30}}>
                         <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                     </View>
                 )}
             >
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
+                <View style={{paddingBottom: 20}}>
                     <NumPad
                         length={PASSCODE_LENGTH}
                         onInput={this.onInput}
@@ -59,4 +59,4 @@ export default connect(
         isLoading: state.loader.isLoading,
         error: state.auth.error
     })
-)(Login);
+)(PasscodeLogin);

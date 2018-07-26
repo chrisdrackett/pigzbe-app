@@ -1,8 +1,6 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import {Provider} from 'react-redux';
-import {mockStore} from '../../../setupTests';
-import {Escrow} from './';
+import {storiesOf} from '@storybook/react-native';
+import {Escrow} from '../../src/app/screens/escrow';
 
 const props = {
     dispatch: () => {},
@@ -43,13 +41,7 @@ const props = {
     ]
 };
 
-describe('Escrow', () => {
-    test('renders correctly', () => {
-        const tree = renderer.create((
-            <Provider store={mockStore()}>
-                <Escrow {...props}/>
-            </Provider>
-        )).toJSON();
-        expect(tree).toMatchSnapshot();
-    });
-});
+storiesOf('Escrow')
+    .add('default', () => (
+        <Escrow {...props}/>
+    ));

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Game from '../../../game/';
 import NavListener from './nav-listener';
-import Overlay from '../overlay';
+import Learn from '../learn';
 import Loader from '../../components/loader';
 import {container} from '../../styles';
 import {gameWolloCollected, gameOverlayOpen} from '../../actions';
@@ -53,13 +53,20 @@ class GameView extends NavListener {
     }
 
     render() {
+        const {dispatch, exchange, wolloCollected, overlayOpen} = this.props;
+
         return (
             <View style={container}>
                 <div
                     ref={el => (this.el = el)}
                     style={container}
                 />
-                <Overlay/>
+                <Learn
+                    dispatch={dispatch}
+                    exchange={exchange}
+                    wolloCollected={wolloCollected}
+                    overlayOpen={overlayOpen}
+                />
                 <Loader
                     isLoading={this.state.isLoading}
                     message={strings.gameLoading}
@@ -69,4 +76,8 @@ class GameView extends NavListener {
     }
 }
 
-export default connect()(GameView);
+export default connect(state => ({
+    exchange: state.coins.exchange,
+    wolloCollected: state.game.wolloCollected,
+    overlayOpen: state.game.overlayOpen
+}))(GameView);

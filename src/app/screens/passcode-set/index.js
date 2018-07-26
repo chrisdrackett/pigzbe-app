@@ -8,7 +8,7 @@ import StepModule from '../../components/step-module';
 import NumPad from '../../components/num-pad';
 import Dots from '../../components/dots';
 
-class SetPasscode extends Component {
+export class PasscodeSet extends Component {
     state = {
         input: '',
         code: null,
@@ -59,12 +59,12 @@ class SetPasscode extends Component {
                 scroll={false}
                 tagline="Please create a back-up passcode to log in in the event your Touch ID doesn’t work."
                 headerChildren={(
-                    <View style={{marginTop: 10}}>
+                    <View style={{marginTop: 30}}>
                         <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                     </View>
                 )}
             >
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
+                <View style={{paddingBottom: 20}}>
                     <NumPad
                         key={this.state.code ? 'confirm' : 'enter'}
                         length={PASSCODE_LENGTH}
@@ -87,4 +87,4 @@ export default connect(
         isLoading: state.loader.isLoading,
         error: state.auth.error
     })
-)(SetPasscode);
+)(PasscodeSet);

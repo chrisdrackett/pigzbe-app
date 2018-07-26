@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import styles from './styles';
 import {
@@ -13,6 +13,43 @@ import Payments from '../../components/payments';
 import Footer from '../../components/footer';
 import {wolloError} from '../../actions';
 
+export class Transfer extends Component {
+    onTransfer = () => {
+        const {hasGas, balanceXLM, minXLM} = this.props;
+
+        if (!hasGas) {
+            const errMsg = `${strings.transferErrorNoGas} (Balance ${balanceXLM}XLM. Required ${minXLM}XLM)`;
+            this.props.dispatch(wolloError(new Error(errMsg)));
+            return;
+        }
+        this.props.navigation.navigate(SCREEN_SEND);
+    }
+
+    render() {
+        const {error, balance, hasGas, loading, payments} = this.props;
+
+        return (
+            <BaseView scrollViewStyle={styles.container} error={error}>
+                <Wollo balance={balance}/>
+                <Pig style={styles.pig}/>
+                <Payments
+                    loading={loading}
+                    balance={balance}
+                    payments={payments}
+                />
+                <Footer>
+                    <Button
+                        label={strings.transferButtonLabel}
+                        onPress={this.onTransfer}
+                        disabled={!hasGas}
+                        outline
+                    />
+                </Footer>
+            </BaseView>
+        );
+    }
+}
+
 export default connect(
     state => ({
         error: state.wollo.error,
@@ -20,34 +57,7 @@ export default connect(
         balanceXLM: state.wollo.balanceXLM,
         minXLM: state.wollo.minXLM,
         hasGas: state.wollo.hasGas,
+        loading: state.wollo.loading,
+        payments: state.wollo.payments
     })
-)(({
-    dispatch,
-    balance,
-    balanceXLM,
-    minXLM,
-    hasGas,
-    navigation,
-    error,
-}) => (
-    <BaseView scrollViewStyle={styles.container} error={error}>
-        <Wollo balance={balance}/>
-        <Pig style={styles.pig}/>
-        <Payments/>
-        <Footer>
-            <Button
-                label={strings.transferButtonLabel}
-                onPress={() => {
-                    if (!hasGas) {
-                        const errMsg = `${strings.transferErrorNoGas} (Balance ${balanceXLM}XLM. Required ${minXLM}XLM)`;
-                        dispatch(wolloError(new Error(errMsg)));
-                        return;
-                    }
-                    navigation.navigate(SCREEN_SEND);
-                }}
-                disabled={!hasGas}
-                outline
-            />
-        </Footer>
-    </BaseView>
-));
+)(Transfer);

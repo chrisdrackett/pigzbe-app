@@ -4,4 +4,5 @@ export default {
     'touch-id': require('./touch-id.png'),
     keys: require('./keys.png'),
     secure: require('./secure.png'),
+    piggy: require('./piggy.png'),
 };

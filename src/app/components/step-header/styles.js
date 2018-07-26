@@ -12,12 +12,10 @@ export default StyleSheet.create({
         marginBottom: -25,
         width: 121,
         height: 108,
+        // backgroundColor: color.red
     },
     noImage: {
-        marginTop: 0,
-        marginBottom: -25,
-        width: 121,
-        height: 108,
+        // backgroundColor: color.red
     },
     picker: {
         backgroundColor: color.white

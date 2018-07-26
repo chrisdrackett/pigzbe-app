@@ -12,7 +12,7 @@ export const color = {
     blueOpacity80: 'rgba(0, 50, 120, 0.8)',
     mediumBlue: 'rgb(21, 74, 150)',
     mediumBlueOpacity50: 'rgba(21, 74, 150, 0.5)',
-    lightBlue: '#249EB8',
+    lightBlue: 'rgb(59, 113, 190)',
     yellow: 'rgb(253, 223, 6)',
     red: 'rgb(255, 0, 0)',
     green: 'rgb(149, 198, 100)',

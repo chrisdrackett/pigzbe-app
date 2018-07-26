@@ -23,7 +23,7 @@ import {transfer, burn, initWeb3} from '../../actions/contract';
 import {isValidSeed} from '../../utils/web3';
 import {SCREEN_BALANCE} from '../../constants';
 
-class Claim extends Component {
+export class ClaimICO extends Component {
   state = {
       step: 1,
       error: null,
@@ -281,4 +281,4 @@ export default connect(({config, user, web3, events, contract, content}) => ({
     clearClaimData,
     refreshBalance
 },
-)(Claim);
+)(ClaimICO);
