@@ -9,7 +9,8 @@ export default StyleSheet.create({
         bottom: 0
     },
     pig: {
-        width: 81,
-        height: 35
+        width: 97,
+        height: 60,
+        marginBottom: -20,
     }
 });
