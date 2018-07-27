@@ -26,7 +26,6 @@ export class KeysImport extends Component {
             <StepModule
                 title="Import Keys"
                 icon="secure"
-                scroll={false}
                 content="Enter your secret key to import an existing account."
                 error={error}
                 onBack={this.onBack}
@@ -34,7 +33,6 @@ export class KeysImport extends Component {
             >
                 <View>
                     <TextInput
-                        dark
                         error={!!error}
                         value={this.state.inputText}
                         placeholder={'secret key'}
@@ -43,6 +41,7 @@ export class KeysImport extends Component {
                         returnKeyType="done"
                     />
                     <Button
+                        style={{marginTop: 30}}
                         label={'Import'}
                         onPress={this.onImport}
                     />

@@ -29,9 +29,9 @@ export class Send extends Component {
                 <StepModule
                     title={this.state.review ? 'Review Transfer' : 'Transfer Wollo'}
                     icon="transfer"
-                    scroll={true}
                     error={error}
                     pad
+                    paddingTop={10}
                 >
                     <Fragment>
                         <KeyboardAvoid containerStyle={{flexGrow: 1}}>

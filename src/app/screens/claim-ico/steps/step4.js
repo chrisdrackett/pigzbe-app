@@ -23,7 +23,6 @@ export default ({
                 <Paragraph>We're almost there! Enter your Eidoo wallet address and the 12 word seed below and lets claim.</Paragraph>
                 <View>
                     <TextInput
-                        dark
                         error={badAddress}
                         value={pk}
                         numberOfLines={2}
@@ -32,7 +31,6 @@ export default ({
                         returnKeyType="done"
                     />
                     <TextInput
-                        dark
                         error={badSeed}
                         value={mnemonic}
                         numberOfLines={3}

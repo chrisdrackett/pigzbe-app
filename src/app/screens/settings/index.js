@@ -52,9 +52,9 @@ export class Settings extends Component {
             <StepModule
                 title={'Settings'}
                 icon="settings"
-                scroll={true}
                 onBack={this.onBack}
                 pad
+                paddingTop={20}
             >
                 <View>
                     <Button

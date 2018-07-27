@@ -7,7 +7,6 @@ const StepWrapper = ({title, content, children, onNext, onBack, buttonNextLabel}
         title={title}
         content={content}
         icon="eidoo"
-        scroll={false}
         onBack={onBack}
         pad
     >

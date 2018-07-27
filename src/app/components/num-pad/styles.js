@@ -5,7 +5,7 @@ export default StyleSheet.create({
     numpad: {
         backgroundColor: color.white,
         alignItems: 'center',
-        marginTop: 20,
+        paddingBottom: 4,
     },
     row: {
         flexDirection: 'row',

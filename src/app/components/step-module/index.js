@@ -11,7 +11,7 @@ import {color} from '../../styles';
 export default class extends Component {
 
   static defaultProps = {
-      scroll: false
+      scroll: true
   }
 
   render() {
@@ -27,23 +27,20 @@ export default class extends Component {
           onBack,
           pad,
           onSettings,
+          paddingTop
       } = this.props;
 
       return (
-          <Container style={styles.wrapper}>
+          <Container style={styles.wrapper} scroll={false}>
               <View style={styles.bg}/>
               <Header onBack={onBack} onSettings={onSettings} />
               <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader>
               <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}}>
                   <Container
                       scroll={scroll}
-                      style={{
-                          alignSelf: 'center',
-                          width: '88.75%',
+                      style={[styles.container, {
                           backgroundColor: backgroundColor || color.white,
-                          borderTopRightRadius: 5,
-                          borderTopLeftRadius: 5,
-                      }}
+                      }]}
                   >
                       {content && (
                           <View style={styles.containerText}>
@@ -57,7 +54,7 @@ export default class extends Component {
                               )}
                           </View>
                       )}
-                      <View style={pad ? styles.pad : null}>
+                      <View style={[pad ? styles.pad : null, paddingTop ? {paddingTop} : null]}>
                           {children}
                       </View>
                   </Container>

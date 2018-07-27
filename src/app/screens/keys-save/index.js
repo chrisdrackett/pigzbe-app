@@ -60,7 +60,6 @@ export class KeysSave extends Component {
                 <StepModule
                     title="Your Private Key"
                     icon="secure"
-                    scroll={false}
                     content="Below is your Pigzbe wallet Private Key. You must make a secure copy now. If you lose your key, you lose your funds."
                     pad
                 >
@@ -69,6 +68,7 @@ export class KeysSave extends Component {
                             title={'Secret Key'}
                             content={secretKey}
                             onPress={this.onCopy}
+                            style={{marginBottom: 16, marginTop: -26}}
                         />
                         <Button
                             label={'Save Key'}

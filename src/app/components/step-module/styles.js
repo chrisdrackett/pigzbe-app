@@ -6,13 +6,19 @@ import {
 } from '../../styles';
 
 export default StyleSheet.create({
+    container: {
+        alignSelf: 'center',
+        width: '88.75%',
+        borderTopRightRadius: 5,
+        borderTopLeftRadius: 5,
+    },
     containerText: {
         paddingLeft: paddingH,
         paddingRight: paddingH,
         paddingTop: 30,
     },
     pad: {
-        paddingTop: 30,
+        // paddingTop: 20,
         paddingBottom: 12,
         paddingLeft: paddingH,
         paddingRight: paddingH,

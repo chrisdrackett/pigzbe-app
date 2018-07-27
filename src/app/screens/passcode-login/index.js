@@ -28,8 +28,8 @@ export class PasscodeLogin extends Component {
 
         return (
             <StepModule
-                title={'Enter your Passcode'}
                 scroll={false}
+                title={'Enter your Passcode'}
                 content={`Login with your ${PASSCODE_LENGTH}-digit passcode`}
                 headerChildren={(
                     <View style={{marginTop: 30}}>
@@ -37,13 +37,11 @@ export class PasscodeLogin extends Component {
                     </View>
                 )}
             >
-                <View style={{paddingBottom: 20}}>
-                    <NumPad
-                        length={PASSCODE_LENGTH}
-                        onInput={this.onInput}
-                        onFull={this.onCodeEntered}
-                    />
-                </View>
+                <NumPad
+                    length={PASSCODE_LENGTH}
+                    onInput={this.onInput}
+                    onFull={this.onCodeEntered}
+                />
                 <Loader
                     white
                     isLoading={isLoading}

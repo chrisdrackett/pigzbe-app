@@ -39,7 +39,7 @@ export class Escrow extends Component {
                     title={'Distribution lock-up'}
                     content={'Your Wollo release schedule:'}
                     icon="coins"
-                    scroll={true}
+                    scroll={false}
                     headerChildren={(
                         <View style={{marginBottom: -20}}>
                             <Wollo balance={balance}/>

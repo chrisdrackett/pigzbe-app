@@ -16,6 +16,7 @@ export default StyleSheet.create({
     },
     noImage: {
         // backgroundColor: color.red
+        height: 78,
     },
     picker: {
         backgroundColor: color.white

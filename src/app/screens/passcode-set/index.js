@@ -55,8 +55,8 @@ export class PasscodeSet extends Component {
 
         return (
             <StepModule
-                title={this.state.code ? 'Re-enter Passcode' : 'Passcode needed'}
                 scroll={false}
+                title={this.state.code ? 'Re-enter Passcode' : 'Passcode needed'}
                 content="Please create a back-up passcode to log in in the event your Touch ID doesn’t work."
                 headerChildren={(
                     <View style={{marginTop: 30}}>
@@ -64,14 +64,12 @@ export class PasscodeSet extends Component {
                     </View>
                 )}
             >
-                <View style={{paddingBottom: 20}}>
-                    <NumPad
-                        key={this.state.code ? 'confirm' : 'enter'}
-                        length={PASSCODE_LENGTH}
-                        onInput={this.onInput}
-                        onFull={this.state.code ? this.onCodeConfirmed : this.onCodeEntered}
-                    />
-                </View>
+                <NumPad
+                    key={this.state.code ? 'confirm' : 'enter'}
+                    length={PASSCODE_LENGTH}
+                    onInput={this.onInput}
+                    onFull={this.state.code ? this.onCodeConfirmed : this.onCodeEntered}
+                />
                 <Loader
                     white
                     isLoading={isLoading}

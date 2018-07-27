@@ -28,7 +28,7 @@ configure(loadStories, module);
 
 const StorybookUI = getStorybookUI({
     port: 7007,
-    host: 'localhost',
+    host: '192.168.0.15',
 });
 AppRegistry.registerComponent('PigzbeApp', () => StorybookUI);
 

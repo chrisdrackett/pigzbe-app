@@ -29,7 +29,8 @@ export const color = {
     lightRed: 'rgb(231, 110, 102)',
 };
 
-export const paddingH = '9.375%';
+// export const paddingH = '9.375%';
+export const paddingH = '6.25%';
 
 export const container = {
     alignSelf: 'stretch',

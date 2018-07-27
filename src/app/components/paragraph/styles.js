@@ -6,7 +6,7 @@ export default StyleSheet.create({
         fontFamily,
         color: color.blue,
         fontSize: 16,
-        marginBottom: 20,
+        marginBottom: 18,
         textAlign: 'center',
     },
     bold: {

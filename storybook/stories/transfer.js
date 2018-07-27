@@ -550,4 +550,10 @@ storiesOf('Transfer')
     ))
     .add('transfer', () => (
         <Transfer {...props}/>
+    ))
+    .add('transfer 2 payments', () => (
+        <Transfer {...{
+            ...props,
+            payments: props.payments.slice(0, 2)
+        }}/>
     ));

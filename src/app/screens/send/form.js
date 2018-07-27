@@ -102,7 +102,6 @@ export default class Form extends Component {
         return (
             <View style={styles.containerForm}>
                 <TextInput
-                    dark
                     error={!!keyError}
                     value={this.state.key}
                     label={strings.transferSendTo}
@@ -115,7 +114,6 @@ export default class Form extends Component {
                 <View style={styles.amount}>
                     <Image style={styles.wollo} source={require('./images/wollo.png')}/>
                     <TextInput
-                        dark
                         error={!!amountError}
                         value={this.state.amount}
                         label={strings.transferAmount}
@@ -131,7 +129,6 @@ export default class Form extends Component {
                 </Text>
                 {!confirm || this.state.memo ? (
                     <TextInput
-                        dark
                         error={!!memoError}
                         value={this.state.memo}
                         label={strings.transferMessage}

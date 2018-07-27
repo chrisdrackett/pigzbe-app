@@ -20,7 +20,6 @@ export class TouchId extends Component {
             <StepModule
                 title="Use Touch ID?"
                 icon="touch-id"
-                scroll={false}
                 content="We use your phone’s security in combination with it’s in-built hardware to secure your account."
                 pad
             >

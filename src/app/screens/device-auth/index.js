@@ -92,7 +92,6 @@ export class DeviceAuth extends Component {
             <StepModule
                 title={!id ? 'Get Started' : 'Enter Code'}
                 icon={!id ? 'tick' : 'code'}
-                scroll={false}
                 content={!id
                     ? 'Before we begin, enter your mobile number to verify your mobile device.'
                     : `Now enter the code we sent to +${this.state.country}${this.state.phone}`
@@ -127,9 +126,7 @@ export class DeviceAuth extends Component {
                     )}
                     {!id && (
                         <Fragment>
-
                             <TextInput
-                                dark
                                 error={!!error}
                                 autoCapitalize="none"
                                 autoCorrect={false}
@@ -139,8 +136,6 @@ export class DeviceAuth extends Component {
                                 onChangeText={this.onChangeEmail}
                             />
                             <TextInput
-                                dark
-                                extra={{textAlign: 'center'}}
                                 error={!!error}
                                 keyboardType="number-pad"
                                 value={this.state.phone}

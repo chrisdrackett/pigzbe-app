@@ -7,28 +7,24 @@ const getHeight = (numberOfLines, margin = 0) => ({
     height: 24 + 21 * numberOfLines + margin
 });
 
-const getStyle = (error, dark, numberOfLines, extra) => {
-    let style = [styles.input];
-
-    if (dark) {
-        style = style.concat(styles.dark);
-    }
+const getStyle = (error, numberOfLines, style) => {
+    let s = [styles.input];
 
     if (error) {
-        style = style.concat(styles.error);
+        s = s.concat(styles.error);
     }
 
-    style = style.concat(getHeight(numberOfLines));
+    s = s.concat(getHeight(numberOfLines));
 
-    style = style.concat({
+    s = s.concat({
         paddingTop: numberOfLines > 1 ? 11 : 2
     });
 
-    if (extra) {
-        style = style.concat(extra);
+    if (style) {
+        s = s.concat(style);
     }
 
-    return style;
+    return s;
 };
 
 export default ({
@@ -37,7 +33,6 @@ export default ({
     error = false,
     value = '',
     label,
-    dark,
     numberOfLines = 1,
     maxLength,
     style,
@@ -49,17 +44,17 @@ export default ({
 }) => (
     <Fragment>
         {label ? (
-            <Text style={dark ? [styles.label, styles.labelDark] : styles.label}>
+            <Text style={styles.label}>
                 {label}
             </Text>
         ) : null}
         <View style={[getHeight(numberOfLines, 10), {alignSelf: 'stretch'}]}>
             <TextInput
-                style={getStyle(error, dark, numberOfLines, style)}
+                style={getStyle(error, numberOfLines, style)}
                 placeholder={placeholder}
                 autoCapitalize={autoCapitalize}
                 autoCorrect={autoCorrect}
-                placeholderTextColor={dark ? color.grey : color.whiteOpacity60}
+                placeholderTextColor={color.grey}
                 onChangeText={inputText => onChangeText(inputText)}
                 value={value}
                 numberOfLines={numberOfLines}

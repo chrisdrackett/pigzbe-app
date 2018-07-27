@@ -31,27 +31,27 @@ export class Transfer extends Component {
         const {error, balance, hasGas, loading, payments} = this.props;
 
         return (
-            <StepModule
-                title="Transfer"
-                icon="transfer"
-                scroll={false}
-                error={error}
-            >
-                <Fragment>
+            <Fragment>
+                <StepModule
+                    title="Transfer"
+                    icon="transfer"
+                    error={error}
+                    scroll={false}
+                >
                     <Payments
                         loading={loading}
                         balance={balance}
                         payments={payments}
                     />
-                    <View style={styles.button}>
-                        <Button
-                            label={strings.transferButtonLabel}
-                            onPress={this.onTransfer}
-                            disabled={!hasGas}
-                        />
-                    </View>
-                </Fragment>
-            </StepModule>
+                </StepModule>
+                <View style={styles.button}>
+                    <Button
+                        label={strings.transferButtonLabel}
+                        onPress={this.onTransfer}
+                        disabled={!hasGas}
+                    />
+                </View>
+            </Fragment>
         );
     }
 }

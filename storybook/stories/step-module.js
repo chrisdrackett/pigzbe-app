@@ -35,7 +35,7 @@ Object.keys(images).map(key => {
         <StepModule
             icon={key}
             title={`Step ${key}`}
-            scroll={false}
+            scroll={true}
             content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis."
             pad
         >
@@ -87,11 +87,37 @@ stories.add('scroll test', () => (
     </StepModule>
 ));
 
+stories.add('scroll test 2', () => (
+    <StepModule
+        title={'Scroll Test 2'}
+        icon="keys"
+        scroll={true}
+        content={
+            <Fragment>
+                <Paragraph>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.</Paragraph>
+            </Fragment>
+        }
+        pad
+    >
+        <View>
+            <Button
+                theme="outline"
+                label={'Lorem ipsum'}
+                onPress={() => {}}
+            />
+            <Button
+                label={'Lorem ipsum'}
+                onPress={() => {}}
+            />
+        </View>
+    </StepModule>
+));
+
 stories.add('keyboard test', () => (
     <StepModule
         title={'Keyboard Test'}
         icon="keys"
-        scroll={false}
+        scroll={true}
         content={'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.'}
         pad
     >
