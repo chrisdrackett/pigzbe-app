@@ -47,8 +47,8 @@ class Alert extends Component {
                     <Text style={styles.message}>{getErrorDetail(error)}</Text>
                     <View style={styles.dismiss}>
                         <Button
+                            theme="plain_light"
                             label={strings.errorDismiss}
-                            plain
                             onPress={() => this.dismiss()}
                         />
                     </View>

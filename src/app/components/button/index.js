@@ -5,74 +5,32 @@ import {
 } from 'react-native';
 import styles from './styles';
 
-const getButtonHitStyle = (plain, style, outline, secondary = false, disabled = false) => {
-    if (plain) {
-        return null;
-    }
-
-    let s = [styles.buttonHit];
-
-    if (secondary) {
-        s = s.concat(styles.buttonHitSecondary);
-
-        if (disabled) {
-            s = s.concat(styles.buttonHitSecondaryDisabled);
-        }
-    }
-
-    if (outline) {
-        s = s.concat(styles.buttonHitOutline);
-
-        if (disabled) {
-            s = s.concat(styles.buttonHitOutlineDisabled);
-        }
-    }
-
-    s = s.concat(style);
-
-    return s;
-};
-
-const getButtonTextStyle = (plain, disabled, secondary = false, textStyle = {}) => {
-    let s = [styles.button];
-
-    if (plain) {
-        s = s.concat(styles.buttonPlain);
-    }
-
-    if (disabled) {
-        s = s.concat(styles.buttonDisabled);
-    }
-
-    if (secondary) {
-        s = s.concat(styles.buttonTextSecondary);
-
-        if (disabled) {
-            s = s.concat(styles.buttonTextSecondaryDisabled);
-        }
-    }
-
-    s = s.concat(textStyle);
-
-    return s;
-};
-
 export default ({
     label,
     onPress,
-    plain,
     disabled,
+    theme = '',
     style,
     textStyle,
-    outline,
-    secondary
 }) => (
     <TouchableOpacity
+        onPress={() => disabled ? false : onPress()}
         disabled={disabled}
-        style={getButtonHitStyle(plain, style, outline, secondary, disabled)}
-        onPress={() => disabled ? false : onPress()}>
+        style={[
+            styles.hit,
+            styles[`hit__${theme}`],
+            disabled ? [styles.hit__disabled, styles[`hit__disabled__${theme}`]] : null,
+            style
+        ]}
+    >
         <Text
-            style={getButtonTextStyle(plain, disabled, secondary, textStyle)}>
+            style={[
+                styles.text,
+                styles[`text__${theme}`],
+                disabled ? [styles.text__disabled, styles[`text__disabled__${theme}`]] : null,
+                textStyle
+            ]}
+        >
             {label}
         </Text>
     </TouchableOpacity>

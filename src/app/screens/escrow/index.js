@@ -47,7 +47,6 @@ export class Escrow extends Component {
                     )}
                 >
                     <ScrollList
-                        border
                         items={transactions.map(t => ({...t, dispatch}))}
                         ItemComponent={Transaction}
                     />

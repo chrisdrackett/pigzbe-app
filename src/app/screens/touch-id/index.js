@@ -26,12 +26,11 @@ export class TouchId extends Component {
             >
                 <View>
                     <Button
-                        secondary
                         label={'Enable Touch ID'}
                         onPress={this.onEnable}
                     />
                     <Button
-                        outline
+                        theme="outline"
                         label={'Just use a passcode'}
                         onPress={this.onSkip}
                     />

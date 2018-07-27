@@ -24,12 +24,11 @@ export class KeysCreate extends Component {
                 pad
             >
                 <Button
-                    secondary
                     label={'Create Keys'}
                     onPress={this.onCreate}
                 />
                 <Button
-                    outline
+                    theme="outline"
                     label={'Restore with previous keys'}
                     onPress={this.onImport}
                 />

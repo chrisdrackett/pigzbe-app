@@ -14,7 +14,7 @@ const props = {
     },
     online: true,
     id: null,
-    qrCode: 'https://s3.amazonaws.com/qr-codes-9f266de4dd32a7244bf6862baea01379/A3-0S-XbnuBmBZyw5Coe1SDSSBYncvW1guTv1znoHkU.png',
+    qrCode: null,
     error: null,
     isLoading: false,
     requested: false,

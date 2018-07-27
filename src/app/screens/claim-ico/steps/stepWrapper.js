@@ -13,7 +13,7 @@ const StepWrapper = ({title, content, children, onNext, onBack, buttonNextLabel}
     >
         {children}
         {onNext && (
-            <Button secondary label={buttonNextLabel} onPress={onNext} />
+            <Button label={buttonNextLabel} onPress={onNext} />
         )}
     </StepModule>
 );

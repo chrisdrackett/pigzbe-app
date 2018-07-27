@@ -4,7 +4,14 @@ import {Escrow} from '../../src/app/screens/escrow';
 
 const props = {
     dispatch: () => {},
-    navigation: {},
+    navigation: {
+        navigate: () => {},
+        state: {
+            key: 'SCREEN_ESCROW',
+            routeName: 'SCREEN_ESCROW'
+        },
+        actions: {}
+    },
     balance: '2500000.0000000',
     transactions: [],
     error: null,

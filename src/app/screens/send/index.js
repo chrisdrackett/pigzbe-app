@@ -42,9 +42,9 @@ export class Send extends Component {
                                 onReview={this.onReview}
                             />
                             <Button
+                                theme="outline"
                                 label={strings.transferCancelButtonLabel}
                                 onPress={this.onTransfer}
-                                outline
                             />
                         </KeyboardAvoid>
                     </Fragment>

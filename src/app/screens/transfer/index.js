@@ -36,7 +36,6 @@ export class Transfer extends Component {
                 icon="transfer"
                 scroll={false}
                 error={error}
-                pad
             >
                 <Fragment>
                     <Payments
@@ -46,7 +45,6 @@ export class Transfer extends Component {
                     />
                     <View style={styles.button}>
                         <Button
-                            secondary
                             label={strings.transferButtonLabel}
                             onPress={this.onTransfer}
                             disabled={!hasGas}

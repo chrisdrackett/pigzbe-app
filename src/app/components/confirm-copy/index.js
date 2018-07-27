@@ -36,14 +36,13 @@ export default class ConfirmCopy extends Component {
                     </Text>
                 </TouchableOpacity>
                 <Button
-                    secondary
                     disabled={!confirmed}
                     label="I'm ready"
                     onPress={onNext}
                     style={{marginBottom: 20}}
                 />
                 <Button
-                    outline
+                    theme="outline"
                     label="Back"
                     onPress={onBack}
                 />

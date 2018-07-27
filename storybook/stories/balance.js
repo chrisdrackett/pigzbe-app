@@ -1,10 +1,11 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
-import {BalanceComponent} from '../../src/app/screens/balance';
+import {Balance} from '../../src/app/screens/balance';
 
 const props = {
     dispatch: () => {},
     navigation: {
+        navigate: () => {},
         state: {
             key: 'SCREEN_BALANCE',
             routeName: 'SCREEN_BALANCE'
@@ -30,8 +31,8 @@ const props = {
 
 storiesOf('Balance')
     .add('default view', () => (
-        <BalanceComponent {...props}/>
+        <Balance {...props}/>
     ))
     .add('first time', () => (
-        <BalanceComponent {...{...props, firstTime: true}}/>
+        <Balance {...{...props, firstTime: true}}/>
     ));

@@ -28,10 +28,9 @@ export class Messages extends Component {
                 <StepModule
                     title={strings.messagesTitle}
                     icon="messages"
-                    scroll={true}
+                    scroll={false}
                 >
                     <ScrollList
-                        border
                         items={messages}
                         ItemComponent={Message}
                         loading={loading}

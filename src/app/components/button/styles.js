@@ -6,37 +6,19 @@ import {
 } from '../../styles';
 
 export default StyleSheet.create({
-    buttonHit: {
+    hit: {
         alignSelf: 'stretch',
-        backgroundColor: color.white,
-        borderColor: color.white,
+        backgroundColor: color.mediumBlue,
+        borderColor: color.mediumBlue,
         borderRadius: 22.5,
         borderWidth: 1,
         marginBottom: 10
     },
-    buttonHitSecondary: {
-        backgroundColor: color.mediumBlue,
-        borderColor: color.white
-    },
-    buttonHitSecondaryDisabled: {
-        backgroundColor: color.mediumBlueOpacity50,
-        borderColor: color.white
-    },
-    buttonHitOutline: {
-        backgroundColor: color.transparent,
-        borderColor: color.blue
-    },
-    buttonHitOutlineDisabled: {
-        borderColor: color.blueOpacity40
-    },
-    buttonTextSecondary: {
-        color: color.white
-    },
-    button: {
+    text: {
         fontFamily,
         fontWeight: 'bold',
         alignSelf: 'stretch',
-        color: color.blue,
+        color: color.white,
         fontSize: 14,
         paddingLeft: 20,
         paddingRight: 20,
@@ -44,18 +26,87 @@ export default StyleSheet.create({
         height: 45,
         textAlign: 'center'
     },
-    buttonDisabled: {
-        color: color.blueOpacity40
+    hit__disabled: {
+        backgroundColor: color.mediumBlueOpacity50,
+        borderColor: color.transparent,
     },
-    buttonPlain: {
-        // color: color.white,
+    text__disabled: {
+        color: color.whiteOpacity60,
+    },
+
+    // theme light
+
+    hit__light: {
+        backgroundColor: color.white,
+        borderColor: color.white,
+    },
+    text__light: {
         color: color.blue,
-        fontSize: 14,
-        fontWeight: 'bold',
+    },
+    hit__disabled__light: {
+        backgroundColor: color.whiteOpacity60,
+        borderColor: color.transparent,
+    },
+    text__disabled__light: {
+        color: color.blueOpacity40,
+    },
+
+    // theme outline
+
+    hit__outline: {
+        backgroundColor: color.transparent,
+        borderColor: color.blue,
+    },
+    text__outline: {
+        color: color.blue,
+    },
+    hit__disabled__outline: {
+        backgroundColor: color.transparent,
+        borderColor: color.blueOpacity40,
+    },
+    text__disabled__outline: {
+        color: color.blueOpacity40,
+    },
+
+    // theme plain
+
+    hit__plain: {
+        backgroundColor: color.transparent,
+        borderColor: color.transparent,
+    },
+    text__plain: {
+        color: color.blue,
         textDecorationLine: 'underline',
         textDecorationStyle: 'solid',
-        fontSize: 14,
-        // textDecorationColor: color.white
-        textDecorationColor: color.blue
-    }
+        textDecorationColor: color.blue,
+    },
+    hit__disabled__plain: {
+        backgroundColor: color.transparent,
+        borderColor: color.transparent,
+    },
+    text__disabled__plain: {
+        color: color.blueOpacity40,
+        textDecorationColor: color.blueOpacity40,
+    },
+
+    // theme plain-light
+
+    hit__plain_light: {
+        backgroundColor: color.transparent,
+        borderColor: color.transparent,
+    },
+    text__plain_light: {
+        color: color.white,
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'solid',
+        textDecorationColor: color.white,
+    },
+    hit__disabled__plain_light: {
+        backgroundColor: color.transparent,
+        borderColor: color.transparent,
+    },
+    text__disabled__plain_light: {
+        color: color.whiteOpacity60,
+        textDecorationColor: color.whiteOpacity60,
+    },
 });

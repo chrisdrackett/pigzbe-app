@@ -26,17 +26,17 @@ export default class Claim extends Component {
             >
                 <View>
                     <Button
-                        secondary
+                        theme="outline"
                         label={'Purchase via Eidoo ICO'}
                         onPress={this.onICO}
                     />
                     <Button
-                        secondary
+                        theme="outline"
                         label={'Airdrop / Bounty'}
                         onPress={this.onAirdropBounty}
                     />
                     <Button
-                        secondary
+                        theme="outline"
                         label={'VIPs'}
                         onPress={this.onVIPs}
                     />

@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View, Share} from 'react-native';
-// import styles from './styles';
 import Button from '../../components/button';
 // import {strings} from '../../constants';
 import KeyHolder from '../../components/key-holder';
@@ -72,12 +71,11 @@ export class KeysSave extends Component {
                             onPress={this.onCopy}
                         />
                         <Button
-                            secondary
                             label={'Save Key'}
                             onPress={this.onCopy}
                         />
                         <Button
-                            outline
+                            theme="outline"
                             label={'Next'}
                             disabled={!copied && !isDesktop}
                             onPress={this.onConfirm}

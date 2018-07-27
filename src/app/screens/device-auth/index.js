@@ -1,9 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Dimensions, Keyboard, Image} from 'react-native';
-import Dropdown from 'react-native-modal-dropdown';
-
-import styles from './styles';
+import {Keyboard, Image} from 'react-native';
 import Button from '../../components/button';
 import TextInput from '../../components/text-input';
 import Loader from '../../components/loader';
@@ -19,15 +16,17 @@ import {
 } from '../../actions';
 import StepModule from '../../components/step-module';
 import countryCodes from './country-codes';
-import {color} from '../../styles';
+import ModalSelector from 'react-native-modal-selector';
 
 const qrSize = 100;
+const countryData = countryCodes.map(({country, code}, i) => ({key: i, label: country, value: code}));
 
 export class DeviceAuth extends Component {
     state = {
         email: '',
         phone: '',
-        country: '0',
+        country: countryCodes[0].code,
+        countryName: countryCodes[0].country,
         code: '',
     }
 
@@ -45,7 +44,10 @@ export class DeviceAuth extends Component {
 
     onChangePhone = phone => this.setState({phone})
 
-    onChangeCountry = value => this.setState({country: value})
+    onChangeCountry = option => {
+        console.log('option:', option);
+        this.setState({countryName: option.label, country: option.value});
+    }
 
     onChangeCode = code => {
         console.log(code);
@@ -61,7 +63,7 @@ export class DeviceAuth extends Component {
             return;
         }
 
-        this.props.dispatch(deviceAuthRegister(this.state.email, this.state.phone, countryCodes[this.state.country].code));
+        this.props.dispatch(deviceAuthRegister(this.state.email, this.state.phone, this.state.country));
     }
 
     onResend = () => this.props.dispatch(deviceAuthLogin())
@@ -79,19 +81,12 @@ export class DeviceAuth extends Component {
         const {
             isLoading,
             error,
-            navigation,
             id,
             qrCode,
         } = this.props;
 
         // const id = 2833288;
         // const qrCode = 'https://s3.amazonaws.com/qr-codes-9f266de4dd32a7244bf6862baea01379/A3-0S-XbnuBmBZyw5Coe1SDSSBYncvW1guTv1znoHkU.png';
-
-        // console.log(id);
-        // console.log(qrCode);
-
-        const countrySelected = countryCodes[Number(this.state.country)];
-        const phoneNumber = `+${countryCodes[Number(this.state.country)].code} ${this.state.phone}`;
 
         return (
             <StepModule
@@ -100,7 +95,7 @@ export class DeviceAuth extends Component {
                 scroll={false}
                 content={!id
                     ? 'Before we begin, enter your mobile number to verify your mobile device.'
-                    : `Now enter the code we sent to ${phoneNumber}`
+                    : `Now enter the code we sent to +${this.state.country}${this.state.phone}`
                 }
                 error={error}
                 pad
@@ -112,24 +107,19 @@ export class DeviceAuth extends Component {
                             <InputBoxes
                                 onFulfill={this.onChangeCode}
                                 boxes={7}
-                                padding={10}
                                 boxSize={{width: 35, height: 45}}
-                                style={{marginTop: 0, marginBottom: 10}}
                             />
                             <Button
-                                plain
-                                textStyle={{color: color.blue}}
+                                theme="plain"
                                 label={'Resend code'}
                                 onPress={this.onResend}
                             />
                             <Button
-                                secondary
                                 label={'Verify'}
                                 onPress={this.onVerify}
                             />
                             <Button
-                                plain
-                                textStyle={{color: color.blue}}
+                                theme="plain"
                                 label={'Back'}
                                 onPress={this.onBack}
                             />
@@ -147,7 +137,6 @@ export class DeviceAuth extends Component {
                                 value={this.state.email}
                                 placeholder={'Email address'}
                                 onChangeText={this.onChangeEmail}
-                                returnKeyType="done"
                             />
                             <TextInput
                                 dark
@@ -158,50 +147,34 @@ export class DeviceAuth extends Component {
                                 style={{width: '100%'}}
                                 placeholder={'Your mobile number'}
                                 onChangeText={this.onChangePhone}
-                                returnKeyType="done"
                             />
-                            <Dropdown
-                                options={countryCodes.map(c => c.country)}
-                                style={styles.picker}
-                                defaultValue={countryCodes[0].country}
-                                selectedValue={countrySelected.country}
-                                textStyle={styles.dropdownButton}
-                                dropdownTextStyle={[styles.dropdownButton, styles.dropdownItem]}
-                                dropdownStyle={styles.dropdownStyle}
-                                onSelect={this.onChangeCountry}
-                                dropdownTextHighlightStyle={styles.dropdownTextHighlightStyle}
-                                adjustFrame={(obj) => {
-                                    const width = Dimensions.get('window').width * 0.85;
-                                    return {
-                                        ...obj,
-                                        top: obj.top + 75,
-                                        width,
-                                        left: (Dimensions.get('window').width - width) / 2
-                                    };
-                                }}
-                            />
-                            {/* <TextInput
-                                error={!!error}
-                                value={this.state.country}
-                                placeholder={'Country Code'}
-                                onChangeText={this.onChangeCountry}
-                                returnKeyType="done"
-                            /> */}
+                            <ModalSelector
+                                data={countryData}
+                                initValue="Select something yummy!"
+                                supportedOrientations={['portrait', 'landscape']}
+                                accessible={true}
+                                scrollViewAccessibilityLabel={'Scrollable options'}
+                                cancelButtonAccessibilityLabel={'Cancel Button'}
+                                onChange={this.onChangeCountry}>
+                                <Button
+                                    theme="plain"
+                                    label={this.state.countryName}
+                                    onPress={this.onBack}
+                                />
+                            </ModalSelector>
                             <Button
                                 label={'Send Code'}
-                                secondary
                                 onPress={this.onSend}
                                 disabled={!(this.state.email && this.state.phone && this.state.country)}
                             />
-                            {__DEV__ && (
+                            {/* {__DEV__ && (
                                 <Button
-                                    plain
                                     textStyle={{color: color.blue}}
-                                    outline
+                                    theme="plain_light"
                                     label={'Skip'}
                                     onPress={() => navigation.navigate(SCREEN_TOUCH_ID)}
                                 />
-                            )}
+                            )} */}
                         </Fragment>
                     )}
                     <Loader

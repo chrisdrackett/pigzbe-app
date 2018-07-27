@@ -22,15 +22,11 @@ export default class extends Component {
           boxes,
           boxSize,
           onFulfill,
-          padding,
-          style,
           secure
       } = this.props;
 
-      const width = boxSize.width || ~~(((Dimensions.get('window').width * 0.75) - padding) / boxes);
-
       return (
-          <View>
+          <View style={{height: boxSize.height}}>
               <CodeInput
                   activeColor={color.blue}
                   inactiveColor={color.mediumBlue}
@@ -39,15 +35,16 @@ export default class extends Component {
                   secureTextEntry={secure}
                   inputPosition="center"
                   keyboardType="number-pad"
-                  size={width}
-                  space={4}
+                  size={boxSize.width}
+                  space={8}
                   codeLength={boxes}
                   onFulfill={onFulfill}
-                  containerStyle={[style, {
-                      width: '90%',
-                      alignSelf: 'center',
-                  }]}
-                  codeInputStyle={{borderRadius: 5, borderWidth: 1, height: boxSize.height || width * 1.45}}
+                  // containerStyle={[style, {
+                  //     width: '90%',
+                  //     alignSelf: 'center',
+                  // }]}
+                  containerStyle={{marginTop: 0}}
+                  codeInputStyle={{borderRadius: 5, borderWidth: 1, width: boxSize.width, height: boxSize.height}}
               />
           </View>
       );

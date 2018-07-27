@@ -6,6 +6,7 @@ import Container from '../../components/container';
 import KeyboardAvoid from '../../components/keyboard-avoid';
 import Paragraph from '../../components/paragraph';
 import styles from './styles';
+import {color} from '../../styles';
 
 export default class extends Component {
 
@@ -23,40 +24,44 @@ export default class extends Component {
           children,
           headerChildren,
           backgroundColor,
-          showSettings,
           onBack,
-          pad
+          pad,
+          onSettings,
       } = this.props;
 
       return (
           <Container style={styles.wrapper}>
               <View style={styles.bg}/>
-              <Header onBack={onBack} showSettings={showSettings}/>
+              <Header onBack={onBack} onSettings={onSettings} />
               <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader>
-              <Container
-                  white
-                  scroll={scroll}
-                  style={{width: '88.75%', alignSelf: 'center'}}
-                  backgroundColor={backgroundColor}
-              >
-                  {/* <KeyboardAvoid> */}
-                  {content && (
-                      <View style={styles.containerText}>
-                          {typeof content === 'string' ? (
-                              <Paragraph>{content}</Paragraph>
-                          ) : (
-                              content
-                          )}
-                          {error && (
-                              <Paragraph style={styles.error}>{error.message}</Paragraph>
-                          )}
+              <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}}>
+                  <Container
+                      scroll={scroll}
+                      style={{
+                          alignSelf: 'center',
+                          width: '88.75%',
+                          backgroundColor: backgroundColor || color.white,
+                          borderTopRightRadius: 5,
+                          borderTopLeftRadius: 5,
+                      }}
+                  >
+                      {content && (
+                          <View style={styles.containerText}>
+                              {typeof content === 'string' ? (
+                                  <Paragraph>{content}</Paragraph>
+                              ) : (
+                                  content
+                              )}
+                              {error && (
+                                  <Paragraph style={styles.error}>{error.message}</Paragraph>
+                              )}
+                          </View>
+                      )}
+                      <View style={pad ? styles.pad : null}>
+                          {children}
                       </View>
-                  )}
-                  <View style={[styles.containerBody, pad ? styles.pad : null]}>
-                      {children}
-                  </View>
-                  {/* </KeyboardAvoid> */}
-              </Container>
+                  </Container>
+              </KeyboardAvoid>
           </Container>
       );
   }

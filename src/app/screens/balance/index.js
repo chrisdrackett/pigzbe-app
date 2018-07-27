@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
-// import styles from './styles';
 import {color} from '../../styles';
 import {
     SCREEN_SETTINGS,
@@ -20,10 +19,9 @@ import Title from '../../components/title';
 import Paragraph from '../../components/paragraph';
 import StepModule from '../../components/step-module';
 
-class Balance extends Component {
+export class Balance extends Component {
 
     async componentWillMount() {
-        console.log('Balance componentWillMount');
         this.props.dispatch(getExchange());
     }
 
@@ -40,8 +38,6 @@ class Balance extends Component {
             error,
             balance,
             baseCurrency,
-            escrow,
-            navigation,
             firstTime
         } = this.props;
 
@@ -52,27 +48,6 @@ class Balance extends Component {
         console.log(JSON.stringify(this.props, null, 2));
 
         const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
-
-        // return (
-        //     <Fragment>
-        //         <BaseView showSettings navigation={navigation} scrollViewStyle={styles.container} error={error}>
-        //             <Wollo balance={balance}/>
-        //             <Pig style={styles.pig}/>
-        //             <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
-        //             <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
-        //         </BaseView>
-        //         <Footer>
-        //             {escrow ? (
-        //                 <Button
-        //                     outline
-        //                     label={strings.escrowButtonLabel}
-        //                     onPress={() => navigation.navigate(SCREEN_ESCROW)}
-        //                 />
-        //             ) : null}
-        //         </Footer>
-        //
-        //     </Fragment>
-        // );
 
         return (
             <Fragment>
@@ -85,6 +60,7 @@ class Balance extends Component {
                         </View>
                     )}
                     backgroundColor={color.lightGrey}
+                    onSettings={this.onSettings}
                 >
                     <View>
                         <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
@@ -97,12 +73,11 @@ class Balance extends Component {
                         <Paragraph>Welcome to your Pigzbe wallet. To fully activate your wallet you need to transfer funds into it.</Paragraph>
                         <Paragraph style={{marginBottom: 40}}>If you’re an *ICO, Airdrop, Bounty* or VIP, you can do this via settings.</Paragraph>
                         <Button
-                            secondary
                             label={'Good to know!'}
                             onPress={this.onCloseModal}
                         />
                         <Button
-                            outline
+                            theme="outline"
                             label={'Go to settings'}
                             onPress={this.onSettings}
                         />
@@ -113,16 +88,12 @@ class Balance extends Component {
     }
 }
 
-// export for test
-export const BalanceComponent = Balance;
-
 export default connect(
     state => ({
         error: state.coins.error,
         exchange: state.coins.exchange,
         balance: state.wollo.balance,
         baseCurrency: state.wollo.baseCurrency,
-        escrow: state.escrow.escrowPublicKey,
         firstTime: state.settings.firstTime,
     })
 )(Balance);

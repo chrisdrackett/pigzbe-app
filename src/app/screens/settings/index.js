@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Text, View, ScrollView} from 'react-native';
+import {View} from 'react-native';
 import {
     settingsClear,
+    settingsUpdate,
+    settingsEnableTouchId,
     authLogout
 } from '../../actions';
-import styles from './styles';
-import {color} from '../../styles';
 import Button from '../../components/button';
-import Header from '../../components/header';
-import Container from '../../components/container';
-import KeyboardAvoid from '../../components/keyboard-avoid';
 import {
     strings,
     SCREEN_BALANCE,
@@ -21,6 +18,7 @@ import {
 import openURL from '../../utils/open-url';
 import StepModule from '../../components/step-module';
 import Paragraph from '../../components/paragraph';
+import Checkbox from '../../components/checkbox';
 
 export class Settings extends Component {
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
@@ -28,6 +26,10 @@ export class Settings extends Component {
     onClaim = () => this.props.navigation.navigate(SCREEN_CLAIM)
 
     onEscrow = () => this.props.navigation.navigate(SCREEN_ESCROW)
+
+    onSubscribe = () => this.props.dispatch(settingsUpdate({subscribe: !this.props.subscribe}));
+
+    onEnableTouchId = () => this.props.dispatch(settingsEnableTouchId(!this.props.enableTouchId));
 
     onLogout = () => {
         this.props.dispatch(authLogout());
@@ -43,6 +45,7 @@ export class Settings extends Component {
             email,
             phone,
             country,
+            escrow,
         } = this.props;
 
         return (
@@ -55,27 +58,36 @@ export class Settings extends Component {
             >
                 <View>
                     <Button
-                        secondary
                         label={'Claim Your Wollo'}
                         onPress={this.onClaim}
                     />
-                    <Button
-                        label={'View Escrow'}
-                        onPress={this.onEscrow}
+                    {escrow && (
+                        <Button
+                            label={'View Escrow'}
+                            onPress={this.onEscrow}
+                        />
+                    )}
+                    <Checkbox
+                        text={'Enable Touch Id'}
+                        value={enableTouchId}
+                        onValueChange={this.onEnableTouchId}
+                    />
+                    <Checkbox
+                        text={strings.accountMailingListOptIn}
+                        value={subscribe}
+                        onValueChange={this.onSubscribe}
                     />
                     <Paragraph>{'enableTouchId: '}{enableTouchId ? 'Yes' : 'No'}</Paragraph>
                     <Paragraph>{'subscribe: '}{subscribe ? 'Yes' : 'No'}</Paragraph>
                     <Paragraph>{'email: '}{email}</Paragraph>
-                    <Paragraph>{'phone: '}{phone}</Paragraph>
-                    <Paragraph>{'country: '}{country}</Paragraph>
+                    <Paragraph>{'phone: '}+{country}{phone}</Paragraph>
                     <Button
                         label={strings.accountLogoutButtonLabel}
-                        secondary
                         onPress={this.onLogout}
                     />
                     <Button
+                        theme="plain"
                         label={strings.accountPrivacyButtonLabel}
-                        secondary
                         onPress={this.onPrivacy}
                     />
                 </View>
@@ -91,5 +103,6 @@ export default connect(
         email: state.settings.email,
         phone: state.settings.phone,
         country: state.settings.country,
+        escrow: state.escrow.escrowPublicKey,
     })
 )(Settings);

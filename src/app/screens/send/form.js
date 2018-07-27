@@ -163,7 +163,9 @@ export default class Form extends Component {
                 {confirm && (
                     <View style={{position: 'absolute', top: 0, right: 0}}>
                         <Button
-                            plain
+                            theme="plain"
+                            style={{alignSelf: 'auto', marginBottom: 0}}
+                            textStyle={{paddingRight: 5, paddingTop: 8, paddingBottom: 8}}
                             label={strings.transferEditButtonLabel}
                             onPress={this.edit}
                         />
@@ -172,13 +174,11 @@ export default class Form extends Component {
                 <View style={styles.buttonWrapper}>
                     {confirm ? (
                         <Button
-                            secondary
                             label={'Transfer'}
                             onPress={this.send}
                         />
                     ) : (
                         <Button
-                            secondary
                             label={strings.transferConfirmButtonLabel}
                             disabled={!(this.state.key && this.state.amount)}
                             onPress={this.submit}

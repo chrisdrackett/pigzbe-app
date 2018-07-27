@@ -207,9 +207,7 @@ export class ClaimICO extends Component {
 
       if (!web3 || !contract.instance || !localStorage || this.state.loading !== null) {
           return (
-              <Container style={styles.containerLoading}>
-                  <Loader isLoading message={this.state.loading} />
-              </Container>
+              <Loader isLoading message={this.state.loading} />
           );
       }
 

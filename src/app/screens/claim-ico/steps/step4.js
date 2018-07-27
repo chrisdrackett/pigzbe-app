@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import StepWrapper from './stepWrapper';
 import Paragraph from '../../../components/paragraph';
 import TextInput from '../../../components/text-input';
-import styles from '../styles';
 
 export default ({
     onNext,
@@ -22,7 +21,7 @@ export default ({
         content={(
             <Fragment>
                 <Paragraph>We're almost there! Enter your Eidoo wallet address and the 12 word seed below and lets claim.</Paragraph>
-                <View style={styles.containerFields}>
+                <View>
                     <TextInput
                         dark
                         error={badAddress}

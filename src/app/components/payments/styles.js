@@ -3,8 +3,8 @@ import {color, fontFamily} from '../../styles';
 
 export default StyleSheet.create({
     payment: {
-        paddingLeft: 0,
-        paddingRight: 0,
+        marginLeft: 20,
+        marginRight: 20,
         paddingTop: 20,
         paddingBottom: 20,
         borderBottomWidth: 1,

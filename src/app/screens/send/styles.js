@@ -1,47 +1,12 @@
 import {StyleSheet} from 'react-native';
 import {
     color,
-    fontFamily,
-    paddingH
+    fontFamily
 } from '../../styles';
 
 export default StyleSheet.create({
-    scrollView: {
-        flex: 1
-    },
-    contentContainer: {
-        backgroundColor: color.blue,
-        flexGrow: 1,
-    },
-    container: {
-        // alignSelf: 'stretch',
-        // flex: 1,
-        // backgroundColor: color.blue,
-        // alignItems: 'center',
-        // justifyContent: 'center'
-    },
-    pig: {
-        marginTop: 20,
-        alignSelf: 'center',
-    },
-    containerBody: {
-        backgroundColor: color.lightGrey,
-        width: '100%',
-        paddingLeft: paddingH,
-        paddingRight: paddingH,
-        paddingBottom: 20,
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-    },
     containerForm: {
         width: '100%',
-    },
-    title: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginBottom: 10
     },
     amount: {
         position: 'relative',

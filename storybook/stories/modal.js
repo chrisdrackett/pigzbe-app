@@ -23,7 +23,6 @@ storiesOf('Modal')
                 <Title dark>Lorem ipsum</Title>
                 <Paragraph>Lorem ipsum dolor sit amet.</Paragraph>
                 <Button
-                    secondary
                     label={'Lorem ipsum'}
                     onPress={() => {}}
                 />
@@ -46,12 +45,11 @@ storiesOf('Modal')
                 <Paragraph>Welcome to your Pigzbe wallet. To fully activate your wallet you need to transfer funds into it.</Paragraph>
                 <Paragraph style={{marginBottom: 40}}>If you’re an *ICO, Airdrop, Bounty* or VIP, you can do this via settings.</Paragraph>
                 <Button
-                    secondary
                     label={'Good to know!'}
                     onPress={() => {}}
                 />
                 <Button
-                    outline
+                    theme="outline"
                     label={'Go to settings'}
                     onPress={() => {}}
                 />

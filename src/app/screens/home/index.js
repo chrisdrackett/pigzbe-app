@@ -14,7 +14,6 @@ import {SCREEN_LOGIN, SCREEN_DEVICE_AUTH} from '../../constants';
 
 const Header = () => (
     <Container style={styles.containerHeader}>
-        {/* <Image style={styles.backgroundImage} source={require('./images/header.png')} /> */}
         <Image style={styles.image} source={require('./images/pigzbe_logo.png')} />
         <Text style={styles.tagline}>{strings.loginTagline}</Text>
         <Pig/>
@@ -24,14 +23,14 @@ const Header = () => (
 export const HomeView = ({onCreate, onLogin}) => (
     <Fragment>
         <Header/>
-        <Container body light>
+        <Container style={styles.containerBody}>
             <View style={styles.containerText}>
                 <Text style={styles.title}>Welcome to Pigzbe</Text>
                 <Text style={styles.subtitle}>New to Pizbe? Create an account below and claim your Wollo</Text>
             </View>
             <View>
-                <Button label="Let's get started" onPress={onCreate} />
-                <Button label="I already have an account" plain onPress={onLogin} />
+                <Button label="Let's get started" theme="light" onPress={onCreate} />
+                <Button label="I already have an account" theme="plain_light" onPress={onLogin} />
             </View>
         </Container>
     </Fragment>
@@ -40,13 +39,14 @@ export const HomeView = ({onCreate, onLogin}) => (
 export const HomeErrorView = ({onInit}) => (
     <Fragment>
         <Header/>
-        <Container body light>
+        <Container style={styles.containerBody}>
             <View style={styles.containerText}>
                 <Text style={styles.title}>Error</Text>
                 <Text style={styles.subtitle}>Could not connect to network. Please check your internet connection and try again.</Text>
             </View>
             <View>
                 <Button
+                    theme="light"
                     label="Try again"
                     onPress={onInit}
                 />

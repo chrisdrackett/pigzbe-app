@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import {load} from '../../actions';
-// import styles from './styles';
 import Loader from '../../components/loader';
 import {PASSCODE_LENGTH} from '../../constants';
 import NumPad from '../../components/num-pad';
