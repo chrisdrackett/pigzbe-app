@@ -10,7 +10,9 @@ export default StyleSheet.create({
         minHeight: 130,
         alignSelf: 'stretch',
         paddingTop: 10,
-        paddingBottom: 20
+        paddingBottom: 20,
+        borderTopRightRadius: 5,
+        borderTopLeftRadius: 5,
     },
     containerBalance: {
         width: '50%',

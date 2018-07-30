@@ -25,7 +25,7 @@ export default ({
             </ScrollView>
         ) : (
             <FlatList
-                data={items}
+                data={items.map((item, i) => ({...item, key: String(i)}))}
                 renderItem={({item}) => <ItemComponent {...item}/>}
             />
         )}

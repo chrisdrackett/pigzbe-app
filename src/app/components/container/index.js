@@ -13,9 +13,7 @@ export default class Container extends Component {
         scroll: true,
     }
 
-    onLayout = () => {
-        this.setState({width: getWidth()});
-    }
+    onLayout = () => this.setState({width: getWidth()})
 
     render() {
         const {children, style, scroll} = this.props;
@@ -26,11 +24,8 @@ export default class Container extends Component {
                 {scroll ? (
                     <ScrollView
                         bounces={false}
-                        style={{flex: 1}}
-                        contentContainerStyle={{
-                            flexGrow: 1,
-                            justifyContent: 'space-between'
-                        }}>
+                        style={styles.scroll}
+                        contentContainerStyle={styles.scrollContainer}>
                         {children}
                     </ScrollView>
                 ) : (

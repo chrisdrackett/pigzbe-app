@@ -26,7 +26,7 @@ export const HomeView = ({onCreate, onLogin}) => (
         <Container style={styles.containerBody} scroll={false}>
             <View style={styles.containerText}>
                 <Text style={styles.title}>Welcome to Pigzbe</Text>
-                <Text style={styles.subtitle}>New to Pizbe? Create an account below and claim your Wollo</Text>
+                <Text style={styles.subtitle}>New to Pizbe? Create an account below.</Text>
             </View>
             <View>
                 <Button label="Let's get started" theme="light" onPress={onCreate} />

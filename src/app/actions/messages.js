@@ -1,8 +1,6 @@
-import Storage from '../utils/storage';
 import fetchTimeout from '../utils/fetch-timeout';
 import {apiURL} from '../selectors';
-
-const storageKey = 'messages';
+import {settingsUpdate} from './';
 
 export const MESSAGES_LOADING = 'MESSAGES_LOADING';
 export const MESSAGES_UPDATE = 'MESSAGES_UPDATE';
@@ -18,10 +16,9 @@ export const messagesMarkRead = () => ({type: MESSAGES_MARK_READ});
 
 export const messagesLoad = () => async (dispatch, getState) => {
     try {
-        const api = apiURL(getState());
-
         dispatch(messagesLoading(true));
 
+        const api = apiURL(getState());
         const messages = await fetchTimeout(`${api}/content/messages?order=latest`);
 
         if (!messages) {
@@ -30,14 +27,12 @@ export const messagesLoad = () => async (dispatch, getState) => {
 
         dispatch(messagesUpdate(messages));
 
-        const data = await Storage.load(storageKey);
-        const lastDate = data.lastDate || 0;
+        const {lastMessageDate} = getState().settings;
         const latestDate = messages[0].date;
-        const notify = new Date(latestDate) > new Date(lastDate);
+        const notify = new Date(latestDate) > new Date(lastMessageDate);
+
         dispatch(messagesNotify(notify));
-
-        await Storage.save(storageKey, {lastDate: latestDate});
-
+        dispatch(settingsUpdate({lastMessageDate: latestDate}));
         dispatch(messagesLoading(false));
 
     } catch (error) {

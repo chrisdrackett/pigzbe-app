@@ -1,6 +1,6 @@
 const TIMEOUT_DEFAULT = 10000;
 
-export default (url, timeout = TIMEOUT_DEFAULT) => new Promise((resolve, reject) => {
+export default (url, timeout = TIMEOUT_DEFAULT) => new Promise(async (resolve, reject) => {
     let hasTimedOut = false;
 
     const timeoutId = setTimeout(() => {
@@ -8,19 +8,17 @@ export default (url, timeout = TIMEOUT_DEFAULT) => new Promise((resolve, reject)
         reject(new Error('Request timed out'));
     }, timeout);
 
-    return fetch(url)
-        .then(res => res.json())
-        .then(json => {
-            clearTimeout(timeoutId);
-            if (hasTimedOut) {
-                return;
-            }
-            resolve(json);
-        })
-        .catch(err => {
-            if (hasTimedOut) {
-                return;
-            }
-            reject(err);
-        });
+    try {
+        const json = await (await fetch(url)).json();
+        clearTimeout(timeoutId);
+        if (hasTimedOut) {
+            return;
+        }
+        resolve(json);
+    } catch (error) {
+        if (hasTimedOut) {
+            return;
+        }
+        reject(error);
+    }
 });

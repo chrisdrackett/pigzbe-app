@@ -32,8 +32,6 @@ export default class extends Component {
           keyboardOffset
       } = this.props;
 
-      console.log('keyboardOffset', keyboardOffset);
-
       return (
           <Container style={styles.wrapper} scroll={false}>
               <View style={styles.bg}/>

@@ -45,8 +45,6 @@ export class Balance extends Component {
             return <Loader isLoading />;
         }
 
-        console.log(JSON.stringify(this.props, null, 2));
-
         const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
 
         return (
