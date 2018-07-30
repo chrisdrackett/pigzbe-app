@@ -19,6 +19,7 @@
     "ios": "react-native run-ios --simulator 'iPhone 8 Plus'",
     "ipad": "react-native run-ios --simulator 'iPad Pro (12.9-inch) (2nd generation)'",
     "iphoneX": "react-native run-ios --simulator 'iPhone X'",
+    "iphoneSE": "react-native run-ios --simulator 'iPhone SE'",
     "android": "react-native run-android",
     "game": "mkdir -p '.build' && NODE_ENV=production node ./scripts/build-game.js && rm -rf '.build'",
     "game:dev": "GAME_DEV=1 npm run desktop",

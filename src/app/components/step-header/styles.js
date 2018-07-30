@@ -18,6 +18,10 @@ export default StyleSheet.create({
         // backgroundColor: color.red
         height: 78,
     },
+    noTitle: {
+        // backgroundColor: color.red
+        height: 32,
+    },
     picker: {
         backgroundColor: color.white
     },

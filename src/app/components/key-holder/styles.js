@@ -13,8 +13,8 @@ export default StyleSheet.create({
         borderColor: color.lightRed,
         paddingTop: 9,
         paddingBottom: 9,
-        paddingLeft: 18,
-        paddingRight: 18,
+        paddingLeft: 2,
+        paddingRight: 2,
     },
     content: {
         fontFamily,

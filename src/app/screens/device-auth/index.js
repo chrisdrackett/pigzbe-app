@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Keyboard, Image} from 'react-native';
+import {Keyboard, Image, Dimensions} from 'react-native';
 import Button from '../../components/button';
 import TextInput from '../../components/text-input';
 import Loader from '../../components/loader';
-import {SCREEN_TOUCH_ID} from '../../constants';
+import {SCREEN_HOME, SCREEN_TOUCH_ID} from '../../constants';
 import isEmail from '../../utils/is-email';
 import InputBoxes from '../../components/input-boxes';
 import {
@@ -75,7 +75,9 @@ export class DeviceAuth extends Component {
         this.props.dispatch(deviceAuthVerify(this.state.code));
     }
 
-    onBack = () => this.props.dispatch(deviceAuthClear())
+    onBack = () => this.props.navigation.navigate(SCREEN_HOME)
+
+    onClear = () => this.props.dispatch(deviceAuthClear())
 
     render() {
         const {
@@ -85,8 +87,9 @@ export class DeviceAuth extends Component {
             qrCode,
         } = this.props;
 
-        // const id = 2833288;
-        // const qrCode = 'https://s3.amazonaws.com/qr-codes-9f266de4dd32a7244bf6862baea01379/A3-0S-XbnuBmBZyw5Coe1SDSSBYncvW1guTv1znoHkU.png';
+        const boxes = 7;
+        const space = 8;
+        const boxW = (Dimensions.get('window').width * 0.8875 - 40 - space * (boxes - 1)) / boxes;
 
         return (
             <StepModule
@@ -94,8 +97,9 @@ export class DeviceAuth extends Component {
                 icon={!id ? 'tick' : 'code'}
                 content={!id
                     ? 'Before we begin, enter your mobile number to verify your mobile device.'
-                    : `Now enter the code we sent to +${this.state.country}${this.state.phone}`
+                    : `Now enter the code we sent to +${this.state.country}${this.state.phone.replace(/^0+/, '')}`
                 }
+                onBack={!id ? this.onBack : this.onClear}
                 error={error}
                 pad
             >
@@ -105,22 +109,19 @@ export class DeviceAuth extends Component {
                             {qrCode && <Image source={{uri: qrCode}} style={{marginTop: -20, marginBottom: 10, alignSelf: 'center', width: qrSize, height: qrSize}}/> }
                             <InputBoxes
                                 onFulfill={this.onChangeCode}
-                                boxes={7}
-                                boxSize={{width: 35, height: 45}}
+                                boxes={boxes}
+                                boxSize={{width: boxW, height: 44}}
+                                space={space}
                             />
                             <Button
                                 theme="plain"
                                 label={'Resend code'}
                                 onPress={this.onResend}
+                                style={{marginBottom: 60}}
                             />
                             <Button
                                 label={'Verify'}
                                 onPress={this.onVerify}
-                            />
-                            <Button
-                                theme="plain"
-                                label={'Back'}
-                                onPress={this.onBack}
                             />
                         </Fragment>
                     )}
@@ -145,7 +146,7 @@ export class DeviceAuth extends Component {
                             />
                             <ModalSelector
                                 data={countryData}
-                                initValue="Select something yummy!"
+                                initValue={this.state.countryName}
                                 supportedOrientations={['portrait', 'landscape']}
                                 accessible={true}
                                 scrollViewAccessibilityLabel={'Scrollable options'}

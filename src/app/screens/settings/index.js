@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import {View} from 'react-native';
 import {
     settingsClear,
-    settingsUpdate,
+    // settingsUpdate,
     settingsEnableTouchId,
+    settingsToggleSubscribe,
     authLogout
 } from '../../actions';
 import Button from '../../components/button';
@@ -27,7 +28,7 @@ export class Settings extends Component {
 
     onEscrow = () => this.props.navigation.navigate(SCREEN_ESCROW)
 
-    onSubscribe = () => this.props.dispatch(settingsUpdate({subscribe: !this.props.subscribe}));
+    onSubscribe = () => this.props.dispatch(settingsToggleSubscribe(!this.props.subscribe));
 
     onEnableTouchId = () => this.props.dispatch(settingsEnableTouchId(!this.props.enableTouchId));
 

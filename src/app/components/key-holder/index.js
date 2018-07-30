@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
 
-const splitKey = key => `${key.slice(0, 15)} ${key.slice(15, 38)} ${key.slice(38)}`;
+const splitKey = key => `${key.slice(0, 13)} ${key.slice(13, 35)} ${key.slice(35)}`;
 
 export default ({title, content, onPress, style}) => {
     // console.log(content);

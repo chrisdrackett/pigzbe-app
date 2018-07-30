@@ -5,15 +5,21 @@ import Loader from '../../components/loader';
 import Message from './message';
 import {strings} from '../../constants';
 import ScrollList from '../../components/scroll-list';
-// import Footer from '../../components/footer';
 import StepModule from '../../components/step-module';
 
 export class Messages extends Component {
+    componentWillMount() {
+        console.log('messages componentWillMount');
+        this.focusListener = this.props.navigation.addListener('didFocus', this.updateMessages);
+    }
+
     componentDidMount() {
+        console.log('messages componentDidMount');
         this.props.dispatch(messagesMarkRead());
     }
 
-    updateMessages() {
+    updateMessages = () => {
+        console.log('messages updateMessages');
         this.props.dispatch(messagesLoad());
     }
 
@@ -22,6 +28,8 @@ export class Messages extends Component {
             messages,
             loading,
         } = this.props;
+
+        console.log('messages', messages.length);
 
         return (
             <Fragment>

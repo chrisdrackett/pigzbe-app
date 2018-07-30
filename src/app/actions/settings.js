@@ -1,3 +1,4 @@
+import {apiURL} from '../selectors';
 import Storage from '../utils/storage';
 import {STORAGE_KEY_SETTINGS} from '../constants';
 
@@ -9,54 +10,55 @@ export const SETTINGS_FIRST_TIME = 'SETTINGS_FIRST_TIME';
 export const settingsLoad = () => async dispatch => {
     try {
         const data = await Storage.load(STORAGE_KEY_SETTINGS);
-        console.log('settingsLoad data', data);
         dispatch({type: SETTINGS_UPDATE, ...data});
     } catch (error) {
         console.log(error);
     }
 };
 
-export const settingsClear = () => () => {
-    return Storage.clear(STORAGE_KEY_SETTINGS);
+export const settingsSave = () => async (dispatch, getState) => {
+    try {
+        const data = getState().settings;
+        await Storage.save(STORAGE_KEY_SETTINGS, data);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const settingsUpdate = data => async (dispatch) => {
     try {
         dispatch({type: SETTINGS_UPDATE, ...data});
-        await Storage.save(STORAGE_KEY_SETTINGS, data);
-    } catch (e) {
-        console.log(e);
+        await dispatch(settingsSave());
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const settingsFirstTime = () => async (dispatch) => {
+    try {
+        dispatch({type: SETTINGS_FIRST_TIME});
+        await dispatch(settingsSave());
+    } catch (error) {
+        console.log(error);
     }
 };
 
 export const settingsEnableTouchId = value => ({type: SETTINGS_ENABLE_TOUCH_ID, value});
 
-export const settingsFirstTime = () => ({type: SETTINGS_FIRST_TIME});
+export const settingsToggleSubscribe = subscribe => async (dispatch, getState) => {
+    try {
+        const api = apiURL(getState());
+        const {email} = getState().settings;
+        await (await fetch(`${api}/email/${subscribe ? 'subscribe' : 'unsubscribe'}`, {
+            method: 'POST',
+            body: JSON.stringify({email})
+        })).json();
+        dispatch(settingsUpdate({subscribe}));
+    } catch (e) {
+        console.log(e);
+    }
+};
 
-// const toggleSubscribe = async ({api, email, subscribe}) => {
-//     try {
-//         const values = await (await fetch(`${api}/email/${subscribe ? 'subscribe' : 'unsubscribe'}`, {
-//             method: 'POST',
-//             body: JSON.stringify({
-//                 email
-//             })
-//         })).json();
-//
-//         return values;
-//     } catch (e) {
-//         return false;
-//     }
-// };
-
-// export const settingsUpdate = data => async (dispatch, getState) => {
-//     try {
-//         const api = apiURL(getState());
-//         await toggleSubscribe({api, email: data.email, subscribe: data.subscribe});
-//         dispatch({type: PROFILE_UPDATE, ...data});
-//         return Storage.save(storageKey, data);
-//     } catch (e) {
-//         console.log(e);
-//         return null;
-//     }
-//
-// };
+export const settingsClear = () => () => {
+    return Storage.clear(STORAGE_KEY_SETTINGS);
+};

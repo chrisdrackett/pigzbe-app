@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    Text,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import {Text, TouchableOpacity, View, Image} from 'react-native';
 import styles from './styles';
 import openURL from '../../utils/open-url';
 import {daysAgo, dateFormat} from '../../utils/date';
@@ -24,6 +20,7 @@ export default props => (
         {props.link ? (
             <TouchableOpacity onPress={() => openURL(props.link)}>
                 <Inner {...props}/>
+                <Image style={styles.chevron} source={require('./images/chevron.png')}/>
             </TouchableOpacity>
         ) : (
             <Inner {...props}/>

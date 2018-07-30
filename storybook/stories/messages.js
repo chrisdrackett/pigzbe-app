@@ -12,7 +12,8 @@ const props = {
     }, {
         key: '2',
         date: '2018-07-15T09:00+01:00',
-        text: 'Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.'
+        text: 'Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.',
+        link: 'https://pigzbe.com'
     }, {
         key: '3',
         date: '2018-06-20T09:00+01:00',

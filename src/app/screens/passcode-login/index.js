@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {View} from 'react-native';
 import {load} from '../../actions';
 import Loader from '../../components/loader';
-import {PASSCODE_LENGTH} from '../../constants';
+import {SCREEN_HOME, PASSCODE_LENGTH} from '../../constants';
 import NumPad from '../../components/num-pad';
 import Dots from '../../components/dots';
 import StepModule from '../../components/step-module';
@@ -15,6 +15,8 @@ export class PasscodeLogin extends Component {
         confirmed: false,
         error: false,
     }
+
+    onBack = () => this.props.navigation.navigate(SCREEN_HOME)
 
     onInput = input => this.setState({input})
 
@@ -36,6 +38,7 @@ export class PasscodeLogin extends Component {
                         <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                     </View>
                 )}
+                onBack={this.onBack}
             >
                 <NumPad
                     length={PASSCODE_LENGTH}

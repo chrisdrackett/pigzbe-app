@@ -20,6 +20,12 @@ export default StyleSheet.create({
     text: {
         fontFamily,
         color: color.darkGrey,
-        fontSize: 14
+        fontSize: 14,
+        marginRight: 12,
+    },
+    chevron: {
+        position: 'absolute',
+        right: 0,
+        top: 30,
     },
 });

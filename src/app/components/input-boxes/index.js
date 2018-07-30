@@ -11,7 +11,7 @@ export default class extends Component {
 
   static defaultProps = {
       boxes: 4,
-      padding: 0,
+      space: 4,
       style: null,
       secure: false,
       boxSize: {width: null, height: null}
@@ -21,6 +21,7 @@ export default class extends Component {
       const {
           boxes,
           boxSize,
+          space,
           onFulfill,
           secure
       } = this.props;
@@ -36,7 +37,7 @@ export default class extends Component {
                   inputPosition="center"
                   keyboardType="number-pad"
                   size={boxSize.width}
-                  space={8}
+                  space={space}
                   codeLength={boxes}
                   onFulfill={onFulfill}
                   // containerStyle={[style, {

@@ -31,14 +31,10 @@ export default (state = initialState, action) => {
                 enableTouchId: action.value
             };
         case SETTINGS_UPDATE:
-            return {
-                ...state,
-                enableTouchId: valueOrDefault(action.enableTouchId, state.enableTouchId),
-                subscribe: valueOrDefault(action.subscribe, state.subscribe),
-                email: valueOrDefault(action.email, state.email),
-                phone: valueOrDefault(action.phone, state.phone),
-                country: valueOrDefault(action.country, state.country),
-            };
+            return Object.keys(initialState).reduce((ob, key) => {
+                ob[key] = valueOrDefault(action[key], state[key]);
+                return ob;
+            }, {});
         default:
             return state;
     }

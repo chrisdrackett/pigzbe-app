@@ -9,6 +9,7 @@ import {
 import Button from '../../components/button';
 import Payments from '../../components/payments';
 import {loadPayments, wolloError} from '../../actions';
+import Paragraph from '../../components/paragraph';
 import StepModule from '../../components/step-module';
 
 export class Transfer extends Component {
@@ -38,11 +39,15 @@ export class Transfer extends Component {
                     error={error}
                     scroll={false}
                 >
-                    <Payments
-                        loading={loading}
-                        balance={balance}
-                        payments={payments}
-                    />
+                    {payments.length ? (
+                        <Payments
+                            loading={loading}
+                            balance={balance}
+                            payments={payments}
+                        />
+                    ) : (
+                        <Paragraph>No transaction history</Paragraph>
+                    )}
                 </StepModule>
                 <View style={styles.button}>
                     <Button

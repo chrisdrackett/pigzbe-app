@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import Tabs from '../tabs';
 import Keys from '../keys';
 import Home from '../home';
+import Footer from '../../components/footer';
 
 class Auth extends Component {
     render() {
@@ -17,7 +18,12 @@ class Auth extends Component {
         console.log('isLoading', isLoading);
 
         if (isLoggedIn && keysSaved && !isLoading) {
-            return <Tabs/>;
+            return (
+                <Fragment>
+                    <Tabs/>
+                    <Footer/>
+                </Fragment>
+            );
         }
 
         if (isLoggedIn && !isLoading) {

@@ -1,9 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+// import {View} from 'react-native';
 import Loader from '../../components/loader';
 import Transaction from './transaction';
-import Wollo from '../../components/wollo';
+// import Wollo from '../../components/wollo';
 import {strings, SCREEN_BALANCE} from '../../constants';
 import {loadEscrowAccount, validateTx} from '../../actions';
 import ScrollList from '../../components/scroll-list';
@@ -26,7 +26,7 @@ export class Escrow extends Component {
     render() {
         const {
             dispatch,
-            balance,
+            // balance,
             transactions,
             submitting
         } = this.props;
@@ -40,11 +40,11 @@ export class Escrow extends Component {
                     content={'Your Wollo release schedule:'}
                     icon="coins"
                     scroll={false}
-                    headerChildren={(
-                        <View style={{marginBottom: -20}}>
-                            <Wollo balance={balance}/>
-                        </View>
-                    )}
+                    // headerChildren={(
+                    //     <View style={{marginBottom: -20}}>
+                    //         <Wollo balance={balance}/>
+                    //     </View>
+                    // )}
                 >
                     <ScrollList
                         items={transactions.map(t => ({...t, dispatch}))}
@@ -62,7 +62,7 @@ export class Escrow extends Component {
 }
 
 export default connect(state => ({
-    balance: state.escrow.balance,
+    // balance: state.escrow.balance,
     transactions: state.escrow.transactions,
     loading: state.escrow.loading,
     error: state.escrow.error,
