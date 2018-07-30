@@ -38,6 +38,7 @@ export class Transfer extends Component {
                     icon="transfer"
                     error={error}
                     scroll={false}
+                    paddingTop={payments.length ? 0 : 30}
                 >
                     {payments.length ? (
                         <Payments
@@ -46,14 +47,16 @@ export class Transfer extends Component {
                             payments={payments}
                         />
                     ) : (
-                        <Paragraph>No transaction history</Paragraph>
+                        <Paragraph>
+                            No transaction history
+                        </Paragraph>
                     )}
                 </StepModule>
                 <View style={styles.button}>
                     <Button
                         label={strings.transferButtonLabel}
                         onPress={this.onTransfer}
-                        disabled={!hasGas}
+                        disabled={!hasGas || !Number(balance)}
                     />
                 </View>
             </Fragment>

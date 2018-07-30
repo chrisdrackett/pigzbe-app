@@ -12,7 +12,7 @@ export default StyleSheet.create({
         color: color.blue,
         fontSize: 14,
         fontWeight: 'bold',
-        borderColor: color.blue,
+        borderColor: color.lighterBlue,
         borderWidth: 1,
         borderRadius: 22.5,
         marginBottom: 10,

@@ -31,7 +31,7 @@ export default StyleSheet.create({
         borderColor: color.transparent,
     },
     text__disabled: {
-        color: color.whiteOpacity60,
+        color: color.white,
     },
 
     // theme light

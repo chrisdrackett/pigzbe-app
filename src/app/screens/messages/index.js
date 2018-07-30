@@ -41,12 +41,12 @@ export class Messages extends Component {
                     <ScrollList
                         items={messages}
                         ItemComponent={Message}
-                        loading={loading}
+                        loading={loading && !messages.length}
                         loaderMessage={strings.messagesLoading}
                     />
                 </StepModule>
                 <Loader
-                    isLoading={loading}
+                    isLoading={loading && !messages.length}
                     message={strings.messagesLoading}
                 />
             </Fragment>

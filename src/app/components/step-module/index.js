@@ -11,7 +11,8 @@ import {color} from '../../styles';
 export default class extends Component {
 
   static defaultProps = {
-      scroll: true
+      scroll: true,
+      keyboardOffset: 0,
   }
 
   render() {
@@ -27,15 +28,18 @@ export default class extends Component {
           onBack,
           pad,
           onSettings,
-          paddingTop
+          paddingTop,
+          keyboardOffset
       } = this.props;
+
+      console.log('keyboardOffset', keyboardOffset);
 
       return (
           <Container style={styles.wrapper} scroll={false}>
               <View style={styles.bg}/>
               <Header onBack={onBack} onSettings={onSettings} />
               <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader>
-              <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}}>
+              <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}} offset={keyboardOffset}>
                   <Container
                       scroll={scroll}
                       style={[styles.container, {

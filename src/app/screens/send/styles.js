@@ -23,9 +23,9 @@ export default StyleSheet.create({
     },
     estimate: {
         fontFamily,
-        color: color.grey,
+        color: color.lighterBlue,
         fontSize: 14,
-        fontStyle: 'italic',
+        // fontStyle: 'italic',
         marginBottom: 5,
     },
     buttonWrapper: {
@@ -66,4 +66,18 @@ export default StyleSheet.create({
         color: color.white,
         fontSize: 14,
     },
+    edit: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+    },
+    editBtn: {
+        alignSelf: 'auto',
+        marginBottom: 0,
+    },
+    editText: {
+        paddingRight: 5,
+        paddingTop: 8,
+        paddingBottom: 8,
+    }
 });

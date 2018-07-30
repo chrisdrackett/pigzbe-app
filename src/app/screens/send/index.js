@@ -1,11 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {
-    strings,
-    SCREEN_TRANSFER
-} from '../../constants';
+import {strings, SCREEN_TRANSFER} from '../../constants';
 import Button from '../../components/button';
-import KeyboardAvoid from '../../components/keyboard-avoid';
 import Form from './form';
 import Progress from '../../components/progress';
 import StepModule from '../../components/step-module';
@@ -22,8 +18,6 @@ export class Send extends Component {
     render() {
         const {dispatch, balance, exchange, sending, sendComplete, sendStatus, error} = this.props;
 
-        // confirm ? strings.transferConfirmTitle : strings.transferSendTitle;
-
         return (
             <Fragment>
                 <StepModule
@@ -32,27 +26,26 @@ export class Send extends Component {
                     error={error}
                     pad
                     paddingTop={10}
+                    keyboardOffset={-50}
                 >
                     <Fragment>
-                        <KeyboardAvoid containerStyle={{flexGrow: 1}}>
-                            <Form
-                                dispatch={dispatch}
-                                exchange={exchange}
-                                balance={balance}
-                                onReview={this.onReview}
-                            />
-                            <Button
-                                theme="outline"
-                                label={strings.transferCancelButtonLabel}
-                                onPress={this.onTransfer}
-                            />
-                        </KeyboardAvoid>
+                        <Form
+                            dispatch={dispatch}
+                            exchange={exchange}
+                            balance={balance}
+                            onReview={this.onReview}
+                        />
+                        <Button
+                            theme="outline"
+                            label={strings.transferCancelButtonLabel}
+                            onPress={this.onTransfer}
+                        />
                     </Fragment>
                 </StepModule>
                 <Progress
                     active={sending}
                     complete={sendComplete}
-                    title={strings.transferProgress}
+                    title={sendComplete ? 'Transfer complete' : 'Transfer in progress'}
                     error={error}
                     text={sendStatus}
                     buttonLabel={strings.transferProgressButtonLabel}
@@ -62,7 +55,6 @@ export class Send extends Component {
         );
     }
 }
-
 
 export default connect(
     state => ({

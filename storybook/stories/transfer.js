@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {storiesOf} from '@storybook/react-native';
 import {Transfer} from '../../src/app/screens/transfer';
 import {Send} from '../../src/app/screens/send';
+import Form from '../../src/app/screens/send/form';
 import Payments from '../../src/app/components/payments';
+import StepModule from '../../src/app/components/step-module';
+import Button from '../../src/app/components/button';
 
 const props = {
     dispatch: () => {},
@@ -545,6 +548,45 @@ storiesOf('Transfer')
     .add('send', () => (
         <Send {...props}/>
     ))
+    .add('review transfer', () => (
+        <StepModule
+            title={'Review Transfer'}
+            icon="transfer"
+            error={null}
+            pad
+            paddingTop={10}
+            keyboardOffset={-50}
+        >
+            <Fragment>
+                <Form {...{
+                    ...props,
+                    review: true,
+                    amount: '1',
+                    accountKey: 'GDPCWCCJDXJHSA3GA62PFMZNP6A7NZSEGNEH3F3LSSUQZZ3NDCFVB6GB',
+                    onReview: () => {}
+                }} />
+                <Button
+                    theme="outline"
+                    label={'Cancel'}
+                    onPress={() => {}}
+                />
+            </Fragment>
+        </StepModule>
+    ))
+    .add('transfer progress', () => (
+        <Send {...{
+            ...props,
+            sending: true,
+            sendComplete: false,
+        }}/>
+    ))
+    .add('transfer complete', () => (
+        <Send {...{
+            ...props,
+            sending: true,
+            sendComplete: true,
+        }}/>
+    ))
     .add('payments', () => (
         <Payments {...props}/>
     ))
@@ -555,5 +597,13 @@ storiesOf('Transfer')
         <Transfer {...{
             ...props,
             payments: props.payments.slice(0, 2)
+        }}/>
+    ))
+    .add('transfer 0 payments', () => (
+        <Transfer {...{
+            ...props,
+            balance: '0',
+            balanceXLM: '0',
+            payments: []
         }}/>
     ));
