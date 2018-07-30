@@ -57,6 +57,23 @@ stories.add('keyholder', () => (
     </StepModule>
 ));
 
+stories.add('transaction hash', () => (
+    <StepModule
+        title={'Key holder'}
+        icon="secure"
+        pad
+        paddingTop={18}
+    >
+        <View>
+            <KeyHolder
+                title="Transaction hash"
+                content="0x58e5a0fc7fbc849eddc100d44e86276168a8c7baaa5604e44ba6f5eb8ba1b7eb"
+                onPress={() => {}}
+            />
+        </View>
+    </StepModule>
+));
+
 stories.add('create test keys', () => (
     <View style={{backgroundColor: 'black', padding: 18}}>
         <Button

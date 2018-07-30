@@ -51,12 +51,12 @@ export default ({
             </Fragment>
         ) : (
             <Fragment>
-                <Paragraph>You didn't finish a previous Wollo claim process. Continue or cancel the process below.</Paragraph>
+                <Paragraph small>You didn't finish a previous Wollo claim process. Continue the process below.</Paragraph>
                 {tx && (
                     <Fragment>
-                        <Paragraph>For help contact *support@pigzbe.com* quoting your Ethereum transaction hash:</Paragraph>
+                        <Paragraph small>For help contact *support@pigzbe.com* quoting your Ethereum transaction hash.</Paragraph>
                         <KeyHolder
-                            title={'Transaction hash:'}
+                            title={'Transaction hash'}
                             content={tx}
                             onPress={() => copyTx(tx, pk, userBalance, error)}
                         />

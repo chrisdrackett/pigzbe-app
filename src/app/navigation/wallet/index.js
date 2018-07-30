@@ -4,12 +4,16 @@ import Settings from '../../screens/settings';
 import Escrow from '../../screens/escrow';
 import Claim from '../../screens/claim';
 import ClaimICO from '../../screens/claim-ico';
+import ClaimVIP from '../../screens/claim-vip';
+import ClaimAirdrop from '../../screens/claim-airdrop';
 import {
     SCREEN_BALANCE,
     SCREEN_SETTINGS,
     SCREEN_ESCROW,
     SCREEN_CLAIM,
-    SCREEN_CLAIM_ICO
+    SCREEN_CLAIM_ICO,
+    SCREEN_CLAIM_VIP,
+    SCREEN_CLAIM_AIRDROP,
 } from '../../constants';
 
 const nav = {
@@ -27,6 +31,12 @@ const nav = {
     },
     [SCREEN_CLAIM_ICO]: {
         screen: ClaimICO
+    },
+    [SCREEN_CLAIM_VIP]: {
+        screen: ClaimVIP
+    },
+    [SCREEN_CLAIM_AIRDROP]: {
+        screen: ClaimAirdrop
     },
 };
 

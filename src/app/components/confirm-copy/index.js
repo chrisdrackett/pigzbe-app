@@ -26,7 +26,7 @@ export default class ConfirmCopy extends Component {
         return (
             <Modal>
                 <Title dark>Saved your keys?</Title>
-                <Paragraph size={14}>
+                <Paragraph small>
                         You will not be able to view your keys beyond this point. You *MUST* make a secure copy BEFORE you proceed.
                 </Paragraph>
                 <TouchableOpacity style={styles.checkbox} onPress={() => this.setState({confirmed: !confirmed})}>

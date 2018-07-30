@@ -25,4 +25,7 @@ export default StyleSheet.create({
     bold: {
         fontWeight: 'bold',
     },
+    txHash: {
+        fontSize: 13,
+    },
 });

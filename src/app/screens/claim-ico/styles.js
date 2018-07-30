@@ -10,7 +10,7 @@ export default StyleSheet.create({
     list: {
     },
     listItem: {
-        marginBottom: 20,
+        marginBottom: 2,
         paddingLeft: 30,
         position: 'relative',
     },

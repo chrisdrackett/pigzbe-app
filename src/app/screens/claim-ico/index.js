@@ -2,7 +2,6 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {utils} from 'web3';
 import Config from 'react-native-config';
-import styles from './styles';
 import {
     Step1,
     Step2,
@@ -13,7 +12,6 @@ import {
 import Loader from '../../components/loader';
 import Progress from '../../components/progress';
 import Modal from './modal';
-import Container from '../../components/container';
 import {userLogin} from '../../actions/eth';
 import {refreshBalance} from '../../actions/wollo';
 import {clearClaimData} from '../../actions/content';
