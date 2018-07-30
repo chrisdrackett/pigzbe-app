@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import {authCreate} from '../../actions';
-import Loader from '../../components/loader';
 import {PASSCODE_LENGTH} from '../../constants';
 import StepModule from '../../components/step-module';
 import NumPad from '../../components/num-pad';
@@ -10,10 +9,14 @@ import Dots from '../../components/dots';
 
 export class PasscodeSet extends Component {
     state = {
+        code: this.props.code,
         input: '',
-        code: null,
         confirmed: false,
         error: false,
+    }
+
+    static defaultProps = {
+        code: null,
     }
 
     onInput = input => this.setState({input})
@@ -63,16 +66,13 @@ export class PasscodeSet extends Component {
                         <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                     </View>
                 )}
+                loading={isLoading}
             >
                 <NumPad
                     key={this.state.code ? 'confirm' : 'enter'}
                     length={PASSCODE_LENGTH}
                     onInput={this.onInput}
                     onFull={this.state.code ? this.onCodeConfirmed : this.onCodeEntered}
-                />
-                <Loader
-                    white
-                    isLoading={isLoading}
                 />
             </StepModule>
 

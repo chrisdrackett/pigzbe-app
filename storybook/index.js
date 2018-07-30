@@ -23,6 +23,7 @@ function loadStories() {
     require('./stories/claim.js');
     require('./stories/game.js');
     require('./stories/tabs.js');
+    require('./stories/loader.js');
 }
 
 configure(loadStories, module);

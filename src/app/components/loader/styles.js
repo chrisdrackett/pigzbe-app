@@ -14,16 +14,10 @@ export default StyleSheet.create({
         left: 0,
         top: 0,
         right: 0,
-        bottom: 0
-    },
-    transparent: {
-        backgroundColor: color.blueOpacity40,
+        bottom: 0,
     },
     light: {
-        backgroundColor: color.lightGrey,
-    },
-    white: {
-        backgroundColor: color.whiteOpacity60,
+        backgroundColor: color.whiteOpacity80,
     },
     message: {
         fontFamily,

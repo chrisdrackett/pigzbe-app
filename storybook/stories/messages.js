@@ -4,6 +4,15 @@ import {Messages} from '../../src/app/screens/messages';
 
 const props = {
     dispatch: () => {},
+    navigation: {
+        navigate: () => {},
+        addListener: () => {},
+        state: {
+            key: 'SCREEN_MESSAGES',
+            routeName: 'SCREEN_MESSAGES'
+        },
+        actions: {}
+    },
     messages: [{
         key: '1',
         date: '2018-07-20T12:00+01:00',
@@ -39,5 +48,19 @@ storiesOf('Messages')
         <Messages {...{
             ...props,
             messages: props.messages.slice(0, 1)
+        }}/>
+    ))
+    .add('loading', () => (
+        <Messages {...{
+            ...props,
+            loading: true,
+            messages: []
+        }}/>
+    ))
+    .add('error', () => (
+        <Messages {...{
+            ...props,
+            messages: [],
+            error: new Error('Network error')
         }}/>
     ));

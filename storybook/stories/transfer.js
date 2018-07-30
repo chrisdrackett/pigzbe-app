@@ -606,4 +606,18 @@ storiesOf('Transfer')
             balanceXLM: '0',
             payments: []
         }}/>
+    ))
+    .add('transfer loading', () => (
+        <Transfer {...{
+            ...props,
+            payments: [],
+            loading: true
+        }}/>
+    ))
+    .add('transfer error', () => (
+        <Transfer {...{
+            ...props,
+            payments: [],
+            error: new Error('Network error')
+        }}/>
     ));

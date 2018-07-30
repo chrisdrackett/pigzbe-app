@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import {load} from '../../actions';
-import Loader from '../../components/loader';
 import {SCREEN_HOME, PASSCODE_LENGTH} from '../../constants';
 import NumPad from '../../components/num-pad';
 import Dots from '../../components/dots';
@@ -39,15 +38,12 @@ export class PasscodeLogin extends Component {
                     </View>
                 )}
                 onBack={this.onBack}
+                loading={isLoading}
             >
                 <NumPad
                     length={PASSCODE_LENGTH}
                     onInput={this.onInput}
                     onFull={this.onCodeEntered}
-                />
-                <Loader
-                    white
-                    isLoading={isLoading}
                 />
             </StepModule>
         );

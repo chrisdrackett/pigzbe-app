@@ -9,7 +9,6 @@ import {
 } from '../../constants';
 import ConvertBalance from '../../components/convert-balance';
 import BalanceGraph from '../../components/balance-graph';
-import Loader from '../../components/loader';
 import Button from '../../components/button';
 import Wollo from '../../components/wollo';
 import {getExchange} from '../../actions/coins';
@@ -41,9 +40,9 @@ export class Balance extends Component {
             firstTime
         } = this.props;
 
-        if (!exchange && !error) {
-            return <Loader isLoading />;
-        }
+        const isLoading = !exchange && !error;
+
+        console.log('balance isLoading', isLoading);
 
         const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
 
@@ -59,11 +58,15 @@ export class Balance extends Component {
                     )}
                     backgroundColor={color.lightGrey}
                     onSettings={this.onSettings}
+                    loading={isLoading}
+                    error={error}
                 >
-                    <View>
-                        <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
-                        <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
-                    </View>
+                    {(!isLoading && !error) && (
+                        <View>
+                            <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
+                            <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
+                        </View>
+                    )}
                 </StepModule>
                 {firstTime && (
                     <Modal>

@@ -5,13 +5,10 @@ import {
     ScrollView
 } from 'react-native';
 import styles from './styles';
-import Loader from '../loader';
 import isDesktop from '../../utils/is-desktop';
 
 export default ({
     items,
-    loading,
-    loaderMessage,
     ItemComponent,
     children
 }) => (
@@ -29,10 +26,5 @@ export default ({
                 renderItem={({item}) => <ItemComponent {...item}/>}
             />
         )}
-        <Loader
-            message={loaderMessage}
-            isLoading={loading}
-            light
-        />
     </View>
 );

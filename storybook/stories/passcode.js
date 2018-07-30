@@ -15,4 +15,16 @@ storiesOf('Passcode')
     ))
     .add('set passcode', () => (
         <PasscodeSet {...props}/>
+    ))
+    .add('verify', () => (
+        <PasscodeSet {...{
+            ...props,
+            code: '111111'
+        }}/>
+    ))
+    .add('loading', () => (
+        <PasscodeLogin {...{
+            ...props,
+            isLoading: true
+        }}/>
     ));

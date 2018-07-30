@@ -12,7 +12,6 @@ const stories = storiesOf('StepModule');
 stories.add('no icon', () => (
     <StepModule
         title={'No icon'}
-        scroll={false}
         content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis."
         pad
     >
@@ -35,7 +34,6 @@ Object.keys(images).map(key => {
         <StepModule
             icon={key}
             title={`Step ${key}`}
-            scroll={true}
             content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis."
             pad
         >
@@ -58,7 +56,6 @@ stories.add('scroll test', () => (
     <StepModule
         title={'Scroll Test'}
         icon="keys"
-        scroll={true}
         content={
             <Fragment>
                 <Paragraph>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.</Paragraph>
@@ -91,7 +88,6 @@ stories.add('scroll test 2', () => (
     <StepModule
         title={'Scroll Test 2'}
         icon="keys"
-        scroll={true}
         content={
             <Fragment>
                 <Paragraph>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.</Paragraph>
@@ -117,11 +113,10 @@ stories.add('keyboard test', () => (
     <StepModule
         title={'Keyboard Test'}
         icon="keys"
-        scroll={true}
         content={'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.'}
         pad
     >
-        <View style={{borderColor: 'red', borderWidth: 1}}>
+        <View>
             <TextInput
                 error={true}
                 value={''}
@@ -130,6 +125,28 @@ stories.add('keyboard test', () => (
                 numberOfLines={4}
                 returnKeyType="done"
             />
+            <Button
+                theme="outline"
+                label={'Lorem ipsum'}
+                onPress={() => {}}
+            />
+            <Button
+                label={'Lorem ipsum'}
+                onPress={() => {}}
+            />
+        </View>
+    </StepModule>
+));
+
+stories.add('loading', () => (
+    <StepModule
+        title={'Loading Test'}
+        icon="keys"
+        content={'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.'}
+        pad
+        loading={true}
+    >
+        <View>
             <Button
                 theme="outline"
                 label={'Lorem ipsum'}

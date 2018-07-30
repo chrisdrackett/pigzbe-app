@@ -100,70 +100,70 @@ export class DeviceAuth extends Component {
                     : `Now enter the code we sent to +${this.state.country}${this.state.phone.replace(/^0+/, '')}`
                 }
                 onBack={!id ? this.onBack : this.onClear}
+                loading={isLoading}
                 error={error}
                 pad
             >
-                <Fragment>
-                    {id && (
-                        <Fragment>
-                            {qrCode && <Image source={{uri: qrCode}} style={{marginTop: -20, marginBottom: 10, alignSelf: 'center', width: qrSize, height: qrSize}}/> }
-                            <InputBoxes
-                                onFulfill={this.onChangeCode}
-                                boxes={boxes}
-                                boxSize={{width: boxW, height: 44}}
-                                space={space}
-                            />
+                {id && (
+                    <Fragment>
+                        {qrCode && <Image source={{uri: qrCode}} style={{marginTop: -20, marginBottom: 10, alignSelf: 'center', width: qrSize, height: qrSize}}/> }
+                        <InputBoxes
+                            onFulfill={this.onChangeCode}
+                            boxes={boxes}
+                            boxSize={{width: boxW, height: 44}}
+                            space={space}
+                        />
+                        <Button
+                            theme="plain"
+                            label={'Resend code'}
+                            onPress={this.onResend}
+                            style={{marginBottom: 60}}
+                        />
+                        <Button
+                            label={'Verify'}
+                            onPress={this.onVerify}
+                        />
+                    </Fragment>
+                )}
+                {!id && (
+                    <Fragment>
+                        <TextInput
+                            error={!!error}
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            keyboardType="email-address"
+                            value={this.state.email}
+                            placeholder={'Email address'}
+                            onChangeText={this.onChangeEmail}
+                        />
+                        <TextInput
+                            error={!!error}
+                            keyboardType="number-pad"
+                            value={this.state.phone}
+                            style={{width: '100%'}}
+                            placeholder={'Your mobile number'}
+                            onChangeText={this.onChangePhone}
+                        />
+                        <ModalSelector
+                            data={countryData}
+                            initValue={this.state.countryName}
+                            supportedOrientations={['portrait', 'landscape']}
+                            accessible={true}
+                            scrollViewAccessibilityLabel={'Scrollable options'}
+                            cancelButtonAccessibilityLabel={'Cancel Button'}
+                            onChange={this.onChangeCountry}>
                             <Button
                                 theme="plain"
-                                label={'Resend code'}
-                                onPress={this.onResend}
-                                style={{marginBottom: 60}}
+                                label={this.state.countryName}
+                                onPress={this.onBack}
                             />
-                            <Button
-                                label={'Verify'}
-                                onPress={this.onVerify}
-                            />
-                        </Fragment>
-                    )}
-                    {!id && (
-                        <Fragment>
-                            <TextInput
-                                error={!!error}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                keyboardType="email-address"
-                                value={this.state.email}
-                                placeholder={'Email address'}
-                                onChangeText={this.onChangeEmail}
-                            />
-                            <TextInput
-                                error={!!error}
-                                keyboardType="number-pad"
-                                value={this.state.phone}
-                                style={{width: '100%'}}
-                                placeholder={'Your mobile number'}
-                                onChangeText={this.onChangePhone}
-                            />
-                            <ModalSelector
-                                data={countryData}
-                                initValue={this.state.countryName}
-                                supportedOrientations={['portrait', 'landscape']}
-                                accessible={true}
-                                scrollViewAccessibilityLabel={'Scrollable options'}
-                                cancelButtonAccessibilityLabel={'Cancel Button'}
-                                onChange={this.onChangeCountry}>
-                                <Button
-                                    theme="plain"
-                                    label={this.state.countryName}
-                                    onPress={this.onBack}
-                                />
-                            </ModalSelector>
-                            <Button
-                                label={'Send Code'}
-                                onPress={this.onSend}
-                                disabled={!(this.state.email && this.state.phone && this.state.country)}
-                            />
-                            {/* {__DEV__ && (
+                        </ModalSelector>
+                        <Button
+                            label={'Send Code'}
+                            onPress={this.onSend}
+                            disabled={!(this.state.email && this.state.phone && this.state.country)}
+                        />
+                        {/* {__DEV__ && (
                                 <Button
                                     textStyle={{color: color.blue}}
                                     theme="plain_light"
@@ -171,13 +171,8 @@ export class DeviceAuth extends Component {
                                     onPress={() => navigation.navigate(SCREEN_TOUCH_ID)}
                                 />
                             )} */}
-                        </Fragment>
-                    )}
-                    <Loader
-                        white
-                        isLoading={isLoading}
-                    />
-                </Fragment>
+                    </Fragment>
+                )}
             </StepModule>
         );
     }

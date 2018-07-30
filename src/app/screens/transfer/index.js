@@ -30,6 +30,7 @@ export class Transfer extends Component {
 
     render() {
         const {error, balance, hasGas, loading, payments} = this.props;
+        const isLoading = loading && !payments.length;
 
         return (
             <Fragment>
@@ -39,14 +40,16 @@ export class Transfer extends Component {
                     error={error}
                     scroll={false}
                     paddingTop={payments.length ? 0 : 30}
+                    loading={isLoading}
+                    loaderMessage={strings.transferHistoryLoading}
                 >
-                    {payments.length ? (
+                    {!!payments.length && (
                         <Payments
-                            loading={loading}
                             balance={balance}
                             payments={payments}
                         />
-                    ) : (
+                    )}
+                    {(!isLoading && !payments.length && !error) && (
                         <Paragraph>
                             No transaction history
                         </Paragraph>

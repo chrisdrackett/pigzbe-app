@@ -6,6 +6,7 @@ export const color = {
     white: 'rgb(255, 255, 255)',
     whiteOpacity60: 'rgba(255, 255, 255, 0.6)',
     whiteOpacity70: 'rgba(255, 255, 255, 0.7)',
+    whiteOpacity80: 'rgba(255, 255, 255, 0.8)',
     pink: 'rgb(230, 155, 230)',
     blue: 'rgb(0, 50, 120)',
     blueOpacity40: 'rgba(0, 50, 120, 0.4)',

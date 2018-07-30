@@ -1,13 +1,10 @@
 import React from 'react';
 import Payment from './payment';
 import ScrollList from '../scroll-list';
-import {strings} from '../../constants';
 
-export default ({payments, loading}) => (
+export default ({payments}) => (
     <ScrollList
         items={payments}
         ItemComponent={Payment}
-        loading={loading}
-        loaderMessage={strings.transferHistoryLoading}
     />
 );

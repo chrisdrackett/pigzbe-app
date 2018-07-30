@@ -35,4 +35,10 @@ storiesOf('Balance')
     ))
     .add('first time', () => (
         <Balance {...{...props, firstTime: true}}/>
+    ))
+    .add('loading', () => (
+        <Balance {...{...props, exchange: null}}/>
+    ))
+    .add('error', () => (
+        <Balance {...{...props, exchange: null, error: new Error('Network error')}}/>
     ));

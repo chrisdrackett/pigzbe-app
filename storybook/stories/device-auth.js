@@ -26,9 +26,22 @@ storiesOf('Device Auth')
     .add('default', () => (
         <DeviceAuth {...props}/>
     ))
+    .add('loading', () => (
+        <DeviceAuth {...{
+            ...props,
+            isLoading: true
+        }}/>
+    ))
     .add('registered', () => (
         <DeviceAuth {...{
             ...props,
             id: '123'
+        }}/>
+    ))
+    .add('registered loading', () => (
+        <DeviceAuth {...{
+            ...props,
+            id: '123',
+            isLoading: true
         }}/>
     ));

@@ -27,29 +27,25 @@ export class Messages extends Component {
         const {
             messages,
             loading,
+            error
         } = this.props;
 
         console.log('messages', messages.length);
 
         return (
-            <Fragment>
-                <StepModule
-                    title={strings.messagesTitle}
-                    icon="messages"
-                    scroll={false}
-                >
-                    <ScrollList
-                        items={messages}
-                        ItemComponent={Message}
-                        loading={loading && !messages.length}
-                        loaderMessage={strings.messagesLoading}
-                    />
-                </StepModule>
-                <Loader
-                    isLoading={loading && !messages.length}
-                    message={strings.messagesLoading}
+            <StepModule
+                title={strings.messagesTitle}
+                icon="messages"
+                scroll={false}
+                error={error}
+                loading={loading && !messages.length}
+                loaderMessage={strings.messagesLoading}
+            >
+                <ScrollList
+                    items={messages}
+                    ItemComponent={Message}
                 />
-            </Fragment>
+            </StepModule>
         );
     }
 }

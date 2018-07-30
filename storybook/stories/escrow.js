@@ -51,4 +51,11 @@ const props = {
 storiesOf('Escrow')
     .add('default', () => (
         <Escrow {...props}/>
+    ))
+    .add('loading', () => (
+        <Escrow {...{
+            ...props,
+            transactions: [],
+            loading: true,
+        }}/>
     ));

@@ -5,6 +5,7 @@ import StepHeader from '../../components/step-header';
 import Container from '../../components/container';
 import KeyboardAvoid from '../../components/keyboard-avoid';
 import Paragraph from '../../components/paragraph';
+import Loader from '../../components/loader';
 import styles from './styles';
 import {color} from '../../styles';
 
@@ -29,7 +30,9 @@ export default class extends Component {
           pad,
           onSettings,
           paddingTop,
-          keyboardOffset
+          keyboardOffset,
+          loading,
+          loaderMessage
       } = this.props;
 
       return (
@@ -44,7 +47,7 @@ export default class extends Component {
                           backgroundColor: backgroundColor || color.white,
                       }]}
                   >
-                      {content && (
+                      {(content || error) && (
                           <View style={styles.containerText}>
                               {typeof content === 'string' ? (
                                   <Paragraph>{content}</Paragraph>
@@ -59,6 +62,15 @@ export default class extends Component {
                       <View style={[pad ? styles.pad : null, paddingTop ? {paddingTop} : null]}>
                           {children}
                       </View>
+                      <Loader
+                          light
+                          isLoading={loading}
+                          message={loaderMessage}
+                          style={{
+                              borderTopRightRadius: 5,
+                              borderTopLeftRadius: 5,
+                          }}
+                      />
                   </Container>
               </KeyboardAvoid>
           </Container>
