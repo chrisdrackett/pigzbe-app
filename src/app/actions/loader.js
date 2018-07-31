@@ -1,5 +1,6 @@
 import wait from '../utils/wait';
 import {
+    authCheckTouchId,
     authTouchId,
     authKeychain,
     authLogin,
@@ -30,12 +31,13 @@ export const loadContent = () => async dispatch => {
     dispatch(loaderLoading(true));
 
     try {
-        await dispatch(loaderMessage('Loading Config'));
+        dispatch(loaderMessage('Loading Config'));
         await dispatch(loadConfig());
-        await dispatch(loaderMessage('Loading Messages'));
+        dispatch(loaderMessage('Loading Messages'));
         await dispatch(loadMessages());
-        await dispatch(loaderMessage('Loading Exchange'));
+        dispatch(loaderMessage('Loading Values'));
         await dispatch(loadExchange());
+        dispatch(loaderMessage(null));
         dispatch(loaderLoading(false));
     } catch (error) {
         console.log(error);
@@ -45,12 +47,10 @@ export const loadContent = () => async dispatch => {
 };
 
 export const loginAndLoad = passcode => async dispatch => {
-    console.log('3. loginAndLoad passcode =', passcode);
     dispatch(loaderLoading(true));
 
     try {
         const success = await dispatch(authLogin(passcode));
-        console.log('authLogin success =', success);
         if (success) {
             await dispatch(loaderMessage('Loading Config'));
             await dispatch(loadConfig());
@@ -60,10 +60,9 @@ export const loginAndLoad = passcode => async dispatch => {
             // await dispatch(loadEscrow());
             await dispatch(loaderMessage('Loading Messages'));
             await dispatch(loadMessages());
-            await dispatch(loaderMessage('Loading Exchange'));
+            await dispatch(loaderMessage('Loading Values'));
             await dispatch(loadExchange());
         }
-        console.log('10. done loading');
         dispatch(loaderLoading(false));
     } catch (error) {
         console.log(error);
@@ -73,9 +72,7 @@ export const loginAndLoad = passcode => async dispatch => {
 };
 
 export const tryTouchIdLogin = () => async (dispatch, getState) => {
-    console.log('2. tryTouchIdLogin');
     const {enableTouchId} = getState().settings;
-    // console.log('enableTouchId', enableTouchId);
     if (!enableTouchId) {
         return;
     }
@@ -94,10 +91,10 @@ export const tryTouchIdLogin = () => async (dispatch, getState) => {
 };
 
 export const initialize = () => async dispatch => {
-    console.log('1. initialize');
     dispatch(initializing(true));
     dispatch(initializeConfig());
     await dispatch(loadSettings());
+    await dispatch(authCheckTouchId());
     dispatch(tryTouchIdLogin());
     await wait(1);
     dispatch(initializing(false));

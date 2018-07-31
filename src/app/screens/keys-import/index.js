@@ -27,7 +27,7 @@ export class KeysImport extends Component {
                 title="Import Keys"
                 icon="secure"
                 content="Enter your secret key to import an existing account."
-                error={error}
+                // error={error}
                 onBack={this.onBack}
                 pad
             >

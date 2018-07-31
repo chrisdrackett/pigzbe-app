@@ -37,7 +37,7 @@ export class PasscodeLogin extends Component {
                 onBack={this.onBack}
                 loading={loading}
                 loaderMessage={message}
-                error={error}
+                // error={error}
             >
                 <NumPad
                     error={error}

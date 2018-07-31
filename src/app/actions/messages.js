@@ -15,15 +15,15 @@ export const messagesNotify = notify => ({type: MESSAGES_NOTIFY, notify});
 export const messagesMarkRead = () => ({type: MESSAGES_MARK_READ});
 
 export const loadMessages = () => async (dispatch, getState) => {
-    console.log('8. loadMessages');
     try {
+        dispatch(messagesError(null));
         dispatch(loadMessagesing(true));
 
         const api = apiURL(getState());
         const messages = await fetchTimeout(`${api}/content/messages?order=latest`);
 
         if (!messages) {
-            throw new Error('Network error');
+            throw new Error('Could not load messages');
         }
 
         dispatch(messagesUpdate(messages));

@@ -14,6 +14,7 @@ import {
 } from '@pigzbe/stellar-utils';
 import {strings, ASSET_CODE, KEYCHAIN_ID_STELLAR_KEY} from '../constants';
 import Keychain from '../utils/keychain';
+import {appError} from './';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
@@ -79,20 +80,23 @@ export const createKeys = () => async dispatch => {
 };
 
 export const importKey = secretKey => async dispatch => {
-    console.log('importKey');
+    dispatch(wolloError(null));
+    dispatch(appError(null));
+    dispatch(wolloLoading(true));
     try {
         const keypair = Keypair.fromSecret(secretKey);
-        console.log('importKey', keypair.publicKey());
         dispatch(setKeys(keypair, true));
         await dispatch(saveKeys());
     } catch (error) {
         console.log(error);
-        dispatch(wolloError(error));
+        const err = new Error('Invalid key');
+        dispatch(wolloError(err));
+        dispatch(appError(err));
     }
+    dispatch(wolloLoading(false));
 };
 
 export const loadKeys = () => async (dispatch, getState) => {
-    console.log('6. loadKeys');
     const stellar = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
     const {testUserKey} = getState().wollo;
 
@@ -109,13 +113,11 @@ export const loadKeys = () => async (dispatch, getState) => {
 };
 
 export const clearKeys = () => async dispatch => {
-    console.log('clearKeys');
     await Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
     dispatch(setKeys(null));
 };
 
 export const loadWallet = publicKey => async (dispatch, getState) => {
-    console.log('7. loadWallet');
     try {
         const key = publicKey || getState().wollo.publicKey;
         if (key) {

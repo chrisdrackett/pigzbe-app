@@ -13,9 +13,9 @@ class Auth extends Component {
             loading,
         } = this.props;
 
-        console.log('loggedIn', loggedIn);
-        console.log('keysSaved', keysSaved);
-        console.log('loading', loading);
+        // console.log('loggedIn', loggedIn);
+        // console.log('keysSaved', keysSaved);
+        // console.log('loading', loading);
 
         if (loggedIn && keysSaved && !loading) {
             return (

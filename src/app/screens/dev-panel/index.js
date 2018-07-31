@@ -15,7 +15,13 @@ import Button from '../../components/button';
 import Storage from '../../utils/storage';
 import Keychain from '../../utils/keychain';
 import {setUseTestnet, wolloTestUser, configUpdate} from '../../actions';
-import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY, STORAGE_KEY_SETTINGS, STORAGE_KEY_BURNING} from '../../constants';
+import {
+    KEYCHAIN_ID_STELLAR_KEY,
+    KEYCHAIN_ID_ETH_KEY,
+    STORAGE_KEY_SETTINGS,
+    STORAGE_KEY_BURNING,
+    KEYCHAIN_ID_PASSCODE
+} from '../../constants';
 
 const SwitchControl = ({
     label,
@@ -145,6 +151,7 @@ class DevPanel extends Component {
                                     console.log('clear');
                                     Storage.clear(STORAGE_KEY_SETTINGS);
                                     Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
+                                    Keychain.clear(KEYCHAIN_ID_PASSCODE);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY);
                                 }} />
                             </View>

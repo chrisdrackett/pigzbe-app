@@ -1,11 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Keyboard, Image, Dimensions} from 'react-native';
+import {Keyboard, Image, Dimensions, View} from 'react-native';
 import Button from '../../components/button';
 import TextInput from '../../components/text-input';
-import Loader from '../../components/loader';
-import {SCREEN_HOME, SCREEN_TOUCH_ID} from '../../constants';
-import isEmail from '../../utils/is-email';
+import {SCREEN_HOME, SCREEN_TOUCH_ID, SCREEN_SET_PASSCODE} from '../../constants';
 import InputBoxes from '../../components/input-boxes';
 import {
     deviceAuthOnline,
@@ -17,8 +15,13 @@ import {
 import StepModule from '../../components/step-module';
 import countryCodes from './country-codes';
 import ModalSelector from 'react-native-modal-selector';
+import Modal from '../../components/modal';
+import Title from '../../components/title';
+import Paragraph from '../../components/paragraph';
 
-const qrSize = 100;
+const boxes = 7;
+const space = 8;
+const qrSize = 200;
 const countryData = countryCodes.map(({country, code}, i) => ({key: i, label: country, value: code}));
 
 export class DeviceAuth extends Component {
@@ -28,6 +31,7 @@ export class DeviceAuth extends Component {
         country: countryCodes[0].code,
         countryName: countryCodes[0].country,
         code: '',
+        showModal: false,
     }
 
     componentDidMount() {
@@ -36,7 +40,8 @@ export class DeviceAuth extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.verified && !prevProps.verified) {
-            this.props.navigation.navigate(SCREEN_TOUCH_ID);
+            const screen = this.props.touchIdSupport ? SCREEN_TOUCH_ID : SCREEN_SET_PASSCODE;
+            this.props.navigation.navigate(screen);
         }
     }
 
@@ -44,32 +49,19 @@ export class DeviceAuth extends Component {
 
     onChangePhone = phone => this.setState({phone})
 
-    onChangeCountry = option => {
-        console.log('option:', option);
-        this.setState({countryName: option.label, country: option.value});
-    }
+    onChangeCountry = option => this.setState({countryName: option.label, country: option.value})
 
-    onChangeCode = code => {
-        console.log(code);
-        this.setState({code});
-    }
+    onChangeCode = code => this.setState({code}, this.onVerify)
 
     onSend = () => {
         Keyboard.dismiss();
-
-        const emailValid = this.state.email && isEmail(this.state.email);
-
-        if (!emailValid) {
-            return;
-        }
-
         this.props.dispatch(deviceAuthRegister(this.state.email, this.state.phone, this.state.country));
     }
 
     onResend = () => this.props.dispatch(deviceAuthLogin())
 
     onVerify = () => {
-        if (!this.state.code) {
+        if (!this.state.code || this.state.code.length < boxes) {
             return;
         }
         this.props.dispatch(deviceAuthVerify(this.state.code));
@@ -79,6 +71,10 @@ export class DeviceAuth extends Component {
 
     onClear = () => this.props.dispatch(deviceAuthClear())
 
+    onOpenModal = () => this.setState({showModal: true})
+
+    onCloseModal = () => this.setState({showModal: false})
+
     render() {
         const {
             loading,
@@ -87,93 +83,115 @@ export class DeviceAuth extends Component {
             qrCode,
         } = this.props;
 
-        const boxes = 7;
-        const space = 8;
         const boxW = (Dimensions.get('window').width * 0.8875 - 40 - space * (boxes - 1)) / boxes;
 
         return (
-            <StepModule
-                title={!id ? 'Get Started' : 'Enter Code'}
-                icon={!id ? 'tick' : 'code'}
-                content={!id
-                    ? 'Before we begin, enter your mobile number to verify your mobile device.'
-                    : `Now enter the code we sent to +${this.state.country}${this.state.phone.replace(/^0+/, '')}`
-                }
-                onBack={!id ? this.onBack : this.onClear}
-                loading={loading}
-                error={error}
-                pad
-            >
-                {id && (
-                    <Fragment>
-                        {qrCode && <Image source={{uri: qrCode}} style={{marginTop: -20, marginBottom: 10, alignSelf: 'center', width: qrSize, height: qrSize}}/> }
-                        <InputBoxes
-                            onFulfill={this.onChangeCode}
-                            boxes={boxes}
-                            boxSize={{width: boxW, height: 44}}
-                            space={space}
-                        />
-                        <Button
-                            theme="plain"
-                            label={'Resend code'}
-                            onPress={this.onResend}
-                            style={{marginBottom: 60}}
-                        />
-                        <Button
-                            label={'Verify'}
-                            onPress={this.onVerify}
-                        />
-                    </Fragment>
-                )}
-                {!id && (
-                    <Fragment>
-                        <TextInput
-                            error={!!error}
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            keyboardType="email-address"
-                            value={this.state.email}
-                            placeholder={'Email address'}
-                            onChangeText={this.onChangeEmail}
-                        />
-                        <TextInput
-                            error={!!error}
-                            keyboardType="number-pad"
-                            value={this.state.phone}
-                            style={{width: '100%'}}
-                            placeholder={'Your mobile number'}
-                            onChangeText={this.onChangePhone}
-                        />
-                        <ModalSelector
-                            data={countryData}
-                            initValue={this.state.countryName}
-                            supportedOrientations={['portrait', 'landscape']}
-                            accessible={true}
-                            scrollViewAccessibilityLabel={'Scrollable options'}
-                            cancelButtonAccessibilityLabel={'Cancel Button'}
-                            onChange={this.onChangeCountry}>
-                            <Button
-                                theme="plain"
-                                label={this.state.countryName}
-                                onPress={this.onBack}
+            <Fragment>
+                <StepModule
+                    title={!id ? 'Get Started' : 'Enter Code'}
+                    icon={!id ? 'tick' : 'code'}
+                    content={!id
+                        ? 'Before we begin, enter your mobile number to verify your mobile device.'
+                        : `Now enter the code we sent to +${this.state.country}${this.state.phone.replace(/^0+/, '')}`
+                    }
+                    onBack={!id ? this.onBack : this.onClear}
+                    loading={loading}
+                    // error={error}
+                    pad
+                >
+                    {id && (
+                        <Fragment>
+                            <InputBoxes
+                                onFulfill={this.onChangeCode}
+                                boxes={boxes}
+                                boxSize={{width: boxW, height: 44}}
+                                space={space}
+                                error={error}
                             />
-                        </ModalSelector>
-                        <Button
-                            label={'Send Code'}
-                            onPress={this.onSend}
-                            disabled={!(this.state.email && this.state.phone && this.state.country)}
-                        />
-                        {/* {__DEV__ && (
+                            <View style={{marginBottom: 40}}>
                                 <Button
-                                    textStyle={{color: color.blue}}
-                                    theme="plain_light"
-                                    label={'Skip'}
-                                    onPress={() => navigation.navigate(SCREEN_TOUCH_ID)}
+                                    theme="plain"
+                                    label={'Resend code'}
+                                    onPress={this.onResend}
                                 />
-                            )} */}
-                    </Fragment>
+                                {qrCode && (
+                                    <Button
+                                        theme="plain"
+                                        label={'Show QR Code'}
+                                        onPress={this.onOpenModal}
+                                    />
+                                ) }
+                            </View>
+                            <Button
+                                label={'Verify'}
+                                onPress={this.onVerify}
+                            />
+                        </Fragment>
+                    )}
+                    {!id && (
+                        <Fragment>
+                            <TextInput
+                                error={!!error}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                keyboardType="email-address"
+                                value={this.state.email}
+                                placeholder={'Email address'}
+                                onChangeText={this.onChangeEmail}
+                            />
+                            <TextInput
+                                error={!!error}
+                                keyboardType="number-pad"
+                                value={this.state.phone}
+                                style={{width: '100%'}}
+                                placeholder={'Your mobile number'}
+                                onChangeText={this.onChangePhone}
+                            />
+                            <ModalSelector
+                                data={countryData}
+                                initValue={this.state.countryName}
+                                supportedOrientations={['portrait', 'landscape']}
+                                accessible={true}
+                                scrollViewAccessibilityLabel={'Scrollable options'}
+                                cancelButtonAccessibilityLabel={'Cancel Button'}
+                                onChange={this.onChangeCountry}>
+                                <Button
+                                    theme="plain"
+                                    label={this.state.countryName}
+                                    onPress={this.onBack}
+                                />
+                            </ModalSelector>
+                            <Button
+                                label={'Send Code'}
+                                onPress={this.onSend}
+                                disabled={!(this.state.email && this.state.phone && this.state.country)}
+                            />
+                            {__DEV__ && (
+                                <Button
+                                    theme="plain"
+                                    label={'Skip'}
+                                    onPress={() => {
+                                        const screen = this.props.touchIdSupport ? SCREEN_TOUCH_ID : SCREEN_SET_PASSCODE;
+                                        this.props.navigation.navigate(screen);
+                                    }}
+                                />
+                            )}
+                        </Fragment>
+                    )}
+                </StepModule>
+                {(id && qrCode && this.state.showModal) && (
+                    <Modal>
+                        <Title dark>QR Code</Title>
+                        <Paragraph>Scan the QR Code below with a compatible app such as Authenticator or Authy.</Paragraph>
+                        <Image source={{uri: qrCode}} style={{marginBottom: 20, alignSelf: 'center', width: qrSize, height: qrSize}}/>
+                        <Button
+                            theme="outline"
+                            label={'Close'}
+                            onPress={this.onCloseModal}
+                        />
+                    </Modal>
                 )}
-            </StepModule>
+            </Fragment>
         );
     }
 }
@@ -188,5 +206,6 @@ export default connect(
         requested: state.deviceAuth.requested,
         verified: state.deviceAuth.verified,
         failCount: state.deviceAuth.failCount,
+        touchIdSupport: state.auth.touchIdSupport,
     })
 )(DeviceAuth);

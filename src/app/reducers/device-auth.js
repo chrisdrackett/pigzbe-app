@@ -43,7 +43,8 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 id: null,
-                qrCode: null
+                qrCode: null,
+                error: null,
             };
         case DEVICE_AUTH_LOADING:
             return {

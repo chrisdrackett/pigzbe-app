@@ -6,10 +6,9 @@ export const SETTINGS_UPDATE = 'SETTINGS_UPDATE';
 export const SETTINGS_CLEAR = 'SETTINGS_CLEAR';
 
 export const loadSettings = () => async dispatch => {
-    console.log('1b. loadSettings');
     try {
         const data = await Storage.load(STORAGE_KEY_SETTINGS);
-        console.log(JSON.stringify(data, null, 2));
+        // console.log(JSON.stringify(data, null, 2));
         dispatch({type: SETTINGS_UPDATE, ...data});
     } catch (error) {
         console.log(error);
