@@ -4,11 +4,9 @@ import styles from './styles';
 import {strings} from '../../constants';
 
 const getErrorDetail = error => {
-    // return 'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci';
     if (!error) {
         return strings.errorUnknown;
     }
-    // console.error(error.data ? error.data.extras.result_codes.transaction : error);
 
     if (error.message && error.message.title) {
         return error.message.title;
@@ -26,6 +24,7 @@ export default class Alert extends Component {
         dismissed: false,
         prevError: null,
         position: new Animated.Value(-90),
+        height: 0,
     }
 
     componentDidMount() {
@@ -36,11 +35,17 @@ export default class Alert extends Component {
         this.onUpdate();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.error && this.props.error) {
+            this.setState({prevError: this.props.error, height: 0});
+        }
+    }
+
     onUpdate = () => {
-        const {prevError, dismissed} = this.state;
+        const {prevError, dismissed, height} = this.state;
         const {error} = this.props;
         const showError = error && (!dismissed || prevError !== error);
-        const toValue = showError ? -10 : -90;
+        const toValue = showError ? -10 : -height;
 
         Animated.timing(this.state.position, {
             toValue,
@@ -54,14 +59,21 @@ export default class Alert extends Component {
         this.setState({
             prevError: error,
             dismissed: true,
+            height: 0,
         });
     }
 
+    onLayout = event => {
+        if (!this.state.height) {
+            this.setState({height: event.nativeEvent.layout.height + 2});
+        }
+    }
+
     render() {
-        const {error} = this.props;
+        const error = this.props.error || this.state.prevError;
 
         return (
-            <Animated.View style={[styles.error, {top: this.state.position}]}>
+            <Animated.View style={[styles.error, {top: this.state.position}]} onLayout={this.onLayout}>
                 <Text style={styles.message}>{getErrorDetail(error)}</Text>
                 <View style={styles.dismiss}>
                     <TouchableOpacity style={styles.close} onPress={this.dismiss}>

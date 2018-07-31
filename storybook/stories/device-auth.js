@@ -14,7 +14,7 @@ const props = {
     },
     online: true,
     id: null,
-    qrCode: null,
+    qrCode: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/200px-QR_code_for_mobile_English_Wikipedia.svg.png',
     error: null,
     loading: false,
     requested: false,
@@ -36,6 +36,13 @@ storiesOf('Device Auth')
         <DeviceAuth {...{
             ...props,
             id: '123'
+        }}/>
+    ))
+    .add('registered no qr', () => (
+        <DeviceAuth {...{
+            ...props,
+            id: '123',
+            qrCode: null,
         }}/>
     ))
     .add('registered loading', () => (

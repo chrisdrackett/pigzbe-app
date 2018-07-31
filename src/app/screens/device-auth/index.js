@@ -108,17 +108,19 @@ export class DeviceAuth extends Component {
                                 space={space}
                                 error={error}
                             />
-                            <View style={{marginBottom: 40}}>
+                            <View style={{marginBottom: qrCode ? 40 : 60}}>
                                 <Button
                                     theme="plain"
                                     label={'Resend code'}
                                     onPress={this.onResend}
+                                    style={{marginTop: 10, marginBottom: 0}}
                                 />
                                 {qrCode && (
                                     <Button
                                         theme="plain"
                                         label={'Show QR Code'}
                                         onPress={this.onOpenModal}
+                                        style={{marginTop: -10}}
                                     />
                                 ) }
                             </View>

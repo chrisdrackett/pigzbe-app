@@ -26,7 +26,7 @@ export default StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
         marginLeft: 20,
-        marginRight: 20
+        width: '75%',
     },
     dismiss: {
         marginRight: 10
