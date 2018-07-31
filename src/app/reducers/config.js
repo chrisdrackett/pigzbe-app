@@ -1,16 +1,16 @@
-import {
-    CONFIG_INIT
-} from '../actions';
+import {CONFIG_UPDATE} from '../actions';
 
 export const initialState = {
     network: null,
     ethereum: {abi: [], networks: {}},
-    stellar: {networks: {}}
+    stellar: {networks: {}},
+    configURL: null,
+    networkOverride: null,
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case CONFIG_INIT:
+        case CONFIG_UPDATE:
             return {
                 ...state,
                 ...action.config

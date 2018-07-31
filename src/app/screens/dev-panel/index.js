@@ -14,9 +14,8 @@ import container from '../../styles';
 import Button from '../../components/button';
 import Storage from '../../utils/storage';
 import Keychain from '../../utils/keychain';
-import {setUseTestnet, wolloTestUser} from '../../actions';
+import {setUseTestnet, wolloTestUser, configUpdate} from '../../actions';
 import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY, STORAGE_KEY_SETTINGS, STORAGE_KEY_BURNING} from '../../constants';
-import Config from 'react-native-config';
 
 const SwitchControl = ({
     label,
@@ -74,7 +73,8 @@ class DevPanel extends Component {
         const {
             dispatch,
             useTestnet,
-            testUserKey
+            testUserKey,
+            networkOverride
         } = this.props;
 
         if (!__DEV__ || this.state.isHidden) {
@@ -91,7 +91,7 @@ class DevPanel extends Component {
                                 Env dev: {__DEV__ ? 'true' : 'false'}
                             </Text>
                             <Text style={styles.switchText}>
-                                Config.NETWORK: {typeof Config.NETWORK === 'undefined' ? 'undefined' : Config.NETWORK}
+                                networkOverride: {networkOverride ? networkOverride : 'none'}
                             </Text>
                             <SwitchControl
                                 label={'Use Testnet?'}
@@ -119,6 +119,22 @@ class DevPanel extends Component {
                                             key={user.label}
                                             label={user.label}
                                             value={user.secretKey}
+                                        />
+                                    ))}
+                                </Picker>
+                            </View>
+                            <Text style={styles.switchText}>
+                                Network override
+                            </Text>
+                            <View style={styles.picker}>
+                                <Picker
+                                    selectedValue={networkOverride || ''}
+                                    onValueChange={value => dispatch(configUpdate({networkOverride: value}))}>
+                                    {['none', 'local', 'mainnet', 'ropsten'].map((n, i) => (
+                                        <Picker.Item
+                                            key={i}
+                                            label={n}
+                                            value={n === 'none' ? null : n}
                                         />
                                     ))}
                                 </Picker>
@@ -151,8 +167,8 @@ class DevPanel extends Component {
         return (
             <View style={styles.topBar}>
                 <Text
-                    style={useTestnet ? styles.net : [styles.net, styles.netLive]}>
-                    {useTestnet ? 'TESTNET' : 'MAINNET'}
+                    style={networkOverride ? [styles.net, styles.netLive] : styles.net}>
+                    {networkOverride ? networkOverride : 'NO NETWORK OVERRIDE'}
                 </Text>
                 <TouchableOpacity
                     style={styles.settings}
@@ -170,6 +186,8 @@ export const DevPanelComponent = DevPanel;
 export default connect(
     state => ({
         testUserKey: state.wollo.testUserKey,
-        useTestnet: state.wollo.useTestnet
+        useTestnet: state.wollo.useTestnet,
+        configURL: state.config.configURL,
+        networkOverride: state.config.networkOverride,
     })
 )(DevPanel);

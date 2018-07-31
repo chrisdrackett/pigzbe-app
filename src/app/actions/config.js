@@ -1,21 +1,31 @@
 import Config from 'react-native-config';
 import {setUseTestnet} from './';
 
-export const CONFIG_INIT = 'CONFIG_INIT';
+export const CONFIG_UPDATE = 'CONFIG_UPDATE';
 
-export const configInit = config => ({type: CONFIG_INIT, config});
+export const configUpdate = config => ({type: CONFIG_UPDATE, config});
 
-export const loadConfig = () => async dispatch => {
+export const initializeConfig = () => dispatch => {
+    console.log('0. initializeConfig');
+    dispatch(configUpdate({
+        configURL: Config.CONFIG_URL,
+        networkOverride: Config.NETWORK,
+    }));
+};
+
+export const loadConfig = () => async (dispatch, getState) => {
     console.log('5. loadConfig');
     try {
-        const {NETWORK, CONFIG_URL} = Config;
-        const configURL = NETWORK ? `${CONFIG_URL}?network=${NETWORK}` : CONFIG_URL;
-        const config = await (await fetch(configURL)).json();
+        const {configURL, networkOverride} = getState().config;
+        console.log('configURL, networkOverride', configURL, networkOverride);
+        const url = networkOverride ? `${configURL}?network=${networkOverride}` : configURL;
+        const config = await (await fetch(url)).json();
         if (config.message === 'Missing Authentication Token') {
             throw new Error('Failed to load config');
         }
-        console.log(Object.keys(config));
-        dispatch(configInit(config));
+        // console.log(Object.keys(config));
+        // console.log(JSON.stringify(config, null, 2));
+        dispatch(configUpdate(config));
         dispatch(setUseTestnet(config.network !== config.NETWORK_MAINNET));
     } catch (error) {
         console.log(error);

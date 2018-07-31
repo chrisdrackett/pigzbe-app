@@ -3,12 +3,13 @@ import {
     authTouchId,
     authKeychain,
     authLogin,
-    loadMessages,
     // loadEscrow,
-    loadWallet,
-    loadKeys,
     loadSettings,
+    initializeConfig,
     loadConfig,
+    loadKeys,
+    loadWallet,
+    loadMessages,
     loadExchange
 } from './';
 
@@ -95,6 +96,7 @@ export const tryTouchIdLogin = () => async (dispatch, getState) => {
 export const initialize = () => async dispatch => {
     console.log('1. initialize');
     dispatch(initializing(true));
+    dispatch(initializeConfig());
     await dispatch(loadSettings());
     dispatch(tryTouchIdLogin());
     await wait(1);
