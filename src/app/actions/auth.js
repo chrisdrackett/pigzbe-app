@@ -9,14 +9,13 @@ export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
 export const AUTH_LOGIN = 'AUTH_LOGIN';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
-
 export const authTouchId = () => () => authenticate();
 
 export const authKeychain = () => async () => {
     const result = await Keychain.load(KEYCHAIN_ID_PASSCODE);
 
     if (result.error) {
-        console.log('Error:', result.error.message);
+        console.log(result.error.message);
         return null;
     }
 
@@ -31,6 +30,7 @@ export const authCreate = passcode => async dispatch => {
 };
 
 export const authLogin = passcode => async dispatch => {
+    console.log('4. auth login', passcode);
     dispatch({type: AUTH_LOGIN_START});
 
     const savedPasscode = await dispatch(authKeychain());
@@ -38,10 +38,11 @@ export const authLogin = passcode => async dispatch => {
     if (!passcode || !savedPasscode || passcode !== savedPasscode) {
         const error = new Error('Invalid passcode');
         dispatch({type: AUTH_LOGIN_FAIL, error});
-        return;
+        return false;
     }
 
     dispatch({type: AUTH_LOGIN});
+    return true;
 };
 
 export const authLogout = () => async dispatch => {

@@ -16,7 +16,7 @@ const props = {
     id: null,
     qrCode: null,
     error: null,
-    isLoading: false,
+    loading: false,
     requested: false,
     verified: false,
     failCount: 0,
@@ -29,7 +29,7 @@ storiesOf('Device Auth')
     .add('loading', () => (
         <DeviceAuth {...{
             ...props,
-            isLoading: true
+            loading: true
         }}/>
     ))
     .add('registered', () => (
@@ -42,6 +42,6 @@ storiesOf('Device Auth')
         <DeviceAuth {...{
             ...props,
             id: '123',
-            isLoading: true
+            loading: true
         }}/>
     ));

@@ -14,7 +14,7 @@ export const initialState = {
     error: null,
     id: null,
     qrCode: null,
-    isLoading: false,
+    loading: false,
     verified: false,
     requested: false,
     failCount: 0,
@@ -48,7 +48,7 @@ export default (state = initialState, action) => {
         case DEVICE_AUTH_LOADING:
             return {
                 ...state,
-                isLoading: action.value
+                loading: action.value
             };
         case DEVICE_AUTH_ERROR:
             return {

@@ -16,7 +16,7 @@ import {
 
 class GameView extends NavListener {
     state = {
-        isLoading: true
+        loading: true
     }
 
     componentDidMount() {
@@ -26,7 +26,7 @@ class GameView extends NavListener {
 
         this.game.app.emitter.on(READY, () => {
             console.log('GAME READY');
-            this.setState({isLoading: false});
+            this.setState({loading: false});
         });
         this.game.app.emitter.on(COLLECTED, amount => {
             console.log('collected', amount);
@@ -68,7 +68,7 @@ class GameView extends NavListener {
                     overlayOpen={overlayOpen}
                 />
                 <Loader
-                    isLoading={this.state.isLoading}
+                    loading={this.state.loading}
                     message={strings.gameLoading}
                 />
             </View>

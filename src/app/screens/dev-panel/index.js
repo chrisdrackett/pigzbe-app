@@ -16,6 +16,7 @@ import Storage from '../../utils/storage';
 import Keychain from '../../utils/keychain';
 import {setUseTestnet, wolloTestUser} from '../../actions';
 import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY, STORAGE_KEY_SETTINGS, STORAGE_KEY_BURNING} from '../../constants';
+import Config from 'react-native-config';
 
 const SwitchControl = ({
     label,
@@ -88,6 +89,9 @@ class DevPanel extends Component {
                             <Text style={styles.title}>Dev panel</Text>
                             <Text style={styles.switchText}>
                                 Env dev: {__DEV__ ? 'true' : 'false'}
+                            </Text>
+                            <Text style={styles.switchText}>
+                                Config.NETWORK: {typeof Config.NETWORK === 'undefined' ? 'undefined' : Config.NETWORK}
                             </Text>
                             <SwitchControl
                                 label={'Use Testnet?'}

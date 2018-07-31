@@ -5,7 +5,8 @@ import {STORAGE_KEY_SETTINGS} from '../constants';
 export const SETTINGS_UPDATE = 'SETTINGS_UPDATE';
 export const SETTINGS_CLEAR = 'SETTINGS_CLEAR';
 
-export const settingsLoad = () => async dispatch => {
+export const loadSettings = () => async dispatch => {
+    console.log('1b. loadSettings');
     try {
         const data = await Storage.load(STORAGE_KEY_SETTINGS);
         console.log(JSON.stringify(data, null, 2));

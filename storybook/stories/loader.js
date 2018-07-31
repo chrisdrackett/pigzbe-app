@@ -3,7 +3,7 @@ import {storiesOf} from '@storybook/react-native';
 import Loader from '../../src/app/components/loader';
 
 const props = {
-    isLoading: true,
+    loading: true,
     message: '',
     light: false,
 };

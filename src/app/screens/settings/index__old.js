@@ -184,7 +184,7 @@ class Settings extends Component {
                             )}
                         </View>
                         <Loader
-                            isLoading={isUpdating}
+                            loading={isUpdating}
                         />
                     </Container>
                 </ScrollView>

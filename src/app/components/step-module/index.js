@@ -64,7 +64,7 @@ export default class extends Component {
                       </View>
                       <Loader
                           light
-                          isLoading={loading}
+                          loading={loading}
                           message={loaderMessage}
                           style={{
                               borderTopRightRadius: 5,

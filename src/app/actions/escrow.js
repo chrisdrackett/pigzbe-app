@@ -1,6 +1,6 @@
 import {loadAccount, Transaction, getServer, getServerURL, validateTransaction} from '@pigzbe/stellar-utils';
 import {loadWallet} from './';
-import wait from './wait';
+import wait from '../utils/wait';
 import openURL from '../utils/open-url';
 import {getWolloBalance} from './';
 import fetchTimeout from '../utils/fetch-timeout';

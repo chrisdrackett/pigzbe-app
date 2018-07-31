@@ -7,6 +7,9 @@ export const apiURL = createSelector(
     configSelector,
     config => {
         console.log('config.network', config.network);
+        if (!config.network) {
+            console.error('No config network');
+        }
         switch (config.network) {
             case config.NETWORK_LOCAL:
                 return `http://${Config.OFFLINE_HOST || '0.0.0.0'}:5001`;

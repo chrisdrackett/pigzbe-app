@@ -13,9 +13,17 @@ import Paragraph from '../../components/paragraph';
 import StepModule from '../../components/step-module';
 
 export class Transfer extends Component {
-    async componentWillMount() {
-        this.props.dispatch(loadPayments());
+
+    componentDidMount() {
+        this.focusListener = this.props.navigation.addListener('didFocus', this.update);
+        this.update();
     }
+
+    componentWillUnMount() {
+        this.focusListener.remove();
+    }
+
+    update = () => this.props.dispatch(loadPayments())
 
     onTransfer = () => {
         const {hasGas, balanceXLM, minXLM} = this.props;
@@ -30,7 +38,6 @@ export class Transfer extends Component {
 
     render() {
         const {error, balance, hasGas, loading, payments} = this.props;
-        const isLoading = loading && !payments.length;
 
         return (
             <Fragment>
@@ -40,7 +47,7 @@ export class Transfer extends Component {
                     error={error}
                     scroll={false}
                     paddingTop={payments.length ? 0 : 30}
-                    loading={isLoading}
+                    loading={loading && !payments.length}
                     loaderMessage={strings.transferHistoryLoading}
                 >
                     {!!payments.length && (
@@ -49,7 +56,7 @@ export class Transfer extends Component {
                             payments={payments}
                         />
                     )}
-                    {(!isLoading && !payments.length && !error) && (
+                    {(!loading && !payments.length && !error) && (
                         <Paragraph>
                             No transaction history
                         </Paragraph>

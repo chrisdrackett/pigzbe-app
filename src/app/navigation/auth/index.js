@@ -8,16 +8,16 @@ import Footer from '../../components/footer';
 class Auth extends Component {
     render() {
         const {
-            isLoggedIn,
+            loggedIn,
             keysSaved,
-            isLoading,
+            loading,
         } = this.props;
 
-        console.log('isLoggedIn', isLoggedIn);
+        console.log('loggedIn', loggedIn);
         console.log('keysSaved', keysSaved);
-        console.log('isLoading', isLoading);
+        console.log('loading', loading);
 
-        if (isLoggedIn && keysSaved && !isLoading) {
+        if (loggedIn && keysSaved && !loading) {
             return (
                 <Fragment>
                     <Tabs/>
@@ -26,7 +26,7 @@ class Auth extends Component {
             );
         }
 
-        if (isLoggedIn && !isLoading) {
+        if (loggedIn && !loading) {
             return <Keys/>;
         }
 
@@ -36,9 +36,8 @@ class Auth extends Component {
 
 export default connect(
     state => ({
-        isLoggedIn: state.auth.isLoggedIn,
+        loggedIn: state.auth.loggedIn,
         keysSaved: state.wollo.keysSaved,
-        isLoading: state.loader.isLoading,
-        isConnected: state.connected.isConnected,
+        loading: state.loader.loading,
     })
 )(Auth);

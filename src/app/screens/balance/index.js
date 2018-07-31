@@ -11,18 +11,23 @@ import ConvertBalance from '../../components/convert-balance';
 import BalanceGraph from '../../components/balance-graph';
 import Button from '../../components/button';
 import Wollo from '../../components/wollo';
-import {getExchange} from '../../actions/coins';
-import {settingsFirstTime} from '../../actions';
 import Modal from '../../components/modal';
 import Title from '../../components/title';
 import Paragraph from '../../components/paragraph';
 import StepModule from '../../components/step-module';
+import {loadExchange, settingsFirstTime} from '../../actions';
 
 export class Balance extends Component {
 
-    async componentWillMount() {
-        this.props.dispatch(getExchange());
+    componentDidMount() {
+        this.focusListener = this.props.navigation.addListener('didFocus', this.update);
     }
+
+    componentWillUnMount() {
+        this.focusListener.remove();
+    }
+
+    update = () => this.props.dispatch(loadExchange())
 
     onCloseModal = () => this.props.dispatch(settingsFirstTime())
 
@@ -40,9 +45,7 @@ export class Balance extends Component {
             firstTime
         } = this.props;
 
-        const isLoading = !exchange && !error;
-
-        console.log('balance isLoading', isLoading);
+        const loading = !exchange && !error;
 
         const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
 
@@ -58,10 +61,10 @@ export class Balance extends Component {
                     )}
                     backgroundColor={color.lightGrey}
                     onSettings={this.onSettings}
-                    loading={isLoading}
+                    loading={loading}
                     error={error}
                 >
-                    {(!isLoading && !error) && (
+                    {(!loading && !error) && (
                         <View>
                             <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
                             <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>

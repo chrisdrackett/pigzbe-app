@@ -81,7 +81,7 @@ export class DeviceAuth extends Component {
 
     render() {
         const {
-            isLoading,
+            loading,
             error,
             id,
             qrCode,
@@ -100,7 +100,7 @@ export class DeviceAuth extends Component {
                     : `Now enter the code we sent to +${this.state.country}${this.state.phone.replace(/^0+/, '')}`
                 }
                 onBack={!id ? this.onBack : this.onClear}
-                loading={isLoading}
+                loading={loading}
                 error={error}
                 pad
             >
@@ -184,7 +184,7 @@ export default connect(
         id: state.deviceAuth.id,
         qrCode: state.deviceAuth.qrCode,
         error: state.deviceAuth.error,
-        isLoading: state.deviceAuth.isLoading,
+        loading: state.deviceAuth.loading,
         requested: state.deviceAuth.requested,
         verified: state.deviceAuth.verified,
         failCount: state.deviceAuth.failCount,

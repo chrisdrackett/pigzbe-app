@@ -13,11 +13,11 @@ import Loader from '../../components/loader';
 import Progress from '../../components/progress';
 import Modal from './modal';
 import {userLogin} from '../../actions/eth';
-import {refreshBalance} from '../../actions/wollo';
+import {loadWallet} from '../../actions/wollo';
 import {clearClaimData} from '../../actions/content';
 import {transfer, burn, initWeb3} from '../../actions/contract';
 import {isValidSeed} from '../../utils/web3';
-import {SCREEN_BALANCE} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_CLAIM} from '../../constants';
 
 export class ClaimICO extends Component {
   state = {
@@ -84,9 +84,7 @@ export class ClaimICO extends Component {
       }
   }
 
-  onChangeStep = (step) => {
-      this.setState({step});
-  }
+  onChangeStep = step => this.setState({step})
 
   onSubmitBurn = async () => {
       const {localStorage, contract, user} = this.props;
@@ -129,33 +127,26 @@ export class ClaimICO extends Component {
       this.props.burn(this.props.user.balanceWei);
   }
 
-  closeModal = () => {
-      this.setState({
-          modal: {
-              visible: false,
-              message: ''
-          }
-      });
-  }
+  closeModal = () => this.setState({
+      modal: {
+          visible: false,
+          message: ''
+      }
+  });
 
-  closeProgress = () => {
-      this.setState({clickedClose: true});
-  }
+  closeProgress = () => this.setState({clickedClose: true})
 
-  onChangeMnemonic = (mnemonic) => {
-      this.setState({mnemonic});
-  }
-  onChangePk = (pk) => {
-      this.setState({pk});
-  }
+  onChangeMnemonic = mnemonic => this.setState({mnemonic})
 
-  onCloseClaim = () => {
-      this.props.navigation.navigate(SCREEN_BALANCE);
-  }
+  onChangePk = pk => this.setState({pk})
+
+  onCloseClaim = () => this.props.navigation.navigate(SCREEN_BALANCE)
+
+  onBack = () => this.props.navigation.navigate(SCREEN_CLAIM)
 
   onCompleteClaim = () => {
       this.props.clearClaimData();
-      this.props.refreshBalance();
+      this.props.loadWallet();
       this.props.navigation.navigate(SCREEN_BALANCE);
   }
 
@@ -205,7 +196,7 @@ export class ClaimICO extends Component {
 
       if (!web3 || !contract.instance || !localStorage || this.state.loading !== null) {
           return (
-              <Loader isLoading message={this.state.loading} />
+              <Loader loading message={this.state.loading} />
           );
       }
 
@@ -214,7 +205,7 @@ export class ClaimICO extends Component {
       return (
           <Fragment>
               <Fragment>
-                  {step === 1 && <Step1 onNext={this.onStep2} onBack={this.onCloseClaim} />}
+                  {step === 1 && <Step1 onNext={this.onStep2} onBack={this.onBack} />}
                   {step === 2 && <Step2 onNext={this.onStep3} onBack={this.onStep1} />}
                   {step === 3 && <Step3 onNext={this.onStep4} onBack={this.onStep2} />}
                   {step === 4 &&
@@ -284,6 +275,6 @@ export default connect(({config, user, web3, events, contract, content}) => ({
     transfer,
     burn,
     clearClaimData,
-    refreshBalance
+    loadWallet
 },
 )(ClaimICO);

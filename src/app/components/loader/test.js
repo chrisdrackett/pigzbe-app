@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import Loader from './';
 
 const props = {
-    isLoading: true,
+    loading: true,
     message: ''
 };
 
@@ -18,7 +18,7 @@ describe('Loader', () => {
     test('renders correctly when not loading', () => {
         const tree = renderer.create(
             <Loader {...Object.assign({}, props, {
-                isLoading: false
+                loading: false
             })}/>
         ).toJSON();
         expect(tree).toMatchSnapshot();

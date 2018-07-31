@@ -1,4 +1,4 @@
-import {EXCHANGE_LOAD} from '../actions/coins';
+import {EXCHANGE_LOAD} from '../actions/exchange';
 
 const initialState = {
     error: null,

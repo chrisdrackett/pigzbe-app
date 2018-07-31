@@ -54,7 +54,7 @@ export class PasscodeSet extends Component {
     onSkip = () => this.props.dispatch(authCreate('111111'))
 
     render() {
-        const {isLoading} = this.props;
+        const {loading} = this.props;
 
         return (
             <StepModule
@@ -66,7 +66,7 @@ export class PasscodeSet extends Component {
                         <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                     </View>
                 )}
-                loading={isLoading}
+                loading={loading}
             >
                 <NumPad
                     key={this.state.code ? 'confirm' : 'enter'}
@@ -82,7 +82,7 @@ export class PasscodeSet extends Component {
 
 export default connect(
     state => ({
-        isLoading: state.loader.isLoading,
+        loading: state.loader.loading,
         error: state.auth.error
     })
 )(PasscodeSet);

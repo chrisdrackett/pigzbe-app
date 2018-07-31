@@ -1,36 +1,26 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {messagesLoad, messagesMarkRead} from '../../actions';
-import Loader from '../../components/loader';
+import {loadMessages, messagesMarkRead} from '../../actions';
 import Message from './message';
 import {strings} from '../../constants';
 import ScrollList from '../../components/scroll-list';
 import StepModule from '../../components/step-module';
 
 export class Messages extends Component {
-    componentWillMount() {
-        console.log('messages componentWillMount');
-        this.focusListener = this.props.navigation.addListener('didFocus', this.updateMessages);
-    }
 
     componentDidMount() {
-        console.log('messages componentDidMount');
         this.props.dispatch(messagesMarkRead());
+        this.focusListener = this.props.navigation.addListener('didFocus', this.update);
     }
 
-    updateMessages = () => {
-        console.log('messages updateMessages');
-        this.props.dispatch(messagesLoad());
+    componentWillUnMount() {
+        this.focusListener.remove();
     }
+
+    update = () => this.props.dispatch(loadMessages())
 
     render() {
-        const {
-            messages,
-            loading,
-            error
-        } = this.props;
-
-        console.log('messages', messages.length);
+        const {messages, loading, error} = this.props;
 
         return (
             <StepModule
@@ -39,7 +29,7 @@ export class Messages extends Component {
                 scroll={false}
                 error={error}
                 loading={loading && !messages.length}
-                loaderMessage={strings.messagesLoading}
+                loaderMessage={strings.loadMessagesing}
             >
                 <ScrollList
                     items={messages}
@@ -52,6 +42,6 @@ export class Messages extends Component {
 
 export default connect(state => ({
     messages: state.messages.messages,
-    loading: state.messages.messagesLoading,
+    loading: state.messages.loadMessagesing,
     error: state.messages.messagesError
 }))(Messages);

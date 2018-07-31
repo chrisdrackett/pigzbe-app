@@ -11,6 +11,7 @@ const props = {
     dispatch: () => {},
     navigation: {
         navigate: () => {},
+        addListener: () => {},
         state: {
             key: 'SCREEN_TRANSFER',
             routeName: 'SCREEN_TRANSFER'

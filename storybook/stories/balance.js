@@ -6,6 +6,7 @@ const props = {
     dispatch: () => {},
     navigation: {
         navigate: () => {},
+        addListener: () => {},
         state: {
             key: 'SCREEN_BALANCE',
             routeName: 'SCREEN_BALANCE'

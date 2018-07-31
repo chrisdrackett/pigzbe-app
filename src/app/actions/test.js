@@ -43,11 +43,11 @@ describe('Actions', () => {
         });
 
         it('should create an action to load', () => {
-            expect(actions.messagesLoad()).toEqual(expect.any(Function));
+            expect(actions.loadMessages()).toEqual(expect.any(Function));
         });
 
         it('should create an action to dispatch loading', () => {
-            expect(actions.messagesLoading(true)).toEqual({
+            expect(actions.loadMessagesing(true)).toEqual({
                 type: actions.MESSAGES_LOADING,
                 value: true
             });

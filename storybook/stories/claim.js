@@ -30,7 +30,7 @@ const propsICO = {
     transfer: () => {},
     burn: () => {},
     clearClaimData: () => {},
-    refreshBalance: () => {},
+    loadWallet: () => {},
     loading: null,
     contract: {
         address: '0x7e37788454705F47a4B1d09D2a70d92847c52707',

@@ -18,7 +18,7 @@ class Root extends Component {
     }
 
     _handleConnectionChange = (isConnected) => {
-        console.log('NetInfo.isConnected', isConnected);
+        // console.log('NetInfo.isConnected', isConnected);
         this.props.dispatch(connectionState({status: isConnected}));
     }
 

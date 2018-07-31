@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View} from 'react-native';
 import Button from '../../components/button';
 // import {strings} from '../../constants';
-import {SCREEN_SETTINGS, SCREEN_CLAIM_ICO} from '../../constants';
+import {SCREEN_SETTINGS, SCREEN_CLAIM_ICO, SCREEN_CLAIM_VIP, SCREEN_CLAIM_AIRDROP} from '../../constants';
 import StepModule from '../../components/step-module';
 
 export default class Claim extends Component {
@@ -10,9 +10,9 @@ export default class Claim extends Component {
 
     onICO = () => this.props.navigation.navigate(SCREEN_CLAIM_ICO)
 
-    onAirdropBounty = () => {}
+    onAirdropBounty = () => this.props.navigation.navigate(SCREEN_CLAIM_AIRDROP)
 
-    onVIPs = () => {}
+    onVIPs = () => this.props.navigation.navigate(SCREEN_CLAIM_VIP)
 
     render() {
         return (

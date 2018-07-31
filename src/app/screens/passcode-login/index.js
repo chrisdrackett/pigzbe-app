@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
-import {load} from '../../actions';
+import {loginAndLoad} from '../../actions';
 import {SCREEN_HOME, PASSCODE_LENGTH} from '../../constants';
 import NumPad from '../../components/num-pad';
 import Dots from '../../components/dots';
@@ -19,13 +19,10 @@ export class PasscodeLogin extends Component {
 
     onInput = input => this.setState({input})
 
-    onCodeEntered = code => {
-        console.log(code);
-        this.props.dispatch(load(code));
-    }
+    onCodeEntered = code => this.props.dispatch(loginAndLoad(code))
 
     render() {
-        const {isLoading} = this.props;
+        const {loading, error, message} = this.props;
 
         return (
             <StepModule
@@ -38,9 +35,12 @@ export class PasscodeLogin extends Component {
                     </View>
                 )}
                 onBack={this.onBack}
-                loading={isLoading}
+                loading={loading}
+                loaderMessage={message}
+                error={error}
             >
                 <NumPad
+                    error={error}
                     length={PASSCODE_LENGTH}
                     onInput={this.onInput}
                     onFull={this.onCodeEntered}
@@ -52,7 +52,8 @@ export class PasscodeLogin extends Component {
 
 export default connect(
     state => ({
-        isLoading: state.loader.isLoading,
+        loading: state.loader.loading,
+        message: state.loader.message,
         error: state.auth.error
     })
 )(PasscodeLogin);

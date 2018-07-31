@@ -9,14 +9,15 @@ export const MESSAGES_MARK_READ = 'MESSAGES_MARK_READ';
 export const MESSAGES_ERROR = 'MESSAGES_ERROR';
 
 export const messagesUpdate = messages => ({type: MESSAGES_UPDATE, messages});
-export const messagesLoading = value => ({type: MESSAGES_LOADING, value});
+export const loadMessagesing = value => ({type: MESSAGES_LOADING, value});
 export const messagesError = error => ({type: MESSAGES_ERROR, error});
 export const messagesNotify = notify => ({type: MESSAGES_NOTIFY, notify});
 export const messagesMarkRead = () => ({type: MESSAGES_MARK_READ});
 
-export const messagesLoad = () => async (dispatch, getState) => {
+export const loadMessages = () => async (dispatch, getState) => {
+    console.log('8. loadMessages');
     try {
-        dispatch(messagesLoading(true));
+        dispatch(loadMessagesing(true));
 
         const api = apiURL(getState());
         const messages = await fetchTimeout(`${api}/content/messages?order=latest`);
@@ -33,11 +34,11 @@ export const messagesLoad = () => async (dispatch, getState) => {
 
         dispatch(messagesNotify(notify));
         dispatch(settingsUpdate({lastMessageDate: latestDate}));
-        dispatch(messagesLoading(false));
+        dispatch(loadMessagesing(false));
 
     } catch (error) {
         console.log(error.message);
-        dispatch(messagesLoading(false));
+        dispatch(loadMessagesing(false));
         dispatch(messagesError(error));
     }
 };

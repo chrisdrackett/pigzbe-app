@@ -4,12 +4,12 @@ import styles from './styles';
 import {color} from '../../styles';
 
 export default ({
-    isLoading,
+    loading,
     message,
     light,
     style
 }) => {
-    if (isLoading) {
+    if (loading) {
         return (
             <View style={[styles.loader, light ? styles.light : null, style]}>
                 <ActivityIndicator size="large" color={light ? color.blue : color.pink} />

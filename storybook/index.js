@@ -24,6 +24,7 @@ function loadStories() {
     require('./stories/game.js');
     require('./stories/tabs.js');
     require('./stories/loader.js');
+    require('./stories/load-error.js');
 }
 
 configure(loadStories, module);

@@ -9,7 +9,7 @@ import {
 export const initialState = {
     passcode: null,
     isLoggingIn: false,
-    isLoggedIn: false,
+    loggedIn: false,
     error: null,
 };
 
@@ -36,12 +36,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isLoggingIn: false,
-                isLoggedIn: true,
+                loggedIn: true,
             };
         case AUTH_LOGOUT:
             return {
                 ...state,
-                isLoggedIn: false
+                loggedIn: false
             };
         default:
             return state;

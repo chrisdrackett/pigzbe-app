@@ -92,6 +92,7 @@ export const importKey = secretKey => async dispatch => {
 };
 
 export const loadKeys = () => async (dispatch, getState) => {
+    console.log('6. loadKeys');
     const stellar = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
     const {testUserKey} = getState().wollo;
 
@@ -105,12 +106,6 @@ export const loadKeys = () => async (dispatch, getState) => {
             dispatch(setKeys(keypair, true));
         } catch (e) {}
     }
-
-    if (keypair) {
-        await dispatch(loadWallet(keypair.publicKey()));
-    }
-
-    return null;
 };
 
 export const clearKeys = () => async dispatch => {
@@ -119,21 +114,20 @@ export const clearKeys = () => async dispatch => {
     dispatch(setKeys(null));
 };
 
-export const loadWallet = publicKey => async dispatch => {
+export const loadWallet = publicKey => async (dispatch, getState) => {
+    console.log('7. loadWallet');
     try {
-        const account = await loadAccount(publicKey);
-        console.log('account', account);
-        dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
-        dispatch(updateBalance(getWolloBalance(account)));
-        dispatch(updateXLM(account));
+        const key = publicKey || getState().wollo.publicKey;
+        if (key) {
+            const account = await loadAccount(key);
+            console.log('account', account);
+            dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
+            dispatch(updateBalance(getWolloBalance(account)));
+            dispatch(updateXLM(account));
+        }
     } catch (error) {
         console.log(error);
     }
-};
-
-export const refreshBalance = () => async (dispatch, getState) => {
-    const {publicKey} = getState().wollo;
-    dispatch(loadWallet(publicKey));
 };
 
 export const loadPayments = () => async (dispatch, getState) => {
