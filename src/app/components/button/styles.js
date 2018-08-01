@@ -6,13 +6,20 @@ import {
 } from '../../styles';
 
 export default StyleSheet.create({
-    hit: {
+    container: {
+        // backgroundColor: 'red',
         alignSelf: 'stretch',
+        alignItems: 'center',
+    },
+    hit: {
+        // alignSelf: 'stretch',
+        width: '100%',
         backgroundColor: color.mediumBlue,
         borderColor: color.mediumBlue,
         borderRadius: 22.5,
         borderWidth: 1,
-        marginBottom: 10
+        marginBottom: 10,
+        maxWidth: 400,
     },
     text: {
         fontFamily,

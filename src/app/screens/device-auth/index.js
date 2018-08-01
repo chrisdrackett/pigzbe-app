@@ -83,7 +83,7 @@ export class DeviceAuth extends Component {
             qrCode,
         } = this.props;
 
-        const boxW = (Dimensions.get('window').width * 0.8875 - 40 - space * (boxes - 1)) / boxes;
+        const boxW = Math.min(50, (Dimensions.get('window').width * 0.8875 - 40 - space * (boxes - 1)) / boxes);
 
         return (
             <Fragment>

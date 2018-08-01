@@ -1,17 +1,22 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
-import {HomeView, HomeErrorView} from '../../src/app/screens/home';
+import {HomeView} from '../../src/app/screens/home';
 
 const props = {
-    onCreate: () => {},
     onLogin: () => {},
-    onInit: () => {},
+    onCreate: () => {},
+    navigation: {
+        navigate: () => {},
+        addListener: () => ({remove: () => {}}),
+        state: {
+            key: 'SCREEN_HOME',
+            routeName: 'SCREEN_HOME'
+        },
+        actions: {}
+    },
 };
 
 storiesOf('Home')
     .add('default', () => (
         <HomeView {...props}/>
-    ))
-    .add('failed', () => (
-        <HomeErrorView {...props}/>
     ));
