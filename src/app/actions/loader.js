@@ -4,7 +4,6 @@ import {
     authTouchId,
     authKeychain,
     authLogin,
-    // loadEscrow,
     loadSettings,
     initializeConfig,
     loadConfig,
@@ -37,13 +36,12 @@ export const loadContent = () => async dispatch => {
         await dispatch(loadMessages());
         dispatch(loaderMessage('Loading Values'));
         await dispatch(loadExchange());
-        dispatch(loaderMessage(null));
-        dispatch(loaderLoading(false));
     } catch (error) {
         console.log(error);
         dispatch(loaderError(error));
-        dispatch(loaderLoading(false));
     }
+    dispatch(loaderMessage(null));
+    dispatch(loaderLoading(false));
 };
 
 export const loginAndLoad = passcode => async dispatch => {
@@ -57,18 +55,17 @@ export const loginAndLoad = passcode => async dispatch => {
             await dispatch(loadKeys());
             await dispatch(loaderMessage('Loading Wallet'));
             await dispatch(loadWallet());
-            // await dispatch(loadEscrow());
             await dispatch(loaderMessage('Loading Messages'));
             await dispatch(loadMessages());
             await dispatch(loaderMessage('Loading Values'));
             await dispatch(loadExchange());
         }
-        dispatch(loaderLoading(false));
     } catch (error) {
         console.log(error);
         dispatch(loaderError(error));
-        dispatch(loaderLoading(false));
     }
+    dispatch(loaderMessage(null));
+    dispatch(loaderLoading(false));
 };
 
 export const tryTouchIdLogin = () => async (dispatch, getState) => {

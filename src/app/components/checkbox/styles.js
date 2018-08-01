@@ -11,8 +11,6 @@ export default StyleSheet.create({
         marginBottom: 20,
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingLeft: 20,
-        paddingRight: 20,
         alignSelf: 'stretch',
     },
     text: {

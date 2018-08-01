@@ -2,10 +2,22 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import {authCreate, appError} from '../../actions';
-import {PASSCODE_LENGTH} from '../../constants';
+import {PASSCODE_LENGTH, SCREEN_SETTINGS} from '../../constants';
 import StepModule from '../../components/step-module';
 import NumPad from '../../components/num-pad';
 import Dots from '../../components/dots';
+
+const getTitle = (reEnter, loggedIn) => {
+    if (!reEnter && loggedIn) {
+        return 'Change Passcode';
+    }
+
+    if (!reEnter) {
+        return 'Passcode needed';
+    }
+
+    return 'Re-enter Passcode';
+};
 
 const getText = (reEnter, enableTouchId, touchIdSupport) => {
     if (!reEnter && enableTouchId && touchIdSupport === 'FaceID') {
@@ -29,6 +41,8 @@ export class PasscodeSet extends Component {
         input: '',
         confirmed: false,
         error: false,
+        isPasscodeChange: this.props.loggedIn,
+        loading: false,
     }
 
     static defaultProps = {
@@ -39,17 +53,22 @@ export class PasscodeSet extends Component {
 
     onCodeEntered = code => this.setState({code, input: ''})
 
-    onCodeConfirmed = code => {
+    onCodeConfirmed = async code => {
         const confirmed = code === this.state.code;
 
         this.setState({
             confirmed,
-            error: !confirmed
+            error: !confirmed,
+            loading: confirmed,
         });
 
         if (confirmed) {
             this.props.dispatch(appError(null));
-            this.props.dispatch(authCreate(this.state.code));
+            await this.props.dispatch(authCreate(this.state.code));
+
+            if (this.state.isPasscodeChange) {
+                this.props.navigation.navigate(SCREEN_SETTINGS);
+            }
         } else {
             this.props.dispatch(appError(new Error('Passcodes do not match')));
         }
@@ -59,27 +78,26 @@ export class PasscodeSet extends Component {
         this.setState({
             confirmed: false,
             error: false,
+            loading: false,
             code: null,
             input: '',
         });
     }
 
-    onSkip = () => this.props.dispatch(authCreate('111111'))
-
     render() {
-        const {loading, enableTouchId, touchIdSupport} = this.props;
+        const {loading, enableTouchId, touchIdSupport, loggedIn} = this.props;
 
         return (
             <StepModule
                 scroll={false}
-                title={this.state.code ? 'Re-enter Passcode' : 'Passcode needed'}
+                title={getTitle(this.state.code, loggedIn)}
                 content={getText(this.state.code, enableTouchId, touchIdSupport)}
                 headerChildren={(
                     <View style={{marginTop: 30}}>
                         <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                     </View>
                 )}
-                loading={loading}
+                loading={loading || this.state.loading}
                 onBack={this.state.code ? this.onReset : null}
             >
                 <NumPad
@@ -98,6 +116,7 @@ export class PasscodeSet extends Component {
 export default connect(
     state => ({
         loading: state.loader.loading,
+        loggedIn: state.auth.loggedIn,
         error: state.auth.error,
         enableTouchId: state.settings.enableTouchId,
         touchIdSupport: state.auth.touchIdSupport,

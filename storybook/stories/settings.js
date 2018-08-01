@@ -12,6 +12,7 @@ const props = {
         },
         actions: {}
     },
+    touchIdSupport: 'TouchID',
     enableTouchId: true,
     subscribe: true,
     email: 'name@pigzbe.com',
@@ -22,4 +23,16 @@ const props = {
 storiesOf('Settings')
     .add('default', () => (
         <Settings {...props}/>
+    ))
+    .add('no TouchID support', () => (
+        <Settings {...{
+            ...props,
+            touchIdSupport: false,
+        }}/>
+    ))
+    .add('FaceID support', () => (
+        <Settings {...{
+            ...props,
+            touchIdSupport: 'FaceID',
+        }}/>
     ));
