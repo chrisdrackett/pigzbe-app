@@ -17,4 +17,10 @@ const props = {
 storiesOf('Touch Id')
     .add('default', () => (
         <TouchId {...props}/>
+    ))
+    .add('face', () => (
+        <TouchId {...{
+            ...props,
+            touchIdSupport: 'FaceID'
+        }}/>
     ));

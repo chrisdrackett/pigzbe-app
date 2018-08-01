@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    View,
     Text,
     TouchableOpacity
 } from 'react-native';
@@ -13,25 +14,27 @@ export default ({
     style,
     textStyle,
 }) => (
-    <TouchableOpacity
-        onPress={() => disabled ? false : onPress()}
-        disabled={disabled}
-        style={[
-            styles.hit,
-            styles[`hit__${theme}`],
-            disabled ? [styles.hit__disabled, styles[`hit__disabled__${theme}`]] : null,
-            style
-        ]}
-    >
-        <Text
+    <View style={styles.container}>
+        <TouchableOpacity
+            onPress={() => disabled ? false : onPress()}
+            disabled={disabled}
             style={[
-                styles.text,
-                styles[`text__${theme}`],
-                disabled ? [styles.text__disabled, styles[`text__disabled__${theme}`]] : null,
-                textStyle
+                styles.hit,
+                styles[`hit__${theme}`],
+                disabled ? [styles.hit__disabled, styles[`hit__disabled__${theme}`]] : null,
+                style
             ]}
         >
-            {label}
-        </Text>
-    </TouchableOpacity>
+            <Text
+                style={[
+                    styles.text,
+                    styles[`text__${theme}`],
+                    disabled ? [styles.text__disabled, styles[`text__disabled__${theme}`]] : null,
+                    textStyle
+                ]}
+            >
+                {label}
+            </Text>
+        </TouchableOpacity>
+    </View>
 );

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+import {View, Dimensions} from 'react-native';
 import {loginAndLoad} from '../../actions';
 import {SCREEN_HOME, PASSCODE_LENGTH} from '../../constants';
 import NumPad from '../../components/num-pad';
@@ -23,6 +23,7 @@ export class PasscodeLogin extends Component {
 
     render() {
         const {loading, error, message} = this.props;
+        const {height} = Dimensions.get('window');
 
         return (
             <StepModule
@@ -39,12 +40,16 @@ export class PasscodeLogin extends Component {
                 loaderMessage={message}
                 // error={error}
             >
-                <NumPad
-                    error={error}
-                    length={PASSCODE_LENGTH}
-                    onInput={this.onInput}
-                    onFull={this.onCodeEntered}
-                />
+                <View style={{
+                    marginBottom: Math.max(0, (height - 568) / 2)
+                }}>
+                    <NumPad
+                        error={error}
+                        length={PASSCODE_LENGTH}
+                        onInput={this.onInput}
+                        onFull={this.onCodeEntered}
+                    />
+                </View>
             </StepModule>
         );
     }
