@@ -1,7 +1,8 @@
 import Keychain from '../utils/keychain';
 import TouchId from '../utils/touch-id';
 import {KEYCHAIN_ID_PASSCODE} from '../constants';
-import {clearKeys, appError} from './';
+// import {clearKeys, appError} from './';
+import {appError} from './';
 
 export const AUTH_CREATE = 'AUTH_CREATE';
 export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
@@ -12,7 +13,6 @@ export const AUTH_TOUCH_ID_SUPPORT = 'AUTH_TOUCH_ID_SUPPORT';
 
 export const authCheckTouchId = () => async dispatch => {
     const support = await TouchId.getSupport();
-    console.log('authCheckTouchId support', support);
     dispatch({type: AUTH_TOUCH_ID_SUPPORT, support});
 };
 
@@ -32,7 +32,7 @@ export const authKeychain = () => async () => {
 export const authCreate = passcode => async dispatch => {
     dispatch({type: AUTH_CREATE, passcode});
     await Keychain.save(KEYCHAIN_ID_PASSCODE, passcode);
-    await dispatch(clearKeys());
+    // await dispatch(clearKeys());
     await dispatch(authLogin(passcode));
 };
 
@@ -54,6 +54,10 @@ export const authLogin = passcode => async dispatch => {
 };
 
 export const authLogout = () => async dispatch => {
-    await Keychain.clear(KEYCHAIN_ID_PASSCODE);
     dispatch({type: AUTH_LOGOUT});
+};
+
+export const authClear = () => async dispatch => {
+    await Keychain.clear(KEYCHAIN_ID_PASSCODE);
+    dispatch(authLogout());
 };
