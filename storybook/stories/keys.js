@@ -7,6 +7,7 @@ import {KeysSave} from '../../src/app/screens/keys-save';
 const props = {
     dispatch: () => {},
     navigation: {
+        navigate: () => {},
         state: {
             key: 'SCREEN_CREATE_KEYS',
             routeName: 'SCREEN_CREATE_KEYS'

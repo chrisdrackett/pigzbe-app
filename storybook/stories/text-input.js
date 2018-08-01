@@ -6,13 +6,8 @@ import TextInput from '../../src/app/components/text-input';
 const style = {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     padding: 40,
-};
-
-const light = {
-    backgroundColor: 'white'
 };
 
 storiesOf('TextInput')
@@ -63,19 +58,6 @@ storiesOf('TextInput')
         <View style={style}>
             <TextInput
                 error={true}
-                value={''}
-                placeholder={'secret key'}
-                onChangeText={() => {}}
-                numberOfLines={4}
-                returnKeyType="done"
-            />
-        </View>
-    ))
-    .add('dark', () => (
-        <View style={[style, light]}>
-            <TextInput
-                dark
-                error={false}
                 value={''}
                 placeholder={'secret key'}
                 onChangeText={() => {}}

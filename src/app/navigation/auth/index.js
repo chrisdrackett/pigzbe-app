@@ -1,26 +1,32 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import Tabs from '../tabs';
 import Keys from '../keys';
 import Home from '../home';
+import Footer from '../../components/footer';
 
 class Auth extends Component {
     render() {
         const {
-            isLoggedIn,
+            loggedIn,
             keysSaved,
-            isLoading,
+            loading,
         } = this.props;
 
-        console.log('isLoggedIn', isLoggedIn);
-        console.log('keysSaved', keysSaved);
-        console.log('isLoading', isLoading);
+        // console.log('loggedIn', loggedIn);
+        // console.log('keysSaved', keysSaved);
+        // console.log('loading', loading);
 
-        if (isLoggedIn && keysSaved && !isLoading) {
-            return <Tabs/>;
+        if (loggedIn && keysSaved && !loading) {
+            return (
+                <Fragment>
+                    <Tabs/>
+                    <Footer/>
+                </Fragment>
+            );
         }
 
-        if (isLoggedIn && !isLoading) {
+        if (loggedIn && !loading) {
             return <Keys/>;
         }
 
@@ -30,9 +36,8 @@ class Auth extends Component {
 
 export default connect(
     state => ({
-        isLoggedIn: state.auth.isLoggedIn,
+        loggedIn: state.auth.loggedIn,
         keysSaved: state.wollo.keysSaved,
-        isLoading: state.loader.isLoading,
-        isConnected: state.connected.isConnected,
+        loading: state.loader.loading,
     })
 )(Auth);

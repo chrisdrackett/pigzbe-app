@@ -14,8 +14,14 @@ import container from '../../styles';
 import Button from '../../components/button';
 import Storage from '../../utils/storage';
 import Keychain from '../../utils/keychain';
-import {setUseTestnet, wolloTestUser} from '../../actions';
-import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY, STORAGE_KEY_SETTINGS, STORAGE_KEY_BURNING} from '../../constants';
+import {setUseTestnet, wolloTestUser, configUpdate} from '../../actions';
+import {
+    KEYCHAIN_ID_STELLAR_KEY,
+    KEYCHAIN_ID_ETH_KEY,
+    STORAGE_KEY_SETTINGS,
+    STORAGE_KEY_BURNING,
+    KEYCHAIN_ID_PASSCODE
+} from '../../constants';
 
 const SwitchControl = ({
     label,
@@ -73,7 +79,8 @@ class DevPanel extends Component {
         const {
             dispatch,
             useTestnet,
-            testUserKey
+            testUserKey,
+            networkOverride
         } = this.props;
 
         if (!__DEV__ || this.state.isHidden) {
@@ -88,6 +95,9 @@ class DevPanel extends Component {
                             <Text style={styles.title}>Dev panel</Text>
                             <Text style={styles.switchText}>
                                 Env dev: {__DEV__ ? 'true' : 'false'}
+                            </Text>
+                            <Text style={styles.switchText}>
+                                networkOverride: {networkOverride ? networkOverride : 'none'}
                             </Text>
                             <SwitchControl
                                 label={'Use Testnet?'}
@@ -119,12 +129,29 @@ class DevPanel extends Component {
                                     ))}
                                 </Picker>
                             </View>
+                            <Text style={styles.switchText}>
+                                Network override
+                            </Text>
+                            <View style={styles.picker}>
+                                <Picker
+                                    selectedValue={networkOverride || ''}
+                                    onValueChange={value => dispatch(configUpdate({networkOverride: value}))}>
+                                    {['none', 'local', 'mainnet', 'ropsten'].map((n, i) => (
+                                        <Picker.Item
+                                            key={i}
+                                            label={n}
+                                            value={n === 'none' ? null : n}
+                                        />
+                                    ))}
+                                </Picker>
+                            </View>
                             <View style={styles.claimBlock}>
                                 <Text style={styles.switchText}>User data</Text>
                                 <Button style={styles.claimClearButton} label="Clear user data" onPress={() => {
                                     console.log('clear');
                                     Storage.clear(STORAGE_KEY_SETTINGS);
                                     Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
+                                    Keychain.clear(KEYCHAIN_ID_PASSCODE);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY);
                                 }} />
                             </View>
@@ -147,8 +174,8 @@ class DevPanel extends Component {
         return (
             <View style={styles.topBar}>
                 <Text
-                    style={useTestnet ? styles.net : [styles.net, styles.netLive]}>
-                    {useTestnet ? 'TESTNET' : 'MAINNET'}
+                    style={networkOverride ? [styles.net, styles.netLive] : styles.net}>
+                    {networkOverride ? networkOverride : 'NO NETWORK OVERRIDE'}
                 </Text>
                 <TouchableOpacity
                     style={styles.settings}
@@ -166,6 +193,8 @@ export const DevPanelComponent = DevPanel;
 export default connect(
     state => ({
         testUserKey: state.wollo.testUserKey,
-        useTestnet: state.wollo.useTestnet
+        useTestnet: state.wollo.useTestnet,
+        configURL: state.config.configURL,
+        networkOverride: state.config.networkOverride,
     })
 )(DevPanel);

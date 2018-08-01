@@ -1,19 +1,30 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
+import {View} from 'react-native';
 import styles from './styles';
 import {
     strings,
     SCREEN_SEND
 } from '../../constants';
-import BaseView from '../../components/base-view';
-import Pig from '../../components/pig';
 import Button from '../../components/button';
-import Wollo from '../../components/wollo';
 import Payments from '../../components/payments';
-import Footer from '../../components/footer';
-import {wolloError} from '../../actions';
+import {loadPayments, wolloError} from '../../actions';
+import Paragraph from '../../components/paragraph';
+import StepModule from '../../components/step-module';
 
 export class Transfer extends Component {
+
+    componentDidMount() {
+        this.focusListener = this.props.navigation.addListener('didFocus', this.update);
+        this.update();
+    }
+
+    componentWillUnMount() {
+        this.focusListener.remove();
+    }
+
+    update = () => this.props.dispatch(loadPayments())
+
     onTransfer = () => {
         const {hasGas, balanceXLM, minXLM} = this.props;
 
@@ -29,23 +40,36 @@ export class Transfer extends Component {
         const {error, balance, hasGas, loading, payments} = this.props;
 
         return (
-            <BaseView scrollViewStyle={styles.container} error={error}>
-                <Wollo balance={balance}/>
-                <Pig style={styles.pig}/>
-                <Payments
-                    loading={loading}
-                    balance={balance}
-                    payments={payments}
-                />
-                <Footer>
+            <Fragment>
+                <StepModule
+                    title="Transfer"
+                    icon="transfer"
+                    error={error}
+                    scroll={false}
+                    paddingTop={payments.length ? 0 : 30}
+                    loading={loading && !payments.length}
+                    loaderMessage={strings.transferHistoryLoading}
+                >
+                    {!!payments.length && (
+                        <Payments
+                            balance={balance}
+                            payments={payments}
+                        />
+                    )}
+                    {(!loading && !payments.length && !error) && (
+                        <Paragraph>
+                            No transaction history
+                        </Paragraph>
+                    )}
+                </StepModule>
+                <View style={styles.button}>
                     <Button
                         label={strings.transferButtonLabel}
                         onPress={this.onTransfer}
-                        disabled={!hasGas}
-                        outline
+                        disabled={!hasGas || !Number(balance)}
                     />
-                </Footer>
-            </BaseView>
+                </View>
+            </Fragment>
         );
     }
 }

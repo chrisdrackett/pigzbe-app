@@ -1,8 +1,4 @@
-import {
-    SETTINGS_ENABLE_TOUCH_ID,
-    SETTINGS_UPDATE,
-    SETTINGS_FIRST_TIME
-} from '../actions';
+import {SETTINGS_UPDATE} from '../actions';
 
 const isUndefined = value => typeof value === 'undefined';
 const valueOrDefault = (value, defaultValue) => {
@@ -16,29 +12,16 @@ export const initialState = {
     phone: null,
     country: null,
     firstTime: true,
+    lastMessageDate: 0,
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case SETTINGS_FIRST_TIME:
-            return {
-                ...state,
-                firstTime: false
-            };
-        case SETTINGS_ENABLE_TOUCH_ID:
-            return {
-                ...state,
-                enableTouchId: action.value
-            };
         case SETTINGS_UPDATE:
-            return {
-                ...state,
-                enableTouchId: valueOrDefault(action.enableTouchId, state.enableTouchId),
-                subscribe: valueOrDefault(action.subscribe, state.subscribe),
-                email: valueOrDefault(action.email, state.email),
-                phone: valueOrDefault(action.phone, state.phone),
-                country: valueOrDefault(action.country, state.country),
-            };
+            return Object.keys(initialState).reduce((ob, key) => {
+                ob[key] = valueOrDefault(action[key], state[key]);
+                return ob;
+            }, {});
         default:
             return state;
     }

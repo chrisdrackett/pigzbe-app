@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
-// import styles from './styles';
 import Button from '../../components/button';
 // import {strings} from '../../constants';
 import {SCREEN_CREATE_KEYS} from '../../constants';
@@ -25,14 +24,15 @@ export class KeysImport extends Component {
 
         return (
             <StepModule
-                title="Import Key"
+                title="Import Keys"
                 icon="secure"
-                scroll={false}
-                tagline="Lorem ipsum dolor sit amet."
+                content="Enter your secret key to import an existing account."
+                // error={error}
+                onBack={this.onBack}
+                pad
             >
                 <View>
                     <TextInput
-                        dark
                         error={!!error}
                         value={this.state.inputText}
                         placeholder={'secret key'}
@@ -41,14 +41,9 @@ export class KeysImport extends Component {
                         returnKeyType="done"
                     />
                     <Button
-                        secondary
+                        style={{marginTop: 30}}
                         label={'Import'}
                         onPress={this.onImport}
-                    />
-                    <Button
-                        outline
-                        label={'Back'}
-                        onPress={this.onBack}
                     />
                 </View>
             </StepModule>

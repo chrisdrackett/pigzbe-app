@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View, Share} from 'react-native';
-// import styles from './styles';
 import Button from '../../components/button';
 // import {strings} from '../../constants';
 import KeyHolder from '../../components/key-holder';
@@ -61,22 +60,22 @@ export class KeysSave extends Component {
                 <StepModule
                     title="Your Private Key"
                     icon="secure"
-                    scroll={false}
-                    tagline="Below is your Pigzbe wallet Private Key. You must make a secure copy now. If you lose your key, you lose your funds."
+                    content="Below is your Pigzbe wallet Private Key. You must make a secure copy now. If you lose your key, you lose your funds."
+                    pad
                 >
                     <View>
                         <KeyHolder
                             title={'Secret Key'}
                             content={secretKey}
                             onPress={this.onCopy}
+                            style={{marginBottom: 16, marginTop: -26}}
                         />
                         <Button
-                            secondary
                             label={'Save Key'}
                             onPress={this.onCopy}
                         />
                         <Button
-                            outline
+                            theme="outline"
                             label={'Next'}
                             disabled={!copied && !isDesktop}
                             onPress={this.onConfirm}

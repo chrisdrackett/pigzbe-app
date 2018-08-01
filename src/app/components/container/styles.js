@@ -1,41 +1,17 @@
 import {StyleSheet} from 'react-native';
-import {
-    color,
-    paddingH
-} from '../../styles';
+import {color} from '../../styles';
 
 export default StyleSheet.create({
     container: {
         backgroundColor: color.blue,
         flex: 1,
-    },
-    justifyCenter: {
-        // alignSelf: 'center',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-    },
-    containerBody: {
-        // alignItems: 'stretch',
-        // justifyContent: 'space-between',
-        paddingBottom: 20,
-        paddingLeft: paddingH,
-        paddingRight: paddingH,
-    },
-    light: {
-        backgroundColor: color.mediumBlue,
-    },
-    white: {
-        // marginTop: -10,
-        backgroundColor: color.white,
-        borderTopRightRadius: 5,
-        borderTopLeftRadius: 5,
-        // flex: 1,
-        // flexGrow: 1,
-
+        justifyContent: 'space-between',
     },
     scroll: {
-        // justifyContent: 'flex-start',
-        // marginLeft: paddingH,
-        // marginRight: paddingH,
+        flex: 1,
+    },
+    scrollContainer: {
+        flexGrow: 1,
+        justifyContent: 'space-between',
     },
 });

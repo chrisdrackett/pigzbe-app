@@ -3,14 +3,16 @@ import {
     AUTH_LOGIN_START,
     AUTH_LOGIN_FAIL,
     AUTH_LOGIN,
-    AUTH_LOGOUT
+    AUTH_LOGOUT,
+    AUTH_TOUCH_ID_SUPPORT
 } from '../actions';
 
 export const initialState = {
     passcode: null,
     isLoggingIn: false,
-    isLoggedIn: false,
+    loggedIn: false,
     error: null,
+    touchIdSupport: false,
 };
 
 export default (state = initialState, action) => {
@@ -36,12 +38,17 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isLoggingIn: false,
-                isLoggedIn: true,
+                loggedIn: true,
             };
         case AUTH_LOGOUT:
             return {
                 ...state,
-                isLoggedIn: false
+                loggedIn: false
+            };
+        case AUTH_TOUCH_ID_SUPPORT:
+            return {
+                ...state,
+                touchIdSupport: action.support
             };
         default:
             return state;

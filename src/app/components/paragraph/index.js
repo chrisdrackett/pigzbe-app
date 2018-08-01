@@ -11,8 +11,18 @@ const bold = text => {
     return text;
 };
 
-export default ({children, style}) => (
-    <Text style={[styles.paragraph, style]}>
-        {bold(children)}
+const format = children => {
+    if (typeof children === 'string') {
+        return bold(children);
+    }
+    if (typeof children === 'object' && Array.isArray(children)) {
+        return children.map(child => format(child));
+    }
+    return children;
+};
+
+export default ({small, children, style}) => (
+    <Text style={[styles.paragraph, small ? styles.small : null, style]}>
+        {format(children)}
     </Text>
 );

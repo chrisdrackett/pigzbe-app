@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, View} from 'react-native';
+import {View} from 'react-native';
 import CodeInput from 'react-native-confirmation-code-input';
 import {color} from '../../styles';
 
@@ -11,7 +11,7 @@ export default class extends Component {
 
   static defaultProps = {
       boxes: 4,
-      padding: 0,
+      space: 4,
       style: null,
       secure: false,
       boxSize: {width: null, height: null}
@@ -21,16 +21,13 @@ export default class extends Component {
       const {
           boxes,
           boxSize,
+          space,
           onFulfill,
-          padding,
-          style,
           secure
       } = this.props;
 
-      const width = boxSize.width || ~~(((Dimensions.get('window').width * 0.75) - padding) / boxes);
-
       return (
-          <View>
+          <View style={{height: boxSize.height}}>
               <CodeInput
                   activeColor={color.blue}
                   inactiveColor={color.mediumBlue}
@@ -39,15 +36,12 @@ export default class extends Component {
                   secureTextEntry={secure}
                   inputPosition="center"
                   keyboardType="number-pad"
-                  size={width}
-                  space={4}
+                  size={boxSize.width}
+                  space={space}
                   codeLength={boxes}
                   onFulfill={onFulfill}
-                  containerStyle={[style, {
-                      width: '90%',
-                      alignSelf: 'center',
-                  }]}
-                  codeInputStyle={{borderRadius: 5, borderWidth: 1, height: boxSize.height || width * 1.45}}
+                  containerStyle={{marginTop: 0}}
+                  codeInputStyle={{borderRadius: 5, borderWidth: 1, width: boxSize.width, height: boxSize.height}}
               />
           </View>
       );

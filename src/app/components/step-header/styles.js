@@ -9,15 +9,20 @@ export default StyleSheet.create({
     },
     image: {
         marginTop: 0,
-        marginBottom: -25,
+        marginBottom: -30,
         width: 121,
         height: 108,
         // backgroundColor: color.red
     },
     noImage: {
         // backgroundColor: color.red
+        height: 78,
+    },
+    noTitle: {
+        // backgroundColor: color.red
+        height: 32,
     },
     picker: {
         backgroundColor: color.white
-    }
+    },
 });

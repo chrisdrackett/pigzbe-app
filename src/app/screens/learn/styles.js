@@ -64,29 +64,38 @@ export default StyleSheet.create({
         fontFamily,
         fontWeight: 'bold',
         color: color.blue,
-        fontSize: 14
+        fontSize: 14,
+        textAlign: 'center',
+    },
+    containerText: {
+        height: 32,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
     },
     containerButtons: {
         width: 220,
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop: 20,
-        marginBottom: 20,
+        marginBottom: 10,
     },
     containerComparison: {
-        width: 250,
-        height: 160,
+        width: 260,
+        height: 150,
         flexDirection: 'row',
         alignContent: 'flex-start',
         marginTop: 10,
         justifyContent: 'space-between',
     },
     containerBlockCompare: {
-        width: 90,
+        width: 110,
     },
     pile: {
         width: 90,
         height: 90,
+        marginLeft: 10,
+        marginRight: 10,
     },
     equals: {
         width: 25,
@@ -99,8 +108,7 @@ export default StyleSheet.create({
         fontSize: 14,
         color: color.blue,
         textAlign: 'center',
-        width: 80,
-        marginLeft: 5,
+        width: 110,
     },
     button: {
         position: 'absolute',

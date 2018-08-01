@@ -5,11 +5,14 @@ export default StyleSheet.create({
     paragraph: {
         fontFamily,
         color: color.blue,
-        fontSize: 14,
-        marginBottom: 20,
+        fontSize: 16,
+        marginBottom: 18,
         textAlign: 'center',
     },
     bold: {
         fontWeight: 'bold',
-    }
+    },
+    small: {
+        fontSize: 14,
+    },
 });

@@ -1,34 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {
-    container,
-    color,
-    fontFamily
-} from '../../styles';
+import {color, fontFamily} from '../../styles';
 
 export default StyleSheet.create({
-    container,
-    containerHeader: {
-        height: 162,
-        flexBasis: 162,
-        flexGrow: 0,
-        width: '100%',
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
-    title: {
-        fontFamily,
-        color: color.white,
-        fontSize: 16,
-        fontWeight: 'bold',
+    message: {
         marginLeft: 20,
         marginRight: 20,
-        marginTop: 10,
-        textAlign: 'center'
-    },
-    message: {
-        paddingLeft: 20,
-        paddingRight: 20,
         paddingTop: 20,
         paddingBottom: 20,
         borderBottomWidth: 1,
@@ -44,6 +20,12 @@ export default StyleSheet.create({
     text: {
         fontFamily,
         color: color.darkGrey,
-        fontSize: 14
+        fontSize: 14,
+        marginRight: 12,
+    },
+    chevron: {
+        position: 'absolute',
+        right: 0,
+        top: 30,
     },
 });

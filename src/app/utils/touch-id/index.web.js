@@ -1,4 +1,4 @@
-export const checkSupport = () => Promise.reject();
+export const getSupport = () => Promise.resolve(false);
 
 export const authenticate = () => Promise.reject();
 

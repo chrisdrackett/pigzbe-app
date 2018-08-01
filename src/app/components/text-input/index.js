@@ -3,32 +3,24 @@ import {TextInput, Text, View} from 'react-native';
 import styles from './styles';
 import {color} from '../../styles';
 
-const getHeight = (numberOfLines, margin = 0) => ({
-    height: 24 + 21 * numberOfLines + margin
-});
+const getHeight = (numberOfLines, margin = 0) => 24 + 21 * numberOfLines + margin;
 
-const getStyle = (error, dark, numberOfLines, extra) => {
-    let style = [styles.input];
-
-    if (dark) {
-        style = style.concat(styles.dark);
-    }
+const getStyle = (error, numberOfLines, style) => {
+    let s = [styles.input, {
+        borderRadius: numberOfLines > 1 ? 5 : 22.5,
+        height: getHeight(numberOfLines),
+        paddingTop: numberOfLines > 1 ? 11 : 2,
+    }];
 
     if (error) {
-        style = style.concat(styles.error);
+        s = s.concat(styles.error);
     }
 
-    style = style.concat(getHeight(numberOfLines));
-
-    style = style.concat({
-        paddingTop: numberOfLines > 1 ? 11 : 2
-    });
-
-    if (extra) {
-        style = style.concat(extra);
+    if (style) {
+        s = s.concat(style);
     }
 
-    return style;
+    return s;
 };
 
 export default ({
@@ -37,7 +29,6 @@ export default ({
     error = false,
     value = '',
     label,
-    dark,
     numberOfLines = 1,
     maxLength,
     style,
@@ -48,18 +39,18 @@ export default ({
     returnKeyType = 'done',
 }) => (
     <Fragment>
-        {label ? (
-            <Text style={dark ? [styles.label, styles.labelDark] : styles.label}>
+        {label && (
+            <Text style={styles.label}>
                 {label}
             </Text>
-        ) : null}
-        <View style={[getHeight(numberOfLines, 10), {alignSelf: 'stretch'}]}>
+        )}
+        <View style={{alignSelf: 'stretch', height: getHeight(numberOfLines, 10)}}>
             <TextInput
-                style={getStyle(error, dark, numberOfLines, style)}
+                style={getStyle(error, numberOfLines, style)}
                 placeholder={placeholder}
                 autoCapitalize={autoCapitalize}
                 autoCorrect={autoCorrect}
-                placeholderTextColor={dark ? color.grey : color.whiteOpacity60}
+                placeholderTextColor={color.lighterBlue}
                 onChangeText={inputText => onChangeText(inputText)}
                 value={value}
                 numberOfLines={numberOfLines}

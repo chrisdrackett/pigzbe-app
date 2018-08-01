@@ -33,6 +33,13 @@ export default class NumPad extends Component {
         onFull: () => {},
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.error && !this.props.error) {
+            this.setState({input: ''});
+            this.props.onInput('');
+        }
+    }
+
     onInput = num => {
         if (this.state.input.length === this.props.length) {
             return;

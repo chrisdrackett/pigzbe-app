@@ -58,9 +58,9 @@ export default class Progress extends Component {
                         </Text>
                         {buttonLabel &&
                             <Button
+                                theme="outline"
                                 disabled={!error && !complete}
                                 label={buttonLabel}
-                                outline
                                 onPress={onPress}
                             />}
                     </View>

@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
-import {load} from '../../actions';
-// import styles from './styles';
-import Loader from '../../components/loader';
-import {PASSCODE_LENGTH} from '../../constants';
+import {loginAndLoad} from '../../actions';
+import {SCREEN_HOME, PASSCODE_LENGTH} from '../../constants';
 import NumPad from '../../components/num-pad';
 import Dots from '../../components/dots';
 import StepModule from '../../components/step-module';
@@ -17,37 +15,35 @@ export class PasscodeLogin extends Component {
         error: false,
     }
 
+    onBack = () => this.props.navigation.navigate(SCREEN_HOME)
+
     onInput = input => this.setState({input})
 
-    onCodeEntered = code => {
-        console.log(code);
-        this.props.dispatch(load(code));
-    }
+    onCodeEntered = code => this.props.dispatch(loginAndLoad(code))
 
     render() {
-        const {isLoading} = this.props;
+        const {loading, error, message} = this.props;
 
         return (
             <StepModule
-                title={'Enter your Passcode'}
                 scroll={false}
-                tagline={`Login with your ${PASSCODE_LENGTH}-digit passcode`}
+                title={'Enter your Passcode'}
+                content={`Login with your ${PASSCODE_LENGTH}-digit passcode`}
                 headerChildren={(
                     <View style={{marginTop: 30}}>
                         <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                     </View>
                 )}
+                onBack={this.onBack}
+                loading={loading}
+                loaderMessage={message}
+                // error={error}
             >
-                <View style={{paddingBottom: 20}}>
-                    <NumPad
-                        length={PASSCODE_LENGTH}
-                        onInput={this.onInput}
-                        onFull={this.onCodeEntered}
-                    />
-                </View>
-                <Loader
-                    white
-                    isLoading={isLoading}
+                <NumPad
+                    error={error}
+                    length={PASSCODE_LENGTH}
+                    onInput={this.onInput}
+                    onFull={this.onCodeEntered}
                 />
             </StepModule>
         );
@@ -56,7 +52,8 @@ export class PasscodeLogin extends Component {
 
 export default connect(
     state => ({
-        isLoading: state.loader.isLoading,
+        loading: state.loader.loading,
+        message: state.loader.message,
         error: state.auth.error
     })
 )(PasscodeLogin);

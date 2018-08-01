@@ -17,7 +17,7 @@ export default StyleSheet.create({
     },
     text: {
         fontFamily,
-        color: color.white,
+        color: color.blue,
         fontSize: 14,
         fontWeight: 'bold',
         marginRight: 10
@@ -30,7 +30,7 @@ export default StyleSheet.create({
         width: 30,
         height: 30,
         borderWidth: 1,
-        borderColor: color.white,
+        borderColor: color.blue,
         borderStyle: 'solid',
         borderRadius: 15,
         justifyContent: 'center',
@@ -39,15 +39,15 @@ export default StyleSheet.create({
     innerInactive: {
         width: 16,
         height: 16,
-        backgroundColor: color.white,
+        backgroundColor: color.blue,
         opacity: 0.3,
         borderRadius: 8
     },
     innerActive: {
         width: 16,
         height: 16,
-        backgroundColor: color.white,
+        backgroundColor: color.blue,
         opacity: 1,
         borderRadius: 8
-    }
+    },
 });

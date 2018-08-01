@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Text, View, ScrollView} from 'react-native';
+import {View} from 'react-native';
 import {
     settingsClear,
+    // settingsUpdate,
+    settingsEnableTouchId,
+    settingsToggleSubscribe,
     authLogout
 } from '../../actions';
-import styles from './styles';
-import {color} from '../../styles';
 import Button from '../../components/button';
-import Header from '../../components/header';
-import Container from '../../components/container';
-import KeyboardAvoid from '../../components/keyboard-avoid';
 import {
     strings,
     SCREEN_BALANCE,
@@ -19,6 +17,9 @@ import {
     PRIVACY_URL
 } from '../../constants';
 import openURL from '../../utils/open-url';
+import StepModule from '../../components/step-module';
+import Paragraph from '../../components/paragraph';
+import Checkbox from '../../components/checkbox';
 
 export class Settings extends Component {
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
@@ -26,6 +27,10 @@ export class Settings extends Component {
     onClaim = () => this.props.navigation.navigate(SCREEN_CLAIM)
 
     onEscrow = () => this.props.navigation.navigate(SCREEN_ESCROW)
+
+    onSubscribe = () => this.props.dispatch(settingsToggleSubscribe(!this.props.subscribe));
+
+    onEnableTouchId = () => this.props.dispatch(settingsEnableTouchId(!this.props.enableTouchId));
 
     onLogout = () => {
         this.props.dispatch(authLogout());
@@ -41,50 +46,53 @@ export class Settings extends Component {
             email,
             phone,
             country,
+            escrow,
         } = this.props;
 
         return (
-            <View style={styles.outer}>
-                <ScrollView bounces={false} style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
-                    <Container body>
-                        <KeyboardAvoid>
-                            <View>
-                                <Header/>
-                                <Text style={styles.title}>{'Settings'}</Text>
-                            </View>
-                        </KeyboardAvoid>
-                        <View>
-                            <Button
-                                label={'Back'}
-                                onPress={this.onBack}
-                            />
-                            <Button
-                                label={'Claim Your Wollo'}
-                                onPress={this.onClaim}
-                            />
-                            <Button
-                                label={'View Escrow'}
-                                onPress={this.onEscrow}
-                            />
-                            <Text style={styles.title}>{'enableTouchId: '}{enableTouchId ? 'Yes' : 'No'}</Text>
-                            <Text style={styles.title}>{'subscribe: '}{subscribe ? 'Yes' : 'No'}</Text>
-                            <Text style={styles.title}>{'email: '}{email}</Text>
-                            <Text style={styles.title}>{'phone: '}{phone}</Text>
-                            <Text style={styles.title}>{'country: '}{country}</Text>
-                            <Button
-                                label={strings.accountLogoutButtonLabel}
-                                plain
-                                onPress={this.onLogout}
-                            />
-                            <Button
-                                label={strings.accountPrivacyButtonLabel}
-                                plain
-                                onPress={this.onPrivacy}
-                            />
-                        </View>
-                    </Container>
-                </ScrollView>
-            </View>
+            <StepModule
+                title={'Settings'}
+                icon="settings"
+                onBack={this.onBack}
+                pad
+                paddingTop={20}
+            >
+                <View>
+                    <Button
+                        label={'Claim Your Wollo'}
+                        onPress={this.onClaim}
+                    />
+                    {escrow && (
+                        <Button
+                            label={'View Escrow'}
+                            onPress={this.onEscrow}
+                        />
+                    )}
+                    <Checkbox
+                        text={'Enable Touch Id'}
+                        value={enableTouchId}
+                        onValueChange={this.onEnableTouchId}
+                    />
+                    <Checkbox
+                        text={strings.accountMailingListOptIn}
+                        value={subscribe}
+                        onValueChange={this.onSubscribe}
+                    />
+                    <Paragraph>{'enableTouchId: '}{enableTouchId ? 'Yes' : 'No'}</Paragraph>
+                    <Paragraph>{'subscribe: '}{subscribe ? 'Yes' : 'No'}</Paragraph>
+                    <Paragraph>{'email: '}{email}</Paragraph>
+                    <Paragraph>{'phone: '}+{country}{phone}</Paragraph>
+                    <Button
+                        label={strings.accountLogoutButtonLabel}
+                        onPress={this.onLogout}
+                    />
+                    <Button
+                        theme="plain"
+                        label={strings.accountPrivacyButtonLabel}
+                        onPress={this.onPrivacy}
+                    />
+                </View>
+            </StepModule>
         );
     }
 }
@@ -96,5 +104,6 @@ export default connect(
         email: state.settings.email,
         phone: state.settings.phone,
         country: state.settings.country,
+        escrow: state.escrow.escrowPublicKey,
     })
 )(Settings);

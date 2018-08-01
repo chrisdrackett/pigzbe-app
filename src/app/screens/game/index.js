@@ -25,7 +25,7 @@ const source = Platform.OS === 'android' ? {uri: 'file:///android_asset/game.htm
 
 export class GameView extends NavListener {
     state = {
-        isLoading: true
+        loading: true
     }
 
     onBlur() {
@@ -43,7 +43,7 @@ export class GameView extends NavListener {
         console.log('On Message', name, value);
         switch (name) {
             case READY:
-                this.setState({isLoading: false});
+                this.setState({loading: false});
                 break;
             case COLLECTED:
                 dispatch(gameWolloCollected(value));
@@ -88,7 +88,7 @@ export class GameView extends NavListener {
                     overlayOpen={overlayOpen}
                 />
                 <Loader
-                    isLoading={this.state.isLoading}
+                    loading={this.state.loading}
                     message={strings.gameLoading}
                 />
             </View>

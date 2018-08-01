@@ -3,7 +3,6 @@ import {View, Text, Image} from 'react-native';
 import styles from './styles';
 import {strings} from '../../constants';
 import Button from '../../components/button';
-import Title from '../../components/title';
 import TextInput from '../../components/text-input';
 import {isValidPublicKey} from '@pigzbe/stellar-utils';
 import moneyFormat from '../../utils/money-format';
@@ -12,7 +11,7 @@ import BigNumber from 'bignumber.js';
 import {sendWollo} from '../../actions';
 
 const getExchange = (exchange, amount) => {
-    const coins = ['EUR', 'USD', 'JPY', 'GBP'];
+    const coins = ['GBP', 'USD', 'EUR', 'JPY'];
     return coins.map(coin => {
         const val = amount ? exchange[coin] * Number(amount) : 0;
         return `${COIN_SYMBOLS[coin]}${moneyFormat(val, COIN_DPS[coin])}`;
@@ -23,12 +22,14 @@ const remainingBalance = (balance, amount) => new BigNumber(balance).minus(amoun
 
 const getBalanceAfter = (balance, amount) => moneyFormat(remainingBalance(balance, amount), COIN_DPS[ASSET_CODE]);
 
+const WolloImage = () => <Image style={styles.wollo} source={require('./images/wollo.png')}/>;
+
 export default class Form extends Component {
     state ={
-        confirm: false,
-        key: '',
-        amount: '',
-        memo: '',
+        review: this.props.review,
+        accountKey: this.props.accountKey,
+        amount: this.props.amount,
+        memo: this.props.memo,
         keyValid: false,
         amountValid: false,
         memoValid: true,
@@ -39,13 +40,20 @@ export default class Form extends Component {
         estimate: getExchange()
     }
 
-    updateKey(key) {
-        const keyValid = isValidPublicKey(key);
-
-        this.setState({key, keyValid});
+    static defaultProps = {
+        review: false,
+        accountKey: '',
+        amount: '',
+        memo: '',
     }
 
-    updateAmount(value) {
+    updateKey = accountKey => {
+        const keyValid = isValidPublicKey(accountKey);
+
+        this.setState({accountKey, keyValid});
+    }
+
+    updateAmount = value => {
         const {balance, exchange} = this.props;
 
         const amount = value.replace(/[^0-9.]/g, '');
@@ -59,28 +67,35 @@ export default class Form extends Component {
         });
     }
 
-    updateMemo(memo) {
+    updateMemo = memo => {
         const memoValid = !memo || memo.length < 29;
 
         this.setState({memo, memoValid});
     }
 
-    submit() {
+    submit = () => {
         const {keyValid, amountValid, memoValid} = this.state;
+        const review = keyValid && amountValid && memoValid;
 
         this.setState({
-            confirm: keyValid && amountValid && memoValid,
+            review,
             keyError: keyValid ? null : new Error(strings.transferErrorInvalidKey),
             amountError: amountValid ? null : new Error(strings.transferErrorInvalidAmount),
             memoError: memoValid ? null : new Error(strings.transferErrorInvalidMessage)
         });
+
+        this.props.onReview(review);
     }
 
-    send() {
-        const {dispatch} = this.props;
-        const {key, amount, memo} = this.state;
+    send = () => {
+        const {accountKey, amount, memo} = this.state;
 
-        dispatch(sendWollo(key, amount, memo));
+        this.props.dispatch(sendWollo(accountKey, amount, memo));
+    }
+
+    edit = () => {
+        this.setState({review: false});
+        this.props.onReview(false);
     }
 
     render() {
@@ -89,59 +104,54 @@ export default class Form extends Component {
             keyError,
             amountError,
             memoError,
-            confirm
+            review
         } = this.state;
 
         return (
             <View style={styles.containerForm}>
-                <View style={styles.title}>
-                    <Title>
-                        {confirm ? strings.transferConfirmTitle : strings.transferSendTitle}
-                    </Title>
-                </View>
                 <TextInput
-                    dark
                     error={!!keyError}
-                    value={this.state.key}
+                    value={this.state.accountKey}
                     label={strings.transferSendTo}
                     placeholder={strings.transferSendKey}
-                    onChangeText={key => this.updateKey(key)}
-                    editable={!confirm}
-                    style={confirm ? styles.inputConfirm : null}
-                    numberOfLines={2}
+                    onChangeText={this.updateKey}
+                    editable={!review}
+                    style={review ? styles.inputConfirm : null}
+                    numberOfLines={3}
                 />
                 <View style={styles.amount}>
-                    <Image style={styles.wollo} source={require('./images/wollo.png')}/>
+                    <WolloImage />
                     <TextInput
-                        dark
                         error={!!amountError}
                         value={this.state.amount}
                         label={strings.transferAmount}
                         placeholder={strings.transferSendWollo}
-                        onChangeText={amount => this.updateAmount(amount)}
-                        editable={!confirm}
-                        style={confirm ? styles.amountInputConfirm : styles.amountInput}
+                        onChangeText={this.updateAmount}
+                        editable={!review}
+                        style={review ? styles.amountInputConfirm : styles.amountInput}
                         keyboardType="numeric"
                     />
                 </View>
                 <Text style={styles.estimate}>
                     {strings.transferSendEstimate} {estimate}
                 </Text>
-                <TextInput
-                    dark
-                    error={!!memoError}
-                    value={this.state.memo}
-                    label={strings.transferMessage}
-                    placeholder={confirm ? '' : strings.transferMessagePlaceholder}
-                    onChangeText={memo => this.updateMemo(memo)}
-                    maxLength={28}
-                    editable={!confirm}
-                    style={confirm ? styles.inputConfirm : null}
-                />
-                {confirm ? (
+                {!review || this.state.memo ? (
+                    <TextInput
+                        error={!!memoError}
+                        value={this.state.memo}
+                        label={strings.transferMessage}
+                        placeholder={review ? '' : strings.transferMessagePlaceholder}
+                        onChangeText={this.updateMemo}
+                        maxLength={28}
+                        editable={!review}
+                        style={review ? styles.inputConfirm : null}
+                        numberOfLines={2}
+                    />
+                ) : null}
+                {review ? (
                     <Fragment>
                         <View style={styles.amount}>
-                            <Image style={styles.wollo} source={require('./images/wollo.png')}/>
+                            <WolloImage />
                             <TextInput
                                 dark
                                 value={getBalanceAfter(this.props.balance, this.state.amount)}
@@ -155,27 +165,28 @@ export default class Form extends Component {
                         </Text>
                     </Fragment>
                 ) : null}
+                {review && (
+                    <View style={styles.edit}>
+                        <Button
+                            theme="plain"
+                            style={styles.editBtn}
+                            textStyle={styles.editText}
+                            label={strings.transferEditButtonLabel}
+                            onPress={this.edit}
+                        />
+                    </View>
+                )}
                 <View style={styles.buttonWrapper}>
-                    {confirm ? (
-                        <Fragment>
-                            <Button
-                                label={strings.transferSendButtonLabel}
-                                onPress={() => this.send()}
-                            />
-                            <Button
-                                label={strings.transferEditButtonLabel}
-                                onPress={() => this.setState({
-                                    confirm: false
-                                })}
-                                outline
-                            />
-                        </Fragment>
+                    {review ? (
+                        <Button
+                            label={'Transfer'}
+                            onPress={this.send}
+                        />
                     ) : (
                         <Button
                             label={strings.transferConfirmButtonLabel}
-                            disabled={!(this.state.key && this.state.amount)}
-                            onPress={() => this.submit()}
-                            outline
+                            disabled={!(this.state.accountKey && this.state.amount)}
+                            onPress={this.submit}
                         />
                     )}
                 </View>

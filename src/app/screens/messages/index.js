@@ -1,59 +1,47 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Text, View} from 'react-native';
-import styles from './styles';
-import {messagesLoad, messagesMarkRead} from '../../actions';
-import Loader from '../../components/loader';
-import Logo from '../../components/logo';
-import Pig from '../../components/pig';
+import {loadMessages, messagesMarkRead} from '../../actions';
 import Message from './message';
 import {strings} from '../../constants';
 import ScrollList from '../../components/scroll-list';
-import Footer from '../../components/footer';
+import StepModule from '../../components/step-module';
 
 export class Messages extends Component {
+
     componentDidMount() {
         this.props.dispatch(messagesMarkRead());
+        this.focusListener = this.props.navigation.addListener('didFocus', this.update);
     }
 
-    updateMessages() {
-        this.props.dispatch(messagesLoad());
+    componentWillUnMount() {
+        this.focusListener.remove();
     }
+
+    update = () => this.props.dispatch(loadMessages())
 
     render() {
-        const {
-            messages,
-            loading,
-        } = this.props;
+        const {messages, loading, error} = this.props;
 
         return (
-            <View style={styles.container}>
-                <View style={styles.containerHeader}>
-                    <Logo/>
-                    <Text style={styles.title}>
-                        {strings.messagesTitle}
-                    </Text>
-                    <Pig/>
-                </View>
+            <StepModule
+                title={strings.messagesTitle}
+                icon="messages"
+                scroll={false}
+                error={error}
+                loading={loading && !messages.length}
+                loaderMessage={strings.loadMessagesing}
+            >
                 <ScrollList
-                    border
                     items={messages}
                     ItemComponent={Message}
-                    loading={loading}
-                    loaderMessage={strings.messagesLoading}
                 />
-                <Footer/>
-                <Loader
-                    isLoading={loading}
-                    message={strings.messagesLoading}
-                />
-            </View>
+            </StepModule>
         );
     }
 }
 
 export default connect(state => ({
     messages: state.messages.messages,
-    loading: state.messages.messagesLoading,
+    loading: state.messages.loadMessagesing,
     error: state.messages.messagesError
 }))(Messages);

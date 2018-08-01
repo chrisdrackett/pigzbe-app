@@ -40,7 +40,7 @@ describe('Reducers', () => {
                 }
             }))
                 .toEqual(Object.assign({}, authState, {
-                    isLoggedIn: true,
+                    loggedIn: true,
                     publicKey: 'pk',
                     secretKey: 'sk'
                 }));
@@ -51,7 +51,7 @@ describe('Reducers', () => {
                 type: actions.AUTH_LOGOUT
             }))
                 .toEqual(Object.assign({}, authState, {
-                    isLoggedIn: false
+                    loggedIn: false
                 }));
         });
     });
@@ -79,7 +79,7 @@ describe('Reducers', () => {
                 value: true
             }))
                 .toEqual(Object.assign({}, messagesState, {
-                    messagesLoading: true
+                    loadMessagesing: true
                 }));
         });
 

@@ -14,9 +14,9 @@ const props = {
     },
     online: true,
     id: null,
-    qrCode: 'https://s3.amazonaws.com/qr-codes-9f266de4dd32a7244bf6862baea01379/A3-0S-XbnuBmBZyw5Coe1SDSSBYncvW1guTv1znoHkU.png',
+    qrCode: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/200px-QR_code_for_mobile_English_Wikipedia.svg.png',
     error: null,
-    isLoading: false,
+    loading: false,
     requested: false,
     verified: false,
     failCount: 0,
@@ -26,9 +26,29 @@ storiesOf('Device Auth')
     .add('default', () => (
         <DeviceAuth {...props}/>
     ))
+    .add('loading', () => (
+        <DeviceAuth {...{
+            ...props,
+            loading: true
+        }}/>
+    ))
     .add('registered', () => (
         <DeviceAuth {...{
             ...props,
             id: '123'
+        }}/>
+    ))
+    .add('registered no qr', () => (
+        <DeviceAuth {...{
+            ...props,
+            id: '123',
+            qrCode: null,
+        }}/>
+    ))
+    .add('registered loading', () => (
+        <DeviceAuth {...{
+            ...props,
+            id: '123',
+            loading: true
         }}/>
     ));

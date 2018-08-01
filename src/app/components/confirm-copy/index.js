@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import styles from './styles';
 import Button from '../button';
 import Modal from '../modal';
@@ -25,25 +25,28 @@ export default class ConfirmCopy extends Component {
 
         return (
             <Modal>
-                <Title dark>Saved you keys?</Title>
-                <Paragraph>
+                <Title dark>Saved your keys?</Title>
+                <Paragraph small>
                         You will not be able to view your keys beyond this point. You *MUST* make a secure copy BEFORE you proceed.
                 </Paragraph>
                 <TouchableOpacity style={styles.checkbox} onPress={() => this.setState({confirmed: !confirmed})}>
-                    <View style={confirmed ? [styles.checkboxCheck, styles.checkboxActive] : styles.checkboxCheck} />
+                    <View style={styles.checkboxCheck}>
+                        {confirmed && (
+                            <Image style={styles.tick} source={require('./images/tick.png')}/>
+                        )}
+                    </View>
                     <Text style={[styles.subtitle, styles.warning, styles.checkboxText]}>
-                        {'I confirm I have made a secure copy of my wallet keys'}
+                        {'I confirm I have made a secure copy of my keys.'}
                     </Text>
                 </TouchableOpacity>
                 <Button
-                    secondary
                     disabled={!confirmed}
                     label="I'm ready"
                     onPress={onNext}
                     style={{marginBottom: 20}}
                 />
                 <Button
-                    outline
+                    theme="outline"
                     label="Back"
                     onPress={onBack}
                 />

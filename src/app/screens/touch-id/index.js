@@ -16,21 +16,22 @@ export class TouchId extends Component {
     onSkip = () => this.props.navigation.navigate(SCREEN_SET_PASSCODE)
 
     render() {
+        const face = this.props.touchIdSupport === 'FaceID';
+
         return (
             <StepModule
-                title="Use Touch ID?"
-                icon="touch-id"
-                scroll={false}
-                tagline="We use your phone’s security in combination with it’s in-built hardware to secure your account."
+                title={face ? 'Use Face ID?' : 'Use Touch ID?'}
+                icon={face ? 'vip' : 'touch-id'}
+                content="We use your phone’s security in combination with it’s in-built hardware to secure your account."
+                pad
             >
                 <View>
                     <Button
-                        secondary
                         label={'Enable Touch ID'}
                         onPress={this.onEnable}
                     />
                     <Button
-                        outline
+                        theme="outline"
                         label={'Just use a passcode'}
                         onPress={this.onSkip}
                     />
@@ -41,4 +42,8 @@ export class TouchId extends Component {
     }
 }
 
-export default connect()(TouchId);
+export default connect(
+    state => ({
+        touchIdSupport: state.auth.touchIdSupport
+    })
+)(TouchId);

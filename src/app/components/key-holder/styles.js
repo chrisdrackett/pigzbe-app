@@ -11,12 +11,10 @@ export default StyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         borderColor: color.lightRed,
-        paddingTop: 18,
-        paddingBottom: 18,
-        paddingLeft: 20,
-        paddingRight: 20,
-        marginTop: 20,
-        marginBottom: 20,
+        paddingTop: 9,
+        paddingBottom: 9,
+        paddingLeft: 2,
+        paddingRight: 2,
     },
     content: {
         fontFamily,
@@ -26,5 +24,8 @@ export default StyleSheet.create({
     },
     bold: {
         fontWeight: 'bold',
+    },
+    txHash: {
+        fontSize: 13,
     },
 });

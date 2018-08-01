@@ -22,14 +22,20 @@ function loadStories() {
     require('./stories/escrow.js');
     require('./stories/claim.js');
     require('./stories/game.js');
+    require('./stories/tabs.js');
+    require('./stories/loader.js');
+    require('./stories/load-error.js');
+    require('./stories/alert.js');
 }
 
 configure(loadStories, module);
 
 const StorybookUI = getStorybookUI({
     port: 7007,
+    // host: '192.168.0.15',
     host: 'localhost',
 });
+
 AppRegistry.registerComponent('PigzbeApp', () => StorybookUI);
 
 if (typeof console !== 'undefined') {

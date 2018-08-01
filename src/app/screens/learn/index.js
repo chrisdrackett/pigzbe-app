@@ -13,19 +13,16 @@ const conversions = {
         coin: 'CARROT',
         label: strings.learnCarrots,
         labelOne: strings.learnCarrotsSingle,
-        dp: 2,
     },
     gold: {
         coin: 'GOLD',
         label: strings.learnGold,
         labelOne: strings.learnGoldSingle,
-        dp: 4,
     },
     dollar: {
         coin: 'USD',
         label: strings.learnDollars,
         labelOne: strings.learnDollarsSingle,
-        dp: 2,
     }
 };
 
@@ -63,7 +60,9 @@ export default class Learn extends Component {
                                 />
                             ))}
                         </View>
-                        <Text style={styles.text}>{strings.learnOneWollo} {conversion} {conversion === 1 ? labelOne : label}</Text>
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>{strings.learnOneWollo} {conversion} {conversion === 1 ? labelOne : label}</Text>
+                        </View>
                         <View style={styles.containerComparison}>
                             <View style={styles.containerBlockCompare}>
                                 <Image style={styles.pile} source={images.wollo} />

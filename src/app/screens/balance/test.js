@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {BalanceComponent} from './';
+import {Balance} from './';
 
 const props = {
     navigation: {
@@ -29,7 +29,7 @@ const props = {
 
 describe('Balance', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<BalanceComponent {...props}/>).toJSON();
+        const tree = renderer.create(<Balance {...props}/>).toJSON();
         expect(tree).toMatchSnapshot();
     });
 });

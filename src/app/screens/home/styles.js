@@ -7,14 +7,6 @@ import {
 } from '../../styles';
 
 export default StyleSheet.create({
-    container: {
-        // alignSelf: 'stretch',
-        flex: 1,
-        backgroundColor: color.mediumBlue,
-        backgroundColor: 'red',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
     containerHeader: {
         backgroundColor: color.blue,
         height: '50%',
@@ -23,11 +15,10 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     containerBody: {
-        alignItems: 'stretch',
+        backgroundColor: color.mediumBlue,
+        paddingBottom: 20,
         paddingLeft: paddingH,
         paddingRight: paddingH,
-        justifyContent: 'space-between',
-        paddingBottom: 20
     },
     containerText: {
         alignItems: 'center',
@@ -35,15 +26,6 @@ export default StyleSheet.create({
         alignSelf: 'stretch',
         flexGrow: 1,
         paddingTop: 20
-    },
-    containerBodyKeyb: {
-        backgroundColor: color.blue
-    },
-    backgroundImage: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        zIndex: 0
     },
     image: {
         width: 162,

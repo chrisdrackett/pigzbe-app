@@ -1,8 +1,6 @@
-import Storage from '../utils/storage';
 import fetchTimeout from '../utils/fetch-timeout';
 import {apiURL} from '../selectors';
-
-const storageKey = 'messages';
+import {settingsUpdate} from './';
 
 export const MESSAGES_LOADING = 'MESSAGES_LOADING';
 export const MESSAGES_UPDATE = 'MESSAGES_UPDATE';
@@ -11,38 +9,36 @@ export const MESSAGES_MARK_READ = 'MESSAGES_MARK_READ';
 export const MESSAGES_ERROR = 'MESSAGES_ERROR';
 
 export const messagesUpdate = messages => ({type: MESSAGES_UPDATE, messages});
-export const messagesLoading = value => ({type: MESSAGES_LOADING, value});
+export const loadMessagesing = value => ({type: MESSAGES_LOADING, value});
 export const messagesError = error => ({type: MESSAGES_ERROR, error});
 export const messagesNotify = notify => ({type: MESSAGES_NOTIFY, notify});
 export const messagesMarkRead = () => ({type: MESSAGES_MARK_READ});
 
-export const messagesLoad = () => async (dispatch, getState) => {
+export const loadMessages = () => async (dispatch, getState) => {
     try {
+        dispatch(messagesError(null));
+        dispatch(loadMessagesing(true));
+
         const api = apiURL(getState());
-
-        dispatch(messagesLoading(true));
-
         const messages = await fetchTimeout(`${api}/content/messages?order=latest`);
 
         if (!messages) {
-            throw new Error('Network error');
+            throw new Error('Could not load messages');
         }
 
         dispatch(messagesUpdate(messages));
 
-        const data = await Storage.load(storageKey);
-        const lastDate = data.lastDate || 0;
+        const {lastMessageDate} = getState().settings;
         const latestDate = messages[0].date;
-        const notify = new Date(latestDate) > new Date(lastDate);
+        const notify = new Date(latestDate) > new Date(lastMessageDate);
+
         dispatch(messagesNotify(notify));
-
-        await Storage.save(storageKey, {lastDate: latestDate});
-
-        dispatch(messagesLoading(false));
+        dispatch(settingsUpdate({lastMessageDate: latestDate}));
+        dispatch(loadMessagesing(false));
 
     } catch (error) {
         console.log(error.message);
-        dispatch(messagesLoading(false));
+        dispatch(loadMessagesing(false));
         dispatch(messagesError(error));
     }
 };

@@ -1,11 +1,14 @@
 import {StyleSheet} from 'react-native';
-import {
-    container
-} from '../../styles';
 
 export default StyleSheet.create({
-    container,
-    pig: {
-        marginTop: 20,
+    button: {
+        paddingLeft: 18,
+        paddingRight: 18,
+        alignSelf: 'center',
+        width: '88.75%',
+        position: 'absolute',
+        left: 0,
+        bottom: 20,
+        left: '5.625%',
     },
 });

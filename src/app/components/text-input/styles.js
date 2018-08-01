@@ -9,11 +9,10 @@ export default StyleSheet.create({
     input: {
         fontFamily,
         alignSelf: 'stretch',
-        color: color.white,
+        color: color.blue,
         fontSize: 14,
-        // lineHeight: 15,
         fontWeight: 'bold',
-        borderColor: color.white,
+        borderColor: color.lighterBlue,
         borderWidth: 1,
         borderRadius: 22.5,
         marginBottom: 10,
@@ -21,21 +20,14 @@ export default StyleSheet.create({
         paddingRight: 20,
         paddingTop: 12,
     },
-    dark: {
-        borderColor: color.blue,
-        color: color.blue,
-    },
     label: {
         fontFamily,
-        color: color.white,
-        fontSize: 14,
+        color: color.blue,
+        fontSize: 16,
         fontWeight: 'bold',
         marginTop: 10,
         marginBottom: 10,
         marginLeft: 2,
-    },
-    labelDark: {
-        color: color.blue,
     },
     error: {
         borderColor: color.red

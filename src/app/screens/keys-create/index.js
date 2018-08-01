@@ -19,16 +19,15 @@ export class KeysCreate extends Component {
             <StepModule
                 title="Create Your Keys"
                 icon="keys"
-                scroll={false}
-                tagline={'We will now create your Public and Private wallet keys.\n\nYour Private Key must remain confidential and you will be asked to save this in a safe place in the next step.'}
+                content={'We will now create your Public and Private wallet keys.\n\nYour *Private Key* must remain confidential and you will be asked to save this in a safe place in the next step.'}
+                pad
             >
                 <Button
-                    secondary
                     label={'Create Keys'}
                     onPress={this.onCreate}
                 />
                 <Button
-                    outline
+                    theme="outline"
                     label={'Restore with previous keys'}
                     onPress={this.onImport}
                 />

@@ -1,10 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {ScrollView, View} from 'react-native';
 import {utils} from 'web3';
 import Config from 'react-native-config';
-import Logo from '../../components/logo';
-import styles from './styles';
 import {
     Step1,
     Step2,
@@ -15,13 +12,12 @@ import {
 import Loader from '../../components/loader';
 import Progress from '../../components/progress';
 import Modal from './modal';
-import Container from '../../components/container';
 import {userLogin} from '../../actions/eth';
-import {refreshBalance} from '../../actions/wollo';
+import {loadWallet} from '../../actions/wollo';
 import {clearClaimData} from '../../actions/content';
 import {transfer, burn, initWeb3} from '../../actions/contract';
 import {isValidSeed} from '../../utils/web3';
-import {SCREEN_BALANCE} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_CLAIM} from '../../constants';
 
 export class ClaimICO extends Component {
   state = {
@@ -45,6 +41,7 @@ export class ClaimICO extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+      console.log('componentWillReceiveProps', nextProps);
 
       if (nextProps.localStorage && !this.props.localStorage) {
           if (Object.keys(nextProps.localStorage).length === 0 && nextProps.localStorage.constructor === Object) {
@@ -54,12 +51,13 @@ export class ClaimICO extends Component {
 
       if (this.props.localStorage) {
           if (nextProps.user.coinbase && nextProps.user.balanceWollo) {
+              console.log('STAGE 5');
               this.setState({step: 5, loading: null});
           }
 
-          if (this.props.localStorage.complete && this.props.localStorage.stellar) {
-              this.setState({step: 6});
-          }
+          // if (this.props.localStorage.complete && this.props.localStorage.stellar) {
+          //     this.setState({step: 6});
+          // }
       }
   }
 
@@ -86,9 +84,7 @@ export class ClaimICO extends Component {
       }
   }
 
-  onChangeStep = (step) => {
-      this.setState({step});
-  }
+  onChangeStep = step => this.setState({step})
 
   onSubmitBurn = async () => {
       const {localStorage, contract, user} = this.props;
@@ -131,33 +127,26 @@ export class ClaimICO extends Component {
       this.props.burn(this.props.user.balanceWei);
   }
 
-  closeModal = () => {
-      this.setState({
-          modal: {
-              visible: false,
-              message: ''
-          }
-      });
-  }
+  closeModal = () => this.setState({
+      modal: {
+          visible: false,
+          message: ''
+      }
+  });
 
-  closeProgress = () => {
-      this.setState({clickedClose: true});
-  }
+  closeProgress = () => this.setState({clickedClose: true})
 
-  onChangeMnemonic = (mnemonic) => {
-      this.setState({mnemonic});
-  }
-  onChangePk = (pk) => {
-      this.setState({pk});
-  }
+  onChangeMnemonic = mnemonic => this.setState({mnemonic})
 
-  onCloseClaim = () => {
-      this.props.navigation.navigate(SCREEN_BALANCE);
-  }
+  onChangePk = pk => this.setState({pk})
+
+  onCloseClaim = () => this.props.navigation.navigate(SCREEN_BALANCE)
+
+  onBack = () => this.props.navigation.navigate(SCREEN_CLAIM)
 
   onCompleteClaim = () => {
       this.props.clearClaimData();
-      this.props.refreshBalance();
+      this.props.loadWallet();
       this.props.navigation.navigate(SCREEN_BALANCE);
   }
 
@@ -188,30 +177,38 @@ export class ClaimICO extends Component {
           errorBurning
       } = this.props;
 
-      // console.log(JSON.stringify(localStorage, null, 2));
+      // console.log(JSON.stringify({
+      //     loading,
+      //     contract,
+      //     user,
+      //     events,
+      //     // web3,
+      //     localStorage,
+      //     errorBurning
+      // }, null, 2));
       // console.log('errorBurning', errorBurning);
+
+      console.log('===> step', step);
+      console.log('web3', web3);
+      console.log('contract.instance', contract.instance);
+      console.log('localStorage', localStorage);
+      console.log('this.state.loading', this.state.loading);
 
       if (!web3 || !contract.instance || !localStorage || this.state.loading !== null) {
           return (
-              <Container style={styles.containerLoading}>
-                  <Loader isLoading message={this.state.loading} />
-              </Container>
+              <Loader loading message={this.state.loading} />
           );
       }
 
       const tx = localStorage.transactionHash || events.get('transactionHash');
 
       return (
-          <ScrollView bounces={false} style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
-              <Container>
-                  <View style={styles.header}>
-                      <Logo />
-                  </View>
-                  <Container>
-                      {step === 1 && <Step1 onNext={this.onStep2} onBack={this.onCloseClaim} />}
-                      {step === 2 && <Step2 onNext={this.onStep3} onBack={this.onStep1} />}
-                      {step === 3 && <Step3 onNext={this.onStep4} onBack={this.onStep2} />}
-                      {step === 4 &&
+          <Fragment>
+              <Fragment>
+                  {step === 1 && <Step1 onNext={this.onStep2} onBack={this.onBack} />}
+                  {step === 2 && <Step2 onNext={this.onStep3} onBack={this.onStep1} />}
+                  {step === 3 && <Step3 onNext={this.onStep4} onBack={this.onStep2} />}
+                  {step === 4 &&
                       <Step4
                           onNext={this.onImportKey}
                           onBack={this.onStep3}
@@ -222,9 +219,9 @@ export class ClaimICO extends Component {
                           onChangeMnemonic={this.onChangeMnemonic}
                           onChangePk={this.onChangePk}
                       />
-                      }
+                  }
 
-                      {step === 5 &&
+                  {step === 5 &&
                       <Step5
                           error={errorBurning || localStorage.error}
                           tx={tx}
@@ -236,30 +233,29 @@ export class ClaimICO extends Component {
                           onNext={user.balanceWollo ? this.onSubmitBurn : this.onCloseClaim}
                           onBack={user.balanceWollo ? this.onStep1 : null}
                       />
-                      }
-                  </Container>
+                  }
+              </Fragment>
 
-                  <Modal
-                      visible={modal.visible}
-                      message={modal.message}
-                      estimatedCost={estimatedCost}
-                      onConfirm={this.onConfirmedSubmitBurn}
-                      onCancel={this.closeModal}
+              <Modal
+                  visible={modal.visible}
+                  message={modal.message}
+                  estimatedCost={estimatedCost}
+                  onConfirm={this.onConfirmedSubmitBurn}
+                  onCancel={this.closeModal}
+              />
+              {!this.state.clickedClose ? (
+                  <Progress
+                      active={loading !== null && !localStorage.complete && !errorBurning}
+                      complete={localStorage.complete}
+                      title={localStorage.complete ? 'Congrats' : 'Claim progress'}
+                      error={errorBurning}
+                      text={localStorage.complete ? `Congrats! You are now the owner of ${user.balanceWollo} Wollo, you rock.` : loading}
+                      // buttonLabel={localStorage.complete || errorBurning ? 'Next' : null}
+                      buttonLabel={'Next'}
+                      onPress={localStorage.complete ? this.onCompleteClaim : this.closeProgress}
                   />
-                  {!this.state.clickedClose ? (
-                      <Progress
-                          active={loading !== null && !localStorage.complete && !errorBurning}
-                          complete={localStorage.complete}
-                          title={localStorage.complete ? 'Congrats' : 'Claim progress'}
-                          error={errorBurning}
-                          text={localStorage.complete ? `Congrats! You are now the owner of ${user.balanceWollo} Wollo, you rock.` : loading}
-                          // buttonLabel={localStorage.complete || errorBurning ? 'Next' : null}
-                          buttonLabel={'Next'}
-                          onPress={localStorage.complete ? this.onCompleteClaim : this.closeProgress}
-                      />
-                  ) : null}
-              </Container>
-          </ScrollView>
+              ) : null}
+          </Fragment>
       );
   }
 }
@@ -279,6 +275,6 @@ export default connect(({config, user, web3, events, contract, content}) => ({
     transfer,
     burn,
     clearClaimData,
-    refreshBalance
+    loadWallet
 },
 )(ClaimICO);

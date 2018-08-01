@@ -3,48 +3,25 @@ import {StyleSheet} from 'react-native';
 import {
     paddingH,
     color,
-    fontFamily,
 } from '../../styles';
 
 export default StyleSheet.create({
+    container: {
+        alignSelf: 'center',
+        width: '88.75%',
+        borderTopRightRadius: 5,
+        borderTopLeftRadius: 5,
+    },
     containerText: {
-        // alignItems: 'stretch',
         paddingLeft: paddingH,
         paddingRight: paddingH,
         paddingTop: 30,
-        // flex: 0,
-        // backgroundColor: 'green'
     },
-    containerBody: {
-        // alignSelf: 'stretch',
-        // flex: 1,
-        // justifyContent: 'flex-end',
-        // backgroundColor: 'blue'
-    },
-    bottom: {
-        // alignSelf: 'stretch',
-        // flex: 1,
-        // justifyContent: 'flex-end',
-        // backgroundColor: 'blue',
-        paddingTop: 30,
+    pad: {
+        // paddingTop: 20,
         paddingBottom: 12,
         paddingLeft: paddingH,
         paddingRight: paddingH,
-    },
-    subtitle: {
-        fontFamily,
-        color: color.blue,
-        fontSize: 16,
-        marginLeft: 0,
-        marginRight: 0,
-        marginBottom: 20,
-        textAlign: 'center'
-    },
-    wrapper: {
-        // alignItems: 'center',
-        // flexGrow: 1,
-        // flex: 1,
-        // alignSelf: 'center'
     },
     bg: {
         backgroundColor: color.mediumBlue,
@@ -53,5 +30,8 @@ export default StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
+    },
+    error: {
+        color: color.red,
     }
 });

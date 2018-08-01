@@ -27,29 +27,36 @@ export default StyleSheet.create({
         textAlign: 'center'
     },
     warning: {
-        color: color.orange,
+        color: color.blue,
+        fontSize: 14,
         fontWeight: 'bold',
     },
     checkbox: {
         position: 'relative',
-        paddingLeft: 50,
+        paddingLeft: 58,
+        marginTop: 5,
+        marginBottom: 28,
     },
     checkboxCheck: {
         borderRadius: 5,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: color.blue,
-        width: 30,
-        height: 30,
+        width: 40,
+        height: 40,
         position: 'absolute',
-        top: 6,
-        left: 6,
-    },
-    checkboxActive: {
-        backgroundColor: color.blue,
+        top: 1,
+        left: 0,
     },
     checkboxText: {
         marginLeft: 0,
-        marginRight: 20,
+        marginRight: 0,
+        marginBottom: 0,
         textAlign: 'left',
-    }
+    },
+    tick: {
+        width: 32,
+        height: 26,
+        marginLeft: 3,
+        marginTop: 6,
+    },
 });
