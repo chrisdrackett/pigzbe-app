@@ -1,5 +1,5 @@
 import {Record} from 'immutable';
-import {CONTRACT_UPDATE, NETWORK_CHANGE} from '../../constants/action-types';
+import {CONTRACT_UPDATE, INIT_WEB3} from '../../constants/action-types';
 
 const initialState = new Record({
     abi: null,
@@ -14,8 +14,8 @@ const initialState = new Record({
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case NETWORK_CHANGE:
-            console.log('NETWORK_CHANGE', action.payload.network);
+        case INIT_WEB3:
+            console.log('INIT_WEB3', action.payload.network);
             return state
                 .set('network', action.payload.network);
         case CONTRACT_UPDATE:

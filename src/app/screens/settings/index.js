@@ -13,7 +13,8 @@ import Button from '../../components/button';
 import {
     strings,
     SCREEN_BALANCE,
-    SCREEN_CLAIM,
+    // SCREEN_CLAIM,
+    SCREEN_CLAIM_ICO,
     SCREEN_ESCROW,
     PRIVACY_URL,
     SCREEN_CHANGE_PASSCODE
@@ -30,7 +31,8 @@ export class Settings extends Component {
 
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
 
-    onClaim = () => this.props.navigation.navigate(SCREEN_CLAIM)
+    // onClaim = () => this.props.navigation.navigate(SCREEN_CLAIM)
+    onClaim = () => this.props.navigation.navigate(SCREEN_CLAIM_ICO)
 
     onEscrow = () => this.props.navigation.navigate(SCREEN_ESCROW)
 

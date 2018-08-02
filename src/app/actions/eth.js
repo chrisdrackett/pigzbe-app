@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import {
     USER_BALANCE,
     USER_LOGIN,
@@ -12,21 +10,14 @@ import {isValidSeed, generateAddressFromSeed} from '../utils/web3';
 import {load, save} from '../utils/keychain';
 import {KEYCHAIN_ID_ETH_KEY} from '../constants';
 import BigNumber from 'bignumber.js';
+import {utils} from 'web3';
 
-const getNumBurnTokens = (balanceWei, config) => {
+const getMaxNumBurnTokens = (balanceWei, config) => {
     const {network, stellar} = config;
     const {maxClaimTokens} = stellar.networks[network];
-
-    const maxAmount = new BigNumber(maxClaimTokens).plus(Math.random()).times(10 ** 18).toString(10);
-    const amountBurn = BigNumber.min(balanceWei, maxAmount).toString(10);
-
     console.log('maxClaimTokens', maxClaimTokens);
-    console.log('maxAmount', maxAmount);
-    console.log('balanceWei', balanceWei);
-    console.log('amountBurn', amountBurn);
-    console.log('balanceWei - amountBurn', new BigNumber(balanceWei).minus(amountBurn).toString(10));
 
-    return amountBurn;
+    return new BigNumber(maxClaimTokens).plus(Math.random()).times(10 ** 18).toString(10);
 };
 
 export const getBalance = () => async (dispatch, getState) => {
@@ -34,11 +25,13 @@ export const getBalance = () => async (dispatch, getState) => {
         const web3 = getState().web3.instance;
         const contract = getState().contract.instance;
         const accountBalanceWei = await contract.methods.balanceOf(getState().user.get('coinbase')).call();
-        const balanceWei = getNumBurnTokens(accountBalanceWei, getState().config);
+        const maxAmount = getState().user.maxAmount || getMaxNumBurnTokens(accountBalanceWei, getState().config);
+        const balanceWei = BigNumber.min(accountBalanceWei, maxAmount).toString(10);
         const balanceWollo = new BigNumber(web3.utils.fromWei(balanceWei, 'ether')).toFixed(7, BigNumber.ROUND_DOWN);
         dispatch({type: USER_BALANCE, payload: {
             balanceWei,
-            balanceWollo
+            balanceWollo,
+            maxAmount
         }});
 
     } catch (e) {
@@ -123,4 +116,29 @@ export const userLogin = (mnemonic, pk) => async (dispatch, getState) => {
         dispatch({type: ERROR, payload: e.message});
         return false;
     }
+};
+
+export const getGasPrice = () => async (disptach, getState) => {
+    console.log('getGasPrice');
+    const web3 = getState().web3.instance;
+
+    console.log('web3', web3);
+
+    let gasPrice = utils.toWei('20', 'gwei');
+    let egsGasPrice = '0';
+
+    try {
+        const egs = await (await fetch('https://ethgasstation.info/json/ethgasAPI.json')).json();
+        egsGasPrice = utils.toWei(String(egs.safeLow), 'gwei');
+    } catch (error) {}
+
+    try {
+        gasPrice = await web3.eth.getGasPrice();
+    } catch (error) {}
+
+    console.log('web3 gasPrice', gasPrice);
+    console.log('ethgasstation gasPrice', egsGasPrice);
+    console.log('max gasPrice', BigNumber.max(gasPrice, egsGasPrice).toString(10));
+
+    return BigNumber.max(gasPrice, egsGasPrice).toString(10);
 };

@@ -30,7 +30,6 @@ export const generateAddressFromSeed = (seed, publicAddress) => {
     return account;
 };
 
-
 export const watchConfirmations = ({
     network,
     web3,

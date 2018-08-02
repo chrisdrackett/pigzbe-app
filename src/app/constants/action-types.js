@@ -11,5 +11,5 @@ export const STELLAR = 'STELLAR';
 export const BURNED = 'BURNED';
 export const CONTENT = 'CONTENT';
 export const LOCAL_STORAGE = 'LOCAL_STORAGE';
-export const NETWORK_CHANGE = 'NETWORK_CHANGE';
+export const INIT_WEB3 = 'INIT_WEB3';
 export const PRIVATE_KEY = 'PRIVATE_KEY';
