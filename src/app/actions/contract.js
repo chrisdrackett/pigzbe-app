@@ -5,12 +5,12 @@ import {
     LOADING,
     STELLAR,
     PRIVATE_KEY,
-    NETWORK_CHANGE,
+    INIT_WEB3,
     LOCAL_STORAGE,
     BURNED,
 } from '../constants/action-types';
 import {watchConfirmations} from '../utils/web3';
-import {getBalance} from './eth';
+import {getBalance, getGasPrice} from './eth';
 import {validate} from './api';
 import {loadLocalStorage} from './content';
 import {NUM_VALIDATIONS} from '../constants';
@@ -18,15 +18,6 @@ import {Keypair} from '@pigzbe/stellar-utils';
 import Keychain from '../utils/keychain';
 import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY} from '../constants';
 import {apiURL} from '../selectors';
-
-// const getEthGasStationGasPrice = async () => {
-//     try {
-//         const ethgasstation = await (await fetch('https://ethgasstation.info/json/ethgasAPI.json')).json();
-//         return ethgasstation.safeLow;
-//     } catch (e) {}
-//
-//     return null;
-// };
 
 const getContract = () => async (dispatch, getState) => {
 
@@ -44,11 +35,9 @@ const getContract = () => async (dispatch, getState) => {
 
         console.log('address', address);
 
-        const gasPrice = await web3.eth.getGasPrice();
+        // const gasPrice = await web3.eth.getGasPrice();
+        const gasPrice = await dispatch(getGasPrice());
         console.log('contract gasPrice', gasPrice);
-
-        // const ethGasStationGasPrice = await getEthGasStationGasPrice();
-        // console.log('ethGasStationGasPrice', ethGasStationGasPrice);
 
         const deployedContract = new web3.eth.Contract(ethereum.abi, address, {
             gasPrice,
@@ -127,7 +116,7 @@ export const initWeb3 = () => async (dispatch, getState) => {
     const {rpc} = ethereum.networks[network];
     console.log('rpc', rpc);
     dispatch({
-        type: NETWORK_CHANGE,
+        type: INIT_WEB3,
         payload: {network, rpc}
     });
 
@@ -213,7 +202,8 @@ export const burn = (amount) => async (dispatch, getState) => {
             const bufferPrivateKey = new Buffer(privateKey, 'hex');
             const data = instance.methods.burn(amount).encodeABI();
 
-            const gasPrice = await web3.eth.getGasPrice();
+            // const gasPrice = await web3.eth.getGasPrice();
+            const gasPrice = await dispatch(getGasPrice());
             console.log('burn gasPrice', gasPrice);
 
             // const ethGasStationGasPrice = await getEthGasStationGasPrice();

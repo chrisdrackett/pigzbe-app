@@ -11,7 +11,7 @@ export default ({
     onConfirm,
     onCancel
 }) => (
-    <Modal animationType="slide" visible={visible}>
+    <Modal animationType="slide" visible={visible} onRequestClose={onCancel}>
         <View style={styles.modalConfirm}>
             {message === 'confirm' &&
                 <Fragment>

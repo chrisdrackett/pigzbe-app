@@ -75,7 +75,7 @@ export class Balance extends Component {
                     <Modal>
                         <Title dark>Howdy!</Title>
                         <Paragraph>Welcome to your Pigzbe wallet. To fully activate your wallet you need to transfer funds into it.</Paragraph>
-                        <Paragraph style={{marginBottom: 40}}>If you’re an *ICO, Airdrop, Bounty* or VIP, you can do this via settings.</Paragraph>
+                        <Paragraph style={{marginBottom: 40}}>If you’re an *ICO* participant, you can do this via settings.</Paragraph>
                         <Button
                             label={'Good to know!'}
                             onPress={this.onCloseModal}

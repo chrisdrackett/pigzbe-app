@@ -16,6 +16,7 @@ const initialState = new Record({
     loggedIn: false,
     stellar: null,
     privateKey: null,
+    maxAmount: null,
 })();
 
 export default (state = initialState, action) => {
@@ -36,7 +37,8 @@ export default (state = initialState, action) => {
         case USER_BALANCE:
             return state
                 .set('balanceWei', action.payload.balanceWei)
-                .set('balanceWollo', action.payload.balanceWollo);
+                .set('balanceWollo', action.payload.balanceWollo)
+                .set('maxAmount', action.payload.maxAmount);
 
         case USER_LOGIN:
             return state

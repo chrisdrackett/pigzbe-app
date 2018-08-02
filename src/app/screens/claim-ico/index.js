@@ -12,12 +12,13 @@ import {
 import Loader from '../../components/loader';
 import Progress from '../../components/progress';
 import Modal from './modal';
-import {userLogin} from '../../actions/eth';
+import {userLogin, getGasPrice} from '../../actions/eth';
 import {loadWallet} from '../../actions/wollo';
 import {clearClaimData} from '../../actions/content';
 import {transfer, burn, initWeb3} from '../../actions/contract';
 import {isValidSeed} from '../../utils/web3';
-import {SCREEN_BALANCE, SCREEN_CLAIM} from '../../constants';
+// import {SCREEN_BALANCE, SCREEN_CLAIM} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_SETTINGS} from '../../constants';
 
 export class ClaimICO extends Component {
   state = {
@@ -27,7 +28,7 @@ export class ClaimICO extends Component {
       pk: (__DEV__ && Config.PK) || '',
       badAddress: false,
       badSeed: false,
-      loading: 'Loading...',
+      loading: 'Loading',
       clickedClose: false,
       modal: {
           visible: false,
@@ -41,23 +42,14 @@ export class ClaimICO extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      console.log('componentWillReceiveProps', nextProps);
+      // console.log('componentWillReceiveProps', nextProps);
 
-      if (nextProps.localStorage && !this.props.localStorage) {
-          if (Object.keys(nextProps.localStorage).length === 0 && nextProps.localStorage.constructor === Object) {
-              this.setState({loading: null, step: 1});
-          }
+      if (nextProps.localStorage && Object.keys(nextProps.localStorage).length === 0 && nextProps.localStorage.constructor === Object) {
+          this.setState({loading: null, step: 1});
       }
 
-      if (this.props.localStorage) {
-          if (nextProps.user.coinbase && nextProps.user.balanceWollo) {
-              console.log('STAGE 5');
-              this.setState({step: 5, loading: null});
-          }
-
-          // if (this.props.localStorage.complete && this.props.localStorage.stellar) {
-          //     this.setState({step: 6});
-          // }
+      if (this.props.localStorage && nextProps.user.coinbase && nextProps.user.balanceWollo) {
+          this.setState({step: 5, loading: null});
       }
   }
 
@@ -103,11 +95,19 @@ export class ClaimICO extends Component {
 
       try {
           const amountBurn = user.balanceWei;
-          const gasPrice = await this.props.web3.eth.getGasPrice();
+          // const gasPrice = await this.props.web3.eth.getGasPrice();
+          const gasPrice = await this.props.getGasPrice();
           const estimatedGas = await contract.instance.methods.burn(amountBurn).estimateGas({from: user.coinbase});
+          const estimatedCost = utils.fromWei(String(estimatedGas * gasPrice), 'ether');
+
+          let estimatedCostUSD = '';
+          try {
+              const exchange = await (await fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD,GBP,EUR,JPY')).json();
+              estimatedCostUSD = (exchange.USD * Number(estimatedCost)).toFixed(2);
+          } catch (e) {}
 
           this.setState({
-              estimatedCost: `${utils.fromWei(String(estimatedGas * gasPrice), 'ether')} ETH`,
+              estimatedCost: `${estimatedCost} ETH ($${estimatedCostUSD})`,
           });
 
           this.setState({
@@ -117,6 +117,7 @@ export class ClaimICO extends Component {
               }
           });
       } catch (err) {
+          console.log('onSubmitBurn error:');
           console.log(err);
       }
   }
@@ -142,7 +143,8 @@ export class ClaimICO extends Component {
 
   onCloseClaim = () => this.props.navigation.navigate(SCREEN_BALANCE)
 
-  onBack = () => this.props.navigation.navigate(SCREEN_CLAIM)
+  // onBack = () => this.props.navigation.navigate(SCREEN_CLAIM)
+  onBack = () => this.props.navigation.navigate(SCREEN_SETTINGS)
 
   onCompleteClaim = () => {
       this.props.clearClaimData();
@@ -231,7 +233,7 @@ export class ClaimICO extends Component {
                           startApplication={!localStorage.complete && !localStorage.started}
                           buttonNextLabel={!user.balanceWollo ? 'Back' : !localStorage.complete && !localStorage.started ? 'Claim Wollo' : 'Continue'}
                           onNext={user.balanceWollo ? this.onSubmitBurn : this.onCloseClaim}
-                          onBack={user.balanceWollo ? this.onStep1 : null}
+                          onBack={user.balanceWollo ? this.onBack : null}
                       />
                   }
               </Fragment>
@@ -268,8 +270,9 @@ export default connect(({config, user, web3, events, contract, content}) => ({
     localStorage: content.get('localStorage'),
     web3: web3.instance,
     loading: events.get('loading'),
-    errorBurning: events.get('error')
+    errorBurning: events.get('error'),
 }), {
+    getGasPrice,
     userLogin,
     initWeb3,
     transfer,
