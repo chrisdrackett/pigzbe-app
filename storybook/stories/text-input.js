@@ -21,17 +21,6 @@ storiesOf('TextInput')
             />
         </View>
     ))
-    .add('with label', () => (
-        <View style={style}>
-            <TextInput
-                label={'Lorem ipsum'}
-                error={false}
-                value={''}
-                placeholder={'secret key'}
-                onChangeText={() => {}}
-            />
-        </View>
-    ))
     .add('with text', () => (
         <View style={style}>
             <TextInput
@@ -49,8 +38,55 @@ storiesOf('TextInput')
                 value={''}
                 placeholder={'secret key'}
                 onChangeText={() => {}}
+                numberOfLines={3}
+                returnKeyType="done"
+            />
+        </View>
+    ))
+    .add('multiline with text', () => (
+        <View style={style}>
+            <TextInput
+                error={false}
+                value={'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci.'}
+                placeholder={'secret key'}
+                onChangeText={() => {}}
+                numberOfLines={3}
+                returnKeyType="done"
+            />
+        </View>
+    ))
+    .add('multiline with text 2', () => (
+        <View style={style}>
+            <TextInput
+                error={false}
+                value={'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris.'}
+                placeholder={'secret key'}
+                onChangeText={() => {}}
+                numberOfLines={3}
+                returnKeyType="done"
+            />
+        </View>
+    ))
+    .add('multiline with text 3', () => (
+        <View style={style}>
+            <TextInput
+                error={false}
+                value={'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris.'}
+                placeholder={'secret key'}
+                onChangeText={() => {}}
                 numberOfLines={4}
                 returnKeyType="done"
+            />
+        </View>
+    ))
+    .add('with label', () => (
+        <View style={style}>
+            <TextInput
+                label={'Lorem ipsum'}
+                error={false}
+                value={''}
+                placeholder={'secret key'}
+                onChangeText={() => {}}
             />
         </View>
     ))
