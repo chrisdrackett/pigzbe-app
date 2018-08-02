@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, ScrollView, Dimensions} from 'react-native';
 import styles from './styles';
+import isAndroid from '../../utils/is-android';
 
 const getWidth = () => Dimensions.get('window').width;
 

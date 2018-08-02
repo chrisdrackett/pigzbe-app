@@ -9,7 +9,7 @@ import Loader from '../../components/loader';
 import styles from './styles';
 import {color} from '../../styles';
 
-export default class extends Component {
+export default class StepModule extends Component {
 
   static defaultProps = {
       scroll: true,
