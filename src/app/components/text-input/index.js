@@ -2,6 +2,10 @@ import React, {Fragment} from 'react';
 import {TextInput, Text, View} from 'react-native';
 import styles from './styles';
 import {color} from '../../styles';
+import isAndroid from '../../utils/is-android';
+
+const padding = isAndroid ? 11 : 0;
+const paddingMulti = isAndroid ? 11 : 8;
 
 const getHeight = (numberOfLines, margin = 0) => 24 + 21 * numberOfLines + margin;
 
@@ -9,7 +13,8 @@ const getStyle = (error, numberOfLines, style) => {
     let s = [styles.input, {
         borderRadius: numberOfLines > 1 ? 5 : 22.5,
         height: getHeight(numberOfLines),
-        paddingTop: numberOfLines > 1 ? 11 : 2,
+        paddingTop: numberOfLines > 1 ? paddingMulti : padding,
+        // paddingTop: numberOfLines > 1 ? 11 : 2,
     }];
 
     if (error) {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {View, Dimensions} from 'react-native';
 import Header from '../../components/header';
 import StepHeader from '../../components/step-header';
 import Container from '../../components/container';
@@ -35,6 +35,8 @@ export default class extends Component {
           loaderMessage
       } = this.props;
 
+      const {height} = Dimensions.get('window');
+
       return (
           <Container style={styles.wrapper} scroll={false}>
               <View style={styles.bg}/>
@@ -48,7 +50,7 @@ export default class extends Component {
                       }]}
                   >
                       {(content || error) && (
-                          <View style={styles.containerText}>
+                          <View style={[styles.containerText, {paddingTop: height > 568 ? 32 : 25}]}>
                               {typeof content === 'string' ? (
                                   <Paragraph>{content}</Paragraph>
                               ) : (

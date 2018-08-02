@@ -17,25 +17,13 @@ export default StyleSheet.create({
         marginBottom: 20,
         textAlign: 'center'
     },
-    subtitle: {
-        fontFamily,
-        color: color.whiteOpacity60,
-        fontSize: 14,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 20,
-        textAlign: 'center'
-    },
-    warning: {
-        color: color.blue,
-        fontSize: 14,
-        fontWeight: 'bold',
-    },
     checkbox: {
         position: 'relative',
         paddingLeft: 58,
         marginTop: 5,
-        marginBottom: 28,
+        marginBottom: 18,
+        paddingBottom: 10,
+        width: '100%',
     },
     checkboxCheck: {
         borderRadius: 5,
@@ -48,10 +36,10 @@ export default StyleSheet.create({
         left: 0,
     },
     checkboxText: {
-        marginLeft: 0,
-        marginRight: 0,
-        marginBottom: 0,
-        textAlign: 'left',
+        fontFamily,
+        color: color.blue,
+        fontSize: 14,
+        fontWeight: 'bold',
     },
     tick: {
         width: 32,

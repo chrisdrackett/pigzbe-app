@@ -19,6 +19,8 @@ export default StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         paddingTop: 12,
+        textAlignVertical: 'top',
+        lineHeight: 21,
     },
     label: {
         fontFamily,

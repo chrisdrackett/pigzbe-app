@@ -68,7 +68,7 @@ export class KeysSave extends Component {
                             title={'Secret Key'}
                             content={secretKey}
                             onPress={this.onCopy}
-                            style={{marginBottom: 16, marginTop: -26}}
+                            style={{marginBottom: 16}}
                         />
                         <Button
                             label={'Save Key'}

@@ -35,7 +35,7 @@ export default class ConfirmCopy extends Component {
                             <Image style={styles.tick} source={require('./images/tick.png')}/>
                         )}
                     </View>
-                    <Text style={[styles.subtitle, styles.warning, styles.checkboxText]}>
+                    <Text style={styles.checkboxText}>
                         {'I confirm I have made a secure copy of my keys.'}
                     </Text>
                 </TouchableOpacity>
