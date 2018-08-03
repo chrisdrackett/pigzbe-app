@@ -26,6 +26,7 @@ function loadStories() {
     require('./stories/loader.js');
     require('./stories/load-error.js');
     require('./stories/alert.js');
+    require('./stories/family.js');
 }
 
 configure(loadStories, module);
