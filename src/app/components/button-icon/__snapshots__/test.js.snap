@@ -2,16 +2,8 @@
 
 exports[`ButtonIcon Icon renders correctly 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
   accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
   isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -32,8 +24,6 @@ exports[`ButtonIcon Icon renders correctly 1`] = `
       "width": 60,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
   <Image
     source="banana"

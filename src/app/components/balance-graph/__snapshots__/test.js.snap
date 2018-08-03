@@ -5,7 +5,9 @@ exports[`Balance Graph renders correctly 1`] = `
   style={
     Object {
       "alignSelf": "stretch",
-      "backgroundColor": "rgb(21, 74, 150)",
+      "backgroundColor": "rgb(59, 113, 190)",
+      "borderTopLeftRadius": 5,
+      "borderTopRightRadius": 5,
       "minHeight": 130,
       "paddingBottom": 20,
       "paddingTop": 10,
@@ -54,9 +56,6 @@ exports[`Balance Graph renders correctly 1`] = `
       />
       <View>
         <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
           style={
             Object {
               "color": "rgb(255, 255, 255)",
@@ -68,9 +67,6 @@ exports[`Balance Graph renders correctly 1`] = `
           Wollo
         </Text>
         <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
           style={
             Object {
               "color": "rgba(255, 255, 255, 0.6)",

@@ -15,7 +15,6 @@ exports[`Coin renders correctly 1`] = `
   }
 >
   <Image
-    source={undefined}
     style={
       Array [
         Object {
@@ -29,9 +28,6 @@ exports[`Coin renders correctly 1`] = `
     }
   />
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Object {
         "color": "rgb(74, 74, 74)",
@@ -44,9 +40,6 @@ exports[`Coin renders correctly 1`] = `
     btc
   </Text>
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Object {
         "color": "rgba(74, 74, 74, 0.5)",

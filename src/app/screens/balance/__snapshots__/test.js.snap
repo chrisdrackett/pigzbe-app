@@ -1,26 +1,993 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Balance renders correctly 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "backgroundColor": "rgb(0, 50, 120)",
-      "bottom": 0,
-      "flex": 1,
-      "justifyContent": "center",
-      "left": 0,
-      "position": "absolute",
-      "right": 0,
-      "top": 0,
+Array [
+  <View
+    onLayout={[Function]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "rgb(0, 50, 120)",
+          "flex": 1,
+          "justifyContent": "space-between",
+        },
+        Object {
+          "width": 750,
+        },
+        undefined,
+      ]
     }
-  }
->
-  <ActivityIndicator
-    animating={true}
-    color="rgb(230, 155, 230)"
-    hidesWhenStopped={true}
-    size="large"
-  />
-</View>
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgb(21, 74, 150)",
+          "bottom": 0,
+          "height": "50%",
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgb(0, 50, 120)",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/logo/images/pigzbe_logo_inapp.png",
+          }
+        }
+        style={
+          Object {
+            "height": 25,
+            "marginBottom": 10,
+            "marginTop": 34,
+            "width": 65,
+          }
+        }
+      />
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "height": 40,
+            "opacity": 1,
+            "paddingBottom": 11,
+            "paddingLeft": 11,
+            "paddingRight": 11,
+            "paddingTop": 11,
+            "position": "absolute",
+            "right": 10,
+            "top": 24,
+            "width": 40,
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../src/app/components/header/images/settings-icon.png",
+            }
+          }
+          style={
+            Object {
+              "height": 18,
+              "width": 18,
+            }
+          }
+        />
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+          "marginTop": 20,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "height": 78,
+            },
+            Object {
+              "height": 32,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "marginBottom": -20,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "justifyContent": "center",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Image
+                source={
+                  Object {
+                    "testUri": "../../../src/app/components/wollo/images/currency_logo.png",
+                  }
+                }
+                style={
+                  Object {
+                    "height": 19,
+                    "marginRight": 10,
+                    "width": 23,
+                  }
+                }
+              />
+              <Text
+                style={
+                  Object {
+                    "color": "rgb(255, 255, 255)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 22,
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                0
+              </Text>
+            </View>
+            <Text
+              style={
+                Object {
+                  "color": "rgba(255, 255, 255, 0.6)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Wollo balance
+            </Text>
+          </View>
+        </View>
+      </View>
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/step-header/images/piggy.png",
+          }
+        }
+        style={
+          Object {
+            "height": 100,
+            "marginBottom": -30,
+            "marginTop": 8,
+            "width": 200,
+          }
+        }
+      />
+    </View>
+    <View
+      onLayout={[Function]}
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "flexGrow": 1,
+            },
+            Object {
+              "bottom": 0,
+            },
+          ]
+        }
+      >
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "rgb(0, 50, 120)",
+                "flex": 1,
+                "justifyContent": "space-between",
+              },
+              Object {
+                "width": 750,
+              },
+              Array [
+                Object {
+                  "alignSelf": "center",
+                  "borderTopLeftRadius": 5,
+                  "borderTopRightRadius": 5,
+                  "width": "88.75%",
+                },
+                Object {
+                  "backgroundColor": "rgb(247, 247, 250)",
+                },
+              ],
+            ]
+          }
+        >
+          <RCTScrollView
+            bounces={false}
+            contentContainerStyle={
+              Object {
+                "flexGrow": 1,
+                "justifyContent": "space-between",
+              }
+            }
+            style={
+              Object {
+                "flex": 1,
+              }
+            }
+          >
+            <View>
+              <View
+                style={
+                  Array [
+                    null,
+                    null,
+                  ]
+                }
+              >
+                <View>
+                  <View
+                    style={
+                      Object {
+                        "alignSelf": "stretch",
+                        "backgroundColor": "rgb(59, 113, 190)",
+                        "borderTopLeftRadius": 5,
+                        "borderTopRightRadius": 5,
+                        "minHeight": 130,
+                        "paddingBottom": 20,
+                        "paddingTop": 10,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignSelf": "stretch",
+                          "flex": 1,
+                          "flexDirection": "row",
+                          "marginTop": 20,
+                          "paddingLeft": 30,
+                          "paddingRight": 30,
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "width": "50%",
+                          }
+                        }
+                      >
+                        <Image
+                          source={
+                            Object {
+                              "testUri": "../../../src/app/components/coin-icon/images/coin-wlo.png",
+                            }
+                          }
+                          style={
+                            Array [
+                              Object {
+                                "height": 35,
+                                "width": 35,
+                              },
+                              Object {
+                                "marginRight": 10,
+                              },
+                            ]
+                          }
+                        />
+                        <View>
+                          <Text
+                            style={
+                              Object {
+                                "color": "rgb(255, 255, 255)",
+                                "fontFamily": "Poppins",
+                                "fontWeight": "bold",
+                              }
+                            }
+                          >
+                            Wollo
+                          </Text>
+                          <Text
+                            style={
+                              Object {
+                                "color": "rgba(255, 255, 255, 0.6)",
+                                "fontFamily": "Poppins",
+                                "fontWeight": "bold",
+                              }
+                            }
+                          >
+                            0
+                          </Text>
+                        </View>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "flex-end",
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgb(255, 255, 255)",
+                              "fontFamily": "Poppins",
+                              "fontWeight": "bold",
+                              "marginRight": 3,
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          $
+                          0
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "backgroundColor": "rgb(247, 247, 250)",
+                        "justifyContent": "center",
+                        "paddingBottom": 20,
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Object {
+                          "color": "rgb(74, 74, 74)",
+                          "fontFamily": "Poppins",
+                          "fontSize": 14,
+                          "marginTop": 20,
+                        }
+                      }
+                    >
+                      Your balance converted
+                    </Text>
+                    <Text
+                      onPress={[Function]}
+                      style={
+                        Object {
+                          "color": "rgb(74, 74, 74)",
+                          "fontFamily": "Poppins",
+                          "fontSize": 12,
+                        }
+                      }
+                    >
+                      Prices by CryptoCompare
+                    </Text>
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "flex-start",
+                          "flexDirection": "row",
+                          "flexWrap": "wrap",
+                          "justifyContent": "space-between",
+                          "marginTop": 20,
+                          "paddingLeft": 20,
+                          "paddingRight": 20,
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "flex": 1,
+                            "flexShrink": 0,
+                            "justifyContent": "center",
+                            "marginBottom": 20,
+                            "minWidth": "26%",
+                            "width": "26%",
+                          }
+                        }
+                      >
+                        <Image
+                          source={
+                            Object {
+                              "testUri": "../../../src/app/components/coin-icon/images/coin-xlm.png",
+                            }
+                          }
+                          style={
+                            Array [
+                              Object {
+                                "height": 35,
+                                "width": 35,
+                              },
+                              Object {
+                                "marginBottom": 15,
+                              },
+                            ]
+                          }
+                        />
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgb(74, 74, 74)",
+                              "fontFamily": "Poppins",
+                              "fontSize": 14,
+                              "fontWeight": "bold",
+                            }
+                          }
+                        >
+                          XLM
+                        </Text>
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgba(74, 74, 74, 0.5)",
+                              "fontFamily": "Poppins",
+                              "fontSize": 14,
+                              "fontWeight": "bold",
+                            }
+                          }
+                        >
+                          0
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "flex": 1,
+                            "flexShrink": 0,
+                            "justifyContent": "center",
+                            "marginBottom": 20,
+                            "minWidth": "26%",
+                            "width": "26%",
+                          }
+                        }
+                      >
+                        <Image
+                          source={
+                            Object {
+                              "testUri": "../../../src/app/components/coin-icon/images/coin-btc.png",
+                            }
+                          }
+                          style={
+                            Array [
+                              Object {
+                                "height": 35,
+                                "width": 35,
+                              },
+                              Object {
+                                "marginBottom": 15,
+                              },
+                            ]
+                          }
+                        />
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgb(74, 74, 74)",
+                              "fontFamily": "Poppins",
+                              "fontSize": 14,
+                              "fontWeight": "bold",
+                            }
+                          }
+                        >
+                          BTC
+                        </Text>
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgba(74, 74, 74, 0.5)",
+                              "fontFamily": "Poppins",
+                              "fontSize": 14,
+                              "fontWeight": "bold",
+                            }
+                          }
+                        >
+                          0
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "flex": 1,
+                            "flexShrink": 0,
+                            "justifyContent": "center",
+                            "marginBottom": 20,
+                            "minWidth": "26%",
+                            "width": "26%",
+                          }
+                        }
+                      >
+                        <Image
+                          source={
+                            Object {
+                              "testUri": "../../../src/app/components/coin-icon/images/coin-eth.png",
+                            }
+                          }
+                          style={
+                            Array [
+                              Object {
+                                "height": 35,
+                                "width": 35,
+                              },
+                              Object {
+                                "marginBottom": 15,
+                              },
+                            ]
+                          }
+                        />
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgb(74, 74, 74)",
+                              "fontFamily": "Poppins",
+                              "fontSize": 14,
+                              "fontWeight": "bold",
+                            }
+                          }
+                        >
+                          ETH
+                        </Text>
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgba(74, 74, 74, 0.5)",
+                              "fontFamily": "Poppins",
+                              "fontSize": 14,
+                              "fontWeight": "bold",
+                            }
+                          }
+                        >
+                          0
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "flex": 1,
+                            "flexShrink": 0,
+                            "justifyContent": "center",
+                            "marginBottom": 20,
+                            "minWidth": "26%",
+                            "width": "26%",
+                          }
+                        }
+                      >
+                        <Image
+                          source={
+                            Object {
+                              "testUri": "../../../src/app/components/coin-icon/images/coin-eur.png",
+                            }
+                          }
+                          style={
+                            Array [
+                              Object {
+                                "height": 35,
+                                "width": 35,
+                              },
+                              Object {
+                                "marginBottom": 15,
+                              },
+                            ]
+                          }
+                        />
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgb(74, 74, 74)",
+                              "fontFamily": "Poppins",
+                              "fontSize": 14,
+                              "fontWeight": "bold",
+                            }
+                          }
+                        >
+                          EUR
+                        </Text>
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgba(74, 74, 74, 0.5)",
+                              "fontFamily": "Poppins",
+                              "fontSize": 14,
+                              "fontWeight": "bold",
+                            }
+                          }
+                        >
+                          0
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "flex": 1,
+                            "flexShrink": 0,
+                            "justifyContent": "center",
+                            "marginBottom": 20,
+                            "minWidth": "26%",
+                            "width": "26%",
+                          }
+                        }
+                      >
+                        <Image
+                          source={
+                            Object {
+                              "testUri": "../../../src/app/components/coin-icon/images/coin-jpy.png",
+                            }
+                          }
+                          style={
+                            Array [
+                              Object {
+                                "height": 35,
+                                "width": 35,
+                              },
+                              Object {
+                                "marginBottom": 15,
+                              },
+                            ]
+                          }
+                        />
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgb(74, 74, 74)",
+                              "fontFamily": "Poppins",
+                              "fontSize": 14,
+                              "fontWeight": "bold",
+                            }
+                          }
+                        >
+                          JPY
+                        </Text>
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgba(74, 74, 74, 0.5)",
+                              "fontFamily": "Poppins",
+                              "fontSize": 14,
+                              "fontWeight": "bold",
+                            }
+                          }
+                        >
+                          0
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "flex": 1,
+                            "flexShrink": 0,
+                            "justifyContent": "center",
+                            "marginBottom": 20,
+                            "minWidth": "26%",
+                            "width": "26%",
+                          }
+                        }
+                      >
+                        <Image
+                          source={
+                            Object {
+                              "testUri": "../../../src/app/components/coin-icon/images/coin-gbp.png",
+                            }
+                          }
+                          style={
+                            Array [
+                              Object {
+                                "height": 35,
+                                "width": 35,
+                              },
+                              Object {
+                                "marginBottom": 15,
+                              },
+                            ]
+                          }
+                        />
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgb(74, 74, 74)",
+                              "fontFamily": "Poppins",
+                              "fontSize": 14,
+                              "fontWeight": "bold",
+                            }
+                          }
+                        >
+                          GBP
+                        </Text>
+                        <Text
+                          style={
+                            Object {
+                              "color": "rgba(74, 74, 74, 0.5)",
+                              "fontFamily": "Poppins",
+                              "fontSize": 14,
+                              "fontWeight": "bold",
+                            }
+                          }
+                        >
+                          0
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </RCTScrollView>
+        </View>
+      </View>
+    </View>
+  </View>,
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(0, 50, 120, 0.8)",
+        "bottom": 0,
+        "flex": 1,
+        "justifyContent": "center",
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+  >
+    <View>
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/modal/images/bird.png",
+          }
+        }
+        style={
+          Object {
+            "alignSelf": "center",
+            "height": 39,
+            "width": 58,
+          }
+        }
+      />
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderRadius": 10,
+            "justifyContent": "center",
+            "paddingBottom": 8,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 22,
+            "width": 284,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "rgb(255, 255, 255)",
+                "fontFamily": "Poppins",
+                "fontSize": 22,
+                "fontWeight": "bold",
+              },
+              Object {
+                "color": "rgb(0, 50, 120)",
+                "marginBottom": 10,
+              },
+              undefined,
+            ]
+          }
+        >
+          Howdy!
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "fontSize": 16,
+                "marginBottom": 18,
+                "textAlign": "center",
+              },
+              null,
+              undefined,
+            ]
+          }
+        >
+          Welcome to your Pigzbe wallet. To fully activate your wallet you need to transfer funds into it.
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "fontSize": 16,
+                "marginBottom": 18,
+                "textAlign": "center",
+              },
+              null,
+              Object {
+                "marginBottom": 40,
+              },
+            ]
+          }
+        >
+          If you’re an 
+          <Text
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            ICO
+          </Text>
+           participant, you can do this via settings.
+        </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "stretch",
+            }
+          }
+        >
+          <View
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "rgb(21, 74, 150)",
+                "borderColor": "rgb(21, 74, 150)",
+                "borderRadius": 22.5,
+                "borderWidth": 1,
+                "marginBottom": 10,
+                "maxWidth": 400,
+                "opacity": 1,
+                "width": "100%",
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "stretch",
+                    "color": "rgb(255, 255, 255)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                    "height": 45,
+                    "paddingLeft": 20,
+                    "paddingRight": 20,
+                    "paddingTop": 12,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                  null,
+                  undefined,
+                ]
+              }
+            >
+              Good to know!
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "stretch",
+            }
+          }
+        >
+          <View
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "rgba(255, 255, 255, 0)",
+                "borderColor": "rgb(0, 50, 120)",
+                "borderRadius": 22.5,
+                "borderWidth": 1,
+                "marginBottom": 10,
+                "maxWidth": 400,
+                "opacity": 1,
+                "width": "100%",
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "stretch",
+                    "color": "rgb(255, 255, 255)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                    "height": 45,
+                    "paddingLeft": 20,
+                    "paddingRight": 20,
+                    "paddingTop": 12,
+                    "textAlign": "center",
+                  },
+                  Object {
+                    "color": "rgb(0, 50, 120)",
+                  },
+                  null,
+                  undefined,
+                ]
+              }
+            >
+              Go to settings
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>,
+]
 `;

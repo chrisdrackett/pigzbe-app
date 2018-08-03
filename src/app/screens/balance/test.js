@@ -4,6 +4,8 @@ import {Balance} from './';
 
 const props = {
     navigation: {
+        navigate: () => {},
+        addListener: () => {},
         state: {
             key: 'SCREEN_BALANCE',
             routeName: 'SCREEN_BALANCE'

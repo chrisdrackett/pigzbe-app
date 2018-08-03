@@ -5,9 +5,7 @@ exports[`Wollo renders correctly 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "display": "flex",
       "justifyContent": "center",
-      "marginTop": 10,
     }
   }
 >
@@ -15,7 +13,6 @@ exports[`Wollo renders correctly 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "display": "flex",
         "flexDirection": "row",
         "justifyContent": "center",
       }
@@ -36,14 +33,12 @@ exports[`Wollo renders correctly 1`] = `
       }
     />
     <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
       style={
         Object {
           "color": "rgb(255, 255, 255)",
           "fontFamily": "Poppins",
-          "fontSize": 40,
+          "fontSize": 22,
+          "fontWeight": "bold",
         }
       }
     >
@@ -51,14 +46,12 @@ exports[`Wollo renders correctly 1`] = `
     </Text>
   </View>
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Object {
         "color": "rgba(255, 255, 255, 0.6)",
         "fontFamily": "Poppins",
         "fontSize": 14,
+        "fontWeight": "bold",
       }
     }
   >

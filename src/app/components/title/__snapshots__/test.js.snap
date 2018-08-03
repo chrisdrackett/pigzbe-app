@@ -2,17 +2,16 @@
 
 exports[`Title renders correctly 1`] = `
 <Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
   style={
-    Object {
-      "color": "rgb(74, 74, 74)",
-      "fontFamily": "Poppins",
-      "fontSize": 16,
-      "marginTop": 25,
-      "textAlign": "center",
-    }
+    Array [
+      Object {
+        "color": "rgb(255, 255, 255)",
+        "fontFamily": "Poppins",
+        "fontSize": 22,
+        "fontWeight": "bold",
+      },
+      undefined,
+    ]
   }
 />
 `;
