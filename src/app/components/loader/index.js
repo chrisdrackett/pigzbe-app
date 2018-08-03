@@ -1,24 +1,21 @@
 import React from 'react';
-import {
-    ActivityIndicator,
-    Text,
-    View
-} from 'react-native';
+import {ActivityIndicator, Text, View} from 'react-native';
 import styles from './styles';
 import {color} from '../../styles';
 
 export default ({
-    isLoading,
+    loading,
     message,
-    transparent
+    light,
+    style
 }) => {
-    if (isLoading) {
+    if (loading) {
         return (
-            <View style={transparent ? [styles.loader, styles.transparent] : styles.loader}>
+            <View style={[styles.loader, light ? styles.light : null, style]}>
+                <ActivityIndicator size="large" color={light ? color.blue : color.pink} />
                 {message ? (
-                    <Text style={styles.message}>{message}</Text>
+                    <Text style={[styles.message, light ? styles.messageLight : null]}>{message}</Text>
                 ) : null}
-                <ActivityIndicator size="large" color={color.pink} />
             </View>
         );
     }

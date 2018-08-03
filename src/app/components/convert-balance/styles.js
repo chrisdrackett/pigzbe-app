@@ -7,16 +7,15 @@ import {
 export default StyleSheet.create({
     container: {
         backgroundColor: color.lightGrey,
-        alignSelf: 'stretch',
-        flex: 1,
+        // alignSelf: 'stretch',
+        // flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: 20,
         paddingBottom: 20
     },
     containerCoins: {
-        alignSelf: 'stretch',
-        flex: 1,
+        // flexGrow: 0,
+        // flex: 1,
         flexDirection: 'row',
         marginTop: 20,
         paddingLeft: 20,
@@ -28,11 +27,12 @@ export default StyleSheet.create({
     title: {
         fontFamily,
         fontSize: 14,
-        color: color.darkGrey
+        color: color.darkGrey,
+        marginTop: 20,
     },
     label: {
         fontFamily,
         fontSize: 12,
         color: color.darkGrey
-    }
+    },
 });

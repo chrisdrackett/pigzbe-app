@@ -22,7 +22,7 @@ describe('Actions', () => {
         });
 
         it('should create an action to validate transaction', () => {
-            expect(actions.validateTransaction('')).toEqual(expect.any(Function));
+            expect(actions.validateTx('')).toEqual(expect.any(Function));
         });
 
         it('should create an action to submit transaction', () => {
@@ -43,11 +43,11 @@ describe('Actions', () => {
         });
 
         it('should create an action to load', () => {
-            expect(actions.messagesLoad()).toEqual(expect.any(Function));
+            expect(actions.loadMessages()).toEqual(expect.any(Function));
         });
 
         it('should create an action to dispatch loading', () => {
-            expect(actions.messagesLoading(true)).toEqual({
+            expect(actions.loadMessagesing(true)).toEqual({
                 type: actions.MESSAGES_LOADING,
                 value: true
             });
@@ -61,33 +61,9 @@ describe('Actions', () => {
         });
     });
 
-    describe('Profile', () => {
-        it('should create an action to load', () => {
-            expect(actions.profileLoad()).toEqual(expect.any(Function));
-        });
-
-        it('should create an action to dispatch loading', () => {
-            expect(actions.profileLoading(true)).toEqual({
-                type: actions.PROFILE_LOADING,
-                value: true
-            });
-        });
-
-        it('should create an action to update', () => {
-            expect(actions.profileUpdate({name: 'Name'})).toEqual(expect.any(Function));
-        });
-
-        it('should create an action to dispatch availability', () => {
-            expect(actions.profileAvailable(true)).toEqual({
-                type: actions.PROFILE_AVAILABLE,
-                value: true
-            });
-        });
-    });
-
     describe('Wollo', () => {
         it('should create an action to load account', () => {
-            expect(actions.loadAccount()).toEqual(expect.any(Function));
+            expect(actions.loadWallet()).toEqual(expect.any(Function));
         });
 
         it('should create an action to setUseTestnet', () => {

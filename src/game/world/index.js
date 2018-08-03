@@ -18,6 +18,10 @@ import Animations, {
     CHESTS,
     SECRET
 } from '../objects/animations';
+import {
+    COLLECTED,
+    LEARN
+} from '../constants';
 
 const mapJSON = require('../assets/maps/pigzbe_game.json');
 
@@ -60,7 +64,7 @@ export default class World {
         app.stage.addChild(this.coins.coinsA);
 
         this.characters = new Characters(map, () => {
-            app.emitter.emit('learn');
+            app.emitter.emit(LEARN);
         });
         app.stage.addChild(this.characters.container);
 
@@ -130,7 +134,7 @@ export default class World {
 
         if (this.coins.coinsCollected > this.coinsCollected) {
             this.coinsCollected = this.coins.coinsCollected;
-            this.app.emitter.emit('collected', this.coinsCollected);
+            this.app.emitter.emit(COLLECTED, this.coinsCollected);
         }
     }
 

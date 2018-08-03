@@ -65,7 +65,7 @@ const soundLoaderConfiguration = {
 };
 
 const config = {
-    mode: 'production',
+    mode: process.env.NODE_ENV === 'production' ? 'production' : 'none',
 
     entry: path.resolve(appDirectory, 'src/game/index.webview.js'),
 
@@ -96,9 +96,10 @@ const config = {
 webpack(config, (err, stats) => {
     const inputPath = path.join(config.output.path, config.output.filename);
     const outputPath = path.resolve(appDirectory, 'src/game/game.html');
+    const outputPathAndroid = path.resolve(appDirectory, 'android/app/src/main/assets/game.html');
 
     readFile(inputPath)
-        .then(data => writeFile(outputPath,
+        .then(data =>
             `<!DOCTYPE html>
              <html lang="en" dir="ltr">
                 <head>
@@ -123,7 +124,11 @@ webpack(config, (err, stats) => {
                     </script>
                 </body>
              </html>`
-        ))
+        )
+        .then(fileString => {
+            writeFile(outputPath, fileString);
+            writeFile(outputPathAndroid, fileString);
+        })
         .then(() => {
             process.stdout.write(stats.toString() + '\n');
             process.stdout.write('✓ game.html created\n');

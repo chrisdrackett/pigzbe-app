@@ -1,55 +1,93 @@
+import wait from '../utils/wait';
 import {
+    authCheckTouchId,
     authTouchId,
     authKeychain,
     authLogin,
-    profileLoad,
-    messagesLoad,
-    loadEscrow
+    loadSettings,
+    initializeConfig,
+    loadConfig,
+    loadKeys,
+    loadWallet,
+    loadMessages,
+    loadExchange
 } from './';
 
-const pkg = require('../../../package.json');
-
+export const LOADER_INITIALIZING = 'LOADER_INITIALIZING';
 export const LOADER_LOADING = 'LOADER_LOADING';
 export const LOADER_ERROR = 'LOADER_ERROR';
+export const LOADER_MESSAGE = 'LOADER_MESSAGE';
 
-const loading = value => ({type: LOADER_LOADING, value});
+const initializing = value => ({type: LOADER_INITIALIZING, value});
 
-export const loaderError = error => ({type: LOADER_ERROR, error});
+const loaderLoading = value => ({type: LOADER_LOADING, value});
 
-export const load = key => dispatch => {
-    dispatch(loading(true));
-    return dispatch(authLogin(key))
-        .then(() => dispatch(profileLoad()))
-        .then(() => dispatch(loadEscrow()))
-        .then(() => dispatch(messagesLoad()))
-        .then(() => dispatch(loading(false)))
-        .catch(error => {
-            console.log(error);
-            dispatch(loaderError(error));
-            dispatch(loading(false));
-        });
+const loaderError = error => ({type: LOADER_ERROR, error});
+
+const loaderMessage = message => ({type: LOADER_MESSAGE, message});
+
+export const loadContent = () => async dispatch => {
+    dispatch(loaderLoading(true));
+
+    try {
+        dispatch(loaderMessage('Loading'));
+        await dispatch(loadConfig());
+        await dispatch(loadMessages());
+        await dispatch(loadExchange());
+    } catch (error) {
+        console.log(error);
+        dispatch(loaderError(error));
+    }
+    dispatch(loaderMessage(null));
+    dispatch(loaderLoading(false));
 };
 
-export const tryAutoLoad = () => dispatch => {
-    console.log('tryAutoLoad');
-    dispatch(authKeychain())
-        .then(key => {
-            if (key) {
-                dispatch(authTouchId())
-                    .then(() => dispatch(load(key)))
-                    .catch(error => console.log(error));
-            }
-        });
-};
+export const loginAndLoad = passcode => async dispatch => {
+    dispatch(loaderLoading(true));
 
-export const loadContent = query => () => {
-    const {space, accessToken} = pkg.contentful;
-    return fetch(`https://cdn.contentful.com/spaces/${space}/entries?access_token=${accessToken}&${query}`, {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
+    try {
+        const success = await dispatch(authLogin(passcode));
+        if (success) {
+            await dispatch(loaderMessage('Loading'));
+            await dispatch(loadConfig());
+            await dispatch(loadKeys());
+            await dispatch(loadWallet());
+            await dispatch(loadMessages());
+            await dispatch(loadExchange());
         }
-    })
-        .then(res => res.json());
+    } catch (error) {
+        console.log(error);
+        dispatch(loaderError(error));
+    }
+    dispatch(loaderMessage(null));
+    dispatch(loaderLoading(false));
+};
+
+export const tryTouchIdLogin = () => async (dispatch, getState) => {
+    const {enableTouchId} = getState().settings;
+    if (!enableTouchId) {
+        return;
+    }
+
+    const passcode = await dispatch(authKeychain());
+    if (!passcode) {
+        return;
+    }
+
+    try {
+        await dispatch(authTouchId());
+        dispatch(loginAndLoad(passcode));
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const initialize = () => async dispatch => {
+    dispatch(initializing(true));
+    dispatch(initializeConfig());
+    await dispatch(loadSettings());
+    await dispatch(authCheckTouchId());
+    dispatch(tryTouchIdLogin());
+    await wait(1);
+    dispatch(initializing(false));
 };

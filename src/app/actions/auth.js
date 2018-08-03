@@ -1,53 +1,63 @@
-import Stellar from '../stellar';
-import {loadAccount} from './wollo';
-import {load, save, clear} from '../utils/keychain';
-import {authenticate} from '../utils/touch-id';
-// import wait from './wait';
+import Keychain from '../utils/keychain';
+import TouchId from '../utils/touch-id';
+import {KEYCHAIN_ID_PASSCODE} from '../constants';
+// import {clearKeys, appError} from './';
+import {appError} from './';
 
+export const AUTH_CREATE = 'AUTH_CREATE';
 export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
 export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
 export const AUTH_LOGIN = 'AUTH_LOGIN';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
-export const AUTH_TEST_USER = 'AUTH_TEST_USER';
+export const AUTH_TOUCH_ID_SUPPORT = 'AUTH_TOUCH_ID_SUPPORT';
 
-export const authTouchId = () => () => authenticate();
-
-export const authKeychain = () => () => {
-    return load()
-        .then(result => {
-            if (result.error) {
-                console.log('Error:', result.error.message);
-            }
-            return result;
-        })
-        .then(result => result.key);
+export const authCheckTouchId = () => async dispatch => {
+    const support = await TouchId.getSupport();
+    dispatch({type: AUTH_TOUCH_ID_SUPPORT, support});
 };
 
-export const authLogin = secretKey => dispatch => {
-    dispatch({type: AUTH_LOGIN_START});
+export const authTouchId = () => () => TouchId.authenticate();
 
-    let keypair = null;
+export const authKeychain = () => async () => {
+    const result = await Keychain.load(KEYCHAIN_ID_PASSCODE);
 
-    try {
-        keypair = Stellar.Keypair.fromSecret(secretKey);
-    } catch (e) {}
-
-    if (!keypair) {
-        const error = new Error('Invalid key');
-        dispatch({type: AUTH_LOGIN_FAIL, error});
-        return Promise.reject(error);
+    if (result.error) {
+        console.log(result.error.message);
+        return null;
     }
 
-    return dispatch(loadAccount(keypair.publicKey()))
-        // .then(() => wait(0.25))
-        .then(() => dispatch({type: AUTH_LOGIN, keypair}))
-        .then(() => save(keypair.secret()))
-        .catch(error => dispatch({type: AUTH_LOGIN_FAIL, error}));
+    return result.key;
 };
 
-export const authLogout = () => dispatch => {
-    clear();
+export const authCreate = passcode => async dispatch => {
+    dispatch({type: AUTH_CREATE, passcode});
+    await Keychain.save(KEYCHAIN_ID_PASSCODE, passcode);
+    // await dispatch(clearKeys());
+    await dispatch(authLogin(passcode));
+};
+
+export const authLogin = passcode => async dispatch => {
+    dispatch(appError(null));
+    dispatch({type: AUTH_LOGIN_START});
+
+    const savedPasscode = await dispatch(authKeychain());
+
+    if (!passcode || !savedPasscode || passcode !== savedPasscode) {
+        const error = new Error('Invalid passcode');
+        dispatch({type: AUTH_LOGIN_FAIL, error});
+        dispatch(appError(error));
+        return false;
+    }
+
+    dispatch({type: AUTH_LOGIN});
+    return true;
+};
+
+export const authLogout = () => async dispatch => {
     dispatch({type: AUTH_LOGOUT});
 };
 
-export const authTestUser = testUserKey => ({type: AUTH_TEST_USER, testUserKey});
+export const authClear = () => async dispatch => {
+    await Keychain.clear(KEYCHAIN_ID_PASSCODE);
+    dispatch(authLogout());
+};

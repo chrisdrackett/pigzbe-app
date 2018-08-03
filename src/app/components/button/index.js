@@ -1,45 +1,40 @@
 import React from 'react';
 import {
+    View,
     Text,
     TouchableOpacity
 } from 'react-native';
 import styles from './styles';
 
-const getButtonHitStyle = (plain, style) => {
-    if (plain) {
-        return null;
-    }
-
-    return [styles.buttonHit, style];
-};
-
-const getButtonTextStyle = (plain, disabled, textStyle) => {
-    if (plain) {
-        return [styles.button, styles.buttonPlain, textStyle];
-    }
-
-    if (disabled) {
-        return [styles.button, styles.buttonDisabled, textStyle];
-    }
-
-    return [styles.button, textStyle];
-};
-
 export default ({
     label,
     onPress,
-    plain,
     disabled,
+    theme = '',
     style,
-    textStyle
+    textStyle,
 }) => (
-    <TouchableOpacity
-        disabled={disabled}
-        style={getButtonHitStyle(plain, style)}
-        onPress={() => disabled ? false : onPress()}>
-        <Text
-            style={getButtonTextStyle(plain, disabled, textStyle)}>
-            {label}
-        </Text>
-    </TouchableOpacity>
+    <View style={styles.container}>
+        <TouchableOpacity
+            onPress={() => disabled ? false : onPress()}
+            disabled={disabled}
+            style={[
+                styles.hit,
+                styles[`hit__${theme}`],
+                disabled ? [styles.hit__disabled, styles[`hit__disabled__${theme}`]] : null,
+                style
+            ]}
+        >
+            <Text
+                style={[
+                    styles.text,
+                    styles[`text__${theme}`],
+                    disabled ? [styles.text__disabled, styles[`text__disabled__${theme}`]] : null,
+                    textStyle
+                ]}
+            >
+                {label}
+            </Text>
+        </TouchableOpacity>
+    </View>
 );

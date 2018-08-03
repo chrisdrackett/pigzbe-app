@@ -7,17 +7,15 @@ import {
 export default StyleSheet.create({
     container: {
         flexDirection: 'row',
-        marginTop: 20,
-        marginBottom: 30,
+        marginTop: 10,
+        marginBottom: 20,
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingLeft: 20,
-        paddingRight: 20,
         alignSelf: 'stretch',
     },
     text: {
         fontFamily,
-        color: color.white,
+        color: color.blue,
         fontSize: 14,
         fontWeight: 'bold',
         marginRight: 10
@@ -30,7 +28,7 @@ export default StyleSheet.create({
         width: 30,
         height: 30,
         borderWidth: 1,
-        borderColor: color.white,
+        borderColor: color.blue,
         borderStyle: 'solid',
         borderRadius: 15,
         justifyContent: 'center',
@@ -39,15 +37,15 @@ export default StyleSheet.create({
     innerInactive: {
         width: 16,
         height: 16,
-        backgroundColor: color.white,
+        backgroundColor: color.blue,
         opacity: 0.3,
         borderRadius: 8
     },
     innerActive: {
         width: 16,
         height: 16,
-        backgroundColor: color.white,
+        backgroundColor: color.blue,
         opacity: 1,
         borderRadius: 8
-    }
+    },
 });

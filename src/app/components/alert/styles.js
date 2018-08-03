@@ -10,24 +10,34 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: color.red,
+        backgroundColor: color.orange,
         position: 'absolute',
         left: 0,
         top: 0,
         right: 0,
-        height: 80
+        paddingTop: 20,
     },
     message: {
         fontFamily,
         color: color.white,
-        fontSize: 16,
+        fontSize: 14,
+        fontWeight: 'bold',
         textAlign: 'left',
         marginTop: 20,
         marginBottom: 20,
-        marginLeft: 40,
-        marginRight: 20
+        marginLeft: 20,
+        width: '75%',
     },
     dismiss: {
-        marginRight: 20
-    }
+        marginRight: 10
+    },
+    closeIcon: {
+        width: 16,
+        height: 16
+    },
+    close: {
+        width: 40,
+        height: 40,
+        padding: 12,
+    },
 });

@@ -6,35 +6,114 @@ import {
 } from '../../styles';
 
 export default StyleSheet.create({
-    buttonHit: {
+    container: {
+        // backgroundColor: 'red',
         alignSelf: 'stretch',
-        backgroundColor: color.yellow,
-        borderColor: color.yellow,
+        alignItems: 'center',
+    },
+    hit: {
+        // alignSelf: 'stretch',
+        width: '100%',
+        backgroundColor: color.mediumBlue,
+        borderColor: color.mediumBlue,
         borderRadius: 22.5,
         borderWidth: 1,
-        marginBottom: 10
+        marginBottom: 10,
+        maxWidth: 400,
     },
-    button: {
+    text: {
         fontFamily,
         fontWeight: 'bold',
         alignSelf: 'stretch',
-        color: color.blue,
-        fontSize: 16,
+        color: color.white,
+        fontSize: 14,
         paddingLeft: 20,
         paddingRight: 20,
-        paddingTop: 10,
+        paddingTop: 12,
         height: 45,
         textAlign: 'center'
     },
-    buttonDisabled: {
-        color: color.blueOpacity40
+    hit__disabled: {
+        backgroundColor: color.mediumBlueOpacity50,
+        borderColor: color.transparent,
     },
-    buttonPlain: {
-        color: color.whiteOpacity70,
-        fontSize: 14,
+    text__disabled: {
+        color: color.white,
+    },
+
+    // theme light
+
+    hit__light: {
+        backgroundColor: color.white,
+        borderColor: color.white,
+    },
+    text__light: {
+        color: color.blue,
+    },
+    hit__disabled__light: {
+        backgroundColor: color.whiteOpacity60,
+        borderColor: color.transparent,
+    },
+    text__disabled__light: {
+        color: color.blueOpacity40,
+    },
+
+    // theme outline
+
+    hit__outline: {
+        backgroundColor: color.transparent,
+        borderColor: color.blue,
+    },
+    text__outline: {
+        color: color.blue,
+    },
+    hit__disabled__outline: {
+        backgroundColor: color.transparent,
+        borderColor: color.blueOpacity40,
+    },
+    text__disabled__outline: {
+        color: color.blueOpacity40,
+    },
+
+    // theme plain
+
+    hit__plain: {
+        backgroundColor: color.transparent,
+        borderColor: color.transparent,
+    },
+    text__plain: {
+        color: color.blue,
         textDecorationLine: 'underline',
         textDecorationStyle: 'solid',
-        fontSize: 14,
-        textDecorationColor: color.white
-    }
+        textDecorationColor: color.blue,
+    },
+    hit__disabled__plain: {
+        backgroundColor: color.transparent,
+        borderColor: color.transparent,
+    },
+    text__disabled__plain: {
+        color: color.blueOpacity40,
+        textDecorationColor: color.blueOpacity40,
+    },
+
+    // theme plain-light
+
+    hit__plain_light: {
+        backgroundColor: color.transparent,
+        borderColor: color.transparent,
+    },
+    text__plain_light: {
+        color: color.white,
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'solid',
+        textDecorationColor: color.white,
+    },
+    hit__disabled__plain_light: {
+        backgroundColor: color.transparent,
+        borderColor: color.transparent,
+    },
+    text__disabled__plain_light: {
+        color: color.whiteOpacity60,
+        textDecorationColor: color.whiteOpacity60,
+    },
 });

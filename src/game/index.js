@@ -9,6 +9,11 @@ import sounds from './assets/sounds';
 import Debug from './debug';
 import EventEmitter from 'eventemitter3';
 import sono from 'sono';
+import {
+    READY,
+    LOG,
+    ERROR
+} from './constants';
 
 const {abs, min, cos, sin} = Math;
 
@@ -45,10 +50,10 @@ export default class Game {
             width,
             height
         });
+        app.emitter = new EventEmitter();
+
         this.app = app;
         this.el = el;
-
-        app.emitter = new EventEmitter();
 
         this.el.appendChild(app.view);
         app.view.style.width = '100%';
@@ -81,10 +86,11 @@ export default class Game {
 
     load(app, resources) {
         Object.keys(sounds).map(key => {
-            sono.create({
+            const sound = sono.create({
                 id: key,
                 src: sounds[key]
             });
+            sound.isTouchLocked = false;
         });
 
         const music = sono.get('music');
@@ -99,6 +105,10 @@ export default class Game {
         Object.keys(resources).map(key =>
             app.loader.add(key, resources[key])
         );
+
+        app.loader.onError.add(error => {
+            app.emitter.emit(ERROR, error.message);
+        });
 
         app.loader.load((loader, assets) => {
             // parse fonts
@@ -126,12 +136,22 @@ export default class Game {
             this.debug = new Debug(app, this.world);
         }
 
-        app.renderer.plugins.prepare.upload(app.stage, () => {
-            app.start();
-            app.ticker.remove(this.update);
-            app.ticker.add(this.update);
-            app.emitter.emit('ready');
-        });
+        const rendererType = (app.renderer instanceof PIXI.CanvasRenderer) ? 'canvas' : 'webgl';
+        app.emitter.emit(LOG, rendererType);
+
+        if (rendererType === 'canvas') {
+            this.onReady(app);
+            return;
+        }
+
+        app.renderer.plugins.prepare.upload(app.stage, () => this.onReady(app));
+    }
+
+    onReady(app) {
+        app.start();
+        app.ticker.remove(this.update);
+        app.ticker.add(this.update);
+        app.emitter.emit(READY);
     }
 
     update = delta => {

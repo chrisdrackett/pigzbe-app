@@ -3,14 +3,14 @@ import * as Keychain from 'react-native-keychain';
 export const KEYCHAIN_NO_CREDENTIALS_STORED = 'No credentials stored';
 export const KEYCHAIN_NO_ACCESS = 'Keychain could not be accessed';
 
-export const save = async key => await Keychain.setGenericPassword('pigzbekey', key);
+export const save = async (id, key) => await Keychain.setGenericPassword('pigzbekey', key, id);
 
-export const load = async () => {
+export const load = async id => {
     let key = null;
     let error = null;
 
     try {
-        const credentials = await Keychain.getGenericPassword();
+        const credentials = await Keychain.getGenericPassword(id);
 
         if (credentials) {
             key = credentials.password;
@@ -28,4 +28,6 @@ export const load = async () => {
     };
 };
 
-export const clear = async () => await Keychain.resetGenericPassword();
+export const clear = async id => await Keychain.resetGenericPassword(id);
+
+export default module.exports;

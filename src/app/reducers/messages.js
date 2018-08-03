@@ -8,7 +8,7 @@ import {
 
 export const initialState = {
     messages: [],
-    messagesLoading: false,
+    loadMessagesing: false,
     messagesError: null,
     messagesNotify: false
 };
@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
         case MESSAGES_LOADING:
             return {
                 ...state,
-                messagesLoading: action.value
+                loadMessagesing: action.value
             };
         case MESSAGES_ERROR:
             return {

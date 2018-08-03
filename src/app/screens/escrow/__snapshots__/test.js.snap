@@ -1,0 +1,856 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Escrow renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "stretch",
+      "backgroundColor": "rgb(0, 50, 120)",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "flexBasis": 245,
+        "flexGrow": 0,
+        "height": 245,
+        "justifyContent": "flex-start",
+        "width": "100%",
+      }
+    }
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../src/app/components/logo/images/pigzbe_logo_inapp.png",
+        }
+      }
+      style={
+        Object {
+          "height": 25,
+          "marginBottom": 10,
+          "marginTop": 34,
+          "width": 65,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "rgb(255, 255, 255)",
+          "fontFamily": "Poppins",
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "marginLeft": 20,
+          "marginRight": 20,
+          "marginTop": 10,
+          "textAlign": "center",
+        }
+      }
+    >
+      Your Escrow Account
+    </Text>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "justifyContent": "center",
+          "marginTop": 10,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../src/app/components/wollo/images/currency_logo.png",
+            }
+          }
+          style={
+            Object {
+              "height": 19,
+              "marginRight": 10,
+              "width": 23,
+            }
+          }
+        />
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "rgb(255, 255, 255)",
+              "fontFamily": "Poppins",
+              "fontSize": 40,
+            }
+          }
+        >
+          2,500,000
+        </Text>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "rgba(255, 255, 255, 0.6)",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+          }
+        }
+      >
+        Wollo balance
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "bottom": 0,
+          "flex": 1,
+          "justifyContent": "flex-end",
+          "position": "absolute",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/pig/pig.png",
+          }
+        }
+        style={
+          Object {
+            "height": 35,
+            "width": 81,
+          }
+        }
+      />
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "stretch",
+        "alignSelf": "stretch",
+        "backgroundColor": "rgb(247, 247, 250)",
+        "flex": 1,
+        "justifyContent": "center",
+        "position": "relative",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.05)",
+          "height": 5,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "zIndex": 1,
+        }
+      }
+    />
+    <RCTScrollView
+      data={
+        Array [
+          Object {
+            "amount": "625000",
+            "date": "1525278258",
+            "hash": "a97c5c731b3de9257534025c54f9c1d12905486b16f01f208a3dab4417c17ff7",
+            "seq": "37602498806022150",
+            "xdr": "AAAAAA7pKTDVBpT9Foo2Jh3Ag48ub7TAn+zt24U7rovjQwRmAAAAZACFl0YAAAAGAAAAAQAAAABa6eYyAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAIjDkavLS2G4aKpTtfuqB6HUeiDwoJUTHahbtWaeZJ94AAAAAVdMTwAAAAAAN5Elfl1kQx1zgHE9fuRFc+Jxrn1+uK7y7B9BS/F6R+gAAAWvMQekAAAAAAAAAAAA",
+          },
+          Object {
+            "amount": "625000",
+            "date": "1525278264",
+            "hash": "5c374d271b3b104b254d981016e5bcbefcece0d0ac42c6ba133dbd855c091041",
+            "seq": "37602498806022151",
+            "xdr": "AAAAAA7pKTDVBpT9Foo2Jh3Ag48ub7TAn+zt24U7rovjQwRmAAAAZACFl0YAAAAHAAAAAQAAAABa6eY4AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAIjDkavLS2G4aKpTtfuqB6HUeiDwoJUTHahbtWaeZJ94AAAAAVdMTwAAAAAAN5Elfl1kQx1zgHE9fuRFc+Jxrn1+uK7y7B9BS/F6R+gAAAWvMQekAAAAAAAAAAAA",
+          },
+          Object {
+            "amount": "625000",
+            "date": "1525278270",
+            "hash": "adeaa44b6a3c5eb939fa093972b8e4484bcdd104d92cd53fda375b787fcd7cb1",
+            "seq": "37602498806022152",
+            "xdr": "AAAAAA7pKTDVBpT9Foo2Jh3Ag48ub7TAn+zt24U7rovjQwRmAAAAZACFl0YAAAAIAAAAAQAAAABa6eY+AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAIjDkavLS2G4aKpTtfuqB6HUeiDwoJUTHahbtWaeZJ94AAAAAVdMTwAAAAAAN5Elfl1kQx1zgHE9fuRFc+Jxrn1+uK7y7B9BS/F6R+gAAAWvMQekAAAAAAAAAAAA",
+          },
+          Object {
+            "amount": "625000",
+            "date": "1525278276",
+            "hash": "76bfcccad39648394f4818401a78875f290ce1c81e90f842fb77e8da4cef3b14",
+            "seq": "37602498806022153",
+            "xdr": "AAAAAA7pKTDVBpT9Foo2Jh3Ag48ub7TAn+zt24U7rovjQwRmAAAAZACFl0YAAAAJAAAAAQAAAABa6eZEAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAIjDkavLS2G4aKpTtfuqB6HUeiDwoJUTHahbtWaeZJ94AAAAAVdMTwAAAAAAN5Elfl1kQx1zgHE9fuRFc+Jxrn1+uK7y7B9BS/F6R+gAAAWvMQekAAAAAAAAAAAA",
+          },
+        ]
+      }
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      invertStickyHeaders={undefined}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "rgb(225, 225, 225)",
+                "borderBottomWidth": 1,
+                "flex": 1,
+                "paddingBottom": 10,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+                "paddingTop": 20,
+                "width": 750,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "stretch",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <View
+                style={Object {}}
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "rgb(0, 50, 120)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "marginBottom": 2,
+                    }
+                  }
+                >
+                  2 months ago
+                </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "rgb(74, 74, 74)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 20,
+                    }
+                  }
+                >
+                  625,000
+                   
+                  WLO
+                </Text>
+              </View>
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                collapsable={undefined}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignSelf": "stretch",
+                    "backgroundColor": "rgb(155, 155, 155)",
+                    "borderColor": "rgb(155, 155, 155)",
+                    "borderRadius": 22.5,
+                    "borderWidth": 1,
+                    "flexBasis": 100,
+                    "marginBottom": 10,
+                    "opacity": 1,
+                    "width": 100,
+                  }
+                }
+                testID={undefined}
+                tvParallaxProperties={undefined}
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "alignSelf": "stretch",
+                        "color": "rgb(0, 50, 120)",
+                        "fontFamily": "Poppins",
+                        "fontSize": 16,
+                        "fontWeight": "bold",
+                        "height": 45,
+                        "paddingLeft": 20,
+                        "paddingRight": 20,
+                        "paddingTop": 10,
+                        "textAlign": "center",
+                      },
+                      Object {
+                        "color": "rgba(0, 50, 120, 0.4)",
+                      },
+                      Object {
+                        "color": "rgba(255, 255, 255, 0.6)",
+                      },
+                    ]
+                  }
+                >
+                  Claim
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "rgb(225, 225, 225)",
+                "borderBottomWidth": 1,
+                "flex": 1,
+                "paddingBottom": 10,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+                "paddingTop": 20,
+                "width": 750,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "stretch",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <View
+                style={Object {}}
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "rgb(0, 50, 120)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "marginBottom": 2,
+                    }
+                  }
+                >
+                  2 months ago
+                </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "rgb(74, 74, 74)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 20,
+                    }
+                  }
+                >
+                  625,000
+                   
+                  WLO
+                </Text>
+              </View>
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                collapsable={undefined}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignSelf": "stretch",
+                    "backgroundColor": "rgb(155, 155, 155)",
+                    "borderColor": "rgb(155, 155, 155)",
+                    "borderRadius": 22.5,
+                    "borderWidth": 1,
+                    "flexBasis": 100,
+                    "marginBottom": 10,
+                    "opacity": 1,
+                    "width": 100,
+                  }
+                }
+                testID={undefined}
+                tvParallaxProperties={undefined}
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "alignSelf": "stretch",
+                        "color": "rgb(0, 50, 120)",
+                        "fontFamily": "Poppins",
+                        "fontSize": 16,
+                        "fontWeight": "bold",
+                        "height": 45,
+                        "paddingLeft": 20,
+                        "paddingRight": 20,
+                        "paddingTop": 10,
+                        "textAlign": "center",
+                      },
+                      Object {
+                        "color": "rgba(0, 50, 120, 0.4)",
+                      },
+                      Object {
+                        "color": "rgba(255, 255, 255, 0.6)",
+                      },
+                    ]
+                  }
+                >
+                  Claim
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "rgb(225, 225, 225)",
+                "borderBottomWidth": 1,
+                "flex": 1,
+                "paddingBottom": 10,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+                "paddingTop": 20,
+                "width": 750,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "stretch",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <View
+                style={Object {}}
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "rgb(0, 50, 120)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "marginBottom": 2,
+                    }
+                  }
+                >
+                  2 months ago
+                </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "rgb(74, 74, 74)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 20,
+                    }
+                  }
+                >
+                  625,000
+                   
+                  WLO
+                </Text>
+              </View>
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                collapsable={undefined}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignSelf": "stretch",
+                    "backgroundColor": "rgb(155, 155, 155)",
+                    "borderColor": "rgb(155, 155, 155)",
+                    "borderRadius": 22.5,
+                    "borderWidth": 1,
+                    "flexBasis": 100,
+                    "marginBottom": 10,
+                    "opacity": 1,
+                    "width": 100,
+                  }
+                }
+                testID={undefined}
+                tvParallaxProperties={undefined}
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "alignSelf": "stretch",
+                        "color": "rgb(0, 50, 120)",
+                        "fontFamily": "Poppins",
+                        "fontSize": 16,
+                        "fontWeight": "bold",
+                        "height": 45,
+                        "paddingLeft": 20,
+                        "paddingRight": 20,
+                        "paddingTop": 10,
+                        "textAlign": "center",
+                      },
+                      Object {
+                        "color": "rgba(0, 50, 120, 0.4)",
+                      },
+                      Object {
+                        "color": "rgba(255, 255, 255, 0.6)",
+                      },
+                    ]
+                  }
+                >
+                  Claim
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "rgb(225, 225, 225)",
+                "borderBottomWidth": 1,
+                "flex": 1,
+                "paddingBottom": 10,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+                "paddingTop": 20,
+                "width": 750,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "stretch",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <View
+                style={Object {}}
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "rgb(0, 50, 120)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "marginBottom": 2,
+                    }
+                  }
+                >
+                  2 months ago
+                </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "rgb(74, 74, 74)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 20,
+                    }
+                  }
+                >
+                  625,000
+                   
+                  WLO
+                </Text>
+              </View>
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                collapsable={undefined}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignSelf": "stretch",
+                    "backgroundColor": "rgb(155, 155, 155)",
+                    "borderColor": "rgb(155, 155, 155)",
+                    "borderRadius": 22.5,
+                    "borderWidth": 1,
+                    "flexBasis": 100,
+                    "marginBottom": 10,
+                    "opacity": 1,
+                    "width": 100,
+                  }
+                }
+                testID={undefined}
+                tvParallaxProperties={undefined}
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "alignSelf": "stretch",
+                        "color": "rgb(0, 50, 120)",
+                        "fontFamily": "Poppins",
+                        "fontSize": 16,
+                        "fontWeight": "bold",
+                        "height": 45,
+                        "paddingLeft": 20,
+                        "paddingRight": 20,
+                        "paddingTop": 10,
+                        "textAlign": "center",
+                      },
+                      Object {
+                        "color": "rgba(0, 50, 120, 0.4)",
+                      },
+                      Object {
+                        "color": "rgba(255, 255, 255, 0.6)",
+                      },
+                    ]
+                  }
+                >
+                  Claim
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+  <View
+    style={
+      Object {
+        "position": "relative",
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.05)",
+          "height": 5,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": -5,
+          "zIndex": 1,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "alignSelf": "stretch",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "flexBasis": 84,
+          "flexGrow": 0,
+          "height": 84,
+          "paddingBottom": 20,
+          "paddingLeft": "9.375%",
+          "paddingRight": "9.375%",
+          "paddingTop": 19,
+        }
+      }
+    >
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        collapsable={undefined}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignSelf": "stretch",
+            "backgroundColor": "rgba(255, 255, 255, 0)",
+            "borderColor": "rgb(0, 50, 120)",
+            "borderRadius": 22.5,
+            "borderWidth": 1,
+            "marginBottom": 10,
+            "opacity": 1,
+          }
+        }
+        testID={undefined}
+        tvParallaxProperties={undefined}
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "alignSelf": "stretch",
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "height": 45,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+                "paddingTop": 10,
+                "textAlign": "center",
+              },
+              undefined,
+            ]
+          }
+        >
+          Back
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

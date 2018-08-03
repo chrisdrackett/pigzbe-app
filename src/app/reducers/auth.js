@@ -1,20 +1,27 @@
 import {
+    AUTH_CREATE,
     AUTH_LOGIN_START,
     AUTH_LOGIN_FAIL,
     AUTH_LOGIN,
     AUTH_LOGOUT,
-    AUTH_TEST_USER
+    AUTH_TOUCH_ID_SUPPORT
 } from '../actions';
 
 export const initialState = {
+    passcode: null,
     isLoggingIn: false,
-    isLoggedIn: false,
+    loggedIn: false,
     error: null,
-    testUserKey: 'SDHBBSJHINKGAZ2L2OSXQWWZ335LY3AQWDJTNN2PFGSJWVAXA4YXVTP4'
+    touchIdSupport: false,
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case AUTH_CREATE:
+            return {
+                ...state,
+                passcode: action.passcode
+            };
         case AUTH_LOGIN_START:
             return {
                 ...state,
@@ -31,19 +38,17 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isLoggingIn: false,
-                isLoggedIn: true,
-                publicKey: action.keypair.publicKey(),
-                secretKey: action.keypair.secret()
+                loggedIn: true,
             };
         case AUTH_LOGOUT:
             return {
                 ...state,
-                isLoggedIn: false
+                loggedIn: false
             };
-        case AUTH_TEST_USER:
+        case AUTH_TOUCH_ID_SUPPORT:
             return {
                 ...state,
-                testUserKey: action.testUserKey
+                touchIdSupport: action.support
             };
         default:
             return state;

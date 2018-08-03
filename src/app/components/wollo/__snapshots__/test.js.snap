@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Wollo renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "justifyContent": "center",
+      "marginTop": 10,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../src/app/components/wollo/images/currency_logo.png",
+        }
+      }
+      style={
+        Object {
+          "height": 19,
+          "marginRight": 10,
+          "width": 23,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "rgb(255, 255, 255)",
+          "fontFamily": "Poppins",
+          "fontSize": 40,
+        }
+      }
+    >
+      100
+    </Text>
+  </View>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "rgba(255, 255, 255, 0.6)",
+        "fontFamily": "Poppins",
+        "fontSize": 14,
+      }
+    }
+  >
+    Wollo balance
+  </Text>
+</View>
+`;
