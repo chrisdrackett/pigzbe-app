@@ -38,14 +38,14 @@ class GameView extends NavListener {
         });
     }
 
-    onBlur() {
+    onBlur = () => {
         if (!this.game) {
             return;
         }
         this.game.pause();
     }
 
-    onFocus() {
+    onFocus = () => {
         if (!this.game) {
             return;
         }

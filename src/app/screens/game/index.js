@@ -6,41 +6,30 @@ import styles from './styles';
 import Learn from '../learn';
 import Loader from '../../components/loader';
 import {gameWolloCollected, gameOverlayOpen} from '../../actions';
-import {strings} from '../../constants';
-import {
-    PAUSE,
-    RESUME,
-    READY,
-    COLLECTED,
-    LEARN,
-    LOG,
-    ERROR
-} from '../../../game/constants';
+import {PAUSE, RESUME, READY, COLLECTED, LEARN, LOG, ERROR} from '../../../game/constants';
 
-// const localWebURL = require('../../../game/game.html');
 console.log('Platform.OS', Platform.OS);
 const source = Platform.OS === 'android' ? {uri: 'file:///android_asset/game.html'} : require('../../../game/game.html');
-
-// https://facebook.github.io/react-native/docs/webview.html
+// const source = Platform.OS === 'android' ? {uri: 'file:///android_asset/game.html'} : {uri: './game.html'};
 
 export class GameView extends NavListener {
     state = {
-        loading: true
+        loading: true,
+        message: 'Loading',
     }
 
-    onBlur() {
-        this.sendPostMessage(PAUSE);
-    }
+    onBlur = () => this.sendPostMessage(PAUSE)
 
-    onFocus() {
-        this.sendPostMessage(RESUME);
-    }
+    onFocus = () => this.sendPostMessage(RESUME)
 
-    onMessage(event) {
+    onError = error => console.log(error)
+
+    onMessage = event => {
         const {dispatch} = this.props;
         const message = event.nativeEvent.data;
         const {name, value} = JSON.parse(message);
-        console.log('On Message', name, value);
+
+        // console.log('On Message', name, value);
         switch (name) {
             case READY:
                 this.setState({loading: false});
@@ -75,11 +64,14 @@ export class GameView extends NavListener {
                     ref={el => (this.el = el)}
                     style={styles.full}
                     source={source}
+                    originWhitelist={['*']}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
                     mediaPlaybackRequiresUserAction={false}
-                    onMessage={event => this.onMessage(event)}
-                    onError={event => console.log(event)}
+                    scrollEnabled={false}
+                    bounces={false}
+                    onMessage={this.onMessage}
+                    onError={this.onError}
                 />
                 <Learn
                     dispatch={dispatch}
@@ -89,7 +81,7 @@ export class GameView extends NavListener {
                 />
                 <Loader
                     loading={this.state.loading}
-                    message={strings.gameLoading}
+                    message={this.state.message}
                 />
             </View>
         );

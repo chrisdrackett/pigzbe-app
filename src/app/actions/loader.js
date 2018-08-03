@@ -30,11 +30,9 @@ export const loadContent = () => async dispatch => {
     dispatch(loaderLoading(true));
 
     try {
-        dispatch(loaderMessage('Loading Config'));
+        dispatch(loaderMessage('Loading'));
         await dispatch(loadConfig());
-        dispatch(loaderMessage('Loading Messages'));
         await dispatch(loadMessages());
-        dispatch(loaderMessage('Loading Values'));
         await dispatch(loadExchange());
     } catch (error) {
         console.log(error);
@@ -50,14 +48,11 @@ export const loginAndLoad = passcode => async dispatch => {
     try {
         const success = await dispatch(authLogin(passcode));
         if (success) {
-            await dispatch(loaderMessage('Loading Config'));
+            await dispatch(loaderMessage('Loading'));
             await dispatch(loadConfig());
             await dispatch(loadKeys());
-            await dispatch(loaderMessage('Loading Wallet'));
             await dispatch(loadWallet());
-            await dispatch(loaderMessage('Loading Messages'));
             await dispatch(loadMessages());
-            await dispatch(loaderMessage('Loading Values'));
             await dispatch(loadExchange());
         }
     } catch (error) {
