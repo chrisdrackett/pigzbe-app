@@ -21,13 +21,13 @@ export class TouchId extends Component {
         return (
             <StepModule
                 title={face ? 'Use Face ID?' : 'Use Touch ID?'}
-                icon={face ? 'vip' : 'touch-id'}
+                icon={face ? 'vip' : 'touch'}
                 content="We use your phone’s security in combination with it’s in-built hardware to secure your account."
                 pad
             >
                 <View>
                     <Button
-                        label={'Enable Touch ID'}
+                        label={face ? 'Enable Face ID' : 'Enable Touch ID'}
                         onPress={this.onEnable}
                     />
                     <Button
