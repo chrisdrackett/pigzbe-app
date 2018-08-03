@@ -86,10 +86,11 @@ export default class Game {
 
     load(app, resources) {
         Object.keys(sounds).map(key => {
-            sono.create({
+            const sound = sono.create({
                 id: key,
                 src: sounds[key]
             });
+            sound.isTouchLocked = false;
         });
 
         const music = sono.get('music');

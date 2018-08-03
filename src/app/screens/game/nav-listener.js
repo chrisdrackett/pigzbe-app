@@ -3,13 +3,13 @@ import {Component} from 'react';
 export default class NavListener extends Component {
     componentDidMount() {
         const {navigation} = this.props;
-        this.blurListener = navigation.addListener('didBlur', () => this.onBlur());
-        this.focusListener = navigation.addListener('didFocus', () => this.onFocus());
+        this.blurListener = navigation.addListener('didBlur', this.onBlur);
+        this.focusListener = navigation.addListener('didFocus', this.onFocus);
     }
 
-    onBlur() {}
+    onBlur = () => {}
 
-    onFocus() {}
+    onFocus = () => {}
 
     componentWillUnmount() {
         this.blurListener.remove();
