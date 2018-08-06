@@ -1,9 +1,5 @@
+import valueOrDefault from '../utils/value-or-default';
 import {SETTINGS_UPDATE} from '../actions';
-
-const isUndefined = value => typeof value === 'undefined';
-const valueOrDefault = (value, defaultValue) => {
-    return isUndefined(value) ? defaultValue : value;
-};
 
 export const initialState = {
     enableTouchId: false,

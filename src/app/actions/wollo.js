@@ -6,15 +6,16 @@ import {
     paymentHistory,
     paymentInfo,
     sendPayment,
-    Asset,
     getBalance,
     getMinBalance,
     checkHasGas,
-    checkAssetTrusted
+    checkAssetTrusted,
+    trustAsset
 } from '@pigzbe/stellar-utils';
 import {strings, ASSET_CODE, KEYCHAIN_ID_STELLAR_KEY} from '../constants';
 import Keychain from '../utils/keychain';
 import {appError} from './';
+import {wolloAsset} from '../selectors';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
@@ -125,6 +126,14 @@ export const loadWallet = publicKey => async (dispatch, getState) => {
             console.log('account', account);
             dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
             dispatch(updateBalance(getWolloBalance(account)));
+            // TODO: if account and Wollo not trusted yet then trust Wollo
+            const asset = wolloAsset(getState());
+            const isTrusted = checkAssetTrusted(account, asset);
+            console.log('asset isTrusted', isTrusted);
+            if (!isTrusted) {
+                await trustAsset(getState().wollo.secretKey, asset);
+                console.log('asset trusted');
+            }
             dispatch(updateXLM(account));
         }
     } catch (error) {
@@ -169,11 +178,8 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     dispatch(wolloSendStatus(strings.transferStatusChecking));
 
     const {secretKey, publicKey} = getState().wollo;
-    const {network, stellar} = getState().config;
-    const {code, address} = stellar.networks[network];
-    const asset = new Asset(code, address);
-
     const destAccount = await loadAccount(destination);
+    const asset = wolloAsset(getState());
     const isTrusted = checkAssetTrusted(destAccount, asset);
 
     if (!isTrusted) {

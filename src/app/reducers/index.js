@@ -10,6 +10,7 @@ import coins from './coins';
 import game from './game';
 import deviceAuth from './device-auth';
 import settings from './settings';
+import family from './family';
 
 import user from './claim/user';
 import events from './claim/events';
@@ -29,6 +30,7 @@ export default combineReducers({
     game,
     deviceAuth,
     settings,
+    family,
     // claim reducers
     user,
     events,
