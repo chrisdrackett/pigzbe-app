@@ -1,6 +1,5 @@
 import Storage from '../utils/storage';
 import {STORAGE_KEY_FAMILY} from '../constants';
-import CryptoJS from 'crypto-js';
 
 export const FAMILY_LOAD = 'FAMILY_LOAD';
 export const FAMILY_LOADING = 'FAMILY_LOADING';
@@ -10,7 +9,7 @@ export const FAMILY_ADD_CHILD = 'FAMILY_ADD_CHILD';
 
 const familyLoading = value => ({type: FAMILY_LOADING, value});
 
-export const loadFamily = () => async dispatch => {
+export const loadFamily = () => async (dispatch, getState) => {
     console.log('loadFamily');
     try {
         const {secretKey} = getState().wollo;

@@ -15,7 +15,7 @@ export const load = async (key, encryptionKey) => {
             value = JSON.parse(value);
         }
     } catch (error) {
-        console.error(error);
+        console.log(error);
     }
 
     return value && typeof value === 'object' ? value : {};
@@ -29,7 +29,7 @@ export const save = async (key, ob, encryptionKey) => {
         }
         await AsyncStorage.setItem(getKey(key), json);
     } catch (error) {
-        console.error(error);
+        console.log(error);
     }
 };
 
