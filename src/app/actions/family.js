@@ -1,5 +1,6 @@
 import Storage from '../utils/storage';
 import {STORAGE_KEY_FAMILY} from '../constants';
+import {createSubAccount} from './';
 
 export const FAMILY_LOAD = 'FAMILY_LOAD';
 export const FAMILY_LOADING = 'FAMILY_LOADING';
@@ -41,12 +42,15 @@ export const familyNumChildrenToAdd = numChildrenToAdd => ({type: FAMILY_NUM_CHI
 export const familyAddChild = (name, dob, photo) => async dispatch => {
     console.log('FAMILY_ADD_CHILD', name, dob, photo);
     dispatch(familyLoading(true));
+
+    const address = await dispatch(createSubAccount());
+
     // addChild
     // create stellar account
     // trust wollo
     // add main account as signer
     // store locally (encrypt using stellar key?)
-    dispatch(({type: FAMILY_ADD_CHILD, payload: {name, dob, photo}}));
+    dispatch(({type: FAMILY_ADD_CHILD, child: {name, dob, photo, address}}));
     await dispatch(saveFamily());
     dispatch(familyLoading(false));
 };

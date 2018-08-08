@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
         case FAMILY_ADD_CHILD:
             return {
                 ...state,
-                children: state.children.concat(action.payload),
+                children: state.children.concat(action.child),
             };
         default:
             return state;

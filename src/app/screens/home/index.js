@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Text, View, Image} from 'react-native';
-import {initialize, loadContent, familyAddChild, loadFamily} from '../../actions';
+import {initialize, loadContent} from '../../actions';
 import styles from './styles';
 import Button from '../../components/button';
 import Loader from '../../components/loader';
@@ -11,7 +11,7 @@ import DevPanel from '../dev-panel';
 import Container from '../../components/container';
 import {SCREEN_LOGIN, SCREEN_DEVICE_AUTH} from '../../constants';
 
-export const HomeView = ({onCreate, onLogin, onAddChild}) => (
+export const HomeView = ({onCreate, onLogin}) => (
     <Fragment>
         <Container style={styles.containerHeader} scroll={false}>
             <Image style={styles.image} source={require('./images/pigzbe_logo.png')} />
@@ -24,7 +24,6 @@ export const HomeView = ({onCreate, onLogin, onAddChild}) => (
                 <Text style={styles.subtitle}>New to Pizbe? Create an account below.</Text>
             </View>
             <View>
-                <Button label="Add Child" theme="light" onPress={onAddChild} />
                 <Button label="Let's get started" theme="light" onPress={onCreate} />
                 <Button label="I already have an account" theme="plain_light" onPress={onLogin} />
             </View>
@@ -35,7 +34,6 @@ export const HomeView = ({onCreate, onLogin, onAddChild}) => (
 class Home extends Component {
     componentWillMount() {
         this.props.dispatch(initialize());
-        this.props.dispatch(loadFamily());
     }
 
     onLogin = () => this.props.navigation.navigate(SCREEN_LOGIN)
@@ -43,10 +41,6 @@ class Home extends Component {
     onCreate = async () => {
         await this.props.dispatch(loadContent());
         this.props.navigation.navigate(SCREEN_DEVICE_AUTH);
-    }
-
-    onAddChild = () => {
-        this.props.dispatch(familyAddChild('Iggy', '27/05/2004', null));
     }
 
     render() {
@@ -57,7 +51,6 @@ class Home extends Component {
                 <HomeView
                     onCreate={this.onCreate}
                     onLogin={this.onLogin}
-                    onAddChild={this.onAddChild}
                 />
                 <DevPanel/>
                 <Loader

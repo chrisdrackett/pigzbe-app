@@ -10,7 +10,9 @@ import {
     getMinBalance,
     checkHasGas,
     checkAssetTrusted,
-    trustAsset
+    trustAsset,
+    createAccount,
+    multiSig
 } from '@pigzbe/stellar-utils';
 import {strings, ASSET_CODE, KEYCHAIN_ID_STELLAR_KEY} from '../constants';
 import Keychain from '../utils/keychain';
@@ -54,6 +56,13 @@ const updateXLM = account => dispatch => {
     dispatch({type: WOLLO_UPDATE_XLM, balanceXLM, minXLM, hasGas});
 };
 
+const createKeypair = async () => {
+    if (typeof Keypair.randomAsync === 'function') {
+        return await Keypair.randomAsync();
+    }
+    return Keypair.random();
+};
+
 export const setKeys = (keypair, keysSaved) => ({type: WOLLO_KEYPAIR, keypair, keysSaved});
 
 export const saveKeys = () => async (dispatch, getState) => {
@@ -65,14 +74,7 @@ export const saveKeys = () => async (dispatch, getState) => {
 
 export const createKeys = () => async dispatch => {
     try {
-        let keypair;
-
-        if (typeof Keypair.randomAsync === 'function') {
-            keypair = await Keypair.randomAsync();
-        } else {
-            keypair = Keypair.random();
-        }
-
+        const keypair = await createKeypair();
         return dispatch(setKeys(keypair, false));
     } catch (e) {
         console.log(e);
@@ -126,7 +128,7 @@ export const loadWallet = publicKey => async (dispatch, getState) => {
             console.log('account', account);
             dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
             dispatch(updateBalance(getWolloBalance(account)));
-            // TODO: if account and Wollo not trusted yet then trust Wollo
+
             const asset = wolloAsset(getState());
             const isTrusted = checkAssetTrusted(account, asset);
             console.log('asset isTrusted', isTrusted);
@@ -214,3 +216,33 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
 };
 
 export const wolloTestUser = testUserKey => ({type: WOLLO_TEST_USER, testUserKey});
+
+export const createSubAccount = () => async (dispatch, getState) => {
+    try {
+        const {publicKey, secretKey} = getState().wollo;
+        const keypair = await createKeypair();
+        const destination = keypair.publicKey();
+        console.log('secretKey, destination', secretKey, destination);
+        await createAccount(secretKey, destination, '10', 'Add child');
+
+        const signers = [{
+            publicKey,
+            weight: 2
+        }];
+        const weights = {
+            masterWeight: 2,
+            lowThreshold: 2,
+            medThreshold: 2,
+            highThreshold: 2
+        };
+        await multiSig(keypair.secret(), signers, weights);
+
+        const asset = wolloAsset(getState());
+        await trustAsset(keypair.secret(), asset);
+
+        return keypair.publicKey();
+    } catch (error) {
+        console.log(error);
+    }
+    return null;
+};
