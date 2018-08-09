@@ -2,9 +2,11 @@
 
 ## Installation
 
-Use node version 8.10.0 (the project supports nvm).
+Use node version 8.10.0 (the project supports [nvm](https://github.com/creationix/nvm)).
 
-Use yarn to manage dependencies.
+Use [yarn](https://yarnpkg.com/en/) to manage dependencies.
+
+Install [git-lfs](https://git-lfs.github.com/) `brew install git-lfs` (used to version larger game assets).
 
 Install [Android Studio](https://developer.android.com/studio/) if required.
 
@@ -14,6 +16,8 @@ Install react-native dependencies:
 brew install watchman
 yarn global add react-native-cli
 ```
+
+Add a `.env` file to root of the project by copying `.env.sample` and customising as required.
 
 Install project dependencies, link native libs and build the game bundle:
 
