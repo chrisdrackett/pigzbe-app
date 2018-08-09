@@ -3,15 +3,15 @@ import {
     FAMILY_LOADING,
     FAMILY_LOAD,
     FAMILY_PARENT_NICKNAME,
-    FAMILY_NUM_CHILDREN_TO_ADD,
-    FAMILY_ADD_CHILD
+    FAMILY_NUM_KIDS_TO_ADD,
+    FAMILY_ADD_KID
 } from '../actions';
 
 export const initialState = {
     loading: false,
     parentNickname: '',
-    numChildrenToAdd: 0,
-    children: [],
+    numKidsToAdd: 0,
+    kids: [],
 };
 
 export default (state = initialState, action) => {
@@ -31,15 +31,15 @@ export default (state = initialState, action) => {
                 ...state,
                 parentNickname: action.parentNickname,
             };
-        case FAMILY_NUM_CHILDREN_TO_ADD:
+        case FAMILY_NUM_KIDS_TO_ADD:
             return {
                 ...state,
-                numChildrenToAdd: action.numChildrenToAdd,
+                numKidsToAdd: action.numKidsToAdd,
             };
-        case FAMILY_ADD_CHILD:
+        case FAMILY_ADD_KID:
             return {
                 ...state,
-                children: state.children.concat(action.child),
+                kids: state.kids.concat(action.kid),
             };
         default:
             return state;

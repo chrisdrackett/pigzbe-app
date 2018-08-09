@@ -25,14 +25,26 @@ const props = {
         GOLD: 0.0031452
     },
     balance: '100',
+    balanceXLM: '50',
     baseCurrency: 'USD',
     escrow: null,
-    firstTime: false
+    firstTime: false,
+    kids: [],
 };
 
 storiesOf('Balance')
     .add('default view', () => (
         <Balance {...props}/>
+    ))
+    .add('with kids', () => (
+        <Balance {...{
+            ...props,
+            kids: [{
+                name: 'Kid name',
+                dob: '01/01/2010',
+                photo: null
+            }]
+        }}/>
     ))
     .add('first time', () => (
         <Balance {...{...props, firstTime: true}}/>

@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {color} from '../../styles';
 import {
     SCREEN_SETTINGS,
@@ -9,19 +9,19 @@ import {
 } from '../../constants';
 import ConvertBalance from '../../components/convert-balance';
 import BalanceGraph from '../../components/balance-graph';
+import Kids from '../../components/kids';
 import Button from '../../components/button';
 import Wollo from '../../components/wollo';
 import Modal from '../../components/modal';
 import Title from '../../components/title';
 import Paragraph from '../../components/paragraph';
 import StepModule from '../../components/step-module';
-import {loadExchange, settingsFirstTime, familyAddChild, loadFamily} from '../../actions';
+import {loadExchange, settingsFirstTime} from '../../actions';
 
 export class Balance extends Component {
 
     componentDidMount() {
         this.focusListener = this.props.navigation.addListener('didFocus', this.update);
-        this.props.dispatch(loadFamily());
     }
 
     componentWillUnMount() {
@@ -37,10 +37,6 @@ export class Balance extends Component {
         this.props.navigation.navigate(SCREEN_SETTINGS);
     }
 
-    onAddChild = () => {
-        this.props.dispatch(familyAddChild('Iggy', '27/05/2004', null));
-    }
-
     render () {
         const {
             exchange,
@@ -49,7 +45,7 @@ export class Balance extends Component {
             balanceXLM,
             baseCurrency,
             firstTime,
-            children
+            kids,
         } = this.props;
 
         const loading = !exchange && !error;
@@ -74,14 +70,10 @@ export class Balance extends Component {
                     {(!loading && !error) && (
                         <View>
                             <BalanceGraph balance={balance} balanceXLM={balanceXLM} exchange={exchange} baseCurrency={baseCurrency}/>
-                            <Button label="Add Child" onPress={this.onAddChild} />
-                            {children.map(child => (
-                                <View>
-                                    <Text>{child.name}</Text>
-                                    <Text>{child.dob}</Text>
-                                    <Text>{child.address}</Text>
-                                </View>
-                            ))}
+                            <Kids
+                                kids={kids}
+                                dispatch={this.props.dispatch}
+                            />
                             <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
                         </View>
                     )}
@@ -115,6 +107,6 @@ export default connect(
         balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.wollo.baseCurrency,
         firstTime: state.settings.firstTime,
-        children: state.family.children,
+        kids: state.family.kids,
     })
 )(Balance);

@@ -5,8 +5,8 @@ import {createSubAccount} from './';
 export const FAMILY_LOAD = 'FAMILY_LOAD';
 export const FAMILY_LOADING = 'FAMILY_LOADING';
 export const FAMILY_PARENT_NICKNAME = 'FAMILY_PARENT_NICKNAME';
-export const FAMILY_NUM_CHILDREN_TO_ADD = 'FAMILY_NUM_CHILDREN_TO_ADD';
-export const FAMILY_ADD_CHILD = 'FAMILY_ADD_CHILD';
+export const FAMILY_NUM_KIDS_TO_ADD = 'FAMILY_NUM_KIDS_TO_ADD';
+export const FAMILY_ADD_KID = 'FAMILY_ADD_KID';
 
 const familyLoading = value => ({type: FAMILY_LOADING, value});
 
@@ -37,10 +37,10 @@ export const saveFamily = () => async (dispatch, getState) => {
 
 export const familyParentNickname = parentNickname => ({type: FAMILY_PARENT_NICKNAME, parentNickname});
 
-export const familyNumChildrenToAdd = numChildrenToAdd => ({type: FAMILY_NUM_CHILDREN_TO_ADD, numChildrenToAdd});
+export const familyNumKidsToAdd = numKidsToAdd => ({type: FAMILY_NUM_KIDS_TO_ADD, numKidsToAdd});
 
-export const familyAddChild = (name, dob, photo) => async dispatch => {
-    console.log('FAMILY_ADD_CHILD', name, dob, photo);
+export const familyAddKid = (name, dob, photo) => async dispatch => {
+    console.log('FAMILY_ADD_KID', name, dob, photo);
     dispatch(familyLoading(true));
 
     const address = await dispatch(createSubAccount());
@@ -50,7 +50,7 @@ export const familyAddChild = (name, dob, photo) => async dispatch => {
     // trust wollo
     // add main account as signer
     // store locally (encrypt using stellar key?)
-    dispatch(({type: FAMILY_ADD_CHILD, child: {name, dob, photo, address}}));
+    dispatch(({type: FAMILY_ADD_KID, kid: {name, dob, photo, address}}));
     await dispatch(saveFamily());
     dispatch(familyLoading(false));
 };
