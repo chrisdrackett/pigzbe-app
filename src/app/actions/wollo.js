@@ -246,3 +246,13 @@ export const createSubAccount = () => async (dispatch, getState) => {
     }
     return null;
 };
+
+export const getAccountBalance = publicKey => async () => {
+    try {
+        const account = await loadAccount(publicKey);
+        return getWolloBalance(account);
+    } catch (error) {
+        console.log(error);
+    }
+    return '0';
+};

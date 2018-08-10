@@ -42,7 +42,15 @@ storiesOf('Balance')
             kids: [{
                 name: 'Kid name',
                 dob: '01/01/2010',
-                photo: null
+                photo: null,
+                address: 'GD5Q7KRFQC3Q7YQPYAZ4G65B65EBCJOVSHPE65MIYQMCLUQULQDKBLUX',
+                balance: '20',
+            }, {
+                name: 'Kid name 2',
+                dob: '01/01/2010',
+                photo: null,
+                address: 'GAG6MT2Q4II2JHZI67QP2FHBTV7WAQ3NWVKVASDQHR7DPSP7H3HBVEQA',
+                balance: '17',
             }]
         }}/>
     ))

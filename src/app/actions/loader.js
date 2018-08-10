@@ -10,7 +10,8 @@ import {
     loadKeys,
     loadWallet,
     loadMessages,
-    loadExchange
+    loadExchange,
+    loadFamily
 } from './';
 
 export const LOADER_INITIALIZING = 'LOADER_INITIALIZING';
@@ -54,6 +55,7 @@ export const loginAndLoad = passcode => async dispatch => {
             await dispatch(loadWallet());
             await dispatch(loadMessages());
             await dispatch(loadExchange());
+            await dispatch(loadFamily());
         }
     } catch (error) {
         console.log(error);

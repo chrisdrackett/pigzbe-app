@@ -1,6 +1,6 @@
 import Storage from '../utils/storage';
 import {STORAGE_KEY_FAMILY} from '../constants';
-import {createSubAccount} from './';
+import {createSubAccount, getAccountBalance} from './';
 
 export const FAMILY_LOAD = 'FAMILY_LOAD';
 export const FAMILY_LOADING = 'FAMILY_LOADING';
@@ -18,6 +18,11 @@ export const loadFamily = () => async (dispatch, getState) => {
         console.log('data', data);
         // console.log(JSON.stringify(data, null, 2));
         dispatch({type: FAMILY_LOAD, ...data});
+
+        const {kids} = getState().family;
+        for (const kid of kids) {
+            kid.balance = await dispatch(getAccountBalance());
+        }
     } catch (error) {
         console.log(error);
     }
@@ -50,7 +55,7 @@ export const familyAddKid = (name, dob, photo) => async dispatch => {
     // trust wollo
     // add main account as signer
     // store locally (encrypt using stellar key?)
-    dispatch(({type: FAMILY_ADD_KID, kid: {name, dob, photo, address}}));
+    dispatch(({type: FAMILY_ADD_KID, kid: {name, dob, photo, address, balance: '0'}}));
     await dispatch(saveFamily());
     dispatch(familyLoading(false));
 };

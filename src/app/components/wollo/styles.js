@@ -16,7 +16,7 @@ export default StyleSheet.create({
     },
     currencyLogo: {
         width: 23,
-        height: 19,
+        height: 23,
         marginRight: 10,
     },
     balance: {
@@ -30,5 +30,11 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         color: color.whiteOpacity60,
         fontSize: 14,
+    },
+    balance__dark: {
+        color: color.blue,
+    },
+    label__dark: {
+        color: color.blue,
     },
 });

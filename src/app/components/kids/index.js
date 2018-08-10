@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import styles from './styles';
 import Button from '../button';
+import Wollo from '../wollo';
 import {familyAddKid, loadFamily} from '../../actions';
 
 export default class Kids extends Component {
@@ -36,6 +37,8 @@ export default class Kids extends Component {
                             <Text>{kid.name}</Text>
                             <Text>{kid.dob}</Text>
                             <Text>{kid.address}</Text>
+                            <Text>{kid.balance}</Text>
+                            <Wollo dark balance={kid.balance} />
                         </View>
                     ))
                 )}
