@@ -66,7 +66,7 @@ export class Balance extends Component {
                             />
                         </View>
                     )}
-                    backgroundColor={color.lightGrey}
+                    backgroundColor={color.transparent}
                     onSettings={this.onSettings}
                     loading={loading}
                     error={error}

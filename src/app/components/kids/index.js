@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import React, {Component, Fragment} from 'react';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import styles from './styles';
 import Button from '../button';
 import Kid from './kid';
@@ -28,20 +28,27 @@ export default class Kids extends Component {
             <View style={styles.container}>
                 <Text style={styles.title}>Kids wallets</Text>
                 {!kids.length ? (
-                    <Button
-                        label="Add My Children"
-                        theme="light"
-                        onPress={this.onAddKids}
-                    />
-                ) : (
-                    kids.map((kid, i) => (
-                        <Kid
-                            key={i}
-                            kid={kid}
-                            exchange={exchange}
-                            baseCurrency={baseCurrency}
+                    <View style={styles.add}>
+                        <Button
+                            label="Add My Children"
+                            theme="light"
+                            onPress={this.onAddKids}
                         />
-                    ))
+                    </View>
+                ) : (
+                    <Fragment>
+                        <TouchableOpacity style={styles.plus} onPress={this.onAddKids}>
+                            <Image style={styles.plusIcon} source={require('./images/plus.png')} />
+                        </TouchableOpacity>
+                        {kids.map((kid, i) => (
+                            <Kid
+                                key={i}
+                                {...kid}
+                                exchange={exchange}
+                                baseCurrency={baseCurrency}
+                            />
+                        ))}
+                    </Fragment>
                 )}
             </View>
         );

@@ -6,16 +6,14 @@ import {
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: color.lightGrey,
-        // alignSelf: 'stretch',
-        // flex: 1,
+        backgroundColor: color.white,
+        borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingBottom: 20
+        paddingBottom: 20,
+        marginBottom: 40,
     },
     containerCoins: {
-        // flexGrow: 0,
-        // flex: 1,
         flexDirection: 'row',
         marginTop: 20,
         paddingLeft: 20,
@@ -26,13 +24,22 @@ export default StyleSheet.create({
     },
     title: {
         fontFamily,
-        fontSize: 14,
-        color: color.darkGrey,
+        fontSize: 16,
+        color: color.blue,
         marginTop: 20,
+    },
+    bold: {
+        fontWeight: 'bold',
     },
     label: {
         fontFamily,
-        fontSize: 12,
-        color: color.darkGrey
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: color.lighterBlue
+    },
+    underline: {
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'solid',
+        textDecorationColor: color.lighterBlue,
     },
 });

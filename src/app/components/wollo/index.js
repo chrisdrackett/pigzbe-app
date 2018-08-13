@@ -9,8 +9,8 @@ import {strings, ASSET_DPS} from '../../constants';
 import moneyFormat from '../../utils/money-format';
 import AmountExchange from '../amount-exchange';
 
-export default ({balance, exchange, baseCurrency, dark}) => (
-    <View style={styles.wolloContainer}>
+export default ({balance, exchange, baseCurrency, dark, style}) => (
+    <View style={[styles.wolloContainer, style]}>
         <View style={styles.balanceContainer}>
             <Image
                 style={styles.currencyLogo}

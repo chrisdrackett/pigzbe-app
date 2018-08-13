@@ -15,18 +15,18 @@ export default StyleSheet.create({
         minWidth: '26%'
     },
     coin: {
-        marginBottom: 15
+        marginBottom: 12
     },
     coinName: {
         fontFamily,
-        fontSize: 14,
+        fontSize: 10,
         fontWeight: 'bold',
-        color: color.darkGrey
+        color: color.lighterBlue
     },
     value: {
         fontFamily,
         fontWeight: 'bold',
-        fontSize: 14,
-        color: color.darkGreyOpacity50,
+        fontSize: 12,
+        color: color.blue,
     }
 });

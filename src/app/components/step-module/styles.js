@@ -24,8 +24,8 @@ export default StyleSheet.create({
     },
     bg: {
         backgroundColor: color.mediumBlue,
-        height: '50%',
         position: 'absolute',
+        top: 242,
         bottom: 0,
         left: 0,
         right: 0,
