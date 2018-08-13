@@ -28,6 +28,7 @@ function loadStories() {
     require('./stories/alert.js');
     require('./stories/family.js');
     require('./stories/slider.js');
+    require('./stories/wollo.js');
 }
 
 configure(loadStories, module);

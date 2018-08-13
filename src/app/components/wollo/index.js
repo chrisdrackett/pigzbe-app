@@ -7,8 +7,9 @@ import {
 import styles from './styles';
 import {strings, ASSET_DPS} from '../../constants';
 import moneyFormat from '../../utils/money-format';
+import AmountExchange from '../amount-exchange';
 
-export default ({balance, dark}) => (
+export default ({balance, exchange, baseCurrency, dark}) => (
     <View style={styles.wolloContainer}>
         <View style={styles.balanceContainer}>
             <Image
@@ -19,8 +20,17 @@ export default ({balance, dark}) => (
                 {moneyFormat(balance, ASSET_DPS)}
             </Text>
         </View>
-        <Text style={[styles.label, dark ? styles.label__dark : null]}>
-            {strings.walletBalance}
-        </Text>
+        {exchange ? (
+            <AmountExchange
+                style={[styles.label, dark ? styles.label__dark : null]}
+                amount={balance}
+                exchange={exchange}
+                baseCurrency={baseCurrency}
+            />
+        ) : (
+            <Text style={[styles.label, dark ? styles.label__dark : null]}>
+                {strings.walletBalance}
+            </Text>
+        )}
     </View>
 );

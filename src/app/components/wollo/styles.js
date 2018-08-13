@@ -24,6 +24,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         color: color.white,
         fontSize: 22,
+        marginTop: 2,
     },
     label: {
         fontFamily,
@@ -33,8 +34,11 @@ export default StyleSheet.create({
     },
     balance__dark: {
         color: color.blue,
+        fontSize: 20,
+        marginTop: 2,
     },
     label__dark: {
         color: color.blue,
+        alignSelf: 'flex-end',
     },
 });

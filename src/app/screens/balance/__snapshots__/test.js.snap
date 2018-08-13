@@ -160,6 +160,7 @@ Array [
                       "fontFamily": "Poppins",
                       "fontSize": 22,
                       "fontWeight": "bold",
+                      "marginTop": 2,
                     },
                     null,
                   ]
@@ -181,7 +182,8 @@ Array [
                 ]
               }
             >
-              Wollo balance
+              $
+              0
             </Text>
           </View>
         </View>

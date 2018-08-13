@@ -40,6 +40,7 @@ exports[`Wollo renders correctly 1`] = `
             "fontFamily": "Poppins",
             "fontSize": 22,
             "fontWeight": "bold",
+            "marginTop": 2,
           },
           null,
         ]

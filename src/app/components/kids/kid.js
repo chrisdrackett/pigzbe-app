@@ -17,7 +17,7 @@ export default class Kids extends Component {
     onSliderChange = value => this.setState({value})
 
     render () {
-        const {kid} = this.props;
+        const {kid, exchange, baseCurrency} = this.props;
 
         return (
             <View style={styles.kid}>
@@ -26,7 +26,14 @@ export default class Kids extends Component {
                 <Text>{kid.address}</Text>
                 <Text>{kid.balance}</Text>
                 <Text>{this.state.value}</Text>
-                <Wollo dark balance={kid.balance} />
+                <View style={{backgroundColor: 'red', alignSelf: 'flex-end'}}>
+                    <Wollo
+                        dark
+                        balance={kid.balance}
+                        exchange={exchange}
+                        baseCurrency={baseCurrency}
+                    />
+                </View>
                 <Slider onValueChange={this.onSliderChange}/>
             </View>
         );

@@ -2,8 +2,9 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import styles from './styles';
 import CoinIcon from '../coin-icon';
+import AmountExchange from '../amount-exchange';
 import moneyFormat from '../../utils/money-format';
-import {ASSET_CODE, ASSET_NAME, COIN_SYMBOLS, COIN_DPS} from '../../constants';
+import {ASSET_CODE, ASSET_NAME, COIN_DPS} from '../../constants';
 
 const Graph = ({balance, balanceXLM, exchange, baseCurrency}) => (
     <View style={styles.container}>
@@ -18,9 +19,12 @@ const Graph = ({balance, balanceXLM, exchange, baseCurrency}) => (
             </View>
             <View style={styles.balanceTotal}>
                 {exchange ? (
-                    <Text style={styles.balanceConvert}>{COIN_SYMBOLS[baseCurrency]}
-                        {moneyFormat(balance * exchange[baseCurrency], COIN_DPS[baseCurrency])}
-                    </Text>
+                    <AmountExchange
+                        style={styles.balanceConvert}
+                        amount={balance}
+                        exchange={exchange}
+                        baseCurrency={baseCurrency}
+                    />
                 ) : null}
             </View>
         </View>

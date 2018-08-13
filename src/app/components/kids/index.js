@@ -22,7 +22,7 @@ export default class Kids extends Component {
     onSliderChange = value => this.setState({value})
 
     render () {
-        const {kids} = this.props;
+        const {kids, exchange, baseCurrency} = this.props;
 
         return (
             <View style={styles.container}>
@@ -35,7 +35,12 @@ export default class Kids extends Component {
                     />
                 ) : (
                     kids.map((kid, i) => (
-                        <Kid key={i} kid={kid}/>
+                        <Kid
+                            key={i}
+                            kid={kid}
+                            exchange={exchange}
+                            baseCurrency={baseCurrency}
+                        />
                     ))
                 )}
             </View>

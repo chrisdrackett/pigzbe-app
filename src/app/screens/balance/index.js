@@ -59,7 +59,11 @@ export class Balance extends Component {
                     icon="piggy"
                     headerChildren={(
                         <View style={{marginBottom: -20}}>
-                            <Wollo balance={balance}/>
+                            <Wollo
+                                balance={balance}
+                                exchange={exchange}
+                                baseCurrency={baseCurrency}
+                            />
                         </View>
                     )}
                     backgroundColor={color.lightGrey}
@@ -73,6 +77,8 @@ export class Balance extends Component {
                             <Kids
                                 kids={kids}
                                 dispatch={this.props.dispatch}
+                                exchange={exchange}
+                                baseCurrency={baseCurrency}
                             />
                             <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
                         </View>
