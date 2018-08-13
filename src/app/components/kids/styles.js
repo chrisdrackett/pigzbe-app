@@ -53,16 +53,6 @@ export default StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
     },
-    image: {
-        width: 48,
-        height: 48,
-        marginRight: 10,
-    },
-    photo: {
-        borderRadius: 24,
-        borderWidth: 2,
-        borderColor: color.skyBlue,
-    },
     name: {
         fontFamily,
         color: color.blue,

@@ -5,6 +5,7 @@ import Wollo from '../wollo';
 import Slider from '../slider';
 import Button from '../button';
 import AmountExchange from '../amount-exchange';
+import KidAvatar from '../kid-avatar';
 
 const MAX_AMOUNT = 100;
 
@@ -43,11 +44,7 @@ export default class Kids extends Component {
         return (
             <View style={styles.kid}>
                 <TouchableOpacity style={styles.id} onPress={this.gotoKid}>
-                    {photo ? (
-                        <Image style={[styles.image, styles.photo]} source={{uri: photo}}/>
-                    ) : (
-                        <Image style={styles.image} source={require('./images/kid.png')}/>
-                    )}
+                    <KidAvatar photo={photo}/>
                     <Text style={styles.name}>{name}</Text>
                     <View style={styles.balance}>
                         <Wollo
