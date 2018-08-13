@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import styles from './styles';
 import {createKeys} from '../../actions';
 import Button from '../../components/button';
+import IconPad from '../../components/icon-pad';
 import {Text} from 'react-native';
 // import {strings} from '../../constants';
 import {SCREEN_SAVE_KEYS, SCREEN_IMPORT_KEYS} from '../../constants';
@@ -24,6 +25,7 @@ export class ChildLogin extends Component {
                 content={'Please enter your *Secret Code* by selecting your 3 images'}
                 pad
             >
+                <IconPad />
                 <Button
                     label={'Create Keys'}
                     onPress={this.onCreate}
