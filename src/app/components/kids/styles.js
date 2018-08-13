@@ -51,7 +51,7 @@ export default StyleSheet.create({
     id: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: 10,
     },
     image: {
         width: 48,
@@ -95,6 +95,15 @@ export default StyleSheet.create({
         height: 28,
         paddingTop: 4,
         marginLeft: -17,
+        marginBottom: 5,
+    },
+    valuePoint: {
+        backgroundColor: color.blue,
+        width: 5,
+        height: 5,
+        bottom: 0,
+        left: 15,
+        transform: [{rotate: '45deg'}]
     },
     valueText: {
         fontFamily,

@@ -22,7 +22,7 @@ export default class Kids extends Component {
     onSliderChange = value => this.setState({value})
 
     render () {
-        const {kids, exchange, baseCurrency} = this.props;
+        const {kids, exchange, baseCurrency, parentBalance} = this.props;
 
         return (
             <View style={styles.container}>
@@ -46,6 +46,7 @@ export default class Kids extends Component {
                                 {...kid}
                                 exchange={exchange}
                                 baseCurrency={baseCurrency}
+                                parentBalance={parentBalance}
                             />
                         ))}
                     </Fragment>

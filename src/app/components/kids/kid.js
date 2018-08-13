@@ -6,21 +6,32 @@ import Slider from '../slider';
 import Button from '../button';
 import AmountExchange from '../amount-exchange';
 
+const MAX_AMOUNT = 100;
+
+const getValue = (value, balance) => {
+    const max = Math.min(balance, MAX_AMOUNT);
+    return Math.round(value * Math.floor(Number(max)));
+};
+
 export default class Kids extends Component {
 
     state = {
-        value: 0
+        value: 0,
+        progress: 0
     }
 
     static defaultProps = {
-        kids: [],
+        parentBalance: 100,
     }
 
     gotoKid = () => {
         console.log('go to kid', this.props.address);
     }
 
-    onSliderChange = value => this.setState({value: Math.round(value * 100)})
+    onSliderChange = value => this.setState({
+        progress: value,
+        value: getValue(value, this.props.parentBalance)
+    })
 
     onSend = () => {
         console.log('send to', this.props.address);
@@ -28,8 +39,6 @@ export default class Kids extends Component {
 
     render () {
         const {name, photo, balance, exchange, baseCurrency} = this.props;
-
-        // TODO: calc max value based on balance available
 
         return (
             <View style={styles.kid}>
@@ -52,9 +61,11 @@ export default class Kids extends Component {
                 </TouchableOpacity>
                 <View style={styles.valueWrapper}>
                     <View style={[styles.value, {
-                        left: `${this.state.value}%`
+                        left: `${this.state.progress * 100}%`,
+                        opacity: this.state.value ? 1 : 0,
                     }]}>
                         <Text style={styles.valueText}>{this.state.value}</Text>
+                        <View style={styles.valuePoint}/>
                     </View>
                 </View>
                 <Slider onValueChange={this.onSliderChange}/>

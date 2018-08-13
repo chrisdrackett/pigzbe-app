@@ -79,6 +79,7 @@ export class Balance extends Component {
                                 dispatch={this.props.dispatch}
                                 exchange={exchange}
                                 baseCurrency={baseCurrency}
+                                parentBalance={balance}
                             />
                             <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
                         </View>
