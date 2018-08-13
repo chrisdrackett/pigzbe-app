@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import styles from './styles';
 import Button from '../button';
-import Wollo from '../wollo';
+import Kid from './kid';
 import {familyAddKid, loadFamily} from '../../actions';
 
 export default class Kids extends Component {
@@ -19,6 +19,8 @@ export default class Kids extends Component {
         this.props.dispatch(familyAddKid('Name', '01/01/2012', null));
     }
 
+    onSliderChange = value => this.setState({value})
+
     render () {
         const {kids} = this.props;
 
@@ -33,13 +35,7 @@ export default class Kids extends Component {
                     />
                 ) : (
                     kids.map((kid, i) => (
-                        <View key={i} style={styles.kid}>
-                            <Text>{kid.name}</Text>
-                            <Text>{kid.dob}</Text>
-                            <Text>{kid.address}</Text>
-                            <Text>{kid.balance}</Text>
-                            <Wollo dark balance={kid.balance} />
-                        </View>
+                        <Kid key={i} kid={kid}/>
                     ))
                 )}
             </View>

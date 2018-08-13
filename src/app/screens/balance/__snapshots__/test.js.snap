@@ -141,12 +141,12 @@ Array [
               <Image
                 source={
                   Object {
-                    "testUri": "../../../src/app/components/wollo/images/currency_logo.png",
+                    "testUri": "../../../src/app/components/wollo/images/wollo.png",
                   }
                 }
                 style={
                   Object {
-                    "height": 19,
+                    "height": 23,
                     "marginRight": 10,
                     "width": 23,
                   }
@@ -154,12 +154,15 @@ Array [
               />
               <Text
                 style={
-                  Object {
-                    "color": "rgb(255, 255, 255)",
-                    "fontFamily": "Poppins",
-                    "fontSize": 22,
-                    "fontWeight": "bold",
-                  }
+                  Array [
+                    Object {
+                      "color": "rgb(255, 255, 255)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 22,
+                      "fontWeight": "bold",
+                    },
+                    null,
+                  ]
                 }
               >
                 0
@@ -167,12 +170,15 @@ Array [
             </View>
             <Text
               style={
-                Object {
-                  "color": "rgba(255, 255, 255, 0.6)",
-                  "fontFamily": "Poppins",
-                  "fontSize": 14,
-                  "fontWeight": "bold",
-                }
+                Array [
+                  Object {
+                    "color": "rgba(255, 255, 255, 0.6)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                  },
+                  null,
+                ]
               }
             >
               Wollo balance
