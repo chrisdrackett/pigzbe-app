@@ -38,7 +38,7 @@ export default StyleSheet.create({
         marginTop: 2,
     },
     label__dark: {
-        color: color.blue,
+        color: color.lighterBlue,
         alignSelf: 'flex-end',
     },
 });
