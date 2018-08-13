@@ -27,6 +27,7 @@ function loadStories() {
     require('./stories/load-error.js');
     require('./stories/alert.js');
     require('./stories/child-login.js');
+    require('./stories/icon-pad.js');
 }
 
 configure(loadStories, module);

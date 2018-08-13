@@ -15,6 +15,6 @@ const props = {
 };
 
 storiesOf('ChildLogin')
-    .add('create', () => (
+    .add('login', () => (
         <ChildLogin {...props}/>
     ));
