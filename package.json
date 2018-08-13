@@ -23,7 +23,7 @@
     "iphone8": "react-native run-ios --simulator 'iPhone 8'",
     "ios:release": "react-native run-ios --configuration Release",
     "android": "react-native run-android",
-    "game": "mkdir -p '.build' && NODE_ENV=production node ./scripts/build-game.js && rm -rf '.build'",
+    "game": "mkdir -p 'build' && NODE_ENV=production node ./scripts/build-game.js",
     "game:dev": "GAME_DEV=1 npm run desktop",
     "textures:clear": "rm -rf src/game/assets/images/textures",
     "textures:pack": "node ./scripts/texture-pack.js 'tiled/assets/{objects,tiles}' -o 'src/game/assets/images/textures' -t",
