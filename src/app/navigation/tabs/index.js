@@ -3,13 +3,11 @@ import {connect} from 'react-redux';
 import {createBottomTabNavigator} from 'react-navigation';
 import {View, Image} from 'react-native';
 import Wallet from '../wallet';
-import Game from '../../screens/game';
 import Messages from '../../screens/messages';
 import Transfer from '../transfer';
 import {
     strings,
     SCREEN_WALLET,
-    SCREEN_GAME,
     SCREEN_MESSAGES,
     SCREEN_TRANSFER
 } from '../../constants';
@@ -38,15 +36,6 @@ const nav = {
         icon: 'transfer',
         iconW: 19,
         iconH: 17
-    },
-    [SCREEN_GAME]: {
-        screen: Game,
-        navigationOptions: {
-            title: strings.menuGame
-        },
-        icon: 'game',
-        iconW: 20,
-        iconH: 20
     },
     [SCREEN_MESSAGES]: {
         screen: Messages,

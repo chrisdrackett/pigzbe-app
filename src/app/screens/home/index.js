@@ -9,7 +9,7 @@ import Pig from '../../components/pig';
 import {strings} from '../../constants';
 import DevPanel from '../dev-panel';
 import Container from '../../components/container';
-import {SCREEN_LOGIN, SCREEN_DEVICE_AUTH} from '../../constants';
+import {SCREEN_LOGIN, SCREEN_DEVICE_AUTH, SCREEN_KID} from '../../constants';
 import HomeLogo from '../../components/home-logo';
 import KidAvatar from '../../components/kid-avatar';
 
@@ -96,6 +96,7 @@ class Home extends Component {
     onKidLogin = address => {
         // TODO: dispatch to set profile to log in and navigate to kid login
         console.log('onKidLogin', address);
+        this.props.navigation.navigate(SCREEN_KID);
     }
 
     onOverride = () => this.setState({parentOverride: true})

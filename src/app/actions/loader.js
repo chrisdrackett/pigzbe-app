@@ -65,6 +65,27 @@ export const loginAndLoad = passcode => async dispatch => {
     dispatch(loaderLoading(false));
 };
 
+export const loginAndLoadKid = passcode => async dispatch => {
+    dispatch(loaderLoading(true));
+
+    try {
+        await dispatch(loaderMessage('Loading'));
+        await dispatch(loadConfig());
+        await dispatch(loadExchange());
+        // const success = await dispatch(authLogin(passcode));
+        // if (success) {
+        //     await dispatch(loaderMessage('Loading'));
+        //     await dispatch(loadConfig());
+        //     await dispatch(loadExchange());
+        // }
+    } catch (error) {
+        console.log(error);
+        dispatch(loaderError(error));
+    }
+    dispatch(loaderMessage(null));
+    dispatch(loaderLoading(false));
+};
+
 export const tryTouchIdLogin = () => async (dispatch, getState) => {
     const {enableTouchId} = getState().settings;
     if (!enableTouchId) {
