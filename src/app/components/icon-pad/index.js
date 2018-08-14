@@ -5,25 +5,16 @@ import styles from './styles';
 import images from './images';
 
 const keys = [
-    'rabbit',
+    'bunny',
     'sheep',
     'frog',
-    'keylock',
+    'chest',
     'pig',
-    'wolly',
+    'wallo',
     'bird',
     'smiley',
     'cow',
 ];
-
-// const IconKey = ({num, onPress}) => (
-//     <TouchableOpacity
-//         onPress={() => onPress(num)}>
-//         <View style={styles.numKey}>
-//             <Image style={styles.rabbit} source={images.rabbit} />
-//         </View>
-//     </TouchableOpacity>
-// );
 
 export default class IconPad extends Component {
     state = {

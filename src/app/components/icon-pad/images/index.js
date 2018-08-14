@@ -1,13 +1,13 @@
 export default {
     icon: {
-        rabbit: require('./rabbit.png'),
-        sheep: require('./carrot.png'),
-        frog: require('./carrot.png'),
-        keylock: require('./carrot.png'),
-        pig: require('./carrot.png'),
-        wolly: require('./carrot.png'),
-        bird: require('./carrot.png'),
-        smiley: require('./carrot.png'),
-        cow: require('./carrot.png'),
+        bunny: require('./iconBunny.png'),
+        sheep: require('./iconSheep.png'),
+        frog: require('./iconFrog.png'),
+        chest: require('./iconChest.png'),
+        pig: require('./iconPig.png'),
+        wallo: require('./iconWallo.png'),
+        bird: require('./iconBird.png'),
+        smiley: require('./iconSmiley.png'),
+        cow: require('./iconCow.png'),
     }
 };
