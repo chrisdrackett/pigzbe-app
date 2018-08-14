@@ -6,8 +6,7 @@ exports[`Balance Graph renders correctly 1`] = `
     Object {
       "alignSelf": "stretch",
       "backgroundColor": "rgb(59, 113, 190)",
-      "borderTopLeftRadius": 5,
-      "borderTopRightRadius": 5,
+      "borderRadius": 8,
       "minHeight": 130,
       "paddingBottom": 20,
       "paddingTop": 10,
@@ -45,8 +44,8 @@ exports[`Balance Graph renders correctly 1`] = `
         style={
           Array [
             Object {
-              "height": 35,
-              "width": 35,
+              "height": 40,
+              "width": 40,
             },
             Object {
               "marginRight": 10,
@@ -121,8 +120,8 @@ exports[`Balance Graph renders correctly 1`] = `
         style={
           Array [
             Object {
-              "height": 35,
-              "width": 35,
+              "height": 40,
+              "width": 40,
             },
             Object {
               "marginRight": 10,

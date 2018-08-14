@@ -22,10 +22,10 @@ exports[`Send renders correctly 1`] = `
       Object {
         "backgroundColor": "rgb(21, 74, 150)",
         "bottom": 0,
-        "height": "50%",
         "left": 0,
         "position": "absolute",
         "right": 0,
+        "top": 242,
       }
     }
   />

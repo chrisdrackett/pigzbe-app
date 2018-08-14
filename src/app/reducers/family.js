@@ -4,7 +4,8 @@ import {
     FAMILY_LOAD,
     FAMILY_PARENT_NICKNAME,
     FAMILY_NUM_KIDS_TO_ADD,
-    FAMILY_ADD_KID
+    FAMILY_ADD_KID,
+    FAMILY_BALANCE_UPDATE
 } from '../actions';
 
 export const initialState = {
@@ -40,6 +41,19 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 kids: state.kids.concat(action.kid),
+            };
+        case FAMILY_BALANCE_UPDATE:
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    if (k.address === action.address) {
+                        return {
+                            ...k,
+                            balance: action.balance
+                        };
+                    }
+                    return k;
+                }),
             };
         default:
             return state;
