@@ -23,8 +23,12 @@ export default class IconPad extends Component {
 
     static defaultProps = {
         maxLength: 3,
-        onInput: () => {},
-        onFull: () => {},
+        onInput: (a) => {
+            console.log('onInput', a);
+        },
+        onFull: (a) => {
+            console.log('onFull', a);
+        },
     }
 
     componentWillReceiveProps(nextProps) {
@@ -35,7 +39,8 @@ export default class IconPad extends Component {
     }
 
     onInput = image => {
-        if (this.state.inputs.length === this.props.maxLength) {
+        console.log('on local input', this.props.maxLength);
+        if (this.state.inputs.size === this.props.maxLength) {
             return;
         }
 
@@ -48,7 +53,7 @@ export default class IconPad extends Component {
 
         this.props.onInput(inputs);
 
-        if (inputs.length === this.props.maxLength) {
+        if (inputs.size === this.props.maxLength) {
             this.props.onFull(inputs);
         }
     }
