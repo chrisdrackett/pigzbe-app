@@ -6,6 +6,8 @@ import Modal from '../../src/app/components/modal';
 import Button from '../../src/app/components/button';
 import Title from '../../src/app/components/title';
 import Paragraph from '../../src/app/components/paragraph';
+import ConfirmSend from '../../src/app/components/confirm-send';
+import Progress from '../../src/app/components/progress';
 
 const style = {
     flex: 1,
@@ -54,5 +56,41 @@ storiesOf('Modal')
                     onPress={() => {}}
                 />
             </Modal>
+        </View>
+    ))
+    .add('confirm send', () => (
+        <View style={style}>
+            <ConfirmSend
+                name={'Ella'}
+                amount={'40'}
+                onYes={() => {}}
+                onNo={() => {}}
+            />
+        </View>
+    ))
+    .add('progress', () => (
+        <View style={style}>
+            <Progress
+                title="Transfer in progress"
+                text="Sending *40 Wollo* to Ella"
+                buttonLabel="Close"
+                onPress={() => {}}
+                complete={false}
+                error={null}
+                active={true}
+            />
+        </View>
+    ))
+    .add('progress complete', () => (
+        <View style={style}>
+            <Progress
+                title="Success!"
+                text="*40 Wollo* has successfully been sent to Ella"
+                buttonLabel="Close"
+                onPress={() => {}}
+                complete={true}
+                error={null}
+                active={true}
+            />
         </View>
     ));
