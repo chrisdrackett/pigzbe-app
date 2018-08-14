@@ -6,7 +6,8 @@ import wollo from '../../reducers/wollo';
 import {mockStore} from '../../../setupTests';
 
 const props = {
-    dispatch: () => {}
+    dispatch: () => {},
+    payments: [],
 };
 
 describe('Payments', () => {

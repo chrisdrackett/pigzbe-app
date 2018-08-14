@@ -6,6 +6,16 @@ import wollo from '../../reducers/wollo';
 import {mockStore} from '../../../setupTests';
 
 const props = {
+    dispatch: () => {},
+    navigation: {
+        navigate: () => {},
+        addListener: () => {},
+        state: {
+            key: 'SCREEN_TRANSFER',
+            routeName: 'SCREEN_TRANSFER'
+        },
+        actions: {}
+    },
 };
 
 describe('Transfer', () => {

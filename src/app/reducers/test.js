@@ -32,17 +32,9 @@ describe('Reducers', () => {
         });
 
         it('should handle login success', () => {
-            expect(authReducer(undefined, {
-                type: actions.AUTH_LOGIN,
-                keypair: {
-                    publicKey: () => 'pk',
-                    secret: () => 'sk'
-                }
-            }))
+            expect(authReducer(undefined, {type: actions.AUTH_LOGIN}))
                 .toEqual(Object.assign({}, authState, {
                     loggedIn: true,
-                    publicKey: 'pk',
-                    secretKey: 'sk'
                 }));
         });
 

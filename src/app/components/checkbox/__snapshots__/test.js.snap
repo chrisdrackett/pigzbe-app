@@ -2,16 +2,8 @@
 
 exports[`Checkbox renders correctly 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
   accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
   isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -27,20 +19,13 @@ exports[`Checkbox renders correctly 1`] = `
       "marginBottom": 20,
       "marginTop": 10,
       "opacity": 1,
-      "paddingLeft": 20,
-      "paddingRight": 20,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Object {
-        "color": "rgb(255, 255, 255)",
+        "color": "rgb(0, 50, 120)",
         "fontFamily": "Poppins",
         "fontSize": 14,
         "fontWeight": "bold",
@@ -60,7 +45,7 @@ exports[`Checkbox renders correctly 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderColor": "rgb(255, 255, 255)",
+          "borderColor": "rgb(0, 50, 120)",
           "borderRadius": 15,
           "borderStyle": "solid",
           "borderWidth": 1,
@@ -73,7 +58,7 @@ exports[`Checkbox renders correctly 1`] = `
       <View
         style={
           Object {
-            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(0, 50, 120)",
             "borderRadius": 8,
             "height": 16,
             "opacity": 0.3,

@@ -9,8 +9,8 @@ exports[`DevPanel renders correctly 1`] = `
       "flexDirection": "row",
       "justifyContent": "space-between",
       "left": 0,
-      "paddingLeft": "9.375%",
-      "paddingRight": "9.375%",
+      "paddingLeft": "6.25%",
+      "paddingRight": "6.25%",
       "position": "absolute",
       "top": 30,
       "width": "100%",
@@ -18,39 +18,23 @@ exports[`DevPanel renders correctly 1`] = `
   }
 >
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
-      Array [
-        Object {
-          "backgroundColor": "rgb(149, 198, 100)",
-          "color": "rgb(255, 255, 255)",
-          "fontFamily": "Poppins",
-          "fontSize": 12,
-          "fontWeight": "bold",
-          "paddingLeft": 4,
-          "paddingRight": 4,
-        },
-        Object {
-          "backgroundColor": "rgb(255, 0, 0)",
-        },
-      ]
+      Object {
+        "backgroundColor": "rgb(149, 198, 100)",
+        "color": "rgb(255, 255, 255)",
+        "fontFamily": "Poppins",
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "paddingLeft": 4,
+        "paddingRight": 4,
+      }
     }
   >
-    MAINNET
+    NO NETWORK OVERRIDE
   </Text>
   <View
-    accessibilityComponentType={undefined}
-    accessibilityLabel={undefined}
-    accessibilityTraits={undefined}
     accessible={true}
-    collapsable={undefined}
-    hasTVPreferredFocus={undefined}
-    hitSlop={undefined}
     isTVSelectable={true}
-    nativeID={undefined}
-    onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
     onResponderRelease={[Function]}
@@ -68,8 +52,6 @@ exports[`DevPanel renders correctly 1`] = `
         "width": 38,
       }
     }
-    testID={undefined}
-    tvParallaxProperties={undefined}
   >
     <Image
       source={

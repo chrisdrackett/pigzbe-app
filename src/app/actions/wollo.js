@@ -6,15 +6,18 @@ import {
     paymentHistory,
     paymentInfo,
     sendPayment,
-    Asset,
     getBalance,
     getMinBalance,
     checkHasGas,
-    checkAssetTrusted
+    checkAssetTrusted,
+    trustAsset,
+    createAccount,
+    multiSig
 } from '@pigzbe/stellar-utils';
 import {strings, ASSET_CODE, KEYCHAIN_ID_STELLAR_KEY} from '../constants';
 import Keychain from '../utils/keychain';
 import {appError} from './';
+import {wolloAsset} from '../selectors';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
@@ -53,6 +56,13 @@ const updateXLM = account => dispatch => {
     dispatch({type: WOLLO_UPDATE_XLM, balanceXLM, minXLM, hasGas});
 };
 
+const createKeypair = async () => {
+    if (typeof Keypair.randomAsync === 'function') {
+        return await Keypair.randomAsync();
+    }
+    return Keypair.random();
+};
+
 export const setKeys = (keypair, keysSaved) => ({type: WOLLO_KEYPAIR, keypair, keysSaved});
 
 export const saveKeys = () => async (dispatch, getState) => {
@@ -64,14 +74,7 @@ export const saveKeys = () => async (dispatch, getState) => {
 
 export const createKeys = () => async dispatch => {
     try {
-        let keypair;
-
-        if (typeof Keypair.randomAsync === 'function') {
-            keypair = await Keypair.randomAsync();
-        } else {
-            keypair = Keypair.random();
-        }
-
+        const keypair = await createKeypair();
         return dispatch(setKeys(keypair, false));
     } catch (e) {
         console.log(e);
@@ -125,6 +128,14 @@ export const loadWallet = publicKey => async (dispatch, getState) => {
             console.log('account', account);
             dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
             dispatch(updateBalance(getWolloBalance(account)));
+
+            const asset = wolloAsset(getState());
+            const isTrusted = checkAssetTrusted(account, asset);
+            console.log('asset isTrusted', isTrusted);
+            if (!isTrusted) {
+                await trustAsset(getState().wollo.secretKey, asset);
+                console.log('asset trusted');
+            }
             dispatch(updateXLM(account));
         }
     } catch (error) {
@@ -169,11 +180,8 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     dispatch(wolloSendStatus(strings.transferStatusChecking));
 
     const {secretKey, publicKey} = getState().wollo;
-    const {network, stellar} = getState().config;
-    const {code, address} = stellar.networks[network];
-    const asset = new Asset(code, address);
-
     const destAccount = await loadAccount(destination);
+    const asset = wolloAsset(getState());
     const isTrusted = checkAssetTrusted(destAccount, asset);
 
     if (!isTrusted) {
@@ -208,3 +216,43 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
 };
 
 export const wolloTestUser = testUserKey => ({type: WOLLO_TEST_USER, testUserKey});
+
+export const createSubAccount = name => async (dispatch, getState) => {
+    try {
+        const {publicKey, secretKey} = getState().wollo;
+        const keypair = await createKeypair();
+        const destination = keypair.publicKey();
+        console.log('secretKey, destination', secretKey, destination);
+        await createAccount(secretKey, destination, '10', `Add ${name}`);
+
+        const signers = [{
+            publicKey,
+            weight: 2
+        }];
+        const weights = {
+            masterWeight: 2,
+            lowThreshold: 2,
+            medThreshold: 2,
+            highThreshold: 2
+        };
+        await multiSig(keypair.secret(), signers, weights);
+
+        const asset = wolloAsset(getState());
+        await trustAsset(keypair.secret(), asset);
+
+        return keypair.publicKey();
+    } catch (error) {
+        console.log(error);
+    }
+    return null;
+};
+
+export const getAccountBalance = publicKey => async () => {
+    try {
+        const account = await loadAccount(publicKey);
+        return getWolloBalance(account);
+    } catch (error) {
+        console.log(error);
+    }
+    return '0';
+};

@@ -2,9 +2,6 @@
 
 exports[`Keyboard Avoid renders correctly 1`] = `
 <View
-  contentContainerStyle={undefined}
-  enabled={true}
-  keyboardVerticalOffset={0}
   onLayout={[Function]}
   style={
     Object {
@@ -14,12 +11,9 @@ exports[`Keyboard Avoid renders correctly 1`] = `
 >
   <View
     style={
-      Array [
-        undefined,
-        Object {
-          "bottom": 0,
-        },
-      ]
+      Object {
+        "bottom": 0,
+      }
     }
   />
 </View>

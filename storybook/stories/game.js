@@ -30,4 +30,10 @@ const props = {
 storiesOf('Game')
     .add('default', () => (
         <GameView {...props}/>
+    ))
+    .add('with learn', () => (
+        <GameView {...{
+            ...props,
+            overlayOpen: true
+        }}/>
     ));

@@ -11,8 +11,7 @@ export default StyleSheet.create({
         alignSelf: 'stretch',
         paddingTop: 10,
         paddingBottom: 20,
-        borderTopRightRadius: 5,
-        borderTopLeftRadius: 5,
+        borderRadius: 8,
     },
     containerBalance: {
         width: '50%',

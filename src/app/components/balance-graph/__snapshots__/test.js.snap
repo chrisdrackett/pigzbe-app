@@ -5,7 +5,9 @@ exports[`Balance Graph renders correctly 1`] = `
   style={
     Object {
       "alignSelf": "stretch",
-      "backgroundColor": "rgb(21, 74, 150)",
+      "backgroundColor": "rgb(59, 113, 190)",
+      "borderTopLeftRadius": 5,
+      "borderTopRightRadius": 5,
       "minHeight": 130,
       "paddingBottom": 20,
       "paddingTop": 10,
@@ -54,9 +56,6 @@ exports[`Balance Graph renders correctly 1`] = `
       />
       <View>
         <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
           style={
             Object {
               "color": "rgb(255, 255, 255)",
@@ -68,9 +67,6 @@ exports[`Balance Graph renders correctly 1`] = `
           Wollo
         </Text>
         <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
           style={
             Object {
               "color": "rgba(255, 255, 255, 0.6)",
@@ -80,6 +76,82 @@ exports[`Balance Graph renders correctly 1`] = `
           }
         >
           100
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "justifyContent": "flex-end",
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "alignSelf": "stretch",
+        "flex": 1,
+        "flexDirection": "row",
+        "marginTop": 20,
+        "paddingLeft": 30,
+        "paddingRight": 30,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "width": "50%",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/coin-icon/images/coin-xlm.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 35,
+              "width": 35,
+            },
+            Object {
+              "marginRight": 10,
+            },
+          ]
+        }
+      />
+      <View>
+        <Text
+          style={
+            Object {
+              "color": "rgb(255, 255, 255)",
+              "fontFamily": "Poppins",
+              "fontWeight": "bold",
+            }
+          }
+        >
+          XLM
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "rgba(255, 255, 255, 0.6)",
+              "fontFamily": "Poppins",
+              "fontWeight": "bold",
+            }
+          }
+        >
+          NaN
         </Text>
       </View>
     </View>

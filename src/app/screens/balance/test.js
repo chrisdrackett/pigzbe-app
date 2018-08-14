@@ -3,7 +3,10 @@ import renderer from 'react-test-renderer';
 import {Balance} from './';
 
 const props = {
+    dispatch: () => {},
     navigation: {
+        navigate: () => {},
+        addListener: () => {},
         state: {
             key: 'SCREEN_BALANCE',
             routeName: 'SCREEN_BALANCE'
@@ -24,7 +27,8 @@ const props = {
     balance: '0',
     baseCurrency: 'USD',
     escrow: null,
-    firstTime: true
+    firstTime: true,
+    kids: [],
 };
 
 describe('Balance', () => {

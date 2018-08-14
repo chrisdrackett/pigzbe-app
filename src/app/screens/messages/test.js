@@ -4,6 +4,15 @@ import {Messages} from './';
 
 const props = {
     dispatch: () => {},
+    navigation: {
+        navigate: () => {},
+        addListener: () => {},
+        state: {
+            key: 'SCREEN_MESSAGES',
+            routeName: 'SCREEN_MESSAGES'
+        },
+        actions: {}
+    },
     messages: [{
         key: '1',
         date: '2018-04-20T12:00+01:00',

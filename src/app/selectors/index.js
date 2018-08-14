@@ -1,5 +1,6 @@
 import {createSelector} from 'reselect';
 import Config from 'react-native-config';
+import {Asset} from '@pigzbe/stellar-utils';
 
 const configSelector = state => state.config;
 
@@ -18,5 +19,14 @@ export const apiURL = createSelector(
             default:
                 return 'https://staging.api.pigzbe.com';
         }
+    }
+);
+
+export const wolloAsset = createSelector(
+    configSelector,
+    config => {
+        const {network, stellar} = config;
+        const {code, address} = stellar.networks[network];
+        return new Asset(code, address);
     }
 );
