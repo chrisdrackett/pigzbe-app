@@ -48,7 +48,7 @@ export default class IconPad extends Component {
 
         this.props.onInput(inputs);
 
-        if (inputs.length === this.props.length) {
+        if (inputs.length === this.props.maxLength) {
             this.props.onFull(inputs);
         }
     }

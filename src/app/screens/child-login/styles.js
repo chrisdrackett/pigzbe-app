@@ -9,5 +9,10 @@ export default StyleSheet.create({
         fontFamily,
         color: color.grey,
         fontSize: 14,
+        textAlign: 'center',
     },
+    centered: {
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    }
 });
