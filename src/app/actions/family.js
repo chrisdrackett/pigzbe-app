@@ -13,9 +13,10 @@ const familyLoading = value => ({type: FAMILY_LOADING, value});
 export const loadFamily = () => async (dispatch, getState) => {
     console.log('loadFamily');
     try {
-        const {secretKey} = getState().wollo;
-        const data = await Storage.load(STORAGE_KEY_FAMILY, secretKey);
-        console.log('data', data);
+        // const {secretKey} = getState().wollo;
+        // const data = await Storage.load(STORAGE_KEY_FAMILY, secretKey);
+        const data = await Storage.load(STORAGE_KEY_FAMILY);
+        // console.log('data', data);
         // console.log(JSON.stringify(data, null, 2));
         dispatch({type: FAMILY_LOAD, ...data});
 
@@ -33,8 +34,9 @@ export const saveFamily = () => async (dispatch, getState) => {
     try {
         const data = getState().family;
         console.log('data', data);
-        const {secretKey} = getState().wollo;
-        await Storage.save(STORAGE_KEY_FAMILY, data, secretKey);
+        // const {secretKey} = getState().wollo;
+        // await Storage.save(STORAGE_KEY_FAMILY, data, secretKey);
+        await Storage.save(STORAGE_KEY_FAMILY, data);
     } catch (error) {
         console.log(error);
     }
@@ -48,7 +50,9 @@ export const familyAddKid = (name, dob, photo) => async dispatch => {
     console.log('FAMILY_ADD_KID', name, dob, photo);
     dispatch(familyLoading(true));
 
-    const address = await dispatch(createSubAccount());
+    const address = await dispatch(createSubAccount(name));
+
+    console.log('address', address);
 
     // addChild
     // create stellar account

@@ -13,26 +13,42 @@ import {SCREEN_LOGIN, SCREEN_DEVICE_AUTH} from '../../constants';
 import HomeLogo from '../../components/home-logo';
 import KidAvatar from '../../components/kid-avatar';
 
-export const HomeView = ({hasKids, onCreate, onLogin, onOverride, kids}) => (
+class KidProfile extends Component {
+    onChoose = () => this.props.onChoose(this.props.address)
+
+    render() {
+        const {name, photo} = this.props;
+
+        return (
+            <TouchableOpacity style={styles.profile} onPress={this.onChoose}>
+                <KidAvatar photo={photo} large/>
+                <Text style={styles.name}>{name}</Text>
+            </TouchableOpacity>
+        );
+    }
+}
+
+export const HomeView = ({showKidLogin, kids, onCreate, onLogin, onKidLogin, onOverride}) => (
     <Fragment>
-        {hasKids ? (
+        {showKidLogin ? (
             <Fragment>
                 <Container style={[styles.containerHeader, styles.containerHeaderKids]} scroll={false}>
                     <HomeLogo />
                     <Pig/>
                 </Container>
-                <Container style={styles.containerBody} scroll={false}>
-                    <View style={styles.containerText}>
+                <Container style={styles.containerBody} scroll={kids.length > 2}>
+                    <View style={[styles.containerText, styles.containerTextKids]}>
                         <Text style={[styles.title, styles.titleLarge]}>Welcome back!</Text>
-                        <Text style={styles.subtitle}>Choose your profile</Text>
-                        <View style={styles.profileWrapper}>
-                            {kids.map(({name, photo, address}, i) => (
-                                <TouchableOpacity key={i} style={styles.profile} onPress={onLogin}>
-                                    <KidAvatar photo={photo} large/>
-                                    <Text style={styles.name}>{name}</Text>
-                                </TouchableOpacity>
-                            ))}
-                        </View>
+                        <Text style={[styles.subtitle, styles.bold]}>Choose your profile</Text>
+                    </View>
+                    <View style={styles.profileWrapper}>
+                        {kids.map((kid, i) => (
+                            <KidProfile
+                                {...kid}
+                                key={i}
+                                onChoose={onKidLogin}
+                            />
+                        ))}
                     </View>
                     <View>
                         <Button label="Parental login" theme="plain_light" onPress={onOverride} />
@@ -77,17 +93,24 @@ class Home extends Component {
         this.props.navigation.navigate(SCREEN_DEVICE_AUTH);
     }
 
+    onKidLogin = address => {
+        // TODO: dispatch to set profile to log in and navigate to kid login
+        console.log('onKidLogin', address);
+    }
+
     onOverride = () => this.setState({parentOverride: true})
 
     render() {
-        const {initializing, loading, message, hasKids} = this.props;
+        const {initializing, loading, message, kids} = this.props;
 
         return (
             <Fragment>
                 <HomeView
-                    hasKids={hasKids && !this.state.parentOverride}
+                    showKidLogin={kids.length && !this.state.parentOverride}
+                    kids={kids}
                     onCreate={this.onCreate}
                     onLogin={this.onLogin}
+                    onKidLogin={this.onKidLogin}
                     onOverride={this.onOverride}
                 />
                 <DevPanel/>
@@ -105,6 +128,6 @@ export default connect(
         initializing: state.loader.initializing,
         loading: state.loader.loading,
         message: state.loader.message,
-        hasKids: state.settings.hasKids,
+        kids: state.family.kids,
     })
 )(Home);

@@ -24,21 +24,28 @@ storiesOf('Home')
     .add('with kids', () => (
         <HomeView {...{
             ...props,
-            hasKids: true,
+            showKidLogin: true,
             kids,
         }}/>
     ))
     .add('with 1 kid', () => (
         <HomeView {...{
             ...props,
-            hasKids: true,
+            showKidLogin: true,
             kids: kids.slice(0, 1),
         }}/>
     ))
     .add('with 3 kids', () => (
         <HomeView {...{
             ...props,
-            hasKids: true,
+            showKidLogin: true,
             kids: kids.concat(kids.slice(0, 1)),
+        }}/>
+    ))
+    .add('with 8 kids', () => (
+        <HomeView {...{
+            ...props,
+            showKidLogin: true,
+            kids: kids.concat(kids.slice(0), kids.slice(0), kids.slice(0)),
         }}/>
     ));

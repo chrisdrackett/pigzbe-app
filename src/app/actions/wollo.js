@@ -217,13 +217,13 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
 
 export const wolloTestUser = testUserKey => ({type: WOLLO_TEST_USER, testUserKey});
 
-export const createSubAccount = () => async (dispatch, getState) => {
+export const createSubAccount = name => async (dispatch, getState) => {
     try {
         const {publicKey, secretKey} = getState().wollo;
         const keypair = await createKeypair();
         const destination = keypair.publicKey();
         console.log('secretKey, destination', secretKey, destination);
-        await createAccount(secretKey, destination, '10', 'Add child');
+        await createAccount(secretKey, destination, '10', `Add ${name}`);
 
         const signers = [{
             publicKey,

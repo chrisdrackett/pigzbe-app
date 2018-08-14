@@ -16,7 +16,9 @@ export default class Kids extends Component {
     }
 
     onAddKids = () => {
-        this.props.dispatch(familyAddKid('Name', '01/01/2012', null));
+        const names = ['Ella', 'Sebastian', 'Billy', 'Bobby'];
+        const name = names[this.props.kids.length] || `Name ${this.props.kids.length}`;
+        this.props.dispatch(familyAddKid(name, '01/01/2012', null));
     }
 
     onSliderChange = value => this.setState({value})

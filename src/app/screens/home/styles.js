@@ -31,6 +31,9 @@ export default StyleSheet.create({
         flexGrow: 1,
         paddingTop: 20
     },
+    containerTextKids: {
+        flexGrow: 0,
+    },
     title: {
         fontFamily,
         color: color.white,
@@ -43,6 +46,7 @@ export default StyleSheet.create({
     },
     titleLarge: {
         fontSize: 25,
+        marginTop: 25,
     },
     tagline: {
         fontFamily,
@@ -66,12 +70,14 @@ export default StyleSheet.create({
         marginBottom: 20,
         textAlign: 'center'
     },
+    bold: {
+        fontWeight: 'bold',
+    },
     error: {
         color: color.red,
         fontSize: 18
     },
     profileWrapper: {
-        backgroundColor: 'red',
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'center',
@@ -79,8 +85,10 @@ export default StyleSheet.create({
     },
     profile: {
         width: 90,
-        marginLeft: 20,
-        marginRight: 20,
+        marginLeft: 16,
+        marginRight: 16,
+        marginTop: 10,
+        marginBottom: 10,
     },
     name: {
         fontFamily,
@@ -88,5 +96,6 @@ export default StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         textAlign: 'center',
+        marginTop: 8,
     }
 });
