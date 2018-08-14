@@ -2,26 +2,39 @@
 
 exports[`Messages renders correctly without messages 1`] = `
 <View
+  onLayout={[Function]}
   style={
-    Object {
-      "alignItems": "center",
-      "alignSelf": "stretch",
-      "backgroundColor": "rgb(0, 50, 120)",
-      "flex": 1,
-      "justifyContent": "center",
-    }
+    Array [
+      Object {
+        "backgroundColor": "rgb(0, 50, 120)",
+        "flex": 1,
+        "justifyContent": "space-between",
+      },
+      Object {
+        "width": 750,
+      },
+      undefined,
+    ]
   }
 >
   <View
     style={
       Object {
+        "backgroundColor": "rgb(21, 74, 150)",
+        "bottom": 0,
+        "height": "50%",
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
         "alignItems": "center",
-        "flex": 1,
-        "flexBasis": 162,
-        "flexGrow": 0,
-        "height": 162,
-        "justifyContent": "flex-start",
-        "width": "100%",
+        "backgroundColor": "rgb(0, 50, 120)",
+        "justifyContent": "center",
       }
     }
   >
@@ -40,125 +53,140 @@ exports[`Messages renders correctly without messages 1`] = `
         }
       }
     />
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+        "marginTop": 20,
+      }
+    }
+  >
     <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
       style={
-        Object {
-          "color": "rgb(255, 255, 255)",
-          "fontFamily": "Poppins",
-          "fontSize": 16,
-          "fontWeight": "bold",
-          "marginLeft": 20,
-          "marginRight": 20,
-          "marginTop": 10,
-          "textAlign": "center",
-        }
+        Array [
+          Object {
+            "color": "rgb(255, 255, 255)",
+            "fontFamily": "Poppins",
+            "fontSize": 22,
+            "fontWeight": "bold",
+          },
+          undefined,
+        ]
       }
     >
       Your Updates
     </Text>
-    <View
-      style={
+    <Image
+      source={
         Object {
-          "alignItems": "center",
-          "bottom": 0,
-          "flex": 1,
-          "justifyContent": "flex-end",
-          "position": "absolute",
+          "testUri": "../../../src/app/components/step-header/images/messages.png",
         }
       }
-    >
-      <Image
-        source={
-          Object {
-            "testUri": "../../../src/app/components/pig/pig.png",
-          }
+      style={
+        Object {
+          "height": 100,
+          "marginBottom": -30,
+          "marginTop": 8,
+          "width": 200,
         }
-        style={
-          Object {
-            "height": 35,
-            "width": 81,
-          }
-        }
-      />
-    </View>
+      }
+    />
   </View>
   <View
+    onLayout={[Function]}
     style={
       Object {
-        "alignItems": "stretch",
-        "alignSelf": "stretch",
-        "backgroundColor": "rgb(247, 247, 250)",
         "flex": 1,
-        "justifyContent": "center",
-        "position": "relative",
       }
     }
   >
     <View
       style={
-        Object {
-          "backgroundColor": "rgba(0, 0, 0, 0.05)",
-          "height": 5,
-          "left": 0,
-          "position": "absolute",
-          "right": 0,
-          "top": 0,
-          "zIndex": 1,
-        }
+        Array [
+          Object {
+            "flexGrow": 1,
+          },
+          Object {
+            "bottom": 0,
+          },
+        ]
       }
-    />
-    <RCTScrollView
-      data={Array []}
-      disableVirtualization={false}
-      getItem={[Function]}
-      getItemCount={[Function]}
-      horizontal={false}
-      initialNumToRender={10}
-      invertStickyHeaders={undefined}
-      keyExtractor={[Function]}
-      maxToRenderPerBatch={10}
-      numColumns={1}
-      onContentSizeChange={[Function]}
-      onEndReachedThreshold={2}
-      onLayout={[Function]}
-      onMomentumScrollEnd={[Function]}
-      onScroll={[Function]}
-      onScrollBeginDrag={[Function]}
-      onScrollEndDrag={[Function]}
-      renderItem={[Function]}
-      scrollEventThrottle={50}
-      stickyHeaderIndices={Array []}
-      updateCellsBatchingPeriod={50}
-      viewabilityConfigCallbackPairs={Array []}
-      windowSize={21}
     >
-      <View />
-    </RCTScrollView>
-  </View>
-  <View
-    style={
-      Object {
-        "position": "relative",
-        "width": "100%",
-      }
-    }
-  >
-    <View
-      style={
-        Object {
-          "backgroundColor": "rgba(0, 0, 0, 0.05)",
-          "height": 5,
-          "left": 0,
-          "position": "absolute",
-          "right": 0,
-          "top": -5,
-          "zIndex": 1,
+      <View
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "rgb(0, 50, 120)",
+              "flex": 1,
+              "justifyContent": "space-between",
+            },
+            Object {
+              "width": 750,
+            },
+            Array [
+              Object {
+                "alignSelf": "center",
+                "borderTopLeftRadius": 5,
+                "borderTopRightRadius": 5,
+                "width": "88.75%",
+              },
+              Object {
+                "backgroundColor": "rgb(255, 255, 255)",
+              },
+            ],
+          ]
         }
-      }
-    />
+      >
+        <View
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "stretch",
+                "alignSelf": "stretch",
+                "position": "relative",
+              }
+            }
+          >
+            <RCTScrollView
+              data={Array []}
+              disableVirtualization={false}
+              getItem={[Function]}
+              getItemCount={[Function]}
+              horizontal={false}
+              initialNumToRender={10}
+              keyExtractor={[Function]}
+              maxToRenderPerBatch={10}
+              numColumns={1}
+              onContentSizeChange={[Function]}
+              onEndReachedThreshold={2}
+              onLayout={[Function]}
+              onMomentumScrollEnd={[Function]}
+              onScroll={[Function]}
+              onScrollBeginDrag={[Function]}
+              onScrollEndDrag={[Function]}
+              renderItem={[Function]}
+              scrollEventThrottle={50}
+              stickyHeaderIndices={Array []}
+              updateCellsBatchingPeriod={50}
+              viewabilityConfigCallbackPairs={Array []}
+              windowSize={21}
+            >
+              <View />
+            </RCTScrollView>
+          </View>
+        </View>
+      </View>
+    </View>
   </View>
 </View>
 `;

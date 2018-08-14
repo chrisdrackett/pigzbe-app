@@ -38,61 +38,7 @@ const props = {
     sendStatus: null,
     sendComplete: false,
     payments: [
-        {
-            date: '2018-07-10T09:43:25Z',
-            amount: '1.0000000',
-            assetCode: 'XLM',
-            direction: 'in',
-            from: 'GCX4CQ4RBK4HIATR2MYG3VJU2CGAOQMLK25FS574OUYG6MYGG3Y6V353',
-            to: 'GCUPGH4DZZVXNWVMEOXMO2M2524UYY2O6DXDGUR6YRFPNFGVF4LX63TW',
-            address: 'GCX4CQ4RBK4HIATR2MYG3VJU2CGAOQMLK25FS574OUYG6MYGG3Y6V353',
-            memo: 'Test',
-            link: 'https://horizon-testnet.stellar.org/operations/42694358629093377'
-        },
-        {
-            date: '2018-07-10T09:42:29Z',
-            amount: '1.0000000',
-            assetCode: 'XLM',
-            direction: 'in',
-            from: 'GCX4CQ4RBK4HIATR2MYG3VJU2CGAOQMLK25FS574OUYG6MYGG3Y6V353',
-            to: 'GCUPGH4DZZVXNWVMEOXMO2M2524UYY2O6DXDGUR6YRFPNFGVF4LX63TW',
-            address: 'GCX4CQ4RBK4HIATR2MYG3VJU2CGAOQMLK25FS574OUYG6MYGG3Y6V353',
-            memo: 'Test',
-            link: 'https://horizon-testnet.stellar.org/operations/42694311384453121'
-        },
-        {
-            date: '2018-07-10T09:40:55Z',
-            amount: '1.0000000',
-            assetCode: 'XLM',
-            direction: 'in',
-            from: 'GCX4CQ4RBK4HIATR2MYG3VJU2CGAOQMLK25FS574OUYG6MYGG3Y6V353',
-            to: 'GCUPGH4DZZVXNWVMEOXMO2M2524UYY2O6DXDGUR6YRFPNFGVF4LX63TW',
-            address: 'GCX4CQ4RBK4HIATR2MYG3VJU2CGAOQMLK25FS574OUYG6MYGG3Y6V353',
-            memo: 'Test',
-            link: 'https://horizon-testnet.stellar.org/operations/42694229780082689'
-        },
-        {
-            date: '2018-07-09T10:37:19Z',
-            amount: '1.0000000',
-            assetCode: 'XLM',
-            direction: 'in',
-            from: 'GCX4CQ4RBK4HIATR2MYG3VJU2CGAOQMLK25FS574OUYG6MYGG3Y6V353',
-            to: 'GCUPGH4DZZVXNWVMEOXMO2M2524UYY2O6DXDGUR6YRFPNFGVF4LX63TW',
-            address: 'GCX4CQ4RBK4HIATR2MYG3VJU2CGAOQMLK25FS574OUYG6MYGG3Y6V353',
-            memo: 'Test',
-            link: 'https://horizon-testnet.stellar.org/operations/42622920438067201'
-        },
-        {
-            date: '2018-07-06T18:37:50Z',
-            amount: '5.4672469',
-            assetCode: 'WLO',
-            direction: 'in',
-            from: 'GDPCWCCJDXJHSA3GA62PFMZNP6A7NZSEGNEH3F3LSSUQZZ3NDCFVB6GB',
-            to: 'GCUPGH4DZZVXNWVMEOXMO2M2524UYY2O6DXDGUR6YRFPNFGVF4LX63TW',
-            address: 'GDPCWCCJDXJHSA3GA62PFMZNP6A7NZSEGNEH3F3LSSUQZZ3NDCFVB6GB',
-            memo: 'Welcome to Pigzbe',
-            link: 'https://horizon-testnet.stellar.org/operations/42425038409838593'
-        },
+
         {
             date: '2018-06-29T13:34:03Z',
             amount: '0.5000000',
@@ -112,7 +58,7 @@ const props = {
             from: 'GAER3I4YDEPXCFMUB5J5OXD7QT7F4XPT2NVUOMNIUAMD2UCYOKKPFB2U',
             to: 'GCUPGH4DZZVXNWVMEOXMO2M2524UYY2O6DXDGUR6YRFPNFGVF4LX63TW',
             address: 'GAER3I4YDEPXCFMUB5J5OXD7QT7F4XPT2NVUOMNIUAMD2UCYOKKPFB2U',
-            memo: 'From Bon jovi',
+            memo: 'Thanks',
             link: 'https://horizon-testnet.stellar.org/operations/41378913225547777'
         },
         {
@@ -123,8 +69,19 @@ const props = {
             from: 'GCX4CQ4RBK4HIATR2MYG3VJU2CGAOQMLK25FS574OUYG6MYGG3Y6V353',
             to: 'GCUPGH4DZZVXNWVMEOXMO2M2524UYY2O6DXDGUR6YRFPNFGVF4LX63TW',
             address: 'GCX4CQ4RBK4HIATR2MYG3VJU2CGAOQMLK25FS574OUYG6MYGG3Y6V353',
-            memo: 'Test',
+            memo: '',
             link: 'https://horizon-testnet.stellar.org/operations/41230629479653377'
+        },
+        {
+            date: '2018-07-06T18:37:50Z',
+            amount: '5.4672469',
+            assetCode: 'WLO',
+            direction: 'in',
+            from: 'GDPCWCCJDXJHSA3GA62PFMZNP6A7NZSEGNEH3F3LSSUQZZ3NDCFVB6GB',
+            to: 'GCUPGH4DZZVXNWVMEOXMO2M2524UYY2O6DXDGUR6YRFPNFGVF4LX63TW',
+            address: 'GDPCWCCJDXJHSA3GA62PFMZNP6A7NZSEGNEH3F3LSSUQZZ3NDCFVB6GB',
+            memo: 'Welcome to Pigzbe',
+            link: 'https://horizon-testnet.stellar.org/operations/42425038409838593'
         },
         {
             date: '2018-06-20T16:21:37Z',
@@ -134,7 +91,7 @@ const props = {
             from: 'GCX4CQ4RBK4HIATR2MYG3VJU2CGAOQMLK25FS574OUYG6MYGG3Y6V353',
             to: 'GCUPGH4DZZVXNWVMEOXMO2M2524UYY2O6DXDGUR6YRFPNFGVF4LX63TW',
             address: 'GCX4CQ4RBK4HIATR2MYG3VJU2CGAOQMLK25FS574OUYG6MYGG3Y6V353',
-            memo: 'Test',
+            memo: '',
             link: 'https://horizon-testnet.stellar.org/operations/41230569350115329'
         },
         {

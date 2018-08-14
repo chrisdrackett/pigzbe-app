@@ -10,11 +10,18 @@ exports[`Game renders correctly 1`] = `
   }
 >
   <WebView
+    bounces={false}
     domStorageEnabled={true}
     javaScriptEnabled={true}
     mediaPlaybackRequiresUserAction={false}
     onError={[Function]}
     onMessage={[Function]}
+    originWhitelist={
+      Array [
+        "*",
+      ]
+    }
+    scrollEnabled={false}
     source="html"
     style={
       Object {
@@ -33,16 +40,8 @@ exports[`Game renders correctly 1`] = `
     }
   >
     <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
-      accessibilityTraits={undefined}
       accessible={true}
-      collapsable={undefined}
-      hasTVPreferredFocus={undefined}
-      hitSlop={undefined}
       isTVSelectable={true}
-      nativeID={undefined}
-      onLayout={undefined}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -64,8 +63,6 @@ exports[`Game renders correctly 1`] = `
           "paddingTop": 3,
         }
       }
-      testID={undefined}
-      tvParallaxProperties={undefined}
     >
       <Image
         source={
@@ -96,9 +93,6 @@ exports[`Game renders correctly 1`] = `
         }
       />
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Object {
             "color": "rgb(0, 50, 120)",
@@ -115,17 +109,21 @@ exports[`Game renders correctly 1`] = `
   </View>
   <View
     style={
-      Object {
-        "alignItems": "center",
-        "backgroundColor": "rgb(0, 50, 120)",
-        "bottom": 0,
-        "flex": 1,
-        "justifyContent": "center",
-        "left": 0,
-        "position": "absolute",
-        "right": 0,
-        "top": 0,
-      }
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgb(0, 50, 120)",
+          "bottom": 0,
+          "flex": 1,
+          "justifyContent": "center",
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        null,
+        undefined,
+      ]
     }
   >
     <ActivityIndicator
@@ -135,24 +133,24 @@ exports[`Game renders correctly 1`] = `
       size="large"
     />
     <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
       style={
-        Object {
-          "color": "rgb(255, 255, 255)",
-          "fontFamily": "Poppins",
-          "fontSize": 12,
-          "fontWeight": "bold",
-          "marginBottom": 20,
-          "marginLeft": 20,
-          "marginRight": 20,
-          "marginTop": 20,
-          "textAlign": "center",
-        }
+        Array [
+          Object {
+            "color": "rgb(255, 255, 255)",
+            "fontFamily": "Poppins",
+            "fontSize": 12,
+            "fontWeight": "bold",
+            "marginBottom": 20,
+            "marginLeft": 20,
+            "marginRight": 20,
+            "marginTop": 20,
+            "textAlign": "center",
+          },
+          null,
+        ]
       }
     >
-      Loading...
+      Loading
     </Text>
   </View>
 </View>

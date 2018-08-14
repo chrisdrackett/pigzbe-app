@@ -8,10 +8,10 @@ export default StyleSheet.create({
         marginTop: 20,
     },
     image: {
-        marginTop: 0,
+        marginTop: 8,
         marginBottom: -30,
-        width: 121,
-        height: 108,
+        width: 200,
+        height: 100,
         // backgroundColor: color.red
     },
     noImage: {

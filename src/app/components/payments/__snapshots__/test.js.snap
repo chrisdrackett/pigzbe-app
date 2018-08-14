@@ -6,29 +6,10 @@ exports[`Payments renders correctly 1`] = `
     Object {
       "alignItems": "stretch",
       "alignSelf": "stretch",
-      "backgroundColor": "rgb(247, 247, 250)",
-      "flex": 1,
-      "justifyContent": "center",
       "position": "relative",
     }
   }
 >
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "rgb(74, 74, 74)",
-        "fontFamily": "Poppins",
-        "fontSize": 16,
-        "marginTop": 25,
-        "textAlign": "center",
-      }
-    }
-  >
-    Transfer History
-  </Text>
   <RCTScrollView
     data={Array []}
     disableVirtualization={false}
@@ -36,7 +17,6 @@ exports[`Payments renders correctly 1`] = `
     getItemCount={[Function]}
     horizontal={false}
     initialNumToRender={10}
-    invertStickyHeaders={undefined}
     keyExtractor={[Function]}
     maxToRenderPerBatch={10}
     numColumns={1}

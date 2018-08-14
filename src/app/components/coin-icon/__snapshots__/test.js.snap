@@ -2,7 +2,6 @@
 
 exports[`CoinIcon renders correctly 1`] = `
 <Image
-  source={undefined}
   style={
     Object {
       "height": 35,

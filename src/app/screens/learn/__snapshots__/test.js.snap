@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Overlay renders correctly 1`] = `
+exports[`Learn renders correctly 1`] = `
 <View
   style={
     Object {
@@ -11,16 +11,8 @@ exports[`Overlay renders correctly 1`] = `
   }
 >
   <View
-    accessibilityComponentType={undefined}
-    accessibilityLabel={undefined}
-    accessibilityTraits={undefined}
     accessible={true}
-    collapsable={undefined}
-    hasTVPreferredFocus={undefined}
-    hitSlop={undefined}
     isTVSelectable={true}
-    nativeID={undefined}
-    onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
     onResponderRelease={[Function]}
@@ -42,8 +34,6 @@ exports[`Overlay renders correctly 1`] = `
         "paddingTop": 3,
       }
     }
-    testID={undefined}
-    tvParallaxProperties={undefined}
   >
     <Image
       source={
@@ -74,9 +64,6 @@ exports[`Overlay renders correctly 1`] = `
       }
     />
     <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
       style={
         Object {
           "color": "rgb(0, 50, 120)",
@@ -86,9 +73,7 @@ exports[`Overlay renders correctly 1`] = `
           "lineHeight": 26,
         }
       }
-    >
-      00
-    </Text>
+    />
   </View>
 </View>
 `;

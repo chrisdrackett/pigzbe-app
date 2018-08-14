@@ -15,7 +15,7 @@ const source = Platform.OS === 'android' ? {uri: 'file:///android_asset/game.htm
 export class GameView extends NavListener {
     state = {
         loading: true,
-        message: 'Loading',
+        message: 'Loading game',
     }
 
     onBlur = () => this.sendPostMessage(PAUSE)

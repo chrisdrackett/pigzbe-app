@@ -9,6 +9,7 @@ import {
 } from '../../constants';
 import ConvertBalance from '../../components/convert-balance';
 import BalanceGraph from '../../components/balance-graph';
+import Kids from '../../components/kids';
 import Button from '../../components/button';
 import Wollo from '../../components/wollo';
 import Modal from '../../components/modal';
@@ -41,8 +42,10 @@ export class Balance extends Component {
             exchange,
             error,
             balance,
+            balanceXLM,
             baseCurrency,
-            firstTime
+            firstTime,
+            kids,
         } = this.props;
 
         const loading = !exchange && !error;
@@ -56,17 +59,28 @@ export class Balance extends Component {
                     icon="piggy"
                     headerChildren={(
                         <View style={{marginBottom: -20}}>
-                            <Wollo balance={balance}/>
+                            <Wollo
+                                balance={balance}
+                                exchange={exchange}
+                                baseCurrency={baseCurrency}
+                            />
                         </View>
                     )}
-                    backgroundColor={color.lightGrey}
+                    backgroundColor={color.transparent}
                     onSettings={this.onSettings}
                     loading={loading}
                     error={error}
                 >
                     {(!loading && !error) && (
                         <View>
-                            <BalanceGraph balance={balance} exchange={exchange} baseCurrency={baseCurrency}/>
+                            <BalanceGraph balance={balance} balanceXLM={balanceXLM} exchange={exchange} baseCurrency={baseCurrency}/>
+                            <Kids
+                                kids={kids}
+                                dispatch={this.props.dispatch}
+                                exchange={exchange}
+                                baseCurrency={baseCurrency}
+                                parentBalance={balance}
+                            />
                             <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
                         </View>
                     )}
@@ -97,7 +111,9 @@ export default connect(
         error: state.coins.error,
         exchange: state.coins.exchange,
         balance: state.wollo.balance,
+        balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.wollo.baseCurrency,
         firstTime: state.settings.firstTime,
+        kids: state.family.kids,
     })
 )(Balance);

@@ -14,6 +14,10 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    containerHeaderKids: {
+        height: 204,
+        flex: 0,
+    },
     containerBody: {
         backgroundColor: color.mediumBlue,
         paddingBottom: 20,
@@ -27,9 +31,8 @@ export default StyleSheet.create({
         flexGrow: 1,
         paddingTop: 20
     },
-    image: {
-        width: 162,
-        height: 63
+    containerTextKids: {
+        flexGrow: 0,
     },
     title: {
         fontFamily,
@@ -40,6 +43,10 @@ export default StyleSheet.create({
         marginRight: 20,
         marginBottom: 10,
         textAlign: 'center'
+    },
+    titleLarge: {
+        fontSize: 25,
+        marginTop: 25,
     },
     tagline: {
         fontFamily,
@@ -63,8 +70,32 @@ export default StyleSheet.create({
         marginBottom: 20,
         textAlign: 'center'
     },
+    bold: {
+        fontWeight: 'bold',
+    },
     error: {
         color: color.red,
         fontSize: 18
+    },
+    profileWrapper: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    profile: {
+        width: 90,
+        marginLeft: 16,
+        marginRight: 16,
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    name: {
+        fontFamily,
+        color: color.white,
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: 8,
     }
 });

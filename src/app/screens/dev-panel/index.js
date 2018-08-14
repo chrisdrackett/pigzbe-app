@@ -18,9 +18,10 @@ import {setUseTestnet, wolloTestUser, configUpdate} from '../../actions';
 import {
     KEYCHAIN_ID_STELLAR_KEY,
     KEYCHAIN_ID_ETH_KEY,
+    KEYCHAIN_ID_PASSCODE,
     STORAGE_KEY_SETTINGS,
     STORAGE_KEY_BURNING,
-    KEYCHAIN_ID_PASSCODE
+    STORAGE_KEY_FAMILY,
 } from '../../constants';
 
 const SwitchControl = ({
@@ -150,6 +151,7 @@ class DevPanel extends Component {
                                 <Button style={styles.claimClearButton} label="Clear user data" onPress={() => {
                                     console.log('clear');
                                     Storage.clear(STORAGE_KEY_SETTINGS);
+                                    Storage.clear(STORAGE_KEY_FAMILY);
                                     Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
                                     Keychain.clear(KEYCHAIN_ID_PASSCODE);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY);

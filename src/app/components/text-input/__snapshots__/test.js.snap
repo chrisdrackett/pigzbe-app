@@ -3,14 +3,11 @@
 exports[`TextInput renders correctly 1`] = `
 Array [
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Object {
-        "color": "rgb(255, 255, 255)",
+        "color": "rgb(0, 50, 120)",
         "fontFamily": "Poppins",
-        "fontSize": 14,
+        "fontSize": 16,
         "fontWeight": "bold",
         "marginBottom": 10,
         "marginLeft": 2,
@@ -23,46 +20,50 @@ Array [
   <View
     style={
       Object {
+        "alignSelf": "stretch",
         "height": 55,
       }
     }
   >
     <TextInput
       allowFontScaling={true}
+      autoCapitalize="sentences"
+      autoCorrect={true}
       blurOnSubmit={true}
       editable={true}
       keyboardType="default"
-      maxLength={undefined}
       multiline={false}
       numberOfLines={1}
       onChangeText={[Function]}
-      placeholder={undefined}
-      placeholderTextColor="rgba(255, 255, 255, 0.6)"
+      placeholderTextColor="rgb(127, 153, 188)"
       returnKeyType="done"
       style={
         Array [
           Object {
             "alignSelf": "stretch",
-            "borderColor": "rgb(255, 255, 255)",
+            "borderColor": "rgb(127, 153, 188)",
             "borderRadius": 22.5,
             "borderWidth": 1,
-            "color": "rgb(255, 255, 255)",
+            "color": "rgb(0, 50, 120)",
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
+            "lineHeight": 21,
             "marginBottom": 10,
             "paddingLeft": 20,
             "paddingRight": 20,
             "paddingTop": 12,
+            "textAlignVertical": "top",
           },
           Object {
+            "borderRadius": 22.5,
             "height": 45,
-          },
-          Object {
-            "paddingTop": 2,
+            "paddingTop": 0,
+            "width": "100%",
           },
         ]
       }
+      underlineColorAndroid="transparent"
       value=""
     />
   </View>,

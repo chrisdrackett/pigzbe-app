@@ -2,119 +2,116 @@
 
 exports[`Button renders correctly 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
-  accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
-  isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
   style={
     Object {
+      "alignItems": "center",
       "alignSelf": "stretch",
-      "backgroundColor": "rgb(253, 223, 6)",
-      "borderColor": "rgb(253, 223, 6)",
-      "borderRadius": 22.5,
-      "borderWidth": 1,
-      "marginBottom": 10,
-      "opacity": 1,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
-  <Text
+  <View
     accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
-          "alignSelf": "stretch",
-          "color": "rgb(0, 50, 120)",
-          "fontFamily": "Poppins",
-          "fontSize": 16,
-          "fontWeight": "bold",
-          "height": 45,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 10,
-          "textAlign": "center",
-        },
-        undefined,
-      ]
+      Object {
+        "backgroundColor": "rgb(21, 74, 150)",
+        "borderColor": "rgb(21, 74, 150)",
+        "borderRadius": 22.5,
+        "borderWidth": 1,
+        "marginBottom": 10,
+        "maxWidth": 400,
+        "opacity": 1,
+        "width": "100%",
+      }
     }
   >
-    Label
-  </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "stretch",
+            "color": "rgb(255, 255, 255)",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "height": 45,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 12,
+            "textAlign": "center",
+          },
+          undefined,
+          null,
+          undefined,
+        ]
+      }
+    >
+      Label
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`Button renders correctly in plain mode 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
-  accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
-  isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "opacity": 1,
+      "alignItems": "center",
+      "alignSelf": "stretch",
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
-  <Text
+  <View
     accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
-          "alignSelf": "stretch",
-          "color": "rgb(0, 50, 120)",
-          "fontFamily": "Poppins",
-          "fontSize": 16,
-          "fontWeight": "bold",
-          "height": 45,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 10,
-          "textAlign": "center",
-        },
-        Object {
-          "color": "rgba(255, 255, 255, 0.7)",
-          "fontSize": 14,
-          "textDecorationColor": "rgb(255, 255, 255)",
-          "textDecorationLine": "underline",
-          "textDecorationStyle": "solid",
-        },
-        undefined,
-      ]
+      Object {
+        "backgroundColor": "rgb(21, 74, 150)",
+        "borderColor": "rgb(21, 74, 150)",
+        "borderRadius": 22.5,
+        "borderWidth": 1,
+        "marginBottom": 10,
+        "maxWidth": 400,
+        "opacity": 1,
+        "width": "100%",
+      }
     }
   >
-    Label
-  </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "stretch",
+            "color": "rgb(255, 255, 255)",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "height": 45,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 12,
+            "textAlign": "center",
+          },
+          undefined,
+          null,
+          undefined,
+        ]
+      }
+    >
+      Label
+    </Text>
+  </View>
 </View>
 `;

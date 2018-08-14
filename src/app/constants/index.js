@@ -21,6 +21,7 @@ export const KEYCHAIN_ID_ETH_KEY = 'com.pigzbe.PigzbeApp.ethKey';
 
 export const STORAGE_KEY_SETTINGS = 'settings';
 export const STORAGE_KEY_BURNING = 'burning';
+export const STORAGE_KEY_FAMILY = 'family';
 
 export const PASSCODE_LENGTH = 6;
 export const CHILD_PASSCODE_LENGTH = 3;

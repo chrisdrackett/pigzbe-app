@@ -15,13 +15,14 @@ exports[`Pig renders correctly 1`] = `
   <Image
     source={
       Object {
-        "testUri": "../../../src/app/components/pig/pig.png",
+        "testUri": "../../../src/app/components/pig/piggy.png",
       }
     }
     style={
       Object {
-        "height": 35,
-        "width": 81,
+        "height": 60,
+        "marginBottom": -20,
+        "width": 97,
       }
     }
   />
