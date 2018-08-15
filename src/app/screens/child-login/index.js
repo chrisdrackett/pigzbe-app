@@ -29,7 +29,8 @@ export class ChildLogin extends Component {
 
     onCodeEntered = code => {
         console.log('onCodeEntered', code);
-        this.props.dispatch(loginAndLoadKid(code));
+        const address = this.props.navigation.getParam('address');
+        this.props.dispatch(loginAndLoadKid(address, code));
     }
 
     render() {

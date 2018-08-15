@@ -31,14 +31,18 @@ export const authKeychain = () => async () => {
 };
 
 export const authKeychainKid = address => async () => {
+    // await Keychain.clear(address);
+
     const result = await Keychain.load(address);
+
+    console.log('result', result, new Set(JSON.parse(result.key)));
 
     if (result.error) {
         console.log(result.error.message);
         return null;
     }
 
-    return result.key;
+    return new Set(JSON.parse(result.key));
 };
 
 export const authCreate = passcode => async dispatch => {
@@ -50,9 +54,9 @@ export const authCreate = passcode => async dispatch => {
 
 export const authCreateKid = (address, passcode) => async dispatch => {
     dispatch({type: AUTH_CREATE, passcode});
-    await Keychain.save(KEYCHAIN_ID_PASSCODE, passcode);
+    await Keychain.save(address, JSON.stringify(Array.from(passcode)));
     // await dispatch(clearKeys());
-    await dispatch(authLoginKid(passcode));
+    await dispatch(authLoginKid(address, passcode));
 };
 
 export const authLogin = passcode => async dispatch => {
@@ -76,16 +80,28 @@ export const authLoginKid = (address, passcode) => async dispatch => {
     dispatch(appError(null));
     dispatch({type: AUTH_LOGIN_START});
 
+    console.log('--- authLoginKid ---', address, passcode);
+
     const savedPasscode = await dispatch(authKeychainKid(address));
 
-    if (!passcode || !savedPasscode || passcode !== savedPasscode) {
+    let isEqual = true;
+
+    for (const a of savedPasscode) {
+        if (!passcode.has(a)) {
+            isEqual = false;
+        }
+    }
+
+    console.log('authLoginKid', savedPasscode, passcode, isEqual);
+
+    if (!isEqual) {
         const error = new Error('Invalid passcode');
         dispatch({type: AUTH_LOGIN_FAIL, error});
         dispatch(appError(error));
         return false;
     }
 
-    dispatch({type: AUTH_LOGIN_KID});
+    dispatch({type: AUTH_LOGIN_KID, address});
     return true;
 };
 

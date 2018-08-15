@@ -66,12 +66,12 @@ export const loginAndLoad = passcode => async dispatch => {
     dispatch(loaderLoading(false));
 };
 
-export const loginAndLoadKid = passcode => async dispatch => {
+export const loginAndLoadKid = (address, passcode) => async dispatch => {
     dispatch(loaderLoading(true));
     console.log('-- loginAndLoadKid --');
 
     try {
-        const success = await dispatch(authLoginKid(passcode));
+        const success = await dispatch(authLoginKid(address, passcode));
 
         if (success) {
             await dispatch(loaderMessage('Loading'));

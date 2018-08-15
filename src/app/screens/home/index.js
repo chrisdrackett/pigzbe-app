@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import Keychain from '../../utils/keychain';
 import {connect} from 'react-redux';
 import {Text, View, TouchableOpacity} from 'react-native';
-import {initialize, loadContent} from '../../actions';
+import {initialize, loadContent, authKeychainKid} from '../../actions';
 import styles from './styles';
 import Button from '../../components/button';
 import Loader from '../../components/loader';
@@ -97,16 +97,25 @@ class Home extends Component {
     onKidLogin = async(address) => {
         // TODO: dispatch to set profile to log in and navigate to kid login
 
+        const passcode = await this.props.dispatch(authKeychainKid(address));
         // Keychain.save(address, ['blah', 'blah2'].toString());
         // const keychain = await Keychain.load(address);
 
         // todo get keychain value for this address
-        console.log('-- onKidLogin-- ', address);
+        console.log('-- onKidLogin-- ', address, passcode);
+        // await this.props.dispatch(loadContent());
+        // this.props.navigation.navigate(SCREEN_DEVICE_AUTH);
 
-        if (address) {
-            this.props.navigation.navigate(SCREEN_KID_LOGIN);
+        if (passcode) {
+            this.props.navigation.navigate(
+                SCREEN_KID_LOGIN,
+                {address: address}
+            );
         } else {
-            this.props.navigation.navigate(SCREEN_KID_SET_LOGIN);
+            this.props.navigation.navigate(
+                SCREEN_KID_SET_LOGIN,
+                {address: address}
+            );
         }
         // check if kid has already created password
         // this.props.navigation.navigate(SCREEN_KID_LOGIN);

@@ -6,7 +6,7 @@ import styles from './styles';
 import {CHILD_PASSCODE_LENGTH} from '../../constants';
 
 import {SCREEN_SAVE_KEYS, SCREEN_IMPORT_KEYS} from '../../constants';
-import {createKeys} from '../../actions';
+import {createKeys, authCreateKid} from '../../actions';
 
 import IconPad from '../../components/icon-pad';
 import StepModule from '../../components/step-module';
@@ -28,8 +28,10 @@ export class ChildLogin extends Component {
     onImport = () => this.props.navigation.navigate(SCREEN_IMPORT_KEYS)
 
     onCodeEntered = code => {
-        console.log('onCodeEntered', code);
-        this.props.dispatch(loginAndLoadKid(code));
+        const address = this.props.navigation.getParam('address');
+        console.log('onCodeEntered', address, code);
+
+        this.props.dispatch(authCreateKid(address, code));
     }
 
     render() {
