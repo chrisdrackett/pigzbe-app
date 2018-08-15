@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import {color} from '../../styles';
 import {
     SCREEN_SETTINGS,
+    SCREEN_FAMILY_INTRO,
     COINS,
     COIN_DPS
 } from '../../constants';
@@ -70,6 +71,15 @@ export class Balance extends Component {
         this.setState({sendModalClosed: true});
     }
 
+    onAddKids = () => {
+        if (this.props.kids.length) {
+            // TODO: skip to the profile if already been through first steps
+            // this.props.navigation.navigate(SCREEN_FAMILY_PROFILE);
+            // return;
+        }
+        this.props.navigation.navigate(SCREEN_FAMILY_INTRO);
+    }
+
     render () {
         const {
             exchange,
@@ -112,11 +122,11 @@ export class Balance extends Component {
                             <BalanceGraph balance={balance} balanceXLM={balanceXLM} exchange={exchange} baseCurrency={baseCurrency}/>
                             <Kids
                                 kids={kids}
-                                dispatch={this.props.dispatch}
                                 exchange={exchange}
                                 baseCurrency={baseCurrency}
                                 parentBalance={balance}
                                 onSend={this.onSend}
+                                onAddKids={this.onAddKids}
                             />
                             <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
                         </View>
