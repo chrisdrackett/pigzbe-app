@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {connect} from 'react-redux';
 
 import styles from './styles';
@@ -35,9 +35,9 @@ export class ChildLogin extends Component {
     render() {
         return (
             <StepModule
-                title="Welcome back"
+                title="First time here"
                 icon="keys"
-                content={'Please enter your *Secret Code* by selecting your 3 images'}
+                content={'Set your *Secret Code* by picking 3 images'}
                 pad
                 headerChildren={(
                     <View style={{marginTop: 30}}>
@@ -50,11 +50,6 @@ export class ChildLogin extends Component {
                         onInput={i => this.setState({input: i})}
                         onFull={this.onCodeEntered}
                     />
-                    <Text style={styles.labelText}>
-                        *Forgotten your secret code?*
-                        {'\n'}
-                        Ask dad to reset it from his settings
-                    </Text>
                 </View>
             </StepModule>
         );

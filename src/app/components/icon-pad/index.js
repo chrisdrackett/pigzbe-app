@@ -69,9 +69,8 @@ export default class IconPad extends Component {
         return (
             <View style={styles.numpad}>
                 {keys.map(b => (
-                    <View style={styles.flexEl}>
+                    <View style={styles.flexEl} key={b}>
                         <ButtonIcon
-                            key={b}
                             onClick={() => this.onInput(b)}
                             icon={images.icon[b]}
                             selected={this.state.inputs.has(b)}

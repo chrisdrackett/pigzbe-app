@@ -4,6 +4,7 @@ import PasscodeLogin from '../../screens/passcode-login';
 import DeviceAuth from '../../screens/device-auth';
 import TouchId from '../../screens/touch-id';
 import PasscodeSet from '../../screens/passcode-set';
+import ChildSetLogin from '../../screens/child-set-login';
 import ChildLogin from '../../screens/child-login';
 import Kid from '../kid';
 import {
@@ -13,6 +14,7 @@ import {
     SCREEN_TOUCH_ID,
     SCREEN_SET_PASSCODE,
     SCREEN_KID,
+    SCREEN_KID_SET_LOGIN,
     SCREEN_KID_LOGIN
 } from '../../constants';
 
@@ -31,6 +33,9 @@ const nav = {
     },
     [SCREEN_SET_PASSCODE]: {
         screen: PasscodeSet
+    },
+    [SCREEN_KID_SET_LOGIN]: {
+        screen: ChildSetLogin
     },
     [SCREEN_KID_LOGIN]: {
         screen: ChildLogin
