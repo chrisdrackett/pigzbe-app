@@ -11,6 +11,13 @@ class NumEntry extends Component {
         input: ''
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.error && !this.props.error) {
+            this.setState({input: ''});
+            this.props.onInput('');
+        }
+    }
+
     onInput = input => this.setState({input})
 
     onFull = input => this.setState({input})
