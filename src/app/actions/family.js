@@ -1,16 +1,20 @@
 import Storage from '../utils/storage';
 import {STORAGE_KEY_FAMILY} from '../constants';
-import {createSubAccount, getAccountBalance} from './';
+import {createSubAccount, getAccountBalance, sendWollo} from './';
 
 export const FAMILY_LOAD = 'FAMILY_LOAD';
 export const FAMILY_LOADING = 'FAMILY_LOADING';
 export const FAMILY_PARENT_NICKNAME = 'FAMILY_PARENT_NICKNAME';
 export const FAMILY_NUM_KIDS_TO_ADD = 'FAMILY_NUM_KIDS_TO_ADD';
 export const FAMILY_ADD_KID = 'FAMILY_ADD_KID';
+export const FAMILY_SENDING = 'FAMILY_SENDING';
+export const FAMILY_BALANCE_UPDATE = 'FAMILY_BALANCE_UPDATE';
 
 const familyLoading = value => ({type: FAMILY_LOADING, value});
 
-export const loadFamily = () => async (dispatch, getState) => {
+const familySending = value => ({type: FAMILY_SENDING, value});
+
+export const loadFamily = () => async dispatch => {
     console.log('loadFamily');
     try {
         // const {secretKey} = getState().wollo;
@@ -19,11 +23,6 @@ export const loadFamily = () => async (dispatch, getState) => {
         // console.log('data', data);
         // console.log(JSON.stringify(data, null, 2));
         dispatch({type: FAMILY_LOAD, ...data});
-
-        const {kids} = getState().family;
-        for (const kid of kids) {
-            kid.balance = await dispatch(getAccountBalance());
-        }
     } catch (error) {
         console.log(error);
     }
@@ -62,4 +61,30 @@ export const familyAddKid = (name, dob, photo) => async dispatch => {
     dispatch(({type: FAMILY_ADD_KID, kid: {name, dob, photo, address, balance: '0'}}));
     await dispatch(saveFamily());
     dispatch(familyLoading(false));
+};
+
+export const familyTransfer = (address, amount) => async (dispatch, getState) => {
+    dispatch(familySending(true));
+    try {
+        const {parentNickname} = getState().family;
+        await dispatch(sendWollo(address, amount, `From ${parentNickname || 'Parent'}`));
+    } catch (error) {
+        console.log(error);
+    }
+    dispatch(familySending(false));
+};
+
+export const loadFamilyBalances = address => async (dispatch, getState) => {
+    console.log('loadFamilyBalances', address);
+    try {
+        const kids = getState().family.kids.filter(k => !address || k.address === address);
+        console.log(' --> loading ', kids.length, 'balances');
+        for (const kid of kids) {
+            const balance = await dispatch(getAccountBalance(kid.address));
+            console.log(kid.name, 'balance', balance);
+            dispatch(({type: FAMILY_BALANCE_UPDATE, address: kid.address, balance}));
+        }
+    } catch (error) {
+        console.log(error);
+    }
 };

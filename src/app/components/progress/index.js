@@ -3,6 +3,7 @@ import {View, Text, Image} from 'react-native';
 import styles from './styles';
 import Bar from './bar';
 import Button from '../button';
+import Paragraph from '../paragraph';
 
 export default class Progress extends Component {
     state = {
@@ -47,15 +48,15 @@ export default class Progress extends Component {
             <View style={styles.overlay}>
                 <View style={styles.container}>
                     <Text style={styles.title}>{title}</Text>
+                    <Paragraph small style={errorMessage ? [styles.text, styles.error] : styles.text}>
+                        {errorMessage || text}
+                    </Paragraph>
                     {complete ? (
                         <Image style={styles.check} source={require('./images/check.png')}/>
                     ) : (
                         <Bar active={active} error={error}/>
                     )}
                     <View style={styles.inner}>
-                        <Text style={errorMessage ? [styles.text, styles.error] : styles.text}>
-                            {errorMessage || text}
-                        </Text>
                         {buttonLabel &&
                             <Button
                                 theme="outline"

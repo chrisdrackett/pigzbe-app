@@ -5,8 +5,10 @@ exports[`ConvertBalance renders correctly 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "rgb(247, 247, 250)",
+      "backgroundColor": "rgb(255, 255, 255)",
+      "borderRadius": 5,
       "justifyContent": "center",
+      "marginBottom": 40,
       "paddingBottom": 20,
     }
   }
@@ -14,26 +16,23 @@ exports[`ConvertBalance renders correctly 1`] = `
   <Text
     style={
       Object {
-        "color": "rgb(74, 74, 74)",
+        "color": "rgb(0, 50, 120)",
         "fontFamily": "Poppins",
-        "fontSize": 14,
+        "fontSize": 16,
         "marginTop": 20,
       }
     }
   >
-    Your balance converted
-  </Text>
-  <Text
-    onPress={[Function]}
-    style={
-      Object {
-        "color": "rgb(74, 74, 74)",
-        "fontFamily": "Poppins",
-        "fontSize": 12,
+    <Text
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
       }
-    }
-  >
-    Prices by CryptoCompare
+    >
+      1,223
+    </Text>
+     Wollo Converted
   </Text>
   <View
     style={
@@ -70,11 +69,11 @@ exports[`ConvertBalance renders correctly 1`] = `
         style={
           Array [
             Object {
-              "height": 35,
-              "width": 35,
+              "height": 40,
+              "width": 40,
             },
             Object {
-              "marginBottom": 15,
+              "marginBottom": 12,
             },
           ]
         }
@@ -82,9 +81,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgb(74, 74, 74)",
+            "color": "rgb(127, 153, 188)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 10,
             "fontWeight": "bold",
           }
         }
@@ -94,9 +93,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgba(74, 74, 74, 0.5)",
+            "color": "rgb(0, 50, 120)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 12,
             "fontWeight": "bold",
           }
         }
@@ -126,11 +125,11 @@ exports[`ConvertBalance renders correctly 1`] = `
         style={
           Array [
             Object {
-              "height": 35,
-              "width": 35,
+              "height": 40,
+              "width": 40,
             },
             Object {
-              "marginBottom": 15,
+              "marginBottom": 12,
             },
           ]
         }
@@ -138,9 +137,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgb(74, 74, 74)",
+            "color": "rgb(127, 153, 188)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 10,
             "fontWeight": "bold",
           }
         }
@@ -150,9 +149,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgba(74, 74, 74, 0.5)",
+            "color": "rgb(0, 50, 120)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 12,
             "fontWeight": "bold",
           }
         }
@@ -182,11 +181,11 @@ exports[`ConvertBalance renders correctly 1`] = `
         style={
           Array [
             Object {
-              "height": 35,
-              "width": 35,
+              "height": 40,
+              "width": 40,
             },
             Object {
-              "marginBottom": 15,
+              "marginBottom": 12,
             },
           ]
         }
@@ -194,9 +193,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgb(74, 74, 74)",
+            "color": "rgb(127, 153, 188)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 10,
             "fontWeight": "bold",
           }
         }
@@ -206,9 +205,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgba(74, 74, 74, 0.5)",
+            "color": "rgb(0, 50, 120)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 12,
             "fontWeight": "bold",
           }
         }
@@ -238,11 +237,11 @@ exports[`ConvertBalance renders correctly 1`] = `
         style={
           Array [
             Object {
-              "height": 35,
-              "width": 35,
+              "height": 40,
+              "width": 40,
             },
             Object {
-              "marginBottom": 15,
+              "marginBottom": 12,
             },
           ]
         }
@@ -250,9 +249,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgb(74, 74, 74)",
+            "color": "rgb(127, 153, 188)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 10,
             "fontWeight": "bold",
           }
         }
@@ -262,9 +261,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgba(74, 74, 74, 0.5)",
+            "color": "rgb(0, 50, 120)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 12,
             "fontWeight": "bold",
           }
         }
@@ -294,11 +293,11 @@ exports[`ConvertBalance renders correctly 1`] = `
         style={
           Array [
             Object {
-              "height": 35,
-              "width": 35,
+              "height": 40,
+              "width": 40,
             },
             Object {
-              "marginBottom": 15,
+              "marginBottom": 12,
             },
           ]
         }
@@ -306,9 +305,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgb(74, 74, 74)",
+            "color": "rgb(127, 153, 188)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 10,
             "fontWeight": "bold",
           }
         }
@@ -318,9 +317,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgba(74, 74, 74, 0.5)",
+            "color": "rgb(0, 50, 120)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 12,
             "fontWeight": "bold",
           }
         }
@@ -350,11 +349,11 @@ exports[`ConvertBalance renders correctly 1`] = `
         style={
           Array [
             Object {
-              "height": 35,
-              "width": 35,
+              "height": 40,
+              "width": 40,
             },
             Object {
-              "marginBottom": 15,
+              "marginBottom": 12,
             },
           ]
         }
@@ -362,9 +361,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgb(74, 74, 74)",
+            "color": "rgb(127, 153, 188)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 10,
             "fontWeight": "bold",
           }
         }
@@ -374,9 +373,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgba(74, 74, 74, 0.5)",
+            "color": "rgb(0, 50, 120)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 12,
             "fontWeight": "bold",
           }
         }
@@ -406,11 +405,11 @@ exports[`ConvertBalance renders correctly 1`] = `
         style={
           Array [
             Object {
-              "height": 35,
-              "width": 35,
+              "height": 40,
+              "width": 40,
             },
             Object {
-              "marginBottom": 15,
+              "marginBottom": 12,
             },
           ]
         }
@@ -418,9 +417,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgb(74, 74, 74)",
+            "color": "rgb(127, 153, 188)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 10,
             "fontWeight": "bold",
           }
         }
@@ -430,9 +429,9 @@ exports[`ConvertBalance renders correctly 1`] = `
       <Text
         style={
           Object {
-            "color": "rgba(74, 74, 74, 0.5)",
+            "color": "rgb(0, 50, 120)",
             "fontFamily": "Poppins",
-            "fontSize": 14,
+            "fontSize": 12,
             "fontWeight": "bold",
           }
         }
@@ -441,5 +440,37 @@ exports[`ConvertBalance renders correctly 1`] = `
       </Text>
     </View>
   </View>
+  <Text
+    onPress={[Function]}
+    style={
+      Object {
+        "color": "rgb(127, 153, 188)",
+        "fontFamily": "Poppins",
+        "fontSize": 10,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    Prices by 
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "rgb(127, 153, 188)",
+            "fontFamily": "Poppins",
+            "fontSize": 10,
+            "fontWeight": "bold",
+          },
+          Object {
+            "textDecorationColor": "rgb(127, 153, 188)",
+            "textDecorationLine": "underline",
+            "textDecorationStyle": "solid",
+          },
+        ]
+      }
+    >
+      CryptoCompare
+    </Text>
+  </Text>
 </View>
 `;

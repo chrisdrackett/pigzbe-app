@@ -3,10 +3,13 @@
 exports[`Wollo renders correctly 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "justifyContent": "center",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+      },
+      undefined,
+    ]
   }
 >
   <View
