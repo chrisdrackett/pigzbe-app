@@ -4,6 +4,7 @@ import {
     authTouchId,
     authKeychain,
     authLogin,
+    authLoginKid,
     loadSettings,
     initializeConfig,
     loadConfig,
@@ -67,19 +68,22 @@ export const loginAndLoad = passcode => async dispatch => {
     dispatch(loaderLoading(false));
 };
 
-export const loginAndLoadKid = passcode => async dispatch => {
+export const loginAndLoadKid = (address, passcode) => async dispatch => {
     dispatch(loaderLoading(true));
+    console.log('-- loginAndLoadKid --');
 
     try {
-        await dispatch(loaderMessage('Loading'));
-        await dispatch(loadConfig());
-        await dispatch(loadExchange());
-        // const success = await dispatch(authLogin(passcode));
-        // if (success) {
-        //     await dispatch(loaderMessage('Loading'));
-        //     await dispatch(loadConfig());
-        //     await dispatch(loadExchange());
-        // }
+        const success = await dispatch(authLoginKid(address, passcode));
+
+        if (success) {
+            await dispatch(loaderMessage('Loading'));
+            await dispatch(loadConfig());
+            await dispatch(loadExchange());
+
+            // await dispatch(loadWallet());
+            // await dispatch(loadMessages());
+            // await dispatch(loadExchange());
+        }
     } catch (error) {
         console.log(error);
         dispatch(loaderError(error));

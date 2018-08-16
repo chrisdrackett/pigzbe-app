@@ -8,6 +8,7 @@ export const AUTH_CREATE = 'AUTH_CREATE';
 export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
 export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
 export const AUTH_LOGIN = 'AUTH_LOGIN';
+export const AUTH_LOGIN_KID = 'AUTH_LOGIN_KID';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const AUTH_TOUCH_ID_SUPPORT = 'AUTH_TOUCH_ID_SUPPORT';
 
@@ -29,11 +30,33 @@ export const authKeychain = () => async () => {
     return result.key;
 };
 
+export const authKeychainKid = address => async () => {
+    // await Keychain.clear(address);
+
+    const result = await Keychain.load(address);
+
+    console.log('result', result, new Set(JSON.parse(result.key)));
+
+    if (result.error) {
+        console.log(result.error.message);
+        return null;
+    }
+
+    return new Set(JSON.parse(result.key));
+};
+
 export const authCreate = passcode => async dispatch => {
     dispatch({type: AUTH_CREATE, passcode});
     await Keychain.save(KEYCHAIN_ID_PASSCODE, passcode);
     // await dispatch(clearKeys());
     await dispatch(authLogin(passcode));
+};
+
+export const authCreateKid = (address, passcode) => async dispatch => {
+    dispatch({type: AUTH_CREATE, passcode});
+    await Keychain.save(address, JSON.stringify(Array.from(passcode)));
+    // await dispatch(clearKeys());
+    await dispatch(authLoginKid(address, passcode));
 };
 
 export const authLogin = passcode => async dispatch => {
@@ -50,6 +73,35 @@ export const authLogin = passcode => async dispatch => {
     }
 
     dispatch({type: AUTH_LOGIN});
+    return true;
+};
+
+export const authLoginKid = (address, passcode) => async dispatch => {
+    dispatch(appError(null));
+    dispatch({type: AUTH_LOGIN_START});
+
+    console.log('--- authLoginKid ---', address, passcode);
+
+    const savedPasscode = await dispatch(authKeychainKid(address));
+
+    let isEqual = true;
+
+    for (const a of savedPasscode) {
+        if (!passcode.has(a)) {
+            isEqual = false;
+        }
+    }
+
+    console.log('authLoginKid', savedPasscode, passcode, isEqual);
+
+    if (!isEqual) {
+        const error = new Error('Invalid passcode');
+        dispatch({type: AUTH_LOGIN_FAIL, error});
+        dispatch(appError(error));
+        return false;
+    }
+
+    dispatch({type: AUTH_LOGIN_KID, address});
     return true;
 };
 
