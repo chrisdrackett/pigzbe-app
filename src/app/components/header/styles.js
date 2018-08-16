@@ -15,6 +15,7 @@ export default StyleSheet.create({
         backgroundColor: color.blue,
         justifyContent: 'center',
         alignItems: 'center',
+        minHeight: 30,
     },
     settingsIcon: {
         width: 18,

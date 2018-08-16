@@ -31,6 +31,7 @@ function loadStories() {
     require('./stories/family.js');
     require('./stories/slider.js');
     require('./stories/wollo.js');
+    require('./stories/child-dash.js');
 }
 
 configure(loadStories, module);

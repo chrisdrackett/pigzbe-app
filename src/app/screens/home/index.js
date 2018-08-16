@@ -1,5 +1,4 @@
 import React, {Component, Fragment} from 'react';
-import Keychain from '../../utils/keychain';
 import {connect} from 'react-redux';
 import {Text, View, TouchableOpacity} from 'react-native';
 import {initialize, loadContent, authKeychainKid} from '../../actions';
@@ -22,7 +21,7 @@ class KidProfile extends Component {
 
         return (
             <TouchableOpacity style={styles.profile} onPress={this.onChoose}>
-                <KidAvatar photo={photo} large/>
+                <KidAvatar photo={photo} size={90}/>
                 <Text style={styles.name}>{name}</Text>
             </TouchableOpacity>
         );

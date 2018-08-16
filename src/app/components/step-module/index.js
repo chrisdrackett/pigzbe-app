@@ -32,7 +32,8 @@ export default class StepModule extends Component {
           paddingTop,
           keyboardOffset,
           loading,
-          loaderMessage
+          loaderMessage,
+          hideLogo
       } = this.props;
 
       const {height} = Dimensions.get('window');
@@ -40,7 +41,7 @@ export default class StepModule extends Component {
       return (
           <Container style={styles.wrapper} scroll={false}>
               <View style={styles.bg}/>
-              <Header onBack={onBack} onSettings={onSettings} />
+              <Header onBack={onBack} onSettings={onSettings} hideLogo={hideLogo} />
               <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader>
               <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}} offset={keyboardOffset}>
                   <Container

@@ -4,8 +4,8 @@ exports[`Kids renders correctly 1`] = `
 <View
   style={
     Object {
-      "paddingBottom": 20,
-      "paddingTop": 25,
+      "marginBottom": 20,
+      "marginTop": 25,
     }
   }
 >
