@@ -11,6 +11,7 @@ class Kid extends Component {
 
     componentWillMount() {
         // TODO: move this to kid login and supply passcode as arg
+        console.log('Kid dispatch(loginAndLoadKid())');
         this.props.dispatch(loginAndLoadKid());
     }
 
