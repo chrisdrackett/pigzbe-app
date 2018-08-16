@@ -12,8 +12,6 @@ import IconPad from '../../components/icon-pad';
 import StepModule from '../../components/step-module';
 import Dots from '../../components/dots';
 
-import {loginAndLoadKid} from '../../actions';
-
 
 export class ChildLogin extends Component {
     state = {
@@ -33,6 +31,27 @@ export class ChildLogin extends Component {
 
         this.props.dispatch(authCreateKid(address, code));
     }
+
+    // onCodeConfirmed = async code => {
+    //     const confirmed = code === this.state.code;
+    //
+    //     this.setState({
+    //         confirmed,
+    //         error: !confirmed,
+    //         loading: confirmed,
+    //     });
+    //
+    //     if (confirmed) {
+    //         this.props.dispatch(appError(null));
+    //         await this.props.dispatch(authCreate(this.state.code));
+    //
+    //         if (this.state.isPasscodeChange) {
+    //             this.props.navigation.navigate(SCREEN_SETTINGS);
+    //         }
+    //     } else {
+    //         this.props.dispatch(appError(new Error('Passcodes do not match')));
+    //     }
+    // }
 
     render() {
         return (
