@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
-import {Family} from '../../src/app/screens/family';
+import {FamilyIntro} from '../../src/app/screens/family-intro';
 
 const props = {
     dispatch: () => {},
@@ -8,14 +8,14 @@ const props = {
         navigate: () => {},
         addListener: () => {},
         state: {
-            key: 'SCREEN_BALANCE',
-            routeName: 'SCREEN_BALANCE'
+            key: 'SCREEN_FAMILY_INTRO',
+            routeName: 'SCREEN_FAMILY_INTRO'
         },
         actions: {}
     },
 };
 
 storiesOf('Family')
-    .add('default', () => (
-        <Family {...props}/>
+    .add('intro', () => (
+        <FamilyIntro {...props}/>
     ));
