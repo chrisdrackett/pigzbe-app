@@ -10,8 +10,6 @@ export default class Kids extends Component {
         kids: []
     }
 
-    onSend = (name, address, amount) => this.props.onSend(name, address, amount)
-
     render () {
         const {kids, exchange, baseCurrency, parentBalance} = this.props;
 
@@ -38,7 +36,8 @@ export default class Kids extends Component {
                                 exchange={exchange}
                                 baseCurrency={baseCurrency}
                                 parentBalance={parentBalance}
-                                onSend={this.onSend}
+                                onSend={this.props.onSend}
+                                onDashboard={this.props.onDashboard}
                             />
                         ))}
                     </Fragment>

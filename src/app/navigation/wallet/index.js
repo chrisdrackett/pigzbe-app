@@ -8,6 +8,7 @@ import ClaimVIP from '../../screens/claim-vip';
 import ClaimAirdrop from '../../screens/claim-airdrop';
 import PasscodeSet from '../../screens/passcode-set';
 import FamilyIntro from '../../screens/family-intro';
+import ChildDash from '../../screens/child-dash';
 import {
     SCREEN_BALANCE,
     SCREEN_SETTINGS,
@@ -17,7 +18,8 @@ import {
     SCREEN_CLAIM_VIP,
     SCREEN_CLAIM_AIRDROP,
     SCREEN_CHANGE_PASSCODE,
-    SCREEN_FAMILY_INTRO
+    SCREEN_FAMILY_INTRO,
+    SCREEN_CHILD_DASH
 } from '../../constants';
 
 const nav = {
@@ -47,6 +49,9 @@ const nav = {
     },
     [SCREEN_FAMILY_INTRO]: {
         screen: FamilyIntro
+    },
+    [SCREEN_CHILD_DASH]: {
+        screen: ChildDash
     },
 };
 
