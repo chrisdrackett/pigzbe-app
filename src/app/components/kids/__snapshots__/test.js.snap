@@ -4,11 +4,8 @@ exports[`Kids renders correctly 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "rgb(21, 74, 150)",
       "paddingBottom": 20,
-      "paddingLeft": "6.25%",
-      "paddingRight": "6.25%",
-      "paddingTop": 20,
+      "paddingTop": 25,
     }
   }
 >
@@ -29,58 +26,67 @@ exports[`Kids renders correctly 1`] = `
   <View
     style={
       Object {
-        "alignItems": "center",
-        "alignSelf": "stretch",
+        "paddingLeft": "6.25%",
+        "paddingRight": "6.25%",
       }
     }
   >
     <View
-      accessible={true}
-      isTVSelectable={true}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "backgroundColor": "rgb(255, 255, 255)",
-          "borderColor": "rgb(255, 255, 255)",
-          "borderRadius": 22.5,
-          "borderWidth": 1,
-          "marginBottom": 10,
-          "maxWidth": 400,
-          "opacity": 1,
-          "width": "100%",
+          "alignItems": "center",
+          "alignSelf": "stretch",
         }
       }
     >
-      <Text
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
-              "alignSelf": "stretch",
-              "color": "rgb(255, 255, 255)",
-              "fontFamily": "Poppins",
-              "fontSize": 14,
-              "fontWeight": "bold",
-              "height": 45,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 12,
-              "textAlign": "center",
-            },
-            Object {
-              "color": "rgb(0, 50, 120)",
-            },
-            null,
-            undefined,
-          ]
+          Object {
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderColor": "rgb(255, 255, 255)",
+            "borderRadius": 22.5,
+            "borderWidth": 1,
+            "marginBottom": 10,
+            "maxWidth": 400,
+            "opacity": 1,
+            "width": "100%",
+          }
         }
       >
-        Add My Children
-      </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "alignSelf": "stretch",
+                "color": "rgb(255, 255, 255)",
+                "fontFamily": "Poppins",
+                "fontSize": 14,
+                "fontWeight": "bold",
+                "height": 45,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+                "paddingTop": 12,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "rgb(0, 50, 120)",
+              },
+              null,
+              undefined,
+            ]
+          }
+        >
+          Add My Children
+        </Text>
+      </View>
     </View>
   </View>
 </View>

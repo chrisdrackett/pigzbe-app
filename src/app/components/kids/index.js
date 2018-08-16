@@ -3,16 +3,12 @@ import {View, Text, TouchableOpacity, Image} from 'react-native';
 import styles from './styles';
 import Button from '../button';
 import Kid from './kid';
-import {familyAddKid, loadFamily} from '../../actions';
+import {familyAddKid} from '../../actions';
 
 export default class Kids extends Component {
 
     static defaultProps = {
         kids: []
-    }
-
-    componentDidMount() {
-        this.props.dispatch(loadFamily());
     }
 
     onAddKids = () => {
@@ -21,7 +17,7 @@ export default class Kids extends Component {
         this.props.dispatch(familyAddKid(name, '01/01/2012', null));
     }
 
-    onSliderChange = value => this.setState({value})
+    onSend = (name, address, amount) => this.props.onSend(name, address, amount)
 
     render () {
         const {kids, exchange, baseCurrency, parentBalance} = this.props;
@@ -49,6 +45,7 @@ export default class Kids extends Component {
                                 exchange={exchange}
                                 baseCurrency={baseCurrency}
                                 parentBalance={parentBalance}
+                                onSend={this.onSend}
                             />
                         ))}
                     </Fragment>

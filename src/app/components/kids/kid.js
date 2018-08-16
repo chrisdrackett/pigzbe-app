@@ -9,7 +9,7 @@ import KidAvatar from '../kid-avatar';
 
 const MAX_AMOUNT = 100;
 
-const getValue = (value, balance) => {
+const getAmount = (value, balance) => {
     const max = Math.min(balance, MAX_AMOUNT);
     return Math.round(value * Math.floor(Number(max)));
 };
@@ -18,11 +18,17 @@ export default class Kids extends Component {
 
     state = {
         value: 0,
-        progress: 0
+        amount: 0
     }
 
     static defaultProps = {
         parentBalance: 100,
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.balance !== prevProps.balance) {
+            this.setState({value: 0, amount: 0});
+        }
     }
 
     gotoKid = () => {
@@ -30,13 +36,11 @@ export default class Kids extends Component {
     }
 
     onSliderChange = value => this.setState({
-        progress: value,
-        value: getValue(value, this.props.parentBalance)
+        value,
+        amount: getAmount(value, this.props.parentBalance)
     })
 
-    onSend = () => {
-        console.log('send to', this.props.address);
-    }
+    onSend = () => this.props.onSend(this.props.name, this.props.address, this.state.amount)
 
     render () {
         const {name, photo, balance, exchange, baseCurrency} = this.props;
@@ -58,26 +62,26 @@ export default class Kids extends Component {
                 </TouchableOpacity>
                 <View style={styles.valueWrapper}>
                     <View style={[styles.value, {
-                        left: `${this.state.progress * 100}%`,
-                        opacity: this.state.value ? 1 : 0,
+                        left: `${this.state.value * 100}%`,
+                        opacity: this.state.amount ? 1 : 0,
                     }]}>
-                        <Text style={styles.valueText}>{this.state.value}</Text>
+                        <Text style={styles.valueText}>{this.state.amount}</Text>
                         <View style={styles.valuePoint}/>
                     </View>
                 </View>
-                <Slider onValueChange={this.onSliderChange}/>
+                <Slider value={this.state.value} onValueChange={this.onSliderChange}/>
                 {this.state.value === 0 ? (
                     <Text style={styles.exchange}>Send Wollo</Text>
                 ) : (
                     <AmountExchange
                         style={styles.exchange}
-                        amount={this.state.value}
+                        amount={this.state.amount}
                         exchange={exchange}
                         baseCurrency={baseCurrency}
                     />
                 )}
                 <Button
-                    disabled={this.state.value === 0}
+                    disabled={this.state.amount === 0}
                     label="Send Wollo"
                     onPress={this.onSend}
                 />
