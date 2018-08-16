@@ -18,11 +18,11 @@ exports[`Coin renders correctly 1`] = `
     style={
       Array [
         Object {
-          "height": 35,
-          "width": 35,
+          "height": 40,
+          "width": 40,
         },
         Object {
-          "marginBottom": 15,
+          "marginBottom": 12,
         },
       ]
     }
@@ -30,9 +30,9 @@ exports[`Coin renders correctly 1`] = `
   <Text
     style={
       Object {
-        "color": "rgb(74, 74, 74)",
+        "color": "rgb(127, 153, 188)",
         "fontFamily": "Poppins",
-        "fontSize": 14,
+        "fontSize": 10,
         "fontWeight": "bold",
       }
     }
@@ -42,9 +42,9 @@ exports[`Coin renders correctly 1`] = `
   <Text
     style={
       Object {
-        "color": "rgba(74, 74, 74, 0.5)",
+        "color": "rgb(0, 50, 120)",
         "fontFamily": "Poppins",
-        "fontSize": 14,
+        "fontSize": 12,
         "fontWeight": "bold",
       }
     }

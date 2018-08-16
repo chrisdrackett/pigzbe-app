@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import {color} from '../../styles';
 import {
     SCREEN_SETTINGS,
+    SCREEN_FAMILY_INTRO,
     COINS,
     COIN_DPS
 } from '../../constants';
@@ -16,9 +17,18 @@ import Modal from '../../components/modal';
 import Title from '../../components/title';
 import Paragraph from '../../components/paragraph';
 import StepModule from '../../components/step-module';
-import {loadExchange, settingsFirstTime} from '../../actions';
+import ConfirmSend from '../../components/confirm-send';
+import Progress from '../../components/progress';
+import {loadExchange, settingsFirstTime, familyTransfer, loadFamilyBalances} from '../../actions';
 
 export class Balance extends Component {
+    state = {
+        sendModalClosed: false,
+        confirmSend: false,
+        name: '',
+        address: '',
+        amount: ''
+    }
 
     componentDidMount() {
         this.focusListener = this.props.navigation.addListener('didFocus', this.update);
@@ -37,6 +47,39 @@ export class Balance extends Component {
         this.props.navigation.navigate(SCREEN_SETTINGS);
     }
 
+    onSend = (name, address, amount) => this.setState({
+        confirmSend: true,
+        name,
+        address,
+        amount
+    })
+
+    onConfirmSend = () => {
+        this.setState({confirmSend: false, sendModalClosed: false});
+        this.props.dispatch(familyTransfer(this.state.address, this.state.amount));
+    }
+
+    onCancelSend = () => this.setState({
+        confirmSend: false,
+        name: '',
+        address: '',
+        amount: ''
+    })
+
+    onCloseSendModal = () => {
+        this.props.dispatch(loadFamilyBalances(this.state.address));
+        this.setState({sendModalClosed: true});
+    }
+
+    onAddKids = () => {
+        if (this.props.kids.length) {
+            // TODO: skip to the profile if already been through first steps
+            // this.props.navigation.navigate(SCREEN_FAMILY_PROFILE);
+            // return;
+        }
+        this.props.navigation.navigate(SCREEN_FAMILY_INTRO);
+    }
+
     render () {
         const {
             exchange,
@@ -46,6 +89,9 @@ export class Balance extends Component {
             baseCurrency,
             firstTime,
             kids,
+            sendError,
+            sending,
+            sendComplete,
         } = this.props;
 
         const loading = !exchange && !error;
@@ -76,10 +122,11 @@ export class Balance extends Component {
                             <BalanceGraph balance={balance} balanceXLM={balanceXLM} exchange={exchange} baseCurrency={baseCurrency}/>
                             <Kids
                                 kids={kids}
-                                dispatch={this.props.dispatch}
                                 exchange={exchange}
                                 baseCurrency={baseCurrency}
                                 parentBalance={balance}
+                                onSend={this.onSend}
+                                onAddKids={this.onAddKids}
                             />
                             <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
                         </View>
@@ -101,6 +148,29 @@ export class Balance extends Component {
                         />
                     </Modal>
                 )}
+                {this.state.confirmSend && (
+                    <ConfirmSend
+                        name={this.state.name}
+                        amount={this.state.amount}
+                        onYes={this.onConfirmSend}
+                        onNo={this.onCancelSend}
+                    />
+                )}
+                {!this.state.sendModalClosed && (
+                    <Progress
+                        active={sending}
+                        complete={sendComplete}
+                        title={sendComplete ? 'Success!' : 'Transfer in progress'}
+                        error={sendError}
+                        text={sendComplete ?
+                            `*${this.state.amount} Wollo* has successfully been sent to ${this.state.name}`
+                            :
+                            `Sending *${this.state.amount} Wollo* to ${this.state.name}`
+                        }
+                        buttonLabel="Close"
+                        onPress={this.onCloseSendModal}
+                    />
+                )}
             </Fragment>
         );
     }
@@ -115,5 +185,9 @@ export default connect(
         baseCurrency: state.wollo.baseCurrency,
         firstTime: state.settings.firstTime,
         kids: state.family.kids,
+        sendError: state.wollo.error,
+        sending: state.wollo.sending,
+        sendStatus: state.wollo.sendStatus,
+        sendComplete: state.wollo.sendComplete,
     })
 )(Balance);

@@ -158,6 +158,13 @@ class DevPanel extends Component {
                                 }} />
                             </View>
                             <View style={styles.claimBlock}>
+                                <Text style={styles.switchText}>Family data</Text>
+                                <Button style={styles.claimClearButton} label="Clear family data" onPress={() => {
+                                    console.log('clear');
+                                    Storage.clear(STORAGE_KEY_FAMILY);
+                                }} />
+                            </View>
+                            <View style={styles.claimBlock}>
                                 <Button style={styles.claimClearButton} label="Hide panel" onPress={() => {
                                     this.setState({isHidden: true});
                                 }} />

@@ -248,6 +248,7 @@ export const createSubAccount = name => async (dispatch, getState) => {
 };
 
 export const getAccountBalance = publicKey => async () => {
+    console.log('getAccountBalance', publicKey);
     try {
         const account = await loadAccount(publicKey);
         return getWolloBalance(account);
