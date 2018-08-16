@@ -34,6 +34,8 @@ export class ChildLogin extends Component {
     }
 
     render() {
+        const {error, loading, message} = this.props;
+
         return (
             <StepModule
                 title="Welcome back"
@@ -45,9 +47,12 @@ export class ChildLogin extends Component {
                         <Dots length={CHILD_PASSCODE_LENGTH} progress={this.state.input.size}/>
                     </View>
                 )}
+                loading={loading}
+                loaderMessage={message}
             >
                 <View style={styles.centered}>
                     <IconPad
+                        error={error}
                         onInput={i => this.setState({input: i})}
                         onFull={this.onCodeEntered}
                     />
@@ -62,4 +67,10 @@ export class ChildLogin extends Component {
     }
 }
 
-export default connect()(ChildLogin);
+export default connect(
+    state => ({
+        loading: state.loader.loading,
+        message: state.loader.message,
+        error: state.auth.error
+    })
+)(ChildLogin);
