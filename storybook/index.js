@@ -29,6 +29,7 @@ function loadStories() {
     require('./stories/child-login.js');
     require('./stories/icon-pad.js');
     require('./stories/family.js');
+    require('./stories/family-member.js');
     require('./stories/slider.js');
     require('./stories/wollo.js');
 }
