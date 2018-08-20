@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import Toggle from '../../components/toggle';
 import {SCREEN_BALANCE} from '../../constants';
 import StepModule from '../../components/step-module';
+import TextInput from '../../components/text-input';
 import {
     color
 } from '../../styles';
@@ -40,6 +41,11 @@ export class FamilyMemberType extends Component {
         // this.setState({loading: false});
     }
 
+    onChangeText = (text) => {
+        this.setState({type: text.length > 0 ? 'custom' : null});
+        this.setState({custom: text});
+    }
+
     render() {
         return (
             <StepModule
@@ -57,7 +63,7 @@ export class FamilyMemberType extends Component {
                         style={buttonStyle}
                         label={'Dad'}
                         onPress={() => {
-                            this.setState({type: 'dad'});
+                            this.setState({type: 'dad', custom: null});
                         }}
                         active={this.state.type === 'dad'}
                     />
@@ -65,11 +71,19 @@ export class FamilyMemberType extends Component {
                         style={buttonStyle}
                         label={'Mum'}
                         onPress={() => {
-                            this.setState({type: 'mum'});
+                            this.setState({type: 'mum', custom: null});
                         }}
                         active={this.state.type === 'mum'}
                     />
                 </View>
+                <TextInput
+                    // error={badAddress}
+                    value={this.state.custom}
+                    numberOfLines={1}
+                    placeholder="Other"
+                    onChangeText={this.onChangeText}
+                    returnKeyType="done"
+                />
             </StepModule>
         );
     }
