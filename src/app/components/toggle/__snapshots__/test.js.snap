@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "stretch",
+    }
+  }
+>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "rgb(21, 74, 150)",
+        "borderColor": "rgb(21, 74, 150)",
+        "borderRadius": 22.5,
+        "borderWidth": 1,
+        "marginBottom": 10,
+        "maxWidth": 400,
+        "opacity": 1,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "stretch",
+            "color": "rgb(255, 255, 255)",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "height": 45,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 12,
+            "textAlign": "center",
+          },
+          undefined,
+          null,
+          undefined,
+        ]
+      }
+    >
+      Label
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Button renders correctly in plain mode 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "stretch",
+    }
+  }
+>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "rgb(21, 74, 150)",
+        "borderColor": "rgb(21, 74, 150)",
+        "borderRadius": 22.5,
+        "borderWidth": 1,
+        "marginBottom": 10,
+        "maxWidth": 400,
+        "opacity": 1,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "stretch",
+            "color": "rgb(255, 255, 255)",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "height": 45,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 12,
+            "textAlign": "center",
+          },
+          undefined,
+          null,
+          undefined,
+        ]
+      }
+    >
+      Label
+    </Text>
+  </View>
+</View>
+`;

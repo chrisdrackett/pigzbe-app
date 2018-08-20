@@ -1,13 +1,24 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Button from '../../components/button';
+import Toggle from '../../components/toggle';
 import {SCREEN_BALANCE} from '../../constants';
 import StepModule from '../../components/step-module';
+import {
+    color
+} from '../../styles';
 // import TextInputComponent from '../../components/text-input';
 // import {familyAddKid} from '../../actions';
 
+const buttonStyle = {
+    background: 'transparent',
+    border: color.blue,
+};
+
 export class FamilyMemberType extends Component {
-    state = {loading: false}
+    state = {
+        loading: false,
+        type: null,
+    }
     // onNext = () => this.props.navigation.navigate(SCREEN_FAMILY_NICKNAME)
 
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
@@ -30,13 +41,21 @@ export class FamilyMemberType extends Component {
                 loading={this.state.loading}
                 onBack={this.onBack}
             >
-                <Button
+                <Toggle
+                    style={buttonStyle}
                     label={'Dad'}
-                    onPress={() => {}}
+                    onPress={() => {
+                        this.setState({type: 'dad'});
+                    }}
+                    active={this.state.type === 'dad'}
                 />
-                <Button
+                <Toggle
+                    style={buttonStyle}
                     label={'Mum'}
-                    onPress={() => {}}
+                    onPress={() => {
+                        this.setState({type: 'mum'});
+                    }}
+                    active={this.state.type === 'mum'}
                 />
             </StepModule>
         );
