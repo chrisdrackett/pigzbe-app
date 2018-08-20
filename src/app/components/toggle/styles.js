@@ -8,6 +8,8 @@ import {
 export default StyleSheet.create({
     container: {
         width: '45%',
+        backgroundColor: color.white,
+        color: color.blue,
     },
     active: {
         backgroundColor: color.pink,
@@ -15,7 +17,7 @@ export default StyleSheet.create({
     },
     hit: {
         width: '100%',
-        backgroundColor: color.mediumBlue,
+        backgroundColor: color.white,
         borderColor: color.mediumBlue,
         borderRadius: 22.5,
         borderWidth: 1,
@@ -26,7 +28,7 @@ export default StyleSheet.create({
         fontFamily,
         fontWeight: 'bold',
         alignSelf: 'stretch',
-        color: color.white,
+        color: color.blue,
         fontSize: 14,
         paddingLeft: 20,
         paddingRight: 20,
