@@ -7,12 +7,11 @@ import {
 
 export default StyleSheet.create({
     container: {
-        // backgroundColor: 'red',
-        alignSelf: 'stretch',
-        alignItems: 'center',
+        width: '45%',
     },
     active: {
         backgroundColor: color.pink,
+        borderColor: color.pink,
     },
     hit: {
         width: '100%',

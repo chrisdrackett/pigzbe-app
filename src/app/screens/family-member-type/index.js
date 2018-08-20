@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {View} from 'react-native';
 import Toggle from '../../components/toggle';
 import {SCREEN_BALANCE} from '../../constants';
 import StepModule from '../../components/step-module';
@@ -12,6 +13,14 @@ import {
 const buttonStyle = {
     background: 'transparent',
     border: color.blue,
+};
+
+const flexStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
 };
 
 export class FamilyMemberType extends Component {
@@ -41,22 +50,26 @@ export class FamilyMemberType extends Component {
                 loading={this.state.loading}
                 onBack={this.onBack}
             >
-                <Toggle
-                    style={buttonStyle}
-                    label={'Dad'}
-                    onPress={() => {
-                        this.setState({type: 'dad'});
-                    }}
-                    active={this.state.type === 'dad'}
-                />
-                <Toggle
-                    style={buttonStyle}
-                    label={'Mum'}
-                    onPress={() => {
-                        this.setState({type: 'mum'});
-                    }}
-                    active={this.state.type === 'mum'}
-                />
+                <View
+                    style={flexStyle}
+                >
+                    <Toggle
+                        style={buttonStyle}
+                        label={'Dad'}
+                        onPress={() => {
+                            this.setState({type: 'dad'});
+                        }}
+                        active={this.state.type === 'dad'}
+                    />
+                    <Toggle
+                        style={buttonStyle}
+                        label={'Mum'}
+                        onPress={() => {
+                            this.setState({type: 'mum'});
+                        }}
+                        active={this.state.type === 'mum'}
+                    />
+                </View>
             </StepModule>
         );
     }
