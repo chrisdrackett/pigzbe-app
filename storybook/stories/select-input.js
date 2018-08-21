@@ -21,10 +21,11 @@ class SelectInputTest extends Component {
     onFull = input => this.setState({input})
 
     render() {
+        const {error} = this.props;
         return (
             <View style={style}>
                 <SelectInput
-                    error={false}
+                    error={!!error}
                     value={this.state.value}
                     placeholder={'Title'}
                     onChangeSelection={value => this.setState({value})}
@@ -36,4 +37,5 @@ class SelectInputTest extends Component {
 }
 
 storiesOf('SelectInput')
-    .add('default', () => <SelectInputTest />);
+    .add('default', () => <SelectInputTest />)
+    .add('error', () => <SelectInputTest error />);

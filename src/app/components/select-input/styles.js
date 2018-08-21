@@ -7,8 +7,6 @@ import {
 
 export default StyleSheet.create({
     input: {
-        fontFamily,
-        alignSelf: 'stretch',
         borderColor: color.lighterBlue,
         borderWidth: 1,
         borderRadius: 22.5,
@@ -57,9 +55,9 @@ export default StyleSheet.create({
     },
     pickerBar: {
         backgroundColor: color.white,
-        borderTopColor: color.lighterBlue, 
+        borderTopColor: color.lighterBlue,
         borderTopWidth: 1,
-        borderBottomColor: color.lighterBlue, 
+        borderBottomColor: color.lighterBlue,
         borderBottomWidth: 1,
         padding: 10,
         alignItems: 'flex-end'

@@ -1,11 +1,9 @@
 import React, {Component, Fragment} from 'react';
-import {TextInput, Text, View, Image, Picker, TouchableOpacity, Modal} from 'react-native';
+import {Text, View, Image, Picker, TouchableOpacity, Modal} from 'react-native';
 import styles from './styles';
-import {color} from '../../styles';
 import isAndroid from '../../utils/is-android';
 
 const padding = isAndroid ? 11 : 0;
-const paddingMulti = isAndroid ? 11 : 8;
 
 const getStyle = (error, style) => {
 
@@ -30,9 +28,13 @@ export default class SelectInputComponent extends Component {
         open: false,
     }
 
-    onOpen = () => { this.setState({open: true}) }
+    onOpen = () => {
+        this.setState({open: true});
+    }
 
-    onClose = () => { this.setState({open: false}) }
+    onClose = () => {
+        this.setState({open: false});
+    }
 
     render() {
         const {
@@ -44,8 +46,6 @@ export default class SelectInputComponent extends Component {
             label,
             style,
         } = this.props;
-
-        
 
         return (
             <Fragment>
@@ -64,8 +64,6 @@ export default class SelectInputComponent extends Component {
                     {!value &&
                         <Text style={styles.placeholder}>{placeholder}</Text>
                     }
-                    
-
                     <Image style={styles.arrow} source={require('./images/down-arrow.png')} />
                 </TouchableOpacity>
 
@@ -74,8 +72,8 @@ export default class SelectInputComponent extends Component {
                         animationType="slide"
                         transparent={true}
                         visible={this.state.open}
-                        onRequestClose={this.onClose}>
-
+                        onRequestClose={this.onClose}
+                    >
                         <View style={styles.picker}>
                             <TouchableOpacity style={styles.pickerSpacer} onPress={this.onClose} />
                             <View style={styles.pickerBar}>
@@ -84,7 +82,7 @@ export default class SelectInputComponent extends Component {
                             <View style={styles.pickerContent}>
                                 <Picker
                                     selectedValue={value}
-                                    onValueChange={(itemValue, itemIndex) => onChangeSelection(itemValue)}
+                                    onValueChange={(itemValue) => onChangeSelection(itemValue)}
                                     itemStyle={styles.pickerItem}>
                                     {options.map(option =>
                                         <Picker.Item key={option} label={option} value={option} />
@@ -93,7 +91,6 @@ export default class SelectInputComponent extends Component {
                             </View>
                         </View>
                     </Modal>
-                    
                 }
             </Fragment>
         );
