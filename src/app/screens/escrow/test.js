@@ -44,6 +44,13 @@ const props = {
 };
 
 describe('Escrow', () => {
+    beforeEach(() => {
+        // Lock Time
+        jest.spyOn(Date, 'now').mockImplementation(() => 1532131200000);
+    });
+    afterEach(() => {
+        Date.now.mockRestore();
+    });
     test('renders correctly', () => {
         const tree = renderer.create((
             <Provider store={mockStore()}>
