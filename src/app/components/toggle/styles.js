@@ -7,7 +7,6 @@ import {
 
 export default StyleSheet.create({
     container: {
-        width: '45%',
         backgroundColor: color.white,
         color: color.blue,
     },
@@ -21,7 +20,7 @@ export default StyleSheet.create({
         borderColor: color.mediumBlue,
         borderRadius: 22.5,
         borderWidth: 1,
-        marginBottom: 10,
+        marginBottom: 20,
         maxWidth: 400,
     },
     text: {
@@ -30,10 +29,7 @@ export default StyleSheet.create({
         alignSelf: 'stretch',
         color: color.blue,
         fontSize: 14,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 12,
-        height: 45,
+        lineHeight: 40,
         textAlign: 'center'
     },
     hit__disabled: {

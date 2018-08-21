@@ -13,6 +13,7 @@ import {
 const buttonStyle = {
     background: 'transparent',
     border: color.blue,
+    width: 45,
 };
 
 const flexStyle = {
