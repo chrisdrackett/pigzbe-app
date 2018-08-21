@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
-import {FamilyMemberType} from '../../src/app/screens/family-member-type';
+import {FamilyNumberKids} from '../../src/app/screens/family-number-kids';
 
 const props = {
     // dispatch: () => {},
@@ -16,6 +16,6 @@ const props = {
 };
 
 storiesOf('Family')
-    .add('member-type', () => (
-        <FamilyMemberType {...props}/>
+    .add('number-kids', () => (
+        <FamilyNumberKids {...props}/>
     ));
