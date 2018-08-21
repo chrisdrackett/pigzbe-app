@@ -5,6 +5,7 @@ import Toggle from '../../components/toggle';
 import {SCREEN_BALANCE} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
+import Button from '../../components/button';
 import {
     color
 } from '../../styles';
@@ -46,6 +47,10 @@ export class FamilyMemberType extends Component {
         this.setState({custom: text});
     }
 
+    onNext = () => {
+        console.log('go to next screen');
+    }
+
     render() {
         return (
             <StepModule
@@ -83,6 +88,11 @@ export class FamilyMemberType extends Component {
                     placeholder="Other"
                     onChangeText={this.onChangeText}
                     returnKeyType="done"
+                />
+                <Button
+                    label={'Next'}
+                    disabled={this.state.type === null}
+                    onPress={this.onNext}
                 />
             </StepModule>
         );
