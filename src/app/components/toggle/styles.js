@@ -26,10 +26,9 @@ export default StyleSheet.create({
     text: {
         fontFamily,
         fontWeight: 'bold',
-        alignSelf: 'stretch',
+        alignSelf: 'center',
         color: color.blue,
         fontSize: 14,
-        lineHeight: 40,
         textAlign: 'center'
     },
     hit__disabled: {

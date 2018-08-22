@@ -12,10 +12,11 @@ export default ({
     disabled,
     theme = '',
     style,
+    innerStyle,
     active,
     textStyle,
 }) => (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
         <TouchableOpacity
             onPress={() => disabled ? false : onPress()}
             disabled={disabled}
@@ -24,7 +25,7 @@ export default ({
                 styles[`hit__${theme}`],
                 disabled ? [styles.hit__disabled, styles[`hit__disabled__${theme}`]] : null,
                 active ? styles.active : null,
-                style
+                innerStyle
             ]}
         >
             <Text

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+import {View, Dimensions} from 'react-native';
 import Toggle from '../../components/toggle';
 import {SCREEN_BALANCE} from '../../constants';
 import StepModule from '../../components/step-module';
@@ -13,7 +13,24 @@ import {
 const buttonStyle = {
     background: 'transparent',
     border: color.blue,
-    width: 45,
+    width: Dimensions.get('window').width * 0.15,
+    height: 0,
+    paddingBottom: Dimensions.get('window').width * 0.15,
+    marginBottom: Dimensions.get('window').width * 0.15,
+    position: 'relative',
+};
+
+const innerStyle = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    marginBottom: 0,
+    borderRadius: Dimensions.get('window').width * 0.075,
+    display: 'flex',
+    alignContent: 'center',
+    justifyContent: 'center',
 };
 
 const flexStyle = {
@@ -59,6 +76,7 @@ export class FamilyNumberKids extends Component {
                 >
                     <Toggle
                         style={buttonStyle}
+                        innerStyle={innerStyle}
                         label={'1'}
                         onPress={() => {
                             this.setState({type: 1});
@@ -67,6 +85,7 @@ export class FamilyNumberKids extends Component {
                     />
                     <Toggle
                         style={buttonStyle}
+                        innerStyle={innerStyle}
                         label={'2'}
                         onPress={() => {
                             this.setState({type: 2});
@@ -75,6 +94,7 @@ export class FamilyNumberKids extends Component {
                     />
                     <Toggle
                         style={buttonStyle}
+                        innerStyle={innerStyle}
                         label={'3'}
                         onPress={() => {
                             this.setState({type: 3});
@@ -83,6 +103,7 @@ export class FamilyNumberKids extends Component {
                     />
                     <Toggle
                         style={buttonStyle}
+                        innerStyle={innerStyle}
                         label={'4+'}
                         onPress={() => {
                             this.setState({type: 4});
