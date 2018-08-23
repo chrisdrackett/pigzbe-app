@@ -61,7 +61,7 @@ export class FamilyEnterChild extends Component {
 
         const renderDatePicker = () => (
             <DatePicker
-                style={{width: 200}}
+                style={{width: '100%'}}
                 date={this.state.chosenDate}
                 mode="date"
                 placeholder="Date of birth"
@@ -97,12 +97,10 @@ export class FamilyEnterChild extends Component {
                         texAlign: 'left',
                         color: color.lighterBlue,
                         width: '100%',
+                        fontWeight: 'bold',
                     },
                     dateTouchBody: {
-                        background: 'red',
-                        texAlign: 'left',
                         color: color.lighterBlue,
-                        fontWeight: 'bold',
                         height: 45,
                         marginBottom: 20,
                     },
