@@ -7,6 +7,12 @@ const props = {
 };
 
 describe('Alert', () => {
+    beforeEach(() => {
+        // Fixes issue with Animated causing jest to hang
+        // https://github.com/facebook/jest/issues/4359
+        jest.useFakeTimers()
+    });
+
     test('renders correctly with error prop', () => {
         const tree = renderer.create(<Alert {...props}/>).toJSON();
         expect(tree).toMatchSnapshot();
