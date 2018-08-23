@@ -95,7 +95,7 @@ export class FamilyEnterChild extends Component {
                     },
                     dateText: {
                         texAlign: 'left',
-                        color: color.lighterBlue,
+                        color: color.blue,
                         width: '100%',
                         fontWeight: 'bold',
                     },
