@@ -5,9 +5,7 @@ import Toggle from '../../components/toggle';
 import {SCREEN_BALANCE} from '../../constants';
 import StepModule from '../../components/step-module';
 import Button from '../../components/button';
-import {
-    color
-} from '../../styles';
+import {color} from '../../styles';
 // import {familyAddKid} from '../../actions';
 
 const buttonStyle = {
