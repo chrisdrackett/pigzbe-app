@@ -115,3 +115,117 @@ exports[`Button renders correctly in plain mode 1`] = `
   </View>
 </View>
 `;
+
+exports[`Toggle renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "rgb(255, 255, 255)",
+        "color": "rgb(0, 50, 120)",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(21, 74, 150)",
+        "borderRadius": 22.5,
+        "borderWidth": 1,
+        "marginBottom": 20,
+        "maxWidth": 400,
+        "opacity": 1,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+            "color": "rgb(0, 50, 120)",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          undefined,
+          null,
+          undefined,
+        ]
+      }
+    >
+      Label
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Toggle renders correctly in plain mode 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "rgb(255, 255, 255)",
+        "color": "rgb(0, 50, 120)",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(21, 74, 150)",
+        "borderRadius": 22.5,
+        "borderWidth": 1,
+        "marginBottom": 20,
+        "maxWidth": 400,
+        "opacity": 1,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+            "color": "rgb(0, 50, 120)",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          undefined,
+          null,
+          undefined,
+        ]
+      }
+    >
+      Label
+    </Text>
+  </View>
+</View>
+`;

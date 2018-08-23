@@ -5,7 +5,7 @@ import Toggle from './';
 const props = {
     label: 'Label',
     onPress: () => {},
-    plain: false
+    active: false,
 };
 
 describe('Toggle', () => {
