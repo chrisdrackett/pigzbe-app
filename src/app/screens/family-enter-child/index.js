@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Image, Dimensions, Text} from 'react-native';
-// import {View, TouchableOpacity, Text} from 'react-native';
+import {View, Image, Text} from 'react-native';
+// import {View, image, TouchableOpacity, Text} from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import {pickImage} from '../../utils/image-picker';
 import {SCREEN_BALANCE} from '../../constants';
@@ -10,24 +10,7 @@ import StepModule from '../../components/step-module';
 import Button from '../../components/button';
 import {color} from '../../styles';
 import styles from './styles';
-
-// const imageStyle = {
-//     width: Dimensions.get('window').width * 0.3,
-//     height: Dimensions.get('window').width * 0.3,
-//     borderRadius: Dimensions.get('window').width * 0.15,
-//     borderColor: color.lighterBlue,
-//     borderWidth: 1,
-//     marginLeft: 'auto',
-//     marginRight: 'auto',
-//     marginBottom: 20,
-// };
-//
-// const subTitle = {
-//     color: color.blue,
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//     marginBottom: 10,
-// };
+import {familyAddKid} from '../../actions';
 
 
 export class FamilyEnterChild extends Component {
@@ -46,7 +29,7 @@ export class FamilyEnterChild extends Component {
         // const name = names[Math.floor(Math.random() * names.length)];
         this.setState({loading: true});
         console.log('next clicked');
-        // await this.props.dispatch(familyAddKid(name, '01/01/2012', null));
+        await this.props.dispatch(familyAddKid(this.state.name, this.state.chosenDate, this.state.image));
         // this.setState({loading: false});
     }
 
