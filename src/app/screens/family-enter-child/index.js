@@ -1,13 +1,33 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+import {View, Image, Dimensions, Text} from 'react-native';
 // import {View, TouchableOpacity, Text} from 'react-native';
 import DatePicker from 'react-native-datepicker';
+import {pickImage} from '../../utils/image-picker';
 import {SCREEN_BALANCE} from '../../constants';
 import TextInput from '../../components/text-input';
 import StepModule from '../../components/step-module';
 import Button from '../../components/button';
 import {color} from '../../styles';
+
+const imageStyle = {
+    width: Dimensions.get('window').width * 0.3,
+    height: Dimensions.get('window').width * 0.3,
+    borderRadius: Dimensions.get('window').width * 0.15,
+    borderColor: color.lighterBlue,
+    borderWidth: 1,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: 20,
+};
+
+const subTitle = {
+    color: color.blue,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10,
+};
+
 
 export class FamilyEnterChild extends Component {
     state = {
@@ -42,6 +62,32 @@ export class FamilyEnterChild extends Component {
 
     onNext = () => {
         console.log('go to next screen');
+    }
+
+    callImageUtil = () => async () => {
+        console.log('>>>> image result >> before', result);
+
+        const result = await pickImage();
+        result.then(() => {
+            console.log('loaded');
+            // loaded
+        }, () => {
+            console.log('failed');
+            // failed
+        });
+
+        console.log('>>>> image result >> after', result);
+        return result;
+    }
+
+    getImage = async () => {
+        console.log('--- getImage >> before ---');
+        const result = await pickImage();
+        // const result = this.callImageUtil();
+        this.setState({
+            image: result.uri,
+        });
+        console.log('--- getImage >> after ---', result.uri);
     }
 
     render() {
@@ -94,7 +140,6 @@ export class FamilyEnterChild extends Component {
                         lineHeight: 21,
                     },
                     dateText: {
-                        texAlign: 'left',
                         color: color.blue,
                         width: '100%',
                         fontWeight: 'bold',
@@ -106,7 +151,6 @@ export class FamilyEnterChild extends Component {
                     },
                     placeholderText: {
                         width: '100%',
-                        textAlign: 'left',
                         color: color.lighterBlue,
                         fontWeight: 'bold',
                     }
@@ -139,6 +183,12 @@ export class FamilyEnterChild extends Component {
                     />
                     {renderDatePicker()}
                 </View>
+                <Text style={subTitle}>Add photo</Text>
+                <Image
+                    style={imageStyle}
+                    source={{uri: this.state.image}}
+                />
+                <Button onPress={this.getImage} label={'Get Image'} />
                 <Button
                     label={'Next'}
                     disabled={!this.state.datePickerHasChanged || this.state.name.length === 0}
