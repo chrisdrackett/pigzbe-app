@@ -9,24 +9,25 @@ import TextInput from '../../components/text-input';
 import StepModule from '../../components/step-module';
 import Button from '../../components/button';
 import {color} from '../../styles';
+import styles from './styles';
 
-const imageStyle = {
-    width: Dimensions.get('window').width * 0.3,
-    height: Dimensions.get('window').width * 0.3,
-    borderRadius: Dimensions.get('window').width * 0.15,
-    borderColor: color.lighterBlue,
-    borderWidth: 1,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginBottom: 20,
-};
-
-const subTitle = {
-    color: color.blue,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 10,
-};
+// const imageStyle = {
+//     width: Dimensions.get('window').width * 0.3,
+//     height: Dimensions.get('window').width * 0.3,
+//     borderRadius: Dimensions.get('window').width * 0.15,
+//     borderColor: color.lighterBlue,
+//     borderWidth: 1,
+//     marginLeft: 'auto',
+//     marginRight: 'auto',
+//     marginBottom: 20,
+// };
+//
+// const subTitle = {
+//     color: color.blue,
+//     fontWeight: 'bold',
+//     textAlign: 'center',
+//     marginBottom: 10,
+// };
 
 
 export class FamilyEnterChild extends Component {
@@ -34,8 +35,8 @@ export class FamilyEnterChild extends Component {
         loading: false,
         name: '',
         chosenDate: null,
-        // showDatePicker: false,
         datePickerHasChanged: false,
+        image: '',
     }
 
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE);
@@ -44,50 +45,25 @@ export class FamilyEnterChild extends Component {
         // const names = ['Ella', 'Sebastian', 'Billy', 'Bobby'];
         // const name = names[Math.floor(Math.random() * names.length)];
         this.setState({loading: true});
+        console.log('next clicked');
         // await this.props.dispatch(familyAddKid(name, '01/01/2012', null));
         // this.setState({loading: false});
     }
 
     onChangeName = (name) => {
         this.setState({name});
-
-        console.log('name', name);
     }
 
     onChangeDOB = (dob) => {
         this.setState({chosenDate: dob, datePickerHasChanged: true});
-
-        console.log('dob', dob);
-    }
-
-    onNext = () => {
-        console.log('go to next screen');
-    }
-
-    callImageUtil = () => async () => {
-        console.log('>>>> image result >> before', result);
-
-        const result = await pickImage();
-        result.then(() => {
-            console.log('loaded');
-            // loaded
-        }, () => {
-            console.log('failed');
-            // failed
-        });
-
-        console.log('>>>> image result >> after', result);
-        return result;
     }
 
     getImage = async () => {
-        console.log('--- getImage >> before ---');
         const result = await pickImage();
-        // const result = this.callImageUtil();
+
         this.setState({
             image: result.uri,
         });
-        console.log('--- getImage >> after ---', result.uri);
     }
 
     render() {
@@ -116,6 +92,7 @@ export class FamilyEnterChild extends Component {
                 maxDate="01/01/2011"
                 confirmBtnText="Confirm"
                 cancelBtnText="Cancel"
+                // this doesn't seem to work properly, need to find different solution in order to implement placeholder design:
                 // TouchableComponent={
                 //     getDateField
                 // }
@@ -183,9 +160,9 @@ export class FamilyEnterChild extends Component {
                     />
                     {renderDatePicker()}
                 </View>
-                <Text style={subTitle}>Add photo</Text>
+                <Text style={styles.subTitle}>Add photo</Text>
                 <Image
-                    style={imageStyle}
+                    style={styles.imageStyle}
                     source={{uri: this.state.image}}
                 />
                 <Button onPress={this.getImage} label={'Get Image'} />
