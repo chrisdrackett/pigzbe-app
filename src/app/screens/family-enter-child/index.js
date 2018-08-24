@@ -142,6 +142,9 @@ export class FamilyEnterChild extends Component {
                         returnKeyType="done"
                     />
                     {renderDatePicker()}
+                    <Text style={styles.smallText}>
+                        This helps us serve appropriate content
+                    </Text>
                 </View>
                 <Text style={styles.subTitle}>Add photo</Text>
                 <Image
@@ -154,7 +157,7 @@ export class FamilyEnterChild extends Component {
                     disabled={!this.state.datePickerHasChanged || this.state.name.length === 0}
                     onPress={this.onNext}
                 />
-                <Text style={styles.privacy}>
+                <Text style={styles.smallText}>
                     Your childs data will always be kept secure and never shared!
                     Check our Privacy Policy for more details
                 </Text>

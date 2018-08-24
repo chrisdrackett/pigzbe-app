@@ -18,7 +18,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         marginBottom: 10,
     },
-    privacy: {
+    smallText: {
         color: color.blue,
         textAlign: 'center',
         marginTop: 10,
