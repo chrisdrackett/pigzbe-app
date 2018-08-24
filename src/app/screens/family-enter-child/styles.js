@@ -17,5 +17,11 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 10,
+    },
+    privacy: {
+        color: color.blue,
+        textAlign: 'center',
+        marginTop: 10,
+        marginBottom: 20,
     }
 });

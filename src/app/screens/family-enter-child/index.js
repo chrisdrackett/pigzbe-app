@@ -150,10 +150,14 @@ export class FamilyEnterChild extends Component {
                 />
                 <Button onPress={this.getImage} label={'Get Image'} />
                 <Button
-                    label={'Next'}
+                    label={'Create Profile'}
                     disabled={!this.state.datePickerHasChanged || this.state.name.length === 0}
                     onPress={this.onNext}
                 />
+                <Text style={styles.privacy}>
+                    Your childs data will always be kept secure and never shared!
+                    Check our Privacy Policy for more details
+                </Text>
             </StepModule>
         );
     }
