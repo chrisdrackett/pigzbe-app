@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Button from '../../components/button';
-import {SCREEN_BALANCE, SCREEN_FAMILY_ENTER_CHILD} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_FAMILY_MEMBER_TYPE} from '../../constants';
 import StepModule from '../../components/step-module';
 // import {familyAddKid} from '../../actions';
 
@@ -16,7 +16,7 @@ export class FamilyIntro extends Component {
         // const name = names[Math.floor(Math.random() * names.length)];
         this.setState({loading: true});
         // await this.props.dispatch(familyAddKid(name, '01/01/2012', null));
-        this.props.navigation.navigate(SCREEN_FAMILY_ENTER_CHILD);
+        this.props.navigation.navigate(SCREEN_FAMILY_MEMBER_TYPE);
         // SCREEN_FAMILY_ENTER_CHILD,
         // this.setState({loading: false});
     }

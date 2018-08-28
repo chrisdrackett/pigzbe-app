@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, Dimensions} from 'react-native';
 import Toggle from '../../components/toggle';
-import {SCREEN_BALANCE} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_FAMILY_ENTER_CHILD} from '../../constants';
 import StepModule from '../../components/step-module';
 import Button from '../../components/button';
 import {color} from '../../styles';
-// import {familyAddKid} from '../../actions';
+import {familyNumKidsToAdd} from '../../actions';
 
 const buttonStyle = {
     background: 'transparent',
@@ -48,15 +48,11 @@ export class FamilyNumberKids extends Component {
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
 
     onNext = async () => {
-        // const names = ['Ella', 'Sebastian', 'Billy', 'Bobby'];
-        // const name = names[Math.floor(Math.random() * names.length)];
         this.setState({loading: true});
-        // await this.props.dispatch(familyAddKid(name, '01/01/2012', null));
+        await this.props.dispatch(familyNumKidsToAdd(this.state.name, this.state.chosenDate, this.state.image));
+        console.log('nickname added');
+        this.props.navigation.navigate(SCREEN_FAMILY_ENTER_CHILD);
         // this.setState({loading: false});
-    }
-
-    onNext = () => {
-        console.log('go to next screen');
     }
 
     render() {

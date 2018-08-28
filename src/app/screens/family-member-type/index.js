@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Toggle from '../../components/toggle';
-import {SCREEN_BALANCE} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_FAMILY_NUMBER_KIDS} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Button from '../../components/button';
+import {familyParentNickname} from '../../actions';
 import {
     color
 } from '../../styles';
@@ -38,6 +39,9 @@ export class FamilyMemberType extends Component {
         // const names = ['Ella', 'Sebastian', 'Billy', 'Bobby'];
         // const name = names[Math.floor(Math.random() * names.length)];
         this.setState({loading: true});
+        await this.props.dispatch(familyParentNickname(this.state.name, this.state.chosenDate, this.state.image));
+        console.log('nickname added');
+        this.props.navigation.navigate(SCREEN_FAMILY_NUMBER_KIDS);
         // await this.props.dispatch(familyAddKid(name, '01/01/2012', null));
         // this.setState({loading: false});
     }
@@ -45,10 +49,6 @@ export class FamilyMemberType extends Component {
     onChangeText = (text) => {
         this.setState({type: text.length > 0 ? 'custom' : null});
         this.setState({custom: text});
-    }
-
-    onNext = () => {
-        console.log('go to next screen');
     }
 
     render() {
