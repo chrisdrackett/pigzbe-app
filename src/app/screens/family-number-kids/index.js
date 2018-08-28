@@ -22,13 +22,14 @@ const innerStyle = {
     position: 'absolute',
     top: 0,
     left: 0,
-    bottom: 0,
     right: 0,
     marginBottom: 0,
     borderRadius: Dimensions.get('window').width * 0.075,
     display: 'flex',
     alignContent: 'center',
     justifyContent: 'center',
+    height: Dimensions.get('window').width * 0.15,
+    background: 'red',
 };
 
 const flexStyle = {
@@ -60,7 +61,7 @@ export class FamilyNumberKids extends Component {
             <StepModule
                 title="Describe yourself"
                 icon="family"
-                content={'What are you called by your children?'}
+                content={'How many children would you like to add?'}
                 pad
                 loading={this.state.loading}
                 onBack={this.onBack}

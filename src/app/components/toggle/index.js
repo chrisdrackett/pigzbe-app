@@ -25,7 +25,7 @@ export default ({
                 styles[`hit__${theme}`],
                 disabled ? [styles.hit__disabled, styles[`hit__disabled__${theme}`]] : null,
                 active ? styles.active : null,
-                innerStyle
+                innerStyle,
             ]}
         >
             <Text

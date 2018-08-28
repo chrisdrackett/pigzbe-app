@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+import {View, Dimensions} from 'react-native';
 import Toggle from '../../components/toggle';
 import {SCREEN_BALANCE, SCREEN_FAMILY_NUMBER_KIDS} from '../../constants';
 import StepModule from '../../components/step-module';
@@ -16,6 +16,21 @@ import {
 const buttonStyle = {
     background: 'transparent',
     border: color.blue,
+    fontSize: 14,
+    paddingTop: 10,
+    height: 45,
+    lineHeight: 40,
+    marginBottom: 30,
+    width: Dimensions.get('window').width * 0.35,
+    textAlign: 'center',
+};
+
+const innerStyle = {
+    borderRadius: 22.5,
+    display: 'flex',
+    alignContent: 'center',
+    justifyContent: 'center',
+    height: 45,
 };
 
 const flexStyle = {
@@ -66,6 +81,7 @@ export class FamilyMemberType extends Component {
                 >
                     <Toggle
                         style={buttonStyle}
+                        innerStyle={innerStyle}
                         label={'Dad'}
                         onPress={() => {
                             this.setState({type: 'dad', custom: null});
@@ -74,6 +90,7 @@ export class FamilyMemberType extends Component {
                     />
                     <Toggle
                         style={buttonStyle}
+                        innerStyle={innerStyle}
                         label={'Mum'}
                         onPress={() => {
                             this.setState({type: 'mum', custom: null});
