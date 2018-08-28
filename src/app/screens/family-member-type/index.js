@@ -39,8 +39,8 @@ export class FamilyMemberType extends Component {
         // const names = ['Ella', 'Sebastian', 'Billy', 'Bobby'];
         // const name = names[Math.floor(Math.random() * names.length)];
         this.setState({loading: true});
-        await this.props.dispatch(familyParentNickname(this.state.name, this.state.chosenDate, this.state.image));
-        console.log('nickname added');
+        await this.props.dispatch(familyParentNickname(this.state.type === 'custom' ? this.state.custom : this.state.type));
+        console.log('nickname added', this.state.type === 'custom' ? this.state.custom : this.state.type);
         this.props.navigation.navigate(SCREEN_FAMILY_NUMBER_KIDS);
         // await this.props.dispatch(familyAddKid(name, '01/01/2012', null));
         // this.setState({loading: false});

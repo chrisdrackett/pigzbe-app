@@ -11,6 +11,7 @@ import Button from '../../components/button';
 import {color} from '../../styles';
 import styles from './styles';
 import {familyAddKid} from '../../actions';
+import images from './images';
 
 
 export class FamilyEnterChild extends Component {
@@ -30,7 +31,20 @@ export class FamilyEnterChild extends Component {
         this.setState({loading: true});
         console.log('next clicked');
         await this.props.dispatch(familyAddKid(this.state.name, this.state.chosenDate, this.state.image));
-        // this.setState({loading: false});
+
+
+        console.log('member added', this.props.numKidsToAdd);
+        if (this.props.numKidsToAdd > 0) {
+            this.setState({
+                loading: false,
+                name: '',
+                chosenDate: null,
+                datePickerHasChanged: false,
+                image: '',
+            });
+        } else {
+            this.props.navigation.navigate(SCREEN_BALANCE);
+        }
     }
 
     onChangeName = (name) => {
@@ -125,9 +139,35 @@ export class FamilyEnterChild extends Component {
             />
         );
 
+        const {numKidsToAdd, numKidsAdded} = this.props;
+
+        let title = 'Create their profile';
+
+        if (numKidsToAdd === 1 && numKidsAdded === 0) {
+            title = 'Create their profile';
+        } else if (numKidsToAdd > 1 && numKidsAdded === 0) {
+            title = 'Create 1st profile';
+        } else if (numKidsAdded === 1) {
+            title = 'Create 2nd profile';
+        } else if (numKidsAdded === 2) {
+            title = 'Create 3rd profile';
+        } else if (numKidsAdded > 2) {
+            title = `Create ${numKidsAdded + 1}th profile`;
+        }
+
+        let numberProfile = '';
+
+        console.log('numKidsToAdd', numKidsToAdd, 'numKidsAdded');
+
+        if (numKidsToAdd !== 1 || numKidsAdded !== 0) {
+            numberProfile = ` ${numKidsAdded + 1}`;
+        }
+
+        console.log('this.state.image', this.state.image, 'images.icon.smiley', images.icon.smiley);
+
         return (
             <StepModule
-                title="Create their profile"
+                title={title}
                 icon="family"
                 content={'Please give us a few simple details to greate their profile'}
                 pad
@@ -140,6 +180,7 @@ export class FamilyEnterChild extends Component {
                         placeholder="Name"
                         onChangeText={this.onChangeName}
                         returnKeyType="done"
+                        value={this.state.name}
                     />
                     {renderDatePicker()}
                     <Text style={styles.smallText}>
@@ -147,13 +188,17 @@ export class FamilyEnterChild extends Component {
                     </Text>
                 </View>
                 <Text style={styles.subTitle}>Add photo</Text>
-                <Image
-                    style={styles.imageStyle}
-                    source={{uri: this.state.image}}
-                />
+                { this.state.image ?
+                    <Image
+                        style={styles.imageStyle}
+                        source={{uri: this.state.image ? this.state.image : images.icon.smiley}}
+                    />
+                    :
+                    <View style={styles.imageStyle} />
+                }
                 <Button onPress={this.getImage} label={'Get Image'} />
                 <Button
-                    label={'Create Profile'}
+                    label={`Create Profile${numberProfile}`}
                     disabled={!this.state.datePickerHasChanged || this.state.name.length === 0}
                     onPress={this.onNext}
                 />
@@ -166,4 +211,7 @@ export class FamilyEnterChild extends Component {
     }
 }
 
-export default connect()(FamilyEnterChild);
+export default connect(state => ({
+    numKidsToAdd: state.family.numKidsToAdd,
+    numKidsAdded: state.family.numKidsAdded,
+}))(FamilyEnterChild);

@@ -12,6 +12,7 @@ export const initialState = {
     loading: false,
     parentNickname: '',
     numKidsToAdd: 0,
+    numKidsAdded: 0,
     kids: [],
 };
 
@@ -36,11 +37,14 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 numKidsToAdd: action.numKidsToAdd,
+                numKidsAdded: 0,
             };
         case FAMILY_ADD_KID:
             return {
                 ...state,
                 kids: state.kids.concat(action.kid),
+                numKidsToAdd: state.numKidsToAdd - 1,
+                numKidsAdded: state.numKidsAdded + 1,
             };
         case FAMILY_BALANCE_UPDATE:
             return {
