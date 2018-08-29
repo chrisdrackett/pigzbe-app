@@ -177,14 +177,10 @@ export class FamilyEnterChild extends Component {
                     </Text>
                 </View>
                 <Text style={styles.subTitle}>Add photo</Text>
-                { this.state.image || true ?
-                    <Image
-                        style={styles.imageStyle}
-                        source={{uri: this.state.image ? this.state.image : images.icon.smiley}}
-                    />
-                    :
-                    <View style={styles.imageStyle} />
-                }
+                <Image
+                    style={styles.imageStyle}
+                    source={this.state.image ? {uri: this.state.image} : images.icon.smiley}
+                />
                 <Button onPress={this.getImage} label={'Get Image'} />
                 <Button
                     label={`Create Profile${numberProfile}`}
