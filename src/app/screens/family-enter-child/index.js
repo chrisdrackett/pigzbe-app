@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, Image, Text} from 'react-native';
-// import {View, image, TouchableOpacity, Text} from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import {pickImage} from '../../utils/image-picker';
 import {SCREEN_BALANCE} from '../../constants';
@@ -26,14 +25,9 @@ export class FamilyEnterChild extends Component {
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE);
 
     onNext = async () => {
-        // const names = ['Ella', 'Sebastian', 'Billy', 'Bobby'];
-        // const name = names[Math.floor(Math.random() * names.length)];
         this.setState({loading: true});
-        console.log('next clicked');
         await this.props.dispatch(familyAddKid(this.state.name, this.state.chosenDate, this.state.image));
 
-
-        console.log('member added', this.props.numKidsToAdd);
         if (this.props.numKidsToAdd > 0) {
             this.setState({
                 loading: false,
@@ -128,7 +122,6 @@ export class FamilyEnterChild extends Component {
                         color: color.lighterBlue,
                         fontWeight: 'bold',
                     }
-                    // ... You can check the source to find the other keys.
                 }}
                 onDateChange={
                     (date) => {
@@ -157,13 +150,9 @@ export class FamilyEnterChild extends Component {
 
         let numberProfile = '';
 
-        console.log('numKidsToAdd', numKidsToAdd, 'numKidsAdded');
-
         if (numKidsToAdd !== 1 || numKidsAdded !== 0) {
             numberProfile = ` ${numKidsAdded + 1}`;
         }
-
-        console.log('this.state.image', this.state.image, 'images.icon.smiley', images.icon.smiley);
 
         return (
             <StepModule
@@ -188,7 +177,7 @@ export class FamilyEnterChild extends Component {
                     </Text>
                 </View>
                 <Text style={styles.subTitle}>Add photo</Text>
-                { this.state.image ?
+                { this.state.image || true ?
                     <Image
                         style={styles.imageStyle}
                         source={{uri: this.state.image ? this.state.image : images.icon.smiley}}

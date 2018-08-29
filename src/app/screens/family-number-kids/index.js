@@ -51,9 +51,7 @@ export class FamilyNumberKids extends Component {
     onNext = async () => {
         this.setState({loading: true});
         await this.props.dispatch(familyNumKidsToAdd(this.state.type));
-        console.log('nickname added');
         this.props.navigation.navigate(SCREEN_FAMILY_ENTER_CHILD);
-        // this.setState({loading: false});
     }
 
     render() {

@@ -10,8 +10,6 @@ import {familyParentNickname} from '../../actions';
 import {
     color
 } from '../../styles';
-// import TextInputComponent from '../../components/text-input';
-// import {familyAddKid} from '../../actions';
 
 const buttonStyle = {
     background: 'transparent',
@@ -46,19 +44,13 @@ export class FamilyMemberType extends Component {
         loading: false,
         type: null,
     }
-    // onNext = () => this.props.navigation.navigate(SCREEN_FAMILY_NICKNAME)
 
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
 
     onNext = async () => {
-        // const names = ['Ella', 'Sebastian', 'Billy', 'Bobby'];
-        // const name = names[Math.floor(Math.random() * names.length)];
         this.setState({loading: true});
         await this.props.dispatch(familyParentNickname(this.state.type === 'custom' ? this.state.custom : this.state.type));
-        console.log('nickname added', this.state.type === 'custom' ? this.state.custom : this.state.type);
         this.props.navigation.navigate(SCREEN_FAMILY_NUMBER_KIDS);
-        // await this.props.dispatch(familyAddKid(name, '01/01/2012', null));
-        // this.setState({loading: false});
     }
 
     onChangeText = (text) => {

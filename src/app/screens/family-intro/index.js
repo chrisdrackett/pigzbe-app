@@ -4,19 +4,14 @@ import Button from '../../components/button';
 import {SCREEN_BALANCE, SCREEN_FAMILY_MEMBER_TYPE, SCREEN_FAMILY_ENTER_CHILD, SCREEN_FAMILY_NUMBER_KIDS} from '../../constants';
 import StepModule from '../../components/step-module';
 import {familyNumKidsToAdd} from '../../actions';
-// import {familyAddKid} from '../../actions';
 
 export class FamilyIntro extends Component {
     state = {loading: false}
-    // onNext = () => this.props.navigation.navigate(SCREEN_FAMILY_NICKNAME)
 
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
 
     onNext = async () => {
-        // const names = ['Ella', 'Sebastian', 'Billy', 'Bobby'];
-        // const name = names[Math.floor(Math.random() * names.length)];
         this.setState({loading: true});
-        // await this.props.dispatch(familyAddKid(name, '01/01/2012', null));
 
         if ((!this.props.nickname || this.props.nickname.length === 0)) {
             this.props.navigation.navigate(SCREEN_FAMILY_MEMBER_TYPE);
@@ -26,9 +21,6 @@ export class FamilyIntro extends Component {
             await this.props.dispatch(familyNumKidsToAdd(1));
             this.props.navigation.navigate(SCREEN_FAMILY_ENTER_CHILD);
         }
-
-        // SCREEN_FAMILY_ENTER_CHILD,
-        // this.setState({loading: false});
     }
 
     render() {
