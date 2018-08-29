@@ -18,10 +18,9 @@ const options = {
 };
 
 export const pickImage = () => {
-    console.log('pickImage');
     return new Promise((resolve, reject) => {
         ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
+        // console.log('Response = ', response);
 
             if (response.didCancel) {
                 console.log('User cancelled image picker');
