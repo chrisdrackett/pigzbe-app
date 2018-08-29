@@ -10,7 +10,6 @@ export default ({
     label,
     onPress,
     disabled,
-    theme = '',
     style,
     innerStyle,
     active,
@@ -22,8 +21,7 @@ export default ({
             disabled={disabled}
             style={[
                 styles.hit,
-                styles[`hit__${theme}`],
-                disabled ? [styles.hit__disabled, styles[`hit__disabled__${theme}`]] : null,
+                disabled ? styles.hit__disabled : null,
                 active ? styles.active : null,
                 innerStyle,
             ]}
@@ -31,8 +29,7 @@ export default ({
             <Text
                 style={[
                     styles.text,
-                    styles[`text__${theme}`],
-                    disabled ? [styles.text__disabled, styles[`text__disabled__${theme}`]] : null,
+                    disabled ? styles.text__disabled : null,
                     textStyle
                 ]}
             >
