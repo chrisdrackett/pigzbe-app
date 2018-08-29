@@ -48,8 +48,7 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     lastItem: {
-        height: 49,
-        justifyContent: 'center',
+        borderBottomWidth: 0,
     },
     label: {
         fontFamily,
@@ -59,5 +58,9 @@ export default StyleSheet.create({
     },
     tick: {
         marginRight: 15,
+    },
+    noResults: {
+        height: 49,
+        justifyContent: 'center',
     },
 });

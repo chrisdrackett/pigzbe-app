@@ -21,7 +21,7 @@ export default class SearchableList extends Component {
     }
 
     getFilteredItems() {
-        const {items, selectedKey} = this.props;
+        const {items} = this.props;
         const searchText = this.state.searchText.toLowerCase();
 
         const filteredKeys = Object.keys(items).filter(key => !searchText || items[key].toLowerCase().includes(searchText));
@@ -30,7 +30,6 @@ export default class SearchableList extends Component {
             label: items[key],
             key: key,
             last: filteredKeys.length - 1 === i,
-            selected: selectedKey === key,
         }));
     }
 
@@ -58,7 +57,7 @@ export default class SearchableList extends Component {
                         />
                     }
                     {items.length === 0 && !!this.state.searchText &&
-                        <View style={styles.lastItem}>
+                        <View style={styles.noResults}>
                             <Text style={styles.label}>No matches found</Text>
                         </View>
                     }
@@ -68,13 +67,14 @@ export default class SearchableList extends Component {
     }
 
     renderItem = ({ item }) => {
-        const {onChangeSelection} = this.props;
+        const {onChangeSelection, selectedKey} = this.props;
+        const selected = selectedKey === item.key;
 
         return (
-            <View style={item.last ? styles.lastItem : styles.item}>
+            <View style={[styles.item, item.last ? styles.lastItem : {}]}>
                 <TouchableOpacity style={styles.itemInner} onPress={() => onChangeSelection(item.key)}>
                     <Text style={styles.label}>{item.label}</Text>
-                    {item.selected &&
+                    {selected &&
                         <Image style={styles.tick} source={require('./images/tick.png')}/>
                     }
                 </TouchableOpacity>
