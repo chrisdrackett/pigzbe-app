@@ -14,10 +14,10 @@ describe('Toggle', () => {
         expect(tree).toMatchSnapshot();
     });
 
-    test('renders correctly in plain mode', () => {
+    test('renders correctly in active mode', () => {
         const tree = renderer.create(
             <Toggle {...Object.assign({}, props, {
-                plain: true
+                active: true
             })}/>
         ).toJSON();
         expect(tree).toMatchSnapshot();
