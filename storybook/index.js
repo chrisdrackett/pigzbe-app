@@ -32,6 +32,7 @@ function loadStories() {
     require('./stories/family.js');
     require('./stories/slider.js');
     require('./stories/wollo.js');
+    require('./stories/searchable-list.js');
 }
 
 configure(loadStories, module);
