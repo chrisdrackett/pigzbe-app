@@ -71,49 +71,41 @@ exports[`SearchableList renders correctly 1`] = `
             "key": "BE",
             "label": "Belgium",
             "last": false,
-            "selected": false,
           },
           Object {
             "key": "DK",
             "label": "Denmark",
             "last": false,
-            "selected": false,
           },
           Object {
             "key": "FR",
             "label": "France",
             "last": false,
-            "selected": false,
           },
           Object {
             "key": "DE",
             "label": "Germany",
             "last": false,
-            "selected": false,
           },
           Object {
             "key": "IT",
             "label": "Italy",
             "last": false,
-            "selected": false,
           },
           Object {
             "key": "JP",
             "label": "Japan",
             "last": false,
-            "selected": false,
           },
           Object {
             "key": "ES",
             "label": "Spain",
             "last": false,
-            "selected": false,
           },
           Object {
             "key": "GB",
             "label": "United Kingdom",
             "last": true,
-            "selected": true,
           },
         ]
       }
@@ -146,12 +138,15 @@ exports[`SearchableList renders correctly 1`] = `
         >
           <View
             style={
-              Object {
-                "borderBottomColor": "rgb(127, 153, 188)",
-                "borderBottomWidth": 1,
-                "height": 49,
-                "justifyContent": "center",
-              }
+              Array [
+                Object {
+                  "borderBottomColor": "rgb(127, 153, 188)",
+                  "borderBottomWidth": 1,
+                  "height": 49,
+                  "justifyContent": "center",
+                },
+                Object {},
+              ]
             }
           >
             <View
@@ -194,12 +189,15 @@ exports[`SearchableList renders correctly 1`] = `
         >
           <View
             style={
-              Object {
-                "borderBottomColor": "rgb(127, 153, 188)",
-                "borderBottomWidth": 1,
-                "height": 49,
-                "justifyContent": "center",
-              }
+              Array [
+                Object {
+                  "borderBottomColor": "rgb(127, 153, 188)",
+                  "borderBottomWidth": 1,
+                  "height": 49,
+                  "justifyContent": "center",
+                },
+                Object {},
+              ]
             }
           >
             <View
@@ -242,12 +240,15 @@ exports[`SearchableList renders correctly 1`] = `
         >
           <View
             style={
-              Object {
-                "borderBottomColor": "rgb(127, 153, 188)",
-                "borderBottomWidth": 1,
-                "height": 49,
-                "justifyContent": "center",
-              }
+              Array [
+                Object {
+                  "borderBottomColor": "rgb(127, 153, 188)",
+                  "borderBottomWidth": 1,
+                  "height": 49,
+                  "justifyContent": "center",
+                },
+                Object {},
+              ]
             }
           >
             <View
@@ -290,12 +291,15 @@ exports[`SearchableList renders correctly 1`] = `
         >
           <View
             style={
-              Object {
-                "borderBottomColor": "rgb(127, 153, 188)",
-                "borderBottomWidth": 1,
-                "height": 49,
-                "justifyContent": "center",
-              }
+              Array [
+                Object {
+                  "borderBottomColor": "rgb(127, 153, 188)",
+                  "borderBottomWidth": 1,
+                  "height": 49,
+                  "justifyContent": "center",
+                },
+                Object {},
+              ]
             }
           >
             <View
@@ -338,12 +342,15 @@ exports[`SearchableList renders correctly 1`] = `
         >
           <View
             style={
-              Object {
-                "borderBottomColor": "rgb(127, 153, 188)",
-                "borderBottomWidth": 1,
-                "height": 49,
-                "justifyContent": "center",
-              }
+              Array [
+                Object {
+                  "borderBottomColor": "rgb(127, 153, 188)",
+                  "borderBottomWidth": 1,
+                  "height": 49,
+                  "justifyContent": "center",
+                },
+                Object {},
+              ]
             }
           >
             <View
@@ -386,12 +393,15 @@ exports[`SearchableList renders correctly 1`] = `
         >
           <View
             style={
-              Object {
-                "borderBottomColor": "rgb(127, 153, 188)",
-                "borderBottomWidth": 1,
-                "height": 49,
-                "justifyContent": "center",
-              }
+              Array [
+                Object {
+                  "borderBottomColor": "rgb(127, 153, 188)",
+                  "borderBottomWidth": 1,
+                  "height": 49,
+                  "justifyContent": "center",
+                },
+                Object {},
+              ]
             }
           >
             <View
@@ -434,12 +444,15 @@ exports[`SearchableList renders correctly 1`] = `
         >
           <View
             style={
-              Object {
-                "borderBottomColor": "rgb(127, 153, 188)",
-                "borderBottomWidth": 1,
-                "height": 49,
-                "justifyContent": "center",
-              }
+              Array [
+                Object {
+                  "borderBottomColor": "rgb(127, 153, 188)",
+                  "borderBottomWidth": 1,
+                  "height": 49,
+                  "justifyContent": "center",
+                },
+                Object {},
+              ]
             }
           >
             <View
@@ -482,10 +495,17 @@ exports[`SearchableList renders correctly 1`] = `
         >
           <View
             style={
-              Object {
-                "height": 49,
-                "justifyContent": "center",
-              }
+              Array [
+                Object {
+                  "borderBottomColor": "rgb(127, 153, 188)",
+                  "borderBottomWidth": 1,
+                  "height": 49,
+                  "justifyContent": "center",
+                },
+                Object {
+                  "borderBottomWidth": 0,
+                },
+              ]
             }
           >
             <View
