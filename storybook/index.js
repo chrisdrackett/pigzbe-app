@@ -30,6 +30,7 @@ function loadStories() {
     require('./stories/child-login.js');
     require('./stories/icon-pad.js');
     require('./stories/family.js');
+    require('./stories/tasks.js');
     require('./stories/slider.js');
     require('./stories/wollo.js');
     require('./stories/searchable-list.js');

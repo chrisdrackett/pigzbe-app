@@ -1,23 +1,32 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {View} from 'react-native';
 import Button from '../../components/button';
 import {SCREEN_BALANCE} from '../../constants';
 import StepModule from '../../components/step-module';
+import TextInput from '../../components/text-input';
 // import {familyAddKid} from '../../actions';
 
-export class TaskList extends Component {
+export class TasksList extends Component {
     state = {
         loading: false,
+        showingInput: false,
         tasks: ['wash dishes', 'clean room', 'do your homework'],
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
+    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE);
 
-    addTask = async () => {
+    onChangeText = () => {}
+
+    showInput = () => this.setState({showingInput: true})
+
+    saveTask = async () => {
         // todo: add task to list
     }
 
     render() {
+        const {showingInput} = this.state;
+
         return (
             <StepModule
                 title="Tasks"
@@ -27,13 +36,28 @@ export class TaskList extends Component {
                 loading={this.state.loading}
                 onBack={this.onBack}
             >
-                <Button
-                    label={'Add another'}
-                    onPress={this.addTask}
-                />
+                {showingInput ?
+                    <View>
+                        <TextInput
+                            numberOfLines={1}
+                            placeholder="New Task"
+                            onChangeText={this.onChangeText}
+                            returnKeyType="done"
+                        />
+                        <Button
+                            label={'Save'}
+                            onPress={this.saveTask}
+                        />
+                    </View>
+                    :
+                    <Button
+                        label={'Add another'}
+                        onPress={this.showInput}
+                    />
+                }
             </StepModule>
         );
     }
 }
 
-export default connect()(TaskList);
+export default connect()(TasksList);
