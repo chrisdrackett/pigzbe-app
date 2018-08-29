@@ -1,121 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button renders correctly 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "alignSelf": "stretch",
-    }
-  }
->
-  <View
-    accessible={true}
-    isTVSelectable={true}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "backgroundColor": "rgb(21, 74, 150)",
-        "borderColor": "rgb(21, 74, 150)",
-        "borderRadius": 22.5,
-        "borderWidth": 1,
-        "marginBottom": 10,
-        "maxWidth": 400,
-        "opacity": 1,
-        "width": "100%",
-      }
-    }
-  >
-    <Text
-      style={
-        Array [
-          Object {
-            "alignSelf": "stretch",
-            "color": "rgb(255, 255, 255)",
-            "fontFamily": "Poppins",
-            "fontSize": 14,
-            "fontWeight": "bold",
-            "height": 45,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 12,
-            "textAlign": "center",
-          },
-          undefined,
-          null,
-          undefined,
-        ]
-      }
-    >
-      Label
-    </Text>
-  </View>
-</View>
-`;
-
-exports[`Button renders correctly in plain mode 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "alignSelf": "stretch",
-    }
-  }
->
-  <View
-    accessible={true}
-    isTVSelectable={true}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "backgroundColor": "rgb(21, 74, 150)",
-        "borderColor": "rgb(21, 74, 150)",
-        "borderRadius": 22.5,
-        "borderWidth": 1,
-        "marginBottom": 10,
-        "maxWidth": 400,
-        "opacity": 1,
-        "width": "100%",
-      }
-    }
-  >
-    <Text
-      style={
-        Array [
-          Object {
-            "alignSelf": "stretch",
-            "color": "rgb(255, 255, 255)",
-            "fontFamily": "Poppins",
-            "fontSize": 14,
-            "fontWeight": "bold",
-            "height": 45,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 12,
-            "textAlign": "center",
-          },
-          undefined,
-          null,
-          undefined,
-        ]
-      }
-    >
-      Label
-    </Text>
-  </View>
-</View>
-`;
-
 exports[`Toggle renders correctly 1`] = `
 <View
   style={
@@ -124,7 +8,7 @@ exports[`Toggle renders correctly 1`] = `
         "backgroundColor": "rgb(255, 255, 255)",
         "color": "rgb(0, 50, 120)",
       },
-      undefined,
+      Object {},
     ]
   }
 >
@@ -161,19 +45,18 @@ exports[`Toggle renders correctly 1`] = `
             "fontWeight": "bold",
             "textAlign": "center",
           },
-          undefined,
           null,
           undefined,
         ]
       }
     >
-      Label
+      1
     </Text>
   </View>
 </View>
 `;
 
-exports[`Toggle renders correctly in plain mode 1`] = `
+exports[`Toggle renders correctly in active mode 1`] = `
 <View
   style={
     Array [
@@ -181,7 +64,7 @@ exports[`Toggle renders correctly in plain mode 1`] = `
         "backgroundColor": "rgb(255, 255, 255)",
         "color": "rgb(0, 50, 120)",
       },
-      undefined,
+      Object {},
     ]
   }
 >
@@ -196,8 +79,8 @@ exports[`Toggle renders correctly in plain mode 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "backgroundColor": "rgb(255, 255, 255)",
-        "borderColor": "rgb(21, 74, 150)",
+        "backgroundColor": "rgb(230, 155, 230)",
+        "borderColor": "rgb(230, 155, 230)",
         "borderRadius": 22.5,
         "borderWidth": 1,
         "marginBottom": 20,
@@ -218,13 +101,12 @@ exports[`Toggle renders correctly in plain mode 1`] = `
             "fontWeight": "bold",
             "textAlign": "center",
           },
-          undefined,
           null,
           undefined,
         ]
       }
     >
-      Label
+      1
     </Text>
   </View>
 </View>

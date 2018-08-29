@@ -6,6 +6,9 @@ const props = {
     label: 'Label',
     onPress: () => {},
     active: false,
+    style: {},
+    innerStyle: {},
+    label: '1',
 };
 
 describe('Toggle', () => {

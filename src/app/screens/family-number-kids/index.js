@@ -57,7 +57,7 @@ export class FamilyNumberKids extends Component {
     render() {
         return (
             <StepModule
-                title="Describe yourself"
+                title="Your children"
                 icon="family"
                 content={'How many children would you like to add?'}
                 pad

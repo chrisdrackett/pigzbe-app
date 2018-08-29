@@ -18,7 +18,7 @@ const buttonStyle = {
     paddingTop: 10,
     height: 45,
     lineHeight: 40,
-    marginBottom: 30,
+    marginBottom: 20,
     width: Dimensions.get('window').width * 0.35,
     textAlign: 'center',
 };
