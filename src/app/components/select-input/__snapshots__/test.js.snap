@@ -1,0 +1,264 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectInput renders correctly 1`] = `
+Array [
+  <Text
+    style={
+      Object {
+        "color": "rgb(0, 50, 120)",
+        "fontFamily": "Poppins",
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "marginBottom": 10,
+        "marginLeft": 2,
+        "marginTop": 10,
+      }
+    }
+  >
+    Label
+  </Text>,
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "borderColor": "rgb(127, 153, 188)",
+        "borderRadius": 22.5,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "height": 45,
+        "justifyContent": "space-between",
+        "marginBottom": 10,
+        "opacity": 1,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 0,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "rgb(127, 153, 188)",
+          "fontFamily": "Poppins",
+          "fontSize": 14,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Title
+    </Text>
+    <Image
+      source={
+        Object {
+          "testUri": "../../../src/app/components/select-input/images/down-arrow.png",
+        }
+      }
+      style={
+        Object {
+          "height": 7,
+          "width": 11,
+        }
+      }
+    />
+  </View>,
+]
+`;
+
+exports[`SelectInput renders correctly with options open 1`] = `
+Array [
+  <Text
+    style={
+      Object {
+        "color": "rgb(0, 50, 120)",
+        "fontFamily": "Poppins",
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "marginBottom": 10,
+        "marginLeft": 2,
+        "marginTop": 10,
+      }
+    }
+  >
+    Label
+  </Text>,
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "borderColor": "rgb(127, 153, 188)",
+        "borderRadius": 22.5,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "height": 45,
+        "justifyContent": "space-between",
+        "marginBottom": 10,
+        "opacity": 1,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 0,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "rgb(127, 153, 188)",
+          "fontFamily": "Poppins",
+          "fontSize": 14,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Title
+    </Text>
+    <Image
+      source={
+        Object {
+          "testUri": "../../../src/app/components/select-input/images/down-arrow.png",
+        }
+      }
+      style={
+        Object {
+          "height": 7,
+          "width": 11,
+        }
+      }
+    />
+  </View>,
+  <Modal
+    animationType="slide"
+    hardwareAccelerated={false}
+    onRequestClose={[Function]}
+    transparent={true}
+    visible={true}
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "flex": 1,
+            "opacity": 1,
+          }
+        }
+      />
+      <View
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderBottomColor": "rgb(127, 153, 188)",
+            "borderBottomWidth": 1,
+            "borderTopColor": "rgb(127, 153, 188)",
+            "borderTopWidth": 1,
+            "padding": 10,
+          }
+        }
+      >
+        <Text
+          onPress={[Function]}
+          style={
+            Object {
+              "color": "rgb(0, 50, 120)",
+              "fontFamily": "Poppins",
+              "fontSize": 16,
+            }
+          }
+        >
+          Done
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "backgroundColor": "rgb(247, 247, 250)",
+            "height": 222,
+          }
+        }
+      >
+        <View>
+          <RCTPicker
+            items={
+              Array [
+                Object {
+                  "label": "Mr",
+                  "textColor": undefined,
+                  "value": "Mr",
+                },
+                Object {
+                  "label": "Mrs",
+                  "textColor": undefined,
+                  "value": "Mrs",
+                },
+                Object {
+                  "label": "Miss",
+                  "textColor": undefined,
+                  "value": "Miss",
+                },
+                Object {
+                  "label": "Ms",
+                  "textColor": undefined,
+                  "value": "Ms",
+                },
+                Object {
+                  "label": "Sir",
+                  "textColor": undefined,
+                  "value": "Sir",
+                },
+                Object {
+                  "label": "Dr",
+                  "textColor": undefined,
+                  "value": "Dr",
+                },
+              ]
+            }
+            onChange={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            selectedIndex={0}
+            style={
+              Array [
+                Object {
+                  "height": 216,
+                },
+                Object {
+                  "color": "rgb(0, 50, 120)",
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </Modal>,
+]
+`;

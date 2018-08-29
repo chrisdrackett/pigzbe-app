@@ -7,6 +7,7 @@ function loadStories() {
     require('./stories/num-pad.js');
     require('./stories/button.js');
     require('./stories/text-input.js');
+    require('./stories/select-input.js');
     require('./stories/step-module.js');
     require('./stories/modal.js');
     require('./stories/balance.js');
@@ -34,6 +35,7 @@ function loadStories() {
     require('./stories/family-enter-child.js');
     require('./stories/slider.js');
     require('./stories/wollo.js');
+    require('./stories/searchable-list.js');
 }
 
 configure(loadStories, module);

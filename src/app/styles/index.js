@@ -16,6 +16,7 @@ export const color = {
     lightBlue: 'rgb(59, 113, 190)',
     lighterBlue: 'rgb(127, 153, 188)',
     skyBlue: 'rgb(176, 198, 229)',
+    lightSkyBlue: 'rgb(223, 230, 238)',
     yellow: 'rgb(253, 223, 6)',
     red: 'rgb(255, 0, 0)',
     green: 'rgb(149, 198, 100)',
