@@ -11,6 +11,7 @@ import game from './game';
 import deviceAuth from './device-auth';
 import settings from './settings';
 import family from './family';
+import vip from './vip';
 
 import user from './claim/user';
 import events from './claim/events';
@@ -31,6 +32,7 @@ export default combineReducers({
     deviceAuth,
     settings,
     family,
+    vip,
     // claim reducers
     user,
     events,
