@@ -33,6 +33,7 @@ function loadStories() {
     require('./stories/family-member.js');
     require('./stories/family-number-kids.js');
     require('./stories/family-enter-child.js');
+    require('./stories/toggle.js');
     require('./stories/slider.js');
     require('./stories/wollo.js');
     require('./stories/searchable-list.js');
