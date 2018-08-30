@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+import {View, FlatList, Text} from 'react-native';
 import Button from '../../components/button';
 import {SCREEN_BALANCE} from '../../constants';
 import StepModule from '../../components/step-module';
@@ -13,6 +13,10 @@ export class TasksList extends Component {
         showingInput: false,
         tasks: ['wash dishes', 'clean room', 'do your homework'],
     }
+
+    getTasksList = () => this.state.tasks.map(task => ({
+        key: task,
+    }));
 
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE);
 
@@ -36,6 +40,12 @@ export class TasksList extends Component {
                 loading={this.state.loading}
                 onBack={this.onBack}
             >
+                <FlatList
+                    data={
+                        this.getTasksList()
+                    }
+                    renderItem={({item}) => <Text>{item.key}</Text>}
+                />
                 {showingInput ?
                     <View>
                         <TextInput
