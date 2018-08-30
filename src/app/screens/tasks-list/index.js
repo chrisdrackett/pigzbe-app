@@ -1,17 +1,40 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, FlatList, Text} from 'react-native';
+import {View, FlatList, Dimensions} from 'react-native';
 import Button from '../../components/button';
 import {SCREEN_BALANCE} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
+import Toggle from '../../components/toggle';
+import {color} from '../../styles';
 // import {familyAddKid} from '../../actions';
+
+const buttonStyle = {
+    background: 'transparent',
+    border: color.blue,
+    fontSize: 14,
+    paddingTop: 10,
+    height: 45,
+    lineHeight: 40,
+    marginBottom: 20,
+    width: Dimensions.get('window').width * 0.35,
+    textAlign: 'center',
+};
+
+const innerStyle = {
+    borderRadius: 22.5,
+    display: 'flex',
+    alignContent: 'center',
+    justifyContent: 'center',
+    height: 45,
+};
 
 export class TasksList extends Component {
     state = {
         loading: false,
         showingInput: false,
         tasks: ['wash dishes', 'clean room', 'do your homework'],
+        active: null,
     }
 
     getTasksList = () => this.state.tasks.map(task => ({
@@ -29,7 +52,7 @@ export class TasksList extends Component {
     }
 
     render() {
-        const {showingInput} = this.state;
+        const {showingInput, active} = this.state;
 
         return (
             <StepModule
@@ -44,7 +67,16 @@ export class TasksList extends Component {
                     data={
                         this.getTasksList()
                     }
-                    renderItem={({item}) => <Text>{item.key}</Text>}
+                    renderItem={({item}) => (<Toggle
+                        style={buttonStyle}
+                        innerStyle={innerStyle}
+                        label={item.key}
+                        onPress={() => {
+                            this.setState({active: item.key});
+                        }}
+                        active={active === item.key}
+                    />)
+                    }
                 />
                 {showingInput ?
                     <View>
