@@ -158,7 +158,7 @@ export class FamilyEnterChild extends Component {
             <StepModule
                 title={title}
                 icon="family"
-                content={'Please give us a few simple details to greate their profile'}
+                content={'Please give us a few simple details to create their profile'}
                 pad
                 loading={this.state.loading}
                 onBack={this.onBack}
