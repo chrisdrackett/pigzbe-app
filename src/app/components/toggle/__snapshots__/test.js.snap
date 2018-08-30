@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toggle renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "rgb(255, 255, 255)",
+        "color": "rgb(0, 50, 120)",
+      },
+      Object {},
+    ]
+  }
+>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(21, 74, 150)",
+        "borderRadius": 22.5,
+        "borderWidth": 1,
+        "marginBottom": 20,
+        "maxWidth": 400,
+        "opacity": 1,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+            "color": "rgb(0, 50, 120)",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          null,
+          undefined,
+        ]
+      }
+    >
+      1
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Toggle renders correctly in active mode 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "rgb(255, 255, 255)",
+        "color": "rgb(0, 50, 120)",
+      },
+      Object {},
+    ]
+  }
+>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "rgb(230, 155, 230)",
+        "borderColor": "rgb(230, 155, 230)",
+        "borderRadius": 22.5,
+        "borderWidth": 1,
+        "marginBottom": 20,
+        "maxWidth": 400,
+        "opacity": 1,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+            "color": "rgb(0, 50, 120)",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          null,
+          undefined,
+        ]
+      }
+    >
+      1
+    </Text>
+  </View>
+</View>
+`;
