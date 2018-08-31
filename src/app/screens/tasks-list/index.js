@@ -7,7 +7,7 @@ import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Toggle from '../../components/toggle';
 import {color} from '../../styles';
-// import {familyAddKid} from '../../actions';
+import {tasksAddTask, loadTasks} from '../../actions';
 
 const buttonStyle = {
     background: 'transparent',
@@ -37,22 +37,43 @@ export class TasksList extends Component {
         active: null,
     }
 
-    getTasksList = () => this.state.tasks.map(task => ({
+    componentWillMount() {
+        console.log('tasksList componentWillMount');
+        this.props.dispatch(loadTasks());
+        console.log('tasksList after');
+    }
+
+    getTasksList = () => this.props.tasks.map(task => ({
         key: task,
     }));
 
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE);
 
-    onChangeText = () => {}
+    onChangeText = (task) => {
+        this.setState({newTask: task});
+    }
 
     showInput = () => this.setState({showingInput: true})
 
     saveTask = async () => {
-        // todo: add task to list
+        await this.props.dispatch(tasksAddTask(this.state.newTask));
+        this.setState({
+            newTask: null,
+            showingInput: false,
+        });
     }
 
     render() {
         const {showingInput, active} = this.state;
+
+        const {
+            tasks,
+            loading,
+        } = this.props;
+
+        console.log('loading', loading, tasks);
+
+        console.log('taskslist', this.props);
 
         return (
             <StepModule
@@ -102,4 +123,9 @@ export class TasksList extends Component {
     }
 }
 
-export default connect()(TasksList);
+export default connect(
+    state => ({
+        tasks: state.tasks.tasks,
+        loading: state.tasks.loading
+    })
+)(TasksList);

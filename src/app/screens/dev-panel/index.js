@@ -22,6 +22,7 @@ import {
     STORAGE_KEY_SETTINGS,
     STORAGE_KEY_BURNING,
     STORAGE_KEY_FAMILY,
+    STORAGE_KEY_TASKS,
 } from '../../constants';
 
 const SwitchControl = ({
@@ -162,6 +163,10 @@ class DevPanel extends Component {
                                 <Button style={styles.claimClearButton} label="Clear family data" onPress={() => {
                                     console.log('clear');
                                     Storage.clear(STORAGE_KEY_FAMILY);
+                                }} />
+                                <Button style={styles.claimClearButton} label="Clear tasks data" onPress={() => {
+                                    console.log('clear');
+                                    Storage.clear(STORAGE_KEY_TASKS);
                                 }} />
                             </View>
                             <View style={styles.claimBlock}>

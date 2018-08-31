@@ -11,6 +11,7 @@ import FamilyIntro from '../../screens/family-intro';
 import FamilyMemberType from '../../screens/family-member-type';
 import FamilyNumberKids from '../../screens/family-number-kids';
 import FamilyEnterChild from '../../screens/family-enter-child';
+import TasksList from '../../screens/tasks-list';
 import {
     SCREEN_BALANCE,
     SCREEN_SETTINGS,
@@ -23,7 +24,8 @@ import {
     SCREEN_FAMILY_INTRO,
     SCREEN_FAMILY_MEMBER_TYPE,
     SCREEN_FAMILY_NUMBER_KIDS,
-    SCREEN_FAMILY_ENTER_CHILD
+    SCREEN_FAMILY_ENTER_CHILD,
+    SCREEN_TASKS_LIST,
 } from '../../constants';
 
 const nav = {
@@ -62,6 +64,9 @@ const nav = {
     },
     [SCREEN_FAMILY_ENTER_CHILD]: {
         screen: FamilyEnterChild
+    },
+    [SCREEN_TASKS_LIST]: {
+        screen: TasksList
     },
 };
 

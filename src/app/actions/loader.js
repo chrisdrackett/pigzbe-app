@@ -13,6 +13,7 @@ import {
     loadMessages,
     loadExchange,
     loadFamily,
+    loadTasks,
     loadFamilyBalances
 } from './';
 
@@ -116,6 +117,7 @@ export const initialize = () => async dispatch => {
     dispatch(initializeConfig());
     await dispatch(loadSettings());
     await dispatch(loadFamily());
+    await dispatch(loadTasks());
     await dispatch(authCheckTouchId());
     dispatch(tryTouchIdLogin());
     await wait(1);

@@ -5,6 +5,7 @@ import {color} from '../../styles';
 import {
     SCREEN_SETTINGS,
     SCREEN_FAMILY_INTRO,
+    SCREEN_TASKS_LIST,
     COINS,
     COIN_DPS
 } from '../../constants';
@@ -80,6 +81,10 @@ export class Balance extends Component {
         this.props.navigation.navigate(SCREEN_FAMILY_INTRO);
     }
 
+    onAddTasks = () => {
+        this.props.navigation.navigate(SCREEN_TASKS_LIST);
+    }
+
     render () {
         const {
             exchange,
@@ -120,6 +125,17 @@ export class Balance extends Component {
                     {(!loading && !error) && (
                         <View>
                             <BalanceGraph balance={balance} balanceXLM={balanceXLM} exchange={exchange} baseCurrency={baseCurrency}/>
+                            <View style={{
+                                paddingTop: 40,
+                                paddingLeft: '6.25%',
+                                paddingRight: '6.25%',
+                            }}>
+                                <Button
+                                    label="Add Tasks"
+                                    theme="light"
+                                    onPress={this.onAddTasks}
+                                />
+                            </View>
                             <Kids
                                 kids={kids}
                                 exchange={exchange}
