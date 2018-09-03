@@ -65,7 +65,7 @@ export class TasksList extends Component {
         this.setState({newTask: task});
     }
 
-    showInput = () => this.setState({showingInput: true});
+    showInput = () => this.setState({showingInput: true, active: null});
 
     cancelInput = () => this.setState({showingInput: false, newTask: null});
 
@@ -122,6 +122,7 @@ export class TasksList extends Component {
                             this.setState({active: item.key});
                         }}
                         active={active === item.key}
+                        disabled={showingInput}
                     />)
                     }
                 />
@@ -146,21 +147,24 @@ export class TasksList extends Component {
                             </TouchableOpacity>
                         </View>
                         :
-                        null
+                        <TouchableOpacity
+                            onPress={this.showInput}
+                            style={cancelStyle}
+                        >
+                            <Text
+                                style={cancelInner}
+                            >
+                                Add another
+                            </Text>
+                        </TouchableOpacity>
                 }
                 <View style={{marginTop: 20}}>
                     {
-                        active || showingInput ?
-                            <Button
-                                label={'Next'}
-                                onPress={this.next}
-                                disabled={showingInput && !newTask}
-                            />
-                            :
-                            <Button
-                                label={'Add another'}
-                                onPress={this.showInput}
-                            />
+                        <Button
+                            label={'Next'}
+                            onPress={this.next}
+                            disabled={showingInput && !newTask || !showingInput && !active}
+                        />
                     }
                 </View>
             </StepModule>
