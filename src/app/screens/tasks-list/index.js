@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, TouchableOpacity, Text} from 'react-native';
 import Button from '../../components/button';
 import {SCREEN_BALANCE, SCREEN_TASKS_ASSIGN} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Toggle from '../../components/toggle';
-import {color} from '../../styles';
+import {color, fontSize} from '../../styles';
 import {tasksAddTask, loadTasks} from '../../actions';
 
 const buttonStyle = {
@@ -27,6 +27,18 @@ const innerStyle = {
     alignContent: 'center',
     justifyContent: 'center',
     height: 45,
+};
+
+const cancelStyle = {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderBottomWidth: 1,
+    borderBottomColor: color.blue,
+};
+
+const cancelInner = {
+    color: color.blue,
+    fontSize: 14,
 };
 
 export class TasksList extends Component {
@@ -53,7 +65,9 @@ export class TasksList extends Component {
         this.setState({newTask: task});
     }
 
-    showInput = () => this.setState({showingInput: true})
+    showInput = () => this.setState({showingInput: true});
+
+    cancelInput = () => this.setState({showingInput: false, newTask: null});
 
     // saveTask = async () => {
     //     await this.props.dispatch(tasksAddTask(this.state.newTask));
@@ -108,12 +122,24 @@ export class TasksList extends Component {
                 />
                 {
                     showingInput ?
-                        <TextInput
-                            numberOfLines={1}
-                            placeholder="New Task"
-                            onChangeText={this.onChangeText}
-                            returnKeyType="done"
-                        />
+                        <View>
+                            <TextInput
+                                numberOfLines={1}
+                                placeholder="New Task"
+                                onChangeText={this.onChangeText}
+                                returnKeyType="done"
+                            />
+                            <TouchableOpacity
+                                onPress={this.cancelInput}
+                                style={cancelStyle}
+                            >
+                                <Text
+                                    style={cancelInner}
+                                >
+                                    Cancel
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                         :
                         null
                 }
