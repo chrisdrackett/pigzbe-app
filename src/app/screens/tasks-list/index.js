@@ -78,13 +78,18 @@ export class TasksList extends Component {
     // }
 
     next = async () => {
-        await this.props.dispatch(tasksAddTask(this.state.newTask));
+        const {showingInput} = this.state;
+
+        if (showingInput) {
+            await this.props.dispatch(tasksAddTask(this.state.newTask));
+        }
+
         this.props.navigation.navigate(SCREEN_TASKS_ASSIGN);
         console.log('redirect to wollo screen with active task', this.state.active);
     }
 
     render() {
-        const {showingInput, active} = this.state;
+        const {showingInput, active, newTask} = this.state;
 
         const {
             tasks,
@@ -149,6 +154,7 @@ export class TasksList extends Component {
                             <Button
                                 label={'Next'}
                                 onPress={this.next}
+                                disabled={showingInput && !newTask}
                             />
                             :
                             <Button
