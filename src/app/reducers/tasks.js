@@ -11,7 +11,6 @@ export const initialState = {
 };
 
 export default (state = initialState, action) => {
-    console.log('>>>> tasks reducer <<<<');
 
     switch (action.type) {
         case TASKS_LOADING:
@@ -25,7 +24,6 @@ export default (state = initialState, action) => {
                 return ob;
             }, {});
         case TASKS_ADD_TASK:
-            console.log('++++ TASKS_ADD_TASK', action);
             return {
                 ...state,
                 tasks: state.tasks.concat(action.task),
