@@ -31,6 +31,7 @@ function loadStories() {
     require('./stories/icon-pad.js');
     require('./stories/family.js');
     require('./stories/tasks.js');
+    require('./stories/tasks-assign.js');
     require('./stories/family-member.js');
     require('./stories/family-number-kids.js');
     require('./stories/family-enter-child.js');

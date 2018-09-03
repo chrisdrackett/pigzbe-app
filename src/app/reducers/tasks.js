@@ -2,7 +2,7 @@ import valueOrDefault from '../utils/value-or-default';
 import {
     TASKS_LOADING,
     TASKS_LOAD,
-    TASKS_ADD_TASK
+    TASKS_ADD_TASK,
 } from '../actions';
 
 export const initialState = {

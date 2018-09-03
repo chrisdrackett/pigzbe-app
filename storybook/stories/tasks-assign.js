@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
-import {TasksList} from '../../src/app/screens/tasks-list';
+import {TasksAssign} from '../../src/app/screens/tasks-assign';
 
 const props = {
     dispatch: () => {},
@@ -8,15 +8,14 @@ const props = {
         navigate: () => {},
         addListener: () => {},
         state: {
-            key: 'SCREEN_TASKS_LIST',
-            routeName: 'SCREEN_TASKS_LIST'
+            key: 'SCREEN_TASKS_ASSIGN',
+            routeName: 'SCREEN_TASKS_ASSIGN'
         },
         actions: {}
     },
-    tasks: ['task one', 'task two'],
 };
 
 storiesOf('Tasks')
-    .add('list', () => (
-        <TasksList {...props}/>
+    .add('assign', () => (
+        <TasksAssign {...props}/>
     ));

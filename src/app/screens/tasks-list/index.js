@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, FlatList, Dimensions} from 'react-native';
+import {View, FlatList} from 'react-native';
 import Button from '../../components/button';
-import {SCREEN_BALANCE} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_TASKS_ASSIGN} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Toggle from '../../components/toggle';
@@ -17,12 +17,12 @@ const buttonStyle = {
     height: 45,
     lineHeight: 40,
     marginBottom: 20,
-    width: Dimensions.get('window').width * 0.35,
+    width: '100%',
     textAlign: 'center',
 };
 
 const innerStyle = {
-    borderRadius: 22.5,
+    borderRadius: 5,
     display: 'flex',
     alignContent: 'center',
     justifyContent: 'center',
@@ -55,12 +55,18 @@ export class TasksList extends Component {
 
     showInput = () => this.setState({showingInput: true})
 
-    saveTask = async () => {
+    // saveTask = async () => {
+    //     await this.props.dispatch(tasksAddTask(this.state.newTask));
+    //     this.setState({
+    //         newTask: null,
+    //         showingInput: false,
+    //     });
+    // }
+
+    next = async () => {
         await this.props.dispatch(tasksAddTask(this.state.newTask));
-        this.setState({
-            newTask: null,
-            showingInput: false,
-        });
+        this.props.navigation.navigate(SCREEN_TASKS_ASSIGN);
+        console.log('redirect to wollo screen with active task', this.state.active);
     }
 
     render() {
@@ -85,6 +91,7 @@ export class TasksList extends Component {
                 onBack={this.onBack}
             >
                 <FlatList
+                    style={{marginBottom: 10}}
                     data={
                         this.getTasksList()
                     }
@@ -99,25 +106,31 @@ export class TasksList extends Component {
                     />)
                     }
                 />
-                {showingInput ?
-                    <View>
+                {
+                    showingInput ?
                         <TextInput
                             numberOfLines={1}
                             placeholder="New Task"
                             onChangeText={this.onChangeText}
                             returnKeyType="done"
                         />
-                        <Button
-                            label={'Save'}
-                            onPress={this.saveTask}
-                        />
-                    </View>
-                    :
-                    <Button
-                        label={'Add another'}
-                        onPress={this.showInput}
-                    />
+                        :
+                        null
                 }
+                <View style={{marginTop: 20}}>
+                    {
+                        active || showingInput ?
+                            <Button
+                                label={'Next'}
+                                onPress={this.next}
+                            />
+                            :
+                            <Button
+                                label={'Add another'}
+                                onPress={this.showInput}
+                            />
+                    }
+                </View>
             </StepModule>
         );
     }

@@ -5,7 +5,8 @@ import {
     FAMILY_PARENT_NICKNAME,
     FAMILY_NUM_KIDS_TO_ADD,
     FAMILY_ADD_KID,
-    FAMILY_BALANCE_UPDATE
+    FAMILY_BALANCE_UPDATE,
+    FAMILY_ASSIGN_TASK
 } from '../actions';
 
 export const initialState = {
@@ -45,6 +46,7 @@ export default (state = initialState, action) => {
                 kids: state.kids.concat(action.kid),
                 numKidsToAdd: state.numKidsToAdd - 1,
                 numKidsAdded: state.numKidsAdded + 1,
+                tasks: [],
             };
         case FAMILY_BALANCE_UPDATE:
             return {
@@ -54,6 +56,19 @@ export default (state = initialState, action) => {
                         return {
                             ...k,
                             balance: action.balance
+                        };
+                    }
+                    return k;
+                }),
+            };
+        case FAMILY_ASSIGN_TASK:
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    if (k.name === action.name) {
+                        return {
+                            ...k,
+                            tasks: k.tasks.concat(action.task)
                         };
                     }
                     return k;

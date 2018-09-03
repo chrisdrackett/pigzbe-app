@@ -3,7 +3,7 @@ import {STORAGE_KEY_TASKS} from '../constants';
 
 export const TASKS_LOADING = 'TASKS_LOADING';
 export const TASKS_LOAD = 'TASKS_LOAD';
-export const TASKS_ADD_TASK = 'TASK_ADD_TASK';
+export const TASKS_ADD_TASK = 'TASKS_ADD_TASK';
 
 const tasksLoading = value => ({type: TASKS_LOADING, value});
 
