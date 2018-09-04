@@ -37,6 +37,7 @@ function loadStories() {
     require('./stories/slider.js');
     require('./stories/wollo.js');
     require('./stories/searchable-list.js');
+    require('./stories/action-sheet.js');
 }
 
 configure(loadStories, module);
