@@ -9,9 +9,12 @@ const props = {
         addListener: () => {},
         state: {
             key: 'SCREEN_TASKS_ASSIGN',
-            routeName: 'SCREEN_TASKS_ASSIGN'
+            routeName: 'SCREEN_TASKS_ASSIGN',
+            params: {
+                kid: 'Ella',
+            }
         },
-        actions: {}
+        actions: {},
     },
 };
 

@@ -5,8 +5,18 @@ import Button from '../../components/button';
 import {SCREEN_BALANCE, SCREEN_TASKS_LIST} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
+import {color} from '../../styles';
 import {familyAssignTask} from '../../actions';
 
+
+const textStyle = {
+    color: color.blue,
+    fontSize: 16,
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 30,
+    textAlign: 'center',
+};
 
 export class TasksAssign extends Component {
     state = {
@@ -33,9 +43,12 @@ export class TasksAssign extends Component {
     render() {
         const {wollos} = this.state;
 
+        console.log(this.props);
+
         const {
             tasks,
             loading,
+            kid,
         } = this.props;
 
         console.log('wollos', wollos, loading, tasks);
@@ -49,8 +62,8 @@ export class TasksAssign extends Component {
                 loading={this.state.loading}
                 onBack={this.onBack}
             >
-                <Text>
-                    Set the reward that <Text style={{fontWeight: 'bold'}}>Ella</Text> will get when completed
+                <Text style={textStyle}>
+                    Set the reward that <Text style={{fontWeight: 'bold'}}>{kid}</Text> will get when completed
                 </Text>
                 <TextInput
                     numberOfLines={1}
@@ -59,7 +72,7 @@ export class TasksAssign extends Component {
                     returnKeyType="done"
                 />
                 <Button
-                    label={`Assign task to ${this.props.kid}`}
+                    label={`Send to ${this.props.kid}`}
                     onPress={this.next}
                     disabled={this.state.wollos === 0}
                 />
