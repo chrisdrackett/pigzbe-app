@@ -43,15 +43,10 @@ export class TasksAssign extends Component {
     render() {
         const {wollos} = this.state;
 
-        console.log(this.props);
-
         const {
-            tasks,
             loading,
             kid,
         } = this.props;
-
-        console.log('wollos', wollos, loading, tasks);
 
         return (
             <StepModule
@@ -59,7 +54,7 @@ export class TasksAssign extends Component {
                 icon="family"
                 content={'Please choose a task from below list'}
                 pad
-                loading={this.state.loading}
+                loading={loading}
                 onBack={this.onBack}
             >
                 <Text style={textStyle}>
@@ -74,7 +69,7 @@ export class TasksAssign extends Component {
                 <Button
                     label={`Send to ${this.props.kid}`}
                     onPress={this.next}
-                    disabled={this.state.wollos === 0}
+                    disabled={wollos === 0}
                 />
             </StepModule>
         );
