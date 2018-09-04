@@ -43,10 +43,9 @@ export default (state = initialState, action) => {
         case FAMILY_ADD_KID:
             return {
                 ...state,
-                kids: state.kids.concat(action.kid),
+                kids: state.kids.concat({...action.kid, tasks: []}),
                 numKidsToAdd: state.numKidsToAdd - 1,
                 numKidsAdded: state.numKidsAdded + 1,
-                tasks: [],
             };
         case FAMILY_BALANCE_UPDATE:
             return {
@@ -65,10 +64,10 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 kids: state.kids.map(k => {
-                    if (k.name === action.name) {
+                    if (k.name === action.kid.name) {
                         return {
                             ...k,
-                            tasks: k.tasks.concat(action.task)
+                            tasks: k.tasks.concat({task: action.kid.task, reward: action.kid.wollos}),
                         };
                     }
                     return k;

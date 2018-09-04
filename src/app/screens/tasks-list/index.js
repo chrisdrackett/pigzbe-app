@@ -6,7 +6,7 @@ import {SCREEN_BALANCE, SCREEN_TASKS_ASSIGN} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Toggle from '../../components/toggle';
-import {color, fontSize} from '../../styles';
+import {color} from '../../styles';
 import {tasksAddTask, loadTasks} from '../../actions';
 
 const buttonStyle = {
@@ -84,8 +84,7 @@ export class TasksList extends Component {
             await this.props.dispatch(tasksAddTask(this.state.newTask));
         }
 
-        this.props.navigation.navigate(SCREEN_TASKS_ASSIGN);
-        console.log('redirect to wollo screen with active task', this.state.active);
+        this.props.navigation.navigate(SCREEN_TASKS_ASSIGN, {kid: this.props.kid, task: this.state.active});
     }
 
     render() {
@@ -173,8 +172,9 @@ export class TasksList extends Component {
 }
 
 export default connect(
-    state => ({
+    (state, props) => ({
         tasks: state.tasks.tasks,
-        loading: state.tasks.loading
+        loading: state.tasks.loading,
+        kid: props.navigation.state.params.kid,
     })
 )(TasksList);

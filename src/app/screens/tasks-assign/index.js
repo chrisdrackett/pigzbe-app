@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
 import Button from '../../components/button';
-import {SCREEN_TASKS_LIST} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_TASKS_LIST} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
-// import {color} from '../../styles';
-import {tasksAssignTask} from '../../actions';
+import {familyAssignTask} from '../../actions';
 
 
 export class TasksAssign extends Component {
     state = {
-        wollows: 0,
+        wollos: 0,
     }
 
     componentWillMount() {
@@ -20,24 +19,26 @@ export class TasksAssign extends Component {
 
     onBack = () => this.props.navigation.navigate(SCREEN_TASKS_LIST);
 
-    onChangeText = (wollows) => {
-        this.setState({wollows});
+    onChangeText = (wollos) => {
+        this.setState({wollos});
     }
 
     next = async () => {
-        await this.props.dispatch(tasksAssignTask(this.state.newTask));
-        console.log('redirect to kid screen', this.state.active);
+        await this.props.dispatch(familyAssignTask(this.props.kid, this.props.task, this.state.wollos));
+
+        // todo navigate to kids screen instead
+        this.props.navigation.navigate(SCREEN_BALANCE);
     }
 
     render() {
-        const {wollows} = this.state;
+        const {wollos} = this.state;
 
         const {
             tasks,
             loading,
         } = this.props;
 
-        console.log('wollows', wollows, loading, tasks);
+        console.log('wollos', wollos, loading, tasks);
 
         return (
             <StepModule
@@ -53,12 +54,12 @@ export class TasksAssign extends Component {
                 </Text>
                 <TextInput
                     numberOfLines={1}
-                    placeholder="wollows"
+                    placeholder="wollos"
                     onChangeText={this.onChangeText}
                     returnKeyType="done"
                 />
                 <Button
-                    label={'Assign task to ....'}
+                    label={`Assign task to ${this.props.kid}`}
                     onPress={this.next}
                     disabled={this.state.wollos === 0}
                 />
@@ -68,8 +69,10 @@ export class TasksAssign extends Component {
 }
 
 export default connect(
-    state => ({
+    (state, props) => ({
         tasks: state.tasks.tasks,
-        loading: state.tasks.loading
+        loading: state.tasks.loading,
+        kid: props.navigation.state.params.kid,
+        task: props.navigation.state.params.task,
     })
 )(TasksAssign);

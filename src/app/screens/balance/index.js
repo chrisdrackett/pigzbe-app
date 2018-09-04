@@ -82,7 +82,7 @@ export class Balance extends Component {
     }
 
     onAddTasks = () => {
-        this.props.navigation.navigate(SCREEN_TASKS_LIST);
+        this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: 'Ella'});
     }
 
     render () {
