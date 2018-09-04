@@ -18,7 +18,7 @@ export default ({
                 <View style={styles.options}>
                     <Text style={styles.title}>{title}</Text>
                     {options.map((option,i) => (
-                        <TouchableOpacity style={styles.option} onPress={() => onSelect(i)}>
+                        <TouchableOpacity key={i} style={styles.option} onPress={() => onSelect(i)}>
                             <Text style={styles.optionText}>{option}</Text>
                         </TouchableOpacity>
                     ))}
