@@ -89,13 +89,7 @@ export class TasksList extends Component {
 
     render() {
         const {showingInput, active, newTask} = this.state;
-
-        const {
-            tasks,
-            loading,
-        } = this.props;
-
-        console.log('loading', loading, tasks);
+        const {loading} = this.props;
 
         console.log('taskslist', this.props);
 
@@ -105,7 +99,7 @@ export class TasksList extends Component {
                 icon="family"
                 content={'Please choose a task from below list'}
                 pad
-                loading={this.state.loading}
+                loading={loading}
                 onBack={this.onBack}
             >
                 <FlatList
