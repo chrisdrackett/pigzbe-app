@@ -31,7 +31,6 @@ export default StyleSheet.create({
         fontFamily,
         color: color.blue,
         textAlign: 'center',
-        //fontWeight: 'bold',
     },
     title: {
         fontFamily,
@@ -40,5 +39,8 @@ export default StyleSheet.create({
         paddingBottom: 15,
         textAlign: 'center',
         fontSize: 12,
-    }
+    },
+    button: {
+        borderRadius: 5,
+    },
 });

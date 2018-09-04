@@ -27,9 +27,7 @@ export default ({
                     label={closeText}
                     theme="light"
                     onPress={onRequestClose}
-                    style={{
-                        borderRadius: 5,
-                    }}
+                    style={styles.button}
                 />
             </View>
         </View>
