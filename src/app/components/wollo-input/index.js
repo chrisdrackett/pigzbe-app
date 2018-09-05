@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Text} from 'react-native';
-// import styles from './styles';
-import {color} from '../../styles';
+import styles from './styles';
 import TextInput from '../text-input';
 import CurrencyToggle from '../currency-toggle';
 import moneyFormat from '../../utils/money-format';
@@ -9,14 +8,6 @@ import {COIN_SYMBOLS, COIN_DPS} from '../../constants';
 // import isAndroid from '../../utils/is-android';
 
 
-const textStyle = {
-    color: color.blue,
-    fontSize: 16,
-    marginLeft: 15,
-    marginRight: 15,
-    marginBottom: 30,
-    textAlign: 'center',
-};
 
 export default class WolloInput extends Component {
     state = {
@@ -78,11 +69,11 @@ export default class WolloInput extends Component {
                 </Fragment>
                 {
                     currentCurrency === 'wollos' ?
-                        <Text style={textStyle}>
+                        <Text style={styles.text}>
                             Estimate: {exchangedDisplay}
                         </Text>
                         :
-                        <Text style={textStyle}>
+                        <Text style={styles.text}>
                             Estimate: {exchangedDisplay}
                         </Text>
                 }
