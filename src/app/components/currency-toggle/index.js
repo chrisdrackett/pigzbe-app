@@ -1,5 +1,5 @@
-import React, {Component, Fragment} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import React, {Component} from 'react';
+import {Text, TouchableOpacity, View, Animated} from 'react-native';
 // import styles from './styles';
 import {color} from '../../styles';
 // import isAndroid from '../../utils/is-android';
@@ -9,7 +9,7 @@ const containerStyle = {
     backgroundColor: color.lighterBlue,
     height: 45,
     borderRadius: 22.5,
-    width: 90,
+    width: 80,
     position: 'relative',
 };
 
@@ -25,7 +25,7 @@ const wolloStyle = {
 
 const currencyStyle = {
     position: 'absolute',
-    right: 15,
+    right: 17,
     top: 15,
 };
 
@@ -41,28 +41,33 @@ const handleStyle = {
 export default class CurrencyToggle extends Component {
     state = {
         currentCurrency: 'wollo',
+        left: new Animated.Value(2),
     }
 
     onClicked = () => {
-        const {currentCurrency} = this.state;
+        const {currentCurrency, left} = this.state;
         const {currency} = this.props;
 
-        this.setState({currentCurrency: currentCurrency === 'wollo' ? currency : 'wollo'});
+        const newLeftPosition = currentCurrency === 'wollo' ? 36 : 2;
+
+        this.setState({
+            currentCurrency: currentCurrency === 'wollo' ? currency : 'wollo',
+        });
 
         this.props.currencyChange(this.state.currentCurrency);
+
+        Animated.timing(left, {
+            toValue: newLeftPosition,
+            duration: 300,
+        }).start();
     }
 
     render() {
         const {currency} = this.props;
-        const {currentCurrency} = this.state;
-
-        console.log('>>> currency toggle props', this.props, currentCurrency);
-
-        const left = currentCurrency === 'wollo' ? 2 : 46;
 
         return (
             <TouchableOpacity style={containerStyle} onPress={this.onClicked}>
-                <View style={{...handleStyle, left}} />
+                <Animated.View style={[handleStyle, {left: this.state.left}]} />
                 <View style={wolloStyle}><Text style={textStyle}>W</Text></View>
                 <View style={currencyStyle}><Text style={textStyle}>{currency.short}</Text></View>
             </TouchableOpacity>
