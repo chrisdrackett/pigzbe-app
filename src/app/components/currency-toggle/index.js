@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, TouchableOpacity, View, Animated} from 'react-native';
+import {Text, TouchableOpacity, View, Animated, Image} from 'react-native';
 // import styles from './styles';
 import {color} from '../../styles';
 import {COIN_SYMBOLS} from '../../constants';
@@ -20,8 +20,10 @@ const textStyle = {
 
 const wolloStyle = {
     position: 'absolute',
-    left: 15,
-    top: 15,
+    left: 14,
+    top: 16,
+    width: 16,
+    height: 13,
 };
 
 const currencyStyle = {
@@ -42,6 +44,14 @@ const handleStyle = {
     shadowOpacity: 0.3,
     shadowRadius: 2,
 };
+
+// const wolloIcon = {
+//     // position: 'absolute',
+//     // bottom: 21,
+//     // left: 11,
+// };
+
+const WolloImage = () => <Image style={wolloStyle} source={require('./images/wollo.png')}/>;
 
 export default class CurrencyToggle extends Component {
     state = {
@@ -73,7 +83,7 @@ export default class CurrencyToggle extends Component {
         return (
             <TouchableOpacity style={containerStyle} onPress={this.onClicked}>
                 <Animated.View style={[handleStyle, {left: this.state.left}]} />
-                <View style={wolloStyle}><Text style={textStyle}>W</Text></View>
+                <WolloImage style={wolloStyle} />
                 <View style={currencyStyle}><Text style={textStyle}>{COIN_SYMBOLS[currency]}</Text></View>
             </TouchableOpacity>
         );
