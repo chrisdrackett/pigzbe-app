@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextInput renders correctly 1`] = `
+Array [
+  <Text
+    style={
+      Object {
+        "color": "rgb(0, 50, 120)",
+        "fontFamily": "Poppins",
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "marginBottom": 10,
+        "marginLeft": 2,
+        "marginTop": 10,
+      }
+    }
+  >
+    Label
+  </Text>,
+  <View
+    style={
+      Object {
+        "alignSelf": "stretch",
+        "height": 55,
+      }
+    }
+  >
+    <TextInput
+      allowFontScaling={true}
+      autoCapitalize="sentences"
+      autoCorrect={true}
+      blurOnSubmit={true}
+      editable={true}
+      keyboardType="default"
+      multiline={false}
+      numberOfLines={1}
+      onChangeText={[Function]}
+      placeholderTextColor="rgb(127, 153, 188)"
+      returnKeyType="done"
+      style={
+        Array [
+          Object {
+            "alignSelf": "stretch",
+            "borderColor": "rgb(127, 153, 188)",
+            "borderRadius": 22.5,
+            "borderWidth": 1,
+            "color": "rgb(0, 50, 120)",
+            "fontFamily": "Poppins",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "lineHeight": 21,
+            "marginBottom": 10,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 12,
+            "textAlignVertical": "top",
+          },
+          Object {
+            "borderRadius": 22.5,
+            "height": 45,
+            "paddingTop": 0,
+            "width": "100%",
+          },
+        ]
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>,
+]
+`;
