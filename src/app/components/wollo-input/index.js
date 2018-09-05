@@ -30,13 +30,14 @@ export default class WolloInput extends Component {
             exchangedValue,
             exchangedDisplay: `${symbol} ${moneyFormat(exchangedValue, COIN_DPS[currency])}`,
         });
+
+        this.props.onChangeAmount(currentCurrency === 'wollo' ? exchangedValue : amount);
     }
 
     onChangeText = amount => {
         this.setState({amount});
 
         // todo calculate wollo value and send to prop
-        this.props.onChangeAmount(amount);
 
         this.setState({currencyAmount: amount});
         this.setExchangedValue(amount, this.state.currentCurrency);

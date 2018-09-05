@@ -15,7 +15,7 @@ class WolloInputComponent extends Component {
         input: ''
     }
 
-    onChangeAmount = amount => console.log('amount set to: ', amount);
+    onChangeAmount = amount => console.log('wollo amount set to: ', amount);
 
     render() {
         return (
