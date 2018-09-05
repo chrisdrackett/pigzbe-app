@@ -6,7 +6,7 @@ import {color} from '../../styles';
 
 
 const containerStyle = {
-    backgroundColor: color.blue,
+    backgroundColor: color.lighterBlue,
     height: 45,
     borderRadius: 22.5,
     width: 90,
@@ -29,6 +29,15 @@ const currencyStyle = {
     top: 15,
 };
 
+const handleStyle = {
+    position: 'absolute',
+    backgroundColor: color.blue,
+    height: 41,
+    width: 41,
+    borderRadius: 20.5,
+    top: 2,
+};
+
 export default class CurrencyToggle extends Component {
     state = {
         currentCurrency: 'wollo',
@@ -45,11 +54,15 @@ export default class CurrencyToggle extends Component {
 
     render() {
         const {currency} = this.props;
+        const {currentCurrency} = this.state;
 
-        console.log('>>> currency toggle props', this.props);
+        console.log('>>> currency toggle props', this.props, currentCurrency);
+
+        const left = currentCurrency === 'wollo' ? 2 : 46;
 
         return (
-            <TouchableOpacity style={containerStyle}>
+            <TouchableOpacity style={containerStyle} onPress={this.onClicked}>
+                <View style={{...handleStyle, left}} />
                 <View style={wolloStyle}><Text style={textStyle}>W</Text></View>
                 <View style={currencyStyle}><Text style={textStyle}>{currency.short}</Text></View>
             </TouchableOpacity>
