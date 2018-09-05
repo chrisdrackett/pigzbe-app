@@ -1,37 +1,44 @@
 import {StyleSheet} from 'react-native';
 
 import {
-    color,
-    fontFamily
+    color
 } from '../../styles';
 
 export default StyleSheet.create({
-    input: {
-        fontFamily,
-        alignSelf: 'stretch',
-        color: color.blue,
-        fontSize: 14,
-        fontWeight: 'bold',
-        borderColor: color.lighterBlue,
-        borderWidth: 1,
+    container: {
+        backgroundColor: color.lighterBlue,
+        height: 45,
         borderRadius: 22.5,
-        marginBottom: 10,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 12,
-        textAlignVertical: 'top',
-        lineHeight: 21,
+        width: 80,
+        position: 'relative',
     },
-    label: {
-        fontFamily,
-        color: color.blue,
+    text: {
+        color: color.white,
         fontSize: 16,
         fontWeight: 'bold',
-        marginTop: 10,
-        marginBottom: 10,
-        marginLeft: 2,
     },
-    error: {
-        borderColor: color.red
+    wollo: {
+        position: 'absolute',
+        left: 14,
+        top: 16,
+        width: 16,
+        height: 13,
+    },
+    currency: {
+        position: 'absolute',
+        right: 17,
+        top: 13,
+    },
+    handle: {
+        position: 'absolute',
+        backgroundColor: color.blue,
+        height: 41,
+        width: 41,
+        borderRadius: 20.5,
+        top: 2,
+        shadowColor: color.black,
+        shadowOffset: {width: 1, height: 2},
+        shadowOpacity: 0.3,
+        shadowRadius: 2,
     }
 });

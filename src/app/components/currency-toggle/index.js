@@ -1,53 +1,11 @@
 import React, {Component} from 'react';
 import {Text, TouchableOpacity, View, Animated, Image} from 'react-native';
-// import styles from './styles';
-import {color} from '../../styles';
+import styles from './styles';
 import {COIN_SYMBOLS} from '../../constants';
 // import isAndroid from '../../utils/is-android';
 
 
-const containerStyle = {
-    backgroundColor: color.lighterBlue,
-    height: 45,
-    borderRadius: 22.5,
-    width: 80,
-    position: 'relative',
-};
-
-const textStyle = {
-    color: color.white,
-    fontSize: 16,
-    fontWeight: 'bold',
-};
-
-const wolloStyle = {
-    position: 'absolute',
-    left: 14,
-    top: 16,
-    width: 16,
-    height: 13,
-};
-
-const currencyStyle = {
-    position: 'absolute',
-    right: 17,
-    top: 13,
-};
-
-const handleStyle = {
-    position: 'absolute',
-    backgroundColor: color.blue,
-    height: 41,
-    width: 41,
-    borderRadius: 20.5,
-    top: 2,
-    shadowColor: color.black,
-    shadowOffset: {width: 1, height: 2},
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-};
-
-const WolloImage = () => <Image style={wolloStyle} source={require('./images/wollo.png')}/>;
+const WolloImage = () => <Image style={styles.wollo} source={require('./images/wollo.png')}/>;
 
 export default class CurrencyToggle extends Component {
     state = {
@@ -77,10 +35,10 @@ export default class CurrencyToggle extends Component {
         const {currency} = this.props;
 
         return (
-            <TouchableOpacity style={containerStyle} onPress={this.onClicked}>
-                <Animated.View style={[handleStyle, {left: this.state.left}]} />
-                <WolloImage style={wolloStyle} />
-                <View style={currencyStyle}><Text style={textStyle}>{COIN_SYMBOLS[currency]}</Text></View>
+            <TouchableOpacity style={styles.container} onPress={this.onClicked}>
+                <Animated.View style={[styles.handle, {left: this.state.left}]} />
+                <WolloImage />
+                <View style={styles.currency}><Text style={styles.text}>{COIN_SYMBOLS[currency]}</Text></View>
             </TouchableOpacity>
         );
     }
