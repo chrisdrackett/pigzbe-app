@@ -39,6 +39,7 @@ function loadStories() {
     require('./stories/slider.js');
     require('./stories/wollo.js');
     require('./stories/wollo-input.js');
+    require('./stories/currency-toggle.js');
     require('./stories/searchable-list.js');
 }
 

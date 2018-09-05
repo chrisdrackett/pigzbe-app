@@ -3,6 +3,7 @@ import {Text} from 'react-native';
 // import styles from './styles';
 import {color} from '../../styles';
 import TextInput from '../text-input';
+import CurrencyToggle from '../currency-toggle';
 // import isAndroid from '../../utils/is-android';
 
 
@@ -34,17 +35,22 @@ export default class WolloInput extends Component {
     }
 
     render() {
-        const {amount, short, currencyAmount, currentCurrency} = this.state;
+        const {amount, short, currencyAmount, currentCurrency, currency} = this.state;
 
         return (
             <Fragment>
-                <TextInput
-                    numberOfLines={1}
-                    placeholder="0.00 wollo"
-                    onChangeText={this.onChangeText}
-                    returnKeyType="done"
-                    value={amount}
-                />
+                <Fragment>
+                    <TextInput
+                        numberOfLines={1}
+                        placeholder="0.00 wollo"
+                        onChangeText={this.onChangeText}
+                        returnKeyType="done"
+                        value={amount}
+                    />
+                    <CurrencyToggle
+                        currency={currency}
+                    />
+                </Fragment>
                 {
                     currentCurrency === 'wollos' ?
                         <Text style={textStyle}>
