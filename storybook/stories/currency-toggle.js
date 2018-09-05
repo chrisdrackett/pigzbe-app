@@ -11,10 +11,7 @@ const style = {
 };
 
 const props = {
-    currency: {
-        name: 'GBP',
-        short: '£',
-    },
+    currency: 'GBP',
     onCurrencyChange: (currency) => {
         console.log(`currency changed to: ${currency}`);
     }
