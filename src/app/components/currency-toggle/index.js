@@ -16,6 +16,8 @@ const containerStyle = {
 
 const textStyle = {
     color: color.white,
+    fontSize: 16,
+    fontWeight: 'bold',
 };
 
 const wolloStyle = {
@@ -29,7 +31,7 @@ const wolloStyle = {
 const currencyStyle = {
     position: 'absolute',
     right: 17,
-    top: 15,
+    top: 13,
 };
 
 const handleStyle = {
@@ -44,12 +46,6 @@ const handleStyle = {
     shadowOpacity: 0.3,
     shadowRadius: 2,
 };
-
-// const wolloIcon = {
-//     // position: 'absolute',
-//     // bottom: 21,
-//     // left: 11,
-// };
 
 const WolloImage = () => <Image style={wolloStyle} source={require('./images/wollo.png')}/>;
 
