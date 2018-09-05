@@ -36,6 +36,10 @@ const handleStyle = {
     width: 41,
     borderRadius: 20.5,
     top: 2,
+    shadowColor: color.blue,
+    shadowOffset: {width: 1, height: 2},
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
 };
 
 export default class CurrencyToggle extends Component {
@@ -54,7 +58,7 @@ export default class CurrencyToggle extends Component {
             currentCurrency: currentCurrency === 'wollo' ? currency : 'wollo',
         });
 
-        this.props.currencyChange(this.state.currentCurrency);
+        this.props.onCurrencyChange(this.state.currentCurrency);
 
         Animated.timing(left, {
             toValue: newLeftPosition,

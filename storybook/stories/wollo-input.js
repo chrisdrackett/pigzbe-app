@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {View} from 'react-native';
 import {storiesOf} from '@storybook/react-native';
 import WolloInput from '../../src/app/components/wollo-input';
@@ -10,16 +10,25 @@ const style = {
     padding: 40,
 };
 
-const props = {
-    currency: 'GBP',
-    setAmount: (amount) => {
-        console.log(`amount set to: ${amount}`);
+class WolloInputComponent extends Component {
+    state = {
+        input: ''
     }
-};
+
+    setAmount = amount => console.log('amount set to: ', amount)
+
+    render() {
+        return (
+            <View style={style}>
+                <WolloInput
+                    currency="GBP"
+                    onChangeAmount={this.onChangeAmount}/>
+            </View>
+        );
+    }
+}
 
 storiesOf('Wollo Input')
     .add('default', () => (
-        <View style={style}>
-            <WolloInput {...props}/>
-        </View>
+        <WolloInputComponent />
     ));

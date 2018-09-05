@@ -31,7 +31,11 @@ export default class WolloInput extends Component {
         this.setState({amount});
 
         // todo calculate wollo value and send to prop
-        this.props.setAmount(amount);
+        this.props.onChangeAmount(amount);
+    }
+
+    onCurrencyChange = currency => {
+        console.log(`currency has changed to ${currency}`);
     }
 
     render() {
@@ -49,6 +53,7 @@ export default class WolloInput extends Component {
                     />
                     <CurrencyToggle
                         currency={currency}
+                        onCurrencyChange={this.onCurrencyChange}
                     />
                 </Fragment>
                 {
