@@ -15,14 +15,16 @@ class WolloInputComponent extends Component {
         input: ''
     }
 
-    setAmount = amount => console.log('amount set to: ', amount)
+    onChangeAmount = amount => console.log('amount set to: ', amount);
 
     render() {
         return (
             <View style={style}>
                 <WolloInput
                     currency="GBP"
-                    onChangeAmount={this.onChangeAmount}/>
+                    exchange={0.091956}
+                    onChangeAmount={this.onChangeAmount}
+                />
             </View>
         );
     }

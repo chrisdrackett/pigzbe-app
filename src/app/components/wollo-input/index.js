@@ -4,6 +4,8 @@ import {Text} from 'react-native';
 import {color} from '../../styles';
 import TextInput from '../text-input';
 import CurrencyToggle from '../currency-toggle';
+import moneyFormat from '../../utils/money-format';
+import {COIN_SYMBOLS, COIN_DPS} from '../../constants';
 // import isAndroid from '../../utils/is-android';
 
 
@@ -19,12 +21,23 @@ const textStyle = {
 export default class WolloInput extends Component {
     state = {
         wolloAmount: null,
-        currency: {
-            name: 'GBP',
-            short: '£'
-        },
         currentCurrency: 'wollos',
         currencyAmount: 0,
+        exchangedValue: 0,
+        exchangedDisplay: `${COIN_SYMBOLS[this.props.currency]}${moneyFormat(0, COIN_DPS[this.props.currency])}`
+    }
+
+    setExchangedValue = (amount, currentCurrency) => {
+        const {exchange, currency} = this.props;
+
+        const exchangedValue = currentCurrency === 'wollo' ? amount / exchange : amount * exchange;
+
+        console.log('setExchangedValue, ', exchange, exchangedValue, currentCurrency, amount);
+
+        this.setState({
+            exchangedValue,
+            exchangedDisplay: `${COIN_SYMBOLS[currency]}${moneyFormat(0, COIN_DPS[currency])}`,
+        });
     }
 
     onChangeText = amount => {
@@ -32,24 +45,30 @@ export default class WolloInput extends Component {
 
         // todo calculate wollo value and send to prop
         this.props.onChangeAmount(amount);
+
+        this.setState({currencyAmount: amount});
+        this.setExchangedValue(amount, this.state.currentCurrency);
     }
 
     onCurrencyChange = currency => {
-        console.log(`currency has changed to ${currency}`);
+        this.setState({currentCurrency: currency});
+
+        this.setExchangedValue(this.state.currencyAmount, currency);
     }
 
     render() {
-        const {amount, short, currencyAmount, currentCurrency, currency} = this.state;
+        const {exchangedDisplay, short, currencyAmount, currentCurrency, exchangedValue} = this.state;
+        const {currency} = this.props;
 
         return (
             <Fragment>
                 <Fragment>
                     <TextInput
                         numberOfLines={1}
-                        placeholder="0.00 wollo"
+                        placeholder="0.00 Wollo"
                         onChangeText={this.onChangeText}
                         returnKeyType="done"
-                        value={amount}
+                        value={currencyAmount === 0 ? '' : currencyAmount.toString()}
                     />
                     <CurrencyToggle
                         currency={currency}
@@ -59,11 +78,11 @@ export default class WolloInput extends Component {
                 {
                     currentCurrency === 'wollos' ?
                         <Text style={textStyle}>
-                            Estimate: {short} {currencyAmount}
+                            Estimate: {short} {exchangedValue}
                         </Text>
                         :
                         <Text style={textStyle}>
-                            Estimate: Wollo {amount}
+                            Estimate: {exchangedDisplay}
                         </Text>
                 }
             </Fragment>
