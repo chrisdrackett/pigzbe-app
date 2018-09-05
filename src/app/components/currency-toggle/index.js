@@ -36,9 +36,9 @@ const handleStyle = {
     width: 41,
     borderRadius: 20.5,
     top: 2,
-    shadowColor: color.blue,
+    shadowColor: color.black,
     shadowOffset: {width: 1, height: 2},
-    shadowOpacity: 0.8,
+    shadowOpacity: 0.3,
     shadowRadius: 2,
 };
 
