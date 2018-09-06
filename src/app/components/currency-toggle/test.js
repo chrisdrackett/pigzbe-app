@@ -1,16 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import TextInput from './';
+import CurrencyToggle from './';
 
 const props = {
-    label: 'Label',
-    onPress: () => {},
-    plain: false
+    currency: 'GBP',
+    onCurrencyChange: () => {}
 };
 
-describe('TextInput', () => {
+describe('CurrencyToggle', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<TextInput {...props}/>).toJSON();
+        const tree = renderer.create(<CurrencyToggle {...props}/>).toJSON();
         expect(tree).toMatchSnapshot();
     });
 });

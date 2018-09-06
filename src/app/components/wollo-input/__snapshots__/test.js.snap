@@ -69,3 +69,164 @@ Array [
   </View>,
 ]
 `;
+
+exports[`WolloInput renders correctly 1`] = `
+Array [
+  <View
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignSelf": "stretch",
+          "height": 55,
+        }
+      }
+    >
+      <TextInput
+        allowFontScaling={true}
+        autoCapitalize="sentences"
+        autoCorrect={true}
+        blurOnSubmit={true}
+        editable={true}
+        keyboardType="default"
+        multiline={false}
+        numberOfLines={1}
+        onChangeText={[Function]}
+        placeholder="0.00 Wollo"
+        placeholderTextColor="rgb(127, 153, 188)"
+        returnKeyType="done"
+        style={
+          Array [
+            Object {
+              "alignSelf": "stretch",
+              "borderColor": "rgb(127, 153, 188)",
+              "borderRadius": 22.5,
+              "borderWidth": 1,
+              "color": "rgb(0, 50, 120)",
+              "fontFamily": "Poppins",
+              "fontSize": 14,
+              "fontWeight": "bold",
+              "lineHeight": 21,
+              "marginBottom": 10,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 12,
+              "textAlignVertical": "top",
+            },
+            Object {
+              "borderRadius": 22.5,
+              "height": 45,
+              "paddingTop": 0,
+              "width": "100%",
+            },
+            Object {
+              "width": 560,
+            },
+          ]
+        }
+        underlineColorAndroid="transparent"
+        value=""
+      />
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgb(127, 153, 188)",
+          "borderRadius": 22.5,
+          "height": 45,
+          "opacity": 1,
+          "position": "relative",
+          "width": 80,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "backgroundColor": "rgb(0, 50, 120)",
+            "borderRadius": 20.5,
+            "height": 41,
+            "left": 2,
+            "position": "absolute",
+            "shadowColor": "rgb(0, 0, 0)",
+            "shadowOffset": Object {
+              "height": 2,
+              "width": 1,
+            },
+            "shadowOpacity": 0.3,
+            "shadowRadius": 2,
+            "top": 2,
+            "width": 41,
+          }
+        }
+      />
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/app/components/currency-toggle/images/wollo.png",
+          }
+        }
+        style={
+          Object {
+            "height": 13,
+            "left": 14,
+            "position": "absolute",
+            "top": 16,
+            "width": 16,
+          }
+        }
+      />
+      <View
+        style={
+          Object {
+            "position": "absolute",
+            "right": 17,
+            "top": 13,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "rgb(255, 255, 255)",
+              "fontSize": 16,
+              "fontWeight": "bold",
+            }
+          }
+        >
+          £
+        </Text>
+      </View>
+    </View>
+  </View>,
+  <Text
+    style={
+      Object {
+        "color": "rgb(127, 153, 188)",
+        "fontSize": 16,
+        "fontStyle": "italic",
+        "marginTop": 5,
+        "textAlign": "left",
+      }
+    }
+  >
+    Estimate: 
+    £0
+  </Text>,
+]
+`;

@@ -1,16 +1,16 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import TextInput from './';
+import WolloInput from './';
 
 const props = {
-    label: 'Label',
-    onPress: () => {},
-    plain: false
+    currency: 'GBP',
+    exchange: 0.091956,
+    onChangeAmount: () => {}
 };
 
-describe('TextInput', () => {
+describe('WolloInput', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<TextInput {...props}/>).toJSON();
+        const tree = renderer.create(<WolloInput {...props}/>).toJSON();
         expect(tree).toMatchSnapshot();
     });
 });

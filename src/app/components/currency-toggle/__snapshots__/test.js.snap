@@ -1,5 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CurrencyToggle renders correctly 1`] = `
+<View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgb(127, 153, 188)",
+      "borderRadius": 22.5,
+      "height": 45,
+      "opacity": 1,
+      "position": "relative",
+      "width": 80,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "rgb(0, 50, 120)",
+        "borderRadius": 20.5,
+        "height": 41,
+        "left": 2,
+        "position": "absolute",
+        "shadowColor": "rgb(0, 0, 0)",
+        "shadowOffset": Object {
+          "height": 2,
+          "width": 1,
+        },
+        "shadowOpacity": 0.3,
+        "shadowRadius": 2,
+        "top": 2,
+        "width": 41,
+      }
+    }
+  />
+  <Image
+    source={
+      Object {
+        "testUri": "../../../src/app/components/currency-toggle/images/wollo.png",
+      }
+    }
+    style={
+      Object {
+        "height": 13,
+        "left": 14,
+        "position": "absolute",
+        "top": 16,
+        "width": 16,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "position": "absolute",
+        "right": 17,
+        "top": 13,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "rgb(255, 255, 255)",
+          "fontSize": 16,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      £
+    </Text>
+  </View>
+</View>
+`;
+
 exports[`TextInput renders correctly 1`] = `
 Array [
   <Text
