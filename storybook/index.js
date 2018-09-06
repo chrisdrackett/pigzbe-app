@@ -41,6 +41,7 @@ function loadStories() {
     require('./stories/wollo-input.js');
     require('./stories/currency-toggle.js');
     require('./stories/searchable-list.js');
+    require('./stories/action-sheet.js');
 }
 
 configure(loadStories, module);
