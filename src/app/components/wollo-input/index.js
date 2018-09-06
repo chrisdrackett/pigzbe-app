@@ -32,8 +32,6 @@ export default class WolloInput extends Component {
     }
 
     onChangeText = amount => {
-        this.setState({amount});
-
         this.setState({currencyAmount: amount});
         this.setExchangedValue(amount, this.state.currentCurrency);
     }
