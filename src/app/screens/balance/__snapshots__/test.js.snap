@@ -106,10 +106,10 @@ Array [
         style={
           Array [
             Object {
-              "height": 78,
+              "minHeight": 78,
             },
             Object {
-              "height": 32,
+              "minHeight": 32,
             },
           ]
         }
@@ -460,8 +460,8 @@ Array [
                   <View
                     style={
                       Object {
-                        "paddingBottom": 20,
-                        "paddingTop": 25,
+                        "marginBottom": 20,
+                        "marginTop": 25,
                       }
                     }
                   >

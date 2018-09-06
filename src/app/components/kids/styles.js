@@ -58,6 +58,7 @@ export default StyleSheet.create({
         color: color.blue,
         fontSize: 16,
         fontWeight: 'bold',
+        marginLeft: 10,
     },
     balance: {
         position: 'absolute',

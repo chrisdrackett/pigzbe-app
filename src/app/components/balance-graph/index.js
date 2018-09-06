@@ -28,22 +28,24 @@ const Graph = ({balance, balanceXLM, exchange, baseCurrency}) => (
                 ) : null}
             </View>
         </View>
-        <View style={styles.wrapperBalance}>
-            <View style={styles.containerBalance}>
-                <CoinIcon coin={'XLM'} style={styles.coin}/>
-                <View>
-                    <Text style={styles.coinName}>{'XLM'}</Text>
-                    <Text style={styles.value}>{moneyFormat(balanceXLM, COIN_DPS.XLM)}</Text>
+        {balanceXLM && (
+            <View style={styles.wrapperBalance}>
+                <View style={styles.containerBalance}>
+                    <CoinIcon coin={'XLM'} style={styles.coin}/>
+                    <View>
+                        <Text style={styles.coinName}>{'XLM'}</Text>
+                        <Text style={styles.value}>{moneyFormat(balanceXLM, COIN_DPS.XLM)}</Text>
+                    </View>
                 </View>
-            </View>
-            <View style={styles.balanceTotal}>
-                {/* {exchange ? (
+                <View style={styles.balanceTotal}>
+                    {/* {exchange ? (
                     <Text style={styles.balanceConvert}>{COIN_SYMBOLS[baseCurrency]}
                         {moneyFormat(balance * exchange[baseCurrency], COIN_DPS[baseCurrency])}
                     </Text>
                 ) : null} */}
+                </View>
             </View>
-        </View>
+        )}
     </View>
 );
 

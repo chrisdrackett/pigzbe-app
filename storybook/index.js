@@ -36,6 +36,7 @@ function loadStories() {
     require('./stories/toggle.js');
     require('./stories/slider.js');
     require('./stories/wollo.js');
+    require('./stories/child-dash.js');
     require('./stories/searchable-list.js');
     require('./stories/action-sheet.js');
 }

@@ -5,6 +5,7 @@ import {color} from '../../styles';
 import {
     SCREEN_SETTINGS,
     SCREEN_FAMILY_INTRO,
+    SCREEN_CHILD_DASH,
     COINS,
     COIN_DPS
 } from '../../constants';
@@ -80,6 +81,8 @@ export class Balance extends Component {
         this.props.navigation.navigate(SCREEN_FAMILY_INTRO);
     }
 
+    onDashboard = address => this.props.navigation.navigate(SCREEN_CHILD_DASH, {address});
+
     render () {
         const {
             exchange,
@@ -127,6 +130,7 @@ export class Balance extends Component {
                                 parentBalance={balance}
                                 onSend={this.onSend}
                                 onAddKids={this.onAddKids}
+                                onDashboard={this.onDashboard}
                             />
                             <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
                         </View>
