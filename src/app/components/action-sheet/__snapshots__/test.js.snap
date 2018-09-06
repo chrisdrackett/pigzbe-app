@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActionSheet renders correctly 1`] = `
+<Modal
+  animationType="slide"
+  hardwareAccelerated={false}
+  onRequestClose={[Function]}
+  transparent={true}
+  visible={true}
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "rgba(0, 50, 120, 0.8)",
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "justifyContent": "flex-end",
+          "marginLeft": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "backgroundColor": "rgb(247, 247, 250)",
+            "borderRadius": 5,
+            "marginBottom": 6,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "rgb(155, 155, 155)",
+              "fontFamily": "Poppins",
+              "fontSize": 12,
+              "paddingBottom": 15,
+              "paddingTop": 15,
+              "textAlign": "center",
+            }
+          }
+        >
+          Select a document
+        </Text>
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "borderTopColor": "rgb(225, 225, 225)",
+              "borderTopWidth": 1,
+              "opacity": 1,
+              "paddingBottom": 20,
+              "paddingTop": 20,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "textAlign": "center",
+              }
+            }
+          >
+            Passport
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "borderTopColor": "rgb(225, 225, 225)",
+              "borderTopWidth": 1,
+              "opacity": 1,
+              "paddingBottom": 20,
+              "paddingTop": 20,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "textAlign": "center",
+              }
+            }
+          >
+            Driver's Licence
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "borderTopColor": "rgb(225, 225, 225)",
+              "borderTopWidth": 1,
+              "opacity": 1,
+              "paddingBottom": 20,
+              "paddingTop": 20,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "textAlign": "center",
+              }
+            }
+          >
+            National ID card
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "stretch",
+          }
+        }
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderRadius": 5,
+              "borderWidth": 1,
+              "marginBottom": 10,
+              "maxWidth": 400,
+              "opacity": 1,
+              "width": "100%",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "height": 45,
+                  "paddingLeft": 20,
+                  "paddingRight": 20,
+                  "paddingTop": 12,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "rgb(0, 50, 120)",
+                },
+                null,
+                undefined,
+              ]
+            }
+          >
+            Cancel
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;

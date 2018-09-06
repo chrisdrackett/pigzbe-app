@@ -7,6 +7,7 @@ function loadStories() {
     require('./stories/num-pad.js');
     require('./stories/button.js');
     require('./stories/text-input.js');
+    require('./stories/select-input.js');
     require('./stories/step-module.js');
     require('./stories/modal.js');
     require('./stories/balance.js');
@@ -29,9 +30,15 @@ function loadStories() {
     require('./stories/child-login.js');
     require('./stories/icon-pad.js');
     require('./stories/family.js');
+    require('./stories/family-member.js');
+    require('./stories/family-number-kids.js');
+    require('./stories/family-enter-child.js');
+    require('./stories/toggle.js');
     require('./stories/slider.js');
     require('./stories/wollo.js');
     require('./stories/child-dash.js');
+    require('./stories/searchable-list.js');
+    require('./stories/action-sheet.js');
 }
 
 configure(loadStories, module);

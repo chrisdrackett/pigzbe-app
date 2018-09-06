@@ -32,6 +32,7 @@ export default class IconPad extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log('nextProps', nextProps);
         if (nextProps.error && !this.props.error) {
             this.setState({inputs: new Set()});
             this.props.onInput('');

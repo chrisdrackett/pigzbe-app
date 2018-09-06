@@ -9,6 +9,10 @@ import ClaimAirdrop from '../../screens/claim-airdrop';
 import PasscodeSet from '../../screens/passcode-set';
 import FamilyIntro from '../../screens/family-intro';
 import ChildDash from '../../screens/child-dash';
+import FamilyMemberType from '../../screens/family-member-type';
+import FamilyNumberKids from '../../screens/family-number-kids';
+import FamilyEnterChild from '../../screens/family-enter-child';
+
 import {
     SCREEN_BALANCE,
     SCREEN_SETTINGS,
@@ -19,7 +23,10 @@ import {
     SCREEN_CLAIM_AIRDROP,
     SCREEN_CHANGE_PASSCODE,
     SCREEN_FAMILY_INTRO,
-    SCREEN_CHILD_DASH
+    SCREEN_CHILD_DASH,
+    SCREEN_FAMILY_MEMBER_TYPE,
+    SCREEN_FAMILY_NUMBER_KIDS,
+    SCREEN_FAMILY_ENTER_CHILD
 } from '../../constants';
 
 const nav = {
@@ -52,6 +59,15 @@ const nav = {
     },
     [SCREEN_CHILD_DASH]: {
         screen: ChildDash
+    },
+    [SCREEN_FAMILY_MEMBER_TYPE]: {
+        screen: FamilyMemberType
+    },
+    [SCREEN_FAMILY_NUMBER_KIDS]: {
+        screen: FamilyNumberKids
+    },
+    [SCREEN_FAMILY_ENTER_CHILD]: {
+        screen: FamilyEnterChild
     },
 };
 
