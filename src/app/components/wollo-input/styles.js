@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 import {
     color
@@ -6,11 +6,18 @@ import {
 
 export default StyleSheet.create({
     text: {
-        color: color.blue,
+        color: color.lighterBlue,
         fontSize: 16,
-        marginLeft: 15,
-        marginRight: 15,
-        marginBottom: 30,
-        textAlign: 'center',
+        marginTop: 5,
+        textAlign: 'left',
+        fontStyle: 'italic',
     },
+    inputSection: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+    },
+    textInput: {
+        width: Dimensions.get('window').width - 190,
+    }
 });
