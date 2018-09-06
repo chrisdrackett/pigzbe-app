@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, TouchableOpacity, View, Animated, Image} from 'react-native';
 import styles from './styles';
-import {COIN_SYMBOLS} from '../../constants';
+import {COIN_SYMBOLS, ASSET_CODE} from '../../constants';
 // import isAndroid from '../../utils/is-android';
 
 
@@ -9,7 +9,7 @@ const WolloImage = () => <Image style={styles.wollo} source={require('./images/w
 
 export default class CurrencyToggle extends Component {
     state = {
-        currentCurrency: 'wollo',
+        currentCurrency: ASSET_CODE,
         left: new Animated.Value(2),
     }
 
@@ -17,10 +17,10 @@ export default class CurrencyToggle extends Component {
         const {currentCurrency, left} = this.state;
         const {currency} = this.props;
 
-        const newLeftPosition = currentCurrency === 'wollo' ? 36 : 2;
+        const newLeftPosition = currentCurrency === ASSET_CODE ? 36 : 2;
 
         this.setState({
-            currentCurrency: currentCurrency === 'wollo' ? currency : 'wollo',
+            currentCurrency: currentCurrency === ASSET_CODE ? currency : ASSET_CODE,
         });
 
         this.props.onCurrencyChange(this.state.currentCurrency);

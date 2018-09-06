@@ -17,6 +17,9 @@ export default StyleSheet.create({
         paddingRight: paddingH,
         paddingTop: 30,
     },
+    wrapper: {
+        height: '100%',
+    },
     pad: {
         paddingBottom: 12,
         paddingLeft: paddingH,

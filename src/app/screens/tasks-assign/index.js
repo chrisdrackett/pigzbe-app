@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 import Button from '../../components/button';
 import {SCREEN_BALANCE, SCREEN_TASKS_LIST} from '../../constants';
 import StepModule from '../../components/step-module';
-import TextInput from '../../components/text-input';
+import WolloInput from '../../components/wollo-input';
+import Paragraph from '../../components/paragraph';
 import {color} from '../../styles';
 import {familyAssignTask} from '../../actions';
 
@@ -15,8 +16,21 @@ const textStyle = {
     marginLeft: 15,
     marginRight: 15,
     marginBottom: 30,
+    marginTop: 20,
     textAlign: 'center',
 };
+
+const sendButton = {
+    marginTop: 20,
+};
+
+const flexStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    justifyContent: 'space-between',
+};
+
 
 export class TasksAssign extends Component {
     state = {
@@ -29,8 +43,9 @@ export class TasksAssign extends Component {
 
     onBack = () => this.props.navigation.navigate(SCREEN_TASKS_LIST);
 
-    onChangeText = (wollos) => {
+    onChangeAmount = wollos => {
         this.setState({wollos});
+        console.log('wollos changed', wollos);
     }
 
     next = async () => {
@@ -50,27 +65,30 @@ export class TasksAssign extends Component {
 
         return (
             <StepModule
-                title="Tasks"
-                icon="family"
-                content={'Please choose a task from below list'}
                 pad
                 loading={loading}
                 onBack={this.onBack}
+                plain
+                customTitle={'Tasks'}
             >
-                <Text style={textStyle}>
-                    Set the reward that <Text style={{fontWeight: 'bold'}}>{kid}</Text> will get when completed
-                </Text>
-                <TextInput
-                    numberOfLines={1}
-                    placeholder="wollos"
-                    onChangeText={this.onChangeText}
-                    returnKeyType="done"
-                />
-                <Button
-                    label={`Send to ${this.props.kid}`}
-                    onPress={this.next}
-                    disabled={wollos === 0}
-                />
+                <View style={flexStyle}>
+                    <View>
+                        <Paragraph style={textStyle}>
+                            Set the reward that <Text style={{fontWeight: 'bold'}}>{kid}</Text> will get when completed
+                        </Paragraph>
+                        <WolloInput
+                            currency="GBP"
+                            exchange={0.091956}
+                            onChangeAmount={this.onChangeAmount}
+                        />
+                    </View>
+                    <Button
+                        style={sendButton}
+                        label={`Send to ${this.props.kid}`}
+                        onPress={this.next}
+                        disabled={wollos === 0}
+                    />
+                </View>
             </StepModule>
         );
     }

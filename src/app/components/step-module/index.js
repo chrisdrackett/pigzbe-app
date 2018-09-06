@@ -32,7 +32,8 @@ export default class StepModule extends Component {
           paddingTop,
           keyboardOffset,
           loading,
-          loaderMessage
+          loaderMessage,
+          customTitle
       } = this.props;
 
       const {height} = Dimensions.get('window');
@@ -40,8 +41,10 @@ export default class StepModule extends Component {
       return (
           <Container style={styles.wrapper} scroll={false}>
               <View style={styles.bg}/>
-              <Header onBack={onBack} onSettings={onSettings} />
-              <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader>
+              <Header onBack={onBack} onSettings={onSettings} customTitle={customTitle} />
+              {
+                  title || icon ? <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader> : null
+              }
               <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}} offset={keyboardOffset}>
                   <Container
                       scroll={scroll}
@@ -61,7 +64,7 @@ export default class StepModule extends Component {
                               )}
                           </View>
                       )}
-                      <View style={[pad ? styles.pad : null, paddingTop ? {paddingTop} : null]}>
+                      <View style={[styles.wrapper, pad ? styles.pad : null, paddingTop ? {paddingTop} : null]}>
                           {children}
                       </View>
                       <Loader
