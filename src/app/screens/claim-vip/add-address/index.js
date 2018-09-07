@@ -6,7 +6,8 @@ import SelectInput from 'app/components/select-input';
 import StepModule from 'app/components/step-module';
 import Button from 'app/components/button';
 import LoaderModal from 'app/components/loader-modal';
-import {countriesForSelect} from 'app/utils/address';
+import {countriesForSelect, usStatesForSelect} from 'app/utils/address';
+import usStates from 'app/data/us-states.json';
 
 export default class AddAddress extends Component {
     state = {
@@ -146,12 +147,24 @@ export default class AddAddress extends Component {
                                     placeholder={'City'}
                                     onChangeText={(city) => this.onUpdateAddress({city})}
                                 />
-                                <TextInput
-                                    error={false}
-                                    value={manualAddress.county}
-                                    placeholder={this.isUnitedStates() ? 'State' : 'County (optional)'}
-                                    onChangeText={(county) => this.onUpdateAddress({county})}
-                                />
+                                {this.isUnitedStates() &&
+                                    <SelectInput
+                                        error={false}
+                                        value={manualAddress.county}
+                                        placeholder={'State'}
+                                        onChangeSelection={county => this.onUpdateAddress({county})}
+                                        options={usStates}
+                                        searchable
+                                    />
+                                }
+                                {!this.isUnitedStates() &&
+                                    <TextInput
+                                        error={false}
+                                        value={manualAddress.county}
+                                        placeholder={'County (optional)'}
+                                        onChangeText={(county) => this.onUpdateAddress({county})}
+                                    />
+                                }
                                 <TextInput
                                     error={false}
                                     value={manualAddress.postcode}

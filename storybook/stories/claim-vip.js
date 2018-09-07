@@ -16,7 +16,7 @@ import PhotoCapture from '../../src/app/screens/claim-vip/photo-capture';
 import TokenCode from '../../src/app/screens/claim-vip/token-code';
 import TextCodeRequest from '../../src/app/screens/claim-vip/text-code-request';
 import TextCodeEnter from '../../src/app/screens/claim-vip/text-code-enter';
-import FinishClaim from '../../src/app/screens/claim-vip/finish-claim';
+import Finish from '../../src/app/screens/claim-vip/finish';
 
 class Details2Test extends Component {
     state = {}
@@ -115,7 +115,7 @@ storiesOf('ClaimVIP')
         />
     ))
     .add('finish-claim', () => (
-        <FinishClaim
+        <Finish
             onNext={() => undefined}
             onBack={() => undefined}
             wollo={420}
