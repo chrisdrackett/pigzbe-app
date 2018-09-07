@@ -9,12 +9,16 @@ import {COIN_SYMBOLS, COIN_DPS, ASSET_CODE} from '../../constants';
 
 
 export default class WolloInput extends Component {
-    state = {
-        wolloAmount: null,
-        currentCurrency: ASSET_CODE,
-        currencyAmount: 0,
-        exchangedValue: 0,
-        exchangedDisplay: `${COIN_SYMBOLS[this.props.currency]}${moneyFormat(0, COIN_DPS[this.props.currency])}`
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            wolloAmount: null,
+            currentCurrency: props.currency,
+            currencyAmount: 0,
+            exchangedValue: 0,
+            exchangedDisplay: `${COIN_SYMBOLS[props.currency]}${moneyFormat(0, COIN_DPS[props.currency])}`
+        };
     }
 
     setExchangedValue = (amount, currentCurrency) => {
@@ -28,7 +32,7 @@ export default class WolloInput extends Component {
             exchangedDisplay: `${symbol} ${moneyFormat(exchangedValue, COIN_DPS[currency])}`,
         });
 
-        onChangeAmount(currentCurrency === ASSET_CODE ? exchangedValue : amount);
+        onChangeAmount(currentCurrency === ASSET_CODE ? exchangedValue * 1 : amount * 1);
     }
 
     onChangeText = amount => {
