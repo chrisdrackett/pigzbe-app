@@ -39,6 +39,7 @@ function loadStories() {
     require('./stories/child-dash.js');
     require('./stories/searchable-list.js');
     require('./stories/action-sheet.js');
+    require('./stories/hd-wallet.js');
 }
 
 configure(loadStories, module);
