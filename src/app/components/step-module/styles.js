@@ -18,7 +18,8 @@ export default StyleSheet.create({
         paddingTop: 30,
     },
     wrapper: {
-        height: '100%',
+        display: 'flex',
+        flex: 1,
     },
     pad: {
         paddingBottom: 12,

@@ -79,7 +79,7 @@ export const familyAssignTask = (name, task, wollos) => async dispatch => {
     console.log('FAMILY_ASSIGN_TASK', name, task, wollos);
     dispatch(familyLoading(true));
 
-    await dispatch(({type: FAMILY_ASSIGN_TASK, kid: {name, task, wollos}}));
+    await dispatch(({type: FAMILY_ASSIGN_TASK, data: {name, task, wollos}}));
     await dispatch(assignTask());
     dispatch(familyLoading(false));
 };

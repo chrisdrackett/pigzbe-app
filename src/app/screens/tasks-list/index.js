@@ -41,6 +41,13 @@ const cancelInner = {
     fontSize: 14,
 };
 
+const flexStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    justifyContent: 'space-between',
+};
+
 export class TasksList extends Component {
     state = {
         loading: false,
@@ -50,9 +57,7 @@ export class TasksList extends Component {
     }
 
     componentWillMount() {
-        console.log('tasksList componentWillMount');
         this.props.dispatch(loadTasks());
-        console.log('tasksList after');
     }
 
     getTasksList = () => this.props.tasks.map(task => ({
@@ -78,13 +83,14 @@ export class TasksList extends Component {
     // }
 
     next = async () => {
-        const {showingInput} = this.state;
+        const {showingInput, newTask, active} = this.state;
 
         if (showingInput) {
             await this.props.dispatch(tasksAddTask(this.state.newTask));
         }
 
-        this.props.navigation.navigate(SCREEN_TASKS_ASSIGN, {kid: this.props.kid, task: this.state.active});
+        console.log('TASKLIST _ NEXT: ', this.state);
+        this.props.navigation.navigate(SCREEN_TASKS_ASSIGN, {kid: this.props.kid, task: newTask ? newTask : active});
     }
 
     render() {
@@ -102,63 +108,67 @@ export class TasksList extends Component {
                 loading={loading}
                 onBack={this.onBack}
             >
-                <FlatList
-                    style={{marginBottom: 10}}
-                    data={
-                        this.getTasksList()
-                    }
-                    renderItem={({item}) => (<Toggle
-                        style={buttonStyle}
-                        innerStyle={innerStyle}
-                        label={item.key}
-                        onPress={() => {
-                            this.setState({active: item.key});
-                        }}
-                        active={active === item.key}
-                        disabled={showingInput}
-                    />)
-                    }
-                />
-                {
-                    showingInput ?
-                        <View>
-                            <TextInput
-                                numberOfLines={1}
-                                placeholder="New Task"
-                                onChangeText={this.onChangeText}
-                                returnKeyType="done"
-                            />
-                            <TouchableOpacity
-                                onPress={this.cancelInput}
-                                style={cancelStyle}
-                            >
-                                <Text
-                                    style={cancelInner}
-                                >
-                                    Cancel
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                        :
-                        <TouchableOpacity
-                            onPress={this.showInput}
-                            style={cancelStyle}
-                        >
-                            <Text
-                                style={cancelInner}
-                            >
-                                Add another
-                            </Text>
-                        </TouchableOpacity>
-                }
-                <View style={{marginTop: 20}}>
-                    {
-                        <Button
-                            label={'Next'}
-                            onPress={this.next}
-                            disabled={showingInput && !newTask || !showingInput && !active}
+                <View style={flexStyle}>
+                    <View>
+                        <FlatList
+                            style={{marginBottom: 10}}
+                            data={
+                                this.getTasksList()
+                            }
+                            renderItem={({item}) => (<Toggle
+                                style={buttonStyle}
+                                innerStyle={innerStyle}
+                                label={item.key}
+                                onPress={() => {
+                                    this.setState({active: item.key});
+                                }}
+                                active={active === item.key}
+                                disabled={showingInput}
+                            />)
+                            }
                         />
-                    }
+                        {
+                            showingInput ?
+                                <View>
+                                    <TextInput
+                                        numberOfLines={1}
+                                        placeholder="New Task"
+                                        onChangeText={this.onChangeText}
+                                        returnKeyType="done"
+                                    />
+                                    <TouchableOpacity
+                                        onPress={this.cancelInput}
+                                        style={cancelStyle}
+                                    >
+                                        <Text
+                                            style={cancelInner}
+                                        >
+                                            Cancel
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                                :
+                                <TouchableOpacity
+                                    onPress={this.showInput}
+                                    style={cancelStyle}
+                                >
+                                    <Text
+                                        style={cancelInner}
+                                    >
+                                        Add another
+                                    </Text>
+                                </TouchableOpacity>
+                        }
+                    </View>
+                    <View style={{marginTop: 20}}>
+                        {
+                            <Button
+                                label={'Next'}
+                                onPress={this.next}
+                                disabled={showingInput && !newTask || !showingInput && !active}
+                            />
+                        }
+                    </View>
                 </View>
             </StepModule>
         );

@@ -18,6 +18,8 @@ export const initialState = {
 };
 
 export default (state = initialState, action) => {
+    console.log(state);
+
     switch (action.type) {
         case FAMILY_LOADING:
             return {
@@ -64,10 +66,10 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 kids: state.kids.map(k => {
-                    if (k.name === action.kid.name) {
+                    if (k.name === action.data.name) {
                         return {
                             ...k,
-                            tasks: k.tasks.concat({task: action.kid.task, reward: action.kid.wollos}),
+                            tasks: k.tasks.concat({task: action.data.task, reward: action.data.wollos}),
                         };
                     }
                     return k;
