@@ -14,7 +14,10 @@ Array [
         Object {
           "width": 750,
         },
-        undefined,
+        Object {
+          "display": "flex",
+          "flex": 1,
+        },
       ]
     }
   >
@@ -272,6 +275,10 @@ Array [
               <View
                 style={
                   Array [
+                    Object {
+                      "display": "flex",
+                      "flex": 1,
+                    },
                     null,
                     null,
                   ]
@@ -378,6 +385,73 @@ Array [
                         >
                           $
                           0
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View
+                    style={
+                      Object {
+                        "paddingLeft": "6.25%",
+                        "paddingRight": "6.25%",
+                        "paddingTop": 40,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "alignSelf": "stretch",
+                        }
+                      }
+                    >
+                      <View
+                        accessible={true}
+                        isTVSelectable={true}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "rgb(255, 255, 255)",
+                            "borderColor": "rgb(255, 255, 255)",
+                            "borderRadius": 22.5,
+                            "borderWidth": 1,
+                            "marginBottom": 10,
+                            "maxWidth": 400,
+                            "opacity": 1,
+                            "width": "100%",
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {
+                                "alignSelf": "stretch",
+                                "color": "rgb(255, 255, 255)",
+                                "fontFamily": "Poppins",
+                                "fontSize": 14,
+                                "fontWeight": "bold",
+                                "height": 45,
+                                "paddingLeft": 20,
+                                "paddingRight": 20,
+                                "paddingTop": 12,
+                                "textAlign": "center",
+                              },
+                              Object {
+                                "color": "rgb(0, 50, 120)",
+                              },
+                              null,
+                              undefined,
+                            ]
+                          }
+                        >
+                          Add Tasks
                         </Text>
                       </View>
                     </View>

@@ -5,7 +5,8 @@ import {
     FAMILY_PARENT_NICKNAME,
     FAMILY_NUM_KIDS_TO_ADD,
     FAMILY_ADD_KID,
-    FAMILY_BALANCE_UPDATE
+    FAMILY_BALANCE_UPDATE,
+    FAMILY_ASSIGN_TASK
 } from '../actions';
 
 export const initialState = {
@@ -17,6 +18,7 @@ export const initialState = {
 };
 
 export default (state = initialState, action) => {
+
     switch (action.type) {
         case FAMILY_LOADING:
             return {
@@ -42,7 +44,7 @@ export default (state = initialState, action) => {
         case FAMILY_ADD_KID:
             return {
                 ...state,
-                kids: state.kids.concat(action.kid),
+                kids: state.kids.concat({...action.kid, tasks: []}),
                 numKidsToAdd: state.numKidsToAdd - 1,
                 numKidsAdded: state.numKidsAdded + 1,
             };
@@ -54,6 +56,19 @@ export default (state = initialState, action) => {
                         return {
                             ...k,
                             balance: action.balance
+                        };
+                    }
+                    return k;
+                }),
+            };
+        case FAMILY_ASSIGN_TASK:
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    if (k.name === action.data.name) {
+                        return {
+                            ...k,
+                            tasks: k.tasks.concat({task: action.data.task, reward: action.data.wollos}),
                         };
                     }
                     return k;
