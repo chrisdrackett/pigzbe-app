@@ -35,6 +35,7 @@ exports[`Escrow renders correctly 1`] = `
         "alignItems": "center",
         "backgroundColor": "rgb(0, 50, 120)",
         "justifyContent": "center",
+        "minHeight": 30,
       }
     }
   >

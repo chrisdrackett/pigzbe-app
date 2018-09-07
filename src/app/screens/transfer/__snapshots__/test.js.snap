@@ -36,6 +36,7 @@ Array [
           "alignItems": "center",
           "backgroundColor": "rgb(0, 50, 120)",
           "justifyContent": "center",
+          "minHeight": 30,
         }
       }
     >
