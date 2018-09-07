@@ -7,7 +7,11 @@ import Title from '../title';
 const StepHeader = ({title, icon, children}) => (
     <View style={styles.container}>
         {title && <Title>{title}</Title>}
-        {children && <View style={[styles.noImage, (icons[icon] && !title) ? styles.noTitle : null]}>{children}</View>}
+        {children && (
+            <View style={[styles.noImage, (icons[icon] && !title) ? styles.noTitle : null]}>
+                {children}
+            </View>
+        )}
         {(!icons[icon] && !children) && <View style={styles.image}/>}
         {icons[icon] && <Image style={styles.image} source={icons[icon]} />}
     </View>

@@ -1,0 +1,384 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationModal renders correctly 1`] = `
+<Modal
+  hardwareAccelerated={false}
+  onRequestClose={[Function]}
+  transparent={true}
+  visible={true}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(0, 50, 120, 0.8)",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": 4,
+          "display": "flex",
+          "marginLeft": 32,
+          "marginRight": 32,
+          "minWidth": 250,
+          "paddingBottom": 20,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "paddingTop": 43,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": -33,
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../src/app/components/notification-modal/images/success.png",
+            }
+          }
+          style={
+            Object {
+              "height": 67,
+              "width": 67,
+            }
+          }
+        />
+      </View>
+      <Text
+        style={
+          Object {
+            "color": "rgb(0, 50, 120)",
+            "fontFamily": "Poppins",
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginBottom": 10,
+          }
+        }
+      >
+        Success!
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "rgb(0, 50, 120)",
+            "fontFamily": "Poppins",
+            "textAlign": "center",
+          }
+        }
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "stretch",
+          }
+        }
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgb(21, 74, 150)",
+              "borderColor": "rgb(21, 74, 150)",
+              "borderRadius": 22.5,
+              "borderWidth": 1,
+              "marginBottom": 10,
+              "marginTop": 20,
+              "maxWidth": 400,
+              "opacity": 1,
+              "paddingLeft": 15,
+              "paddingRight": 15,
+              "width": "auto",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "height": 45,
+                  "paddingLeft": 20,
+                  "paddingRight": 20,
+                  "paddingTop": 12,
+                  "textAlign": "center",
+                },
+                undefined,
+                null,
+                undefined,
+              ]
+            }
+          >
+            Got it!
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;
+
+exports[`NotificationModal renders correctly with custom title and btn label 1`] = `
+<Modal
+  hardwareAccelerated={false}
+  onRequestClose={[Function]}
+  transparent={true}
+  visible={true}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(0, 50, 120, 0.8)",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": 4,
+          "display": "flex",
+          "marginLeft": 32,
+          "marginRight": 32,
+          "minWidth": 250,
+          "paddingBottom": 20,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "paddingTop": 43,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": -33,
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../src/app/components/notification-modal/images/error.png",
+            }
+          }
+          style={
+            Object {
+              "height": 67,
+              "width": 67,
+            }
+          }
+        />
+      </View>
+      <Text
+        style={
+          Object {
+            "color": "rgb(0, 50, 120)",
+            "fontFamily": "Poppins",
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginBottom": 10,
+          }
+        }
+      >
+        Chaos
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "rgb(0, 50, 120)",
+            "fontFamily": "Poppins",
+            "textAlign": "center",
+          }
+        }
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "stretch",
+          }
+        }
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgb(21, 74, 150)",
+              "borderColor": "rgb(21, 74, 150)",
+              "borderRadius": 22.5,
+              "borderWidth": 1,
+              "marginBottom": 10,
+              "marginTop": 20,
+              "maxWidth": 400,
+              "opacity": 1,
+              "paddingLeft": 15,
+              "paddingRight": 15,
+              "width": "auto",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "height": 45,
+                  "paddingLeft": 20,
+                  "paddingRight": 20,
+                  "paddingTop": 12,
+                  "textAlign": "center",
+                },
+                undefined,
+                null,
+                undefined,
+              ]
+            }
+          >
+            Accept
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;
+
+exports[`NotificationModal renders correctly with no button 1`] = `
+<Modal
+  hardwareAccelerated={false}
+  onRequestClose={[Function]}
+  transparent={true}
+  visible={true}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(0, 50, 120, 0.8)",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": 4,
+          "display": "flex",
+          "marginLeft": 32,
+          "marginRight": 32,
+          "minWidth": 250,
+          "paddingBottom": 20,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "paddingTop": 43,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": -33,
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../src/app/components/notification-modal/images/warning.png",
+            }
+          }
+          style={
+            Object {
+              "height": 67,
+              "width": 67,
+            }
+          }
+        />
+      </View>
+      <Text
+        style={
+          Object {
+            "color": "rgb(0, 50, 120)",
+            "fontFamily": "Poppins",
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginBottom": 10,
+          }
+        }
+      >
+        Warning!
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "rgb(0, 50, 120)",
+            "fontFamily": "Poppins",
+            "textAlign": "center",
+          }
+        }
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+      </Text>
+    </View>
+  </View>
+</Modal>
+`;

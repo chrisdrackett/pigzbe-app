@@ -14,7 +14,10 @@ Array [
         Object {
           "width": 750,
         },
-        undefined,
+        Object {
+          "display": "flex",
+          "flex": 1,
+        },
       ]
     }
   >
@@ -36,6 +39,7 @@ Array [
           "alignItems": "center",
           "backgroundColor": "rgb(0, 50, 120)",
           "justifyContent": "center",
+          "minHeight": 30,
         }
       }
     >
@@ -144,6 +148,10 @@ Array [
           <View
             style={
               Array [
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                },
                 null,
                 Object {
                   "paddingTop": 30,

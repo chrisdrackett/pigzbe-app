@@ -16,11 +16,13 @@ export default StyleSheet.create({
     },
     noImage: {
         // backgroundColor: color.red
-        height: 78,
+        // height: 78,
+        minHeight: 78,
     },
     noTitle: {
         // backgroundColor: color.red
-        height: 32,
+        // height: 32,
+        minHeight: 32,
     },
     picker: {
         backgroundColor: color.white

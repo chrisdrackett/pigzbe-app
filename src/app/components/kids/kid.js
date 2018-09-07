@@ -31,9 +31,7 @@ export default class Kids extends Component {
         }
     }
 
-    gotoKid = () => {
-        console.log('go to kid', this.props.address);
-    }
+    onDashboard = () => this.props.onDashboard(this.props.address)
 
     onSliderChange = value => this.setState({
         value,
@@ -47,7 +45,7 @@ export default class Kids extends Component {
 
         return (
             <View style={styles.kid}>
-                <TouchableOpacity style={styles.id} onPress={this.gotoKid}>
+                <TouchableOpacity style={styles.id} onPress={this.onDashboard}>
                     <KidAvatar photo={photo}/>
                     <Text style={styles.name}>{name}</Text>
                     <View style={styles.balance}>

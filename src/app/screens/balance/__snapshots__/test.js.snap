@@ -14,7 +14,10 @@ Array [
         Object {
           "width": 750,
         },
-        undefined,
+        Object {
+          "display": "flex",
+          "flex": 1,
+        },
       ]
     }
   >
@@ -36,6 +39,7 @@ Array [
           "alignItems": "center",
           "backgroundColor": "rgb(0, 50, 120)",
           "justifyContent": "center",
+          "minHeight": 30,
         }
       }
     >
@@ -106,10 +110,10 @@ Array [
         style={
           Array [
             Object {
-              "height": 78,
+              "minHeight": 78,
             },
             Object {
-              "height": 32,
+              "minHeight": 32,
             },
           ]
         }
@@ -271,6 +275,10 @@ Array [
               <View
                 style={
                   Array [
+                    Object {
+                      "display": "flex",
+                      "flex": 1,
+                    },
                     null,
                     null,
                   ]
@@ -380,82 +388,6 @@ Array [
                         </Text>
                       </View>
                     </View>
-                    <View
-                      style={
-                        Object {
-                          "alignSelf": "stretch",
-                          "flex": 1,
-                          "flexDirection": "row",
-                          "marginTop": 20,
-                          "paddingLeft": 30,
-                          "paddingRight": 30,
-                        }
-                      }
-                    >
-                      <View
-                        style={
-                          Object {
-                            "alignItems": "center",
-                            "flex": 1,
-                            "flexDirection": "row",
-                            "width": "50%",
-                          }
-                        }
-                      >
-                        <Image
-                          source={
-                            Object {
-                              "testUri": "../../../src/app/components/coin-icon/images/coin-xlm.png",
-                            }
-                          }
-                          style={
-                            Array [
-                              Object {
-                                "height": 40,
-                                "width": 40,
-                              },
-                              Object {
-                                "marginRight": 10,
-                              },
-                            ]
-                          }
-                        />
-                        <View>
-                          <Text
-                            style={
-                              Object {
-                                "color": "rgb(255, 255, 255)",
-                                "fontFamily": "Poppins",
-                                "fontWeight": "bold",
-                              }
-                            }
-                          >
-                            XLM
-                          </Text>
-                          <Text
-                            style={
-                              Object {
-                                "color": "rgba(255, 255, 255, 0.6)",
-                                "fontFamily": "Poppins",
-                                "fontWeight": "bold",
-                              }
-                            }
-                          >
-                            NaN
-                          </Text>
-                        </View>
-                      </View>
-                      <View
-                        style={
-                          Object {
-                            "alignItems": "center",
-                            "flex": 1,
-                            "flexDirection": "row",
-                            "justifyContent": "flex-end",
-                          }
-                        }
-                      />
-                    </View>
                   </View>
                   <View
                     style={
@@ -527,8 +459,8 @@ Array [
                   <View
                     style={
                       Object {
-                        "paddingBottom": 20,
-                        "paddingTop": 25,
+                        "marginBottom": 20,
+                        "marginTop": 25,
                       }
                     }
                   >

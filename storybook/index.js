@@ -40,8 +40,10 @@ function loadStories() {
     require('./stories/wollo.js');
     require('./stories/wollo-input.js');
     require('./stories/currency-toggle.js');
+    require('./stories/child-dash.js');
     require('./stories/searchable-list.js');
     require('./stories/action-sheet.js');
+    require('./stories/notification-modal.js');
 }
 
 configure(loadStories, module);
