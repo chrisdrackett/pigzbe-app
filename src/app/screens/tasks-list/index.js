@@ -74,14 +74,6 @@ export class TasksList extends Component {
 
     cancelInput = () => this.setState({showingInput: false, newTask: null});
 
-    // saveTask = async () => {
-    //     await this.props.dispatch(tasksAddTask(this.state.newTask));
-    //     this.setState({
-    //         newTask: null,
-    //         showingInput: false,
-    //     });
-    // }
-
     next = async () => {
         const {showingInput, newTask, active} = this.state;
 
@@ -89,15 +81,12 @@ export class TasksList extends Component {
             await this.props.dispatch(tasksAddTask(this.state.newTask));
         }
 
-        console.log('TASKLIST _ NEXT: ', this.state);
         this.props.navigation.navigate(SCREEN_TASKS_ASSIGN, {kid: this.props.kid, task: newTask ? newTask : active});
     }
 
     render() {
         const {showingInput, active, newTask} = this.state;
         const {loading} = this.props;
-
-        console.log('taskslist', this.props);
 
         return (
             <StepModule

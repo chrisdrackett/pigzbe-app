@@ -65,7 +65,7 @@ export const familyAddKid = (name, dob, photo) => async dispatch => {
 };
 
 export const assignTask = () => async (dispatch, getState) => {
-    console.log('>>> family action: assignTask()', dispatch, getState);
+    console.log('family action: assignTask()', dispatch, getState);
     try {
         // const data = getState().tasks;
         // await
@@ -76,7 +76,6 @@ export const assignTask = () => async (dispatch, getState) => {
 };
 
 export const familyAssignTask = (name, task, wollos) => async dispatch => {
-    console.log('FAMILY_ASSIGN_TASK', name, task, wollos);
     dispatch(familyLoading(true));
 
     await dispatch(({type: FAMILY_ASSIGN_TASK, data: {name, task, wollos}}));
@@ -96,10 +95,8 @@ export const familyTransfer = (address, amount) => async (dispatch, getState) =>
 };
 
 export const loadFamilyBalances = address => async (dispatch, getState) => {
-    console.log('loadFamilyBalances', address);
     try {
         const kids = getState().family.kids.filter(k => !address || k.address === address);
-        console.log(' --> loading ', kids.length, 'balances');
         for (const kid of kids) {
             const balance = await dispatch(getAccountBalance(kid.address));
             console.log(kid.name, 'balance', balance);

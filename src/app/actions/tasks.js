@@ -26,7 +26,7 @@ export const saveTask = () => async (dispatch, getState) => {
 };
 
 export const tasksAddTask = (task) => async dispatch => {
-    // dispatch(tasksLoading(true));
+    dispatch(tasksLoading(true));
 
     dispatch(({type: TASKS_ADD_TASK, task: task}));
     await dispatch(saveTask());
