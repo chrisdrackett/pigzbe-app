@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {NativeModules, View, Text} from 'react-native';
 import Button from '../button';
-// import styles from './styles';
 import bip39 from 'bip39';
+import {derivePath} from './ed25519-hd-key';
+import {Keypair} from '@pigzbe/stellar-utils';
+// import nacl from 'tweetnacl';
+// console.log('nacl', nacl);
+// console.log('Keypair', Keypair);
 
 const ENTROPY_BITS = 128; // 12 words
 
-import {NativeModules} from 'react-native';
 const {RNRandomBytes} = NativeModules;
-
-
-// const language =
-// const wordlist = bip39.wordlists[language]
-// return bip39.generateMnemonic(entropyBits, rngFn, wordlist
 
 const randomBytesAsync = length => {
     return new Promise((resolve, reject) => {
@@ -31,7 +29,8 @@ export default class HDWallet extends Component {
         langs: '',
         mnemonic: '',
         publicKey: '',
-        secretKey: ''
+        secretKey: '',
+        seedHex: 0
     }
 
     static defaultProps = {
@@ -51,13 +50,24 @@ export default class HDWallet extends Component {
 
         const wordlist = bip39.wordlists.english;
         const mnemonic = bip39.generateMnemonic(ENTROPY_BITS, () => rndBytes, wordlist);
-
+        const seedHex = bip39.mnemonicToSeedHex(mnemonic);
         // console.log('mnemonic =', mnemonic);
+        console.log('seedHex =', seedHex);
 
-        this.setState({mnemonic});
+        this.setState({mnemonic, seedHex});
     }
 
     generateKeys = async () => {
+        const {seedHex} = this.state;
+        const index = 0;
+        const data = derivePath(`m/44'/148'/${index}'`, seedHex);
+        // return data.key
+        console.log('data.key', data.key);
+        const keypair = Keypair.fromRawEd25519Seed(data.key);
+        this.setState({
+            publicKey: keypair.publicKey(),
+            secretKey: keypair.secret(),
+        });
     }
 
     render() {
@@ -68,9 +78,12 @@ export default class HDWallet extends Component {
                 <Text>{this.state.langs}</Text>
                 <Text style={{fontWeight: 'bold', marginTop: 20}}>mnemonic</Text>
                 <Text>{this.state.mnemonic}</Text>
+                <Text style={{fontWeight: 'bold', marginTop: 20}}>seedHex</Text>
+                <Text>{this.state.seedHex}</Text>
                 <Button label="Generate Mnemonic" onPress={this.generateMnemonic}/>
-                <Text style={{fontWeight: 'bold', marginTop: 20}}>keys</Text>
+                <Text style={{fontWeight: 'bold', marginTop: 20}}>public key</Text>
                 <Text>{this.state.publicKey}</Text>
+                <Text style={{fontWeight: 'bold', marginTop: 20}}>secret key</Text>
                 <Text>{this.state.secretKey}</Text>
                 <Button label="Generate Keys" onPress={this.generateKeys}/>
             </View>
