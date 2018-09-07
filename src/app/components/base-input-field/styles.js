@@ -6,14 +6,16 @@ import {
 } from '../../styles';
 
 export default StyleSheet.create({
+    container: {
+        marginBottom: 10,
+    },
     input: {
         alignSelf: 'stretch',
         borderColor: color.lighterBlue,
         borderWidth: 1,
         borderRadius: 22.5,
-        marginBottom: 10,
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: 22,
+        paddingRight: 22,
     },
     label: {
         fontFamily,
@@ -25,11 +27,11 @@ export default StyleSheet.create({
         marginLeft: 2,
     },
     error: {
-        borderColor: color.red
+        borderColor: color.errorRed
     },
     placeholder: {
         position: 'absolute',
-        left: 20,
+        left: 22,
         fontFamily,
         color: color.blue,
         fontWeight: 'bold',
@@ -38,4 +40,11 @@ export default StyleSheet.create({
     placeholderTop: {
         fontSize: 10,
     },
+    errorText: {
+        fontFamily,
+        color: color.errorRed,
+        fontSize: 9,
+        paddingLeft: 23,
+        marginTop: 5,
+    }
 });

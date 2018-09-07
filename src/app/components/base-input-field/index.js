@@ -4,33 +4,7 @@ import styles from './styles';
 import {color} from '../../styles';
 import isAndroid from '../../utils/is-android';
 
-const padding = isAndroid ? 11 : 0;
-const paddingMulti = isAndroid ? 11 : 8;
-
-const getHeight = (numberOfLines, margin = 0) => 24 + (21 * numberOfLines) + margin;
-
-const defaultHeight = 60;
-
-const getStyle = (error, height, borderRadius, style) => {
-    let s = [styles.input, {
-        //borderRadius: numberOfLines > 1 ? 5 : (height / 2),
-        //paddingTop: numberOfLines > 1 ? paddingMulti : padding,
-
-        //height: getHeight(numberOfLines),
-        height: height ? height : defaultHeight, //getHeight(numberOfLines, 10),
-        borderRadius: borderRadius ? borderRadius : (defaultHeight / 2),
-    }];
-
-    if (error) {
-        s = s.concat(styles.error);
-    }
-
-    if (style) {
-        s = s.concat(style);
-    }
-
-    return s;
-};
+const defaultHeight = 50;
 
 export default class TextInputComponent extends Component {
     componentWillMount() {
@@ -52,21 +26,34 @@ export default class TextInputComponent extends Component {
             borderRadius,
             style,
             placeholderTop = false,
+            hideTopPlaceholder = false,
         } = this.props;
 
+
+        let inputStyles = [styles.input, {
+            height: height ? height : defaultHeight,
+            borderRadius: borderRadius ? borderRadius : (defaultHeight / 2),
+        }];
+        if (error) {
+            inputStyles = inputStyles.concat(styles.error);
+        }
+        if (style) {
+            inputStyles = inputStyles.concat(style);
+        }
+
         return (
-            <Fragment>
+            <View style={styles.container}>
                 {label && (
                     <Text style={styles.label}>
                         {label}
                     </Text>
                 )}
-                <View style={getStyle(error, height, borderRadius, style)}>
-                    {placeholder &&
+                <View style={inputStyles}>
+                    {placeholder && (!placeholderTop || !hideTopPlaceholder) &&
                         <Animated.Text style={[styles.placeholder, {
                             top: this._animatedIsFocused.interpolate({
                                 inputRange: [0, 1],
-                                outputRange: [18, 10],
+                                outputRange: [(defaultHeight/2) - 11, (defaultHeight/2) - 18],
                             }),
                             fontSize: this._animatedIsFocused.interpolate({
                                 inputRange: [0, 1],
@@ -82,8 +69,13 @@ export default class TextInputComponent extends Component {
                     }
                     {children}
                 </View>
+                {typeof error  === "string" &&
+                    <Text style={styles.errorText}>
+                        {error}
+                    </Text>
+                }
                 
-            </Fragment>
+            </View>
         );
     }
 }

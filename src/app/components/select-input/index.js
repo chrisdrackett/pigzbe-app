@@ -2,25 +2,10 @@ import React, {Component, Fragment} from 'react';
 import {Text, View, Image, Picker, TouchableOpacity, Modal} from 'react-native';
 import styles from './styles';
 import isAndroid from '../../utils/is-android';
+import BaseInputField from '../base-input-field';
 
 const padding = isAndroid ? 11 : 0;
 
-const getStyle = (error, style) => {
-
-    let s = [styles.input, {
-        paddingTop: padding,
-    }];
-
-    if (error) {
-        s = s.concat(styles.error);
-    }
-
-    if (style) {
-        s = s.concat(style);
-    }
-
-    return s;
-};
 
 export default class SelectInputComponent extends Component {
 
@@ -48,21 +33,21 @@ export default class SelectInputComponent extends Component {
         } = this.props;
 
         return (
-            <Fragment>
-                {label && (
-                    <Text style={styles.label}>
-                        {label}
-                    </Text>
-                )}
+            <BaseInputField 
+                label={label}
+                error={error}
+                placeholder={placeholder}
+                placeholderTop={!!value}
+            >
                 <TouchableOpacity
-                    style={getStyle(error, style)}
+                    style={styles.input}
                     onPress={this.onOpen}
                 >
                     {!!value &&
                         <Text style={styles.text}>{value}</Text>
                     }
                     {!value &&
-                        <Text style={styles.placeholder}>{placeholder}</Text>
+                        <Text></Text>
                     }
                     <Image style={styles.arrow} source={require('./images/down-arrow.png')} />
                 </TouchableOpacity>
@@ -92,7 +77,7 @@ export default class SelectInputComponent extends Component {
                         </View>
                     </Modal>
                 }
-            </Fragment>
+            </BaseInputField>
         );
     }
 }

@@ -9,7 +9,6 @@ export default StyleSheet.create({
     input: {
         flex: 1,
         fontFamily,
-        //alignSelf: 'stretch',
         color: color.blue,
         fontSize: 14,
         fontWeight: 'bold',

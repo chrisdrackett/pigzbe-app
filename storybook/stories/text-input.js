@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import {View} from 'react-native';
 import {storiesOf} from '@storybook/react-native';
 import TextInput from '../../src/app/components/text-input';
+import SelectInput from '../../src/app/components/select-input';
 
 const style = {
     flex: 1,
@@ -17,52 +18,37 @@ class StatefulTextInput extends React.Component {
             value: props.value || '',
         }
     }
+    static defaultProps = {
+        type: 'text',
+    }
     render() {
         const {
             value,
-            onChangeText,
+            type,
             ...otherProps
         } = this.props;
+
+        if (type === 'select') {
+            return (
+                <SelectInput
+                    {...otherProps}
+                    value={this.state.value}
+                    onChangeSelection={value => this.setState({value})}
+                    options={['', 'Mr', 'Mrs', 'Miss', 'Ms', 'Sir', 'Dr']}
+                />
+            );
+        }
         return (
             <TextInput
                 {...otherProps}
                 value={this.state.value}
                 onChangeText={value => this.setState({value})}
             />
-        )
+        );
     }
 }
 
 storiesOf('TextInput')
-    .add('multi test', () => (
-        <View style={style}>
-            <StatefulTextInput
-                error={false}
-                placeholder={'first name'}
-            />
-            <StatefulTextInput
-                error={false}
-                placeholder={'last name'}
-                value="Soloman"
-            />
-            <StatefulTextInput
-                error={false}
-                value={''}
-                placeholder={'secret key'}
-                onChangeText={() => {}}
-                numberOfLines={3}
-                returnKeyType="done"
-            />
-            <StatefulTextInput
-                error={false}
-                value={'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris.'}
-                placeholder={'secret key'}
-                onChangeText={() => {}}
-                numberOfLines={4}
-                returnKeyType="done"
-            />
-        </View>
-    ))
     .add('default', () => (
         <View style={style}>
             <StatefulTextInput
@@ -149,6 +135,64 @@ storiesOf('TextInput')
                 onChangeText={() => {}}
                 numberOfLines={4}
                 returnKeyType="done"
+            />
+        </View>
+    ))
+    .add('lots of fields', () => (
+        <View style={style}>
+            <StatefulTextInput
+                error={false}
+                placeholder={'First name gg'}
+            />
+            <StatefulTextInput
+                error={false}
+                placeholder={'Last name'}
+                value="Soloman"
+            />
+            <StatefulTextInput
+                error={false}
+                placeholder={'Title'}
+                type='select'
+            />
+            <StatefulTextInput
+                error={false}
+                placeholder={'Last name'}
+                value="Soloman"
+                error="We have an error..."
+            />
+            <StatefulTextInput
+                error={false}
+                value={''}
+                placeholder={'Secret key'}
+                onChangeText={() => {}}
+                numberOfLines={2}
+                returnKeyType="done"
+            />
+            <StatefulTextInput
+                error={false}
+                value={'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris. is facilisis fermentum is facilisis fermentum test test'}
+                placeholder={'Secret key'}
+                onChangeText={() => {}}
+                numberOfLines={4}
+                returnKeyType="done"
+            />
+            <StatefulTextInput
+                error={false}
+                value={''}
+                placeholder={'Secret key'}
+                onChangeText={() => {}}
+                numberOfLines={2}
+                returnKeyType="done"
+                showMultiLineTopPlaceholder
+            />
+            <StatefulTextInput
+                error={false}
+                value={'Donec nec justo eget felis facilisis fermentum. '}
+                placeholder={'Secret key'}
+                onChangeText={() => {}}
+                numberOfLines={3}
+                returnKeyType="done"
+                showMultiLineTopPlaceholder
             />
         </View>
     ));
