@@ -11,7 +11,6 @@ export const initialState = {
 };
 
 export default (state = initialState, action) => {
-
     switch (action.type) {
         case TASKS_LOADING:
             return {
@@ -19,10 +18,10 @@ export default (state = initialState, action) => {
                 loading: action.value
             };
         case TASKS_LOAD:
-            return Object.keys(initialState).reduce((ob, key) => {
-                ob[key] = valueOrDefault(action[key], state[key]);
-                return ob;
-            }, {});
+            return {
+                ...state,
+                tasks: action.value
+            };
         case TASKS_ADD_TASK:
             return {
                 ...state,

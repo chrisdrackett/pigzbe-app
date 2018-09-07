@@ -45,7 +45,6 @@ export class TasksAssign extends Component {
 
     onChangeAmount = wollos => {
         this.setState({wollos});
-        console.log('wollos changed', wollos);
     }
 
     next = async () => {
