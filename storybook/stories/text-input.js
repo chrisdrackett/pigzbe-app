@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {storiesOf} from '@storybook/react-native';
 import TextInput from '../../src/app/components/text-input';
 import SelectInput from '../../src/app/components/select-input';
+import DateInput from '../../src/app/components/date-input';
 
 const style = {
     flex: 1,
@@ -35,6 +36,15 @@ class StatefulTextInput extends React.Component {
                     value={this.state.value}
                     onChangeSelection={value => this.setState({value})}
                     options={['', 'Mr', 'Mrs', 'Miss', 'Ms', 'Sir', 'Dr']}
+                />
+            );
+        }
+        if (type === 'date') {
+            return (
+                <DateInput
+                    {...otherProps}
+                    value={this.state.value}
+                    onChangeSelection={value => this.setState({value})}
                 />
             );
         }
@@ -159,6 +169,11 @@ storiesOf('TextInput')
                 placeholder={'Last name'}
                 value="Soloman"
                 error="We have an error..."
+            />
+            <StatefulTextInput
+                error={false}
+                placeholder={'Date of birth'}
+                type='date'
             />
             <StatefulTextInput
                 error={false}
