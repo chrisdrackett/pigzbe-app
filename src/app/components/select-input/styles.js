@@ -6,42 +6,18 @@ import {
 } from '../../styles';
 
 export default StyleSheet.create({
-    input: {
-        borderColor: color.lighterBlue,
-        borderWidth: 1,
-        borderRadius: 22.5,
-        marginBottom: 10,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 12,
+    input: {  
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        height: 45,
-    },
-    label: {
-        fontFamily,
-        color: color.blue,
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginTop: 10,
-        marginBottom: 10,
-        marginLeft: 2,
-    },
-    error: {
-        borderColor: color.red
+        flex: 1,
     },
     text: {
         fontFamily,
         color: color.blue,
         fontSize: 14,
         fontWeight: 'bold',
-    },
-    placeholder: {
-        fontFamily,
-        color: color.lighterBlue,
-        fontSize: 14,
-        fontWeight: 'bold',
+        paddingTop: 12,
     },
     arrow: {
         width: 11,
