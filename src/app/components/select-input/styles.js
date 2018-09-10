@@ -47,6 +47,9 @@ export default StyleSheet.create({
         width: 11,
         height: 7,
     },
+    arrowSearchable: {
+        transform: [{ rotate: '-90deg' }],
+    },
     picker: {
         flex: 1,
     },

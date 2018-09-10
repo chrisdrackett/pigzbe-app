@@ -21,7 +21,7 @@ class SelectInputTest extends Component {
     onFull = input => this.setState({input})
 
     render() {
-        const {error} = this.props;
+        const {error, searchable} = this.props;
         return (
             <View style={style}>
                 <SelectInput
@@ -30,6 +30,7 @@ class SelectInputTest extends Component {
                     placeholder={'Title'}
                     onChangeSelection={value => this.setState({value})}
                     options={['Mr', 'Mrs', 'Miss', 'Ms', 'Sir', 'Dr']}
+                    searchable={searchable}
                 />
             </View>
         );
@@ -38,4 +39,5 @@ class SelectInputTest extends Component {
 
 storiesOf('SelectInput')
     .add('default', () => <SelectInputTest />)
-    .add('error', () => <SelectInputTest error />);
+    .add('error', () => <SelectInputTest error />)
+    .add('searchable', () => <SelectInputTest searchable />);
