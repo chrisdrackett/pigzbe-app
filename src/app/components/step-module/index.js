@@ -62,7 +62,7 @@ export default class StepModule extends Component {
                               )}
                           </View>
                       )}
-                      <View style={[pad ? styles.pad : null, paddingTop ? {paddingTop} : null]}>
+                      <View style={[{flexGrow: 1}, pad ? styles.pad : null, paddingTop ? {paddingTop} : null]}>
                           {children}
                       </View>
                       <Loader

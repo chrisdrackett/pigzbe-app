@@ -1,4 +1,6 @@
-
+/*
+ * Adapted for React Native compatibility from https://github.com/alepop/ed25519-hd-key
+ */
 // Object.defineProperty(exports, '__esModule', {value: true});
 const createHmac = require('create-hmac');
 // const naclFactory = require("js-nacl");
