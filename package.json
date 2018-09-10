@@ -36,7 +36,8 @@
     "launch:electron": "electron './desktop/main.js'",
     "build:webpack": "webpack -p --config './desktop/webpack.config.js'",
     "postversion": "react-native-version",
-    "storybook": "storybook start -p 7007"
+    "storybook": "storybook start -p 7007",
+    "video": "xcrun simctl io booted recordVideo appvideo.mov"
   },
   "dependencies": {
     "@pigzbe/stellar-utils": "1.1.0",

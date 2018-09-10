@@ -64,3 +64,4 @@ buck-out/
 .env.json
 .env
 /src/app/constants/erc20-contract.json
+appvideo.mov
