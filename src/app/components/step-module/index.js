@@ -42,7 +42,9 @@ export default class StepModule extends Component {
           <Container style={styles.wrapper} scroll={false}>
               <View style={styles.bg}/>
               <Header onBack={onBack} onSettings={onSettings} hideLogo={hideLogo} />
-              <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader>
+              {!!title &&
+                <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader>
+              }
               <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}} offset={keyboardOffset}>
                   <Container
                       scroll={scroll}

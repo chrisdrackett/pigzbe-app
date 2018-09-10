@@ -21,16 +21,29 @@ export default class SelectInputComponent extends Component {
         this.setState({open: false});
     }
 
+    getOptions() {
+        const {options} = this.props;
+        if (Array.isArray(options)) {
+            return options.reduce((obj, option) => {
+                obj[option] = option;
+                return obj;
+            }, {});
+        }
+        return options;
+    }
+
     render() {
         const {
             placeholder,
-            options,
             onChangeSelection,
             error = false,
             value = '',
             label,
             style,
+            searchable,
         } = this.props;
+
+        const options = this.getOptions();
 
         return (
             <BaseInputField 
@@ -44,15 +57,15 @@ export default class SelectInputComponent extends Component {
                     onPress={this.onOpen}
                 >
                     {!!value &&
-                        <Text style={styles.text}>{value}</Text>
+                        <Text style={styles.text}>{options[value]}</Text>
                     }
                     {!value &&
                         <Text></Text>
                     }
-                    <Image style={styles.arrow} source={require('./images/down-arrow.png')} />
+                    <Image style={[styles.arrow, searchable ? styles.arrowSearchable : null]} source={require('./images/down-arrow.png')} />
                 </TouchableOpacity>
 
-                {this.state.open &&
+                {!searchable &&
                     <Modal
                         animationType="slide"
                         transparent={true}
@@ -69,8 +82,8 @@ export default class SelectInputComponent extends Component {
                                     selectedValue={value}
                                     onValueChange={(itemValue) => onChangeSelection(itemValue)}
                                     itemStyle={styles.pickerItem}>
-                                    {options.map(option =>
-                                        <Picker.Item key={option} label={option} value={option} />
+                                    {Object.keys(options).map(key =>
+                                        <Picker.Item key={key} label={options[key]} value={key} />
                                     )}
                                 </Picker>
                             </View>

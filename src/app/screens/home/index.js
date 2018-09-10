@@ -9,7 +9,7 @@ import Pig from '../../components/pig';
 import {strings} from '../../constants';
 import DevPanel from '../dev-panel';
 import Container from '../../components/container';
-import {SCREEN_LOGIN, SCREEN_DEVICE_AUTH, SCREEN_KID_LOGIN, SCREEN_KID_SET_LOGIN} from '../../constants';
+import {SCREEN_LOGIN, SCREEN_DEVICE_AUTH, SCREEN_KID_LOGIN, SCREEN_KID_SET_LOGIN, SCREEN_CLAIM_VIP} from '../../constants';
 import HomeLogo from '../../components/home-logo';
 import KidAvatar from '../../components/kid-avatar';
 
@@ -65,7 +65,7 @@ export const HomeView = ({showKidLogin, kids, onCreate, onLogin, onKidLogin, onO
                 <Container style={styles.containerBody} scroll={false}>
                     <View style={styles.containerText}>
                         <Text style={styles.title}>Welcome to Pigzbe</Text>
-                        <Text style={styles.subtitle}>New to Pizbe? Create an account below.</Text>
+                        <Text style={styles.subtitle}>New to Pigzbe? Create an account below.</Text>
                     </View>
                     <View>
                         <Button label="Let's get started" theme="light" onPress={onCreate} />
@@ -89,6 +89,8 @@ class Home extends Component {
     onLogin = () => this.props.navigation.navigate(SCREEN_LOGIN)
 
     onCreate = async () => {
+        
+        //this.props.navigation.navigate(SCREEN_CLAIM_VIP);
         await this.props.dispatch(loadContent());
         this.props.navigation.navigate(SCREEN_DEVICE_AUTH);
     }

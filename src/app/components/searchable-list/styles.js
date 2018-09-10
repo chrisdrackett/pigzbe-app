@@ -8,6 +8,7 @@ import {
 export default StyleSheet.create({
     container: {
         backgroundColor: color.white,
+        borderRadius: 10,
     },
     search: {
         height: 75,
