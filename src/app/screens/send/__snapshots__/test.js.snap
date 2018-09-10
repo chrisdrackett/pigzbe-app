@@ -13,7 +13,10 @@ exports[`Send renders correctly 1`] = `
       Object {
         "width": 750,
       },
-      undefined,
+      Object {
+        "display": "flex",
+        "flex": 1,
+      },
     ]
   }
 >
@@ -159,6 +162,10 @@ exports[`Send renders correctly 1`] = `
             <View
               style={
                 Array [
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                  },
                   Object {
                     "paddingBottom": 12,
                     "paddingLeft": "6.25%",

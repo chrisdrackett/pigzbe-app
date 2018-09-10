@@ -14,7 +14,10 @@ Array [
         Object {
           "width": 750,
         },
-        undefined,
+        Object {
+          "display": "flex",
+          "flex": 1,
+        },
       ]
     }
   >
@@ -145,6 +148,10 @@ Array [
           <View
             style={
               Array [
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                },
                 null,
                 Object {
                   "paddingTop": 30,

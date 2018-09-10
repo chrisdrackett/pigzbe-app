@@ -10,4 +10,5 @@ export * from './device-auth';
 export * from './settings';
 export * from './exchange';
 export * from './family';
+export * from './tasks';
 export * from './vip';

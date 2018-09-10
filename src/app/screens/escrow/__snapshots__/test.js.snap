@@ -13,7 +13,10 @@ exports[`Escrow renders correctly 1`] = `
       Object {
         "width": 750,
       },
-      undefined,
+      Object {
+        "display": "flex",
+        "flex": 1,
+      },
     ]
   }
 >
@@ -176,6 +179,10 @@ exports[`Escrow renders correctly 1`] = `
         <View
           style={
             Array [
+              Object {
+                "display": "flex",
+                "flex": 1,
+              },
               null,
               null,
             ]
