@@ -44,6 +44,7 @@ function loadStories() {
     require('./stories/searchable-list.js');
     require('./stories/action-sheet.js');
     require('./stories/notification-modal.js');
+    require('./stories/allowance.js');
 }
 
 configure(loadStories, module);
