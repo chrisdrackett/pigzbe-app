@@ -42,7 +42,6 @@ export default class StepModule extends Component {
       return (
           <Container style={styles.wrapper} scroll={false}>
               <View style={styles.bg}/>
-
               <Header onBack={onBack} onSettings={onSettings} hideLogo={hideLogo} customTitle={customTitle} />
               {
                   title || icon ? <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader> : null

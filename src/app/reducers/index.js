@@ -12,6 +12,7 @@ import deviceAuth from './device-auth';
 import settings from './settings';
 import family from './family';
 import tasks from './tasks';
+import vip from './vip';
 
 import user from './claim/user';
 import events from './claim/events';
@@ -33,6 +34,7 @@ export default combineReducers({
     settings,
     family,
     tasks,
+    vip,
     // claim reducers
     user,
     events,
