@@ -1,52 +1,130 @@
-import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import React, {Component, Fragment} from 'react';
+import {View} from 'react-native';
 import {connect} from 'react-redux';
-import {createKeys} from '../../actions';
+import {setKeys, saveKeys} from '../../actions';
 import Button from '../../components/button';
-// import {strings} from '../../constants';
-import {SCREEN_SAVE_KEYS, SCREEN_IMPORT_KEYS} from '../../constants';
 import StepModule from '../../components/step-module';
-import TextInput from '../../components/text-input';
 import styles from './styles';
+import {generateMnemonic, generateKeys} from '../../utils/hd-wallet';
+import NotificationModal from '../../components/notification-modal';
+import Mnemonic from '../../components/mnemonic';
+import sortRandom from 'usfl/array/sort-random';
 
 export class KeysMnemonic extends Component {
-    onCreate = async () => {
-        await this.props.dispatch(createKeys());
-        this.props.navigation.navigate(SCREEN_SAVE_KEYS);
+    state = {
+        mnemonic: '',
+        words: [],
+        mnemonicConfirm: [],
+        publicKey: '',
+        secretKey: '',
+        seedHex: 0,
+        warningOpen: this.props.warningOpen,
+        confirm: this.props.confirm,
+        loading: this.props.loading,
     }
 
-    onImport = () => this.props.navigation.navigate(SCREEN_IMPORT_KEYS)
+    static defaultProps = {
+        warningOpen: false,
+        confirm: false,
+        loading: true,
+    }
+
+    async componentWillMount() {
+        await this.generateMnemonic();
+        this.generateKeys();
+        this.setState({loading: false});
+    }
+
+    onConfirm = () => this.setState({warningOpen: true})
+
+    dismissWarning = () => this.setState({
+        warningOpen: false,
+        confirm: true,
+        words: this.state.mnemonic.split(' ').sort(sortRandom)
+    })
+
+    onDone = async () => {
+        this.setState({loading: true});
+        await this.props.dispatch(saveKeys());
+    }
+
+    onBack = () => this.setState({mnemonicConfirm: [], confirm: false})
+
+    generateMnemonic = async () => {
+        const {mnemonic, seedHex} = await generateMnemonic();
+        console.log('mnemonic =', mnemonic);
+        console.log('seedHex =', seedHex);
+
+        this.setState({mnemonic, seedHex});
+    }
+
+    generateKeys = async () => {
+        const {seedHex} = this.state;
+        const keypair = generateKeys(seedHex);
+        console.log('keypair', keypair);
+        // this.setState({
+        //     publicKey: keypair.publicKey(),
+        //     secretKey: keypair.secret(),
+        // });
+        await this.props.dispatch(setKeys(keypair, false));
+    }
+
+    updateMnemonicConfirm = word => {
+        if (this.state.mnemonicConfirm.includes(word)) {
+            return this.state.mnemonicConfirm.filter(w => w !== word);
+        }
+        return this.state.mnemonicConfirm.concat(word);
+    }
+
+    onSelectWord = word => this.setState({
+        mnemonicConfirm: this.updateMnemonicConfirm(word)
+    })
 
     render() {
-        const words = ['test', 'child', 'brisk'];
         return (
-            <StepModule
-                title="Your Private Key"
-                icon="secure"
-                content="Below is your 12 word Pigzbe wallet, Private Key. *Please write this down* and keep it in a safe place."
-                pad
-            >
-                <View style={{flexGrow: 1, justifyContent: 'space-between'}}>
-                    <TextInput
-                        numberOfLines={3}
-                        error={false}
-                        value={'Lorem ipsum dolor'}
-                        placeholder={''}
-                        onChangeText={() => {}}
-                    />
-                    <View style={styles.wordHolder}>
-                        {words.map(word => (
-                            <View style={[styles.word]}>
-                                <Text style={styles.wordText}>{word}</Text>
-                            </View>
-                        ))}
+            <Fragment>
+                <StepModule
+                    title="Your Private Key"
+                    icon="secure"
+                    pad
+                    onBack={this.state.confirm ? this.onBack : null}
+                    loading={this.state.loading}
+                    content={this.state.confirm ?
+                        'Please now *select the words in the correct order* to confirm you have correctly saved them'
+                        :
+                        'Below is your 12 word Pigzbe wallet, Private Key. *Please write this down* and keep it in a safe place.'
+                    }
+                >
+                    <View style={styles.container}>
+                        <Mnemonic
+                            mnemonic={this.state.mnemonic}
+                            confirm={this.state.confirm}
+                            mnemonicConfirm={this.state.mnemonicConfirm}
+                            words={this.state.words}
+                            onSelect={this.onSelectWord}
+                        />
+                        {this.state.confirm ? (
+                            <Button
+                                label={'Done'}
+                                onPress={this.onDone}
+                                disabled={this.state.mnemonicConfirm.join(' ') !== this.state.mnemonic}
+                            />
+                        ) : (
+                            <Button
+                                label={'I have written down my key'}
+                                onPress={this.onConfirm}
+                            />
+                        )}
                     </View>
-                    <Button
-                        label={'I have written down my key'}
-                        onPress={this.onCreate}
-                    />
-                </View>
-            </StepModule>
+                </StepModule>
+                <NotificationModal
+                    open={this.state.warningOpen}
+                    type="warning"
+                    title="Don’t screenshot"
+                    text="Anyone in posession of your Private Key will have access to your assets! Please only keep a hardcopy of your key and keep this safe."
+                    onRequestClose={this.dismissWarning}
+                />
+            </Fragment>
         );
     }
 }

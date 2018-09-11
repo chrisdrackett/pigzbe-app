@@ -1,7 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
 import {View} from 'react-native';
-import HDWallet from '../../src/app/components/hd-wallet';
 import {KeysMnemonic} from '../../src/app/screens/keys-mnemonic';
 
 const style = {
@@ -23,8 +22,13 @@ storiesOf('HD Wallet')
             <KeysMnemonic/>
         </CenteredView>
     ))
-    .add('default2', () => (
+    .add('warn', () => (
         <CenteredView>
-            <HDWallet/>
+            <KeysMnemonic warningOpen={true}/>
+        </CenteredView>
+    ))
+    .add('confirm', () => (
+        <CenteredView>
+            <KeysMnemonic confirm={true}/>
         </CenteredView>
     ));

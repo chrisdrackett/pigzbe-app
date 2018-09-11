@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {View} from 'react-native';
 import {createKeys} from '../../actions';
 import Button from '../../components/button';
 // import {strings} from '../../constants';
 import {SCREEN_SAVE_KEYS, SCREEN_IMPORT_KEYS} from '../../constants';
 import StepModule from '../../components/step-module';
+import Paragraph from '../../components/paragraph';
+import styles from './styles';
 
 export class KeysCreate extends Component {
     onCreate = async () => {
@@ -19,18 +22,26 @@ export class KeysCreate extends Component {
             <StepModule
                 title="Create Your Keys"
                 icon="keys"
-                content={'We will now create your Public and Private wallet keys.\n\nYour *Private Key* must remain confidential and you will be asked to save this in a safe place in the next step.'}
+                // content={'We will now create your Public and Private wallet keys.\n\nYour *Private Key* must remain confidential and you will be asked to save this in a safe place in the next step.'}
+                content={'We will now create your Public and Private wallet keys. Your *Private Key must remain confidential*.'}
                 pad
             >
-                <Button
-                    label={'Create Keys'}
-                    onPress={this.onCreate}
-                />
-                <Button
-                    theme="outline"
-                    label={'Restore with previous keys'}
-                    onPress={this.onImport}
-                />
+                <View style={styles.container}>
+                    <Paragraph small>
+                    Pigzbe will not be able to access accounts, recover keys, reset passwords, nor reverse transactions. *You are responsible for the security of your Wallet/assets*.
+                    </Paragraph>
+                    <View>
+                        <Button
+                            label={'Create Keys'}
+                            onPress={this.onCreate}
+                        />
+                        <Button
+                            theme="outline"
+                            label={'Restore with previous keys'}
+                            onPress={this.onImport}
+                        />
+                    </View>
+                </View>
 
             </StepModule>
         );
