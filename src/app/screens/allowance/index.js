@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, FlatList, TouchableOpacity, Text, Dimensions} from 'react-native';
+import {View, FlatList, TouchableOpacity, Text, Dimensions, Image} from 'react-native';
 import Button from '../../components/button';
 import {SCREEN_BALANCE, SCREEN_TASKS_ASSIGN} from '../../constants';
 import StepModule from '../../components/step-module';
@@ -61,12 +61,14 @@ const innerTextStyle = {
 
 const cancelStyle = {
     position: 'absolute',
-    top: 10,
-    right: 10,
+    top: Dimensions.get('window').width / 25,
+    right: Dimensions.get('window').width / 35,
 };
 
-const cancelText = {
+const cancelImage = {
     color: color.mediumBlue,
+    width: Dimensions.get('window').width / 30,
+    width: Dimensions.get('window').height / 30,
 };
 
 const flexStyle = {
@@ -158,7 +160,7 @@ export class Allowance extends Component {
                         autoFocus
                     />
                     <TouchableOpacity style={cancelStyle} onPress={this.deleteCustom}>
-                        <Text style={cancelText}>x</Text>
+                        <Image style={cancelImage} source={require('./images/iconCrossBlue.png')}/>
                     </TouchableOpacity>
                 </View>);
         }
@@ -192,7 +194,7 @@ export class Allowance extends Component {
             <StepModule
                 title="Regular Allowance"
                 icon="family"
-                content={'Please choose a task from below list'}
+                content={'Would you like to set up a regular Wollo allowance?'}
                 pad
                 loading={loading}
                 onBack={this.onBack}
