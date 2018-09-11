@@ -27,15 +27,19 @@ const textInput = {
     backgroundColor: color.pink,
     borderColor: color.pink,
     fontSize: 14,
-    marginTop: 10,
     height: Dimensions.get('window').width / 8,
     lineHeight: Dimensions.get('window').width / 8,
     marginBottom: 20,
-    width: Dimensions.get('window').width / 4 + Dimensions.get('window').width / 50,
-    marginLeft: Dimensions.get('window').width / 50,
-    marginRight: Dimensions.get('window').width / 50,
+    width: Dimensions.get('window').width / 4 + Dimensions.get('window').width / 25,
     textAlign: 'left',
     borderRadius: Dimensions.get('window').width / 12,
+};
+
+const textInputWrapper = {
+    marginLeft: Dimensions.get('window').width / 50,
+    marginRight: Dimensions.get('window').width / 50,
+    marginTop: 10,
+    position: 'relative',
 };
 
 const innerStyle = {
@@ -56,15 +60,13 @@ const innerTextStyle = {
 };
 
 const cancelStyle = {
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    borderBottomWidth: 1,
-    borderBottomColor: color.blue,
+    position: 'absolute',
+    top: 10,
+    right: 10,
 };
 
-const cancelInner = {
-    color: color.blue,
-    fontSize: 14,
+const cancelText = {
+    color: color.mediumBlue,
 };
 
 const flexStyle = {
@@ -78,7 +80,7 @@ const toggleList = {
     display: 'flex',
     flexDirection: 'row',
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     flexWrap: 'wrap',
     width: '100%',
     // marginBottom: 10
@@ -121,6 +123,10 @@ export class Allowance extends Component {
         // }, 0);
     }
 
+    deleteCustom = () => {
+        this.setState({showingInput: false, custom: null});
+    }
+
     cancelInput = () => this.setState({showingInput: false, newTask: null});
 
     renderElement = item => {
@@ -143,13 +149,18 @@ export class Allowance extends Component {
 
         } else if (item.key === '+' && showingInput) {
             return (
-                <TextInput
-                    numberOfLines={1}
-                    onChangeText={this.onChangeText}
-                    returnKeyType="done"
-                    style={textInput}
-                    autoFocus
-                />);
+                <View style={textInputWrapper}>
+                    <TextInput
+                        numberOfLines={1}
+                        onChangeText={this.onChangeText}
+                        returnKeyType="done"
+                        style={textInput}
+                        autoFocus
+                    />
+                    <TouchableOpacity style={cancelStyle} onPress={this.deleteCustom}>
+                        <Text style={cancelText}>x</Text>
+                    </TouchableOpacity>
+                </View>);
         }
 
         return (<Toggle

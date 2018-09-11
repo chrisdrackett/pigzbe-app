@@ -13,7 +13,7 @@ const props = {
         },
         actions: {}
     },
-    allowances: ['1', '2', '3', '4', '5'],
+    allowances: [25, 50, 75, 100, 125, 150],
 };
 
 storiesOf('Allowance')
