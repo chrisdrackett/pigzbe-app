@@ -7,7 +7,15 @@ import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Toggle from '../../components/toggle';
 import {color} from '../../styles';
+import {COIN_SYMBOLS, COIN_DPS} from '../../constants';
+import moneyFormat from '../../utils/money-format';
 // import {tasksAddTask, loadTasks} from '../../actions';
+
+const wrapperStyle = {
+    marginBottom: 20,
+    marginLeft: Dimensions.get('window').width / 50,
+    marginRight: Dimensions.get('window').width / 50,
+};
 
 const buttonStyle = {
     background: 'transparent',
@@ -16,10 +24,7 @@ const buttonStyle = {
     paddingTop: 10,
     height: Dimensions.get('window').width / 8,
     lineHeight: Dimensions.get('window').width / 8,
-    marginBottom: 20,
     width: Dimensions.get('window').width / 8,
-    marginLeft: Dimensions.get('window').width / 50,
-    marginRight: Dimensions.get('window').width / 50,
     textAlign: 'center',
 };
 
@@ -29,17 +34,15 @@ const textInput = {
     fontSize: 14,
     height: Dimensions.get('window').width / 8,
     lineHeight: Dimensions.get('window').width / 8,
-    marginBottom: 20,
     width: Dimensions.get('window').width / 4 + Dimensions.get('window').width / 25,
     textAlign: 'left',
     borderRadius: Dimensions.get('window').width / 12,
 };
 
 const textInputWrapper = {
-    marginLeft: Dimensions.get('window').width / 50,
-    marginRight: Dimensions.get('window').width / 50,
     marginTop: 10,
     position: 'relative',
+    marginBottom: -13,
 };
 
 const innerStyle = {
@@ -88,6 +91,13 @@ const toggleList = {
     // marginBottom: 10
 };
 
+const conversionStyle = {
+    color: color.blue,
+    width: '100%',
+    marginTop: 15,
+    textAlign: 'center',
+};
+
 export class Allowance extends Component {
     state = {
         loading: false,
@@ -134,49 +144,56 @@ export class Allowance extends Component {
     renderElement = item => {
         const {showingInput, active} = this.state;
 
-        console.log('toggle', item.key, showingInput, active);
-
         if (item.key === '+' && !showingInput) {
             return (
-                <TouchableOpacity
-                    onPress={this.showInput}
-                    style={buttonStyle}
-                >
-                    <Text
-                        style={[innerStyle, innerTextStyle]}
+                <View style={wrapperStyle}>
+                    <TouchableOpacity
+                        onPress={this.showInput}
+                        style={buttonStyle}
                     >
-                        {item.key}
-                    </Text>
-                </TouchableOpacity>);
+                        <Text
+                            style={[innerStyle, innerTextStyle]}
+                        >
+                            {item.key}
+                        </Text>
+                    </TouchableOpacity>
+                    <Text style={conversionStyle}>Custom</Text>
+                </View>);
 
         } else if (item.key === '+' && showingInput) {
             return (
-                <View style={textInputWrapper}>
-                    <TextInput
-                        numberOfLines={1}
-                        onChangeText={this.onChangeText}
-                        returnKeyType="done"
-                        style={textInput}
-                        autoFocus
-                    />
-                    <TouchableOpacity style={cancelStyle} onPress={this.deleteCustom}>
-                        <Image style={cancelImage} source={require('./images/iconCrossBlue.png')}/>
-                    </TouchableOpacity>
+                <View style={wrapperStyle}>
+                    <View style={textInputWrapper}>
+                        <TextInput
+                            numberOfLines={1}
+                            onChangeText={this.onChangeText}
+                            returnKeyType="done"
+                            style={textInput}
+                            autoFocus
+                        />
+                        <TouchableOpacity style={cancelStyle} onPress={this.deleteCustom}>
+                            <Image style={cancelImage} source={require('./images/iconCrossBlue.png')}/>
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={conversionStyle}>Custom</Text>
                 </View>);
         }
 
-        return (<Toggle
-            style={buttonStyle}
-            innerStyle={innerStyle}
-            label={item.key}
-            onPress={() => {
-                this.setState({
-                    active: item.key,
-                    showingInput: false,
-                });
-            }}
-            active={active === item.key}
-        />);
+        return (<View style={wrapperStyle}>
+            <Toggle
+                style={buttonStyle}
+                innerStyle={innerStyle}
+                label={item.key}
+                onPress={() => {
+                    this.setState({
+                        active: item.key,
+                        showingInput: false,
+                    });
+                }}
+                active={active === item.key}
+            />
+            <Text style={conversionStyle}>{`${COIN_SYMBOLS[this.props.currency]}${moneyFormat(item.key, COIN_DPS[this.props.currency])}`}</Text>
+        </View>);
 
     }
 

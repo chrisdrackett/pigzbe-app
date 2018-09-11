@@ -14,6 +14,7 @@ const props = {
         actions: {}
     },
     allowances: [25, 50, 75, 100, 125, 150],
+    currency: 'GBP',
 };
 
 storiesOf('Allowance')
