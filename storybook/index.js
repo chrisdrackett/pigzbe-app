@@ -45,6 +45,7 @@ function loadStories() {
     require('./stories/action-sheet.js');
     require('./stories/notification-modal.js');
     require('./stories/allowance.js');
+    require('./stories/allowance-interval.js');
 }
 
 configure(loadStories, module);
