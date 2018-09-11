@@ -46,6 +46,8 @@ export default StyleSheet.create({
         backgroundColor: color.white,
         borderColor: color.mediumBlue,
         color: color.mediumBlue,
+        fontSize: 20,
+        lineHeight: Dimensions.get('window').width / 9,
     },
     cancel: {
         position: 'absolute',

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, FlatList, TouchableOpacity, Text, Image} from 'react-native';
 import Button from '../../components/button';
-import {SCREEN_BALANCE, SCREEN_TASKS_ASSIGN} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_ALLOWANCE_INTERVAL} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Toggle from '../../components/toggle';
@@ -83,6 +83,8 @@ export class Allowance extends Component {
                             returnKeyType="done"
                             style={styles.textInput}
                             autoFocus
+                            keyboardType="numeric"
+                            maxLength={4}
                         />
                         <TouchableOpacity style={styles.cancel} onPress={this.deleteCustom}>
                             <Image style={styles.cancelImage} source={require('./images/iconCrossBlue.png')}/>
@@ -113,7 +115,11 @@ export class Allowance extends Component {
     next = async () => {
         const {custom, active} = this.state;
 
-        this.props.navigation.navigate(SCREEN_TASKS_ASSIGN, {kid: this.props.kid, task: custom ? custom : active});
+        this.props.navigation.navigate(SCREEN_ALLOWANCE_INTERVAL, {kid: this.props.kid, allowance: custom ? custom : active});
+    }
+
+    skip = async () => {
+        this.props.navigation.navigate(SCREEN_BALANCE);
     }
 
     render() {
@@ -128,6 +134,7 @@ export class Allowance extends Component {
                 pad
                 loading={loading}
                 onBack={this.onBack}
+                keyboardOffset={-180}
             >
                 <View style={styles.flex}>
                     <View>
@@ -143,13 +150,15 @@ export class Allowance extends Component {
                         </View>
                     </View>
                     <View style={{marginTop: 20}}>
-                        {
-                            <Button
-                                label={'Next'}
-                                onPress={this.next}
-                                disabled={showingInput && !custom || !showingInput && !active}
-                            />
-                        }
+                        <Button
+                            label={'Next'}
+                            onPress={this.next}
+                            disabled={showingInput && !custom || !showingInput && !active}
+                        />
+                        <Button
+                            label={'Skip for now'}
+                            onPress={this.skip}
+                        />
                     </View>
                 </View>
             </StepModule>
