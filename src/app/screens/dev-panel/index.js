@@ -31,7 +31,7 @@ const SwitchControl = ({
     onValueChange
 }) => (
     <View style={styles.switch}>
-        <Text style={styles.switchText}>
+        <Text style={styles.subtitle}>
             {label}
         </Text>
         <Switch
@@ -95,10 +95,10 @@ class DevPanel extends Component {
                     <ScrollView>
                         <View style={[container, styles.inner]}>
                             <Text style={styles.title}>Dev panel</Text>
-                            <Text style={styles.switchText}>
+                            <Text style={styles.subtitle}>
                                 Env dev: {__DEV__ ? 'true' : 'false'}
                             </Text>
-                            <Text style={styles.switchText}>
+                            <Text style={styles.subtitle}>
                                 networkOverride: {networkOverride ? networkOverride : 'none'}
                             </Text>
                             <SwitchControl
@@ -106,16 +106,38 @@ class DevPanel extends Component {
                                 value={useTestnet}
                                 onValueChange={value => dispatch(setUseTestnet(value))}
                             />
-                            <View style={styles.claimBlock}>
-                                <Text style={styles.switchText}>Claim tool</Text>
-                                <Button style={styles.claimClearButton} label="Clear cache burning" onPress={() => {
+                            <View style={styles.block}>
+                                <Text style={styles.subtitle}>User data</Text>
+                                <Button style={styles.button} label="Clear user data" onPress={() => {
+                                    console.log('clear');
+                                    Storage.clear(STORAGE_KEY_SETTINGS);
+                                    Storage.clear(STORAGE_KEY_FAMILY);
+                                    Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
+                                    Keychain.clear(KEYCHAIN_ID_PASSCODE);
+                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY);
+                                }} />
+                            </View>
+                            <View style={styles.block}>
+                                <Text style={styles.subtitle}>Family data</Text>
+                                <Button style={styles.button} label="Clear family data" onPress={() => {
+                                    console.log('clear');
+                                    Storage.clear(STORAGE_KEY_FAMILY);
+                                }} />
+                                <Button style={styles.button} label="Clear tasks data" onPress={() => {
+                                    console.log('clear');
+                                    Storage.clear(STORAGE_KEY_TASKS);
+                                }} />
+                            </View>
+                            <View style={styles.block}>
+                                <Text style={styles.subtitle}>Claim tool</Text>
+                                <Button style={styles.button} label="Clear cache burning" onPress={() => {
                                     console.log('clear');
                                     Storage.clear(STORAGE_KEY_BURNING);
                                     Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY);
                                 }} />
                             </View>
-                            <Text style={styles.switchText}>
+                            <Text style={styles.subtitle}>
                                 Select test user
                             </Text>
                             <View style={styles.picker}>
@@ -131,7 +153,7 @@ class DevPanel extends Component {
                                     ))}
                                 </Picker>
                             </View>
-                            <Text style={styles.switchText}>
+                            <Text style={styles.subtitle}>
                                 Network override
                             </Text>
                             <View style={styles.picker}>
@@ -147,30 +169,8 @@ class DevPanel extends Component {
                                     ))}
                                 </Picker>
                             </View>
-                            <View style={styles.claimBlock}>
-                                <Text style={styles.switchText}>User data</Text>
-                                <Button style={styles.claimClearButton} label="Clear user data" onPress={() => {
-                                    console.log('clear');
-                                    Storage.clear(STORAGE_KEY_SETTINGS);
-                                    Storage.clear(STORAGE_KEY_FAMILY);
-                                    Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
-                                    Keychain.clear(KEYCHAIN_ID_PASSCODE);
-                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY);
-                                }} />
-                            </View>
-                            <View style={styles.claimBlock}>
-                                <Text style={styles.switchText}>Family data</Text>
-                                <Button style={styles.claimClearButton} label="Clear family data" onPress={() => {
-                                    console.log('clear');
-                                    Storage.clear(STORAGE_KEY_FAMILY);
-                                }} />
-                                <Button style={styles.claimClearButton} label="Clear tasks data" onPress={() => {
-                                    console.log('clear');
-                                    Storage.clear(STORAGE_KEY_TASKS);
-                                }} />
-                            </View>
-                            <View style={styles.claimBlock}>
-                                <Button style={styles.claimClearButton} label="Hide panel" onPress={() => {
+                            <View style={styles.block}>
+                                <Button style={styles.button} label="Hide panel" onPress={() => {
                                     this.setState({isHidden: true});
                                 }} />
                             </View>

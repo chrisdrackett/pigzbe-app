@@ -85,18 +85,14 @@ export default StyleSheet.create({
         color: color.white,
         fontSize: 14
     },
-    claimBlock: {
-        borderTopWidth: 1,
-        borderTopColor: color.mediumGrey,
-        borderBottomWidth: 1,
-        borderBottomColor: color.mediumGrey,
+    block: {
         flex: 1,
-        marginBottom: 25,
-        paddingTop: 25,
+        marginBottom: 10,
+        marginTop: 10,
     },
-    claimClearButton: {
-        marginBottom: 20,
-        marginTop: 20,
+    button: {
+        marginBottom: 10,
+        marginTop: 10,
     },
     switch: {
         flex: 1,
@@ -112,7 +108,7 @@ export default StyleSheet.create({
         borderTopWidth: 1,
         borderTopColor: color.mediumGrey
     },
-    switchText: {
+    subtitle: {
         fontFamily,
         fontWeight: 'bold',
         color: color.white,
@@ -121,6 +117,7 @@ export default StyleSheet.create({
     picker: {
         backgroundColor: color.white,
         borderRadius: 8,
+        marginBottom: 10,
         marginTop: 10,
     },
 });

@@ -1,7 +1,6 @@
 import {createSwitchNavigator} from 'react-navigation';
 import KeysCreate from '../../screens/keys-create';
 import KeysImport from '../../screens/keys-import';
-// import KeysSave from '../../screens/keys-save';
 import KeysSave from '../../screens/keys-mnemonic';
 import {
     SCREEN_CREATE_KEYS,
