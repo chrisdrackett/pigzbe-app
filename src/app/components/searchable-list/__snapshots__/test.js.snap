@@ -5,6 +5,7 @@ exports[`SearchableList renders correctly 1`] = `
   style={
     Object {
       "backgroundColor": "rgb(255, 255, 255)",
+      "borderRadius": 10,
     }
   }
 >
