@@ -39,11 +39,20 @@ const textInput = {
 };
 
 const innerStyle = {
-    borderRadius: Dimensions.get('window').width / 12,
+    borderRadius: Dimensions.get('window').width / 16,
+    lineHeight: Dimensions.get('window').width / 8,
     display: 'flex',
+    borderWidth: 1,
     alignContent: 'center',
     justifyContent: 'center',
     height: Dimensions.get('window').width / 8,
+    textAlign: 'center',
+};
+
+const innerTextStyle = {
+    backgroundColor: color.white,
+    borderColor: color.mediumBlue,
+    color: color.mediumBlue,
 };
 
 const cancelStyle = {
@@ -117,14 +126,16 @@ export class Allowance extends Component {
     renderElement = item => {
         const {showingInput, active} = this.state;
 
+        console.log('toggle', item.key, showingInput, active);
+
         if (item.key === '+' && !showingInput) {
             return (
                 <TouchableOpacity
                     onPress={this.showInput}
-                    style={cancelStyle}
+                    style={buttonStyle}
                 >
                     <Text
-                        style={cancelInner}
+                        style={[innerStyle, innerTextStyle]}
                     >
                         {item.key}
                     </Text>
@@ -146,10 +157,12 @@ export class Allowance extends Component {
             innerStyle={innerStyle}
             label={item.key}
             onPress={() => {
-                this.setState({active: item.key});
+                this.setState({
+                    active: item.key,
+                    showingInput: false,
+                });
             }}
             active={active === item.key}
-            disabled={showingInput}
         />);
 
     }
