@@ -41,6 +41,10 @@ export default class TextInputComponent extends Component {
         if (isAndroid) {
             setTimeout(this.updateInputWidth, 100);
         }
+
+        if (this.props.autoFocus) {
+            this.inputBox.focus();
+        }
     }
 
     render() {
@@ -83,6 +87,9 @@ export default class TextInputComponent extends Component {
                         keyboardType={keyboardType}
                         returnKeyType={returnKeyType}
                         blurOnSubmit={true}
+                        ref={(input) => {
+                            this.inputBox = input;
+                        }}
                     />
                 </View>
             </Fragment>
