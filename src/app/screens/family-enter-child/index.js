@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, Image, Text} from 'react-native';
-import DatePicker from 'react-native-datepicker';
 import {pickImage} from '../../utils/image-picker';
 import {SCREEN_BALANCE} from '../../constants';
 import TextInput from '../../components/text-input';
+import DateInput from '../../components/date-input';
 import StepModule from '../../components/step-module';
 import Button from '../../components/button';
 import {color} from '../../styles';
@@ -58,80 +58,6 @@ export class FamilyEnterChild extends Component {
     }
 
     render() {
-        // note: this feature doesn't seem to work properly
-        // todo: try this approach instead: https://github.com/xgfe/react-native-datepicker/issues/73
-        // const getDateField = ({onPress}) => {
-        //     console.log('onPress', onPress);
-        //     return (
-        //         <TouchableOpacity
-        //             style={{height: 40, width: 300, padding: 4, borderColor: 'gray', borderWidth: 1}}
-        //             onPress={onPress}
-        //         >
-        //             <Text>{moment(this.state.date).format('DD/MM/YYYY')}</Text>
-        //         </TouchableOpacity>
-        //     );
-        // };
-
-        const renderDatePicker = () => (
-            <DatePicker
-                style={{width: '100%'}}
-                date={this.state.chosenDate}
-                mode="date"
-                placeholder="Date of birth"
-                format="DD/MM/YYYY"
-                minDate="01/01/2000"
-                maxDate="01/01/2011"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                // this doesn't seem to work properly, need to find different solution in order to implement placeholder design:
-                // TouchableComponent={
-                //     getDateField
-                // }
-                customStyles={{
-                    dateIcon: {
-                        display: 'none',
-                    },
-                    dateInput: {
-                        alignSelf: 'stretch',
-                        color: color.blue,
-                        fontSize: 14,
-                        fontWeight: 'bold',
-                        borderColor: color.lighterBlue,
-                        borderWidth: 1,
-                        height: 45,
-                        borderRadius: 22.5,
-                        marginBottom: 10,
-                        paddingLeft: 20,
-                        paddingRight: 20,
-                        textAlignVertical: 'top',
-                        texAlign: 'left',
-                        lineHeight: 21,
-                    },
-                    dateText: {
-                        color: color.blue,
-                        width: '100%',
-                        fontWeight: 'bold',
-                    },
-                    dateTouchBody: {
-                        color: color.lighterBlue,
-                        height: 45,
-                        marginBottom: 20,
-                    },
-                    placeholderText: {
-                        width: '100%',
-                        color: color.lighterBlue,
-                        fontWeight: 'bold',
-                    }
-                }}
-                onDateChange={
-                    (date) => {
-                        this.onChangeDOB(date);
-                    }
-                }
-                showIcon={false}
-            />
-        );
-
         const {numKidsToAdd, numKidsAdded} = this.props;
 
         let title = 'Create their profile';
@@ -171,7 +97,11 @@ export class FamilyEnterChild extends Component {
                         returnKeyType="done"
                         value={this.state.name}
                     />
-                    {renderDatePicker()}
+                    <DateInput
+                        placeholder="Date of birth"
+                        value={this.state.chosenDate}
+                        onChangeSelection={value => this.onChangeDOB(value)}
+                    />
                     <Text style={styles.smallText}>
                         This helps us serve appropriate content
                     </Text>

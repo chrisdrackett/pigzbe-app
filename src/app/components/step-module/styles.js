@@ -17,6 +17,10 @@ export default StyleSheet.create({
         paddingRight: paddingH,
         paddingTop: 30,
     },
+    wrapper: {
+        display: 'flex',
+        flex: 1,
+    },
     pad: {
         paddingBottom: 12,
         paddingLeft: paddingH,

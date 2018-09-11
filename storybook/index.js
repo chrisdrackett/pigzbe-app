@@ -30,15 +30,22 @@ function loadStories() {
     require('./stories/child-login.js');
     require('./stories/icon-pad.js');
     require('./stories/family.js');
+    require('./stories/tasks.js');
+    require('./stories/tasks-assign.js');
     require('./stories/family-member.js');
     require('./stories/family-number-kids.js');
     require('./stories/family-enter-child.js');
     require('./stories/toggle.js');
     require('./stories/slider.js');
     require('./stories/wollo.js');
+    require('./stories/wollo-input.js');
+    require('./stories/currency-toggle.js');
     require('./stories/child-dash.js');
     require('./stories/searchable-list.js');
     require('./stories/action-sheet.js');
+    require('./stories/notification-modal.js');
+    require('./stories/claim-vip.js');
+    require('./stories/loader-modal.js');
     require('./stories/hd-wallet.js');
 }
 

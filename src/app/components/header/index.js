@@ -1,11 +1,14 @@
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Image, TouchableOpacity, View, Text} from 'react-native';
 import Logo from '../logo';
 import styles from './styles';
 
-export default ({onSettings, onBack, hideLogo}) => (
+export default ({onSettings, onBack, hideLogo, customTitle}) => (
     <View style={styles.container}>
-        {!hideLogo && <Logo />}
+        {!hideLogo && !customTitle && <Logo />}
+        {
+            customTitle ? <Text style={styles.customTitle}>{customTitle}</Text> : null
+        }
         {onSettings &&
             <TouchableOpacity style={styles.settings} onPress={onSettings}>
                 <Image style={styles.settingsIcon} source={require('./images/settings-icon.png')} />

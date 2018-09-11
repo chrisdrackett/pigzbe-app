@@ -14,7 +14,10 @@ Array [
         Object {
           "width": 750,
         },
-        undefined,
+        Object {
+          "display": "flex",
+          "flex": 1,
+        },
       ]
     }
   >
@@ -36,6 +39,7 @@ Array [
           "alignItems": "center",
           "backgroundColor": "rgb(0, 50, 120)",
           "justifyContent": "center",
+          "minHeight": 30,
         }
       }
     >
@@ -271,6 +275,10 @@ Array [
               <View
                 style={
                   Array [
+                    Object {
+                      "display": "flex",
+                      "flex": 1,
+                    },
                     null,
                     null,
                   ]
@@ -380,81 +388,72 @@ Array [
                         </Text>
                       </View>
                     </View>
+                  </View>
+                  <View
+                    style={
+                      Object {
+                        "paddingLeft": "6.25%",
+                        "paddingRight": "6.25%",
+                        "paddingTop": 40,
+                      }
+                    }
+                  >
                     <View
                       style={
                         Object {
+                          "alignItems": "center",
                           "alignSelf": "stretch",
-                          "flex": 1,
-                          "flexDirection": "row",
-                          "marginTop": 20,
-                          "paddingLeft": 30,
-                          "paddingRight": 30,
                         }
                       }
                     >
                       <View
+                        accessible={true}
+                        isTVSelectable={true}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
                         style={
                           Object {
-                            "alignItems": "center",
-                            "flex": 1,
-                            "flexDirection": "row",
-                            "width": "50%",
+                            "backgroundColor": "rgb(255, 255, 255)",
+                            "borderColor": "rgb(255, 255, 255)",
+                            "borderRadius": 22.5,
+                            "borderWidth": 1,
+                            "marginBottom": 10,
+                            "maxWidth": 400,
+                            "opacity": 1,
+                            "width": "100%",
                           }
                         }
                       >
-                        <Image
-                          source={
-                            Object {
-                              "testUri": "../../../src/app/components/coin-icon/images/coin-xlm.png",
-                            }
-                          }
+                        <Text
                           style={
                             Array [
                               Object {
-                                "height": 40,
-                                "width": 40,
-                              },
-                              Object {
-                                "marginRight": 10,
-                              },
-                            ]
-                          }
-                        />
-                        <View>
-                          <Text
-                            style={
-                              Object {
+                                "alignSelf": "stretch",
                                 "color": "rgb(255, 255, 255)",
                                 "fontFamily": "Poppins",
+                                "fontSize": 14,
                                 "fontWeight": "bold",
-                              }
-                            }
-                          >
-                            XLM
-                          </Text>
-                          <Text
-                            style={
+                                "height": 45,
+                                "paddingLeft": 20,
+                                "paddingRight": 20,
+                                "paddingTop": 12,
+                                "textAlign": "center",
+                              },
                               Object {
-                                "color": "rgba(255, 255, 255, 0.6)",
-                                "fontFamily": "Poppins",
-                                "fontWeight": "bold",
-                              }
-                            }
-                          >
-                            NaN
-                          </Text>
-                        </View>
-                      </View>
-                      <View
-                        style={
-                          Object {
-                            "alignItems": "center",
-                            "flex": 1,
-                            "flexDirection": "row",
-                            "justifyContent": "flex-end",
+                                "color": "rgb(0, 50, 120)",
+                              },
+                              null,
+                              undefined,
+                            ]
                           }
-                        }
-                      />
+                        >
+                          Add Tasks
+                        </Text>
+                      </View>
                     </View>
                   </View>
                   <View
