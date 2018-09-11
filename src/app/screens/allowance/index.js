@@ -23,6 +23,21 @@ const buttonStyle = {
     textAlign: 'center',
 };
 
+const textInput = {
+    backgroundColor: color.pink,
+    borderColor: color.pink,
+    fontSize: 14,
+    marginTop: 10,
+    height: Dimensions.get('window').width / 8,
+    lineHeight: Dimensions.get('window').width / 8,
+    marginBottom: 20,
+    width: Dimensions.get('window').width / 4 + Dimensions.get('window').width / 50,
+    marginLeft: Dimensions.get('window').width / 50,
+    marginRight: Dimensions.get('window').width / 50,
+    textAlign: 'left',
+    borderRadius: Dimensions.get('window').width / 12,
+};
+
 const innerStyle = {
     borderRadius: Dimensions.get('window').width / 12,
     display: 'flex',
@@ -90,9 +105,54 @@ export class Allowance extends Component {
         this.setState({custom: allowance});
     }
 
-    showInput = () => this.setState({showingInput: true, active: null});
+    showInput = () => {
+        this.setState({showingInput: true, active: null});
+        // setTimeout(() => {
+        //     this.inputBox.focus();
+        // }, 0);
+    }
 
     cancelInput = () => this.setState({showingInput: false, newTask: null});
+
+    renderElement = item => {
+        const {showingInput, active} = this.state;
+
+        if (item.key === '+' && !showingInput) {
+            return (
+                <TouchableOpacity
+                    onPress={this.showInput}
+                    style={cancelStyle}
+                >
+                    <Text
+                        style={cancelInner}
+                    >
+                        {item.key}
+                    </Text>
+                </TouchableOpacity>);
+
+        } else if (item.key === '+' && showingInput) {
+            return (
+                <TextInput
+                    numberOfLines={1}
+                    onChangeText={this.onChangeText}
+                    returnKeyType="done"
+                    style={textInput}
+                    autoFocus
+                />);
+        }
+
+        return (<Toggle
+            style={buttonStyle}
+            innerStyle={innerStyle}
+            label={item.key}
+            onPress={() => {
+                this.setState({active: item.key});
+            }}
+            active={active === item.key}
+            disabled={showingInput}
+        />);
+
+    }
 
     next = async () => {
         const {custom, active} = this.state;
@@ -122,51 +182,9 @@ export class Allowance extends Component {
                                     this.getAllowancesList()
                                 }
                                 contentContainerStyle={toggleList}
-                                renderItem={({item}) => (<Toggle
-                                    style={buttonStyle}
-                                    innerStyle={innerStyle}
-                                    label={item.key}
-                                    onPress={() => {
-                                        this.setState({active: item.key});
-                                    }}
-                                    active={active === item.key}
-                                    disabled={showingInput}
-                                />)
-                                }
+                                renderItem={({item}) => this.renderElement(item)}
                             />
                         </View>
-                        {
-                            showingInput ?
-                                <View>
-                                    <TextInput
-                                        numberOfLines={1}
-                                        placeholder="Custom"
-                                        onChangeText={this.onChangeText}
-                                        returnKeyType="done"
-                                    />
-                                    <TouchableOpacity
-                                        onPress={this.cancelInput}
-                                        style={cancelStyle}
-                                    >
-                                        <Text
-                                            style={cancelInner}
-                                        >
-                                            Cancel
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-                                :
-                                <TouchableOpacity
-                                    onPress={this.showInput}
-                                    style={cancelStyle}
-                                >
-                                    <Text
-                                        style={cancelInner}
-                                    >
-                                        Add another
-                                    </Text>
-                                </TouchableOpacity>
-                        }
                     </View>
                     <View style={{marginTop: 20}}>
                         {
