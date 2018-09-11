@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
-import {createKeys} from '../../actions';
+// import {createKeys} from '../../actions';
 import Button from '../../components/button';
 // import {strings} from '../../constants';
 import {SCREEN_SAVE_KEYS, SCREEN_IMPORT_KEYS} from '../../constants';
@@ -11,7 +11,7 @@ import styles from './styles';
 
 export class KeysCreate extends Component {
     onCreate = async () => {
-        await this.props.dispatch(createKeys());
+        // await this.props.dispatch(createKeys());
         this.props.navigation.navigate(SCREEN_SAVE_KEYS);
     }
 

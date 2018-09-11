@@ -9,6 +9,16 @@ import {generateMnemonic, generateKeys} from '../../utils/hd-wallet';
 import NotificationModal from '../../components/notification-modal';
 import Mnemonic from '../../components/mnemonic';
 import sortRandom from 'usfl/array/sort-random';
+import wait from '../../utils/wait';
+
+
+const getWords = mnemonic => {
+    if (__DEV__) {
+        return mnemonic.split(' ');
+    }
+
+    return mnemonic.split(' ').sort(sortRandom);
+};
 
 export class KeysMnemonic extends Component {
     state = {
@@ -32,6 +42,7 @@ export class KeysMnemonic extends Component {
     async componentWillMount() {
         await this.generateMnemonic();
         this.generateKeys();
+        await wait(0.2);
         this.setState({loading: false});
     }
 
@@ -40,7 +51,7 @@ export class KeysMnemonic extends Component {
     dismissWarning = () => this.setState({
         warningOpen: false,
         confirm: true,
-        words: this.state.mnemonic.split(' ').sort(sortRandom)
+        words: getWords(this.state.mnemonic)
     })
 
     onDone = async () => {
@@ -61,11 +72,8 @@ export class KeysMnemonic extends Component {
     generateKeys = async () => {
         const {seedHex} = this.state;
         const keypair = generateKeys(seedHex);
-        console.log('keypair', keypair);
-        // this.setState({
-        //     publicKey: keypair.publicKey(),
-        //     secretKey: keypair.secret(),
-        // });
+        console.log('publicKey', keypair.publicKey());
+        console.log('secretKey', keypair.secret());
         await this.props.dispatch(setKeys(keypair, false));
     }
 
