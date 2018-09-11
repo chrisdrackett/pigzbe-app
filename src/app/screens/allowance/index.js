@@ -1,102 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, FlatList, TouchableOpacity, Text, Dimensions, Image} from 'react-native';
+import {View, FlatList, TouchableOpacity, Text, Image} from 'react-native';
 import Button from '../../components/button';
 import {SCREEN_BALANCE, SCREEN_TASKS_ASSIGN} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Toggle from '../../components/toggle';
-import {color} from '../../styles';
 import {COIN_SYMBOLS, COIN_DPS} from '../../constants';
 import moneyFormat from '../../utils/money-format';
-// import {tasksAddTask, loadTasks} from '../../actions';
+import styles from './styles';
 
-const wrapperStyle = {
-    marginBottom: 20,
-    marginLeft: Dimensions.get('window').width / 50,
-    marginRight: Dimensions.get('window').width / 50,
-};
-
-const buttonStyle = {
-    background: 'transparent',
-    border: color.blue,
-    fontSize: 14,
-    paddingTop: 10,
-    height: Dimensions.get('window').width / 8,
-    lineHeight: Dimensions.get('window').width / 8,
-    width: Dimensions.get('window').width / 8,
-    textAlign: 'center',
-};
-
-const textInput = {
-    backgroundColor: color.pink,
-    borderColor: color.pink,
-    fontSize: 14,
-    height: Dimensions.get('window').width / 8,
-    lineHeight: Dimensions.get('window').width / 8,
-    width: Dimensions.get('window').width / 4 + Dimensions.get('window').width / 25,
-    textAlign: 'left',
-    borderRadius: Dimensions.get('window').width / 12,
-};
-
-const textInputWrapper = {
-    marginTop: 10,
-    position: 'relative',
-    marginBottom: -13,
-};
-
-const innerStyle = {
-    borderRadius: Dimensions.get('window').width / 16,
-    lineHeight: Dimensions.get('window').width / 8,
-    display: 'flex',
-    borderWidth: 1,
-    alignContent: 'center',
-    justifyContent: 'center',
-    height: Dimensions.get('window').width / 8,
-    textAlign: 'center',
-};
-
-const innerTextStyle = {
-    backgroundColor: color.white,
-    borderColor: color.mediumBlue,
-    color: color.mediumBlue,
-};
-
-const cancelStyle = {
-    position: 'absolute',
-    top: Dimensions.get('window').width / 25,
-    right: Dimensions.get('window').width / 35,
-};
-
-const cancelImage = {
-    color: color.mediumBlue,
-    width: Dimensions.get('window').width / 30,
-    width: Dimensions.get('window').height / 30,
-};
-
-const flexStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    justifyContent: 'space-between',
-};
-
-const toggleList = {
-    display: 'flex',
-    flexDirection: 'row',
-    flex: 1,
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    width: '100%',
-    // marginBottom: 10
-};
-
-const conversionStyle = {
-    color: color.blue,
-    width: '100%',
-    marginTop: 15,
-    textAlign: 'center',
-};
 
 export class Allowance extends Component {
     state = {
@@ -146,43 +59,43 @@ export class Allowance extends Component {
 
         if (item.key === '+' && !showingInput) {
             return (
-                <View style={wrapperStyle}>
+                <View style={styles.wrapper}>
                     <TouchableOpacity
                         onPress={this.showInput}
-                        style={buttonStyle}
+                        style={styles.button}
                     >
                         <Text
-                            style={[innerStyle, innerTextStyle]}
+                            style={[styles.inner, styles.innerText]}
                         >
                             {item.key}
                         </Text>
                     </TouchableOpacity>
-                    <Text style={conversionStyle}>Custom</Text>
+                    <Text style={styles.conversion}>Custom</Text>
                 </View>);
 
         } else if (item.key === '+' && showingInput) {
             return (
-                <View style={wrapperStyle}>
-                    <View style={textInputWrapper}>
+                <View style={styles.wrapperStyle}>
+                    <View style={styles.textInputWrapper}>
                         <TextInput
                             numberOfLines={1}
                             onChangeText={this.onChangeText}
                             returnKeyType="done"
-                            style={textInput}
+                            style={styles.textInput}
                             autoFocus
                         />
-                        <TouchableOpacity style={cancelStyle} onPress={this.deleteCustom}>
-                            <Image style={cancelImage} source={require('./images/iconCrossBlue.png')}/>
+                        <TouchableOpacity style={styles.cancel} onPress={this.deleteCustom}>
+                            <Image style={styles.cancelImage} source={require('./images/iconCrossBlue.png')}/>
                         </TouchableOpacity>
                     </View>
-                    <Text style={conversionStyle}>Custom</Text>
+                    <Text style={styles.conversion}>Custom</Text>
                 </View>);
         }
 
-        return (<View style={wrapperStyle}>
+        return (<View style={styles.wrapper}>
             <Toggle
-                style={buttonStyle}
-                innerStyle={innerStyle}
+                style={styles.button}
+                innerStyle={styles.inner}
                 label={item.key}
                 onPress={() => {
                     this.setState({
@@ -192,7 +105,7 @@ export class Allowance extends Component {
                 }}
                 active={active === item.key}
             />
-            <Text style={conversionStyle}>{`${COIN_SYMBOLS[this.props.currency]}${moneyFormat(item.key, COIN_DPS[this.props.currency])}`}</Text>
+            <Text style={styles.conversion}>{`${COIN_SYMBOLS[this.props.currency]}${moneyFormat(item.key, COIN_DPS[this.props.currency])}`}</Text>
         </View>);
 
     }
@@ -216,15 +129,15 @@ export class Allowance extends Component {
                 loading={loading}
                 onBack={this.onBack}
             >
-                <View style={flexStyle}>
+                <View style={styles.flex}>
                     <View>
-                        <View style={toggleList}>
+                        <View style={styles.toggleList}>
                             <FlatList
                                 style={{marginBottom: 10}}
                                 data={
                                     this.getAllowancesList()
                                 }
-                                contentContainerStyle={toggleList}
+                                contentContainerStyle={styles.toggleList}
                                 renderItem={({item}) => this.renderElement(item)}
                             />
                         </View>
