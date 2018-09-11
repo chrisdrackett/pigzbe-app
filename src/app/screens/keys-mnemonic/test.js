@@ -7,8 +7,8 @@ const props = {
     navigation: {
         navigate: () => {},
         state: {
-            key: 'SCREEN_SAVE_KEYS',
-            routeName: 'SCREEN_SAVE_KEYS'
+            key: 'SCREEN_MNEMONIC',
+            routeName: 'SCREEN_MNEMONIC'
         },
         actions: {}
     },
