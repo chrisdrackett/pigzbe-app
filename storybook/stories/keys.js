@@ -2,7 +2,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react-native';
 import {KeysCreate} from '../../src/app/screens/keys-create';
 import {KeysImport} from '../../src/app/screens/keys-import';
-import {KeysSave} from '../../src/app/screens/keys-save';
+import {KeysMnemonic} from '../../src/app/screens/keys-mnemonic';
 
 const props = {
     dispatch: () => {},
@@ -20,6 +20,12 @@ storiesOf('Keys')
     .add('create', () => (
         <KeysCreate {...props}/>
     ))
+    .add('mnemonic', () => (
+        <KeysMnemonic/>
+    ))
+    .add('mnemonic warn', () => (
+        <KeysMnemonic warningOpen={true}/>
+    ))
     .add('import', () => (
         <KeysImport {...props}/>
     ))
@@ -27,12 +33,5 @@ storiesOf('Keys')
         <KeysImport {...{
             ...props,
             error: new Error('Error importing keys')
-        }}/>
-    ))
-    .add('save', () => (
-        <KeysSave {...{
-            ...props,
-            publicKey: 'GCUPGH4DZZVXNWVMEOXMO2M2524UYY2O6DXDGUR6YRFPNFGVF4LX63TW',
-            secretKey: 'SBBZSQRKV4NDIKRVSXYL3T7NYKR3QP4X23VYGLEWYITFCKFN6Y4GY2PA'
         }}/>
     ));

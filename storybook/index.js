@@ -1,3 +1,4 @@
+import '../src/app/global';
 import {AppRegistry} from 'react-native';
 import {getStorybookUI, configure} from '@storybook/react-native';
 
@@ -46,7 +47,6 @@ function loadStories() {
     require('./stories/notification-modal.js');
     require('./stories/claim-vip.js');
     require('./stories/loader-modal.js');
-    require('./stories/hd-wallet.js');
 }
 
 configure(loadStories, module);
