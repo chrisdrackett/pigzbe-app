@@ -198,7 +198,7 @@ storiesOf('TextInput')
                 onChangeText={() => {}}
                 numberOfLines={2}
                 returnKeyType="done"
-                showMultiLineTopPlaceholder
+                showTopPlaceholder
             />
             <StatefulTextInput
                 error={false}
@@ -207,7 +207,7 @@ storiesOf('TextInput')
                 onChangeText={() => {}}
                 numberOfLines={3}
                 returnKeyType="done"
-                showMultiLineTopPlaceholder
+                showTopPlaceholder
             />
         </View>
     ));

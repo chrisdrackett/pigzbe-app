@@ -4,6 +4,7 @@ import styles from './styles';
 import {strings} from '../../constants';
 import Button from '../../components/button';
 import TextInput from '../../components/text-input';
+import WolloInput from '../../components/wollo-input';
 import {isValidPublicKey} from '@pigzbe/stellar-utils';
 import moneyFormat from '../../utils/money-format';
 import {ASSET_CODE, COIN_SYMBOLS, COIN_DPS} from '../../constants';
@@ -37,7 +38,6 @@ export default class Form extends Component {
         amountError: null,
         memoError: null,
         error: null,
-        estimate: getExchange()
     }
 
     static defaultProps = {
@@ -58,12 +58,10 @@ export default class Form extends Component {
 
         const amount = value.replace(/[^0-9.]/g, '');
         const amountValid = amount && Number(amount) > 0 && remainingBalance(balance, amount).isGreaterThanOrEqualTo(0);
-        const estimate = getExchange(exchange, amount);
 
         this.setState({
             amount,
             amountValid,
-            estimate
         });
     }
 
@@ -100,7 +98,6 @@ export default class Form extends Component {
 
     render() {
         const {
-            estimate,
             keyError,
             amountError,
             memoError,
@@ -120,21 +117,16 @@ export default class Form extends Component {
                     numberOfLines={3}
                 />
                 <View style={styles.amount}>
-                    <WolloImage />
-                    <TextInput
+                    <WolloInput
                         error={!!amountError}
                         value={this.state.amount}
                         label={strings.transferAmount}
                         placeholder={strings.transferSendWollo}
                         onChangeText={this.updateAmount}
                         editable={!review}
-                        style={review ? styles.amountInputConfirm : styles.amountInput}
                         keyboardType="numeric"
                     />
                 </View>
-                <Text style={styles.estimate}>
-                    {strings.transferSendEstimate} {estimate}
-                </Text>
                 {!review || this.state.memo ? (
                     <TextInput
                         error={!!memoError}
@@ -151,13 +143,10 @@ export default class Form extends Component {
                 {review ? (
                     <Fragment>
                         <View style={styles.amount}>
-                            <WolloImage />
-                            <TextInput
-                                dark
+                            <WolloInput
                                 value={getBalanceAfter(this.props.balance, this.state.amount)}
                                 label={strings.transferBalanceAfter}
                                 editable={false}
-                                style={styles.amountInputConfirm}
                             />
                         </View>
                         <Text style={styles.amountMinus}>
