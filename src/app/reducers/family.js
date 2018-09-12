@@ -6,7 +6,8 @@ import {
     FAMILY_NUM_KIDS_TO_ADD,
     FAMILY_ADD_KID,
     FAMILY_BALANCE_UPDATE,
-    FAMILY_ASSIGN_TASK
+    FAMILY_ASSIGN_TASK,
+    FAMILY_ADD_ALLOWANCE,
 } from '../actions';
 
 export const initialState = {
@@ -18,6 +19,8 @@ export const initialState = {
 };
 
 export default (state = initialState, action) => {
+
+    console.log('>><<', state.kids);
 
     switch (action.type) {
         case FAMILY_LOADING:
@@ -69,6 +72,19 @@ export default (state = initialState, action) => {
                         return {
                             ...k,
                             tasks: k.tasks.concat({task: action.data.task, reward: action.data.wollos}),
+                        };
+                    }
+                    return k;
+                }),
+            };
+        case FAMILY_ADD_ALLOWANCE:
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    if (k.name === action.data.name) {
+                        return {
+                            ...k,
+                            allowance: {amount: action.data.allowance, interval: action.data.interval, day: action.data.day},
                         };
                     }
                     return k;

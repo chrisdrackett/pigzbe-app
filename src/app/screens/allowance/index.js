@@ -30,8 +30,6 @@ export class Allowance extends Component {
 
         deconstructedAllowances.push({key: '+'});
 
-        console.log('deconstructedAllowances', deconstructedAllowances);
-
         return deconstructedAllowances;
     }
 
@@ -64,7 +62,7 @@ export class Allowance extends Component {
                         <Text
                             style={[styles.inner, styles.innerText]}
                         >
-                            {item.key}
+                            {item.key.toString()}
                         </Text>
                     </TouchableOpacity>
                     <Text style={styles.conversion}>Custom</Text>
@@ -165,7 +163,7 @@ export class Allowance extends Component {
 
 export default connect(
     (state, props) => ({
-        loading: state.tasks.loading,
+        loading: false, /*state.family.loading,*/
         kid: props.navigation.state.params.kid,
         currency: props.navigation.state.params.currency,
     })

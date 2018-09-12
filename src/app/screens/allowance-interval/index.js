@@ -6,6 +6,7 @@ import SelectInput from '../../components/select-input';
 import {SCREEN_BALANCE} from '../../constants';
 import StepModule from '../../components/step-module';
 import styles from './styles';
+import {familyAddAllowance} from '../../actions';
 
 
 export class AllowanceInterval extends Component {
@@ -24,6 +25,14 @@ export class AllowanceInterval extends Component {
     next = async () => {
         const {day, interval} = this.state;
         const {kid, allowance} = this.props;
+
+        console.log('NEXT', day, interval, kid, allowance);
+
+        await this.props.dispatch(familyAddAllowance(kid, allowance, interval, day));
+
+        // todo navigate to kids screen instead
+        this.props.navigation.navigate(SCREEN_BALANCE);
+
 
         // todo save to redux state and redirect
         // this.props.navigation.navigate(SCREEN_BALANCE, {kid: this.props.kid, allowance: custom ? custom : active});
@@ -73,8 +82,8 @@ export class AllowanceInterval extends Component {
 
 export default connect(
     (state, props) => ({
-        loading: state.tasks.loading,
+        loading: false, /*state.family.loading,*/
         allowance: props.navigation.state.params.allowance,
-        kid: props.navigation.state.params.kid,
+        kid: props.navigation.state.params.kid.name,
     })
 )(AllowanceInterval);
