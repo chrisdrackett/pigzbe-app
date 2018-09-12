@@ -37,10 +37,6 @@ export class TasksAssign extends Component {
         wollos: 0,
     }
 
-    componentWillMount() {
-        console.log('mounting tasks assign screen');
-    }
-
     onBack = () => this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid});
 
     onChangeAmount = wollos => {
@@ -95,7 +91,7 @@ export class TasksAssign extends Component {
 
 export default connect(
     (state, props) => ({
-        loading: state.tasks.loading,
+        loading: state.family.loading,
         kid: props.navigation.state.params.kid,
         task: props.navigation.state.params.task,
     })

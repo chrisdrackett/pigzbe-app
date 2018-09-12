@@ -10,6 +10,15 @@ import KidAvatar from '../../components/kid-avatar';
 import ActionPanel from '../../components/action-panel';
 import styles from './styles';
 
+const Item = ({first, title, amount}) => (
+    <View style={[styles.item, first ? null : styles.itemBorder]}>
+        <Text style={styles.itemTitle}>{title}</Text>
+        <View style={styles.itemAmount}>
+            <Wollo dark balance={amount} />
+        </View>
+    </View>
+);
+
 export class ChildDash extends Component {
 
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
@@ -65,7 +74,20 @@ export class ChildDash extends Component {
                                 onAdd={this.onAddTask}
                                 style={styles.panel}
                                 boxButton
-                            />
+                            >
+                                {kid.tasks.length && (
+                                    <View style={styles.box}>
+                                        {kid.tasks.map(({task, reward}, i) => (
+                                            <Item
+                                                key={i}
+                                                first={i === 0}
+                                                title={task}
+                                                amount={reward}
+                                            />
+                                        ))}
+                                    </View>
+                                )}
+                            </ActionPanel>
                             <ActionPanel
                                 title="Goals"
                                 label="Add a new goal"
