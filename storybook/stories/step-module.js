@@ -169,6 +169,7 @@ stories.add('header test', () => (
         pad
         onSettings={() => {}}
         onBack={() => {}}
+        customTitle="Testing"
     >
     </StepModule>
 ));

@@ -53,8 +53,6 @@ export default StyleSheet.create({
         height: 11,
     },
     customTitle: {
-        marginTop: 34,
-        marginBottom: 10,
         color: color.lighterBlue,
         fontSize: 14,
     }
