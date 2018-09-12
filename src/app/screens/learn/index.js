@@ -31,8 +31,12 @@ export default class Learn extends Component {
         conversionKey: 'carrot',
     }
 
+    onOpen = () => this.props.dispatch(gameOverlayOpen(true))
+
+    onClose = () => this.props.dispatch(gameOverlayOpen(false))
+
     render() {
-        const {dispatch, exchange, wolloCollected, overlayOpen} = this.props;
+        const {exchange, wolloCollected, overlayOpen} = this.props;
         const {conversionKey} = this.state;
         const {coin, label, labelOne} = conversions[conversionKey];
 
@@ -44,7 +48,7 @@ export default class Learn extends Component {
             return (
                 <View style={styles.overlay}>
                     <View style={styles.container}>
-                        <TouchableOpacity style={styles.close} onPress={() => dispatch(gameOverlayOpen(false))}>
+                        <TouchableOpacity style={styles.close} onPress={this.onClose}>
                             <Image style={styles.closeImg} source={images.close} />
                         </TouchableOpacity>
                         <Image style={styles.rabbit} source={images.rabbit} />
@@ -87,7 +91,7 @@ export default class Learn extends Component {
             <View style={styles.button}>
                 <Counter
                     value={wolloCollected}
-                    onPress={() => dispatch(gameOverlayOpen(true))}
+                    onPress={this.onOpen}
                 />
             </View>
         );

@@ -19,8 +19,7 @@ export class ChildLogin extends Component {
 
     onCodeEntered = code => {
         console.log('onCodeEntered', code);
-        const address = this.props.navigation.getParam('address');
-        this.props.dispatch(loginAndLoadKid(address, code));
+        this.props.dispatch(loginAndLoadKid(this.props.kid, code));
     }
 
     render() {
@@ -58,7 +57,8 @@ export class ChildLogin extends Component {
 }
 
 export default connect(
-    state => ({
+    (state, props) => ({
+        kid: props.navigation.state.params.kid,
         loading: state.loader.loading,
         message: state.loader.message,
         error: state.auth.error

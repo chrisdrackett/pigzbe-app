@@ -1,6 +1,9 @@
 import React from 'react';
+import {View} from 'react-native';
 import {storiesOf} from '@storybook/react-native';
 import {GameView} from '../../src/app/screens/game';
+import Learn from '../../src/app/screens/learn';
+import GameTasks from '../../src/app/screens/game-tasks';
 
 const props = {
     dispatch: () => {},
@@ -25,6 +28,20 @@ const props = {
     },
     wolloCollected: 10,
     overlayOpen: false,
+    kid: {
+        name: 'Ella',
+        dob: '01/01/2010',
+        photo: '',
+        balance: '20',
+        tasks: [{
+            task: 'Clean the car',
+            reward: '10',
+        }, {
+            task: 'Do your homework',
+            reward: '100',
+        }]
+    },
+    parentNickname: 'Dad',
 };
 
 storiesOf('Game')
@@ -36,4 +53,20 @@ storiesOf('Game')
             ...props,
             overlayOpen: true
         }}/>
+    ))
+    .add('learn', () => (
+        <View style={{flex: 1, backgroundColor: 'black'}}>
+            <Learn {...{
+                ...props,
+                overlayOpen: true,
+            }}/>
+        </View>
+    ))
+    .add('tasks', () => (
+        <View style={{flex: 1, backgroundColor: 'black'}}>
+            <GameTasks {...{
+                ...props,
+                overlayOpen: true,
+            }}/>
+        </View>
     ));
