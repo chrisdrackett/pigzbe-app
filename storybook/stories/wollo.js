@@ -51,4 +51,23 @@ storiesOf('Wollo')
                 exchange: null,
             }}/>
         </View>
+    ))
+    .add('dark no exchange', () => (
+        <View style={[style, grey]}>
+            <Wollo {...{
+                ...props,
+                dark: true,
+                exchange: null,
+            }}/>
+        </View>
+    ))
+    .add('label', () => (
+        <View style={[style, grey]}>
+            <Wollo {...{
+                ...props,
+                dark: true,
+                exchange: null,
+                label: 'Wollo balance',
+            }}/>
+        </View>
     ));
