@@ -5,8 +5,7 @@ import {connect} from 'react-redux';
 import styles from './styles';
 import {CHILD_PASSCODE_LENGTH} from '../../constants';
 
-import {SCREEN_SAVE_KEYS, SCREEN_IMPORT_KEYS} from '../../constants';
-import {createKeys, authCreateKid, appError} from '../../actions';
+import {authCreateKid, appError} from '../../actions';
 
 import IconPad from '../../components/icon-pad';
 import StepModule from '../../components/step-module';
@@ -20,13 +19,6 @@ export class ChildLogin extends Component {
         error: false,
         prevCode: null,
     }
-
-    onCreate = async () => {
-        await this.props.dispatch(createKeys());
-        this.props.navigation.navigate(SCREEN_SAVE_KEYS);
-    }
-
-    onImport = () => this.props.navigation.navigate(SCREEN_IMPORT_KEYS)
 
     onCodeEntered = code => {
         if (this.state.prevCode) {

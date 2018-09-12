@@ -1,3 +1,4 @@
+import '../src/app/global';
 import {AppRegistry} from 'react-native';
 import {getStorybookUI, configure} from '@storybook/react-native';
 

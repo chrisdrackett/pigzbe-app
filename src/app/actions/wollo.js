@@ -257,3 +257,20 @@ export const getAccountBalance = publicKey => async () => {
     }
     return '0';
 };
+
+export const fundAccount = () => async (dispatch, getState) => {
+    const {publicKey, secretKey} = getState().wollo;
+    const asset = wolloAsset(getState());
+    const funderSecretKey = 'SCBLV2OXPIMUHKYJRS3TMPGPBRWEVKWTJB33TW6RZEJ276VWX5GPCPXQ';
+    try {
+        await sendPayment(funderSecretKey, publicKey, '20', 'Fund XLM');
+    } catch (error) {
+        await createAccount(funderSecretKey, publicKey, '20', 'Fund XLM');
+    }
+    try {
+        await trustAsset(secretKey, asset);
+        await sendPayment(funderSecretKey, publicKey, '400', 'Fund WLO', asset);
+    } catch (error) {
+        console.log(error);
+    }
+};

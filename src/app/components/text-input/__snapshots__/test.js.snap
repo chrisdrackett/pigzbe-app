@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TextInput renders correctly 1`] = `
-Array [
+<View
+  style={
+    Object {
+      "marginBottom": 10,
+    }
+  }
+>
   <Text
     style={
       Object {
@@ -16,13 +22,23 @@ Array [
     }
   >
     Label
-  </Text>,
+  </Text>
   <View
     style={
-      Object {
-        "alignSelf": "stretch",
-        "height": 55,
-      }
+      Array [
+        Object {
+          "alignSelf": "stretch",
+          "borderColor": "rgb(127, 153, 188)",
+          "borderRadius": 22.5,
+          "borderWidth": 1,
+          "paddingLeft": 22,
+          "paddingRight": 22,
+        },
+        Object {
+          "borderRadius": 25,
+          "height": 50,
+        },
+      ]
     }
   >
     <TextInput
@@ -34,31 +50,25 @@ Array [
       keyboardType="default"
       multiline={false}
       numberOfLines={1}
+      onBlur={[Function]}
       onChangeText={[Function]}
+      onFocus={[Function]}
+      placeholder=""
       placeholderTextColor="rgb(127, 153, 188)"
       returnKeyType="done"
       style={
         Array [
           Object {
-            "alignSelf": "stretch",
-            "borderColor": "rgb(127, 153, 188)",
-            "borderRadius": 22.5,
-            "borderWidth": 1,
             "color": "rgb(0, 50, 120)",
+            "flex": 1,
             "fontFamily": "Poppins",
             "fontSize": 14,
             "fontWeight": "bold",
             "lineHeight": 21,
-            "marginBottom": 10,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 12,
             "textAlignVertical": "top",
           },
           Object {
-            "borderRadius": 22.5,
-            "height": 45,
-            "paddingTop": 0,
+            "paddingTop": 10,
             "width": "100%",
           },
         ]
@@ -66,6 +76,6 @@ Array [
       underlineColorAndroid="transparent"
       value=""
     />
-  </View>,
-]
+  </View>
+</View>
 `;
