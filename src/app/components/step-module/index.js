@@ -44,7 +44,7 @@ export default class StepModule extends Component {
               <View style={styles.bg}/>
               <Header onBack={onBack} onSettings={onSettings} hideLogo={hideLogo} customTitle={customTitle} />
               {
-                  title || icon ? <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader> : null
+                  title || icon || headerChildren ? <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader> : null
               }
               <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}} offset={keyboardOffset}>
                   <Container

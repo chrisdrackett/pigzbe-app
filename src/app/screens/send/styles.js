@@ -31,17 +31,6 @@ export default StyleSheet.create({
     buttonWrapper: {
         marginTop: 20,
     },
-    amountInputConfirm: {
-        paddingLeft: 42,
-        paddingRight: 0,
-        borderColor: color.transparent,
-    },
-    inputConfirm: {
-        paddingLeft: 0,
-        paddingRight: 0,
-        borderColor: color.transparent,
-        color: color.grey,
-    },
     amountMinus: {
         fontFamily,
         color: color.red,

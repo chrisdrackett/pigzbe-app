@@ -30,11 +30,13 @@ export default class TextInputComponent extends Component {
     }
 
     getStyle() {
-        const {style, numberOfLines, showMultiLineTopPlaceholder} = this.props;
+        const {style, numberOfLines, showTopPlaceholder} = this.props;
 
-        let paddingTop = 10;
+        let paddingTop;
         if (numberOfLines > 1) {
-            paddingTop = showMultiLineTopPlaceholder ? 20 : 12;
+            paddingTop = showTopPlaceholder === true ? 20 : 12;
+        } else {
+            paddingTop = showTopPlaceholder === false ? 0 : 10;
         }
 
         let s = [styles.input, {
@@ -63,18 +65,23 @@ export default class TextInputComponent extends Component {
             autoCapitalize = 'sentences',
             autoCorrect = true,
             returnKeyType = 'done',
-            showMultiLineTopPlaceholder = false,
         } = this.props;
+
+        let showTopPlaceholder = this.props.showTopPlaceholder;
+        if (showTopPlaceholder === undefined) { // default
+            showTopPlaceholder = numberOfLines === 1;
+        }
+
 
         return (
             <BaseInputField
                 label={label}
-                borderRadius={numberOfLines > 1 ? 5 : 'undefined'}
+                borderRadius={numberOfLines > 1 ? 5 : undefined}
                 error={error}
                 placeholder={placeholder}
                 placeholderTop={this.state.focused || !!value}
-                height={numberOfLines > 1 ? getHeight(numberOfLines, 10) : 'undefined'}
-                hideTopPlaceholder={numberOfLines > 1 && !showMultiLineTopPlaceholder}
+                height={numberOfLines > 1 ? getHeight(numberOfLines, 10) : undefined}
+                showTopPlaceholder={showTopPlaceholder}
             >
                 <TextInput
                     style={this.getStyle()}
