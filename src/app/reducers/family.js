@@ -20,8 +20,6 @@ export const initialState = {
 
 export default (state = initialState, action) => {
 
-    console.log('>><<', state.kids);
-
     switch (action.type) {
         case FAMILY_LOADING:
             return {

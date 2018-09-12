@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Button from '../../components/button';
 import SelectInput from '../../components/select-input';
-import {SCREEN_BALANCE} from '../../constants';
+import {SCREEN_ALLOWANCE_AMOUNT, SCREEN_CHILD_DASH} from '../../constants';
 import StepModule from '../../components/step-module';
 import styles from './styles';
 import {familyAddAllowance} from '../../actions';
@@ -20,22 +20,16 @@ export class AllowanceInterval extends Component {
     componentWillMount() {
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE);
+    onBack = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT);
 
     next = async () => {
         const {day, interval} = this.state;
         const {kid, allowance} = this.props;
 
-        console.log('NEXT', day, interval, kid, allowance);
+        await this.props.dispatch(familyAddAllowance(kid.name, allowance, interval, day));
 
-        await this.props.dispatch(familyAddAllowance(kid, allowance, interval, day));
-
-        // todo navigate to kids screen instead
-        this.props.navigation.navigate(SCREEN_BALANCE);
-
-
-        // todo save to redux state and redirect
-        // this.props.navigation.navigate(SCREEN_BALANCE, {kid: this.props.kid, allowance: custom ? custom : active});
+        // todo navigate to kid screen instead
+        this.props.navigation.navigate(SCREEN_CHILD_DASH, {kid});
     }
 
     render() {
@@ -84,6 +78,6 @@ export default connect(
     (state, props) => ({
         loading: false, /*state.family.loading,*/
         allowance: props.navigation.state.params.allowance,
-        kid: props.navigation.state.params.kid.name,
+        kid: props.navigation.state.params.kid,
     })
 )(AllowanceInterval);
