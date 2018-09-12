@@ -14,6 +14,13 @@ const props = {
         actions: {}
     },
     tasks: ['task one', 'task two'],
+    defaultTasks: [
+        'Clean the car',
+        'Tidy your room',
+        'Do your homework',
+        'Take out the rubbish',
+        'Wash the dishes'
+    ],
 };
 
 storiesOf('Tasks')
