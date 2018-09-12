@@ -13,9 +13,25 @@ const getPadding = (w, h) => ({
 export default StyleSheet.create({
     container: {
         backgroundColor: color.blue,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: 70,
+        display: 'flex',
+        flexDirection: 'row',
+        paddingTop: 20,
+    },
+    iconContainer: {
+        width: 40,
+        display: 'flex',
+        justifyContent: 'center',
+        marginLeft: 18,
+        marginRight: 18,
+    },
+    titleContainer: {
+        flex: 1,
+        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: 30,
     },
     settingsIcon: {
         width: 18,
@@ -24,18 +40,12 @@ export default StyleSheet.create({
     settings: {
         width: btnSize,
         height: btnSize,
-        position: 'absolute',
-        top: 24,
-        right: 10,
         ...getPadding(18, 18)
     },
     back: {
         // backgroundColor: 'red',
         width: btnSize,
         height: btnSize,
-        position: 'absolute',
-        top: 24,
-        left: 10,
         ...getPadding(14, 11)
     },
     backIcon: {
@@ -43,8 +53,6 @@ export default StyleSheet.create({
         height: 11,
     },
     customTitle: {
-        marginTop: 34,
-        marginBottom: 10,
         color: color.lighterBlue,
         fontSize: 14,
     }
