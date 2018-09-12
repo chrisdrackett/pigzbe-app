@@ -13,8 +13,6 @@ const props = {
         },
         actions: {}
     },
-    intervals: ['Daily', 'Weekly', 'Fortnightly', 'Monthly'],
-    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
 };
 
 storiesOf('Allowance')

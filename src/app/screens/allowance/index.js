@@ -43,9 +43,6 @@ export class Allowance extends Component {
 
     showInput = () => {
         this.setState({showingInput: true, active: null});
-        // setTimeout(() => {
-        //     this.inputBox.focus();
-        // }, 0);
     }
 
     deleteCustom = () => {

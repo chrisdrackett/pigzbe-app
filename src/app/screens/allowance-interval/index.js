@@ -12,6 +12,8 @@ export class AllowanceInterval extends Component {
     state = {
         day: null,
         interval: null,
+        intervals: ['Daily', 'Weekly', 'Fortnightly', 'Monthly'],
+        days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     }
 
     componentWillMount() {
@@ -28,8 +30,8 @@ export class AllowanceInterval extends Component {
     }
 
     render() {
-        const {interval, day} = this.state;
-        const {loading, intervals, days} = this.props;
+        const {interval, day, intervals, days} = this.state;
+        const {loading} = this.props;
 
         return (
             <StepModule
