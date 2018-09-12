@@ -13,8 +13,8 @@ exports[`CurrencyToggle renders correctly 1`] = `
   style={
     Object {
       "backgroundColor": "rgb(127, 153, 188)",
-      "borderRadius": 22.5,
-      "height": 45,
+      "borderRadius": 25,
+      "height": 50,
       "opacity": 1,
       "position": "relative",
       "width": 80,
@@ -25,8 +25,8 @@ exports[`CurrencyToggle renders correctly 1`] = `
     style={
       Object {
         "backgroundColor": "rgb(0, 50, 120)",
-        "borderRadius": 20.5,
-        "height": 41,
+        "borderRadius": 23,
+        "height": 46,
         "left": 2,
         "position": "absolute",
         "shadowColor": "rgb(0, 0, 0)",
@@ -37,7 +37,7 @@ exports[`CurrencyToggle renders correctly 1`] = `
         "shadowOpacity": 0.3,
         "shadowRadius": 2,
         "top": 2,
-        "width": 41,
+        "width": 46,
       }
     }
   />
@@ -50,9 +50,9 @@ exports[`CurrencyToggle renders correctly 1`] = `
     style={
       Object {
         "height": 13,
-        "left": 14,
+        "left": 16,
         "position": "absolute",
-        "top": 16,
+        "top": 18,
         "width": 16,
       }
     }
@@ -61,8 +61,8 @@ exports[`CurrencyToggle renders correctly 1`] = `
     style={
       Object {
         "position": "absolute",
-        "right": 17,
-        "top": 13,
+        "right": 16,
+        "top": 15,
       }
     }
   >
