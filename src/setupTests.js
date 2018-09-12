@@ -42,3 +42,5 @@ jest.mock('NetInfo', () => {
         }
     };
 });
+
+jest.useFakeTimers();

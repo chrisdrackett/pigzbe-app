@@ -10,7 +10,8 @@ const tasksLoading = value => ({type: TASKS_LOADING, value});
 export const loadTasks = () => async dispatch => {
     try {
         const data = await Storage.load(STORAGE_KEY_TASKS);
-        await dispatch({type: TASKS_LOAD, value: data});
+        const value = data && Array.isArray(data) ? data : [];
+        await dispatch({type: TASKS_LOAD, value});
     } catch (error) {
         console.log(error);
     }

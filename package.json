@@ -36,7 +36,8 @@
     "launch:electron": "electron './desktop/main.js'",
     "build:webpack": "webpack -p --config './desktop/webpack.config.js'",
     "postversion": "react-native-version",
-    "storybook": "storybook start -p 7007"
+    "storybook": "storybook start -p 7007",
+    "video": "xcrun simctl io booted recordVideo appvideo.mov"
   },
   "dependencies": {
     "@pigzbe/stellar-utils": "1.1.0",
@@ -54,6 +55,7 @@
     "react-art": "16.4.1",
     "react-dom": "16.4.1",
     "react-native": "0.56.0",
+    "react-native-camera": "^1.2.0",
     "react-native-config": "0.11.5",
     "react-native-confirmation-code-input": "^1.0.4",
     "react-native-datepicker": "^1.7.2",

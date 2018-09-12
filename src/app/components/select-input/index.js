@@ -2,25 +2,10 @@ import React, {Component, Fragment} from 'react';
 import {Text, View, Image, Picker, TouchableOpacity, Modal} from 'react-native';
 import styles from './styles';
 import isAndroid from '../../utils/is-android';
+import BaseInputField from '../base-input-field';
 
 const padding = isAndroid ? 11 : 0;
 
-const getStyle = (error, style) => {
-
-    let s = [styles.input, {
-        paddingTop: padding,
-    }];
-
-    if (error) {
-        s = s.concat(styles.error);
-    }
-
-    if (style) {
-        s = s.concat(style);
-    }
-
-    return s;
-};
 
 export default class SelectInputComponent extends Component {
 
@@ -36,38 +21,51 @@ export default class SelectInputComponent extends Component {
         this.setState({open: false});
     }
 
+    getOptions() {
+        const {options} = this.props;
+        if (Array.isArray(options)) {
+            return options.reduce((obj, option) => {
+                obj[option] = option;
+                return obj;
+            }, {});
+        }
+        return options;
+    }
+
     render() {
         const {
             placeholder,
-            options,
             onChangeSelection,
             error = false,
             value = '',
             label,
             style,
+            searchable,
         } = this.props;
 
+        const options = this.getOptions();
+
         return (
-            <Fragment>
-                {label && (
-                    <Text style={styles.label}>
-                        {label}
-                    </Text>
-                )}
+            <BaseInputField 
+                label={label}
+                error={error}
+                placeholder={placeholder}
+                placeholderTop={!!value}
+            >
                 <TouchableOpacity
-                    style={getStyle(error, style)}
+                    style={styles.input}
                     onPress={this.onOpen}
                 >
                     {!!value &&
-                        <Text style={styles.text}>{value}</Text>
+                        <Text style={styles.text}>{options[value]}</Text>
                     }
                     {!value &&
-                        <Text style={styles.placeholder}>{placeholder}</Text>
+                        <Text></Text>
                     }
-                    <Image style={styles.arrow} source={require('./images/down-arrow.png')} />
+                    <Image style={[styles.arrow, searchable ? styles.arrowSearchable : null]} source={require('./images/down-arrow.png')} />
                 </TouchableOpacity>
 
-                {this.state.open &&
+                {!searchable &&
                     <Modal
                         animationType="slide"
                         transparent={true}
@@ -84,15 +82,15 @@ export default class SelectInputComponent extends Component {
                                     selectedValue={value}
                                     onValueChange={(itemValue) => onChangeSelection(itemValue)}
                                     itemStyle={styles.pickerItem}>
-                                    {options.map(option =>
-                                        <Picker.Item key={option} label={option} value={option} />
+                                    {Object.keys(options).map(key =>
+                                        <Picker.Item key={key} label={options[key]} value={key} />
                                     )}
                                 </Picker>
                             </View>
                         </View>
                     </Modal>
                 }
-            </Fragment>
+            </BaseInputField>
         );
     }
 }

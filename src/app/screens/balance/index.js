@@ -21,7 +21,14 @@ import Paragraph from '../../components/paragraph';
 import StepModule from '../../components/step-module';
 import ConfirmSend from '../../components/confirm-send';
 import Progress from '../../components/progress';
-import {loadExchange, settingsFirstTime, familyTransfer, loadFamilyBalances} from '../../actions';
+import {
+    loadExchange,
+    settingsFirstTime,
+    familyTransfer,
+    loadFamilyBalances,
+    fundAccount,
+    loadWallet
+} from '../../actions';
 
 export class Balance extends Component {
     state = {
@@ -29,7 +36,8 @@ export class Balance extends Component {
         confirmSend: false,
         name: '',
         address: '',
-        amount: ''
+        amount: '',
+        funding: false,
     }
 
     componentDidMount() {
@@ -88,6 +96,13 @@ export class Balance extends Component {
 
     onDashboard = address => this.props.navigation.navigate(SCREEN_CHILD_DASH, {address});
 
+    onFund = async () => {
+        this.setState({funding: true});
+        await this.props.dispatch(fundAccount());
+        await this.props.dispatch(loadWallet());
+        this.setState({funding: false});
+    }
+
     render () {
         const {
             exchange,
@@ -102,7 +117,7 @@ export class Balance extends Component {
             sendComplete,
         } = this.props;
 
-        const loading = !exchange && !error;
+        const loading = (!exchange && !error) || this.state.funding;
 
         const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
 
@@ -123,11 +138,20 @@ export class Balance extends Component {
                     backgroundColor={color.transparent}
                     onSettings={this.onSettings}
                     loading={loading}
+                    loaderMessage={this.state.funding ? 'Funding account' : null}
                     error={error}
                 >
                     {(!loading && !error) && (
                         <View>
                             <BalanceGraph balance={balance} balanceXLM={balanceXLM} exchange={exchange} baseCurrency={baseCurrency}/>
+                            {(__DEV__ && Number(balance) === 0) && (
+                                <Button
+                                    label="Fund account"
+                                    theme="light"
+                                    onPress={this.onFund}
+                                    style={{marginTop: 20}}
+                                />
+                            )}
                             <View style={{
                                 paddingTop: 40,
                                 paddingLeft: '6.25%',

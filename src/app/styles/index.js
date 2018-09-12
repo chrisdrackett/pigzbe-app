@@ -19,6 +19,7 @@ export const color = {
     lightSkyBlue: 'rgb(223, 230, 238)',
     yellow: 'rgb(253, 223, 6)',
     red: 'rgb(255, 0, 0)',
+    errorRed: 'rgb(236, 111, 134)',
     green: 'rgb(149, 198, 100)',
     lightGreen: 'rgb(126, 211, 33)',
     darkGreen: 'rgb(65, 117, 5)',
