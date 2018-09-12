@@ -159,3 +159,16 @@ stories.add('loading', () => (
         </View>
     </StepModule>
 ));
+
+
+stories.add('header test', () => (
+    <StepModule
+        title={'Header Test'}
+        icon="keys"
+        content={'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.'}
+        pad
+        onSettings={() => {}}
+        onBack={() => {}}
+    >
+    </StepModule>
+));
