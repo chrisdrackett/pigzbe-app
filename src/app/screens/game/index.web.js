@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Game from '../../../game/';
-import NavListener from './nav-listener';
 import Learn from '../learn';
 import Loader from '../../components/loader';
 import {container} from '../../styles';
@@ -14,7 +13,7 @@ import {
     LEARN
 } from '../../../game/constants';
 
-class GameView extends NavListener {
+class GameView extends Component {
     state = {
         loading: true
     }

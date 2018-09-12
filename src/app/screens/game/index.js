@@ -1,18 +1,18 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Platform, View, WebView} from 'react-native';
-import NavListener from './nav-listener';
 import styles from './styles';
 import Learn from '../learn';
 import Loader from '../../components/loader';
 import {gameWolloCollected, gameOverlayOpen} from '../../actions';
 import {PAUSE, RESUME, READY, COLLECTED, LEARN, LOG, ERROR} from '../../../game/constants';
+import GameTasks from '../game-tasks';
 
 console.log('Platform.OS', Platform.OS);
 const source = Platform.OS === 'android' ? {uri: 'file:///android_asset/game.html'} : require('../../../game/game.html');
 // const source = Platform.OS === 'android' ? {uri: 'file:///android_asset/game.html'} : {uri: './game.html'};
 
-export class GameView extends NavListener {
+export class Game extends Component {
     state = {
         loading: true,
         message: 'Loading game',
@@ -56,7 +56,22 @@ export class GameView extends NavListener {
     }
 
     render() {
-        const {dispatch, exchange, wolloCollected, overlayOpen} = this.props;
+        const {
+            dispatch,
+            exchange,
+            wolloCollected,
+            overlayOpen,
+            kid,
+            parentNickname
+        } = this.props;
+
+        // return (
+        //     <View style={{padding: 40}}>
+        //         <Text>Game</Text>
+        //         <Text>{kid.name}</Text>
+        //         <Text>Tasks: {kid.tasks.length}</Text>
+        //     </View>
+        // );
 
         return (
             <View style={styles.full}>
@@ -79,6 +94,13 @@ export class GameView extends NavListener {
                     wolloCollected={wolloCollected}
                     overlayOpen={overlayOpen}
                 />
+                {kid.tasks.length ? (
+                    <GameTasks
+                        dispatch={dispatch}
+                        parentNickname={parentNickname}
+                        kid={kid}
+                    />
+                ) : null}
                 <Loader
                     loading={this.state.loading}
                     message={this.state.message}
@@ -89,7 +111,9 @@ export class GameView extends NavListener {
 }
 
 export default connect(state => ({
+    kid: state.auth.kid,
+    parentNickname: state.family.parentNickname,
     exchange: state.coins.exchange,
     wolloCollected: state.game.wolloCollected,
     overlayOpen: state.game.overlayOpen
-}))(GameView);
+}))(Game);

@@ -166,7 +166,7 @@ export class TasksList extends Component {
 
 export default connect(
     (state, props) => ({
-        tasks: state.tasks.tasks,
+        tasks: state.tasks.tasks.concat(state.tasks.defaultTasks),
         loading: state.tasks.loading,
         kid: props.navigation.state.params.kid,
     })

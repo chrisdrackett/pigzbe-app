@@ -9,15 +9,15 @@ import Pig from '../../components/pig';
 import {strings} from '../../constants';
 import DevPanel from '../dev-panel';
 import Container from '../../components/container';
-import {SCREEN_LOGIN, SCREEN_DEVICE_AUTH, SCREEN_KID_LOGIN, SCREEN_KID_SET_LOGIN, SCREEN_CLAIM_VIP} from '../../constants';
+import {SCREEN_LOGIN, SCREEN_DEVICE_AUTH, SCREEN_KID_LOGIN, SCREEN_KID_SET_LOGIN} from '../../constants';
 import HomeLogo from '../../components/home-logo';
 import KidAvatar from '../../components/kid-avatar';
 
 class KidProfile extends Component {
-    onChoose = () => this.props.onChoose(this.props.address)
+    onChoose = () => this.props.onChoose(this.props.kid)
 
     render() {
-        const {name, photo} = this.props;
+        const {name, photo} = this.props.kid;
 
         return (
             <TouchableOpacity style={styles.profile} onPress={this.onChoose}>
@@ -44,8 +44,8 @@ export const HomeView = ({showKidLogin, kids, onCreate, onLogin, onKidLogin, onO
                     <View style={styles.profileWrapper}>
                         {kids.map((kid, i) => (
                             <KidProfile
-                                {...kid}
                                 key={i}
+                                kid={kid}
                                 onChoose={onKidLogin}
                             />
                         ))}
@@ -89,37 +89,16 @@ class Home extends Component {
     onLogin = () => this.props.navigation.navigate(SCREEN_LOGIN)
 
     onCreate = async () => {
-        
+
         //this.props.navigation.navigate(SCREEN_CLAIM_VIP);
         await this.props.dispatch(loadContent());
         this.props.navigation.navigate(SCREEN_DEVICE_AUTH);
     }
 
-    onKidLogin = async(address) => {
-        // TODO: dispatch to set profile to log in and navigate to kid login
-
-        const passcode = await this.props.dispatch(authKeychainKid(address));
-        // Keychain.save(address, ['blah', 'blah2'].toString());
-        // const keychain = await Keychain.load(address);
-
-        // todo get keychain value for this address
-        console.log('-- onKidLogin-- ', address, passcode);
-        // await this.props.dispatch(loadContent());
-        // this.props.navigation.navigate(SCREEN_DEVICE_AUTH);
-
-        if (passcode) {
-            this.props.navigation.navigate(
-                SCREEN_KID_LOGIN,
-                {address: address}
-            );
-        } else {
-            this.props.navigation.navigate(
-                SCREEN_KID_SET_LOGIN,
-                {address: address}
-            );
-        }
-        // check if kid has already created password
-        // this.props.navigation.navigate(SCREEN_KID_LOGIN);
+    onKidLogin = async kid => {
+        const passcode = await this.props.dispatch(authKeychainKid(kid.address));
+        const nextScreenId = passcode ? SCREEN_KID_LOGIN : SCREEN_KID_SET_LOGIN;
+        this.props.navigation.navigate(nextScreenId, {kid});
     }
 
     onOverride = () => this.setState({parentOverride: true})

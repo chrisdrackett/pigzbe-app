@@ -14,6 +14,7 @@ export const initialState = {
     loggedIn: false,
     error: null,
     touchIdSupport: false,
+    kid: null,
 };
 
 export default (state = initialState, action) => {
@@ -46,7 +47,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isLoggingIn: false,
                 loggedIn: true,
-                address: action.address,
+                kid: action.kid,
             };
         case AUTH_LOGOUT:
             return {

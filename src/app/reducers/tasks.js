@@ -1,13 +1,21 @@
-import valueOrDefault from '../utils/value-or-default';
 import {
     TASKS_LOADING,
     TASKS_LOAD,
     TASKS_ADD_TASK,
 } from '../actions';
 
+const defaultTasks = [
+    'Clean the car',
+    'Tidy your room',
+    'Do your homework',
+    'Take out the rubbish',
+    'Wash the dishes'
+];
+
 export const initialState = {
     loading: false,
-    tasks: ['task 1', 'task 2'],
+    tasks: [],
+    defaultTasks,
 };
 
 export default (state = initialState, action) => {
@@ -25,7 +33,7 @@ export default (state = initialState, action) => {
         case TASKS_ADD_TASK:
             return {
                 ...state,
-                tasks: state.tasks.concat(action.task),
+                tasks: [action.task].concat(state.tasks),
             };
         default:
             return state;

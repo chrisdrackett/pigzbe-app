@@ -33,4 +33,26 @@ export default StyleSheet.create({
     panelFirst: {
         marginTop: 18,
     },
+    item: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 5,
+    },
+    itemTitle: {
+        fontFamily,
+        color: color.blue,
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+    itemBorder: {
+        borderTopWidth: 1,
+        borderTopColor: color.greyBlue,
+        paddingTop: 12,
+        marginTop: 8,
+    },
+    itemAmount: {
+        minWidth: 80,
+        alignItems: 'flex-start'
+    },
 });

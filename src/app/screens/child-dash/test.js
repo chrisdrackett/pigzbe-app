@@ -1,18 +1,19 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {Game} from './';
+import {ChildDash} from './';
 
 const props = {
     dispatch: () => {},
     navigation: {
         navigate: () => {},
-        addListener: () => ({remove: () => {}}),
+        addListener: () => {},
         state: {
-            key: 'SCREEN_GAME',
-            routeName: 'SCREEN_GAME'
+            key: 'SCREEN_CHILD_DASH',
+            routeName: 'SCREEN_CHILD_DASH'
         },
         actions: {}
     },
+    error: null,
     exchange: {
         XLM: 0.3936,
         BTC: 0.0000147,
@@ -23,28 +24,23 @@ const props = {
         GBP: 0.091956,
         GOLD: 0.0031452
     },
-    wolloCollected: 10,
-    overlayOpen: false,
+    balance: '0',
+    balanceXLM: '0',
+    baseCurrency: 'USD',
+    escrow: null,
+    firstTime: true,
     kid: {
         name: 'Ella',
         dob: '01/01/2010',
         photo: '',
+        address: 'GD5Q7KRFQC3Q7YQPYAZ4G65B65EBCJOVSHPE65MIYQMCLUQULQDKBLUX',
         balance: '20',
-        tasks: [{
-            task: 'Clean the car',
-            reward: '10',
-        }, {
-            task: 'Do your homework',
-            reward: '100',
-        }]
-    },
-    parentNickname: 'Dad',
+        tasks: [],
+    }
 };
 
-describe('Game', () => {
+describe('Child dash', () => {
     test('renders correctly', () => {
-        renderer.create(
-            <Game {...props} />
-        );
+        renderer.create(<ChildDash {...props}/>);
     });
 });

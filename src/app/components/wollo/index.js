@@ -5,11 +5,11 @@ import {
     Image
 } from 'react-native';
 import styles from './styles';
-import {strings, ASSET_DPS} from '../../constants';
+import {ASSET_DPS} from '../../constants';
 import moneyFormat from '../../utils/money-format';
 import AmountExchange from '../amount-exchange';
 
-export default ({balance, exchange, baseCurrency, dark, style}) => (
+export default ({balance, exchange, baseCurrency, dark, style, label}) => (
     <View style={[styles.wolloContainer, style]}>
         <View style={styles.balanceContainer}>
             <Image
@@ -20,16 +20,17 @@ export default ({balance, exchange, baseCurrency, dark, style}) => (
                 {moneyFormat(balance, ASSET_DPS)}
             </Text>
         </View>
-        {exchange ? (
+        {exchange && (
             <AmountExchange
                 style={[styles.label, dark ? styles.label__dark : null]}
                 amount={balance}
                 exchange={exchange}
                 baseCurrency={baseCurrency}
             />
-        ) : (
+        )}
+        {label && (
             <Text style={[styles.label, dark ? styles.label__dark : null]}>
-                {strings.walletBalance}
+                {label}
             </Text>
         )}
     </View>

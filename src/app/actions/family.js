@@ -52,36 +52,23 @@ export const familyAddKid = (name, dob, photo) => async dispatch => {
     dispatch(familyLoading(true));
 
     const address = await dispatch(createSubAccount(name));
-
     console.log('address', address);
 
-    // addChild
-    // create stellar account
-    // trust wollo
-    // add main account as signer
-    // store locally (encrypt using stellar key?)
     dispatch(({type: FAMILY_ADD_KID, kid: {name, dob, photo, address, balance: '0'}}));
     await dispatch(saveFamily());
     dispatch(familyLoading(false));
 };
 
-export const assignTask = () => async (dispatch, getState) => {
-    console.log('family action: assignTask()', dispatch, getState);
-    try {
-        // const data = getState().tasks;
-        // await
-        // todo: API call to assign task to correct kid
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-export const familyAssignTask = (name, task, wollos) => async dispatch => {
+export const familyAssignTask = (kid, task, wollos) => async dispatch => {
     dispatch(familyLoading(true));
 
-    await dispatch(({type: FAMILY_ASSIGN_TASK, data: {name, task, wollos}}));
-    await dispatch(assignTask());
+    await dispatch(({type: FAMILY_ASSIGN_TASK, data: {kid, task, wollos}}));
+    await dispatch(saveFamily());
     dispatch(familyLoading(false));
+};
+
+export const familyCompleteTask = (kid, task) => async dispatch => {
+    console.log('COMPLETE TASK', kid.name, task.task);
 };
 
 export const addAllowance = () => async (dispatch, getState) => {

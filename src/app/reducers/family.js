@@ -27,10 +27,12 @@ export default (state = initialState, action) => {
                 loading: action.value
             };
         case FAMILY_LOAD:
-            return Object.keys(initialState).reduce((ob, key) => {
-                ob[key] = valueOrDefault(action[key], state[key]);
-                return ob;
-            }, {});
+            return Object.keys(initialState)
+                .filter(key => key !== 'loading')
+                .reduce((ob, key) => {
+                    ob[key] = valueOrDefault(action[key], state[key]);
+                    return ob;
+                }, {});
         case FAMILY_PARENT_NICKNAME:
             return {
                 ...state,
@@ -66,7 +68,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 kids: state.kids.map(k => {
-                    if (k.name === action.data.name) {
+                    if (k.address === action.data.kid.address) {
                         return {
                             ...k,
                             tasks: k.tasks.concat({task: action.data.task, reward: action.data.wollos}),
