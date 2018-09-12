@@ -66,6 +66,10 @@ export const familyAssignTask = (kid, task, wollos) => async dispatch => {
     dispatch(familyLoading(false));
 };
 
+export const familyCompleteTask = (kid, task) => async dispatch => {
+    console.log('COMPLETE TASK', kid.name, task.task);
+};
+
 export const familyTransfer = (address, amount) => async (dispatch, getState) => {
     dispatch(familySending(true));
     try {

@@ -12,7 +12,7 @@ import StepModule from '../../components/step-module';
 import Dots from '../../components/dots';
 
 
-export class ChildLogin extends Component {
+export class ChildSetLogin extends Component {
     state = {
         input: new Set(),
         confirmed: false,
@@ -51,12 +51,10 @@ export class ChildLogin extends Component {
             });
 
             this.props.dispatch(appError(null));
-            // await this.props.dispatch(authCreate(this.state.code));
 
-            const address = this.props.navigation.getParam('address');
-            console.log('onCodeConfirmed', address, code);
+            console.log('onCodeConfirmed', this.props.kid.name, code);
 
-            await this.props.dispatch(authCreateKid(address, code));
+            await this.props.dispatch(authCreateKid(this.props.kid, code));
         } else {
             this.setState({
                 confirmed,
@@ -97,4 +95,8 @@ export class ChildLogin extends Component {
     }
 }
 
-export default connect()(ChildLogin);
+export default connect(
+    (state, props) => ({
+        kid: props.navigation.state.params.kid,
+    })
+)(ChildSetLogin);

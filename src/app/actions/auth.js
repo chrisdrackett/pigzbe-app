@@ -52,11 +52,11 @@ export const authCreate = passcode => async dispatch => {
     await dispatch(authLogin(passcode));
 };
 
-export const authCreateKid = (address, passcode) => async dispatch => {
+export const authCreateKid = (kid, passcode) => async dispatch => {
     dispatch({type: AUTH_CREATE, passcode});
-    await Keychain.save(address, JSON.stringify(Array.from(passcode)));
+    await Keychain.save(kid.address, JSON.stringify(Array.from(passcode)));
     // await dispatch(clearKeys());
-    await dispatch(authLoginKid(address, passcode));
+    await dispatch(authLoginKid(kid, passcode));
 };
 
 export const authLogin = passcode => async dispatch => {
@@ -76,13 +76,13 @@ export const authLogin = passcode => async dispatch => {
     return true;
 };
 
-export const authLoginKid = (address, passcode) => async dispatch => {
+export const authLoginKid = (kid, passcode) => async dispatch => {
     dispatch(appError(null));
     dispatch({type: AUTH_LOGIN_START});
 
-    console.log('--- authLoginKid ---', address, passcode);
+    console.log('--- authLoginKid ---', kid.name, kid.address, passcode);
 
-    const savedPasscode = await dispatch(authKeychainKid(address));
+    const savedPasscode = await dispatch(authKeychainKid(kid.address));
 
     let isEqual = true;
 
@@ -101,7 +101,7 @@ export const authLoginKid = (address, passcode) => async dispatch => {
         return false;
     }
 
-    dispatch({type: AUTH_LOGIN_KID, address});
+    dispatch({type: AUTH_LOGIN_KID, kid});
     return true;
 };
 
