@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View, Text} from 'react-native';
 import {color} from '../../styles';
-import {SCREEN_BALANCE} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_TASKS_LIST} from '../../constants';
 import BalanceGraph from '../../components/balance-graph';
 import Wollo from '../../components/wollo';
 import StepModule from '../../components/step-module';
@@ -14,19 +14,17 @@ export class ChildDash extends Component {
 
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
 
+    onAddTask = () => this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid})
+
     render () {
         const {
+            kid,
             exchange,
             error,
-            balance,
-            balanceXLM,
             baseCurrency,
         } = this.props;
 
         const loading = !exchange && !error;
-
-        const address = this.props.navigation.getParam('address');
-        const kid = this.props.kids.find(k => k.address === address);
 
         return (
             <Fragment>
@@ -57,22 +55,23 @@ export class ChildDash extends Component {
                                 label="Add an allowance"
                                 onAdd={() => {}}
                                 style={[styles.panel, styles.panelFirst]}
+                                boxButton
                             >
                                 <View style={styles.box} />
                             </ActionPanel>
                             <ActionPanel
                                 title="Tasks"
                                 label="Add a new task"
-                                onAdd={() => {}}
+                                onAdd={this.onAddTask}
                                 style={styles.panel}
-                            >
-                                <View style={styles.box} />
-                            </ActionPanel>
+                                boxButton
+                            />
                             <ActionPanel
                                 title="Goals"
                                 label="Add a new goal"
                                 onAdd={() => {}}
                                 style={styles.panel}
+                                boxButton
                             >
                                 <View style={styles.box} />
                             </ActionPanel>
@@ -85,7 +84,8 @@ export class ChildDash extends Component {
 }
 
 export default connect(
-    state => ({
+    (state, props) => ({
+        kid: props.navigation.state.params.kid,
         error: state.coins.error,
         exchange: state.coins.exchange,
         balance: state.wollo.balance,

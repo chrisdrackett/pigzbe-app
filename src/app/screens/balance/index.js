@@ -90,11 +90,10 @@ export class Balance extends Component {
         this.props.navigation.navigate(SCREEN_FAMILY_INTRO);
     }
 
-    onAddTasks = () => {
-        this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: 'Ella'});
+    onDashboard = address => {
+        const kid = this.props.kids.find(k => k.address === address);
+        this.props.navigation.navigate(SCREEN_CHILD_DASH, {kid});
     }
-
-    onDashboard = address => this.props.navigation.navigate(SCREEN_CHILD_DASH, {address});
 
     onFund = async () => {
         this.setState({funding: true});
@@ -152,17 +151,6 @@ export class Balance extends Component {
                                     style={{marginTop: 20}}
                                 />
                             )}
-                            <View style={{
-                                paddingTop: 40,
-                                paddingLeft: '6.25%',
-                                paddingRight: '6.25%',
-                            }}>
-                                <Button
-                                    label="Add Tasks"
-                                    theme="light"
-                                    onPress={this.onAddTasks}
-                                />
-                            </View>
                             <Kids
                                 kids={kids}
                                 exchange={exchange}

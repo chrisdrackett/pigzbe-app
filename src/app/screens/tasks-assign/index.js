@@ -41,7 +41,7 @@ export class TasksAssign extends Component {
         console.log('mounting tasks assign screen');
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_TASKS_LIST);
+    onBack = () => this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid});
 
     onChangeAmount = wollos => {
         this.setState({wollos});
@@ -73,7 +73,7 @@ export class TasksAssign extends Component {
                 <View style={flexStyle}>
                     <View>
                         <Paragraph style={textStyle}>
-                            Set the reward that <Text style={{fontWeight: 'bold'}}>{kid}</Text> will get when completed
+                            Set the reward that <Text style={{fontWeight: 'bold'}}>{kid.name}</Text> will get when completed
                         </Paragraph>
                         <WolloInput
                             currency="GBP"
@@ -83,7 +83,7 @@ export class TasksAssign extends Component {
                     </View>
                     <Button
                         style={sendButton}
-                        label={`Send to ${this.props.kid}`}
+                        label={`Send to ${kid.name}`}
                         onPress={this.next}
                         disabled={wollos === 0}
                     />
