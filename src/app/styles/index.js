@@ -10,6 +10,7 @@ export const color = {
     pink: 'rgb(230, 155, 230)',
     blue: 'rgb(0, 50, 120)',
     blueOpacity40: 'rgba(0, 50, 120, 0.4)',
+    blueOpacity50: 'rgba(0, 50, 120, 0.5)',
     blueOpacity80: 'rgba(0, 50, 120, 0.8)',
     mediumBlue: 'rgb(21, 74, 150)',
     mediumBlueOpacity50: 'rgba(21, 74, 150, 0.5)',
