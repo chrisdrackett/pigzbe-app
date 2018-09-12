@@ -26,7 +26,7 @@ export default class TextInputComponent extends Component {
             borderRadius,
             style,
             placeholderTop = false,
-            hideTopPlaceholder = false,
+            showTopPlaceholder = true,
         } = this.props;
 
 
@@ -49,7 +49,7 @@ export default class TextInputComponent extends Component {
                     </Text>
                 )}
                 <View style={inputStyles}>
-                    {placeholder && (!placeholderTop || !hideTopPlaceholder) &&
+                    {placeholder && (!placeholderTop || showTopPlaceholder) &&
                         <Animated.Text style={[styles.placeholder, {
                             top: this._animatedIsFocused.interpolate({
                                 inputRange: [0, 1],

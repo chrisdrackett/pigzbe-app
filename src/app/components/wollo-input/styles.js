@@ -16,8 +16,12 @@ export default StyleSheet.create({
         display: 'flex',
         justifyContent: 'space-between',
         flexDirection: 'row',
+        alignItems: 'flex-end',
     },
     textInput: {
-        width: Dimensions.get('window').width - 190,
-    }
+        width: Dimensions.get('window').width - 225,
+    },
+    toggle: {
+        marginBottom: 10,
+    },
 });

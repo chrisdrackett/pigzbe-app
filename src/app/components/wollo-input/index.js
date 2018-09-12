@@ -46,24 +46,31 @@ export default class WolloInput extends Component {
     }
 
     render() {
-        const {exchangedDisplay, currencyAmount} = this.state;
-        const {currency} = this.props;
+        const {exchangedDisplay, currencyAmount, currentCurrency} = this.state;
+        const {currency, ...restOfProps} = this.props;
+
+        const placeholder = currency === currentCurrency ? '0 Wollo' : 
+            (COIN_SYMBOLS[currency] + ' ' + moneyFormat(0, COIN_DPS[currency]));
 
         return (
             <Fragment>
                 <View style={styles.inputSection}>
                     <TextInput
+                        {...restOfProps}
                         numberOfLines={1}
-                        placeholder="0.00 Wollo"
+                        placeholder={placeholder}
                         onChangeText={this.onChangeText}
                         returnKeyType="done"
                         value={currencyAmount === 0 ? '' : currencyAmount.toString()}
                         style={styles.textInput}
+                        showTopPlaceholder={false}
                     />
-                    <CurrencyToggle
-                        currency={currency}
-                        onCurrencyChange={this.onCurrencyChange}
-                    />
+                    <View style={styles.toggle}>
+                        <CurrencyToggle
+                            currency={currency}
+                            onCurrencyChange={this.onCurrencyChange}
+                        />
+                    </View>
                 </View>
                 <Text style={styles.text}>
                     Estimate: {exchangedDisplay}
