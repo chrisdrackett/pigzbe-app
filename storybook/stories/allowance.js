@@ -8,12 +8,11 @@ const props = {
         navigate: () => {},
         addListener: () => {},
         state: {
-            key: 'SCREEN_ALLOWANCE',
-            routeName: 'SCREEN_ALLOWANCE'
+            key: 'SCREEN_ALLOWANCE_AMOUNT',
+            routeName: 'SCREEN_ALLOWANCE_AMOUNT'
         },
-        actions: {}
+        actions: {},
     },
-    allowances: [25, 50, 75, 100, 125, 150],
     currency: 'GBP',
 };
 

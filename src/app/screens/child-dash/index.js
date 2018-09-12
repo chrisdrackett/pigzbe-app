@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View, Text} from 'react-native';
 import {color} from '../../styles';
-import {SCREEN_BALANCE, SCREEN_TASKS_LIST} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_TASKS_LIST, SCREEN_ALLOWANCE_AMOUNT} from '../../constants';
 import BalanceGraph from '../../components/balance-graph';
 import Wollo from '../../components/wollo';
 import StepModule from '../../components/step-module';
@@ -15,6 +15,8 @@ export class ChildDash extends Component {
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
 
     onAddTask = () => this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid})
+
+    onAddAllowance = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid, currency: 'GBP'})
 
     render () {
         const {
@@ -53,12 +55,10 @@ export class ChildDash extends Component {
                             <ActionPanel
                                 title="Allowance"
                                 label="Add an allowance"
-                                onAdd={() => {}}
+                                onAdd={this.onAddAllowance}
                                 style={[styles.panel, styles.panelFirst]}
                                 boxButton
-                            >
-                                <View style={styles.box} />
-                            </ActionPanel>
+                            />
                             <ActionPanel
                                 title="Tasks"
                                 label="Add a new task"

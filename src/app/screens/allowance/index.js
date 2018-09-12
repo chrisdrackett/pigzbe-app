@@ -24,7 +24,7 @@ export class Allowance extends Component {
     }
 
     getAllowancesList = () => {
-        const deconstructedAllowances = this.props.allowances.map(allowance => ({
+        const deconstructedAllowances = this.state.allowances.map(allowance => ({
             key: allowance,
         }));
 
@@ -168,8 +168,8 @@ export class Allowance extends Component {
 
 export default connect(
     (state, props) => ({
-        allowances: state.tasks.tasks,
         loading: state.tasks.loading,
         kid: props.navigation.state.params.kid,
+        currency: props.navigation.state.params.currency,
     })
 )(Allowance);

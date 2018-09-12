@@ -8,8 +8,8 @@ const props = {
         navigate: () => {},
         addListener: () => {},
         state: {
-            key: 'SCREEN_ALLOWANCE',
-            routeName: 'SCREEN_ALLOWANCE'
+            key: 'SCREEN_ALLOWANCE_AMOUNT',
+            routeName: 'SCREEN_ALLOWANCE_AMOUNT'
         },
         actions: {}
     },

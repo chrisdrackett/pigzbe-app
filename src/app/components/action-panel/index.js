@@ -6,6 +6,8 @@ import Button from '../button';
 const Inner = ({onAdd, children, label, boxButton}) => {
     const hasChildren = !!(children && Array.isArray(children) ? children.length : children);
 
+    console.log(onAdd, children, label, boxButton);
+
     if (hasChildren) {
         return (
             <Fragment>
