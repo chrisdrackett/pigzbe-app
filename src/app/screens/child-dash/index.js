@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {color} from '../../styles';
 import {SCREEN_BALANCE, SCREEN_TASKS_LIST, SCREEN_ALLOWANCE_AMOUNT} from '../../constants';
 import BalanceGraph from '../../components/balance-graph';
@@ -20,6 +20,7 @@ const Item = ({first, title, subtitle, amount}) => (
         <View style={styles.itemAmount}>
             <Wollo dark balance={amount} />
         </View>
+        <Image style={styles.iconOverflow} source={require('./images/iconOverflow.png')} />
     </View>
 );
 
@@ -73,14 +74,16 @@ export class ChildDash extends Component {
                                 boxButton
                             >
                                 {kid.allowance && (
-                                    <View style={styles.box}>
+                                    <TouchableOpacity style={styles.box} onPress={() => {
+                                        this.displayEditAllowance(kid);
+                                    }}>
                                         <Item
                                             first
                                             title={kid.allowance.interval}
                                             subtitle={kid.allowance.day}
                                             amount={kid.allowance.amount}
                                         />
-                                    </View>
+                                    </TouchableOpacity>
                                 )}
                             </ActionPanel>
                             <ActionPanel
