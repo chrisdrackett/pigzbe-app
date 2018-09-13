@@ -1,5 +1,5 @@
-import React, {Component, Fragment} from 'react';
-import {TextInput, Text, View} from 'react-native';
+import React, {Component} from 'react';
+import {TextInput} from 'react-native';
 import styles from './styles';
 import {color} from '../../styles';
 import isAndroid from '../../utils/is-android';
@@ -23,6 +23,10 @@ export default class TextInputComponent extends Component {
         if (isAndroid) {
             setTimeout(this.updateInputWidth, 100);
         }
+
+        if (this.props.autoFocus) {
+            this.inputBox.focus();
+        }
     }
 
     getStyle() {
@@ -43,9 +47,9 @@ export default class TextInputComponent extends Component {
         if (style) {
             s = s.concat(style);
         }
-    
+
         return s;
-    };
+    }
 
     render() {
         const {
@@ -56,7 +60,6 @@ export default class TextInputComponent extends Component {
             label,
             numberOfLines = 1,
             maxLength,
-            style,
             editable = true,
             keyboardType = 'default',
             autoCapitalize = 'sentences',
@@ -71,7 +74,7 @@ export default class TextInputComponent extends Component {
 
 
         return (
-            <BaseInputField 
+            <BaseInputField
                 label={label}
                 borderRadius={numberOfLines > 1 ? 5 : undefined}
                 error={error}

@@ -10,6 +10,7 @@ export const FAMILY_ADD_KID = 'FAMILY_ADD_KID';
 export const FAMILY_ASSIGN_TASK = 'FAMILY_ASSIGN_TASK';
 export const FAMILY_SENDING = 'FAMILY_SENDING';
 export const FAMILY_BALANCE_UPDATE = 'FAMILY_BALANCE_UPDATE';
+export const FAMILY_ADD_ALLOWANCE = 'FAMILY_ADD_ALLOWANCE';
 
 const familyLoading = value => ({type: FAMILY_LOADING, value});
 
@@ -68,6 +69,25 @@ export const familyAssignTask = (kid, task, wollos) => async dispatch => {
 
 export const familyCompleteTask = (kid, task) => async dispatch => {
     console.log('COMPLETE TASK', kid.name, task.task);
+};
+
+export const addAllowance = () => async (dispatch, getState) => {
+    console.log('family action: addAllowance()', dispatch, getState);
+    try {
+        // const data = getState().tasks;
+        // await
+        // todo: API call to add allowance to kid
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const familyAddAllowance = (name, allowance, interval, day) => async dispatch => {
+    dispatch(familyLoading(true));
+
+    await dispatch(({type: FAMILY_ADD_ALLOWANCE, data: {name, allowance, interval, day}}));
+    await dispatch(addAllowance());
+    dispatch(familyLoading(false));
 };
 
 export const familyTransfer = (address, amount) => async (dispatch, getState) => {
