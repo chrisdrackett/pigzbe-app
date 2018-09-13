@@ -1,6 +1,6 @@
 import Storage from '../utils/storage';
 import {STORAGE_KEY_FAMILY} from '../constants';
-import {createSubAccount, getAccountBalance, sendWollo} from './';
+import {createKidAccount, createTasksAccount, getAccountBalance, sendWollo} from './';
 import {
     loadAccount,
     getData,
@@ -32,8 +32,6 @@ const familySending = value => ({type: FAMILY_SENDING, value});
 export const loadFamily = () => async dispatch => {
     console.log('loadFamily');
     try {
-        // const {secretKey} = getState().wollo;
-        // const data = await Storage.load(STORAGE_KEY_FAMILY, secretKey);
         const data = await Storage.load(STORAGE_KEY_FAMILY);
         // console.log('data', data);
         // console.log(JSON.stringify(data, null, 2));
@@ -48,8 +46,6 @@ export const saveFamily = () => async (dispatch, getState) => {
     try {
         const data = getState().family;
         console.log('data', data);
-        // const {secretKey} = getState().wollo;
-        // await Storage.save(STORAGE_KEY_FAMILY, data, secretKey);
         await Storage.save(STORAGE_KEY_FAMILY, data);
     } catch (error) {
         console.log(error);
@@ -64,10 +60,8 @@ export const familyAddKid = (name, dob, photo) => async dispatch => {
     console.log('FAMILY_ADD_KID', name, dob, photo);
     dispatch(familyLoading(true));
 
-    const address = await dispatch(createSubAccount(name));
+    const address = await dispatch(createKidAccount(name));
     console.log('address', address);
-
-    // TODO: add kid as a signer on tasks wallet
 
     dispatch(({type: FAMILY_ADD_KID, kid: {name, dob, photo, address, balance: '0'}}));
     await dispatch(saveFamily());
@@ -75,44 +69,29 @@ export const familyAddKid = (name, dob, photo) => async dispatch => {
 };
 
 export const familyAssignTask = (kid, task, reward) => async (dispatch, getState) => {
-    const {publicKey, secretKey} = getState().wollo;
+    const {secretKey} = getState().wollo;
     dispatch(familyLoading(true));
 
-    console.log('familyGetTasksAccount', publicKey);
-    const account = await loadAccount(publicKey);
+    console.log('familyGetTasksAccount', kid.address);
+    const account = await loadAccount(kid.address);
     let destination = getData(account, 'tasks');
     if (!destination) {
         console.log('create tasksAccount');
-        destination = await dispatch(createSubAccount('tasks', '5'));
-        await setData(secretKey, 'tasks', destination);
-        // TODO: add kid as signer
+        destination = await dispatch(createTasksAccount(kid));
+        console.log('destination', destination);
+        const kidSecretKey = await Keychain.load(`secret_${kid.address}`);
+        console.log('kidSecretKey', kidSecretKey);
+        await setData(kidSecretKey.key, 'tasks', destination);
     }
 
-    const tasksAccount = await loadAccount(destination);
-
-    const txb = new TransactionBuilder(tasksAccount);
-
-    txb.addOperation(Operation.setOptions({
-        signer: {
-            ed25519PublicKey: kid.address,
-            weight: 1
-        }
-    }));
-
-    const transaction = txb.build();
-
-    transaction.sign(Keypair.fromSecret(secretKey));
-
-    await getServer().submitTransaction(transaction);
-
-    console.log('send money to tasks account with memo', destination);
+    console.log('send money to tasks account', destination);
 
     const asset = wolloAsset(getState());
     // memo needs to be a unique ref to task
     const memo = task.slice(0, 28);
     const result = await sendPayment(secretKey, destination, reward, memo, asset);
 
-    console.log('result', result.hash);
+    console.log('result', result);
 
     await dispatch(({type: FAMILY_ASSIGN_TASK, data: {
         kid,
@@ -132,14 +111,20 @@ export const familyCompleteTask = (kid, task) => async (dispatch, getState) => {
     try {
         // console.log('familyGetTasksAccount', publicKey);
         console.log('kid.address', kid.address);
-        const kidAccount = await loadAccount(kid.address);
+        let kidAccount;
+        try {
+            kidAccount = await loadAccount(kid.address);
+
+        } catch (e) {
+            console.log(e);
+        }
         // console.log('parentAccount', publicKey);
         console.log('kidAccount', kidAccount);
-        const parentAddress = kidAccount.signers.filter(s => s.key !== kid.address).pop().key;
-        console.log('parentAddress', parentAddress);
+        // const parentAddress = kidAccount.signers.filter(s => s.key !== kid.address).pop().key;
+        // console.log('parentAddress', parentAddress);
 
-        const account = await loadAccount(parentAddress);
-        const tasksPublicKey = getData(account, 'tasks');
+        // const account = await loadAccount(parentAddress);
+        const tasksPublicKey = getData(kidAccount, 'tasks');
         console.log('tasksPublicKey', tasksPublicKey);
         const tasksAccount = await loadAccount(tasksPublicKey);
         console.log('tasksAccount', tasksAccount);
@@ -170,6 +155,8 @@ export const familyCompleteTask = (kid, task) => async (dispatch, getState) => {
             kid,
             task,
         }}));
+
+        await dispatch(loadFamilyBalances(kid.address));
 
         await dispatch(saveFamily());
     } catch (error) {

@@ -14,7 +14,13 @@ import {
     createAccount,
     multiSig
 } from '@pigzbe/stellar-utils';
-import {strings, ASSET_CODE, KEYCHAIN_ID_STELLAR_KEY} from '../constants';
+import {
+    strings,
+    ASSET_CODE,
+    KEYCHAIN_ID_STELLAR_KEY,
+    CHILD_WALLET_BALANCE_XLM,
+    CHILD_TASKS_BALANCE_XLM
+} from '../constants';
 import Keychain from '../utils/keychain';
 import {appError} from './';
 import {wolloAsset} from '../selectors';
@@ -125,16 +131,13 @@ export const loadWallet = publicKey => async (dispatch, getState) => {
         const key = publicKey || getState().wollo.publicKey;
         if (key) {
             const account = await loadAccount(key);
-            console.log('account', account);
             dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
             dispatch(updateBalance(getWolloBalance(account)));
 
             const asset = wolloAsset(getState());
             const isTrusted = checkAssetTrusted(account, asset);
-            console.log('asset isTrusted', isTrusted);
             if (!isTrusted) {
                 await trustAsset(getState().wollo.secretKey, asset);
-                console.log('asset trusted');
             }
             dispatch(updateXLM(account));
         }
@@ -217,7 +220,7 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
 
 export const wolloTestUser = testUserKey => ({type: WOLLO_TEST_USER, testUserKey});
 
-export const createSubAccount = (name, startingBalance = '10') => async (dispatch, getState) => {
+export const createKidAccount = name => async (dispatch, getState) => {
     try {
         const {publicKey, secretKey} = getState().wollo;
         const keypair = await createKeypair();
@@ -226,20 +229,64 @@ export const createSubAccount = (name, startingBalance = '10') => async (dispatc
 
         await Keychain.save(`secret_${destination}`, keypair.secret());
 
-        console.log('startingBalance', startingBalance);
+        console.log('startingBalance', CHILD_WALLET_BALANCE_XLM);
 
-        await createAccount(secretKey, destination, startingBalance, `Add ${name}`);
+        await createAccount(secretKey, destination, CHILD_WALLET_BALANCE_XLM, `Add ${name}`);
 
         const signers = [{
             publicKey,
             weight: 1
         }];
+
         const weights = {
             masterWeight: 1,
             lowThreshold: 1,
             medThreshold: 1,
             highThreshold: 1
         };
+
+        await multiSig(keypair.secret(), signers, weights);
+
+        const asset = wolloAsset(getState());
+        await trustAsset(keypair.secret(), asset);
+
+        return keypair.publicKey();
+    } catch (error) {
+        console.log(error);
+    }
+    return null;
+};
+
+export const createTasksAccount = kid => async (dispatch, getState) => {
+    try {
+        const {publicKey, secretKey} = getState().wollo;
+        const keypair = await createKeypair();
+        const destination = keypair.publicKey();
+        console.log('secretKey, destination', secretKey, destination);
+
+        await Keychain.save(`secret_${destination}`, keypair.secret());
+
+        console.log('startingBalance', CHILD_TASKS_BALANCE_XLM);
+
+        const result = await createAccount(secretKey, destination, CHILD_TASKS_BALANCE_XLM, `Add ${kid.name} tasks`);
+
+        console.log('result', result);
+
+        const signers = [{
+            publicKey,
+            weight: 1
+        }, {
+            publicKey: kid.address,
+            weight: 1
+        }];
+
+        const weights = {
+            masterWeight: 1,
+            lowThreshold: 1,
+            medThreshold: 1,
+            highThreshold: 1
+        };
+
         await multiSig(keypair.secret(), signers, weights);
 
         const asset = wolloAsset(getState());
