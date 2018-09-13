@@ -37,6 +37,40 @@ export class ChildDash extends Component {
 
     onAddAllowance = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid, currency: 'GBP'})
 
+    onTaskAlertOptionSelected = (option) => {
+        console.log('onTaskAlertOptionSelected option', option);
+        switch (option) {
+            case 0:
+                // todo navigate to task screen with active tasks
+                break;
+            case 1:
+                // send alert to delete
+                break;
+            case 2:
+                // copy task?
+                break;
+            default:
+                // blah
+        }
+    }
+
+    onAllowanceAlertOptionSelected = (option) => {
+        console.log('onAllowanceAlertOptionSelected option', option);
+        switch (option) {
+            case 0:
+                // todo navigate to task screen with active tasks
+                break;
+            case 1:
+                // send alert to delete
+                break;
+            case 2:
+                // copy task?
+                break;
+            default:
+                // blah
+        }
+    }
+
     onDisplayAllowanceModal = allowance => {
         this.setState({
             allowancePanelOpen: true,
@@ -144,14 +178,14 @@ export class ChildDash extends Component {
                     options={['Edit', 'Delete', 'Copy']}
                     title="All changes will also update child wallet"
                     onRequestClose={() => this.setState({tasksPanelOpen: false})}
-                    onSelect={index => this.onTaskEditPanelSelect({selectedOption: index})}
+                    onSelect={index => this.onTaskAlertOptionSelected({selectedOption: index})}
                 />
                 <ActionSheet
                     open={this.state.allowancePanelOpen}
                     options={['Edit', 'Delete', 'Copy']}
                     title="All changes will also update child wallet"
                     onRequestClose={() => this.setState({allowancePanelOpen: false})}
-                    onSelect={index => this.onTaskEditPanelSelect({selectedOption: index})}
+                    onSelect={index => this.onAllowanceAlertOptionSelected({selectedOption: index})}
                 />
             </Fragment>
         );
