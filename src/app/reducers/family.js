@@ -19,7 +19,6 @@ export const initialState = {
 };
 
 export default (state = initialState, action) => {
-
     switch (action.type) {
         case FAMILY_LOADING:
             return {
@@ -81,7 +80,10 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 kids: state.kids.map(k => {
-                    if (k.name === action.data.name) {
+                    // if no child name is passed the assign tasks to all kids
+                    // this is the case when part of the initial add children process
+                    // otherwise compare to kid name
+                    if (action.data.name === null || k.name === action.data.name) {
                         return {
                             ...k,
                             allowance: {amount: action.data.allowance, interval: action.data.interval, day: action.data.day},

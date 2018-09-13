@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Button from '../../components/button';
 import SelectInput from '../../components/select-input';
-import {SCREEN_ALLOWANCE_AMOUNT, SCREEN_CHILD_DASH} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_ALLOWANCE_AMOUNT, SCREEN_CHILD_DASH} from '../../constants';
 import StepModule from '../../components/step-module';
 import styles from './styles';
 import {familyAddAllowance} from '../../actions';
@@ -26,10 +26,14 @@ export class AllowanceInterval extends Component {
         const {day, interval} = this.state;
         const {kid, allowance} = this.props;
 
-        await this.props.dispatch(familyAddAllowance(kid.name, allowance, interval, day));
+        await this.props.dispatch(familyAddAllowance(kid ? kid.name : null, allowance, interval, day));
 
         // todo navigate to kid screen instead
-        this.props.navigation.navigate(SCREEN_CHILD_DASH, {kid});
+        if (kid) {
+            this.props.navigation.navigate(SCREEN_CHILD_DASH, {kid});
+        } else {
+            this.props.navigation.navigate(SCREEN_BALANCE, {kid});
+        }
     }
 
     render() {
