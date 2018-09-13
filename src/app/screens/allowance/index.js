@@ -25,7 +25,7 @@ export class Allowance extends Component {
 
     getAllowancesList = () => {
         const deconstructedAllowances = this.state.allowances.map(allowance => ({
-            key: allowance,
+            key: allowance.toString(),
         }));
 
         deconstructedAllowances.push({key: '+'});
