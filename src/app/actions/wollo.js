@@ -41,6 +41,7 @@ export const WOLLO_SEND_STATUS = 'WOLLO_SEND_STATUS';
 export const WOLLO_TEST_USER = 'WOLLO_TEST_USER';
 export const WOLLO_KEYPAIR = 'WOLLO_KEYPAIR';
 export const WOLLO_KEYPAIR_SAVED = 'WOLLO_KEYPAIR_SAVED';
+export const WOLLO_BASE_CURRENCY = 'WOLLO_BASE_CURRENCY';
 
 export const getWolloBalance = account => getBalance(account, ASSET_CODE);
 
@@ -342,3 +343,8 @@ export const fundAccount = () => async (dispatch, getState) => {
         console.log(error);
     }
 };
+
+export const setBaseCurrency = baseCurrency => async (dispatch, getState) => {
+    // @todo update exchange rates
+    dispatch({type: WOLLO_BASE_CURRENCY, baseCurrency});
+}

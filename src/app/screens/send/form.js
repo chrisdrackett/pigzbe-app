@@ -54,14 +54,14 @@ export default class Form extends Component {
     }
 
     updateAmount = value => {
-        const {balance, exchange} = this.props;
+        //const {balance, exchange} = this.props;
 
-        const amount = value.replace(/[^0-9.]/g, '');
-        const amountValid = amount && Number(amount) > 0 && remainingBalance(balance, amount).isGreaterThanOrEqualTo(0);
+        //const amount = value.replace(/[^0-9.]/g, '');
+        //const amountValid = amount && Number(amount) > 0 && remainingBalance(balance, amount).isGreaterThanOrEqualTo(0);
 
         this.setState({
-            amount,
-            amountValid,
+            amount: value,
+            amountValid: true,
         });
     }
 
@@ -119,12 +119,11 @@ export default class Form extends Component {
                 <View style={styles.amount}>
                     <WolloInput
                         error={!!amountError}
-                        value={this.state.amount}
                         label={strings.transferAmount}
                         placeholder={strings.transferSendWollo}
-                        onChangeText={this.updateAmount}
                         editable={!review}
                         keyboardType="numeric"
+                        onChangeAmount={this.updateAmount}
                     />
                 </View>
                 {!review || this.state.memo ? (

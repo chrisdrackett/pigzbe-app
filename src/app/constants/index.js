@@ -27,5 +27,35 @@ export const STORAGE_KEY_TASKS = 'tasks';
 export const PASSCODE_LENGTH = 6;
 export const CHILD_PASSCODE_LENGTH = 3;
 
+<<<<<<< HEAD
 export const CHILD_WALLET_BALANCE_XLM = '10';
 export const CHILD_TASKS_BALANCE_XLM = '5';
+=======
+// @todo make all areas of the site use this
+export const CURRENCIES = {
+    USD: {name: 'United States dollar', symbol: '$', dps: 5},
+    EUR: {name: 'Euro', symbol: '€', dps: 5},
+    JPY: {name: 'Japanese yen', symbol: '¥', dps: 5},
+    GBP: {name: 'Pound sterling', symbol: '£', dps: 5},
+    AUD: {name: 'Australian dollar', symbol: '$', dps: 5},
+    CAD: {name: 'Canadian dollar', symbol: '$', dps: 5},
+    CHF: {name: 'Swiss franc', symbol: 'CHF', dps: 5},
+    CNY: {name: 'Renminbi', symbol: '¥', dps: 5},
+    SEK: {name: 'Swedish krona', symbol: 'kr', dps: 5},
+    NZD: {name: 'New Zealand dollar', symbol: '$', dps: 5},
+    MXN: {name: 'Mexican peso', symbol: '$', dps: 5},
+    SGD: {name: 'Singapore dollar', symbol: '$', dps: 5},
+    HKD: {name: 'Hong Kong dollar', symbol: '$', dps: 5},
+    NOK: {name: 'Norwegian krone', symbol: 'kr', dps: 5},
+    KRW: {name: 'South Korean won', symbol: '₩', dps: 5},
+    TRY: {name: 'Turkish lira', symbol: 'TRY ', dps: 5},
+    RUB: {name: 'Russian ruble', symbol: '₽', dps: 5},
+    INR: {name: 'Indian rupee', symbol: 'INR ', dps: 5},
+    BRL: {name: 'Brazilian real', symbol: 'R$', dps: 5},
+    ZAR: {name: 'South African rand', symbol: 'R', dps: 5},
+    GOLD: {name: 'Gold', symbol: 'Gold', dps: 5}, // gold
+    XLM: {name: 'Stellar Lumens', symbol: 'XLM ', dps: 5}, // crypto
+    BTC: {name: 'Bitcoin', symbol: '₿', dps: 5},
+    ETH: {name: 'Etheruem', symbol: 'Ξ', dps: 5},
+}
+>>>>>>> 353b8e9... Allow selection of currency, and use on the wollo input

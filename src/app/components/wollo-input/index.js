@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Text, View} from 'react-native';
+import { connect } from "react-redux";
 import styles from './styles';
 import TextInput from '../text-input';
 import CurrencyToggle from '../currency-toggle';
@@ -8,7 +9,7 @@ import {COIN_SYMBOLS, COIN_DPS, ASSET_CODE} from '../../constants';
 // import isAndroid from '../../utils/is-android';
 
 
-export default class WolloInput extends Component {
+export class WolloInput extends Component {
     constructor(props) {
         super(props);
 
@@ -23,8 +24,7 @@ export default class WolloInput extends Component {
 
     setExchangedValue = (amount, currentCurrency) => {
         const {exchange, currency, onChangeAmount} = this.props;
-
-        const exchangedValue = currentCurrency === ASSET_CODE ? amount / exchange : amount * exchange;
+        const exchangedValue = currentCurrency === ASSET_CODE ? amount / exchange[currency] : amount * exchange[currency];
         const symbol = COIN_SYMBOLS[currentCurrency];
 
         this.setState({
@@ -48,7 +48,6 @@ export default class WolloInput extends Component {
     render() {
         const {exchangedDisplay, currencyAmount, currentCurrency} = this.state;
         const {currency, ...restOfProps} = this.props;
-
         const placeholder = currency === currentCurrency ? '0 Wollo' : 
             (COIN_SYMBOLS[currency] + ' ' + moneyFormat(0, COIN_DPS[currency]));
 
@@ -79,3 +78,8 @@ export default class WolloInput extends Component {
         );
     }
 }
+
+export default connect(state => ({
+    currency: state.wollo.baseCurrency,
+    exchange: state.coins.exchange,
+}))(WolloInput);

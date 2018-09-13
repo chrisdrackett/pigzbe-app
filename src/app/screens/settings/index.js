@@ -7,9 +7,11 @@ import {
     // settingsUpdate,
     settingsEnableTouchId,
     settingsToggleSubscribe,
-    authLogout
+    authLogout,
+    setBaseCurrency,
 } from '../../actions';
 import Button from '../../components/button';
+import SelectInput from '../../components/select-input';
 import {
     strings,
     SCREEN_BALANCE,
@@ -17,12 +19,16 @@ import {
     //SCREEN_CLAIM_ICO,
     SCREEN_ESCROW,
     PRIVACY_URL,
-    SCREEN_CHANGE_PASSCODE
+    SCREEN_CHANGE_PASSCODE,
+    CURRENCIES,
 } from '../../constants';
 import openURL from '../../utils/open-url';
 import StepModule from '../../components/step-module';
 // import Paragraph from '../../components/paragraph';
 import Checkbox from '../../components/checkbox';
+
+const currenciesForSelect = {};
+Object.keys(CURRENCIES).forEach(key => currenciesForSelect[key] = CURRENCIES[key].name);
 
 export class Settings extends Component {
     componentWillMount() {
@@ -49,6 +55,8 @@ export class Settings extends Component {
 
     onChangePasscode = () => this.props.navigation.navigate(SCREEN_CHANGE_PASSCODE)
 
+    onChangeBaseCurrency = baseCurrency => this.props.dispatch(setBaseCurrency(baseCurrency))
+
     render() {
         const {
             touchIdSupport,
@@ -58,6 +66,7 @@ export class Settings extends Component {
             // phone,
             // country,
             escrow,
+            baseCurrency,
         } = this.props;
 
         return (
@@ -99,6 +108,15 @@ export class Settings extends Component {
                     {/* <Paragraph>{'subscribe: '}{subscribe ? 'Yes' : 'No'}</Paragraph> */}
                     {/* <Paragraph>{'email: '}{email}</Paragraph> */}
                     {/* <Paragraph>{'phone: '}+{country}{phone}</Paragraph> */}
+
+                    <SelectInput
+                        value={baseCurrency}
+                        placeholder={'Currency'}
+                        onChangeSelection={this.onChangeBaseCurrency}
+                        options={currenciesForSelect}
+                        searchable={false}
+                    />
+
                     <Button
                         theme="outline"
                         label={'Change passcode'}
@@ -131,5 +149,6 @@ export default connect(
         phone: state.settings.phone,
         country: state.settings.country,
         escrow: state.escrow.escrowPublicKey,
+        baseCurrency: state.wollo.baseCurrency,
     })
 )(Settings);
