@@ -10,9 +10,13 @@ import KidAvatar from '../../components/kid-avatar';
 import ActionPanel from '../../components/action-panel';
 import styles from './styles';
 
-const Item = ({first, title, amount}) => (
+const Item = ({first, title, subtitle, amount}) => (
     <View style={[styles.item, first ? null : styles.itemBorder]}>
-        <Text style={styles.itemTitle}>{title}</Text>
+        <Text style={styles.itemTitle}>{title}
+            {
+                subtitle && <Text style={styles.itemSubTitle}> ({subtitle})</Text>
+            }
+        </Text>
         <View style={styles.itemAmount}>
             <Wollo dark balance={amount} />
         </View>
@@ -67,7 +71,18 @@ export class ChildDash extends Component {
                                 onAdd={this.onAddAllowance}
                                 style={[styles.panel, styles.panelFirst]}
                                 boxButton
-                            />
+                            >
+                                {kid.allowance && (
+                                    <View style={styles.box}>
+                                        <Item
+                                            first
+                                            title={kid.allowance.interval}
+                                            subtitle={kid.allowance.day}
+                                            amount={kid.allowance.amount}
+                                        />
+                                    </View>
+                                )}
+                            </ActionPanel>
                             <ActionPanel
                                 title="Tasks"
                                 label="Add a new task"

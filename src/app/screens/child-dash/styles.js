@@ -45,6 +45,9 @@ export default StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
     },
+    itemSubTitle: {
+        fontWeight: 'normal',
+    },
     itemBorder: {
         borderTopWidth: 1,
         borderTopColor: color.greyBlue,
