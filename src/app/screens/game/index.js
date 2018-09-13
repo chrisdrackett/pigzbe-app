@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Platform, View, WebView} from 'react-native';
+import {Platform, View, WebView, Text} from 'react-native';
 import styles from './styles';
 import Learn from '../learn';
 import Loader from '../../components/loader';
@@ -62,16 +62,11 @@ export class Game extends Component {
             wolloCollected,
             overlayOpen,
             kid,
+            kids,
             parentNickname
         } = this.props;
 
-        // return (
-        //     <View style={{padding: 40}}>
-        //         <Text>Game</Text>
-        //         <Text>{kid.name}</Text>
-        //         <Text>Tasks: {kid.tasks.length}</Text>
-        //     </View>
-        // );
+        const data = kids.find(k => k.address === kid);
 
         return (
             <View style={styles.full}>
@@ -94,17 +89,23 @@ export class Game extends Component {
                     wolloCollected={wolloCollected}
                     overlayOpen={overlayOpen}
                 />
-                {kid.tasks.length ? (
+                {data.tasks.length ? (
                     <GameTasks
                         dispatch={dispatch}
                         parentNickname={parentNickname}
-                        kid={kid}
+                        kid={data}
                     />
                 ) : null}
                 <Loader
                     loading={this.state.loading}
                     message={this.state.message}
                 />
+                <View style={{position: 'absolute', top: 30, left: 0, padding: 5, backgroundColor: 'white'}}>
+                    <Text>{data.name}</Text>
+                    <Text>Address: {data.address}</Text>
+                    <Text>Balance: {data.balance}</Text>
+                    <Text>Tasks: {data.tasks.length}</Text>
+                </View>
             </View>
         );
     }
@@ -112,6 +113,7 @@ export class Game extends Component {
 
 export default connect(state => ({
     kid: state.auth.kid,
+    kids: state.family.kids,
     parentNickname: state.family.parentNickname,
     exchange: state.coins.exchange,
     wolloCollected: state.game.wolloCollected,

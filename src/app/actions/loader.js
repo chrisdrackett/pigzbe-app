@@ -69,21 +69,18 @@ export const loginAndLoad = passcode => async dispatch => {
     dispatch(loaderLoading(false));
 };
 
-export const loginAndLoadKid = (address, passcode) => async dispatch => {
+export const loginAndLoadKid = (kid, passcode) => async dispatch => {
     dispatch(loaderLoading(true));
     console.log('-- loginAndLoadKid --');
 
     try {
-        const success = await dispatch(authLoginKid(address, passcode));
+        const success = await dispatch(authLoginKid(kid, passcode));
 
         if (success) {
             await dispatch(loaderMessage('Loading'));
             await dispatch(loadConfig());
             await dispatch(loadExchange());
-
-            // await dispatch(loadWallet());
-            // await dispatch(loadMessages());
-            // await dispatch(loadExchange());
+            await dispatch(loadFamilyBalances(kid.address));
         }
     } catch (error) {
         console.log(error);

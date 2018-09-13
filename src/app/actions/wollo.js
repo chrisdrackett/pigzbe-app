@@ -217,23 +217,28 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
 
 export const wolloTestUser = testUserKey => ({type: WOLLO_TEST_USER, testUserKey});
 
-export const createSubAccount = name => async (dispatch, getState) => {
+export const createSubAccount = (name, startingBalance = '10') => async (dispatch, getState) => {
     try {
         const {publicKey, secretKey} = getState().wollo;
         const keypair = await createKeypair();
         const destination = keypair.publicKey();
         console.log('secretKey, destination', secretKey, destination);
-        await createAccount(secretKey, destination, '10', `Add ${name}`);
+
+        await Keychain.save(`secret_${destination}`, keypair.secret());
+
+        console.log('startingBalance', startingBalance);
+
+        await createAccount(secretKey, destination, startingBalance, `Add ${name}`);
 
         const signers = [{
             publicKey,
-            weight: 2
+            weight: 1
         }];
         const weights = {
-            masterWeight: 2,
-            lowThreshold: 2,
-            medThreshold: 2,
-            highThreshold: 2
+            masterWeight: 1,
+            lowThreshold: 1,
+            medThreshold: 1,
+            highThreshold: 1
         };
         await multiSig(keypair.secret(), signers, weights);
 
@@ -263,9 +268,9 @@ export const fundAccount = () => async (dispatch, getState) => {
     const asset = wolloAsset(getState());
     const funderSecretKey = 'SCBLV2OXPIMUHKYJRS3TMPGPBRWEVKWTJB33TW6RZEJ276VWX5GPCPXQ';
     try {
-        await sendPayment(funderSecretKey, publicKey, '20', 'Fund XLM');
+        await sendPayment(funderSecretKey, publicKey, '50', 'Fund XLM');
     } catch (error) {
-        await createAccount(funderSecretKey, publicKey, '20', 'Fund XLM');
+        await createAccount(funderSecretKey, publicKey, '50', 'Fund XLM');
     }
     try {
         await trustAsset(secretKey, asset);

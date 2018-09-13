@@ -5,17 +5,17 @@ import {familyCompleteTask} from '../../actions';
 import Wollo from '../../components/wollo';
 import Button from '../../components/button';
 
-const Item = ({first, task, reward, onComplete}) => (
+const Item = ({first, task, onComplete}) => (
     <View>
         <View style={[styles.item, first ? null : styles.itemBorder]}>
-            <Text style={styles.itemTitle}>{task}</Text>
+            <Text style={styles.itemTitle}>{task.task}</Text>
             <View style={styles.itemAmount}>
-                <Wollo dark balance={reward} />
+                <Wollo dark balance={task.reward} />
             </View>
         </View>
         <Button
             label="Complete"
-            onPress={() => onComplete({task, reward})}
+            onPress={() => onComplete(task)}
         />
     </View>
 );
@@ -46,12 +46,11 @@ export default class GameTasks extends Component {
                         </Text>
                         {kid.tasks.length ? (
                             <View style={styles.box}>
-                                {kid.tasks.map(({task, reward}, i) => (
+                                {kid.tasks.filter(t => !!t.transaction).map((task, i) => (
                                     <Item
                                         key={i}
                                         first={i === 0}
                                         task={task}
-                                        reward={reward}
                                         onComplete={this.onComplete}
                                     />
                                 ))}
