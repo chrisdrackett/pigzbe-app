@@ -8,6 +8,7 @@ import Wollo from '../../components/wollo';
 import StepModule from '../../components/step-module';
 import KidAvatar from '../../components/kid-avatar';
 import ActionPanel from '../../components/action-panel';
+import ActionSheet from '../../components/action-sheet';
 import styles from './styles';
 
 const Item = ({first, title, subtitle, amount}) => (
@@ -25,12 +26,30 @@ const Item = ({first, title, subtitle, amount}) => (
 );
 
 export class ChildDash extends Component {
+    state = {
+        tasksPanelOpen: false,
+        allowancePanelOpen: false,
+    }
 
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
 
     onAddTask = () => this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid})
 
     onAddAllowance = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid, currency: 'GBP'})
+
+    onDisplayAllowanceModal = allowance => {
+        this.setState({
+            allowancePanelOpen: true,
+            allowanceToEdit: allowance,
+        });
+    };
+
+    onDisplayTasksModal = task => {
+        this.setState({
+            tasksPanelOpen: true,
+            taskToEdit: task,
+        });
+    }
 
     render () {
         const {
@@ -75,7 +94,7 @@ export class ChildDash extends Component {
                             >
                                 {kid.allowance && (
                                     <TouchableOpacity style={styles.box} onPress={() => {
-                                        this.displayEditAllowance(kid);
+                                        this.onDisplayAllowanceModal(kid);
                                     }}>
                                         <Item
                                             first
@@ -94,7 +113,9 @@ export class ChildDash extends Component {
                                 boxButton
                             >
                                 {kid.tasks.length && (
-                                    <View style={styles.box}>
+                                    <TouchableOpacity style={styles.box} onPress={() => {
+                                        this.onDisplayTasksModal(kid);
+                                    }}>
                                         {kid.tasks.map(({task, reward}, i) => (
                                             <Item
                                                 key={i}
@@ -103,7 +124,7 @@ export class ChildDash extends Component {
                                                 amount={reward}
                                             />
                                         ))}
-                                    </View>
+                                    </TouchableOpacity>
                                 )}
                             </ActionPanel>
                             <ActionPanel
@@ -118,6 +139,20 @@ export class ChildDash extends Component {
                         </View>
                     )}
                 </StepModule>
+                <ActionSheet
+                    open={this.state.tasksPanelOpen}
+                    options={['Edit', 'Delete', 'Copy']}
+                    title="All changes will also update child wallet"
+                    onRequestClose={() => this.setState({tasksPanelOpen: false})}
+                    onSelect={index => this.onTaskEditPanelSelect({selectedOption: index})}
+                />
+                <ActionSheet
+                    open={this.state.allowancePanelOpen}
+                    options={['Edit', 'Delete', 'Copy']}
+                    title="All changes will also update child wallet"
+                    onRequestClose={() => this.setState({allowancePanelOpen: false})}
+                    onSelect={index => this.onTaskEditPanelSelect({selectedOption: index})}
+                />
             </Fragment>
         );
     }
