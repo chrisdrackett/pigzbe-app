@@ -11,6 +11,8 @@ export const FAMILY_ASSIGN_TASK = 'FAMILY_ASSIGN_TASK';
 export const FAMILY_SENDING = 'FAMILY_SENDING';
 export const FAMILY_BALANCE_UPDATE = 'FAMILY_BALANCE_UPDATE';
 export const FAMILY_ADD_ALLOWANCE = 'FAMILY_ADD_ALLOWANCE';
+export const FAMILY_DELETE_ALLOWANCE = 'FAMILY_DELETE_ALLOWANCE';
+export const FAMILY_DELETE_TASK = 'FAMILY_DELETE_TASK';
 
 const familyLoading = value => ({type: FAMILY_LOADING, value});
 
@@ -71,6 +73,25 @@ export const familyCompleteTask = (kid, task) => async dispatch => {
     console.log('COMPLETE TASK', kid.name, task.task);
 };
 
+export const deleteTask = () => async (dispatch, getState) => {
+    console.log('family action: deleteTask()', dispatch, getState);
+    try {
+        // const data = getState().allowance;
+        // await
+        // todo: API call to add allowance to kid
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const familyDeleteTask = (name, task) => async dispatch => {
+    dispatch(familyLoading(true));
+    await dispatch(({type: FAMILY_DELETE_TASK, data: {name, task}}));
+    await dispatch(deleteTask());
+    await dispatch(saveFamily());
+    dispatch(familyLoading(false));
+};
+
 export const addAllowance = () => async (dispatch, getState) => {
     console.log('family action: addAllowance()', dispatch, getState);
     try {
@@ -87,6 +108,25 @@ export const familyAddAllowance = (name, allowance, interval, day) => async disp
 
     await dispatch(({type: FAMILY_ADD_ALLOWANCE, data: {name, allowance, interval, day}}));
     await dispatch(addAllowance());
+    await dispatch(saveFamily());
+    dispatch(familyLoading(false));
+};
+
+export const deleteAllowance = () => async (dispatch, getState) => {
+    console.log('family action: deleteAllowance()', dispatch, getState);
+    try {
+        // const data = getState().allowance;
+        // await
+        // todo: API call to add allowance to kid
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const familyDeleteAllowance = name => async dispatch => {
+    dispatch(familyLoading(true));
+    await dispatch(({type: FAMILY_DELETE_ALLOWANCE, data: {name}}));
+    await dispatch(deleteAllowance());
     await dispatch(saveFamily());
     dispatch(familyLoading(false));
 };

@@ -10,6 +10,7 @@ import KidAvatar from '../../components/kid-avatar';
 import ActionPanel from '../../components/action-panel';
 import ActionSheet from '../../components/action-sheet';
 import styles from './styles';
+import {familyDeleteAllowance, familyDeleteTask} from '../../actions';
 
 const Item = ({first, title, subtitle, amount}) => (
     <View style={[styles.item, first ? null : styles.itemBorder]}>
@@ -37,44 +38,46 @@ export class ChildDash extends Component {
 
     onAddAllowance = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid, currency: 'GBP'})
 
-    onTaskAlertOptionSelected = (option) => {
-        console.log('onTaskAlertOptionSelected option', option);
-        switch (option) {
+    onTaskAlertOptionSelected = async (option) => {
+        console.log('++ onTaskAlertOptionSelected option', option);
+        switch (option.selectedOption) {
             case 0:
                 // todo navigate to task screen with active tasks
                 break;
             case 1:
-                // send alert to delete
-                break;
-            case 2:
-                // copy task?
+                await this.props.dispatch(familyDeleteTask(this.props.kid.name, this.state.taskToEdit));
                 break;
             default:
-                // blah
+                // do nothing
         }
+
+        this.setState({
+            tasksPanelOpen: false,
+        });
     }
 
-    onAllowanceAlertOptionSelected = (option) => {
-        console.log('onAllowanceAlertOptionSelected option', option);
-        switch (option) {
+    onAllowanceAlertOptionSelected = async (option) => {
+        console.log('+++ onAllowanceAlertOptionSelected option', option);
+        switch (option.selectedOption) {
             case 0:
                 // todo navigate to task screen with active tasks
                 break;
             case 1:
-                // send alert to delete
-                break;
-            case 2:
-                // copy task?
+                await this.props.dispatch(familyDeleteAllowance(this.props.kid.name));
+                this.props.kid.allowance = null;
                 break;
             default:
-                // blah
+                // do nothing
         }
+
+        this.setState({
+            allowancePanelOpen: false,
+        });
     }
 
-    onDisplayAllowanceModal = allowance => {
+    onDisplayAllowanceModal = () => {
         this.setState({
             allowancePanelOpen: true,
-            allowanceToEdit: allowance,
         });
     };
 
@@ -146,20 +149,24 @@ export class ChildDash extends Component {
                                 style={styles.panel}
                                 boxButton
                             >
-                                {kid.tasks.length && (
-                                    <TouchableOpacity style={styles.box} onPress={() => {
-                                        this.onDisplayTasksModal(kid);
-                                    }}>
+                                {kid.tasks.length &&
+                                    <View style={styles.box}>
                                         {kid.tasks.map(({task, reward}, i) => (
-                                            <Item
-                                                key={i}
-                                                first={i === 0}
-                                                title={task}
-                                                amount={reward}
-                                            />
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    this.onDisplayTasksModal(task);
+                                                }}
+                                            >
+                                                <Item
+                                                    key={i}
+                                                    first={i === 0}
+                                                    title={task}
+                                                    amount={reward}
+                                                />
+                                            </TouchableOpacity>
                                         ))}
-                                    </TouchableOpacity>
-                                )}
+                                    </View>
+                                }
                             </ActionPanel>
                             <ActionPanel
                                 title="Goals"
@@ -175,14 +182,14 @@ export class ChildDash extends Component {
                 </StepModule>
                 <ActionSheet
                     open={this.state.tasksPanelOpen}
-                    options={['Edit', 'Delete', 'Copy']}
+                    options={['Edit', 'Delete']}
                     title="All changes will also update child wallet"
                     onRequestClose={() => this.setState({tasksPanelOpen: false})}
                     onSelect={index => this.onTaskAlertOptionSelected({selectedOption: index})}
                 />
                 <ActionSheet
                     open={this.state.allowancePanelOpen}
-                    options={['Edit', 'Delete', 'Copy']}
+                    options={['Edit', 'Delete']}
                     title="All changes will also update child wallet"
                     onRequestClose={() => this.setState({allowancePanelOpen: false})}
                     onSelect={index => this.onAllowanceAlertOptionSelected({selectedOption: index})}
