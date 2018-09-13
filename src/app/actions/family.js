@@ -87,6 +87,7 @@ export const familyAddAllowance = (name, allowance, interval, day) => async disp
 
     await dispatch(({type: FAMILY_ADD_ALLOWANCE, data: {name, allowance, interval, day}}));
     await dispatch(addAllowance());
+    await dispatch(saveFamily());
     dispatch(familyLoading(false));
 };
 
