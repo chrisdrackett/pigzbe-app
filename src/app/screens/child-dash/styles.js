@@ -57,7 +57,5 @@ export default StyleSheet.create({
     itemAmount: {
         minWidth: 80,
         alignItems: 'flex-end',
-    },
-    iconOverflow: {
     }
 });

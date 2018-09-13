@@ -20,7 +20,7 @@ const Item = ({first, title, subtitle, amount}) => (
         <View style={styles.itemAmount}>
             <Wollo dark balance={amount} />
         </View>
-        <Image style={styles.iconOverflow} source={require('./images/iconOverflow.png')} />
+        <Image source={require('./images/iconOverflow.png')} />
     </View>
 );
 
