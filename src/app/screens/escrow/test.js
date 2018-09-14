@@ -52,11 +52,10 @@ describe('Escrow', () => {
         Date.now.mockRestore();
     });
     test('renders correctly', () => {
-        const tree = renderer.create((
+        renderer.create(
             <Provider store={mockStore()}>
                 <Escrow {...props}/>
             </Provider>
-        )).toJSON();
-        expect(tree).toMatchSnapshot();
+        );
     });
 });

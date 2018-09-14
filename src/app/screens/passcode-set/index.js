@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Dimensions} from 'react-native';
+import {View} from 'react-native';
 import {authCreate, appError} from '../../actions';
 import {PASSCODE_LENGTH, SCREEN_SETTINGS} from '../../constants';
 import StepModule from '../../components/step-module';
@@ -86,7 +86,6 @@ export class PasscodeSet extends Component {
 
     render() {
         const {loading, enableTouchId, touchIdSupport, loggedIn} = this.props;
-        const {height} = Dimensions.get('window');
 
         return (
             <StepModule
@@ -100,18 +99,15 @@ export class PasscodeSet extends Component {
                 )}
                 loading={loading || this.state.loading}
                 onBack={this.state.code ? this.onReset : null}
+                justify="center"
             >
-                <View style={{
-                    marginBottom: Math.max(0, (height - 568) / 2)
-                }}>
-                    <NumPad
-                        error={this.state.error}
-                        key={this.state.code ? 'confirm' : 'enter'}
-                        length={PASSCODE_LENGTH}
-                        onInput={this.onInput}
-                        onFull={this.state.code ? this.onCodeConfirmed : this.onCodeEntered}
-                    />
-                </View>
+                <NumPad
+                    error={this.state.error}
+                    key={this.state.code ? 'confirm' : 'enter'}
+                    length={PASSCODE_LENGTH}
+                    onInput={this.onInput}
+                    onFull={this.state.code ? this.onCodeConfirmed : this.onCodeEntered}
+                />
             </StepModule>
 
         );

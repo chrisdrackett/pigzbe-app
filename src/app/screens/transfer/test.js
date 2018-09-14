@@ -20,11 +20,10 @@ const props = {
 
 describe('Transfer', () => {
     test('renders correctly', () => {
-        const tree = renderer.create((
+        renderer.create(
             <Provider store={mockStore({wollo})}>
                 <Transfer {...props}/>
             </Provider>
-        )).toJSON();
-        expect(tree).toMatchSnapshot();
+        );
     });
 });

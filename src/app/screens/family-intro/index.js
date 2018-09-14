@@ -32,6 +32,7 @@ export class FamilyIntro extends Component {
                 pad
                 loading={this.state.loading}
                 onBack={this.onBack}
+                justify="flex-end"
             >
                 <Button
                     label={'Add My Children'}

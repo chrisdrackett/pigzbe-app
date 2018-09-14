@@ -34,7 +34,8 @@ export default class StepModule extends Component {
           loading,
           loaderMessage,
           customTitle,
-          hideLogo
+          hideLogo,
+          justify
       } = this.props;
 
       const {height} = Dimensions.get('window');
@@ -65,7 +66,11 @@ export default class StepModule extends Component {
                               )}
                           </View>
                       )}
-                      <View style={[styles.wrapper, pad ? styles.pad : null, paddingTop ? {paddingTop} : null]}>
+                      <View style={[
+                          styles.wrapper,
+                          justify ? {justifyContent: justify} : null,
+                          pad ? styles.pad : null, paddingTop ? {paddingTop} : null
+                      ]}>
                           {children}
                       </View>
                       <Loader

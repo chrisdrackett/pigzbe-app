@@ -11,11 +11,10 @@ const props = {
 
 describe('Send', () => {
     test('renders correctly', () => {
-        const tree = renderer.create((
+        renderer.create(
             <Provider store={mockStore({wollo, coins})}>
                 <Send {...props}/>
             </Provider>
-        )).toJSON();
-        expect(tree).toMatchSnapshot();
+        );
     });
 });
