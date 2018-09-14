@@ -77,4 +77,16 @@ storiesOf('Child Dash')
                 }]
             }
         }}/>
+    )).add('with allowance', () => (
+        <ChildDash {...{
+            ...props,
+            kid: {
+                ...kid,
+                allowance: {
+                    amount: 50,
+                    interval: 'Weekly',
+                    day: 'Monday',
+                }
+            }
+        }}/>
     ));

@@ -8,6 +8,8 @@ import {
     FAMILY_BALANCE_UPDATE,
     FAMILY_ASSIGN_TASK,
     FAMILY_ADD_ALLOWANCE,
+    FAMILY_DELETE_ALLOWANCE,
+    FAMILY_DELETE_TASK,
 } from '../actions';
 
 export const initialState = {
@@ -19,6 +21,8 @@ export const initialState = {
 };
 
 export default (state = initialState, action) => {
+    console.log('+++ state', state.kids);
+
     switch (action.type) {
         case FAMILY_LOADING:
             return {
@@ -76,6 +80,26 @@ export default (state = initialState, action) => {
                     return k;
                 }),
             };
+        case FAMILY_DELETE_TASK:
+            console.log('REDUCER FAMILY_DELETE_TASK', action.data);
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    if (k.name === action.data.name) {
+                        console.log('task.task', k.tasks, 'action.data.task', action.data.task);
+                        console.log('filtered tasks:', k.tasks.filter(task => {
+                            return task.task !== action.data.task;
+                        }));
+                        return {
+                            ...k,
+                            tasks: k.tasks.filter(task => {
+                                return task.task !== action.data.task;
+                            }),
+                        };
+                    }
+                    return k;
+                }),
+            };
         case FAMILY_ADD_ALLOWANCE:
             return {
                 ...state,
@@ -87,6 +111,22 @@ export default (state = initialState, action) => {
                         return {
                             ...k,
                             allowance: {amount: action.data.allowance, interval: action.data.interval, day: action.data.day},
+                        };
+                    }
+                    return k;
+                }),
+            };
+        case FAMILY_DELETE_ALLOWANCE:
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    // if no child name is passed the assign tasks to all kids
+                    // this is the case when part of the initial add children process
+                    // otherwise compare to kid name
+                    if (k.name === action.data.name) {
+                        return {
+                            ...k,
+                            allowance: null,
                         };
                     }
                     return k;
