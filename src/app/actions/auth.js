@@ -101,7 +101,7 @@ export const authLoginKid = (kid, passcode) => async dispatch => {
         return false;
     }
 
-    dispatch({type: AUTH_LOGIN_KID, kid});
+    dispatch({type: AUTH_LOGIN_KID, kid: kid.address});
     return true;
 };
 
