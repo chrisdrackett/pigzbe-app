@@ -2,12 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, Image, Text} from 'react-native';
 import {pickImage} from '../../utils/image-picker';
-import {SCREEN_BALANCE} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_ALLOWANCE_AMOUNT} from '../../constants';
 import TextInput from '../../components/text-input';
 import DateInput from '../../components/date-input';
 import StepModule from '../../components/step-module';
 import Button from '../../components/button';
-import {color} from '../../styles';
 import styles from './styles';
 import {familyAddKid} from '../../actions';
 import images from './images';
@@ -37,7 +36,8 @@ export class FamilyEnterChild extends Component {
                 image: '',
             });
         } else {
-            this.props.navigation.navigate(SCREEN_BALANCE);
+            // add allowance for all kids:
+            this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {currency: 'GBP'});
         }
     }
 

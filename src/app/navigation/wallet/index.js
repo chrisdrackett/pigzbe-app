@@ -14,6 +14,8 @@ import FamilyNumberKids from '../../screens/family-number-kids';
 import FamilyEnterChild from '../../screens/family-enter-child';
 import TasksList from '../../screens/tasks-list';
 import TasksAssign from '../../screens/tasks-assign';
+import Allowance from '../../screens/allowance';
+import AllowanceInterval from '../../screens/allowance-interval';
 import {
     SCREEN_BALANCE,
     SCREEN_SETTINGS,
@@ -30,6 +32,8 @@ import {
     SCREEN_FAMILY_ENTER_CHILD,
     SCREEN_TASKS_LIST,
     SCREEN_TASKS_ASSIGN,
+    SCREEN_ALLOWANCE_AMOUNT,
+    SCREEN_ALLOWANCE_INTERVAL,
 } from '../../constants';
 
 const nav = {
@@ -77,6 +81,12 @@ const nav = {
     },
     [SCREEN_TASKS_ASSIGN]: {
         screen: TasksAssign
+    },
+    [SCREEN_ALLOWANCE_AMOUNT]: {
+        screen: Allowance
+    },
+    [SCREEN_ALLOWANCE_INTERVAL]: {
+        screen: AllowanceInterval
     },
 };
 
