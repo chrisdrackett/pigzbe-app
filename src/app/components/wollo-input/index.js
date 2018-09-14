@@ -5,7 +5,7 @@ import styles from './styles';
 import TextInput from '../text-input';
 import CurrencyToggle from '../currency-toggle';
 import moneyFormat from '../../utils/money-format';
-import {COIN_SYMBOLS, COIN_DPS, ASSET_CODE} from '../../constants';
+import {ASSET_CODE, CURRENCIES} from '../../constants';
 // import isAndroid from '../../utils/is-android';
 
 
@@ -18,18 +18,18 @@ export class WolloInput extends Component {
             currentCurrency: props.currency,
             currencyAmount: 0,
             exchangedValue: 0,
-            exchangedDisplay: `${COIN_SYMBOLS[props.currency]}${moneyFormat(0, COIN_DPS[props.currency])}`
+            exchangedDisplay: `${CURRENCIES[props.currency].symbol}${moneyFormat(0, CURRENCIES[props.currency].dps)}`
         };
     }
 
     setExchangedValue = (amount, currentCurrency) => {
         const {exchange, currency, onChangeAmount} = this.props;
         const exchangedValue = currentCurrency === ASSET_CODE ? amount / exchange[currency] : amount * exchange[currency];
-        const symbol = COIN_SYMBOLS[currentCurrency];
+        const symbol = CURRENCIES[currentCurrency].symbol;
 
         this.setState({
             exchangedValue,
-            exchangedDisplay: `${symbol} ${moneyFormat(exchangedValue, COIN_DPS[currency])}`,
+            exchangedDisplay: `${symbol}${moneyFormat(exchangedValue, CURRENCIES[currency].dps)}`,
         });
 
         onChangeAmount(currentCurrency === ASSET_CODE ? exchangedValue * 1 : amount * 1);
@@ -49,7 +49,7 @@ export class WolloInput extends Component {
         const {exchangedDisplay, currencyAmount, currentCurrency} = this.state;
         const {currency, ...restOfProps} = this.props;
         const placeholder = currency === currentCurrency ? '0 Wollo' : 
-            (COIN_SYMBOLS[currency] + ' ' + moneyFormat(0, COIN_DPS[currency]));
+            (CURRENCIES[currency].symbol + moneyFormat(0, CURRENCIES[currency].dps));
 
         return (
             <Fragment>

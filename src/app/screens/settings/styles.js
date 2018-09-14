@@ -2,58 +2,56 @@ import {StyleSheet} from 'react-native';
 import {
     input,
     color,
-    fontFamily
+    fontFamily,
+    paddingH
 } from '../../styles';
 
 export default StyleSheet.create({
-    outer: {
-        backgroundColor: color.blue,
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
+    section: {
+        backgroundColor: color.white,
+        borderRadius: 5,
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
+        paddingTop: 25,
+        paddingBottom: 25,
+        marginBottom: 15,
     },
-    avatar: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 20
+    sectionNoVPadding: {
+        paddingTop: 0,
+        paddingBottom: 0,
     },
-    avatarText: {
+    sectionTitle: {
         fontFamily,
-        color: color.whiteOpacity60,
-        fontSize: 14,
-        textAlign: 'center',
-        marginTop: 20
-    },
-    loader: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: 0
-    },
-    title: {
-        fontFamily,
-        color: color.white,
-        fontSize: 16,
         fontWeight: 'bold',
+        fontSize: 18,
+        color: color.white,
+        marginBottom: 15,
         textAlign: 'center',
+    },
+    item: {
+        flexDirection: 'row',
+        borderBottomColor: color.mediumGrey,
+        borderBottomWidth: 1,
+    },
+    itemLast: {
         marginBottom: 0,
-        marginTop: 10
+        borderBottomWidth: 0,
     },
-    error: {
+    itemInner: {
+        height: 50,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row',
+    },
+    itemName: {
         fontFamily,
-        color: color.red,
-        fontSize: 18
+        color: color.blue,
+        fontWeight: 'bold',
     },
-    input,
-    inputError: {
-        ...input,
-        borderColor: color.red
-    }
+    itemValue: {
+        fontFamily,
+        color: color.lighterBlue,
+        fontSize: 14,
+    },
 });

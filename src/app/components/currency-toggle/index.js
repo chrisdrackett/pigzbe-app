@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, TouchableOpacity, View, Animated, Image} from 'react-native';
 import styles from './styles';
-import {COIN_SYMBOLS, ASSET_CODE} from '../../constants';
+import {ASSET_CODE, CURRENCIES} from '../../constants';
 // import isAndroid from '../../utils/is-android';
 
 
@@ -38,7 +38,7 @@ export default class CurrencyToggle extends Component {
             <TouchableOpacity style={styles.container} onPress={this.onClicked}>
                 <Animated.View style={[styles.handle, {left: this.state.left}]} />
                 <WolloImage />
-                <View style={styles.currency}><Text style={styles.text}>{COIN_SYMBOLS[currency]}</Text></View>
+                <View style={styles.currency}><Text style={styles.text}>{CURRENCIES[currency].symbol}</Text></View>
             </TouchableOpacity>
         );
     }

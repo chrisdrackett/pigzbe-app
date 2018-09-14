@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+import {View, Text, TouchableOpacity, Switch} from 'react-native';
 import {
     loadEscrow,
     // settingsClear,
@@ -20,12 +20,16 @@ import {
     SCREEN_ESCROW,
     PRIVACY_URL,
     SCREEN_CHANGE_PASSCODE,
+    SCREEN_SET_EMAIL,
     CURRENCIES,
 } from '../../constants';
 import openURL from '../../utils/open-url';
 import StepModule from '../../components/step-module';
+import Container from '../../components/container';
 // import Paragraph from '../../components/paragraph';
 import Checkbox from '../../components/checkbox';
+
+import styles from './styles';
 
 const currenciesForSelect = {};
 Object.keys(CURRENCIES).forEach(key => currenciesForSelect[key] = CURRENCIES[key].name);
@@ -44,7 +48,7 @@ export class Settings extends Component {
 
     onSubscribe = () => this.props.dispatch(settingsToggleSubscribe(!this.props.subscribe));
 
-    onEnableTouchId = () => this.props.dispatch(settingsEnableTouchId(!this.props.enableTouchId));
+    onSetTouchId = enabled => this.props.dispatch(settingsEnableTouchId(enabled));
 
     onLogout = () => {
         this.props.dispatch(authLogout());
@@ -55,6 +59,8 @@ export class Settings extends Component {
 
     onChangePasscode = () => this.props.navigation.navigate(SCREEN_CHANGE_PASSCODE)
 
+    onChangeEmail = () => this.props.navigation.navigate(SCREEN_SET_EMAIL)
+
     onChangeBaseCurrency = baseCurrency => this.props.dispatch(setBaseCurrency(baseCurrency))
 
     render() {
@@ -62,8 +68,8 @@ export class Settings extends Component {
             touchIdSupport,
             enableTouchId,
             subscribe,
-            // email,
-            // phone,
+            email,
+            phone,
             // country,
             escrow,
             baseCurrency,
@@ -74,21 +80,115 @@ export class Settings extends Component {
                 title={'Settings'}
                 icon="settings"
                 onBack={this.onBack}
-                pad
                 paddingTop={20}
-            >
-                <View>
-                    {escrow && (
+                backgroundColor="transparent"
+            >   
+                {escrow && (
+                    <View style={styles.section}>
                         <Button
                             label={'View Escrow'}
                             onPress={this.onEscrow}
                         />
-                    )}
+                    </View>
+                )}
+                <View style={styles.section}>
                     <Button
                         label={'Claim Your Wollo'}
                         onPress={this.onClaim}
-                        style={{marginBottom: 30}}
+                        style={{marginBottom: 0}}
                     />
+                </View>
+                <Text style={styles.sectionTitle}>
+                    General
+                </Text>
+                <View style={[styles.section, styles.sectionNoVPadding]}>
+                    <View style={[styles.item]}>
+                        <TouchableOpacity style={styles.itemInner} onPress={this.onChangeEmail}>
+                            <Text style={styles.itemName}>Email</Text>
+                            <Text style={styles.itemValue}>{email || 'Not found'}</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.item]}>
+                        <TouchableOpacity style={styles.itemInner}>
+                            <Text style={styles.itemName}>Phone</Text>
+                            <Text style={styles.itemValue}>{phone ? `+${country} ${phone}` : 'Not found'}</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.item, styles.itemLast]}>
+                        <TouchableOpacity style={styles.itemInner}>
+                            <Text style={styles.itemName}>Native Currency</Text>
+                            <Text style={styles.itemValue}>{baseCurrency}</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <Text style={styles.sectionTitle}>
+                    Security 
+                </Text>
+                <View style={[styles.section, styles.sectionNoVPadding]}>
+                    {(true || touchIdSupport) && (
+                        <View style={[styles.item]}>
+                            <TouchableOpacity style={styles.itemInner}>
+                                <Text style={styles.itemName}>{touchIdSupport === 'FaceID' ? 'Face' : 'Touch'} ID</Text>
+                                <Switch
+                                    value={enableTouchId} 
+                                    onValueChange={this.onSetTouchId}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                    <View style={[styles.item]}>
+                        <TouchableOpacity style={styles.itemInner} onPress={this.onChangePasscode}>
+                            <Text style={styles.itemName}>Change Passcode</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.item]}>
+                        <TouchableOpacity style={styles.itemInner}>
+                            <Text style={styles.itemName}>Reset 2-Factor Authentication</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.item, styles.itemLast]}>
+                        <TouchableOpacity style={styles.itemInner}>
+                            <Text style={styles.itemName}>Reset Ella's Secret Code</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <Text style={styles.sectionTitle}>
+                    Other
+                </Text>
+                <View style={[styles.section, styles.sectionNoVPadding]}>
+                    <View style={[styles.item]}>
+                        <TouchableOpacity style={styles.itemInner}>
+                            <Text style={styles.itemName}>Support</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.item]}>
+                        <TouchableOpacity style={styles.itemInner}>
+                            <Text style={styles.itemName}>Privacy Policy</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.item]}>
+                        <TouchableOpacity style={styles.itemInner}>
+                            <Text style={styles.itemName}>Terms & Conditions</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.item, styles.itemLast]}>
+                        <TouchableOpacity style={styles.itemInner}>
+                            <Text style={styles.itemName}>About</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                <View style={styles.section}>
+                    <Button
+                        theme="outline"
+                        label={strings.accountLogoutButtonLabel}
+                        onPress={this.onLogout}
+                        style={{marginBottom: 0}}
+                    />
+                </View>
+
+                {false &&
+                <View style={styles.section}>
                     {touchIdSupport && (
                         <Checkbox
                             alt
@@ -103,8 +203,6 @@ export class Settings extends Component {
                         value={subscribe}
                         onValueChange={this.onSubscribe}
                     />
-                    {/* <Paragraph>{'touchIdSupport: '}{touchIdSupport}</Paragraph> */}
-                    {/* <Paragraph>{'enableTouchId: '}{enableTouchId ? 'Yes' : 'No'}</Paragraph> */}
                     {/* <Paragraph>{'subscribe: '}{subscribe ? 'Yes' : 'No'}</Paragraph> */}
                     {/* <Paragraph>{'email: '}{email}</Paragraph> */}
                     {/* <Paragraph>{'phone: '}+{country}{phone}</Paragraph> */}
@@ -117,24 +215,14 @@ export class Settings extends Component {
                         searchable={false}
                     />
 
-                    <Button
-                        theme="outline"
-                        label={'Change passcode'}
-                        onPress={this.onChangePasscode}
-                        style={{marginTop: 20}}
-                    />
-                    <Button
-                        theme="outline"
-                        label={strings.accountLogoutButtonLabel}
-                        onPress={this.onLogout}
-                        // style={{marginTop: 30}}
-                    />
+                    
                     {/* <Button
                         theme="plain"
                         label={strings.accountPrivacyButtonLabel}
                         onPress={this.onPrivacy}
                     /> */}
                 </View>
+                }
             </StepModule>
         );
     }
