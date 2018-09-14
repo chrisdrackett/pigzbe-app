@@ -1,16 +1,13 @@
 import React, {Component, Fragment} from 'react';
-import {View} from 'react-native';
 import {connect} from 'react-redux';
 import {setKeys, saveKeys} from '../../actions';
 import Button from '../../components/button';
 import StepModule from '../../components/step-module';
-import styles from './styles';
 import {generateMnemonic, generateKeys} from '../../utils/hd-wallet';
 import NotificationModal from '../../components/notification-modal';
 import Mnemonic from '../../components/mnemonic';
 import sortRandom from 'usfl/array/sort-random';
 import wait from '../../utils/wait';
-
 
 const getWords = mnemonic => {
     if (__DEV__) {
@@ -102,28 +99,27 @@ export class KeysMnemonic extends Component {
                         :
                         'Below is your 12 word Pigzbe wallet, Private Key. *Please write this down* and keep it in a safe place.'
                     }
+                    justify="space-between"
                 >
-                    <View style={styles.container}>
-                        <Mnemonic
-                            mnemonic={this.state.mnemonic}
-                            confirm={this.state.confirm}
-                            mnemonicConfirm={this.state.mnemonicConfirm}
-                            words={this.state.words}
-                            onSelect={this.onSelectWord}
+                    <Mnemonic
+                        mnemonic={this.state.mnemonic}
+                        confirm={this.state.confirm}
+                        mnemonicConfirm={this.state.mnemonicConfirm}
+                        words={this.state.words}
+                        onSelect={this.onSelectWord}
+                    />
+                    {this.state.confirm ? (
+                        <Button
+                            label={'Done'}
+                            onPress={this.onDone}
+                            disabled={this.state.mnemonicConfirm.join(' ') !== this.state.mnemonic}
                         />
-                        {this.state.confirm ? (
-                            <Button
-                                label={'Done'}
-                                onPress={this.onDone}
-                                disabled={this.state.mnemonicConfirm.join(' ') !== this.state.mnemonic}
-                            />
-                        ) : (
-                            <Button
-                                label={'I have written down my key'}
-                                onPress={this.onConfirm}
-                            />
-                        )}
-                    </View>
+                    ) : (
+                        <Button
+                            label={'I have written down my key'}
+                            onPress={this.onConfirm}
+                        />
+                    )}
                 </StepModule>
                 <NotificationModal
                     open={this.state.warningOpen}

@@ -4,17 +4,12 @@ import styles from './styles';
 import icons from './images';
 import Title from '../title';
 
-const StepHeader = ({title, icon, children}) => (
+export default ({title, icon, children}) => (
     <View style={styles.container}>
-        {title && <Title>{title}</Title>}
-        {children && (
-            <View style={[styles.noImage, (icons[icon] && !title) ? styles.noTitle : null]}>
-                {children}
-            </View>
-        )}
-        {(!icons[icon] && !children) && <View style={styles.image}/>}
+        {title && <Title style={styles.title}>{title}</Title>}
+        <View style={[styles.wrapper, icons[icon] ? null : styles.noImage]}>
+            {children}
+        </View>
         {icons[icon] && <Image style={styles.image} source={icons[icon]} />}
     </View>
 );
-
-export default StepHeader;

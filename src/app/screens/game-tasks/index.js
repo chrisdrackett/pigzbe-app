@@ -46,7 +46,7 @@ export default class GameTasks extends Component {
                         </Text>
                         {kid.tasks.length ? (
                             <View style={styles.box}>
-                                {kid.tasks.filter(t => !!t.transaction).map((task, i) => (
+                                {kid.tasks.map((task, i) => (
                                     <Item
                                         key={i}
                                         first={i === 0}

@@ -28,16 +28,14 @@ export class ChildLogin extends Component {
         return (
             <StepModule
                 title="Welcome back"
-                icon="keys"
                 content={'Please enter your *Secret Code* by selecting your 3 images'}
                 pad
                 headerChildren={(
-                    <View style={{marginTop: 30}}>
-                        <Dots length={CHILD_PASSCODE_LENGTH} progress={this.state.input.size}/>
-                    </View>
+                    <Dots length={CHILD_PASSCODE_LENGTH} progress={this.state.input.size}/>
                 )}
                 loading={loading}
                 loaderMessage={message}
+                justify="center"
             >
                 <View style={styles.centered}>
                     <IconPad

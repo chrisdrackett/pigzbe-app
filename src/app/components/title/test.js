@@ -8,7 +8,6 @@ const props = {
 
 describe('Title', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<Title {...props}/>).toJSON();
-        expect(tree).toMatchSnapshot();
+        renderer.create(<Title {...props}/>);
     });
 });

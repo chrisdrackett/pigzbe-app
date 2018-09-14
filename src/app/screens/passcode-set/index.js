@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
 import {authCreate, appError} from '../../actions';
 import {PASSCODE_LENGTH, SCREEN_SETTINGS} from '../../constants';
 import StepModule from '../../components/step-module';
@@ -93,9 +92,7 @@ export class PasscodeSet extends Component {
                 title={getTitle(this.state.code, loggedIn)}
                 content={getText(this.state.code, enableTouchId, touchIdSupport)}
                 headerChildren={(
-                    <View style={{marginTop: 30}}>
-                        <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
-                    </View>
+                    <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                 )}
                 loading={loading || this.state.loading}
                 onBack={this.state.code ? this.onReset : null}
