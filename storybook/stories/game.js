@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {storiesOf} from '@storybook/react-native';
-import {GameView} from '../../src/app/screens/game';
+import {Game} from '../../src/app/screens/game';
 import Learn from '../../src/app/screens/learn';
 import GameTasks from '../../src/app/screens/game-tasks';
 
@@ -31,27 +31,36 @@ const props = {
     kid: {
         name: 'Ella',
         dob: '01/01/2010',
-        photo: '',
+        photo: null,
         balance: '20',
-        tasks: [{
-            task: 'Clean the car',
-            reward: '10',
-        }, {
-            task: 'Do your homework',
-            reward: '100',
-        }]
+        tasks: []
     },
     parentNickname: 'Dad',
 };
 
 storiesOf('Game')
     .add('default', () => (
-        <GameView {...props}/>
+        <Game {...props}/>
     ))
     .add('with learn', () => (
-        <GameView {...{
+        <Game {...{
             ...props,
             overlayOpen: true
+        }}/>
+    ))
+    .add('with tasks', () => (
+        <Game {...{
+            ...props,
+            kid: {
+                ...props.kid,
+                tasks: [{
+                    task: 'Clean the car',
+                    reward: '10',
+                }, {
+                    task: 'Do your homework',
+                    reward: '100',
+                }]
+            },
         }}/>
     ))
     .add('learn', () => (
@@ -66,7 +75,16 @@ storiesOf('Game')
         <View style={{flex: 1, backgroundColor: 'black'}}>
             <GameTasks {...{
                 ...props,
-                overlayOpen: true,
+                kid: {
+                    ...props.kid,
+                    tasks: [{
+                        task: 'Clean the car',
+                        reward: '10',
+                    }, {
+                        task: 'Do your homework',
+                        reward: '100',
+                    }]
+                },
             }}/>
         </View>
     ));
