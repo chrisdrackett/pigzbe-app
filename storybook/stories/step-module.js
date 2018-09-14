@@ -9,6 +9,63 @@ import TextInput from '../../src/app/components/text-input';
 
 const stories = storiesOf('StepModule');
 
+stories.add('justify center', () => (
+    <StepModule
+        title="justify center"
+        content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis."
+        pad
+        justify="center"
+    >
+        <Button
+            theme="outline"
+            label={'Top'}
+            onPress={() => {}}
+        />
+        <Button
+            label={'Bottom'}
+            onPress={() => {}}
+        />
+    </StepModule>
+));
+
+stories.add('justify space-between', () => (
+    <StepModule
+        title="justify space-between"
+        content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis."
+        pad
+        justify="space-between"
+    >
+        <Button
+            theme="outline"
+            label={'Top'}
+            onPress={() => {}}
+        />
+        <Button
+            label={'Bottom'}
+            onPress={() => {}}
+        />
+    </StepModule>
+));
+
+stories.add('justify flex-end', () => (
+    <StepModule
+        title="justify flex-end"
+        content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis."
+        pad
+        justify="flex-end"
+    >
+        <Button
+            theme="outline"
+            label={'Top'}
+            onPress={() => {}}
+        />
+        <Button
+            label={'Bottom'}
+            onPress={() => {}}
+        />
+    </StepModule>
+));
+
 stories.add('no icon', () => (
     <StepModule
         title={'No icon'}
@@ -170,6 +227,5 @@ stories.add('header test', () => (
         onSettings={() => {}}
         onBack={() => {}}
         customTitle="Testing"
-    >
-    </StepModule>
+    />
 ));
