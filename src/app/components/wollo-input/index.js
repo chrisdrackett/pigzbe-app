@@ -13,11 +13,11 @@ export default class WolloInput extends Component {
         super(props);
 
         this.state = {
-            wolloAmount: null,
+            wolloAmount: props.initial || null,
             currentCurrency: props.currency,
-            currencyAmount: 0,
-            exchangedValue: 0,
-            exchangedDisplay: `${COIN_SYMBOLS[props.currency]}${moneyFormat(0, COIN_DPS[props.currency])}`
+            currencyAmount: props.initial,
+            exchangedValue: props.initial * props.exchange,
+            exchangedDisplay: `${COIN_SYMBOLS[props.currency]}${moneyFormat(props.initial * props.exchange || 0, COIN_DPS[props.currency])}`
         };
     }
 
@@ -49,7 +49,7 @@ export default class WolloInput extends Component {
         const {exchangedDisplay, currencyAmount, currentCurrency} = this.state;
         const {currency, ...restOfProps} = this.props;
 
-        const placeholder = currency === currentCurrency ? '0 Wollo' : 
+        const placeholder = currency === currentCurrency ? '0 Wollo' :
             (COIN_SYMBOLS[currency] + ' ' + moneyFormat(0, COIN_DPS[currency]));
 
         return (

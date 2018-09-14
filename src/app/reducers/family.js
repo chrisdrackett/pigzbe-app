@@ -69,6 +69,7 @@ export default (state = initialState, action) => {
                 }),
             };
         case FAMILY_ASSIGN_TASK:
+            console.log('REDUCER FAMILY_ASSIGN_TASK', action.data);
             return {
                 ...state,
                 kids: state.kids.map(k => {

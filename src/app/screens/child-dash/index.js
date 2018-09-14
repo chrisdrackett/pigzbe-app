@@ -43,6 +43,7 @@ export class ChildDash extends Component {
         switch (option.selectedOption) {
             case 0:
                 // todo navigate to task screen with active tasks
+                this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid, taskToEdit: this.state.taskToEdit});
                 break;
             case 1:
                 await this.props.dispatch(familyDeleteTask(this.props.kid.name, this.state.taskToEdit));
@@ -151,7 +152,7 @@ export class ChildDash extends Component {
                             >
                                 {kid.tasks.length &&
                                     <View style={styles.box}>
-                                        {kid.tasks.map(({task, reward}, i) => (
+                                        {kid.tasks.map((task, i) => (
                                             <TouchableOpacity
                                                 onPress={() => {
                                                     this.onDisplayTasksModal(task);
@@ -160,8 +161,8 @@ export class ChildDash extends Component {
                                                 <Item
                                                     key={i}
                                                     first={i === 0}
-                                                    title={task}
-                                                    amount={reward}
+                                                    title={task.task}
+                                                    amount={task.reward}
                                                 />
                                             </TouchableOpacity>
                                         ))}
