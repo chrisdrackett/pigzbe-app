@@ -25,7 +25,6 @@ const props = {
         GOLD: 0.0031452
     },
     balance: '0',
-    baseCurrency: 'USD',
     escrow: null,
     firstTime: true,
     kids: [],

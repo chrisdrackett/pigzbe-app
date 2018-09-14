@@ -1,35 +1,35 @@
 import React, {Component, Fragment} from 'react';
 import {Text, View} from 'react-native';
+import { connect } from "react-redux";
 import styles from './styles';
 import TextInput from '../text-input';
 import CurrencyToggle from '../currency-toggle';
 import moneyFormat from '../../utils/money-format';
-import {COIN_SYMBOLS, COIN_DPS, ASSET_CODE} from '../../constants';
+import {ASSET_CODE, CURRENCIES} from '../../constants';
 // import isAndroid from '../../utils/is-android';
 
 
-export default class WolloInput extends Component {
+export class WolloInput extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             wolloAmount: null,
-            currentCurrency: props.currency,
+            currentCurrency: props.baseCurrency,
             currencyAmount: 0,
             exchangedValue: 0,
-            exchangedDisplay: `${COIN_SYMBOLS[props.currency]}${moneyFormat(0, COIN_DPS[props.currency])}`
+            exchangedDisplay: `${CURRENCIES[props.baseCurrency].symbol}${moneyFormat(0, CURRENCIES[props.baseCurrency].dps)}`
         };
     }
 
     setExchangedValue = (amount, currentCurrency) => {
-        const {exchange, currency, onChangeAmount} = this.props;
-
-        const exchangedValue = currentCurrency === ASSET_CODE ? amount / exchange : amount * exchange;
-        const symbol = COIN_SYMBOLS[currentCurrency];
+        const {exchange, baseCurrency, onChangeAmount} = this.props;
+        const exchangedValue = currentCurrency === ASSET_CODE ? amount / exchange[baseCurrency] : amount * exchange[baseCurrency];
+        const symbol = CURRENCIES[currentCurrency].symbol;
 
         this.setState({
             exchangedValue,
-            exchangedDisplay: `${symbol} ${moneyFormat(exchangedValue, COIN_DPS[currency])}`,
+            exchangedDisplay: `${symbol}${moneyFormat(exchangedValue, CURRENCIES[baseCurrency].dps)}`,
         });
 
         onChangeAmount(currentCurrency === ASSET_CODE ? exchangedValue * 1 : amount * 1);
@@ -45,12 +45,23 @@ export default class WolloInput extends Component {
         this.setExchangedValue(this.state.currencyAmount, currency);
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.baseCurrency !== this.props.baseCurrency) {
+            // If current currency isn't wollo, we need to update it to the new base currency
+            if (this.state.currentCurrency !== ASSET_CODE) {
+                this.onCurrencyChange(this.props.baseCurrency);
+            } else {
+                // Else just refresh the exchanged values
+                this.setExchangedValue(this.state.currencyAmount, this.state.currentCurrency);
+            }
+        }
+    }
+
     render() {
         const {exchangedDisplay, currencyAmount, currentCurrency} = this.state;
-        const {currency, ...restOfProps} = this.props;
-
-        const placeholder = currency === currentCurrency ? '0 Wollo' : 
-            (COIN_SYMBOLS[currency] + ' ' + moneyFormat(0, COIN_DPS[currency]));
+        const {baseCurrency, ...restOfProps} = this.props;
+        const placeholder = baseCurrency === currentCurrency ? '0 Wollo' : 
+            (CURRENCIES[baseCurrency].symbol + moneyFormat(0, CURRENCIES[baseCurrency].dps));
 
         return (
             <Fragment>
@@ -67,7 +78,7 @@ export default class WolloInput extends Component {
                     />
                     <View style={styles.toggle}>
                         <CurrencyToggle
-                            currency={currency}
+                            currency={baseCurrency}
                             onCurrencyChange={this.onCurrencyChange}
                         />
                     </View>
@@ -79,3 +90,8 @@ export default class WolloInput extends Component {
         );
     }
 }
+
+export default connect(state => ({
+    baseCurrency: state.settings.baseCurrency,
+    exchange: state.coins.exchange,
+}))(WolloInput);

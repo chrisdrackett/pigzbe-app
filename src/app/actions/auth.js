@@ -59,6 +59,10 @@ export const authCreateKid = (kid, passcode) => async dispatch => {
     await dispatch(authLoginKid(kid, passcode));
 };
 
+export const authClearKidPasscode = (address) => async dispatch => {
+    await Keychain.clear(address);
+};
+
 export const authLogin = passcode => async dispatch => {
     dispatch(appError(null));
     dispatch({type: AUTH_LOGIN_START});
