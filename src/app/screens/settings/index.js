@@ -175,8 +175,8 @@ export class Settings extends Component {
                         {kids.map((kid,index) => (
                             <TouchableOpacity style={styles.itemInner} onPress={() => {
                                 Alert.alert(
-                                    `Are you sure you want to reset ${kid.name}'s passcode?`,
-                                    'This will force them to enter a new passcode next time they log on',
+                                    `Are you sure you want to reset ${kid.name}'s secret code?`,
+                                    'This will require them to enter a new secret code next time they log on',
                                     [
                                         {text: 'Cancel', style: 'cancel'},
                                         {text: 'Yes', onPress: () => this.props.dispatch(authClearKidPasscode(kid.address))},
