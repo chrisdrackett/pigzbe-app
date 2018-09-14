@@ -7,9 +7,10 @@ import {
     FAMILY_ADD_KID,
     FAMILY_BALANCE_UPDATE,
     FAMILY_ASSIGN_TASK,
+    FAMILY_COMPLETE_TASK,
     FAMILY_ADD_ALLOWANCE,
     FAMILY_DELETE_ALLOWANCE,
-    FAMILY_DELETE_TASK,
+    FAMILY_DELETE_TASK
 } from '../actions';
 
 export const initialState = {
@@ -74,7 +75,20 @@ export default (state = initialState, action) => {
                     if (k.address === action.data.kid.address) {
                         return {
                             ...k,
-                            tasks: k.tasks.concat({task: action.data.task, reward: action.data.wollos}),
+                            tasks: k.tasks.concat({...action.data}),
+                        };
+                    }
+                    return k;
+                }),
+            };
+        case FAMILY_COMPLETE_TASK:
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    if (k.address === action.data.kid.address) {
+                        return {
+                            ...k,
+                            tasks: k.tasks.filter(t => t.transaction !== action.data.task.transaction),
                         };
                     }
                     return k;

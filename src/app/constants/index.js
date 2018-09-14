@@ -26,3 +26,6 @@ export const STORAGE_KEY_TASKS = 'tasks';
 
 export const PASSCODE_LENGTH = 6;
 export const CHILD_PASSCODE_LENGTH = 3;
+
+export const CHILD_WALLET_BALANCE_XLM = '10';
+export const CHILD_TASKS_BALANCE_XLM = '5';

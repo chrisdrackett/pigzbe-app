@@ -143,7 +143,7 @@ export class Balance extends Component {
                     {(!loading && !error) && (
                         <View>
                             <BalanceGraph balance={balance} balanceXLM={balanceXLM} exchange={exchange} baseCurrency={baseCurrency}/>
-                            {(__DEV__ && Number(balance) === 0) && (
+                            {__DEV__ && (
                                 <Button
                                     label="Fund account"
                                     theme="light"

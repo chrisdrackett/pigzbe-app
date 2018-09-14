@@ -12,9 +12,18 @@ import {
     checkAssetTrusted,
     trustAsset,
     createAccount,
-    multiSig
+    TransactionBuilder,
+    multiSigTransaction,
+    trustAssetTransaction,
+    submitTransaction
 } from '@pigzbe/stellar-utils';
-import {strings, ASSET_CODE, KEYCHAIN_ID_STELLAR_KEY} from '../constants';
+import {
+    strings,
+    ASSET_CODE,
+    KEYCHAIN_ID_STELLAR_KEY,
+    CHILD_WALLET_BALANCE_XLM,
+    CHILD_TASKS_BALANCE_XLM
+} from '../constants';
 import Keychain from '../utils/keychain';
 import {appError} from './';
 import {wolloAsset} from '../selectors';
@@ -125,16 +134,13 @@ export const loadWallet = publicKey => async (dispatch, getState) => {
         const key = publicKey || getState().wollo.publicKey;
         if (key) {
             const account = await loadAccount(key);
-            console.log('account', account);
             dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
             dispatch(updateBalance(getWolloBalance(account)));
 
             const asset = wolloAsset(getState());
             const isTrusted = checkAssetTrusted(account, asset);
-            console.log('asset isTrusted', isTrusted);
             if (!isTrusted) {
                 await trustAsset(getState().wollo.secretKey, asset);
-                console.log('asset trusted');
             }
             dispatch(updateXLM(account));
         }
@@ -217,28 +223,90 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
 
 export const wolloTestUser = testUserKey => ({type: WOLLO_TEST_USER, testUserKey});
 
-export const createSubAccount = name => async (dispatch, getState) => {
+export const createKidAccount = name => async (dispatch, getState) => {
+    console.log('createKidAccount', name);
     try {
         const {publicKey, secretKey} = getState().wollo;
         const keypair = await createKeypair();
         const destination = keypair.publicKey();
         console.log('secretKey, destination', secretKey, destination);
-        await createAccount(secretKey, destination, '10', `Add ${name}`);
+
+        await Keychain.save(`secret_${destination}`, keypair.secret());
+
+        console.log('startingBalance', CHILD_WALLET_BALANCE_XLM);
+
+        const account = await createAccount(secretKey, destination, CHILD_WALLET_BALANCE_XLM, `Add ${name}`);
+        console.log('account', account);
 
         const signers = [{
             publicKey,
-            weight: 2
+            weight: 1
         }];
+
         const weights = {
-            masterWeight: 2,
-            lowThreshold: 2,
-            medThreshold: 2,
-            highThreshold: 2
+            masterWeight: 1,
+            lowThreshold: 1,
+            medThreshold: 1,
+            highThreshold: 1
         };
-        await multiSig(keypair.secret(), signers, weights);
+
+        const txb = new TransactionBuilder(account);
+        multiSigTransaction(txb, signers, weights);
 
         const asset = wolloAsset(getState());
-        await trustAsset(keypair.secret(), asset);
+        trustAssetTransaction(txb, asset);
+
+        const transaction = txb.build();
+        transaction.sign(keypair);
+        const result = await submitTransaction(transaction);
+        console.log('result', result);
+
+        return keypair.publicKey();
+    } catch (error) {
+        console.log(error);
+    }
+    return null;
+};
+
+export const createTasksAccount = kid => async (dispatch, getState) => {
+    try {
+        const {publicKey, secretKey} = getState().wollo;
+        const keypair = await createKeypair();
+        const destination = keypair.publicKey();
+        console.log('secretKey, destination', secretKey, destination);
+
+        await Keychain.save(`secret_${destination}`, keypair.secret());
+
+        console.log('startingBalance', CHILD_TASKS_BALANCE_XLM);
+
+        const account = await createAccount(secretKey, destination, CHILD_TASKS_BALANCE_XLM, `Add ${kid.name} tasks`);
+
+        console.log('account', account);
+
+        const signers = [{
+            publicKey,
+            weight: 1
+        }, {
+            publicKey: kid.address,
+            weight: 1
+        }];
+
+        const weights = {
+            masterWeight: 1,
+            lowThreshold: 1,
+            medThreshold: 1,
+            highThreshold: 1
+        };
+
+        const txb = new TransactionBuilder(account);
+        multiSigTransaction(txb, signers, weights);
+
+        const asset = wolloAsset(getState());
+        trustAssetTransaction(txb, asset);
+
+        const transaction = txb.build();
+        transaction.sign(keypair);
+        await submitTransaction(transaction);
 
         return keypair.publicKey();
     } catch (error) {
@@ -263,9 +331,9 @@ export const fundAccount = () => async (dispatch, getState) => {
     const asset = wolloAsset(getState());
     const funderSecretKey = 'SCBLV2OXPIMUHKYJRS3TMPGPBRWEVKWTJB33TW6RZEJ276VWX5GPCPXQ';
     try {
-        await sendPayment(funderSecretKey, publicKey, '20', 'Fund XLM');
+        await sendPayment(funderSecretKey, publicKey, '50', 'Fund XLM');
     } catch (error) {
-        await createAccount(funderSecretKey, publicKey, '20', 'Fund XLM');
+        await createAccount(funderSecretKey, publicKey, '50', 'Fund XLM');
     }
     try {
         await trustAsset(secretKey, asset);
