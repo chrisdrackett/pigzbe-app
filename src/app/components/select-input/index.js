@@ -1,11 +1,13 @@
 import React, {Component, Fragment} from 'react';
-import {Text, View, Image, Picker, TouchableOpacity, Modal} from 'react-native';
+import {Text, View, Image, Picker, TouchableOpacity} from 'react-native';
+import Modal from "react-native-modal";
 import styles from './styles';
 import isAndroid from '../../utils/is-android';
 import BaseInputField from '../base-input-field';
+import SearchableList from 'app/components/searchable-list';
+import StepModule from 'app/components/step-module';
 
 const padding = isAndroid ? 11 : 0;
-
 
 export default class SelectInputComponent extends Component {
 
@@ -67,10 +69,10 @@ export default class SelectInputComponent extends Component {
 
                 {!searchable &&
                     <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={this.state.open}
-                        onRequestClose={this.onClose}
+                        isVisible={this.state.open}
+                        style={{
+                            margin: 0,
+                        }}
                     >
                         <View style={styles.picker}>
                             <TouchableOpacity style={styles.pickerSpacer} onPress={this.onClose} />
@@ -88,6 +90,29 @@ export default class SelectInputComponent extends Component {
                                 </Picker>
                             </View>
                         </View>
+                    </Modal>
+                }
+                {searchable &&
+                    <Modal
+                        isVisible={this.state.open}
+                        animationIn="slideInRight"
+                        animationOut="slideOutRight"
+                        style={{
+                            margin: 0,
+                        }}
+                    >
+                        <StepModule
+                            onBack={() => this.setState({open: false})}
+                        >
+                            <SearchableList
+                                selectedKey={value}
+                                onChangeSelection={key => {
+                                    onChangeSelection(key);
+                                    this.setState({open: false});
+                                }}
+                                items={options}
+                            />
+                        </StepModule>
                     </Modal>
                 }
             </BaseInputField>

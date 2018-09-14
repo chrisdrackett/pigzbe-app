@@ -17,6 +17,7 @@ import TasksAssign from '../../screens/tasks-assign';
 import Allowance from '../../screens/allowance';
 import AllowanceInterval from '../../screens/allowance-interval';
 import EmailSet from '../../screens/email-set';
+import CurrencySet from '../../screens/currency-set';
 import {
     SCREEN_BALANCE,
     SCREEN_SETTINGS,
@@ -26,6 +27,7 @@ import {
     SCREEN_CLAIM_VIP,
     SCREEN_CLAIM_AIRDROP,
     SCREEN_SET_EMAIL,
+    SCREEN_SET_CURRENCY,
     SCREEN_CHANGE_PASSCODE,
     SCREEN_FAMILY_INTRO,
     SCREEN_CHILD_DASH,
@@ -62,6 +64,9 @@ const nav = {
     },
     [SCREEN_SET_EMAIL]: {
         screen: EmailSet
+    },
+    [SCREEN_SET_CURRENCY]: {
+        screen: CurrencySet
     },
     [SCREEN_CHANGE_PASSCODE]: {
         screen: PasscodeSet

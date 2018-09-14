@@ -14,7 +14,6 @@ import {
     WOLLO_KEYPAIR,
     WOLLO_TEST_USER,
     WOLLO_KEYPAIR_SAVED,
-    WOLLO_BASE_CURRENCY,
 } from '../actions';
 
 export const initialState = {
@@ -23,7 +22,6 @@ export const initialState = {
     balanceXLM: '0',
     minXLM: '0',
     hasGas: false,
-    baseCurrency: BASE_CURRENCY,
     payments: [],
     loading: false,
     error: null,
@@ -120,11 +118,6 @@ export default (state = initialState, action) => {
                 balanceXLM: action.balanceXLM,
                 minXLM: action.minXLM,
                 hasGas: action.hasGas
-            };
-        case WOLLO_BASE_CURRENCY:
-            return {
-                ...state,
-                baseCurrency: action.baseCurrency,
             };
         default:
             return state;

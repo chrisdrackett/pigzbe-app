@@ -1,49 +1,29 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Text} from 'react-native';
-import Button from '../../components/button';
-import Paragraph from '../../components/paragraph'
-import TextInput from '../../components/text-input';
-import {settingsUpdate} from '../../actions';
-import StepModule from '../../components/step-module';
-import {SCREEN_SETTINGS} from '../../constants';
+import {settingsUpdate} from 'app/actions';
+import StepModule from 'app/components/step-module';
+import SearchableList from 'app/components/searchable-list';
+import {SCREEN_SETTINGS, CURRENCIES} from 'app/constants';
 
-export class EmailSet extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: props.previousEmail || '',
-        }
-    }
+const currenciesForSelect = Object.keys(CURRENCIES).reduce((obj, key) => {
+    obj[key] = CURRENCIES[key].name;
+    return obj;
+}, {});
 
+export class CurrencySet extends Component {
     render() {
-        const {onBack, onSetEmail} = this.props;
-        const {email} = this.state;
+        const {baseCurrency, onBack, onSetBaseCurrency} = this.props;
 
         return (
             <StepModule
-                customTitle="Email"
-                content={
-                    <View>
-                        <Paragraph>Update your email below</Paragraph>
-
-                        <TextInput
-                            placeholder="Email address"
-                            onChangeText={email => this.setState({email})}
-                            returnKeyType="done"
-                            value={email}
-                        />
-                    </View>
-                }
-                pad
+                customTitle="Currencies"
                 onBack={onBack}
             >
-                <View>
-                    <Button
-                        label="Update"
-                        onPress={() => onSetEmail(this.state.email)}
-                    />
-                </View>
+                <SearchableList
+                    selectedKey={baseCurrency}
+                    onChangeSelection={onSetBaseCurrency}
+                    items={currenciesForSelect}
+                />
             </StepModule>
         );
     }
@@ -51,13 +31,13 @@ export class EmailSet extends Component {
 
 export default connect(
     state => ({
-        previousEmail: state.settings.email,
+        baseCurrency: state.settings.baseCurrency,
     }),
     (dispatch, ownProps) => ({
-        onSetEmail: email => {
-            dispatch(settingsUpdate({email}))
+        onSetBaseCurrency: baseCurrency => {
+            dispatch(settingsUpdate({baseCurrency}))
             ownProps.navigation.navigate(SCREEN_SETTINGS)
         },
         onBack: () => ownProps.navigation.navigate(SCREEN_SETTINGS),
     }),
-)(EmailSet);
+)(CurrencySet);

@@ -1,5 +1,6 @@
 import valueOrDefault from '../utils/value-or-default';
 import {SETTINGS_UPDATE} from '../actions';
+import {BASE_CURRENCY} from '../constants';
 
 export const initialState = {
     enableTouchId: false,
@@ -9,6 +10,7 @@ export const initialState = {
     country: null,
     firstTime: true,
     lastMessageDate: 0,
+    baseCurrency: BASE_CURRENCY,
 };
 
 export default (state = initialState, action) => {

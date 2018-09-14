@@ -49,9 +49,16 @@ export default StyleSheet.create({
         color: color.blue,
         fontWeight: 'bold',
     },
+    itemValues: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
     itemValue: {
         fontFamily,
         color: color.lighterBlue,
         fontSize: 14,
     },
+    icon: {
+        marginLeft: 10,
+    }
 });
