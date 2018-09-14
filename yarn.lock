@@ -682,9 +682,9 @@
   dependencies:
     react-native-randombytes "3.5.0"
 
-"@pigzbe/stellar-utils@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@pigzbe/stellar-utils/-/stellar-utils-1.1.1.tgz#347769da982963e080a203016276033b8f5e24c5"
+"@pigzbe/stellar-utils@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@pigzbe/stellar-utils/-/stellar-utils-1.1.2.tgz#9d720dc86c450dc772fae3da5916bb9a605137dc"
   dependencies:
     "@pigzbe/react-native-stellar-sdk" "1.0.4"
     babel-plugin-transform-runtime "6.23.0"

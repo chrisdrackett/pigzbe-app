@@ -62,11 +62,8 @@ export class Game extends Component {
             wolloCollected,
             overlayOpen,
             kid,
-            kids,
             parentNickname
         } = this.props;
-
-        const data = kids.find(k => k.address === kid);
 
         return (
             <View style={styles.full}>
@@ -89,11 +86,11 @@ export class Game extends Component {
                     wolloCollected={wolloCollected}
                     overlayOpen={overlayOpen}
                 />
-                {data.tasks.length ? (
+                {kid.tasks.length ? (
                     <GameTasks
                         dispatch={dispatch}
                         parentNickname={parentNickname}
-                        kid={data}
+                        kid={kid}
                     />
                 ) : null}
                 <Loader
@@ -101,10 +98,10 @@ export class Game extends Component {
                     message={this.state.message}
                 />
                 <View style={{position: 'absolute', top: 30, left: 0, padding: 5, backgroundColor: 'white'}}>
-                    <Text>{data.name}</Text>
-                    <Text>Address: {data.address}</Text>
-                    <Text>Balance: {data.balance}</Text>
-                    <Text>Tasks: {data.tasks.length}</Text>
+                    <Text>{kid.name}</Text>
+                    <Text>Address: {kid.address}</Text>
+                    <Text>Balance: {kid.balance}</Text>
+                    <Text>Tasks: {kid.tasks.length}</Text>
                 </View>
             </View>
         );
@@ -112,8 +109,7 @@ export class Game extends Component {
 }
 
 export default connect(state => ({
-    kid: state.auth.kid,
-    kids: state.family.kids,
+    kid: state.family.kids.find(k => k.address === state.auth.kid),
     parentNickname: state.family.parentNickname,
     exchange: state.coins.exchange,
     wolloCollected: state.game.wolloCollected,

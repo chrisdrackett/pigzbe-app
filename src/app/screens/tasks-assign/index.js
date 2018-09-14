@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Text, View} from 'react-native';
 import Button from '../../components/button';
-import {SCREEN_BALANCE, SCREEN_TASKS_LIST} from '../../constants';
+import {SCREEN_CHILD_DASH, SCREEN_TASKS_LIST} from '../../constants';
 import StepModule from '../../components/step-module';
 import WolloInput from '../../components/wollo-input';
 import Paragraph from '../../components/paragraph';
@@ -46,8 +46,7 @@ export class TasksAssign extends Component {
     next = async () => {
         await this.props.dispatch(familyAssignTask(this.props.kid, this.props.task, this.state.wollos));
 
-        // todo navigate to kids screen instead
-        this.props.navigation.navigate(SCREEN_BALANCE);
+        this.props.navigation.navigate(SCREEN_CHILD_DASH, {kid: this.props.kid});
     }
 
     render() {

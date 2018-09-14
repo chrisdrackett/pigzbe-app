@@ -14,6 +14,7 @@ import {
 } from '@pigzbe/stellar-utils';
 import {wolloAsset} from '../selectors';
 import Keychain from '../utils/keychain';
+import BigNumber from 'bignumber.js';
 
 export const FAMILY_LOAD = 'FAMILY_LOAD';
 export const FAMILY_LOADING = 'FAMILY_LOADING';
@@ -69,6 +70,7 @@ export const familyAddKid = (name, dob, photo) => async dispatch => {
 };
 
 export const familyAssignTask = (kid, task, reward) => async (dispatch, getState) => {
+    console.log('kid', kid);
     const {secretKey} = getState().wollo;
     dispatch(familyLoading(true));
 
@@ -109,21 +111,14 @@ export const familyCompleteTask = (kid, task) => async (dispatch, getState) => {
     console.log('COMPLETE TASK', kid.name, task.task, task.transaction);
 
     try {
-        // console.log('familyGetTasksAccount', publicKey);
         console.log('kid.address', kid.address);
         let kidAccount;
         try {
             kidAccount = await loadAccount(kid.address);
-
         } catch (e) {
             console.log(e);
         }
-        // console.log('parentAccount', publicKey);
         console.log('kidAccount', kidAccount);
-        // const parentAddress = kidAccount.signers.filter(s => s.key !== kid.address).pop().key;
-        // console.log('parentAddress', parentAddress);
-
-        // const account = await loadAccount(parentAddress);
         const tasksPublicKey = getData(kidAccount, 'tasks');
         console.log('tasksPublicKey', tasksPublicKey);
         const tasksAccount = await loadAccount(tasksPublicKey);
@@ -146,19 +141,17 @@ export const familyCompleteTask = (kid, task) => async (dispatch, getState) => {
         const result = getServer().submitTransaction(tx);
         console.log('result', result);
 
-        // use kid secret to get cash
-        // task.transaction
-        // const asset = wolloAsset(getState());
-        // await sendPayment(secretKey, kid.address, task.reward, task.task, asset);
-        // TODO: how does this sync?
+        const balance = new BigNumber(kid.balance).plus(task.reward).toString(10);
+        dispatch(({type: FAMILY_BALANCE_UPDATE, address: kid.address, balance}));
+
         await dispatch(({type: FAMILY_COMPLETE_TASK, data: {
             kid,
             task,
         }}));
 
-        await dispatch(loadFamilyBalances(kid.address));
-
         await dispatch(saveFamily());
+
+        setTimeout(() => dispatch(loadFamilyBalances(kid.address)), 1000);
     } catch (error) {
         console.log(error);
     }

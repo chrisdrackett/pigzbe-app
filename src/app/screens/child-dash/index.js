@@ -107,7 +107,7 @@ export class ChildDash extends Component {
 
 export default connect(
     (state, props) => ({
-        kid: props.navigation.state.params.kid,
+        kid: state.family.kids.find(k => k.address === props.navigation.state.params.kid.address),
         error: state.coins.error,
         exchange: state.coins.exchange,
         balance: state.wollo.balance,
