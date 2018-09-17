@@ -6,7 +6,9 @@ import SearchableList from 'app/components/searchable-list';
 import {SCREEN_SETTINGS, CURRENCIES} from 'app/constants';
 
 const currenciesForSelect = Object.keys(CURRENCIES).reduce((obj, key) => {
-    obj[key] = CURRENCIES[key].name;
+    if (key !== 'WLO') {
+        obj[key] = CURRENCIES[key].name;
+    }
     return obj;
 }, {});
 

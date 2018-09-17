@@ -66,16 +66,17 @@ export class WolloInput extends Component {
         return (
             <Fragment>
                 <View style={styles.inputSection}>
-                    <TextInput
-                        {...restOfProps}
-                        numberOfLines={1}
-                        placeholder={placeholder}
-                        onChangeText={this.onChangeText}
-                        returnKeyType="done"
-                        value={currencyAmount === 0 ? '' : currencyAmount.toString()}
-                        style={styles.textInput}
-                        showTopPlaceholder={false}
-                    />
+                    <View style={styles.textInput}>
+                        <TextInput
+                            {...restOfProps}
+                            numberOfLines={1}
+                            placeholder={placeholder}
+                            onChangeText={this.onChangeText}
+                            returnKeyType="done"
+                            value={currencyAmount === 0 ? '' : currencyAmount.toString()}
+                            showTopPlaceholder={false}
+                        />
+                    </View>
                     <View style={styles.toggle}>
                         <CurrencyToggle
                             currency={baseCurrency}
