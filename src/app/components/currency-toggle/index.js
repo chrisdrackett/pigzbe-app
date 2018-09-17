@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {Text, TouchableOpacity, View, Animated, Image} from 'react-native';
+import {Text, TouchableOpacity, View, Animated} from 'react-native';
 import styles from './styles';
 import {ASSET_CODE, CURRENCIES} from '../../constants';
+import Icon from 'app/components/icon';
 // import isAndroid from '../../utils/is-android';
 
-
-const WolloImage = () => <Image style={styles.wollo} source={require('./images/wollo.png')}/>;
 
 export default class CurrencyToggle extends Component {
     state = {
@@ -37,8 +36,18 @@ export default class CurrencyToggle extends Component {
         return (
             <TouchableOpacity style={styles.container} onPress={this.onClicked}>
                 <Animated.View style={[styles.handle, {left: this.state.left}]} />
-                <WolloImage />
-                <View style={styles.currency}><Text style={styles.text}>{CURRENCIES[currency].symbol}</Text></View>
+                <View style={styles.iconContainer}>
+                    <Icon style={styles.icon} name="wollo" /> 
+                </View>
+                <View style={styles.iconContainer}>
+               
+                    {!CURRENCIES[currency].icon &&
+                        <Text style={styles.text}>{CURRENCIES[currency].symbol}</Text>
+                    }
+                    {!!CURRENCIES[currency].icon &&
+                        <Icon style={styles.icon} aspectRatio={1} name={CURRENCIES[currency].icon} />
+                    }
+                </View>
             </TouchableOpacity>
         );
     }

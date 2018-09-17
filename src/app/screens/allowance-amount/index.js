@@ -5,7 +5,7 @@ import Button from '../../components/button';
 import {SCREEN_BALANCE, SCREEN_ALLOWANCE_INTERVAL} from '../../constants';
 import StepModule from '../../components/step-module';
 import Toggle from '../../components/toggle';
-import {COIN_SYMBOLS, COIN_DPS} from '../../constants';
+import {CURRENCIES} from '../../constants';
 import moneyFormat from '../../utils/money-format';
 import styles from './styles';
 
@@ -102,6 +102,9 @@ export class AllowanceAmount extends Component {
                 </View>);
         }
 
+        const currency = CURRENCIES[this.props.baseCurrency];
+        const exchangedValue = item.key * this.props.exchange[this.props.baseCurrency];
+
         return (
             <View style={styles.wrapper}>
                 <Toggle
@@ -116,7 +119,7 @@ export class AllowanceAmount extends Component {
                     }}
                     active={active === item.key}
                 />
-                <Text style={styles.conversion}>{`${COIN_SYMBOLS[this.props.baseCurrency]}${moneyFormat(item.key, COIN_DPS[this.props.baseCurrency])}`}</Text>
+                <Text style={styles.conversion}>{`${currency.symbol}${moneyFormat(exchangedValue, currency.dps)}`}</Text>
             </View>
         );
 
@@ -180,7 +183,8 @@ export default connect(
     (state, props) => ({
         loading: false, /*state.family.loading,*/
         kid: props.navigation.state.params.kid,
-        baseCurrency: state.wollo.baseCurrency,
+        baseCurrency: state.settings.baseCurrency,
+        exchange: state.coins.exchange,
         allowanceToEdit: props.navigation.state.params.allowanceToEdit,
     })
 )(AllowanceAmount);

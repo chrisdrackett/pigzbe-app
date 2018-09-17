@@ -9,25 +9,24 @@ export default StyleSheet.create({
         backgroundColor: color.lighterBlue,
         height: 50,
         borderRadius: 25,
-        width: 80,
+        width: 84,
         position: 'relative',
+        flexDirection: 'row',
+        display: 'flex',
+        justifyContent: 'center'
     },
     text: {
         color: color.white,
         fontSize: 16,
         fontWeight: 'bold',
     },
-    wollo: {
-        position: 'absolute',
-        left: 16,
-        top: 18,
-        width: 16,
-        height: 13,
+    iconContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '42%'
     },
-    currency: {
-        position: 'absolute',
-        right: 16,
-        top: 15,
+    icon: {
+        height: 16,
     },
     handle: {
         position: 'absolute',

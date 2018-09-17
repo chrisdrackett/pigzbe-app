@@ -14,12 +14,12 @@ export default StyleSheet.create({
     },
     inputSection: {
         display: 'flex',
-        justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'flex-end',
     },
     textInput: {
-        width: Dimensions.get('window').width - 225,
+        flex: 1,
+        paddingRight: 5,
     },
     toggle: {
         marginBottom: 10,

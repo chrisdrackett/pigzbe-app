@@ -131,7 +131,7 @@ export class ChildDash extends Component {
                                 style={[styles.panel, styles.panelFirst]}
                                 boxButton
                             >
-                                {kid.allowances.length && (
+                                {kid.allowances && kid.allowances.length && (
                                     <View style={styles.box}>
                                         {kid.allowances.map((allowance, i) => (
                                             <Item
