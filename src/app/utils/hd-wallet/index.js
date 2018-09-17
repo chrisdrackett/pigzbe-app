@@ -17,6 +17,14 @@ const randomBytesAsync = length => {
     });
 };
 
+export const isValidMnemonic = str => {
+    const numWords = str.trim().split(/\s+/g).length;
+    if (numWords !== 12) {
+        return false;
+    }
+    return bip39.validateMnemonic(str);
+};
+
 export const generateMnemonic = async () => {
     const length = ENTROPY_BITS / 8;
     const rndBytes = await randomBytesAsync(length);
@@ -25,6 +33,9 @@ export const generateMnemonic = async () => {
 };
 
 export const getSeedHex = mnemonic => {
+    if (!isValidMnemonic(mnemonic)) {
+        throw new Error('Invalid mnemonic');
+    }
     return bip39.mnemonicToSeedHex(mnemonic);
 };
 

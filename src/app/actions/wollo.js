@@ -154,11 +154,11 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     dispatch(loadWallet(publicKey));
 };
 
-export const createKidAccount = name => async (dispatch, getState) => {
+export const createKidAccount = (name, index) => async (dispatch, getState) => {
     console.log('createKidAccount', name);
     try {
         const {publicKey, secretKey} = getState().keys;
-        const keypair = await createKeypair();
+        const keypair = await dispatch(createKeypair(index));
         const destination = keypair.publicKey();
         console.log('secretKey, destination', secretKey, destination);
 
@@ -202,7 +202,7 @@ export const createKidAccount = name => async (dispatch, getState) => {
 export const createTasksAccount = kid => async (dispatch, getState) => {
     try {
         const {publicKey, secretKey} = getState().keys;
-        const keypair = await createKeypair();
+        const keypair = await dispatch(createKeypair(kid.index + 1));
         const destination = keypair.publicKey();
         console.log('secretKey, destination', secretKey, destination);
 

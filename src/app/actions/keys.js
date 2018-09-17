@@ -17,7 +17,13 @@ export const createMnemonic = () => async () => {
 
 export const createKeysFromSeed = (seedHex, index = 0) => () => getKeypair(seedHex, index);
 
-const createKeypair = async () => {
+export const createKeypair = index => async (dispatch, getState) => {
+    const {mnemonic} = getState().keys;
+
+    if (mnemonic) {
+        return getKeypair(getSeedHex(mnemonic), index);
+    }
+
     if (typeof Keypair.randomAsync === 'function') {
         return await Keypair.randomAsync();
     }
@@ -36,15 +42,15 @@ export const saveKeys = () => async (dispatch, getState) => {
     await dispatch(loadWallet(publicKey));
 };
 
-export const createKeys = () => async dispatch => {
-    try {
-        const keypair = await createKeypair();
-        return dispatch(setKeys(keypair, null, false));
-    } catch (e) {
-        console.log(e);
-    }
-    return null;
-};
+// export const createKeys = () => async dispatch => {
+//     try {
+//         const keypair = await createKeypair();
+//         return dispatch(setKeys(keypair, null, false));
+//     } catch (e) {
+//         console.log(e);
+//     }
+//     return null;
+// };
 
 export const importKeyError = error => ({type: KEYS_IMPORT_ERROR, error});
 
@@ -64,23 +70,37 @@ export const importKey = secretKey => async dispatch => {
     }
 };
 
-export const loadKeys = () => async (dispatch, getState) => {
-    const stellar = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
+export const getKeys = () => async (dispatch, getState) => {
+    const mnemonic = await Keychain.load(KEYCHAIN_ID_MNEMONIC);
+    const secretKey = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
     const {testUserKey} = getState().keys;
 
-    const secretKey = testUserKey || stellar.key;
+    if (testUserKey) {
+        return Keypair.fromSecret(secretKey);
+    }
 
-    let keypair = null;
+    if (mnemonic) {
+        return getKeypair(getSeedHex(mnemonic), 0);
+    }
 
     if (secretKey) {
-        try {
-            keypair = Keypair.fromSecret(secretKey);
-            dispatch(setKeys(keypair, null, true));
-        } catch (e) {}
+        return Keypair.fromSecret(secretKey);
+    }
+
+    return null;
+};
+
+export const loadKeys = () => async dispatch => {
+    try {
+        const keypair = await dispatch(getKeys());
+        dispatch(setKeys(keypair, null, true));
+    } catch (error) {
+        console.log(error);
     }
 };
 
 export const clearKeys = () => async dispatch => {
+    await Keychain.clear(KEYCHAIN_ID_MNEMONIC);
     await Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
     dispatch(setKeys(null));
 };

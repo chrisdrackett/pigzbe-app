@@ -60,14 +60,20 @@ export const familyParentNickname = parentNickname => ({type: FAMILY_PARENT_NICK
 
 export const familyNumKidsToAdd = numKidsToAdd => ({type: FAMILY_NUM_KIDS_TO_ADD, numKidsToAdd});
 
-export const familyAddKid = (name, dob, photo) => async dispatch => {
+export const familyAddKid = (name, dob, photo) => async (dispatch, getState) => {
     console.log('FAMILY_ADD_KID', name, dob, photo);
     dispatch(familyLoading(true));
 
-    const address = await dispatch(createKidAccount(name));
+    const {kids} = getState().family;
+
+    const index = kids.length ? kids.reduce((i, kid) => Math.max(kid.index, i), 0) + 2 : 1;
+
+    console.log('nextIndex', index);
+
+    const address = await dispatch(createKidAccount(name, index));
     console.log('address', address);
 
-    dispatch(({type: FAMILY_ADD_KID, kid: {name, dob, photo, address, balance: '0'}}));
+    dispatch(({type: FAMILY_ADD_KID, kid: {name, dob, photo, address, balance: '0', index}}));
     await dispatch(saveFamily());
     dispatch(familyLoading(false));
 };
@@ -86,7 +92,7 @@ export const familyAssignTask = (kid, task, reward) => async (dispatch, getState
         console.log('destination', destination);
         const kidSecretKey = await Keychain.load(`secret_${kid.address}`);
         console.log('kidSecretKey', kidSecretKey);
-        await setData(kidSecretKey.key, 'tasks', destination);
+        await setData(kidSecretKey, 'tasks', destination);
     }
 
     console.log('send money to tasks account', destination);
@@ -137,8 +143,8 @@ export const familyCompleteTask = (kid, task) => async (dispatch, getState) => {
             .build();
 
         const kidSecretKey = await Keychain.load(`secret_${kid.address}`);
-        console.log('kidSecretKey', kidSecretKey.key);
-        const keypair = Keypair.fromSecret(kidSecretKey.key);
+        console.log('kidSecretKey', kidSecretKey);
+        const keypair = Keypair.fromSecret(kidSecretKey);
         tx.sign(keypair);
 
         const result = getServer().submitTransaction(tx);
