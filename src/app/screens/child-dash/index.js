@@ -12,31 +12,35 @@ import ActionSheet from '../../components/action-sheet';
 import styles from './styles';
 import {familyDeleteAllowance, familyDeleteTask} from '../../actions';
 
-const Item = ({first, title, subtitle, amount}) => (
-    <View style={[styles.item, first ? null : styles.itemBorder]}>
-        <Text style={styles.itemTitle}>{title}
-            {
-                subtitle && <Text style={styles.itemSubTitle}> ({subtitle})</Text>
-            }
-        </Text>
-        <View style={styles.itemAmount}>
-            <Wollo dark balance={amount} />
+const Item = ({first, title, subtitle, amount, onPress}) => (
+    <TouchableOpacity onPress={onPress}>
+        <View style={[styles.item, first ? null : styles.itemBorder]}>
+            <Text style={styles.itemTitle}>{title}
+                {
+                    subtitle && <Text style={styles.itemSubTitle}> ({subtitle})</Text>
+                }
+            </Text>
+            <View style={styles.itemAmount}>
+                <Wollo dark balance={amount} />
+            </View>
+            <Image source={require('./images/iconOverflow.png')} />
         </View>
-        <Image source={require('./images/iconOverflow.png')} />
-    </View>
+    </TouchableOpacity>
 );
 
 export class ChildDash extends Component {
     state = {
         tasksPanelOpen: false,
         allowancePanelOpen: false,
+        taskToEdit: null,
+        allowanceToEdit: null,
     }
 
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
 
     onAddTask = () => this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid})
 
-    onAddAllowance = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid, currency: 'GBP'})
+    onAddAllowance = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid})
 
     onTaskAlertOptionSelected = async (option) => {
         console.log('++ onTaskAlertOptionSelected option', option);
@@ -46,7 +50,7 @@ export class ChildDash extends Component {
                 this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid, taskToEdit: this.state.taskToEdit});
                 break;
             case 1:
-                await this.props.dispatch(familyDeleteTask(this.props.kid.name, this.state.taskToEdit));
+                await this.props.dispatch(familyDeleteTask(this.props.kid, this.state.taskToEdit));
                 break;
             default:
                 // do nothing
@@ -58,14 +62,14 @@ export class ChildDash extends Component {
     }
 
     onAllowanceAlertOptionSelected = async (option) => {
-        console.log('+++ onAllowanceAlertOptionSelected option', option);
+        console.log('+++ onAllowanceAlertOptionSelected option', option, this.props.kid, this.state.allowanceToEdit);
         switch (option.selectedOption) {
             case 0:
                 // todo navigate to task screen with active tasks
+                this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid, allowanceToEdit: this.state.allowanceToEdit});
                 break;
             case 1:
-                await this.props.dispatch(familyDeleteAllowance(this.props.kid.name));
-                this.props.kid.allowance = null;
+                await this.props.dispatch(familyDeleteAllowance(this.props.kid, this.state.allowanceToEdit));
                 break;
             default:
                 // do nothing
@@ -76,18 +80,15 @@ export class ChildDash extends Component {
         });
     }
 
-    onDisplayAllowanceModal = () => {
-        this.setState({
-            allowancePanelOpen: true,
-        });
-    };
+    onDisplayAllowanceModal = allowance => this.setState({
+        allowancePanelOpen: true,
+        allowanceToEdit: allowance,
+    })
 
-    onDisplayTasksModal = task => {
-        this.setState({
-            tasksPanelOpen: true,
-            taskToEdit: task,
-        });
-    }
+    onDisplayTasksModal = task => this.setState({
+        tasksPanelOpen: true,
+        taskToEdit: task,
+    })
 
     render () {
         const {
@@ -130,17 +131,21 @@ export class ChildDash extends Component {
                                 style={[styles.panel, styles.panelFirst]}
                                 boxButton
                             >
-                                {kid.allowance && (
-                                    <TouchableOpacity style={styles.box} onPress={() => {
-                                        this.onDisplayAllowanceModal(kid);
-                                    }}>
-                                        <Item
-                                            first
-                                            title={kid.allowance.interval}
-                                            subtitle={kid.allowance.day}
-                                            amount={kid.allowance.amount}
-                                        />
-                                    </TouchableOpacity>
+                                {kid.allowances.length && (
+                                    <View style={styles.box}>
+                                        {kid.allowances.map((allowance, i) => (
+                                            <Item
+                                                key={i}
+                                                first={i === 0}
+                                                title={allowance.interval}
+                                                subtitle={allowance.day}
+                                                amount={allowance.amount}
+                                                onPress={() => {
+                                                    this.onDisplayAllowanceModal(allowance);
+                                                }}
+                                            />
+                                        ))}
+                                    </View>
                                 )}
                             </ActionPanel>
                             <ActionPanel
@@ -153,18 +158,15 @@ export class ChildDash extends Component {
                                 {kid.tasks.length &&
                                     <View style={styles.box}>
                                         {kid.tasks.map((task, i) => (
-                                            <TouchableOpacity
+                                            <Item
+                                                key={i}
+                                                first={i === 0}
+                                                title={task.task}
+                                                amount={task.reward}
                                                 onPress={() => {
                                                     this.onDisplayTasksModal(task);
                                                 }}
-                                            >
-                                                <Item
-                                                    key={i}
-                                                    first={i === 0}
-                                                    title={task.task}
-                                                    amount={task.reward}
-                                                />
-                                            </TouchableOpacity>
+                                            />
                                         ))}
                                     </View>
                                 }

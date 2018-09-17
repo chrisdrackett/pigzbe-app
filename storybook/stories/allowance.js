@@ -1,6 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
-import {Allowance} from '../../src/app/screens/allowance';
+import {AllowanceAmount} from '../../src/app/screens/allowance-amount';
+import {AllowanceInterval} from '../../src/app/screens/allowance-interval';
 
 const props = {
     dispatch: () => {},
@@ -13,10 +14,13 @@ const props = {
         },
         actions: {},
     },
-    currency: 'GBP',
+    baseCurrency: 'GBP',
 };
 
 storiesOf('Allowance')
-    .add('allowance', () => (
-        <Allowance {...props}/>
+    .add('amount', () => (
+        <AllowanceAmount {...props}/>
+    ))
+    .add('interval', () => (
+        <AllowanceInterval {...props}/>
     ));

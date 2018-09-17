@@ -24,7 +24,7 @@ export default class TextInputComponent extends Component {
             setTimeout(this.updateInputWidth, 100);
         }
 
-        if (this.props.autoFocus) {
+        if (this.props.autoFocus && this.inputBox) {
             this.inputBox.focus();
         }
     }
@@ -84,6 +84,7 @@ export default class TextInputComponent extends Component {
                 showTopPlaceholder={showTopPlaceholder}
             >
                 <TextInput
+                    ref={el => (this.inputBox = el)}
                     style={this.getStyle()}
                     placeholder={''}
                     autoCapitalize={autoCapitalize}

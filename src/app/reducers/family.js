@@ -13,6 +13,16 @@ import {
     FAMILY_DELETE_TASK
 } from '../actions';
 
+const kidDefaults = {
+    name: null,
+    address: null,
+    photo: null,
+    balance: null,
+    dob: null,
+    tasks: [],
+    allowances: [],
+};
+
 export const initialState = {
     loading: false,
     parentNickname: '',
@@ -22,8 +32,6 @@ export const initialState = {
 };
 
 export default (state = initialState, action) => {
-    console.log('+++ state', state.kids);
-
     switch (action.type) {
         case FAMILY_LOADING:
             return {
@@ -51,7 +59,10 @@ export default (state = initialState, action) => {
         case FAMILY_ADD_KID:
             return {
                 ...state,
-                kids: state.kids.concat({...action.kid, tasks: []}),
+                kids: state.kids.concat({
+                    ...kidDefaults,
+                    ...action.kid
+                }),
                 numKidsToAdd: state.numKidsToAdd - 1,
                 numKidsAdded: state.numKidsAdded + 1,
             };
@@ -100,15 +111,15 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 kids: state.kids.map(k => {
-                    if (k.name === action.data.name) {
+                    if (k.address === action.data.kid.address) {
                         console.log('task.task', k.tasks, 'action.data.task', action.data.task);
                         console.log('filtered tasks:', k.tasks.filter(task => {
-                            return task.task !== action.data.task;
+                            return task.transaction !== action.data.task.transaction;
                         }));
                         return {
                             ...k,
                             tasks: k.tasks.filter(task => {
-                                return task.task !== action.data.task;
+                                return task.transaction !== action.data.task.transaction;
                             }),
                         };
                     }
@@ -116,16 +127,16 @@ export default (state = initialState, action) => {
                 }),
             };
         case FAMILY_ADD_ALLOWANCE:
+            console.log('REDUCER FAMILY_ADD_ALLOWANCE', action.data);
             return {
                 ...state,
                 kids: state.kids.map(k => {
                     // if no child name is passed the assign tasks to all kids
                     // this is the case when part of the initial add children process
-                    // otherwise compare to kid name
-                    if (action.data.name === null || k.name === action.data.name) {
+                    if (!action.kid || k.address === action.kid.address) {
                         return {
                             ...k,
-                            allowance: {amount: action.data.allowance, interval: action.data.interval, day: action.data.day},
+                            allowances: k.allowances.concat({...action.data}),
                         };
                     }
                     return k;
@@ -135,13 +146,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 kids: state.kids.map(k => {
-                    // if no child name is passed the assign tasks to all kids
-                    // this is the case when part of the initial add children process
-                    // otherwise compare to kid name
-                    if (k.name === action.data.name) {
+                    if (k.address === action.data.kid.address) {
                         return {
                             ...k,
-                            allowance: null,
+                            allowances: k.allowances.filter(allowance => {
+                                return allowance.amount !== action.data.allowance.amount;
+                            }),
                         };
                     }
                     return k;

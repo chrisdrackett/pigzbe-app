@@ -19,6 +19,9 @@ class KidProfile extends Component {
     render() {
         const {name, photo} = this.props.kid;
 
+        console.log('kid ===>');
+        console.log(JSON.stringify(this.props.kid, null, 2));
+
         return (
             <TouchableOpacity style={styles.profile} onPress={this.onChoose}>
                 <KidAvatar photo={photo} size={90}/>

@@ -171,10 +171,10 @@ export const deleteTask = () => async (dispatch, getState) => {
     }
 };
 
-export const familyDeleteTask = (name, task) => async dispatch => {
+export const familyDeleteTask = (kid, task) => async dispatch => {
     dispatch(familyLoading(true));
-    await dispatch(({type: FAMILY_DELETE_TASK, data: {name, task}}));
-    await dispatch(deleteTask());
+    dispatch(({type: FAMILY_DELETE_TASK, data: {kid, task}}));
+    // await dispatch(deleteTask());
     await dispatch(saveFamily());
     dispatch(familyLoading(false));
 };
@@ -190,11 +190,12 @@ export const addAllowance = () => async (dispatch, getState) => {
     }
 };
 
-export const familyAddAllowance = (name, allowance, interval, day) => async dispatch => {
+export const familyAddAllowance = (kid, amount, interval, day) => async dispatch => {
+    console.log('familyAddAllowance amount =', amount);
     dispatch(familyLoading(true));
 
-    await dispatch(({type: FAMILY_ADD_ALLOWANCE, data: {name, allowance, interval, day}}));
-    await dispatch(addAllowance());
+    dispatch(({type: FAMILY_ADD_ALLOWANCE, kid, data: {amount, interval, day}}));
+    // await dispatch(addAllowance());
     await dispatch(saveFamily());
     dispatch(familyLoading(false));
 };
@@ -210,10 +211,10 @@ export const deleteAllowance = () => async (dispatch, getState) => {
     }
 };
 
-export const familyDeleteAllowance = name => async dispatch => {
+export const familyDeleteAllowance = (kid, allowance) => async dispatch => {
     dispatch(familyLoading(true));
-    await dispatch(({type: FAMILY_DELETE_ALLOWANCE, data: {name}}));
-    await dispatch(deleteAllowance());
+    dispatch(({type: FAMILY_DELETE_ALLOWANCE, data: {kid, allowance}}));
+    // await dispatch(deleteAllowance());
     await dispatch(saveFamily());
     dispatch(familyLoading(false));
 };
