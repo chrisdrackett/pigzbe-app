@@ -7,7 +7,7 @@ import StepModule from '../../components/step-module';
 import WolloInput from '../../components/wollo-input';
 import Paragraph from '../../components/paragraph';
 import {color} from '../../styles';
-import {familyAssignTask} from '../../actions';
+import {familyDeleteTask, familyAssignTask} from '../../actions';
 
 
 const textStyle = {
@@ -37,6 +37,16 @@ export class TasksAssign extends Component {
         wollos: 0,
     }
 
+    constructor(props) {
+        super(props);
+
+        console.log('++++ this.props.taskToEdit', props.taskToEdit);
+
+        this.state = {
+            wollos: props.taskToEdit ? props.taskToEdit.reward : 0,
+        };
+    }
+
     onBack = () => this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid});
 
     onChangeAmount = wollos => {
@@ -44,8 +54,11 @@ export class TasksAssign extends Component {
     }
 
     next = async () => {
-        await this.props.dispatch(familyAssignTask(this.props.kid, this.props.task, this.state.wollos));
+        if (this.props.taskToEdit) {
+            await this.props.dispatch(familyDeleteTask(this.props.kid.name, this.props.taskToEdit.task));
+        }
 
+        await this.props.dispatch(familyAssignTask(this.props.kid, this.props.task, this.state.wollos));
         this.props.navigation.navigate(SCREEN_CHILD_DASH, {kid: this.props.kid});
     }
 
@@ -72,6 +85,7 @@ export class TasksAssign extends Component {
                         </Paragraph>
                         <WolloInput
                             onChangeAmount={this.onChangeAmount}
+                            initial={wollos}
                         />
                     </View>
                     <Button
@@ -91,5 +105,6 @@ export default connect(
         loading: state.family.loading,
         kid: props.navigation.state.params.kid,
         task: props.navigation.state.params.task,
+        taskToEdit: props.navigation.state.params.taskToEdit,
     })
 )(TasksAssign);

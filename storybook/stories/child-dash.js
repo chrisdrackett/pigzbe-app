@@ -9,6 +9,7 @@ const kid = {
     address: 'GD5Q7KRFQC3Q7YQPYAZ4G65B65EBCJOVSHPE65MIYQMCLUQULQDKBLUX',
     balance: '20',
     tasks: [],
+    allowances: [],
 };
 
 const props = {

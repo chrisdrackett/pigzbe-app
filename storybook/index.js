@@ -44,7 +44,6 @@ function loadStories() {
     require('./stories/action-sheet.js');
     require('./stories/notification-modal.js');
     require('./stories/allowance.js');
-    require('./stories/allowance-interval.js');
     require('./stories/claim-vip.js');
     require('./stories/loader-modal.js');
 }

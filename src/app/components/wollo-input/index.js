@@ -14,10 +14,10 @@ export class WolloInput extends Component {
         super(props);
 
         this.state = {
-            wolloAmount: null,
-            currentCurrency: props.baseCurrency,
-            currencyAmount: 0,
-            exchangedValue: 0,
+            wolloAmount: props.initial || null,
+            currentCurrency: props.currency,
+            currencyAmount: props.initial,
+            exchangedValue: props.initial * props.exchange,
             exchangedDisplay: `${CURRENCIES[props.baseCurrency].symbol}${moneyFormat(0, CURRENCIES[props.baseCurrency].dps)}`
         };
     }

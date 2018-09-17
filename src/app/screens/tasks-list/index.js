@@ -49,11 +49,17 @@ const flexStyle = {
 };
 
 export class TasksList extends Component {
-    state = {
-        loading: false,
-        showingInput: false,
-        tasks: ['wash dishes', 'clean room', 'do your homework'],
-        active: null,
+    constructor(props) {
+        super(props);
+
+        console.log('++++ this.props.taskToEdit', props.taskToEdit);
+
+        this.state = {
+            loading: false,
+            showingInput: false,
+            tasks: ['wash dishes', 'clean room', 'do your homework'],
+            active: props.taskToEdit ? props.taskToEdit.task : null,
+        };
     }
 
     componentWillMount() {
@@ -81,7 +87,7 @@ export class TasksList extends Component {
             await this.props.dispatch(tasksAddTask(this.state.newTask));
         }
 
-        this.props.navigation.navigate(SCREEN_TASKS_ASSIGN, {kid: this.props.kid, task: newTask ? newTask : active});
+        this.props.navigation.navigate(SCREEN_TASKS_ASSIGN, {kid: this.props.kid, task: newTask ? newTask : active, taskToEdit: this.props.taskToEdit});
     }
 
     render() {
@@ -169,5 +175,6 @@ export default connect(
         tasks: state.tasks.tasks.concat(state.tasks.defaultTasks),
         loading: state.tasks.loading,
         kid: props.navigation.state.params.kid,
+        taskToEdit: props.navigation.state.params.taskToEdit,
     })
 )(TasksList);
