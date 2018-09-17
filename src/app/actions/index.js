@@ -3,6 +3,7 @@ export * from './auth';
 export * from './config';
 export * from './escrow';
 export * from './loader';
+export * from './keys';
 export * from './messages';
 export * from './wollo';
 export * from './game';

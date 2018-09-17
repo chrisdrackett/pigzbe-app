@@ -21,13 +21,14 @@ export const generateMnemonic = async () => {
     const length = ENTROPY_BITS / 8;
     const rndBytes = await randomBytesAsync(length);
     const wordlist = bip39.wordlists.english;
-    const mnemonic = bip39.generateMnemonic(ENTROPY_BITS, () => rndBytes, wordlist);
-    const seedHex = bip39.mnemonicToSeedHex(mnemonic);
-
-    return {mnemonic, seedHex};
+    return bip39.generateMnemonic(ENTROPY_BITS, () => rndBytes, wordlist);
 };
 
-export const generateKeys = (seedHex, index = 0) => {
+export const getSeedHex = mnemonic => {
+    return bip39.mnemonicToSeedHex(mnemonic);
+};
+
+export const getKeypair = (seedHex, index = 0) => {
     const data = derivePath(`m/44'/148'/${index}'`, seedHex);
 
     return Keypair.fromRawEd25519Seed(data.key);

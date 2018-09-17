@@ -1,9 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {setKeys, saveKeys} from '../../actions';
+import {createMnemonic, createKeysFromSeed, setKeys, saveKeys} from '../../actions';
 import Button from '../../components/button';
 import StepModule from '../../components/step-module';
-import {generateMnemonic, generateKeys} from '../../utils/hd-wallet';
 import NotificationModal from '../../components/notification-modal';
 import Mnemonic from '../../components/mnemonic';
 import sortRandom from 'usfl/array/sort-random';
@@ -39,8 +38,24 @@ export class KeysMnemonic extends Component {
     async componentWillMount() {
         await this.generateMnemonic();
         this.generateKeys();
-        await wait(0.2);
+        await wait(0.1);
         this.setState({loading: false});
+    }
+
+    generateMnemonic = async () => {
+        const {mnemonic, seedHex} = await this.props.dispatch(createMnemonic());
+        console.log('mnemonic =', mnemonic);
+        console.log('seedHex =', seedHex);
+
+        this.setState({mnemonic, seedHex});
+    }
+
+    generateKeys = () => {
+        const {mnemonic, seedHex} = this.state;
+        const keypair = this.props.dispatch(createKeysFromSeed(seedHex));
+        console.log('publicKey', keypair.publicKey());
+        console.log('secretKey', keypair.secret());
+        this.props.dispatch(setKeys(keypair, mnemonic, false));
     }
 
     onConfirm = () => this.setState({warningOpen: true})
@@ -57,22 +72,6 @@ export class KeysMnemonic extends Component {
     }
 
     onBack = () => this.setState({mnemonicConfirm: [], confirm: false})
-
-    generateMnemonic = async () => {
-        const {mnemonic, seedHex} = await generateMnemonic();
-        console.log('mnemonic =', mnemonic);
-        console.log('seedHex =', seedHex);
-
-        this.setState({mnemonic, seedHex});
-    }
-
-    generateKeys = async () => {
-        const {seedHex} = this.state;
-        const keypair = generateKeys(seedHex);
-        console.log('publicKey', keypair.publicKey());
-        console.log('secretKey', keypair.secret());
-        await this.props.dispatch(setKeys(keypair, false));
-    }
 
     updateMnemonicConfirm = word => {
         if (this.state.mnemonicConfirm.includes(word)) {

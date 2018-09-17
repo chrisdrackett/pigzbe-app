@@ -74,7 +74,7 @@ export const familyAddKid = (name, dob, photo) => async dispatch => {
 
 export const familyAssignTask = (kid, task, reward) => async (dispatch, getState) => {
     console.log('kid', kid, 'task', task, 'reward', reward);
-    const {secretKey} = getState().wollo;
+    const {secretKey} = getState().keys;
     dispatch(familyLoading(true));
 
     console.log('familyGetTasksAccount', kid.address);

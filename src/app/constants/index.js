@@ -18,6 +18,7 @@ export const SUPPORT_URL = 'https://pigzbe.com/support';
 
 export const NUM_VALIDATIONS = 7;
 
+export const KEYCHAIN_ID_MNEMONIC = 'com.pigzbe.PigzbeApp.mnemonic';
 export const KEYCHAIN_ID_PASSCODE = 'com.pigzbe.PigzbeApp.passcode';
 export const KEYCHAIN_ID_STELLAR_KEY = 'com.pigzbe.PigzbeApp.stellarKey';
 export const KEYCHAIN_ID_ETH_KEY = 'com.pigzbe.PigzbeApp.ethKey';
@@ -59,4 +60,4 @@ export const CURRENCIES = {
     BTC: {name: 'Bitcoin', symbol: '₿', dps: 5},
     ETH: {name: 'Etheruem', symbol: 'Ξ', dps: 5},
     WLO: {name: 'Wollo', symbol: 'W', dps: 5},
-}
+};

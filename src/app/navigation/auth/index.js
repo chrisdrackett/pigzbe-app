@@ -38,6 +38,6 @@ class Auth extends Component {
 export default connect(state => ({
     loggedIn: state.auth.loggedIn,
     kid: state.auth.kid,
-    keysSaved: state.wollo.keysSaved,
+    keysSaved: state.keys.keysSaved,
     loading: state.loader.loading
 }))(Auth);

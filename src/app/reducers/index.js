@@ -4,6 +4,7 @@ import auth from './auth';
 import config from './config';
 import escrow from './escrow';
 import loader from './loader';
+import keys from './keys';
 import messages from './messages';
 import wollo from './wollo';
 import coins from './coins';
@@ -26,6 +27,7 @@ export default combineReducers({
     config,
     escrow,
     loader,
+    keys,
     messages,
     wollo,
     coins,
