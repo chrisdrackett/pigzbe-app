@@ -97,32 +97,35 @@ export class DeviceAuth extends Component {
                     onBack={!id ? this.onBack : this.onClear}
                     loading={loading}
                     // error={error}
+                    justify="space-between"
                     pad
                 >
                     {id && (
                         <Fragment>
-                            <InputBoxes
-                                onFulfill={this.onChangeCode}
-                                boxes={boxes}
-                                boxSize={{width: boxW, height: 44}}
-                                space={space}
-                                error={error}
-                            />
-                            <View style={{marginBottom: qrCode ? 40 : 60}}>
-                                <Button
-                                    theme="plain"
-                                    label={'Resend code'}
-                                    onPress={this.onResend}
-                                    style={{marginTop: 10, marginBottom: 0}}
+                            <View style={{marginTop: 30}}>
+                                <InputBoxes
+                                    onFulfill={this.onChangeCode}
+                                    boxes={boxes}
+                                    boxSize={{width: boxW, height: 44}}
+                                    space={space}
+                                    error={error}
                                 />
-                                {qrCode && (
+                                <View style={{marginBottom: qrCode ? 40 : 60}}>
                                     <Button
                                         theme="plain"
-                                        label={'Show QR Code'}
-                                        onPress={this.onOpenModal}
-                                        style={{marginTop: -10}}
+                                        label={'Resend code'}
+                                        onPress={this.onResend}
+                                        style={{marginTop: 10, marginBottom: 0}}
                                     />
-                                ) }
+                                    {qrCode && (
+                                        <Button
+                                            theme="plain"
+                                            label={'Show QR Code'}
+                                            onPress={this.onOpenModal}
+                                            style={{marginTop: -10}}
+                                        />
+                                    ) }
+                                </View>
                             </View>
                             <Button
                                 label={'Verify'}
@@ -132,52 +135,56 @@ export class DeviceAuth extends Component {
                     )}
                     {!id && (
                         <Fragment>
-                            <TextInput
-                                error={!!error}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                keyboardType="email-address"
-                                value={this.state.email}
-                                placeholder={'Email address'}
-                                onChangeText={this.onChangeEmail}
-                            />
-                            <TextInput
-                                error={!!error}
-                                keyboardType="number-pad"
-                                value={this.state.phone}
-                                style={{width: '100%'}}
-                                placeholder={'Your mobile number'}
-                                onChangeText={this.onChangePhone}
-                            />
-                            <ModalSelector
-                                data={countryData}
-                                initValue={this.state.countryName}
-                                supportedOrientations={['portrait', 'landscape']}
-                                accessible={true}
-                                scrollViewAccessibilityLabel={'Scrollable options'}
-                                cancelButtonAccessibilityLabel={'Cancel Button'}
-                                onChange={this.onChangeCountry}>
-                                <Button
-                                    theme="plain"
-                                    label={this.state.countryName}
-                                    onPress={this.onBack}
+                            <View>
+                                <TextInput
+                                    error={!!error}
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    keyboardType="email-address"
+                                    value={this.state.email}
+                                    placeholder={'Email address'}
+                                    onChangeText={this.onChangeEmail}
                                 />
-                            </ModalSelector>
-                            <Button
-                                label={'Send Code'}
-                                onPress={this.onSend}
-                                disabled={!(this.state.email && this.state.phone && this.state.country)}
-                            />
-                            {__DEV__ && (
-                                <Button
-                                    theme="plain"
-                                    label={'Skip'}
-                                    onPress={() => {
-                                        const screen = this.props.touchIdSupport ? SCREEN_TOUCH_ID : SCREEN_SET_PASSCODE;
-                                        this.props.navigation.navigate(screen);
-                                    }}
+                                <TextInput
+                                    error={!!error}
+                                    keyboardType="number-pad"
+                                    value={this.state.phone}
+                                    style={{width: '100%'}}
+                                    placeholder={'Your mobile number'}
+                                    onChangeText={this.onChangePhone}
                                 />
-                            )}
+                                <ModalSelector
+                                    data={countryData}
+                                    initValue={this.state.countryName}
+                                    supportedOrientations={['portrait', 'landscape']}
+                                    accessible={true}
+                                    scrollViewAccessibilityLabel={'Scrollable options'}
+                                    cancelButtonAccessibilityLabel={'Cancel Button'}
+                                    onChange={this.onChangeCountry}>
+                                    <Button
+                                        theme="plain"
+                                        label={this.state.countryName}
+                                        onPress={this.onBack}
+                                    />
+                                </ModalSelector>
+                            </View>
+                            <View>
+                                <Button
+                                    label={'Send Code'}
+                                    onPress={this.onSend}
+                                    disabled={!(this.state.email && this.state.phone && this.state.country)}
+                                />
+                                {__DEV__ && (
+                                    <Button
+                                        theme="plain"
+                                        label={'Skip'}
+                                        onPress={() => {
+                                            const screen = this.props.touchIdSupport ? SCREEN_TOUCH_ID : SCREEN_SET_PASSCODE;
+                                            this.props.navigation.navigate(screen);
+                                        }}
+                                    />
+                                )}
+                            </View>
                         </Fragment>
                     )}
                 </StepModule>

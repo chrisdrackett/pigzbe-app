@@ -5,7 +5,6 @@ import {color} from '../../styles';
 import {
     SCREEN_SETTINGS,
     SCREEN_FAMILY_INTRO,
-    SCREEN_TASKS_LIST,
     SCREEN_CHILD_DASH,
     COINS,
     COIN_DPS
@@ -126,13 +125,11 @@ export class Balance extends Component {
                     scroll
                     icon="piggy"
                     headerChildren={(
-                        <View style={{marginBottom: -20}}>
-                            <Wollo
-                                balance={balance}
-                                exchange={exchange}
-                                baseCurrency={baseCurrency}
-                            />
-                        </View>
+                        <Wollo
+                            balance={balance}
+                            exchange={exchange}
+                            baseCurrency={baseCurrency}
+                        />
                     )}
                     backgroundColor={color.transparent}
                     onSettings={this.onSettings}
@@ -214,7 +211,7 @@ export default connect(
         exchange: state.coins.exchange,
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
-        baseCurrency: state.wollo.baseCurrency,
+        baseCurrency: state.settings.baseCurrency,
         firstTime: state.settings.firstTime,
         kids: state.family.kids,
         sendError: state.wollo.error,

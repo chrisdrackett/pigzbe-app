@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
 import {loginAndLoad} from '../../actions';
 import {SCREEN_HOME, PASSCODE_LENGTH} from '../../constants';
 import NumPad from '../../components/num-pad';
@@ -30,9 +29,7 @@ export class PasscodeLogin extends Component {
                 title={'Enter your Passcode'}
                 content={`Login with your ${PASSCODE_LENGTH}-digit passcode`}
                 headerChildren={(
-                    <View style={{marginTop: 30}}>
-                        <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
-                    </View>
+                    <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                 )}
                 onBack={this.onBack}
                 loading={loading}

@@ -13,7 +13,7 @@ import {
     WOLLO_UPDATE_XLM,
     WOLLO_KEYPAIR,
     WOLLO_TEST_USER,
-    WOLLO_KEYPAIR_SAVED
+    WOLLO_KEYPAIR_SAVED,
 } from '../actions';
 
 export const initialState = {
@@ -22,7 +22,6 @@ export const initialState = {
     balanceXLM: '0',
     minXLM: '0',
     hasGas: false,
-    baseCurrency: BASE_CURRENCY,
     payments: [],
     loading: false,
     error: null,

@@ -1,4 +1,5 @@
 import React from 'react';
+import {View} from 'react-native';
 import Button from '../../../components/button';
 import StepModule from '../../../components/step-module';
 
@@ -8,9 +9,12 @@ const StepWrapper = ({title, content, children, onNext, onBack, buttonNextLabel}
         content={content}
         icon="eidoo"
         onBack={onBack}
+        justify="space-between"
         pad
     >
-        {children}
+        <View>
+            {children}
+        </View>
         {onNext && (
             <Button label={buttonNextLabel} onPress={onNext} />
         )}

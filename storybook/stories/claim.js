@@ -8,7 +8,6 @@ import Step2 from '../../src/app/screens/claim-ico/steps/step2';
 import Step3 from '../../src/app/screens/claim-ico/steps/step3';
 import Step4 from '../../src/app/screens/claim-ico/steps/step4';
 import Step5 from '../../src/app/screens/claim-ico/steps/step5';
-import ClaimVIP from '../../src/app/screens/claim-vip';
 import ClaimAirdrop from '../../src/app/screens/claim-airdrop';
 
 const props = {
@@ -1005,10 +1004,6 @@ claim.add('claim ico continue', () => (
         buttonNextLabel={'Continue'}
         tx={'0x58e5a0fc7fbc849eddc100d44e86276168a8c7baaa5604e44ba6f5eb8ba1b7eb'}
     />
-));
-
-claim.add('claim vip', () => (
-    <ClaimVIP {...props} />
 ));
 
 claim.add('claim airdrop', () => (

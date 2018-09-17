@@ -84,8 +84,6 @@ export class TasksAssign extends Component {
                             Set the reward that <Text style={{fontWeight: 'bold'}}>{kid.name}</Text> will get when completed
                         </Paragraph>
                         <WolloInput
-                            currency="GBP"
-                            exchange={0.091956}
                             onChangeAmount={this.onChangeAmount}
                             initial={wollos}
                         />
