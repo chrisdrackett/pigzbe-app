@@ -38,14 +38,17 @@ const Inner = ({onAdd, children, label, boxButton}) => {
     );
 };
 
-export default ({title, label, onAdd, children, style, boxButton}) => (
+export default ({title, label, onAdd, children, style, boxButton, containerOnly=false}) => (
     <View style={style}>
         <Text style={styles.title}>{title}</Text>
-        <Inner
-            children={children}
-            label={label}
-            boxButton={boxButton}
-            onAdd={onAdd}
-        />
+        {containerOnly && children}
+        {!containerOnly &&
+            <Inner
+                children={children}
+                label={label}
+                boxButton={boxButton}
+                onAdd={onAdd}
+            />
+        }
     </View>
 );
