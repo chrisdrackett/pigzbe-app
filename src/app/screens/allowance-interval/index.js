@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Button from '../../components/button';
 import SelectInput from '../../components/select-input';
-import {SCREEN_BALANCE, SCREEN_ALLOWANCE_AMOUNT, SCREEN_KID_DASHBOARD} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_ALLOWANCE_AMOUNT, SCREEN_KID_DASHBOARD} from '../../constants';
 import StepModule from '../../components/step-module';
 import styles from './styles';
 import {addAllowance} from '../../actions';
@@ -32,7 +32,7 @@ export class AllowanceInterval extends Component {
         if (kid) {
             this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid});
         } else {
-            this.props.navigation.navigate(SCREEN_BALANCE, {kid});
+            this.props.navigation.navigate(SCREEN_DASHBOARD, {kid});
         }
     }
 

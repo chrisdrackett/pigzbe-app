@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, FlatList, TouchableOpacity, Text} from 'react-native';
 import Button from '../../components/button';
-import {SCREEN_BALANCE, SCREEN_TASKS_ASSIGN} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_TASKS_ASSIGN} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Toggle from '../../components/toggle';
@@ -70,7 +70,7 @@ export class TasksList extends Component {
         key: task,
     }));
 
-    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE);
+    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD);
 
     onChangeText = (task) => {
         this.setState({newTask: task});

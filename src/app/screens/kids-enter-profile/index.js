@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, Image, Text} from 'react-native';
 import {pickImage} from '../../utils/image-picker';
-import {SCREEN_BALANCE, SCREEN_ALLOWANCE_AMOUNT} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_ALLOWANCE_AMOUNT} from '../../constants';
 import TextInput from '../../components/text-input';
 import DateInput from '../../components/date-input';
 import StepModule from '../../components/step-module';
@@ -20,7 +20,7 @@ export class KidsEnterProfile extends Component {
         image: '',
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE);
+    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD);
 
     onNext = async () => {
         this.setState({loading: true});

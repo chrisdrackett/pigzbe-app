@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 // import {View} from 'react-native';
 import Transaction from './transaction';
 // import Wollo from '../../components/wollo';
-import {strings, SCREEN_BALANCE} from '../../constants';
+import {strings, SCREEN_DASHBOARD} from '../../constants';
 import {loadEscrowAccount, validateTx} from '../../actions';
 import ScrollList from '../../components/scroll-list';
 // import Footer from '../../components/footer';
@@ -20,7 +20,7 @@ export class Escrow extends Component {
         }
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
+    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
 
     render() {
         const {

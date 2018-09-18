@@ -1,7 +1,9 @@
 import Storage from '../utils/storage';
 import {STORAGE_KEY_KIDS} from '../constants';
-import {loadAccount} from '@pigzbe/stellar-utils';
-import {createKidAccount, getAccountBalance, sendWollo, fundKidAccount} from './';
+import {loadAccount, sendPayment} from '@pigzbe/stellar-utils';
+import {createKidAccount, getAccountBalance, fundKidAccount} from './';
+import {wolloAsset} from '../selectors';
+import wait from '../utils/wait';
 
 export const KIDS_LOAD = 'KIDS_LOAD';
 export const KIDS_LOADING = 'KIDS_LOADING';
@@ -9,11 +11,11 @@ export const KIDS_PARENT_NICKNAME = 'KIDS_PARENT_NICKNAME';
 export const KIDS_NUM_TO_ADD = 'KIDS_NUM_TO_ADD';
 export const KIDS_ADD_KID = 'KIDS_ADD_KID';
 export const KIDS_SENDING_WOLLO = 'KIDS_SENDING_WOLLO';
+export const KIDS_SEND_ERROR = 'KIDS_SEND_ERROR';
+export const KIDS_SEND_COMPLETE = 'KIDS_SEND_COMPLETE';
 export const KIDS_BALANCE_UPDATE = 'KIDS_BALANCE_UPDATE';
 
 const kidsLoading = value => ({type: KIDS_LOADING, value});
-
-const sendingWolloToKid = value => ({type: KIDS_SENDING_WOLLO, value});
 
 export const loadKids = () => async dispatch => {
     console.log('loadKids');
@@ -60,31 +62,44 @@ export const addKid = (name, dob, photo) => async (dispatch, getState) => {
     dispatch(kidsLoading(false));
 };
 
+const sendingWolloToKid = address => ({type: KIDS_SENDING_WOLLO, address});
+const sendError = error => ({type: KIDS_SEND_ERROR, error});
+const sendComplete = address => ({type: KIDS_SEND_COMPLETE, address});
+
 export const sendWolloToKid = (address, amount) => async (dispatch, getState) => {
-    console.log('sendWolloToKid');
-    dispatch(sendingWolloToKid(true));
+    console.log('sendWolloToKid', address, amount);
+    dispatch(sendError(null));
+    dispatch(sendComplete(null));
+    dispatch(sendingWolloToKid(address));
     try {
-        const account = await loadAccount(address);
-        console.log('account ---->');
-        console.log(account);
+        await loadAccount(address);
     } catch (e) {
-        console.log('Could not load account');
+        console.log('Could not load account. Attemptiung to fund');
         const name = getState().kids.kids.find(k => k.address === address).name;
         await dispatch(fundKidAccount(name, address));
     }
     try {
         const {parentNickname} = getState().kids;
-        await dispatch(sendWollo(address, amount, `From ${parentNickname || 'Parent'}`));
+        // await dispatch(sendWollo(address, amount, `From ${parentNickname || 'Parent'}`));
+        const memo = `From ${parentNickname || 'Parent'}`;
+        const asset = wolloAsset(getState());
+        const {secretKey} = getState().keys;
+        await sendPayment(secretKey, address, amount, memo, asset);
+        dispatch(sendComplete(address));
     } catch (error) {
         console.log(error);
+        dispatch(sendError(new Error('Failed to send Wollo')));
     }
-    dispatch(sendingWolloToKid(false));
+    dispatch(loadKidsBalances(address, 1));
+    dispatch(sendingWolloToKid(null));
 };
 
 export const updateKidBalance = (address, balance) => ({type: KIDS_BALANCE_UPDATE, address, balance});
 
-export const loadKidsBalances = address => async (dispatch, getState) => {
+export const loadKidsBalances = (address, waitSeconds = 0) => async (dispatch, getState) => {
+    console.log('loadKidsBalances', address, waitSeconds);
     try {
+        await wait(waitSeconds);
         const kids = getState().kids.kids.filter(k => !address || k.address === address);
         for (const kid of kids) {
             const balance = await dispatch(getAccountBalance(kid.address));

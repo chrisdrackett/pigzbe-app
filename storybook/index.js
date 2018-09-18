@@ -10,7 +10,7 @@ function loadStories() {
     require('./stories/select-input.js');
     require('./stories/step-module.js');
     require('./stories/modal.js');
-    require('./stories/balance.js');
+    require('./stories/dashboard.js');
     require('./stories/passcode.js');
     require('./stories/home.js');
     require('./stories/keys.js');

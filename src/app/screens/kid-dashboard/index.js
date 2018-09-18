@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {color} from '../../styles';
-import {SCREEN_BALANCE, SCREEN_TASKS_LIST, SCREEN_ALLOWANCE_AMOUNT} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_TASKS_LIST, SCREEN_ALLOWANCE_AMOUNT} from '../../constants';
 import BalanceGraph from '../../components/balance-graph';
 import Wollo from '../../components/wollo';
 import StepModule from '../../components/step-module';
@@ -37,7 +37,7 @@ export class KidDashboard extends Component {
         allowanceToEdit: null,
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
+    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
 
     onAddTask = () => this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid})
 

@@ -18,24 +18,15 @@ import Modal from '../../components/modal';
 import Title from '../../components/title';
 import Paragraph from '../../components/paragraph';
 import StepModule from '../../components/step-module';
-import ConfirmSend from '../../components/confirm-send';
-import Progress from '../../components/progress';
 import {
     loadExchange,
     settingsFirstTime,
-    sendWolloToKid,
-    loadKidsBalances,
     fundAccount,
     loadWallet
 } from '../../actions';
 
-export class Balance extends Component {
+export class Dashboard extends Component {
     state = {
-        sendModalClosed: false,
-        confirmSend: false,
-        name: '',
-        address: '',
-        amount: '',
         funding: false,
     }
 
@@ -54,30 +45,6 @@ export class Balance extends Component {
     onSettings = () => {
         this.onCloseModal();
         this.props.navigation.navigate(SCREEN_SETTINGS);
-    }
-
-    onSend = (name, address, amount) => this.setState({
-        confirmSend: true,
-        name,
-        address,
-        amount
-    })
-
-    onConfirmSend = () => {
-        this.setState({confirmSend: false, sendModalClosed: false});
-        this.props.dispatch(sendWolloToKid(this.state.address, this.state.amount));
-    }
-
-    onCancelSend = () => this.setState({
-        confirmSend: false,
-        name: '',
-        address: '',
-        amount: ''
-    })
-
-    onCloseSendModal = () => {
-        this.props.dispatch(loadKidsBalances(this.state.address));
-        this.setState({sendModalClosed: true});
     }
 
     onAddKids = () => {
@@ -192,4 +159,4 @@ export default connect(
         sendStatus: state.wollo.sendStatus,
         sendComplete: state.wollo.sendComplete,
     })
-)(Balance);
+)(Dashboard);

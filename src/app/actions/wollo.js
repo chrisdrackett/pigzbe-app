@@ -103,7 +103,7 @@ export const loadPayments = () => async (dispatch, getState) => {
 
 
 export const sendWollo = (destination, amount, memo) => async (dispatch, getState) => {
-
+    console.log('sendWollo', destination, amount, memo);
     if (!isValidPublicKey(destination)) {
         dispatch(wolloError(new Error(strings.transferErrorInvalidKey)));
         return;

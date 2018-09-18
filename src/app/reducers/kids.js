@@ -14,6 +14,8 @@ import {
     KIDS_ADD_ALLOWANCE,
     KIDS_DELETE_ALLOWANCE,
     KIDS_SENDING_WOLLO,
+    KIDS_SEND_ERROR,
+    KIDS_SEND_COMPLETE,
 } from '../actions';
 
 const kidDefaults = {
@@ -30,14 +32,18 @@ const saveExclude = [
     'loading',
     'tasksLoading',
     'allowanceLoading',
-    'sendingWollo'
+    'sendingWollo',
+    'sendError',
+    'sendComplete',
 ];
 
 export const initialState = {
     loading: false,
     taskLoading: false,
     allowanceLoading: false,
-    sendingWollo: false,
+    sendingWollo: null,
+    sendError: null,
+    sendComplete: null,
     parentNickname: '',
     numKidsToAdd: 0,
     numKidsAdded: 0,
@@ -82,7 +88,17 @@ export default (state = initialState, action) => {
         case KIDS_SENDING_WOLLO:
             return {
                 ...state,
-                sendingWollo: action.value
+                sendingWollo: action.address
+            };
+        case KIDS_SEND_ERROR:
+            return {
+                ...state,
+                sendError: action.error
+            };
+        case KIDS_SEND_COMPLETE:
+            return {
+                ...state,
+                sendComplete: action.address
             };
         case KIDS_BALANCE_UPDATE:
             return {

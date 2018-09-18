@@ -7,14 +7,7 @@ import WolloSendSlider from '../wollo-send-slider';
 
 export default class Kids extends Component {
 
-    static defaultProps = {
-        parentBalance: 100,
-    }
-
     onDashboard = () => this.props.onDashboard(this.props.address)
-
-  
-    onSend = (amount) => this.props.onSend(this.props.name, this.props.address, amount)
 
     render () {
         const {name, address, photo, balance, exchange, baseCurrency} = this.props;
@@ -34,7 +27,7 @@ export default class Kids extends Component {
                         <Image style={styles.chevron} source={require('./images/chevron.png')}/>
                     </View>
                 </TouchableOpacity>
-                
+
                 <WolloSendSlider
                     name={name}
                     address={address}

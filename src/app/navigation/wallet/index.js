@@ -1,5 +1,5 @@
 import {createSwitchNavigator} from 'react-navigation';
-import Balance from '../../screens/balance';
+import Dashboard from '../../screens/dashboard';
 import Settings from '../../screens/settings';
 import Escrow from '../../screens/escrow';
 import Claim from '../../screens/claim';
@@ -19,7 +19,7 @@ import AllowanceInterval from '../../screens/allowance-interval';
 import EmailSet from '../../screens/email-set';
 import CurrencySet from '../../screens/currency-set';
 import {
-    SCREEN_BALANCE,
+    SCREEN_DASHBOARD,
     SCREEN_SETTINGS,
     SCREEN_ESCROW,
     SCREEN_CLAIM,
@@ -41,8 +41,8 @@ import {
 } from '../../constants';
 
 const nav = {
-    [SCREEN_BALANCE]: {
-        screen: Balance
+    [SCREEN_DASHBOARD]: {
+        screen: Dashboard
     },
     [SCREEN_SETTINGS]: {
         screen: Settings
@@ -101,5 +101,5 @@ const nav = {
 };
 
 export default createSwitchNavigator(nav, {
-    initialRouteName: SCREEN_BALANCE
+    initialRouteName: SCREEN_DASHBOARD
 });

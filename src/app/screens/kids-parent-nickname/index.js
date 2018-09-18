@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Toggle from '../../components/toggle';
-import {SCREEN_BALANCE, SCREEN_KIDS_NUMBER_TO_ADD} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_KIDS_NUMBER_TO_ADD} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Button from '../../components/button';
@@ -15,7 +15,7 @@ export class KidsParentNickname extends Component {
         type: null,
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
+    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
 
     onNext = async () => {
         this.setState({loading: true});
