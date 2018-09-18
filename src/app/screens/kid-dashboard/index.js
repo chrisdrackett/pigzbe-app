@@ -9,6 +9,7 @@ import StepModule from '../../components/step-module';
 import KidAvatar from '../../components/kid-avatar';
 import ActionPanel from '../../components/action-panel';
 import ActionSheet from '../../components/action-sheet';
+import WolloSendSlider from 'app/components/wollo-send-slider';
 import styles from './styles';
 import {deleteAllowance, deleteTask} from '../../actions';
 
@@ -96,6 +97,7 @@ export class KidDashboard extends Component {
             exchange,
             error,
             baseCurrency,
+            balance,
         } = this.props;
 
         const loading = !exchange && !error;
@@ -131,7 +133,7 @@ export class KidDashboard extends Component {
                                 style={[styles.panel, styles.panelFirst]}
                                 boxButton
                             >
-                                {kid.allowances.length && (
+                                {kid.allowances && kid.allowances.length && (
                                     <View style={styles.box}>
                                         {kid.allowances.map((allowance, i) => (
                                             <Item
@@ -179,6 +181,19 @@ export class KidDashboard extends Component {
                                 boxButton
                             >
                                 <View style={styles.box} />
+                            </ActionPanel>
+
+                            <ActionPanel
+                                title="Gift"
+                                style={styles.panel}
+                                containerOnly={true}
+                            >
+                                <View style={styles.box}>
+                                    <WolloSendSlider
+                                        name={kid.name}
+                                        address={kid.address}
+                                    />
+                                </View>
                             </ActionPanel>
                         </View>
                     )}

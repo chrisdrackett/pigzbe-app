@@ -20,7 +20,7 @@ export class AllowanceInterval extends Component {
     componentWillMount() {
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT);
+    onBack = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid});
 
     next = async () => {
         const {day, interval} = this.state;
