@@ -9,7 +9,6 @@ const props = {
 
 describe('CurrencyToggle', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<CurrencyToggle {...props}/>).toJSON();
-        expect(tree).toMatchSnapshot();
+        renderer.create(<CurrencyToggle {...props}/>);
     });
 });
