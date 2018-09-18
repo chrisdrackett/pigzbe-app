@@ -110,9 +110,6 @@ export class Balance extends Component {
             baseCurrency,
             firstTime,
             kids,
-            sendError,
-            sending,
-            sendComplete,
         } = this.props;
 
         const loading = (!exchange && !error) || this.state.funding;
@@ -153,7 +150,6 @@ export class Balance extends Component {
                                 exchange={exchange}
                                 baseCurrency={baseCurrency}
                                 parentBalance={balance}
-                                onSend={this.onSend}
                                 onAddKids={this.onAddKids}
                                 onDashboard={this.onDashboard}
                             />
@@ -176,29 +172,6 @@ export class Balance extends Component {
                             onPress={this.onSettings}
                         />
                     </Modal>
-                )}
-                {this.state.confirmSend && (
-                    <ConfirmSend
-                        name={this.state.name}
-                        amount={this.state.amount}
-                        onYes={this.onConfirmSend}
-                        onNo={this.onCancelSend}
-                    />
-                )}
-                {!this.state.sendModalClosed && (
-                    <Progress
-                        active={sending}
-                        complete={sendComplete}
-                        title={sendComplete ? 'Success!' : 'Transfer in progress'}
-                        error={sendError}
-                        text={sendComplete ?
-                            `*${this.state.amount} Wollo* has successfully been sent to ${this.state.name}`
-                            :
-                            `Sending *${this.state.amount} Wollo* to ${this.state.name}`
-                        }
-                        buttonLabel="Close"
-                        onPress={this.onCloseSendModal}
-                    />
                 )}
             </Fragment>
         );
