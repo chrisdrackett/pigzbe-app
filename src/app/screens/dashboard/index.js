@@ -116,7 +116,6 @@ export class Dashboard extends Component {
                                 kids={kids}
                                 exchange={exchange}
                                 baseCurrency={baseCurrency}
-                                parentBalance={balance}
                                 onAddKids={this.onAddKids}
                                 onDashboard={this.onDashboard}
                             />

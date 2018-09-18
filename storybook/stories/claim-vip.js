@@ -29,7 +29,7 @@ class Details2Test extends Component {
                 details={this.state}
                 errors={{}}
             />
-        )
+        );
     }
 }
 
@@ -93,6 +93,8 @@ storiesOf('ClaimVIP')
         <PhotoCapture
             onNext={() => undefined}
             onBack={() => undefined}
+            document={documents[0]}
+            side="front"
         />
     ))
     .add('token-code', () => (
@@ -120,4 +122,4 @@ storiesOf('ClaimVIP')
             onBack={() => undefined}
             wollo={420}
         />
-    ))
+    ));
