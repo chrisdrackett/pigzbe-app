@@ -97,7 +97,6 @@ export class KidDashboard extends Component {
             exchange,
             error,
             baseCurrency,
-            balance,
         } = this.props;
 
         const loading = !exchange && !error;
@@ -225,7 +224,6 @@ export default connect(
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.settings.baseCurrency,
-        kids: state.kids.kids,
         sendError: state.wollo.error,
         sending: state.wollo.sending,
         sendStatus: state.wollo.sendStatus,

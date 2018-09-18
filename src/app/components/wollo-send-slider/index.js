@@ -8,8 +8,8 @@ import AmountExchange from '../amount-exchange';
 import ConfirmSend from 'app/components/confirm-send';
 import Progress from 'app/components/progress';
 import {
-    familyTransfer,
-    loadFamilyBalances,
+    sendWolloToKid,
+    loadKidsBalances,
 } from '../../actions';
 
 const MAX_AMOUNT = 100;
@@ -38,7 +38,7 @@ export class WolloSendSlider extends Component {
 
     onConfirmSend = () => {
         this.setState({confirmSend: false, sendModalClosed: false});
-        this.props.familyTransfer(this.state.amount);
+        this.props.sendWolloToKid(this.state.amount);
     }
 
     onCancelSend = () => this.setState({
@@ -46,13 +46,13 @@ export class WolloSendSlider extends Component {
     })
 
     onCloseSendModal = () => {
-        this.props.familyTransfer();
+        this.props.sendWolloToKid();
         this.setState({sendModalClosed: true});
     }
 
     render() {
         const {
-            exchange, 
+            exchange,
             baseCurrency,
             sendError,
             sending,
@@ -113,7 +113,7 @@ export class WolloSendSlider extends Component {
                     />
                 )}
             </View>
-        )
+        );
     }
 }
 
@@ -128,7 +128,7 @@ export default connect(
         sendComplete: state.wollo.sendComplete,
     }),
     (dispatch, ownProps) => ({
-        familyTransfer: amount => dispatch(familyTransfer(ownProps.address, amount)),
-        loadFamilyBalances: () => dispatch(loadFamilyBalances(ownProps.address)),
+        sendWolloToKid: amount => dispatch(sendWolloToKid(ownProps.address, amount)),
+        loadKidsBalances: () => dispatch(loadKidsBalances(ownProps.address)),
     }),
 )(WolloSendSlider);
