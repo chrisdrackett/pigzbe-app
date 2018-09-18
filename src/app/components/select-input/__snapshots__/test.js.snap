@@ -95,120 +95,182 @@ exports[`SelectInput renders correctly 1`] = `
       />
     </View>
     <Modal
-      animationType="slide"
+      animationType="none"
       hardwareAccelerated={false}
+      hideModalContentWhileAnimating={false}
+      onModalHide={[Function]}
       onRequestClose={[Function]}
+      scrollOffset={0}
+      scrollOffsetMax={0}
+      scrollTo={null}
+      supportedOrientations={
+        Array [
+          "portrait",
+          "landscape",
+        ]
+      }
+      swipeThreshold={100}
       transparent={true}
       visible={false}
     >
       <View
+        accessible={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "black",
+            "bottom": 0,
+            "height": 1334,
+            "left": 0,
+            "opacity": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "width": 750,
+          }
+        }
+      />
+      <View
+        hideModalContentWhileAnimating={false}
+        onModalHide={[Function]}
+        pointerEvents="box-none"
+        scrollOffset={0}
+        scrollOffsetMax={0}
+        scrollTo={null}
         style={
           Object {
             "flex": 1,
+            "justifyContent": "center",
+            "margin": 0,
+            "transform": Array [
+              Object {
+                "translateY": 0,
+              },
+            ],
           }
         }
+        supportedOrientations={
+          Array [
+            "portrait",
+            "landscape",
+          ]
+        }
+        swipeThreshold={100}
       >
         <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             Object {
               "flex": 1,
-              "opacity": 1,
-            }
-          }
-        />
-        <View
-          style={
-            Object {
-              "alignItems": "flex-end",
-              "backgroundColor": "rgb(255, 255, 255)",
-              "borderBottomColor": "rgb(127, 153, 188)",
-              "borderBottomWidth": 1,
-              "borderTopColor": "rgb(127, 153, 188)",
-              "borderTopWidth": 1,
-              "padding": 10,
             }
           }
         >
-          <Text
-            onPress={[Function]}
+          <View
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "color": "rgb(0, 50, 120)",
-                "fontFamily": "Poppins",
-                "fontSize": 16,
+                "flex": 1,
+                "opacity": 1,
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "alignItems": "flex-end",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "borderBottomColor": "rgb(127, 153, 188)",
+                "borderBottomWidth": 1,
+                "borderTopColor": "rgb(127, 153, 188)",
+                "borderTopWidth": 1,
+                "padding": 10,
               }
             }
           >
-            Done
-          </Text>
-        </View>
-        <View
-          style={
-            Object {
-              "backgroundColor": "rgb(247, 247, 250)",
-              "height": 222,
-            }
-          }
-        >
-          <View>
-            <RCTPicker
-              items={
-                Array [
-                  Object {
-                    "label": "Mr",
-                    "textColor": undefined,
-                    "value": "Mr",
-                  },
-                  Object {
-                    "label": "Mrs",
-                    "textColor": undefined,
-                    "value": "Mrs",
-                  },
-                  Object {
-                    "label": "Miss",
-                    "textColor": undefined,
-                    "value": "Miss",
-                  },
-                  Object {
-                    "label": "Ms",
-                    "textColor": undefined,
-                    "value": "Ms",
-                  },
-                  Object {
-                    "label": "Sir",
-                    "textColor": undefined,
-                    "value": "Sir",
-                  },
-                  Object {
-                    "label": "Dr",
-                    "textColor": undefined,
-                    "value": "Dr",
-                  },
-                ]
-              }
-              onChange={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              selectedIndex={0}
+            <Text
+              onPress={[Function]}
               style={
-                Array [
-                  Object {
-                    "height": 216,
-                  },
-                  Object {
-                    "color": "rgb(0, 50, 120)",
-                  },
-                ]
+                Object {
+                  "color": "rgb(0, 50, 120)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 16,
+                }
               }
-            />
+            >
+              Done
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "backgroundColor": "rgb(247, 247, 250)",
+                "height": 222,
+              }
+            }
+          >
+            <View>
+              <RCTPicker
+                items={
+                  Array [
+                    Object {
+                      "label": "Mr",
+                      "textColor": undefined,
+                      "value": "Mr",
+                    },
+                    Object {
+                      "label": "Mrs",
+                      "textColor": undefined,
+                      "value": "Mrs",
+                    },
+                    Object {
+                      "label": "Miss",
+                      "textColor": undefined,
+                      "value": "Miss",
+                    },
+                    Object {
+                      "label": "Ms",
+                      "textColor": undefined,
+                      "value": "Ms",
+                    },
+                    Object {
+                      "label": "Sir",
+                      "textColor": undefined,
+                      "value": "Sir",
+                    },
+                    Object {
+                      "label": "Dr",
+                      "textColor": undefined,
+                      "value": "Dr",
+                    },
+                  ]
+                }
+                onChange={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                selectedIndex={0}
+                style={
+                  Array [
+                    Object {
+                      "height": 216,
+                    },
+                    Object {
+                      "color": "rgb(0, 50, 120)",
+                    },
+                  ]
+                }
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -312,120 +374,182 @@ exports[`SelectInput renders correctly with options open 1`] = `
       />
     </View>
     <Modal
-      animationType="slide"
+      animationType="none"
       hardwareAccelerated={false}
+      hideModalContentWhileAnimating={false}
+      onModalHide={[Function]}
       onRequestClose={[Function]}
+      scrollOffset={0}
+      scrollOffsetMax={0}
+      scrollTo={null}
+      supportedOrientations={
+        Array [
+          "portrait",
+          "landscape",
+        ]
+      }
+      swipeThreshold={100}
       transparent={true}
       visible={true}
     >
       <View
+        accessible={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "black",
+            "bottom": 0,
+            "height": 1334,
+            "left": 0,
+            "opacity": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "width": 750,
+          }
+        }
+      />
+      <View
+        hideModalContentWhileAnimating={false}
+        onModalHide={[Function]}
+        pointerEvents="box-none"
+        scrollOffset={0}
+        scrollOffsetMax={0}
+        scrollTo={null}
         style={
           Object {
             "flex": 1,
+            "justifyContent": "center",
+            "margin": 0,
+            "transform": Array [
+              Object {
+                "translateY": 1334,
+              },
+            ],
           }
         }
+        supportedOrientations={
+          Array [
+            "portrait",
+            "landscape",
+          ]
+        }
+        swipeThreshold={100}
       >
         <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             Object {
               "flex": 1,
-              "opacity": 1,
-            }
-          }
-        />
-        <View
-          style={
-            Object {
-              "alignItems": "flex-end",
-              "backgroundColor": "rgb(255, 255, 255)",
-              "borderBottomColor": "rgb(127, 153, 188)",
-              "borderBottomWidth": 1,
-              "borderTopColor": "rgb(127, 153, 188)",
-              "borderTopWidth": 1,
-              "padding": 10,
             }
           }
         >
-          <Text
-            onPress={[Function]}
+          <View
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "color": "rgb(0, 50, 120)",
-                "fontFamily": "Poppins",
-                "fontSize": 16,
+                "flex": 1,
+                "opacity": 1,
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "alignItems": "flex-end",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "borderBottomColor": "rgb(127, 153, 188)",
+                "borderBottomWidth": 1,
+                "borderTopColor": "rgb(127, 153, 188)",
+                "borderTopWidth": 1,
+                "padding": 10,
               }
             }
           >
-            Done
-          </Text>
-        </View>
-        <View
-          style={
-            Object {
-              "backgroundColor": "rgb(247, 247, 250)",
-              "height": 222,
-            }
-          }
-        >
-          <View>
-            <RCTPicker
-              items={
-                Array [
-                  Object {
-                    "label": "Mr",
-                    "textColor": undefined,
-                    "value": "Mr",
-                  },
-                  Object {
-                    "label": "Mrs",
-                    "textColor": undefined,
-                    "value": "Mrs",
-                  },
-                  Object {
-                    "label": "Miss",
-                    "textColor": undefined,
-                    "value": "Miss",
-                  },
-                  Object {
-                    "label": "Ms",
-                    "textColor": undefined,
-                    "value": "Ms",
-                  },
-                  Object {
-                    "label": "Sir",
-                    "textColor": undefined,
-                    "value": "Sir",
-                  },
-                  Object {
-                    "label": "Dr",
-                    "textColor": undefined,
-                    "value": "Dr",
-                  },
-                ]
-              }
-              onChange={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              selectedIndex={0}
+            <Text
+              onPress={[Function]}
               style={
-                Array [
-                  Object {
-                    "height": 216,
-                  },
-                  Object {
-                    "color": "rgb(0, 50, 120)",
-                  },
-                ]
+                Object {
+                  "color": "rgb(0, 50, 120)",
+                  "fontFamily": "Poppins",
+                  "fontSize": 16,
+                }
               }
-            />
+            >
+              Done
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "backgroundColor": "rgb(247, 247, 250)",
+                "height": 222,
+              }
+            }
+          >
+            <View>
+              <RCTPicker
+                items={
+                  Array [
+                    Object {
+                      "label": "Mr",
+                      "textColor": undefined,
+                      "value": "Mr",
+                    },
+                    Object {
+                      "label": "Mrs",
+                      "textColor": undefined,
+                      "value": "Mrs",
+                    },
+                    Object {
+                      "label": "Miss",
+                      "textColor": undefined,
+                      "value": "Miss",
+                    },
+                    Object {
+                      "label": "Ms",
+                      "textColor": undefined,
+                      "value": "Ms",
+                    },
+                    Object {
+                      "label": "Sir",
+                      "textColor": undefined,
+                      "value": "Sir",
+                    },
+                    Object {
+                      "label": "Dr",
+                      "textColor": undefined,
+                      "value": "Dr",
+                    },
+                  ]
+                }
+                onChange={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                selectedIndex={0}
+                style={
+                  Array [
+                    Object {
+                      "height": 216,
+                    },
+                    Object {
+                      "color": "rgb(0, 50, 120)",
+                    },
+                  ]
+                }
+              />
+            </View>
           </View>
         </View>
       </View>

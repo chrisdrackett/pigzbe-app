@@ -9,7 +9,7 @@ export default class Kids extends Component {
     }
 
     render () {
-        const {kids, exchange, baseCurrency, parentBalance} = this.props;
+        const {kids, exchange, baseCurrency} = this.props;
 
         return (
             <ActionPanel
@@ -27,7 +27,6 @@ export default class Kids extends Component {
                         {...kid}
                         exchange={exchange}
                         baseCurrency={baseCurrency}
-                        parentBalance={parentBalance}
                         onSend={this.props.onSend}
                         onDashboard={this.props.onDashboard}
                     />

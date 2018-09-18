@@ -52,7 +52,7 @@ export default class PhotoCapture extends Component {
         const frameWidth = width * 0.8;
         const frameHeight = frameWidth * document.previewRatio;
 
-        const sideLabel = document.sideLabel && document.sideLabel[this.props.side] ? 
+        const sideLabel = document.sideLabel && document.sideLabel[this.props.side] ?
             document.sideLabel[this.props.side] :
             this.props.side;
 
@@ -62,7 +62,7 @@ export default class PhotoCapture extends Component {
             <Container scroll={false}>
                 <Header onBack={onBack} />
                 <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}}>
-                    {!this.state.path && 
+                    {!this.state.path &&
                         <View style={styles.bg}>
                             <View>
                                 <View style={styles.preview}>
@@ -80,11 +80,11 @@ export default class PhotoCapture extends Component {
                                             }}
                                             type={RNCamera.Constants.Type.back}
                                             notAuthorizedView={
-                                                <View style={{flex:1, justifyContent: 'center', alignItems: 'center', padding: 20}}>
+                                                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20}}>
                                                     <Text style={{color: 'white', textAlign: 'center'}}>
-                                                        {Platform.OS === 'ios' ? 
-                                                            `Camera not authorised. Please go to Settings > Privacy > Camera, and enable Pigzbe` :
-                                                            `Camera not authorised. Please go to Settings > Apps > App permissions > Camera, and enable Pigzbe`
+                                                        {Platform.OS === 'ios' ?
+                                                            'Camera not authorised. Please go to Settings > Privacy > Camera, and enable Pigzbe' :
+                                                            'Camera not authorised. Please go to Settings > Apps > App permissions > Camera, and enable Pigzbe'
                                                         }
                                                     </Text>
                                                 </View>
@@ -103,7 +103,7 @@ export default class PhotoCapture extends Component {
                                             left: -5,
                                             width: 28,
                                             height: 29,
-                                            transform: [{ scaleX: -1 }]
+                                            transform: [{scaleX: -1}]
                                         }} source={require('./images/corner-top.png')} />
                                         <Image style={{
                                             position: 'absolute',
@@ -118,7 +118,7 @@ export default class PhotoCapture extends Component {
                                             left: -5,
                                             width: 28,
                                             height: 30,
-                                            transform: [{ scaleX: -1 }]
+                                            transform: [{scaleX: -1}]
                                         }} source={require('./images/corner-bottom.png')} />
                                     </View>
                                 </View>
@@ -129,21 +129,21 @@ export default class PhotoCapture extends Component {
 
                                 <Paragraph style={styles.instructions}>
                                     Position the {sideLabel} of your {document.name} in the frame
-                                </Paragraph>   
+                                </Paragraph>
                             </View>
                             <View>
                                 <TouchableOpacity style={styles.cameraButton} onPress={this.takePicture}>
                                     <Image style={styles.cameraIcon} source={require('./images/camera.png')} />
-                                </TouchableOpacity>  
+                                </TouchableOpacity>
                             </View>
                         </View>
                     }
-                    {!!this.state.path && 
+                    {!!this.state.path &&
                         <View style={[styles.bg, styles.bgConfirm]}>
                             <View>
                                 <View style={styles.preview}>
                                     <Image
-                                        source={{ uri: this.state.path }}
+                                        source={{uri: this.state.path}}
                                         style={{
                                             width: frameWidth,
                                             height: frameHeight,
@@ -157,12 +157,12 @@ export default class PhotoCapture extends Component {
 
                                 <Paragraph style={[styles.instructions, styles.confirmText]}>
                                     Make sure your {document.name} details are clear to read, with no blur or glare
-                                </Paragraph>   
+                                </Paragraph>
 
                             </View>
                             <View style={styles.buttons}>
                                 <Button
-                                    label={`My identity details are readable`}
+                                    label={'My identity details are readable'}
                                     onPress={this.onPhotoCaptured}
                                 />
                                 <Button
@@ -175,6 +175,6 @@ export default class PhotoCapture extends Component {
                     }
                 </KeyboardAvoid>
             </Container>
-        )
+        );
     }
 }

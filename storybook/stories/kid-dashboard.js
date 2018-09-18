@@ -1,6 +1,32 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
 import {KidDashboard} from '../../src/app/screens/kid-dashboard';
+import {Provider} from 'react-redux';
+import {createStore, combineReducers} from 'redux';
+
+const store = createStore(combineReducers({
+    settings: () => ({
+        baseCurrency: 'GBP'
+    }),
+    coins: () => ({
+        exchange: {
+            XLM: 0.3936,
+            BTC: 0.0000147,
+            ETH: 0.00025584,
+            EUR: 0.102828,
+            USD: 0.12,
+            JPY: 13.8984,
+            GBP: 0.091956,
+            GOLD: 0.0031452
+        }
+    }),
+    wollo: () => ({
+        balance: '0'
+    }),
+    kids: () => ({
+        sendError: null
+    })
+}));
 
 const kid = {
     name: 'Ella',
@@ -46,7 +72,8 @@ const props = {
     kid
 };
 
-storiesOf('Kid Dash')
+storiesOf('Kid Dashboard')
+    .addDecorator(story => <Provider store={store}>{story()}</Provider>)
     .add('default', () => (
         <KidDashboard {...{
             ...props
@@ -83,11 +110,11 @@ storiesOf('Kid Dash')
             ...props,
             kid: {
                 ...kid,
-                allowance: {
+                allowances: [{
                     amount: 50,
                     interval: 'Weekly',
                     day: 'Monday',
-                }
+                }]
             }
         }}/>
     ));
