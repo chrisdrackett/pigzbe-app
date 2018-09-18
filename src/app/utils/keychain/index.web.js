@@ -30,10 +30,11 @@ export const load = async id => {
         console.log(err);
     }
 
-    return {
-        key,
-        error
-    };
+    if (error) {
+        console.log(error);
+    }
+
+    return key;
 };
 
 export const clear = async id => await Storage.clear(id);

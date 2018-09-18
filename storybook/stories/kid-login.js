@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
 import {storiesOf} from '@storybook/react-native';
+import {KidLogin} from '../../src/app/screens/kid-login';
+import {View, Text} from 'react-native';
 import IconPad from '../../src/app/components/icon-pad';
 import Dots from '../../src/app/components/dots';
 
@@ -38,5 +39,20 @@ class NumEntry extends Component {
     }
 }
 
-storiesOf('ChildLogin')
+const props = {
+    dispatch: () => {},
+    navigation: {
+        navigate: () => {},
+        state: {
+            key: 'SCREEN_KID_LOGIN',
+            routeName: 'SCREEN_KID_LOGIN'
+        },
+        actions: {}
+    },
+};
+
+storiesOf('Kid Login')
+    .add('login', () => (
+        <KidLogin {...props}/>
+    ))
     .add('icon pad', () => <NumEntry/>);

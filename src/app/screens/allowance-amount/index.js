@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, FlatList, TouchableOpacity, Text, Image, TextInput} from 'react-native';
 import Button from '../../components/button';
-import {SCREEN_BALANCE, SCREEN_ALLOWANCE_INTERVAL} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_ALLOWANCE_INTERVAL} from '../../constants';
 import StepModule from '../../components/step-module';
 import Toggle from '../../components/toggle';
 import {CURRENCIES} from '../../constants';
@@ -45,7 +45,7 @@ export class AllowanceAmount extends Component {
         return deconstructedAllowances;
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE);
+    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD);
 
     onChangeText = (amount) => {
         this.setState({custom: amount});
@@ -132,7 +132,7 @@ export class AllowanceAmount extends Component {
     }
 
     skip = async () => {
-        this.props.navigation.navigate(SCREEN_BALANCE);
+        this.props.navigation.navigate(SCREEN_DASHBOARD);
     }
 
     render() {
@@ -181,7 +181,7 @@ export class AllowanceAmount extends Component {
 
 export default connect(
     (state, props) => ({
-        loading: false, /*state.family.loading,*/
+        loading: false, /*state.kids.loading,*/
         kid: props.navigation.state.params.kid,
         baseCurrency: state.settings.baseCurrency,
         exchange: state.coins.exchange,

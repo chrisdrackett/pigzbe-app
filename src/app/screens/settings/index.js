@@ -13,7 +13,7 @@ import {
 import Button from '../../components/button';
 import {
     strings,
-    SCREEN_BALANCE,
+    SCREEN_DASHBOARD,
     SCREEN_CLAIM,
     //SCREEN_CLAIM_ICO,
     SCREEN_ESCROW,
@@ -50,7 +50,7 @@ export class Settings extends Component {
         this.props.dispatch(loadEscrow());
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
+    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
 
     onClaim = () => this.props.navigation.navigate(SCREEN_CLAIM)
     //onClaim = () => this.props.navigation.navigate(SCREEN_CLAIM_ICO)
@@ -244,6 +244,6 @@ export default connect(
         country: state.settings.country,
         escrow: state.escrow.escrowPublicKey,
         baseCurrency: state.settings.baseCurrency,
-        kids: state.family.kids,
+        kids: state.kids.kids,
     })
 )(Settings);

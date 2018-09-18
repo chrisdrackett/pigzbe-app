@@ -14,14 +14,14 @@ import container from '../../styles';
 import Button from '../../components/button';
 import Storage from '../../utils/storage';
 import Keychain from '../../utils/keychain';
-import {setUseTestnet, wolloTestUser, configUpdate} from '../../actions';
+import {setUseTestnet, keysTestUser, configUpdate} from '../../actions';
 import {
     KEYCHAIN_ID_STELLAR_KEY,
     KEYCHAIN_ID_ETH_KEY,
     KEYCHAIN_ID_PASSCODE,
     STORAGE_KEY_SETTINGS,
     STORAGE_KEY_BURNING,
-    STORAGE_KEY_FAMILY,
+    STORAGE_KEY_KIDS,
     STORAGE_KEY_TASKS,
 } from '../../constants';
 
@@ -111,7 +111,7 @@ class DevPanel extends Component {
                                 <Button style={styles.button} label="Clear user data" onPress={() => {
                                     console.log('clear');
                                     Storage.clear(STORAGE_KEY_SETTINGS);
-                                    Storage.clear(STORAGE_KEY_FAMILY);
+                                    Storage.clear(STORAGE_KEY_KIDS);
                                     Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
                                     Keychain.clear(KEYCHAIN_ID_PASSCODE);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY);
@@ -121,7 +121,7 @@ class DevPanel extends Component {
                                 <Text style={styles.subtitle}>Family data</Text>
                                 <Button style={styles.button} label="Clear family data" onPress={() => {
                                     console.log('clear');
-                                    Storage.clear(STORAGE_KEY_FAMILY);
+                                    Storage.clear(STORAGE_KEY_KIDS);
                                 }} />
                                 <Button style={styles.button} label="Clear tasks data" onPress={() => {
                                     console.log('clear');
@@ -143,7 +143,7 @@ class DevPanel extends Component {
                             <View style={styles.picker}>
                                 <Picker
                                     selectedValue={testUserKey || ''}
-                                    onValueChange={value => dispatch(wolloTestUser(value))}>
+                                    onValueChange={value => dispatch(keysTestUser(value))}>
                                     {testUsers.map(user => (
                                         <Picker.Item
                                             key={user.label}
@@ -206,7 +206,7 @@ export const DevPanelComponent = DevPanel;
 
 export default connect(
     state => ({
-        testUserKey: state.wollo.testUserKey,
+        testUserKey: state.keys.testUserKey,
         useTestnet: state.wollo.useTestnet,
         configURL: state.config.configURL,
         networkOverride: state.config.networkOverride,

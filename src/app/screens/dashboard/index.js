@@ -4,8 +4,8 @@ import {View} from 'react-native';
 import {color} from '../../styles';
 import {
     SCREEN_SETTINGS,
-    SCREEN_FAMILY_INTRO,
-    SCREEN_CHILD_DASH,
+    SCREEN_KIDS_INTRO,
+    SCREEN_KID_DASHBOARD,
     COINS,
     COIN_DPS
 } from '../../constants';
@@ -18,24 +18,15 @@ import Modal from '../../components/modal';
 import Title from '../../components/title';
 import Paragraph from '../../components/paragraph';
 import StepModule from '../../components/step-module';
-import ConfirmSend from '../../components/confirm-send';
-import Progress from '../../components/progress';
 import {
     loadExchange,
     settingsFirstTime,
-    familyTransfer,
-    loadFamilyBalances,
     fundAccount,
     loadWallet
 } from '../../actions';
 
-export class Balance extends Component {
+export class Dashboard extends Component {
     state = {
-        sendModalClosed: false,
-        confirmSend: false,
-        name: '',
-        address: '',
-        amount: '',
         funding: false,
     }
 
@@ -56,42 +47,18 @@ export class Balance extends Component {
         this.props.navigation.navigate(SCREEN_SETTINGS);
     }
 
-    onSend = (name, address, amount) => this.setState({
-        confirmSend: true,
-        name,
-        address,
-        amount
-    })
-
-    onConfirmSend = () => {
-        this.setState({confirmSend: false, sendModalClosed: false});
-        this.props.dispatch(familyTransfer(this.state.address, this.state.amount));
-    }
-
-    onCancelSend = () => this.setState({
-        confirmSend: false,
-        name: '',
-        address: '',
-        amount: ''
-    })
-
-    onCloseSendModal = () => {
-        this.props.dispatch(loadFamilyBalances(this.state.address));
-        this.setState({sendModalClosed: true});
-    }
-
     onAddKids = () => {
         if (this.props.kids.length) {
             // TODO: skip to the profile if already been through first steps
             // this.props.navigation.navigate(SCREEN_FAMILY_PROFILE);
             // return;
         }
-        this.props.navigation.navigate(SCREEN_FAMILY_INTRO);
+        this.props.navigation.navigate(SCREEN_KIDS_INTRO);
     }
 
     onDashboard = address => {
         const kid = this.props.kids.find(k => k.address === address);
-        this.props.navigation.navigate(SCREEN_CHILD_DASH, {kid});
+        this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid});
     }
 
     onFund = async () => {
@@ -186,10 +153,10 @@ export default connect(
         balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.settings.baseCurrency,
         firstTime: state.settings.firstTime,
-        kids: state.family.kids,
+        kids: state.kids.kids,
         sendError: state.wollo.error,
         sending: state.wollo.sending,
         sendStatus: state.wollo.sendStatus,
         sendComplete: state.wollo.sendComplete,
     })
-)(Balance);
+)(Dashboard);

@@ -4,13 +4,14 @@ import auth from './auth';
 import config from './config';
 import escrow from './escrow';
 import loader from './loader';
+import keys from './keys';
 import messages from './messages';
 import wollo from './wollo';
 import coins from './coins';
 import game from './game';
 import deviceAuth from './device-auth';
 import settings from './settings';
-import family from './family';
+import kids from './kids';
 import tasks from './tasks';
 import vip from './vip';
 
@@ -26,13 +27,14 @@ export default combineReducers({
     config,
     escrow,
     loader,
+    keys,
     messages,
     wollo,
     coins,
     game,
     deviceAuth,
     settings,
-    family,
+    kids,
     tasks,
     vip,
     // claim reducers

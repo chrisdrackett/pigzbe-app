@@ -1,57 +1,25 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Dimensions} from 'react-native';
+import {View} from 'react-native';
 import Toggle from '../../components/toggle';
-import {SCREEN_BALANCE, SCREEN_FAMILY_ENTER_CHILD} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_KIDS_ENTER_PROFILE} from '../../constants';
 import StepModule from '../../components/step-module';
 import Button from '../../components/button';
-import {color} from '../../styles';
-import {familyNumKidsToAdd} from '../../actions';
+import {setNumKidsToAdd} from '../../actions';
+import styles from './styles';
 
-const buttonStyle = {
-    background: 'transparent',
-    border: color.blue,
-    width: Dimensions.get('window').width * 0.15,
-    height: 0,
-    paddingBottom: Dimensions.get('window').width * 0.15,
-    marginBottom: Dimensions.get('window').width * 0.15,
-    position: 'relative',
-};
-
-const innerStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    marginBottom: 0,
-    borderRadius: Dimensions.get('window').width * 0.075,
-    display: 'flex',
-    alignContent: 'center',
-    justifyContent: 'center',
-    height: Dimensions.get('window').width * 0.15,
-    background: 'red',
-};
-
-const flexStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-};
-
-export class FamilyNumberKids extends Component {
+export class KidsNumberToAdd extends Component {
     state = {
         loading: false,
         type: null,
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
+    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
 
     onNext = async () => {
         this.setState({loading: true});
-        await this.props.dispatch(familyNumKidsToAdd(this.state.type));
-        this.props.navigation.navigate(SCREEN_FAMILY_ENTER_CHILD);
+        await this.props.dispatch(setNumKidsToAdd(this.state.type));
+        this.props.navigation.navigate(SCREEN_KIDS_ENTER_PROFILE);
     }
 
     render() {
@@ -65,11 +33,11 @@ export class FamilyNumberKids extends Component {
                 onBack={this.onBack}
             >
                 <View
-                    style={flexStyle}
+                    style={styles.flexStyle}
                 >
                     <Toggle
-                        style={buttonStyle}
-                        innerStyle={innerStyle}
+                        style={styles.buttonStyle}
+                        innerStyle={styles.innerStyle}
                         label={'1'}
                         onPress={() => {
                             this.setState({type: 1});
@@ -77,8 +45,8 @@ export class FamilyNumberKids extends Component {
                         active={this.state.type === 1}
                     />
                     <Toggle
-                        style={buttonStyle}
-                        innerStyle={innerStyle}
+                        style={styles.buttonStyle}
+                        innerStyle={styles.innerStyle}
                         label={'2'}
                         onPress={() => {
                             this.setState({type: 2});
@@ -86,8 +54,8 @@ export class FamilyNumberKids extends Component {
                         active={this.state.type === 2}
                     />
                     <Toggle
-                        style={buttonStyle}
-                        innerStyle={innerStyle}
+                        style={styles.buttonStyle}
+                        innerStyle={styles.innerStyle}
                         label={'3'}
                         onPress={() => {
                             this.setState({type: 3});
@@ -95,8 +63,8 @@ export class FamilyNumberKids extends Component {
                         active={this.state.type === 3}
                     />
                     <Toggle
-                        style={buttonStyle}
-                        innerStyle={innerStyle}
+                        style={styles.buttonStyle}
+                        innerStyle={styles.innerStyle}
                         label={'4+'}
                         onPress={() => {
                             this.setState({type: 4});
@@ -114,4 +82,4 @@ export class FamilyNumberKids extends Component {
     }
 }
 
-export default connect()(FamilyNumberKids);
+export default connect()(KidsNumberToAdd);

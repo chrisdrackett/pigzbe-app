@@ -89,8 +89,8 @@ const getKeys = () => async dispatch => {
         const stellar = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
         const eth = await Keychain.load(KEYCHAIN_ID_ETH_KEY);
 
-        if (stellar.key) {
-            const keypair = Keypair.fromSecret(stellar.key);
+        if (stellar) {
+            const keypair = Keypair.fromSecret(stellar);
 
             dispatch({type: STELLAR, payload: {
                 pk: keypair.publicKey(),
@@ -98,9 +98,9 @@ const getKeys = () => async dispatch => {
             }});
         }
 
-        if (eth.key) {
+        if (eth) {
             dispatch({type: PRIVATE_KEY, payload: {
-                privateKey: eth.key
+                privateKey: eth
             }});
         }
 
@@ -147,12 +147,12 @@ export const burn = (amount) => async (dispatch, getState) => {
     dispatch({type: LOADING, payload: 'Waiting Ethereum network confirmation'});
 
     try {
-        const result = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
+        const key = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
         const keypair = (stellar && stellar.sk && Keypair.fromSecret(stellar.sk)) || await Keypair.randomAsync();
 
         console.log('keypair', keypair.publicKey());
 
-        if (!result.key) {
+        if (!key) {
             await Keychain.save(KEYCHAIN_ID_STELLAR_KEY, keypair.secret());
         }
 

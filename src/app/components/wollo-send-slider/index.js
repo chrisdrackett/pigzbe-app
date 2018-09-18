@@ -7,15 +7,11 @@ import Button from '../button';
 import AmountExchange from '../amount-exchange';
 import ConfirmSend from 'app/components/confirm-send';
 import Progress from 'app/components/progress';
-import {
-    familyTransfer,
-    loadFamilyBalances,
-} from '../../actions';
-
-const MAX_AMOUNT = 100;
+import {sendWolloToKid} from '../../actions';
+import {KID_SEND_MAX_AMOUNT} from '../../constants';
 
 const getAmount = (value, balance) => {
-    const max = Math.min(balance, MAX_AMOUNT);
+    const max = Math.min(balance, KID_SEND_MAX_AMOUNT);
     return Math.round(value * Math.floor(Number(max)));
 };
 
@@ -38,21 +34,22 @@ export class WolloSendSlider extends Component {
 
     onConfirmSend = () => {
         this.setState({confirmSend: false, sendModalClosed: false});
-        this.props.familyTransfer(this.state.amount);
+        this.props.sendWolloToKid(this.state.amount);
     }
 
     onCancelSend = () => this.setState({
         confirmSend: false,
     })
 
-    onCloseSendModal = () => {
-        this.props.familyTransfer();
-        this.setState({sendModalClosed: true});
-    }
+    onCloseSendModal = () => this.setState({
+        sendModalClosed: true,
+        value: 0,
+        amount: 0
+    })
 
     render() {
         const {
-            exchange, 
+            exchange,
             baseCurrency,
             sendError,
             sending,
@@ -99,11 +96,11 @@ export class WolloSendSlider extends Component {
                 )}
                 {!this.state.sendModalClosed && (
                     <Progress
-                        active={sending}
+                        active={sending === this.props.address}
                         complete={sendComplete}
-                        title={sendComplete ? 'Success!' : 'Transfer in progress'}
+                        title={sendComplete === this.props.address ? 'Success!' : 'Transfer in progress'}
                         error={sendError}
-                        text={sendComplete ?
+                        text={sendComplete === this.props.address ?
                             `*${this.state.amount} Wollo* has successfully been sent to ${this.props.name}`
                             :
                             `Sending *${this.state.amount} Wollo* to ${this.props.name}`
@@ -113,7 +110,7 @@ export class WolloSendSlider extends Component {
                     />
                 )}
             </View>
-        )
+        );
     }
 }
 
@@ -122,13 +119,11 @@ export default connect(
         balance: state.wollo.balance,
         baseCurrency: state.settings.baseCurrency,
         exchange: state.coins.exchange,
-        sendError: state.wollo.error,
-        sending: state.wollo.sending,
-        sendStatus: state.wollo.sendStatus,
-        sendComplete: state.wollo.sendComplete,
+        sendError: state.kids.sendError,
+        sending: state.kids.sendingWollo,
+        sendComplete: state.kids.sendComplete,
     }),
     (dispatch, ownProps) => ({
-        familyTransfer: amount => dispatch(familyTransfer(ownProps.address, amount)),
-        loadFamilyBalances: () => dispatch(loadFamilyBalances(ownProps.address)),
+        sendWolloToKid: amount => dispatch(sendWolloToKid(ownProps.address, amount)),
     }),
 )(WolloSendSlider);

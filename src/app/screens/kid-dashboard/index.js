@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {color} from '../../styles';
-import {SCREEN_BALANCE, SCREEN_TASKS_LIST, SCREEN_ALLOWANCE_AMOUNT} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_TASKS_LIST, SCREEN_ALLOWANCE_AMOUNT} from '../../constants';
 import BalanceGraph from '../../components/balance-graph';
 import Wollo from '../../components/wollo';
 import StepModule from '../../components/step-module';
@@ -11,7 +11,7 @@ import ActionPanel from '../../components/action-panel';
 import ActionSheet from '../../components/action-sheet';
 import WolloSendSlider from 'app/components/wollo-send-slider';
 import styles from './styles';
-import {familyDeleteAllowance, familyDeleteTask} from '../../actions';
+import {deleteAllowance, deleteTask} from '../../actions';
 
 const Item = ({first, title, subtitle, amount, onPress}) => (
     <TouchableOpacity onPress={onPress}>
@@ -29,7 +29,7 @@ const Item = ({first, title, subtitle, amount, onPress}) => (
     </TouchableOpacity>
 );
 
-export class ChildDash extends Component {
+export class KidDashboard extends Component {
     state = {
         tasksPanelOpen: false,
         allowancePanelOpen: false,
@@ -37,7 +37,7 @@ export class ChildDash extends Component {
         allowanceToEdit: null,
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
+    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
 
     onAddTask = () => this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid})
 
@@ -51,7 +51,7 @@ export class ChildDash extends Component {
                 this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid, taskToEdit: this.state.taskToEdit});
                 break;
             case 1:
-                await this.props.dispatch(familyDeleteTask(this.props.kid, this.state.taskToEdit));
+                await this.props.dispatch(deleteTask(this.props.kid, this.state.taskToEdit));
                 break;
             default:
                 // do nothing
@@ -70,7 +70,7 @@ export class ChildDash extends Component {
                 this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid, allowanceToEdit: this.state.allowanceToEdit});
                 break;
             case 1:
-                await this.props.dispatch(familyDeleteAllowance(this.props.kid, this.state.allowanceToEdit));
+                await this.props.dispatch(deleteAllowance(this.props.kid, this.state.allowanceToEdit));
                 break;
             default:
                 // do nothing
@@ -97,7 +97,6 @@ export class ChildDash extends Component {
             exchange,
             error,
             baseCurrency,
-            balance,
         } = this.props;
 
         const loading = !exchange && !error;
@@ -219,16 +218,15 @@ export class ChildDash extends Component {
 
 export default connect(
     (state, props) => ({
-        kid: state.family.kids.find(k => k.address === props.navigation.state.params.kid.address),
+        kid: state.kids.kids.find(k => k.address === props.navigation.state.params.kid.address),
         error: state.coins.error,
         exchange: state.coins.exchange,
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.settings.baseCurrency,
-        kids: state.family.kids,
         sendError: state.wollo.error,
         sending: state.wollo.sending,
         sendStatus: state.wollo.sendStatus,
         sendComplete: state.wollo.sendComplete,
     })
-)(ChildDash);
+)(KidDashboard);

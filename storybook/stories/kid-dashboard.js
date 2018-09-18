@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
-import {ChildDash} from '../../src/app/screens/child-dash';
+import {KidDashboard} from '../../src/app/screens/kid-dashboard';
 
 const kid = {
     name: 'Ella',
@@ -19,8 +19,8 @@ const props = {
         addListener: () => {},
         getParam: key => props.navigation.state.params[key],
         state: {
-            key: 'SCREEN_CHILD_DASH',
-            routeName: 'SCREEN_CHILD_DASH',
+            key: 'SCREEN_KID_DASHBOARD',
+            routeName: 'SCREEN_KID_DASHBOARD',
             params: {
                 kid
             }
@@ -46,14 +46,14 @@ const props = {
     kid
 };
 
-storiesOf('Child Dash')
+storiesOf('Kid Dash')
     .add('default', () => (
-        <ChildDash {...{
+        <KidDashboard {...{
             ...props
         }}/>
     ))
     .add('with 1 task', () => (
-        <ChildDash {...{
+        <KidDashboard {...{
             ...props,
             kid: {
                 ...kid,
@@ -65,7 +65,7 @@ storiesOf('Child Dash')
         }}/>
     ))
     .add('with 2 tasks', () => (
-        <ChildDash {...{
+        <KidDashboard {...{
             ...props,
             kid: {
                 ...kid,
@@ -79,7 +79,7 @@ storiesOf('Child Dash')
             }
         }}/>
     )).add('with allowance', () => (
-        <ChildDash {...{
+        <KidDashboard {...{
             ...props,
             kid: {
                 ...kid,

@@ -8,8 +8,8 @@ const props = {
         navigate: () => {},
         addListener: () => {},
         state: {
-            key: 'SCREEN_BALANCE',
-            routeName: 'SCREEN_BALANCE'
+            key: 'SCREEN_DASHBOARD',
+            routeName: 'SCREEN_DASHBOARD'
         },
         actions: {}
     },

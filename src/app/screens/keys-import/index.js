@@ -50,6 +50,6 @@ export class KeysImport extends Component {
 
 export default connect(
     state => ({
-        error: state.wollo.error,
+        error: state.keys.importError,
     })
 )(KeysImport);

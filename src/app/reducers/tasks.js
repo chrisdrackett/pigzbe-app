@@ -1,7 +1,7 @@
 import {
-    TASKS_LOADING,
-    TASKS_LOAD,
-    TASKS_ADD_TASK,
+    TASKS_LOADING_CUSTOM,
+    TASKS_LOAD_CUSTOM,
+    TASKS_ADD_CUSTOM,
 } from '../actions';
 
 const defaultTasks = [
@@ -20,17 +20,17 @@ export const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case TASKS_LOADING:
+        case TASKS_LOADING_CUSTOM:
             return {
                 ...state,
                 loading: action.value
             };
-        case TASKS_LOAD:
+        case TASKS_LOAD_CUSTOM:
             return {
                 ...state,
                 tasks: action.value
             };
-        case TASKS_ADD_TASK:
+        case TASKS_ADD_CUSTOM:
             return {
                 ...state,
                 tasks: [action.task].concat(state.tasks),

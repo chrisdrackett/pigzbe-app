@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
 import {HomeView} from '../../src/app/screens/home';
-import {kids} from './balance';
+import {kids} from './dashboard';
 
 const props = {
     onLogin: () => {},

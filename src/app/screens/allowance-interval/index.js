@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Button from '../../components/button';
 import SelectInput from '../../components/select-input';
-import {SCREEN_BALANCE, SCREEN_ALLOWANCE_AMOUNT, SCREEN_CHILD_DASH} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_ALLOWANCE_AMOUNT, SCREEN_KID_DASHBOARD} from '../../constants';
 import StepModule from '../../components/step-module';
 import styles from './styles';
-import {familyAddAllowance} from '../../actions';
+import {addAllowance} from '../../actions';
 
 
 export class AllowanceInterval extends Component {
@@ -26,13 +26,13 @@ export class AllowanceInterval extends Component {
         const {day, interval} = this.state;
         const {kid, amount} = this.props;
 
-        await this.props.dispatch(familyAddAllowance(kid, amount, interval, day));
+        await this.props.dispatch(addAllowance(kid, amount, interval, day));
 
         // todo navigate to kid screen instead
         if (kid) {
-            this.props.navigation.navigate(SCREEN_CHILD_DASH, {kid});
+            this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid});
         } else {
-            this.props.navigation.navigate(SCREEN_BALANCE, {kid});
+            this.props.navigation.navigate(SCREEN_DASHBOARD, {kid});
         }
     }
 
@@ -80,7 +80,7 @@ export class AllowanceInterval extends Component {
 
 export default connect(
     (state, props) => ({
-        loading: false, /*state.family.loading,*/
+        loading: false, /*state.kids.loading,*/
         amount: props.navigation.state.params.amount,
         kid: props.navigation.state.params.kid,
     })

@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
-import {Balance} from '../../src/app/screens/balance';
+import {Dashboard} from '../../src/app/screens/dashboard';
 
 const props = {
     dispatch: () => {},
@@ -8,8 +8,8 @@ const props = {
         navigate: () => {},
         addListener: () => {},
         state: {
-            key: 'SCREEN_BALANCE',
-            routeName: 'SCREEN_BALANCE'
+            key: 'SCREEN_DASHBOARD',
+            routeName: 'SCREEN_DASHBOARD'
         },
         actions: {}
     },
@@ -46,36 +46,36 @@ export const kids = [{
     balance: '17',
 }];
 
-storiesOf('Balance')
+storiesOf('Dashboard')
     .add('default view', () => (
-        <Balance {...props}/>
+        <Dashboard {...props}/>
     ))
     .add('with kids', () => (
-        <Balance {...{
+        <Dashboard {...{
             ...props,
             kids
         }}/>
     ))
     .add('with kids 17 balance', () => (
-        <Balance {...{
+        <Dashboard {...{
             ...props,
             kids,
             balance: '17',
         }}/>
     ))
     .add('with kids 1000 balance', () => (
-        <Balance {...{
+        <Dashboard {...{
             ...props,
             kids,
             balance: '1000',
         }}/>
     ))
     .add('first time', () => (
-        <Balance {...{...props, firstTime: true}}/>
+        <Dashboard {...{...props, firstTime: true}}/>
     ))
     .add('loading', () => (
-        <Balance {...{...props, exchange: null}}/>
+        <Dashboard {...{...props, exchange: null}}/>
     ))
     .add('error', () => (
-        <Balance {...{...props, exchange: null, error: new Error('Network error')}}/>
+        <Dashboard {...{...props, exchange: null, error: new Error('Network error')}}/>
     ));

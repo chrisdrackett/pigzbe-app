@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
 import styles from './styles';
-import {familyCompleteTask} from '../../actions';
+import {completeTask} from '../../actions';
 import Wollo from '../../components/wollo';
 import Button from '../../components/button';
 
@@ -29,7 +29,7 @@ export default class GameTasks extends Component {
 
     onClose = () => this.setState({isOpen: false})
 
-    onComplete = task => this.props.dispatch(familyCompleteTask(this.props.kid, task))
+    onComplete = task => this.props.dispatch(completeTask(this.props.kid, task))
 
     render() {
         const {kid, parentNickname} = this.props;

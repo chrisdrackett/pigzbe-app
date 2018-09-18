@@ -19,30 +19,16 @@ export const authCheckTouchId = () => async dispatch => {
 
 export const authTouchId = () => () => TouchId.authenticate();
 
-export const authKeychain = () => async () => {
-    const result = await Keychain.load(KEYCHAIN_ID_PASSCODE);
-
-    if (result.error) {
-        console.log(result.error.message);
-        return null;
-    }
-
-    return result.key;
-};
+export const authKeychain = () => async () => await Keychain.load(KEYCHAIN_ID_PASSCODE);
 
 export const authKeychainKid = address => async () => {
-    // await Keychain.clear(address);
+    const key = await Keychain.load(address);
 
-    const result = await Keychain.load(address);
-
-    console.log('result', result, new Set(JSON.parse(result.key)));
-
-    if (result.error) {
-        console.log(result.error.message);
+    if (!key) {
         return null;
     }
 
-    return new Set(JSON.parse(result.key));
+    return new Set(JSON.parse(key));
 };
 
 export const authCreate = passcode => async dispatch => {

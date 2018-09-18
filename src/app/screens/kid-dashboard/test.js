@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {ChildDash} from './';
+import {KidDashboard} from './';
 
 const props = {
     dispatch: () => {},
@@ -8,8 +8,8 @@ const props = {
         navigate: () => {},
         addListener: () => {},
         state: {
-            key: 'SCREEN_CHILD_DASH',
-            routeName: 'SCREEN_CHILD_DASH'
+            key: 'SCREEN_KID_DASHBOARD',
+            routeName: 'SCREEN_KID_DASHBOARD'
         },
         actions: {}
     },
@@ -42,6 +42,6 @@ const props = {
 
 describe('Child dash', () => {
     test('renders correctly', () => {
-        renderer.create(<ChildDash {...props}/>);
+        renderer.create(<KidDashboard {...props}/>);
     });
 });

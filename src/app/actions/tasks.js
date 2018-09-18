@@ -1,23 +1,23 @@
 import Storage from '../utils/storage';
 import {STORAGE_KEY_TASKS} from '../constants';
 
-export const TASKS_LOADING = 'TASKS_LOADING';
-export const TASKS_LOAD = 'TASKS_LOAD';
-export const TASKS_ADD_TASK = 'TASKS_ADD_TASK';
+export const TASKS_LOADING_CUSTOM = 'TASKS_LOADING_CUSTOM';
+export const TASKS_LOAD_CUSTOM = 'TASKS_LOAD_CUSTOM';
+export const TASKS_ADD_CUSTOM = 'TASKS_ADD_CUSTOM';
 
-const tasksLoading = value => ({type: TASKS_LOADING, value});
+const tasksLoading = value => ({type: TASKS_LOADING_CUSTOM, value});
 
-export const loadTasks = () => async dispatch => {
+export const loadCustomTasks = () => async dispatch => {
     try {
         const data = await Storage.load(STORAGE_KEY_TASKS);
         const value = data && Array.isArray(data) ? data : [];
-        await dispatch({type: TASKS_LOAD, value});
+        await dispatch({type: TASKS_LOAD_CUSTOM, value});
     } catch (error) {
         console.log(error);
     }
 };
 
-export const saveTask = () => async (dispatch, getState) => {
+export const saveCustomTasks = () => async (dispatch, getState) => {
     try {
         const data = getState().tasks.tasks;
         await Storage.save(STORAGE_KEY_TASKS, data);
@@ -26,10 +26,10 @@ export const saveTask = () => async (dispatch, getState) => {
     }
 };
 
-export const tasksAddTask = (task) => async dispatch => {
+export const addCustomTask = (task) => async dispatch => {
     dispatch(tasksLoading(true));
 
-    dispatch(({type: TASKS_ADD_TASK, task: task}));
-    await dispatch(saveTask());
+    dispatch(({type: TASKS_ADD_CUSTOM, task: task}));
+    await dispatch(saveCustomTasks());
     dispatch(tasksLoading(false));
 };

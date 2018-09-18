@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {connect} from 'react-redux';
 
 import styles from './styles';
-import {CHILD_PASSCODE_LENGTH} from '../../constants';
+import {KID_PASSCODE_LENGTH} from '../../constants';
 
 import {authCreateKid, appError} from '../../actions';
 
@@ -12,7 +12,7 @@ import StepModule from '../../components/step-module';
 import Dots from '../../components/dots';
 
 
-export class ChildSetLogin extends Component {
+export class KidSetLogin extends Component {
     state = {
         input: new Set(),
         confirmed: false,
@@ -79,7 +79,7 @@ export class ChildSetLogin extends Component {
                 pad
                 headerChildren={(
                     <View style={{marginTop: 30}}>
-                        <Dots length={CHILD_PASSCODE_LENGTH} progress={this.state.input.size}/>
+                        <Dots length={KID_PASSCODE_LENGTH} progress={this.state.input.size}/>
                     </View>
                 )}
             >
@@ -99,4 +99,4 @@ export default connect(
     (state, props) => ({
         kid: props.navigation.state.params.kid,
     })
-)(ChildSetLogin);
+)(KidSetLogin);

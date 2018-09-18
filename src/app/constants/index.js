@@ -18,17 +18,20 @@ export const SUPPORT_URL = 'https://pigzbe.com/support';
 
 export const NUM_VALIDATIONS = 7;
 
+export const KEYCHAIN_ID_MNEMONIC = 'com.pigzbe.PigzbeApp.mnemonic';
 export const KEYCHAIN_ID_PASSCODE = 'com.pigzbe.PigzbeApp.passcode';
 export const KEYCHAIN_ID_STELLAR_KEY = 'com.pigzbe.PigzbeApp.stellarKey';
 export const KEYCHAIN_ID_ETH_KEY = 'com.pigzbe.PigzbeApp.ethKey';
 
 export const STORAGE_KEY_SETTINGS = 'settings';
 export const STORAGE_KEY_BURNING = 'burning';
-export const STORAGE_KEY_FAMILY = 'family';
+export const STORAGE_KEY_KIDS = 'kids';
 export const STORAGE_KEY_TASKS = 'tasks';
 
 export const PASSCODE_LENGTH = 6;
-export const CHILD_PASSCODE_LENGTH = 3;
+export const KID_PASSCODE_LENGTH = 3;
+
+export const KID_SEND_MAX_AMOUNT = 100;
 
 export const CHILD_WALLET_BALANCE_XLM = '10';
 export const CHILD_TASKS_BALANCE_XLM = '5';
@@ -59,4 +62,4 @@ export const CURRENCIES = {
     BTC: {name: 'Bitcoin', symbol: '₿', dps: 5},
     ETH: {name: 'Etheruem', symbol: 'Ξ', dps: 5},
     WLO: {name: 'Wollo', symbol: 'W', dps: 5},
-}
+};

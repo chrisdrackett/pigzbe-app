@@ -17,8 +17,8 @@ import {loadWallet} from '../../actions/wollo';
 import {clearClaimData} from '../../actions/content';
 import {transfer, burn, initWeb3} from '../../actions/contract';
 import {isValidSeed} from '../../utils/web3';
-// import {SCREEN_BALANCE, SCREEN_CLAIM} from '../../constants';
-import {SCREEN_BALANCE, SCREEN_SETTINGS} from '../../constants';
+// import {SCREEN_DASHBOARD, SCREEN_CLAIM} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_SETTINGS} from '../../constants';
 
 export class ClaimICO extends Component {
   state = {
@@ -141,7 +141,7 @@ export class ClaimICO extends Component {
 
   onChangePk = pk => this.setState({pk})
 
-  onCloseClaim = () => this.props.navigation.navigate(SCREEN_BALANCE)
+  onCloseClaim = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
 
   // onBack = () => this.props.navigation.navigate(SCREEN_CLAIM)
   onBack = () => this.props.navigation.navigate(SCREEN_SETTINGS)
@@ -149,7 +149,7 @@ export class ClaimICO extends Component {
   onCompleteClaim = () => {
       this.props.clearClaimData();
       this.props.loadWallet();
-      this.props.navigation.navigate(SCREEN_BALANCE);
+      this.props.navigation.navigate(SCREEN_DASHBOARD);
   }
 
   onStep1 = () => this.onChangeStep(1)
