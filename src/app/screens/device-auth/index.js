@@ -14,24 +14,32 @@ import {
 } from '../../actions';
 import StepModule from '../../components/step-module';
 import countryCodes from './country-codes';
-import ModalSelector from 'react-native-modal-selector';
 import Modal from '../../components/modal';
 import Title from '../../components/title';
 import Paragraph from '../../components/paragraph';
+import ReactModal from 'react-native-modal';
+import SearchableList from 'app/components/searchable-list';
 
 const boxes = 7;
 const space = 8;
 const qrSize = 200;
-const countryData = countryCodes.map(({country, code}, i) => ({key: i, label: country, value: code}));
+
+const countryData = countryCodes.reduce((ob, {country}) => {
+    ob[country] = country;
+    return ob;
+}, {});
+
+const findCountryCode = country => countryCodes.find(item => item.country === country).code;
 
 export class DeviceAuth extends Component {
     state = {
         email: '',
         phone: '',
-        country: countryCodes[0].code,
+        countryCode: countryCodes[0].code,
         countryName: countryCodes[0].country,
         code: '',
-        showModal: false,
+        showQRCode: false,
+        showCountryModal: false,
     }
 
     componentDidMount() {
@@ -49,13 +57,17 @@ export class DeviceAuth extends Component {
 
     onChangePhone = phone => this.setState({phone})
 
-    onChangeCountry = option => this.setState({countryName: option.label, country: option.value})
+    // onChangeCountry = option => this.setState({countryName: option.label, country: option.value})
+    onChangeCountry = country => this.setState({
+        countryName: country,
+        countryCode: findCountryCode(country)
+    })
 
     onChangeCode = code => this.setState({code}, this.onVerify)
 
     onSend = () => {
         Keyboard.dismiss();
-        this.props.dispatch(deviceAuthRegister(this.state.email, this.state.phone, this.state.country));
+        this.props.dispatch(deviceAuthRegister(this.state.email, this.state.phone, this.state.countryCode));
     }
 
     onResend = () => this.props.dispatch(deviceAuthLogin())
@@ -71,9 +83,13 @@ export class DeviceAuth extends Component {
 
     onClear = () => this.props.dispatch(deviceAuthClear())
 
-    onOpenModal = () => this.setState({showModal: true})
+    onOpenCountryModal = () => this.setState({showCountryModal: true})
 
-    onCloseModal = () => this.setState({showModal: false})
+    onCloseCountryModal = () => this.setState({showCountryModal: false})
+
+    onOpenQRCode = () => this.setState({showQRCode: true})
+
+    onCloseQRCode = () => this.setState({showQRCode: false})
 
     render() {
         const {
@@ -92,7 +108,7 @@ export class DeviceAuth extends Component {
                     icon={!id ? 'tick' : 'code'}
                     content={!id
                         ? 'Before we begin, enter your mobile number to verify your mobile device.'
-                        : `Now enter the code we sent to +${this.state.country}${this.state.phone.replace(/^0+/, '')}`
+                        : `Now enter the code we sent to +${this.state.countryCode}${this.state.phone.replace(/^0+/, '')}`
                     }
                     onBack={!id ? this.onBack : this.onClear}
                     loading={loading}
@@ -121,7 +137,7 @@ export class DeviceAuth extends Component {
                                         <Button
                                             theme="plain"
                                             label={'Show QR Code'}
-                                            onPress={this.onOpenModal}
+                                            onPress={this.onOpenQRCode}
                                             style={{marginTop: -10}}
                                         />
                                     ) }
@@ -153,26 +169,35 @@ export class DeviceAuth extends Component {
                                     placeholder={'Your mobile number'}
                                     onChangeText={this.onChangePhone}
                                 />
-                                <ModalSelector
-                                    data={countryData}
-                                    initValue={this.state.countryName}
-                                    supportedOrientations={['portrait', 'landscape']}
-                                    accessible={true}
-                                    scrollViewAccessibilityLabel={'Scrollable options'}
-                                    cancelButtonAccessibilityLabel={'Cancel Button'}
-                                    onChange={this.onChangeCountry}>
-                                    <Button
-                                        theme="plain"
-                                        label={this.state.countryName}
-                                        onPress={this.onBack}
-                                    />
-                                </ModalSelector>
+                                <Button
+                                    theme="plain"
+                                    label={this.state.countryName}
+                                    onPress={this.onOpenCountryModal}
+                                />
+                                <ReactModal
+                                    isVisible={this.state.showCountryModal}
+                                    animationIn="slideInRight"
+                                    animationOut="slideOutRight"
+                                    style={{
+                                        margin: 0,
+                                    }}
+                                >
+                                    <StepModule
+                                        onBack={this.onCloseCountryModal}
+                                    >
+                                        <SearchableList
+                                            selectedKey={this.state.countryName}
+                                            onChangeSelection={this.onChangeCountry}
+                                            items={countryData}
+                                        />
+                                    </StepModule>
+                                </ReactModal>
                             </View>
                             <View>
                                 <Button
                                     label={'Send Code'}
                                     onPress={this.onSend}
-                                    disabled={!(this.state.email && this.state.phone && this.state.country)}
+                                    disabled={!(this.state.email && this.state.phone && this.state.countryCode)}
                                 />
                                 {__DEV__ && (
                                     <Button
@@ -188,7 +213,7 @@ export class DeviceAuth extends Component {
                         </Fragment>
                     )}
                 </StepModule>
-                {(id && qrCode && this.state.showModal) && (
+                {(id && qrCode && this.state.showQRCode) && (
                     <Modal>
                         <Title dark>QR Code</Title>
                         <Paragraph>Scan the QR Code below with a compatible app such as Authenticator or Authy.</Paragraph>
@@ -196,7 +221,7 @@ export class DeviceAuth extends Component {
                         <Button
                             theme="outline"
                             label={'Close'}
-                            onPress={this.onCloseModal}
+                            onPress={this.onCloseQRCode}
                         />
                     </Modal>
                 )}
