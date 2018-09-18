@@ -1,29 +1,21 @@
 import React, {Component, Fragment} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text} from 'react-native';
 import styles from './styles';
 import {strings} from '../../constants';
 import Button from '../../components/button';
 import TextInput from '../../components/text-input';
 import WolloInput from '../../components/wollo-input';
+import Wollo from '../../components/wollo';
+import ExchangedDisplay from '../../components/exchanged-display';
 import {isValidPublicKey} from '@pigzbe/stellar-utils';
 import moneyFormat from '../../utils/money-format';
-import {ASSET_CODE, COIN_SYMBOLS, COIN_DPS} from '../../constants';
+import {ASSET_CODE, COIN_DPS} from '../../constants';
 import BigNumber from 'bignumber.js';
 import {sendWollo} from '../../actions';
-
-const getExchange = (exchange, amount) => {
-    const coins = ['GBP', 'USD', 'EUR', 'JPY'];
-    return coins.map(coin => {
-        const val = amount ? exchange[coin] * Number(amount) : 0;
-        return `${COIN_SYMBOLS[coin]}${moneyFormat(val, COIN_DPS[coin])}`;
-    }).join(', ');
-};
 
 const remainingBalance = (balance, amount) => new BigNumber(balance).minus(amount);
 
 const getBalanceAfter = (balance, amount) => moneyFormat(remainingBalance(balance, amount), COIN_DPS[ASSET_CODE]);
-
-const WolloImage = () => <Image style={styles.wollo} source={require('./images/wollo.png')}/>;
 
 export default class Form extends Component {
     state ={
@@ -53,12 +45,12 @@ export default class Form extends Component {
         this.setState({accountKey, keyValid});
     }
 
+    // updateAmount = value => this.setState({
+    //     amount: value,
+    //     amountValid: true,
+    // })
     updateAmount = value => {
-        //const {balance, exchange} = this.props;
-
-        //const amount = value.replace(/[^0-9.]/g, '');
-        //const amountValid = amount && Number(amount) > 0 && remainingBalance(balance, amount).isGreaterThanOrEqualTo(0);
-
+        console.log('updateAmount', value);
         this.setState({
             amount: value,
             amountValid: true,
@@ -104,56 +96,44 @@ export default class Form extends Component {
             review
         } = this.state;
 
-        return (
-            <View style={styles.containerForm}>
-                <TextInput
-                    error={!!keyError}
-                    value={this.state.accountKey}
-                    label={strings.transferSendTo}
-                    placeholder={strings.transferSendKey}
-                    onChangeText={this.updateKey}
-                    editable={!review}
-                    style={review ? styles.inputConfirm : null}
-                    numberOfLines={3}
-                />
-                <View style={styles.amount}>
-                    <WolloInput
-                        error={!!amountError}
-                        label={strings.transferAmount}
-                        placeholder={strings.transferSendWollo}
-                        editable={!review}
-                        keyboardType="numeric"
-                        onChangeAmount={this.updateAmount}
+        if (review) {
+            return (
+                <View style={styles.containerForm}>
+                    <Text style={styles.label}>{strings.transferSendTo}</Text>
+                    <Text style={styles.value}>{this.state.accountKey}</Text>
+                    <Text style={styles.label}>{strings.transferAmount}</Text>
+                    <View style={styles.amount}>
+                        <Wollo
+                            dark
+                            small
+                            balance={this.state.amount}
+                            style={styles.wollo}
+                        />
+                        <Text style={styles.wolloLabel}>Wollo</Text>
+                    </View>
+                    <ExchangedDisplay
+                        amount={this.state.amount}
+                        currency={ASSET_CODE}
+                        style={styles.exchange}
                     />
-                </View>
-                {!review || this.state.memo ? (
-                    <TextInput
-                        error={!!memoError}
-                        value={this.state.memo}
-                        label={strings.transferMessage}
-                        placeholder={review ? '' : strings.transferMessagePlaceholder}
-                        onChangeText={this.updateMemo}
-                        maxLength={28}
-                        editable={!review}
-                        style={review ? styles.inputConfirm : null}
-                        numberOfLines={2}
-                    />
-                ) : null}
-                {review ? (
+                    {this.state.memo ? (
+                        <Fragment>
+                            <Text style={styles.label}>{strings.transferMessage}</Text>
+                            <Text style={styles.value}>{this.state.memo}</Text>
+                        </Fragment>
+                    ) : null}
                     <Fragment>
+                        <Text style={styles.label}>{strings.transferBalanceAfter}</Text>
                         <View style={styles.amount}>
-                            <WolloInput
-                                value={getBalanceAfter(this.props.balance, this.state.amount)}
-                                label={strings.transferBalanceAfter}
-                                editable={false}
+                            <Wollo
+                                dark
+                                small
+                                balance={getBalanceAfter(this.props.balance, this.state.amount)}
+                                style={styles.wollo}
                             />
+                            <Text style={styles.wolloLabel}>Wollo</Text>
                         </View>
-                        <Text style={styles.amountMinus}>
-                            -{moneyFormat(this.state.amount, COIN_DPS[ASSET_CODE])}
-                        </Text>
                     </Fragment>
-                ) : null}
-                {review && (
                     <View style={styles.edit}>
                         <Button
                             theme="plain"
@@ -163,20 +143,58 @@ export default class Form extends Component {
                             onPress={this.edit}
                         />
                     </View>
-                )}
+                    <View style={styles.buttonWrapper}>
+                        {review ? (
+                            <Button
+                                label={'Transfer'}
+                                onPress={this.send}
+                            />
+                        ) : (
+                            <Button
+                                label={strings.transferConfirmButtonLabel}
+                                disabled={!(this.state.accountKey && this.state.amount)}
+                                onPress={this.submit}
+                            />
+                        )}
+                    </View>
+                </View>
+            );
+        }
+
+        return (
+            <View style={styles.containerForm}>
+                <TextInput
+                    error={!!keyError}
+                    value={this.state.accountKey}
+                    label={strings.transferSendTo}
+                    placeholder={strings.transferSendKey}
+                    onChangeText={this.updateKey}
+                    editable={!review}
+                    baseStyle={review ? styles.inputConfirm : null}
+                    numberOfLines={3}
+                />
+                <WolloInput
+                    error={!!amountError}
+                    label={strings.transferAmount}
+                    onChangeAmount={this.updateAmount}
+                />
+                <TextInput
+                    error={!!memoError}
+                    value={this.state.memo}
+                    label={strings.transferMessage}
+                    placeholder={review ? '' : strings.transferMessagePlaceholder}
+                    onChangeText={this.updateMemo}
+                    maxLength={28}
+                    editable={!review}
+                    baseStyle={review ? styles.inputConfirm : null}
+                    numberOfLines={2}
+                />
                 <View style={styles.buttonWrapper}>
-                    {review ? (
-                        <Button
-                            label={'Transfer'}
-                            onPress={this.send}
-                        />
-                    ) : (
-                        <Button
-                            label={strings.transferConfirmButtonLabel}
-                            disabled={!(this.state.accountKey && this.state.amount)}
-                            onPress={this.submit}
-                        />
-                    )}
+                    <Button
+                        label={strings.transferConfirmButtonLabel}
+                        disabled={!(this.state.accountKey && this.state.amount)}
+                        onPress={this.submit}
+                    />
                 </View>
             </View>
         );

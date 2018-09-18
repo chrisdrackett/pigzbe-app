@@ -65,6 +65,7 @@ export default class TextInputComponent extends Component {
             autoCapitalize = 'sentences',
             autoCorrect = true,
             returnKeyType = 'done',
+            baseStyle = null
         } = this.props;
 
         let showTopPlaceholder = this.props.showTopPlaceholder;
@@ -82,6 +83,7 @@ export default class TextInputComponent extends Component {
                 placeholderTop={this.state.focused || !!value}
                 height={numberOfLines > 1 ? getHeight(numberOfLines, 10) : undefined}
                 showTopPlaceholder={showTopPlaceholder}
+                style={baseStyle}
             >
                 <TextInput
                     ref={el => (this.inputBox = el)}
