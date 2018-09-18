@@ -8,9 +8,6 @@ export default StyleSheet.create({
     containerForm: {
         width: '100%',
     },
-    amount: {
-        position: 'relative',
-    },
     wollo: {
         position: 'absolute',
         bottom: 21,
@@ -21,23 +18,8 @@ export default StyleSheet.create({
     amountInput: {
         paddingLeft: 42,
     },
-    estimate: {
-        fontFamily,
-        color: color.lighterBlue,
-        fontSize: 14,
-        // fontStyle: 'italic',
-        marginBottom: 5,
-    },
     buttonWrapper: {
         marginTop: 20,
-    },
-    amountMinus: {
-        fontFamily,
-        color: color.red,
-        fontSize: 14,
-        fontStyle: 'italic',
-        marginLeft: 42,
-        marginTop: -20,
     },
     sending: {
         backgroundColor: color.blueOpacity80,
@@ -68,5 +50,49 @@ export default StyleSheet.create({
         paddingRight: 5,
         paddingTop: 8,
         paddingBottom: 8,
-    }
+    },
+    inputConfirm: {
+        borderColor: color.transparent,
+        paddingLeft: 0,
+    },
+    label: {
+        fontFamily,
+        color: color.blue,
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft: 2,
+    },
+    value: {
+        fontFamily,
+        color: color.lighterBlue,
+        fontSize: 12,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft: 2,
+    },
+    amount: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft: 5,
+    },
+    wollo: {
+        alignItems: 'flex-start',
+    },
+    wolloLabel: {
+        fontFamily,
+        color: color.lighterBlue,
+        fontSize: 14,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        marginTop: 2,
+    },
+    exchange: {
+        fontSize: 14,
+        marginBottom: 10,
+    },
 });

@@ -541,6 +541,32 @@ storiesOf('Transfer')
                     ...props,
                     review: true,
                     amount: '1',
+                    memo: 'Happy Birthday',
+                    accountKey: 'GDPCWCCJDXJHSA3GA62PFMZNP6A7NZSEGNEH3F3LSSUQZZ3NDCFVB6GB',
+                    onReview: () => {}
+                }} />
+                <Button
+                    theme="outline"
+                    label={'Cancel'}
+                    onPress={() => {}}
+                />
+            </Fragment>
+        </StepModule>
+    ))
+    .add('review transfer no memo', () => (
+        <StepModule
+            title={'Review Transfer'}
+            icon="transfer"
+            error={null}
+            pad
+            paddingTop={10}
+            keyboardOffset={-50}
+        >
+            <Fragment>
+                <Form {...{
+                    ...props,
+                    review: true,
+                    amount: '1',
                     accountKey: 'GDPCWCCJDXJHSA3GA62PFMZNP6A7NZSEGNEH3F3LSSUQZZ3NDCFVB6GB',
                     onReview: () => {}
                 }} />

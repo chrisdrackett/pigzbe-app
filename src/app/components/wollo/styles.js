@@ -41,4 +41,7 @@ export default StyleSheet.create({
         color: color.lighterBlue,
         alignSelf: 'flex-end',
     },
+    balance__small: {
+        fontSize: 14,
+    },
 });

@@ -20,9 +20,9 @@ export default class CurrencyToggle extends Component {
 
         this.setState({
             currentCurrency: currentCurrency === ASSET_CODE ? currency : ASSET_CODE,
+        }, () => {
+            this.props.onCurrencyChange(this.state.currentCurrency);
         });
-
-        this.props.onCurrencyChange(this.state.currentCurrency);
 
         Animated.timing(left, {
             toValue: newLeftPosition,
@@ -37,10 +37,9 @@ export default class CurrencyToggle extends Component {
             <TouchableOpacity style={styles.container} onPress={this.onClicked}>
                 <Animated.View style={[styles.handle, {left: this.state.left}]} />
                 <View style={styles.iconContainer}>
-                    <Icon style={styles.icon} name="wollo" /> 
+                    <Icon style={styles.icon} name="wollo" />
                 </View>
                 <View style={styles.iconContainer}>
-               
                     {!CURRENCIES[currency].icon &&
                         <Text style={styles.text}>{CURRENCIES[currency].symbol}</Text>
                     }

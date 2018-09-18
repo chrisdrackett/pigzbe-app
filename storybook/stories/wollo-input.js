@@ -41,8 +41,6 @@ class WolloInputComponent extends Component {
         return (
             <View style={style}>
                 <WolloInput
-                    currency="GBP"
-                    exchange={0.091956}
                     onChangeAmount={this.onChangeAmount}
                 />
             </View>

@@ -84,8 +84,8 @@ export class TasksAssign extends Component {
                             Set the reward that <Text style={{fontWeight: 'bold'}}>{kid.name}</Text> will get when completed
                         </Paragraph>
                         <WolloInput
+                            initialAmount={wollos}
                             onChangeAmount={this.onChangeAmount}
-                            initial={wollos}
                         />
                     </View>
                     <Button
