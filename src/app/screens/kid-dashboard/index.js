@@ -10,7 +10,7 @@ import KidAvatar from '../../components/kid-avatar';
 import ActionPanel from '../../components/action-panel';
 import ActionSheet from '../../components/action-sheet';
 import styles from './styles';
-import {familyDeleteAllowance, familyDeleteTask} from '../../actions';
+import {deleteAllowance, deleteTask} from '../../actions';
 
 const Item = ({first, title, subtitle, amount, onPress}) => (
     <TouchableOpacity onPress={onPress}>
@@ -28,7 +28,7 @@ const Item = ({first, title, subtitle, amount, onPress}) => (
     </TouchableOpacity>
 );
 
-export class ChildDash extends Component {
+export class KidDashboard extends Component {
     state = {
         tasksPanelOpen: false,
         allowancePanelOpen: false,
@@ -50,7 +50,7 @@ export class ChildDash extends Component {
                 this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid, taskToEdit: this.state.taskToEdit});
                 break;
             case 1:
-                await this.props.dispatch(familyDeleteTask(this.props.kid, this.state.taskToEdit));
+                await this.props.dispatch(deleteTask(this.props.kid, this.state.taskToEdit));
                 break;
             default:
                 // do nothing
@@ -69,7 +69,7 @@ export class ChildDash extends Component {
                 this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid, allowanceToEdit: this.state.allowanceToEdit});
                 break;
             case 1:
-                await this.props.dispatch(familyDeleteAllowance(this.props.kid, this.state.allowanceToEdit));
+                await this.props.dispatch(deleteAllowance(this.props.kid, this.state.allowanceToEdit));
                 break;
             default:
                 // do nothing
@@ -204,16 +204,16 @@ export class ChildDash extends Component {
 
 export default connect(
     (state, props) => ({
-        kid: state.family.kids.find(k => k.address === props.navigation.state.params.kid.address),
+        kid: state.kids.kids.find(k => k.address === props.navigation.state.params.kid.address),
         error: state.coins.error,
         exchange: state.coins.exchange,
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.settings.baseCurrency,
-        kids: state.family.kids,
+        kids: state.kids.kids,
         sendError: state.wollo.error,
         sending: state.wollo.sending,
         sendStatus: state.wollo.sendStatus,
         sendComplete: state.wollo.sendComplete,
     })
-)(ChildDash);
+)(KidDashboard);

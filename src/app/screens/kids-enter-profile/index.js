@@ -8,11 +8,10 @@ import DateInput from '../../components/date-input';
 import StepModule from '../../components/step-module';
 import Button from '../../components/button';
 import styles from './styles';
-import {familyAddKid} from '../../actions';
+import {addKid} from '../../actions';
 import images from './images';
 
-
-export class FamilyEnterChild extends Component {
+export class KidsEnterProfile extends Component {
     state = {
         loading: false,
         name: '',
@@ -25,7 +24,7 @@ export class FamilyEnterChild extends Component {
 
     onNext = async () => {
         this.setState({loading: true});
-        await this.props.dispatch(familyAddKid(this.state.name, this.state.chosenDate, this.state.image));
+        await this.props.dispatch(addKid(this.state.name, this.state.chosenDate, this.state.image));
 
         if (this.props.numKidsToAdd > 0) {
             this.setState({
@@ -127,6 +126,6 @@ export class FamilyEnterChild extends Component {
 }
 
 export default connect(state => ({
-    numKidsToAdd: state.family.numKidsToAdd,
-    numKidsAdded: state.family.numKidsAdded,
-}))(FamilyEnterChild);
+    numKidsToAdd: state.kids.numKidsToAdd,
+    numKidsAdded: state.kids.numKidsAdded,
+}))(KidsEnterProfile);

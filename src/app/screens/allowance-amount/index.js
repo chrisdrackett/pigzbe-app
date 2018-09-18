@@ -178,7 +178,7 @@ export class AllowanceAmount extends Component {
 
 export default connect(
     (state, props) => ({
-        loading: false, /*state.family.loading,*/
+        loading: false, /*state.kids.loading,*/
         kid: props.navigation.state.params.kid,
         baseCurrency: state.wollo.baseCurrency,
         allowanceToEdit: props.navigation.state.params.allowanceToEdit,

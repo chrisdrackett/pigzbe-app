@@ -4,8 +4,8 @@ import PasscodeLogin from '../../screens/passcode-login';
 import DeviceAuth from '../../screens/device-auth';
 import TouchId from '../../screens/touch-id';
 import PasscodeSet from '../../screens/passcode-set';
-import ChildSetLogin from '../../screens/child-set-login';
-import ChildLogin from '../../screens/child-login';
+import KidSetLogin from '../../screens/kid-set-login';
+import KidLogin from '../../screens/kid-login';
 import {
     SCREEN_HOME,
     SCREEN_LOGIN,
@@ -33,10 +33,10 @@ const nav = {
         screen: PasscodeSet
     },
     [SCREEN_KID_SET_LOGIN]: {
-        screen: ChildSetLogin
+        screen: KidSetLogin
     },
     [SCREEN_KID_LOGIN]: {
-        screen: ChildLogin
+        screen: KidLogin
     },
 };
 

@@ -1,16 +1,19 @@
 import valueOrDefault from '../utils/value-or-default';
 import {
-    FAMILY_LOADING,
-    FAMILY_LOAD,
-    FAMILY_PARENT_NICKNAME,
-    FAMILY_NUM_KIDS_TO_ADD,
-    FAMILY_ADD_KID,
-    FAMILY_BALANCE_UPDATE,
-    FAMILY_ASSIGN_TASK,
-    FAMILY_COMPLETE_TASK,
-    FAMILY_ADD_ALLOWANCE,
-    FAMILY_DELETE_ALLOWANCE,
-    FAMILY_DELETE_TASK
+    KIDS_LOADING,
+    KIDS_LOAD,
+    KIDS_PARENT_NICKNAME,
+    KIDS_NUM_TO_ADD,
+    KIDS_ADD_KID,
+    KIDS_BALANCE_UPDATE,
+    KIDS_LOADING_TASK,
+    KIDS_ASSIGN_TASK,
+    KIDS_COMPLETE_TASK,
+    KIDS_DELETE_TASK,
+    KIDS_LOADING_ALLOWANCE,
+    KIDS_ADD_ALLOWANCE,
+    KIDS_DELETE_ALLOWANCE,
+    KIDS_SENDING_WOLLO,
 } from '../actions';
 
 const kidDefaults = {
@@ -23,8 +26,18 @@ const kidDefaults = {
     allowances: [],
 };
 
+const saveExclude = [
+    'loading',
+    'tasksLoading',
+    'allowanceLoading',
+    'sendingWollo'
+];
+
 export const initialState = {
     loading: false,
+    taskLoading: false,
+    allowanceLoading: false,
+    sendingWollo: false,
     parentNickname: '',
     numKidsToAdd: 0,
     numKidsAdded: 0,
@@ -33,30 +46,30 @@ export const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FAMILY_LOADING:
+        case KIDS_LOADING:
             return {
                 ...state,
                 loading: action.value
             };
-        case FAMILY_LOAD:
+        case KIDS_LOAD:
             return Object.keys(initialState)
-                .filter(key => key !== 'loading')
+                .filter(key => !saveExclude.includes(key))
                 .reduce((ob, key) => {
                     ob[key] = valueOrDefault(action[key], state[key]);
                     return ob;
                 }, {});
-        case FAMILY_PARENT_NICKNAME:
+        case KIDS_PARENT_NICKNAME:
             return {
                 ...state,
                 parentNickname: action.parentNickname,
             };
-        case FAMILY_NUM_KIDS_TO_ADD:
+        case KIDS_NUM_TO_ADD:
             return {
                 ...state,
                 numKidsToAdd: action.numKidsToAdd,
                 numKidsAdded: 0,
             };
-        case FAMILY_ADD_KID:
+        case KIDS_ADD_KID:
             return {
                 ...state,
                 kids: state.kids.concat({
@@ -66,7 +79,12 @@ export default (state = initialState, action) => {
                 numKidsToAdd: state.numKidsToAdd - 1,
                 numKidsAdded: state.numKidsAdded + 1,
             };
-        case FAMILY_BALANCE_UPDATE:
+        case KIDS_SENDING_WOLLO:
+            return {
+                ...state,
+                sendingWollo: action.value
+            };
+        case KIDS_BALANCE_UPDATE:
             return {
                 ...state,
                 kids: state.kids.map(k => {
@@ -79,8 +97,13 @@ export default (state = initialState, action) => {
                     return k;
                 }),
             };
-        case FAMILY_ASSIGN_TASK:
-            console.log('REDUCER FAMILY_ASSIGN_TASK', action.data);
+        case KIDS_LOADING_TASK:
+            return {
+                ...state,
+                taskLoading: action.value
+            };
+        case KIDS_ASSIGN_TASK:
+            console.log('REDUCER KIDS_ASSIGN_TASK', action.data);
             return {
                 ...state,
                 kids: state.kids.map(k => {
@@ -93,7 +116,7 @@ export default (state = initialState, action) => {
                     return k;
                 }),
             };
-        case FAMILY_COMPLETE_TASK:
+        case KIDS_COMPLETE_TASK:
             return {
                 ...state,
                 kids: state.kids.map(k => {
@@ -106,8 +129,8 @@ export default (state = initialState, action) => {
                     return k;
                 }),
             };
-        case FAMILY_DELETE_TASK:
-            console.log('REDUCER FAMILY_DELETE_TASK', action.data);
+        case KIDS_DELETE_TASK:
+            console.log('REDUCER KIDS_DELETE_TASK', action.data);
             return {
                 ...state,
                 kids: state.kids.map(k => {
@@ -126,8 +149,13 @@ export default (state = initialState, action) => {
                     return k;
                 }),
             };
-        case FAMILY_ADD_ALLOWANCE:
-            console.log('REDUCER FAMILY_ADD_ALLOWANCE', action.data);
+        case KIDS_LOADING_ALLOWANCE:
+            return {
+                ...state,
+                allowanceLoading: action.value
+            };
+        case KIDS_ADD_ALLOWANCE:
+            console.log('REDUCER KIDS_ADD_ALLOWANCE', action.data);
             return {
                 ...state,
                 kids: state.kids.map(k => {
@@ -142,7 +170,7 @@ export default (state = initialState, action) => {
                     return k;
                 }),
             };
-        case FAMILY_DELETE_ALLOWANCE:
+        case KIDS_DELETE_ALLOWANCE:
             return {
                 ...state,
                 kids: state.kids.map(k => {

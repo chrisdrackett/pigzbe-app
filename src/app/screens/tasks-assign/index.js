@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Text, View} from 'react-native';
 import Button from '../../components/button';
-import {SCREEN_CHILD_DASH, SCREEN_TASKS_LIST} from '../../constants';
+import {SCREEN_KID_DASHBOARD, SCREEN_TASKS_LIST} from '../../constants';
 import StepModule from '../../components/step-module';
 import WolloInput from '../../components/wollo-input';
 import Paragraph from '../../components/paragraph';
 import {color} from '../../styles';
-import {familyDeleteTask, familyAssignTask} from '../../actions';
+import {deleteTask, assignTask} from '../../actions';
 
 
 const textStyle = {
@@ -55,11 +55,11 @@ export class TasksAssign extends Component {
 
     next = async () => {
         if (this.props.taskToEdit) {
-            await this.props.dispatch(familyDeleteTask(this.props.kid.name, this.props.taskToEdit.task));
+            await this.props.dispatch(deleteTask(this.props.kid.name, this.props.taskToEdit.task));
         }
 
-        await this.props.dispatch(familyAssignTask(this.props.kid, this.props.task, this.state.wollos));
-        this.props.navigation.navigate(SCREEN_CHILD_DASH, {kid: this.props.kid});
+        await this.props.dispatch(assignTask(this.props.kid, this.props.task, this.state.wollos));
+        this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid: this.props.kid});
     }
 
     render() {
@@ -102,7 +102,7 @@ export class TasksAssign extends Component {
 
 export default connect(
     (state, props) => ({
-        loading: state.family.loading,
+        loading: state.kids.loading,
         kid: props.navigation.state.params.kid,
         task: props.navigation.state.params.task,
         taskToEdit: props.navigation.state.params.taskToEdit,

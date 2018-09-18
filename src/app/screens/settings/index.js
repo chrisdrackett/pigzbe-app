@@ -244,6 +244,6 @@ export default connect(
         country: state.settings.country,
         escrow: state.escrow.escrowPublicKey,
         baseCurrency: state.settings.baseCurrency,
-        kids: state.family.kids,
+        kids: state.kids.kids,
     })
 )(Settings);

@@ -4,8 +4,8 @@ import {View} from 'react-native';
 import {color} from '../../styles';
 import {
     SCREEN_SETTINGS,
-    SCREEN_FAMILY_INTRO,
-    SCREEN_CHILD_DASH,
+    SCREEN_KIDS_INTRO,
+    SCREEN_KID_DASHBOARD,
     COINS,
     COIN_DPS
 } from '../../constants';
@@ -23,8 +23,8 @@ import Progress from '../../components/progress';
 import {
     loadExchange,
     settingsFirstTime,
-    familyTransfer,
-    loadFamilyBalances,
+    sendWolloToKid,
+    loadKidsBalances,
     fundAccount,
     loadWallet
 } from '../../actions';
@@ -65,7 +65,7 @@ export class Balance extends Component {
 
     onConfirmSend = () => {
         this.setState({confirmSend: false, sendModalClosed: false});
-        this.props.dispatch(familyTransfer(this.state.address, this.state.amount));
+        this.props.dispatch(sendWolloToKid(this.state.address, this.state.amount));
     }
 
     onCancelSend = () => this.setState({
@@ -76,7 +76,7 @@ export class Balance extends Component {
     })
 
     onCloseSendModal = () => {
-        this.props.dispatch(loadFamilyBalances(this.state.address));
+        this.props.dispatch(loadKidsBalances(this.state.address));
         this.setState({sendModalClosed: true});
     }
 
@@ -86,12 +86,12 @@ export class Balance extends Component {
             // this.props.navigation.navigate(SCREEN_FAMILY_PROFILE);
             // return;
         }
-        this.props.navigation.navigate(SCREEN_FAMILY_INTRO);
+        this.props.navigation.navigate(SCREEN_KIDS_INTRO);
     }
 
     onDashboard = address => {
         const kid = this.props.kids.find(k => k.address === address);
-        this.props.navigation.navigate(SCREEN_CHILD_DASH, {kid});
+        this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid});
     }
 
     onFund = async () => {
@@ -213,7 +213,7 @@ export default connect(
         balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.settings.baseCurrency,
         firstTime: state.settings.firstTime,
-        kids: state.family.kids,
+        kids: state.kids.kids,
         sendError: state.wollo.error,
         sending: state.wollo.sending,
         sendStatus: state.wollo.sendStatus,

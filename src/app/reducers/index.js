@@ -11,7 +11,7 @@ import coins from './coins';
 import game from './game';
 import deviceAuth from './device-auth';
 import settings from './settings';
-import family from './family';
+import kids from './kids';
 import tasks from './tasks';
 import vip from './vip';
 
@@ -34,7 +34,7 @@ export default combineReducers({
     game,
     deviceAuth,
     settings,
-    family,
+    kids,
     tasks,
     vip,
     // claim reducers

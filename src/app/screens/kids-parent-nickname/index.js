@@ -1,45 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Dimensions} from 'react-native';
+import {View} from 'react-native';
 import Toggle from '../../components/toggle';
-import {SCREEN_BALANCE, SCREEN_FAMILY_NUMBER_KIDS} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_KIDS_NUMBER_TO_ADD} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Button from '../../components/button';
-import {familyParentNickname} from '../../actions';
-import {
-    color
-} from '../../styles';
+import {setParentNickname} from '../../actions';
+import styles from './styles';
 
-const buttonStyle = {
-    background: 'transparent',
-    border: color.blue,
-    fontSize: 14,
-    paddingTop: 10,
-    height: 45,
-    lineHeight: 40,
-    marginBottom: 20,
-    width: Dimensions.get('window').width * 0.35,
-    textAlign: 'center',
-};
-
-const innerStyle = {
-    borderRadius: 22.5,
-    display: 'flex',
-    alignContent: 'center',
-    justifyContent: 'center',
-    height: 45,
-};
-
-const flexStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-};
-
-export class FamilyMemberType extends Component {
+export class KidsParentNickname extends Component {
     state = {
         loading: false,
         type: null,
@@ -49,8 +19,8 @@ export class FamilyMemberType extends Component {
 
     onNext = async () => {
         this.setState({loading: true});
-        await this.props.dispatch(familyParentNickname(this.state.type === 'custom' ? this.state.custom : this.state.type));
-        this.props.navigation.navigate(SCREEN_FAMILY_NUMBER_KIDS);
+        await this.props.dispatch(setParentNickname(this.state.type === 'custom' ? this.state.custom : this.state.type));
+        this.props.navigation.navigate(SCREEN_KIDS_NUMBER_TO_ADD);
     }
 
     onChangeText = (text) => {
@@ -69,11 +39,11 @@ export class FamilyMemberType extends Component {
                 onBack={this.onBack}
             >
                 <View
-                    style={flexStyle}
+                    style={styles.flexStyle}
                 >
                     <Toggle
-                        style={buttonStyle}
-                        innerStyle={innerStyle}
+                        style={styles.buttonStyle}
+                        innerStyle={styles.innerStyle}
                         label={'Dad'}
                         onPress={() => {
                             this.setState({type: 'dad', custom: null});
@@ -81,8 +51,8 @@ export class FamilyMemberType extends Component {
                         active={this.state.type === 'dad'}
                     />
                     <Toggle
-                        style={buttonStyle}
-                        innerStyle={innerStyle}
+                        style={styles.buttonStyle}
+                        innerStyle={styles.innerStyle}
                         label={'Mum'}
                         onPress={() => {
                             this.setState({type: 'mum', custom: null});
@@ -108,4 +78,4 @@ export class FamilyMemberType extends Component {
     }
 }
 
-export default connect()(FamilyMemberType);
+export default connect()(KidsParentNickname);

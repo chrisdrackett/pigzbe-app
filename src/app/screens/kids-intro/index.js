@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Button from '../../components/button';
-import {SCREEN_BALANCE, SCREEN_FAMILY_MEMBER_TYPE, SCREEN_FAMILY_ENTER_CHILD, SCREEN_FAMILY_NUMBER_KIDS} from '../../constants';
+import {SCREEN_BALANCE, SCREEN_KIDS_PARENT_NICKNAME, SCREEN_KIDS_ENTER_PROFILE, SCREEN_KIDS_NUMBER_TO_ADD} from '../../constants';
 import StepModule from '../../components/step-module';
-import {familyNumKidsToAdd} from '../../actions';
+import {setNumKidsToAdd} from '../../actions';
 
-export class FamilyIntro extends Component {
+export class KidsIntro extends Component {
     state = {loading: false}
 
     onBack = () => this.props.navigation.navigate(SCREEN_BALANCE)
@@ -14,12 +14,12 @@ export class FamilyIntro extends Component {
         this.setState({loading: true});
 
         if ((!this.props.nickname || this.props.nickname.length === 0)) {
-            this.props.navigation.navigate(SCREEN_FAMILY_MEMBER_TYPE);
+            this.props.navigation.navigate(SCREEN_KIDS_PARENT_NICKNAME);
         } else if (this.props.kids.length === 0) {
-            this.props.navigation.navigate(SCREEN_FAMILY_NUMBER_KIDS);
+            this.props.navigation.navigate(SCREEN_KIDS_NUMBER_TO_ADD);
         } else {
-            await this.props.dispatch(familyNumKidsToAdd(1));
-            this.props.navigation.navigate(SCREEN_FAMILY_ENTER_CHILD);
+            await this.props.dispatch(setNumKidsToAdd(1));
+            this.props.navigation.navigate(SCREEN_KIDS_ENTER_PROFILE);
         }
     }
 
@@ -44,6 +44,6 @@ export class FamilyIntro extends Component {
 }
 
 export default connect(state => ({
-    nickname: state.family.parentNickname,
-    kids: state.family.kids,
-}))(FamilyIntro);
+    nickname: state.kids.parentNickname,
+    kids: state.kids.kids,
+}))(KidsIntro);

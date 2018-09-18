@@ -7,7 +7,7 @@ import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Toggle from '../../components/toggle';
 import {color} from '../../styles';
-import {tasksAddTask, loadTasks} from '../../actions';
+import {addCustomTask, loadCustomTasks} from '../../actions';
 
 const buttonStyle = {
     background: 'transparent',
@@ -63,7 +63,7 @@ export class TasksList extends Component {
     }
 
     componentWillMount() {
-        this.props.dispatch(loadTasks());
+        this.props.dispatch(loadCustomTasks());
     }
 
     getTasksList = () => this.props.tasks.map(task => ({
@@ -84,7 +84,7 @@ export class TasksList extends Component {
         const {showingInput, newTask, active} = this.state;
 
         if (showingInput) {
-            await this.props.dispatch(tasksAddTask(this.state.newTask));
+            await this.props.dispatch(addCustomTask(this.state.newTask));
         }
 
         this.props.navigation.navigate(SCREEN_TASKS_ASSIGN, {kid: this.props.kid, task: newTask ? newTask : active, taskToEdit: this.props.taskToEdit});

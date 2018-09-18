@@ -7,11 +7,11 @@ import ClaimICO from '../../screens/claim-ico';
 import ClaimVIP from '../../screens/claim-vip';
 import ClaimAirdrop from '../../screens/claim-airdrop';
 import PasscodeSet from '../../screens/passcode-set';
-import FamilyIntro from '../../screens/family-intro';
-import ChildDash from '../../screens/child-dash';
-import FamilyMemberType from '../../screens/family-member-type';
-import FamilyNumberKids from '../../screens/family-number-kids';
-import FamilyEnterChild from '../../screens/family-enter-child';
+import KidsIntro from '../../screens/kids-intro';
+import KidDashboard from '../../screens/kid-dashboard';
+import KidsParentNickname from '../../screens/kids-parent-nickname';
+import KidsNumberToAdd from '../../screens/kids-number-to-add';
+import KidsEnterProfile from '../../screens/kids-enter-profile';
 import TasksList from '../../screens/tasks-list';
 import TasksAssign from '../../screens/tasks-assign';
 import AllowanceAmount from '../../screens/allowance-amount';
@@ -29,11 +29,11 @@ import {
     SCREEN_SET_EMAIL,
     SCREEN_SET_CURRENCY,
     SCREEN_CHANGE_PASSCODE,
-    SCREEN_FAMILY_INTRO,
-    SCREEN_CHILD_DASH,
-    SCREEN_FAMILY_MEMBER_TYPE,
-    SCREEN_FAMILY_NUMBER_KIDS,
-    SCREEN_FAMILY_ENTER_CHILD,
+    SCREEN_KIDS_INTRO,
+    SCREEN_KID_DASHBOARD,
+    SCREEN_KIDS_PARENT_NICKNAME,
+    SCREEN_KIDS_NUMBER_TO_ADD,
+    SCREEN_KIDS_ENTER_PROFILE,
     SCREEN_TASKS_LIST,
     SCREEN_TASKS_ASSIGN,
     SCREEN_ALLOWANCE_AMOUNT,
@@ -71,20 +71,20 @@ const nav = {
     [SCREEN_CHANGE_PASSCODE]: {
         screen: PasscodeSet
     },
-    [SCREEN_FAMILY_INTRO]: {
-        screen: FamilyIntro
+    [SCREEN_KIDS_INTRO]: {
+        screen: KidsIntro
     },
-    [SCREEN_CHILD_DASH]: {
-        screen: ChildDash
+    [SCREEN_KID_DASHBOARD]: {
+        screen: KidDashboard
     },
-    [SCREEN_FAMILY_MEMBER_TYPE]: {
-        screen: FamilyMemberType
+    [SCREEN_KIDS_PARENT_NICKNAME]: {
+        screen: KidsParentNickname
     },
-    [SCREEN_FAMILY_NUMBER_KIDS]: {
-        screen: FamilyNumberKids
+    [SCREEN_KIDS_NUMBER_TO_ADD]: {
+        screen: KidsNumberToAdd
     },
-    [SCREEN_FAMILY_ENTER_CHILD]: {
-        screen: FamilyEnterChild
+    [SCREEN_KIDS_ENTER_PROFILE]: {
+        screen: KidsEnterProfile
     },
     [SCREEN_TASKS_LIST]: {
         screen: TasksList

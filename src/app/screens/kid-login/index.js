@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 
 import styles from './styles';
-import {CHILD_PASSCODE_LENGTH} from '../../constants';
+import {KID_PASSCODE_LENGTH} from '../../constants';
 
 import IconPad from '../../components/icon-pad';
 import StepModule from '../../components/step-module';
@@ -12,7 +12,7 @@ import Dots from '../../components/dots';
 import {loginAndLoadKid} from '../../actions';
 
 
-export class ChildLogin extends Component {
+export class KidLogin extends Component {
     state = {
         input: new Set(),
     }
@@ -31,7 +31,7 @@ export class ChildLogin extends Component {
                 content={'Please enter your *Secret Code* by selecting your 3 images'}
                 pad
                 headerChildren={(
-                    <Dots length={CHILD_PASSCODE_LENGTH} progress={this.state.input.size}/>
+                    <Dots length={KID_PASSCODE_LENGTH} progress={this.state.input.size}/>
                 )}
                 loading={loading}
                 loaderMessage={message}
@@ -61,4 +61,4 @@ export default connect(
         message: state.loader.message,
         error: state.auth.error
     })
-)(ChildLogin);
+)(KidLogin);

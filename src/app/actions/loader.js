@@ -12,9 +12,9 @@ import {
     loadWallet,
     loadMessages,
     loadExchange,
-    loadFamily,
-    loadTasks,
-    loadFamilyBalances
+    loadKids,
+    loadCustomTasks,
+    loadKidsBalances
 } from './';
 
 export const LOADER_INITIALIZING = 'LOADER_INITIALIZING';
@@ -58,8 +58,8 @@ export const loginAndLoad = passcode => async dispatch => {
             await dispatch(loadWallet());
             await dispatch(loadMessages());
             await dispatch(loadExchange());
-            // await dispatch(loadFamily());
-            await dispatch(loadFamilyBalances());
+            // await dispatch(loadKids());
+            await dispatch(loadKidsBalances());
         }
     } catch (error) {
         console.log(error);
@@ -80,7 +80,7 @@ export const loginAndLoadKid = (kid, passcode) => async dispatch => {
             await dispatch(loaderMessage('Loading'));
             await dispatch(loadConfig());
             await dispatch(loadExchange());
-            await dispatch(loadFamilyBalances(kid.address));
+            await dispatch(loadKidsBalances(kid.address));
         }
     } catch (error) {
         console.log(error);
@@ -113,8 +113,8 @@ export const initialize = () => async dispatch => {
     dispatch(initializing(true));
     dispatch(initializeConfig());
     await dispatch(loadSettings());
-    await dispatch(loadFamily());
-    await dispatch(loadTasks());
+    await dispatch(loadKids());
+    await dispatch(loadCustomTasks());
     await dispatch(authCheckTouchId());
     dispatch(tryTouchIdLogin());
     await wait(1);

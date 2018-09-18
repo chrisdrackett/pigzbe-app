@@ -134,6 +134,6 @@ export default connect(
         initializing: state.loader.initializing,
         loading: state.loader.loading,
         message: state.loader.message,
-        kids: state.family.kids,
+        kids: state.kids.kids,
     })
 )(Home);

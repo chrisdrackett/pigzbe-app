@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Text, View} from 'react-native';
-import { connect } from "react-redux";
+import {connect} from 'react-redux';
 import styles from './styles';
 import TextInput from '../text-input';
 import CurrencyToggle from '../currency-toggle';
@@ -20,6 +20,10 @@ export class WolloInput extends Component {
             exchangedValue: props.initial * props.exchange,
             exchangedDisplay: `${CURRENCIES[props.baseCurrency].symbol}${moneyFormat(0, CURRENCIES[props.baseCurrency].dps)}`
         };
+    }
+
+    static defaultProps = {
+        initial: 0
     }
 
     setExchangedValue = (amount, currentCurrency) => {
@@ -60,7 +64,7 @@ export class WolloInput extends Component {
     render() {
         const {exchangedDisplay, currencyAmount, currentCurrency} = this.state;
         const {baseCurrency, ...restOfProps} = this.props;
-        const placeholder = baseCurrency === currentCurrency ? '0 Wollo' : 
+        const placeholder = baseCurrency === currentCurrency ? '0 Wollo' :
             (CURRENCIES[baseCurrency].symbol + moneyFormat(0, CURRENCIES[baseCurrency].dps));
 
         return (
