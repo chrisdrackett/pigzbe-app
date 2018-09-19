@@ -1,8 +1,8 @@
-import {Keypair, getServer} from '@pigzbe/stellar-utils';
+import {Keypair, getServer, loadAccount, getData} from '@pigzbe/stellar-utils';
 import {KEYCHAIN_ID_MNEMONIC, KEYCHAIN_ID_STELLAR_KEY} from '../constants';
 import Keychain from '../utils/keychain';
 import {generateMnemonic, getSeedHex, getKeypair, isValidMnemonic} from '../utils/hd-wallet';
-import {appError, loadWallet} from './';
+import {appError, loadWallet, restoreKid} from './';
 
 export const KEYS_IMPORT_ERROR = 'KEYS_IMPORT_ERROR';
 export const KEYS_TEST_USER = 'KEYS_TEST_USER';
@@ -78,6 +78,21 @@ const getAllPayments = async (publicKey, payments, records) => {
     return records;
 };
 
+const findSecretKey = (publicKey, seedHex, index) => {
+    if (index > 100) {
+        return null;
+    }
+    console.log('findSecretKey at index', index);
+    const keypair = getKeypair(seedHex, index);
+    if (keypair.publicKey() === publicKey) {
+        return {
+            secretKey: keypair.secret(),
+            index
+        };
+    }
+    return findSecretKey(publicKey, seedHex, index + 1);
+};
+
 export const restoreKeys = mnemonic => async dispatch => {
     dispatch(restoreKeysError(null));
     dispatch(appError(null));
@@ -100,11 +115,27 @@ export const restoreKeys = mnemonic => async dispatch => {
         console.log('records', accountsCreated);
 
         for (const payment of accountsCreated) {
-            const key = payment.account;
-            const funder = payment.funder;
+            const address = payment.account;
+            // const funder = payment.funder;
             const transaction = await payment.transaction();
             const memo = transaction.memo_type === 'text' ? transaction.memo : '';
-            console.log('account', key, memo, funder);
+            const name = memo.slice(4);
+            console.log('account', address, memo, name);
+
+            const kidAccount = await loadAccount(address);
+            console.log('kidAccount', kidAccount);
+
+            // const tasksAccount = getData(kidAccount, 'tasks');
+            // if (tasksAccount) {
+            //
+            // }
+
+            const {secretKey, index} = findSecretKey(address, seedHex, 1);
+            console.log('kidKSecretKey', secretKey);
+
+            dispatch(restoreKid(name, address, index, kidAccount));
+
+            await Keychain.save(`secret_${address}`, secretKey);
         }
 
         // kids to add from address and memo -- search mnemonic indices and get name

@@ -109,7 +109,10 @@ export const tryTouchIdLogin = () => async (dispatch, getState) => {
     }
 };
 
-export const initialize = () => async dispatch => {
+export const initialize = () => async (dispatch, getState) => {
+    if (!getState().loader.initializing) {
+        return;
+    }
     dispatch(initializing(true));
     dispatch(initializeConfig());
     await dispatch(loadSettings());

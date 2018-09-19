@@ -18,14 +18,14 @@ export class KeysRestore extends Component {
     onChangeText = inputText => this.setState({inputText})
 
     render() {
-        const {error} = this.props;
+        const {error, loading} = this.props;
 
         return (
             <StepModule
                 title="Restore Wallet"
                 icon="restore"
                 content="Please enter your previously created Private Key (mnemonic phrase)"
-                // error={error}
+                loading={loading}
                 onBack={this.onBack}
                 justify="space-between"
                 pad
@@ -54,5 +54,6 @@ export class KeysRestore extends Component {
 export default connect(
     state => ({
         error: state.keys.restoreError,
+        loading: state.keys.restoreLoading,
     })
 )(KeysRestore);
