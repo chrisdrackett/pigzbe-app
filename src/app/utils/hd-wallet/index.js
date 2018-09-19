@@ -18,6 +18,9 @@ const randomBytesAsync = length => {
 };
 
 export const isValidMnemonic = str => {
+    if (!str || typeof str !== 'string') {
+        return false;
+    }
     const numWords = str.trim().split(/\s+/g).length;
     if (numWords !== 12) {
         return false;

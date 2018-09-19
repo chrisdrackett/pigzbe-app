@@ -2,7 +2,8 @@ import {
     KEYS_KEYPAIR,
     KEYS_TEST_USER,
     KEYS_KEYPAIR_SAVED,
-    KEYS_IMPORT_ERROR
+    KEYS_IMPORT_ERROR,
+    KEYS_RESTORE_ERROR
 } from '../actions';
 
 export const initialState = {
@@ -12,6 +13,7 @@ export const initialState = {
     testUserKey: null,
     keysSaved: false,
     importError: null,
+    restoreError: null,
 };
 
 export default (state = initialState, action) => {
@@ -47,6 +49,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 importError: action.error
+            };
+        case KEYS_RESTORE_ERROR:
+            return {
+                ...state,
+                restoreError: action.error
             };
         default:
             return state;

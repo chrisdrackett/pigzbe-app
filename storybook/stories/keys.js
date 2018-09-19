@@ -3,6 +3,7 @@ import {storiesOf} from '@storybook/react-native';
 import {KeysCreate} from '../../src/app/screens/keys-create';
 import {KeysImport} from '../../src/app/screens/keys-import';
 import {KeysMnemonic} from '../../src/app/screens/keys-mnemonic';
+import {KeysRestore} from '../../src/app/screens/keys-restore';
 
 const props = {
     dispatch: () => {},
@@ -33,5 +34,10 @@ storiesOf('Keys')
         <KeysImport {...{
             ...props,
             error: new Error('Error importing keys')
+        }}/>
+    ))
+    .add('restore', () => (
+        <KeysRestore {...{
+            ...props
         }}/>
     ));

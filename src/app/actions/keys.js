@@ -1,13 +1,14 @@
 import {Keypair} from '@pigzbe/stellar-utils';
 import {KEYCHAIN_ID_MNEMONIC, KEYCHAIN_ID_STELLAR_KEY} from '../constants';
 import Keychain from '../utils/keychain';
-import {generateMnemonic, getSeedHex, getKeypair} from '../utils/hd-wallet';
+import {generateMnemonic, getSeedHex, getKeypair, isValidMnemonic} from '../utils/hd-wallet';
 import {appError, loadWallet} from './';
 
 export const KEYS_IMPORT_ERROR = 'KEYS_IMPORT_ERROR';
 export const KEYS_TEST_USER = 'KEYS_TEST_USER';
 export const KEYS_KEYPAIR = 'KEYS_KEYPAIR';
 export const KEYS_KEYPAIR_SAVED = 'KEYS_KEYPAIR_SAVED';
+export const KEYS_RESTORE_ERROR = 'KEYS_RESTORE_ERROR';
 
 export const createMnemonic = () => async () => {
     const mnemonic = await generateMnemonic();
@@ -51,6 +52,28 @@ export const saveKeys = () => async (dispatch, getState) => {
 //     }
 //     return null;
 // };
+
+export const restoreKeysError = error => ({type: KEYS_RESTORE_ERROR, error});
+
+export const restoreKeys = mnemonic => async dispatch => {
+    dispatch(restoreKeysError(null));
+    dispatch(appError(null));
+
+    try {
+        if (!isValidMnemonic(mnemonic)) {
+            throw new Error('Invalid mnemonic');
+        }
+        const seedHex = getSeedHex(mnemonic);
+        const keypair = getKeypair(seedHex, 0);
+        dispatch(setKeys(keypair, mnemonic, true));
+        await dispatch(saveKeys());
+    } catch (error) {
+        console.log(error);
+        const err = new Error('Incorrect. Please try again.');
+        dispatch(restoreKeysError(err));
+        dispatch(appError(err));
+    }
+};
 
 export const importKeyError = error => ({type: KEYS_IMPORT_ERROR, error});
 
