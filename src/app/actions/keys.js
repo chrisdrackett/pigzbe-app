@@ -1,4 +1,4 @@
-import {Keypair, getServer, loadAccount} from '@pigzbe/stellar-utils';
+import {Keypair, paymentHistoryAll, loadAccount} from '@pigzbe/stellar-utils';
 import {KEYCHAIN_ID_MNEMONIC, KEYCHAIN_ID_STELLAR_KEY, KID_ADD_MEMO_PREPEND} from '../constants';
 import Keychain from '../utils/keychain';
 import {generateMnemonic, getSeedHex, getKeypair, isValidMnemonic} from '../utils/hd-wallet';
@@ -47,27 +47,6 @@ export const saveKeys = () => async (dispatch, getState) => {
 export const restoreKeysError = error => ({type: KEYS_RESTORE_ERROR, error});
 export const restoreKeysLoading = value => ({type: KEYS_RESTORE_LOADING, value});
 
-const getAllPayments = async (publicKey, payments, records) => {
-    if (!payments) {
-        payments = await getServer().payments()
-            .forAccount(publicKey)
-            .order('asc')
-            .limit(10)
-            .call();
-
-        records = payments.records;
-    }
-
-    const next = await payments.next();
-
-    if (next.records.length) {
-        records = records.concat(next.records);
-        return await getAllPayments(publicKey, next, records);
-    }
-
-    return records;
-};
-
 const findSecretKey = (publicKey, seedHex, index) => {
     if (index > 100) {
         return null;
@@ -96,7 +75,7 @@ export const restoreKeys = mnemonic => async dispatch => {
         const keypair = getKeypair(seedHex, 0);
         const publicKey = keypair.publicKey();
 
-        const payments = await getAllPayments(publicKey);
+        const payments = await paymentHistoryAll(publicKey);
 
         const accountsCreated = payments.filter(p => p.type === 'create_account' && p.funder === publicKey);
 
