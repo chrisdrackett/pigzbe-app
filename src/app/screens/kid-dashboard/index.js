@@ -10,6 +10,7 @@ import KidAvatar from '../../components/kid-avatar';
 import ActionPanel from '../../components/action-panel';
 import ActionSheet from '../../components/action-sheet';
 import WolloSendSlider from 'app/components/wollo-send-slider';
+import Icon from 'app/components/icon';
 import styles from './styles';
 import {deleteAllowance, deleteTask} from '../../actions';
 
@@ -109,11 +110,15 @@ export class KidDashboard extends Component {
                         <View style={styles.header}>
                             <KidAvatar photo={kid.photo} size={54}/>
                             <Text style={styles.name}>{kid.name}</Text>
-                            <Wollo
-                                balance={kid.balance}
-                                exchange={exchange}
-                                baseCurrency={baseCurrency}
-                            />
+
+                            <TouchableOpacity onPress={() => {}}>
+                                <Wollo
+                                    balance={kid.balance}
+                                    exchange={exchange}
+                                    baseCurrency={baseCurrency}
+                                    link
+                                />
+                            </TouchableOpacity>
                         </View>
                     )}
                     backgroundColor={color.transparent}

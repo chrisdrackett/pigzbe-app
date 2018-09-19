@@ -12,26 +12,27 @@ import images from './images';
 
 export default ({date, amount, direction, assetCode, memo, address}) => (
     <View style={styles.payment}>
+        <Text style={styles.date}>
+            {daysAgo(date)}
+        </Text>
         <View style={styles.detail}>
-            <View style={styles.info}>
-                <Text style={styles.date}>
-                    {daysAgo(date)}
+            {memo ? (
+                <Text style={styles.memo}>
+                    {memo}
                 </Text>
+            ) : null}
+            <View style={styles.info}>
                 <View style={styles.amountWrapper}>
+                    <Image style={styles.direction} source={images[direction]}/>
                     <Text style={styles.amount}>
                         {moneyFormat(amount, ASSET_DPS)} {assetCode}
                     </Text>
-                    <Image style={styles.direction} source={images[direction]}/>
                 </View>
             </View>
-            <Text numberOfLines={3} style={styles.address}>
-                {address}
-            </Text>
+            
         </View>
-        {memo ? (
-            <Text style={styles.memo}>
-                {memo}
-            </Text>
-        ) : null}
+        <Text numberOfLines={2} style={styles.address}>
+            {address}
+        </Text>
     </View>
 );

@@ -8,8 +8,9 @@ import styles from './styles';
 import {ASSET_DPS} from '../../constants';
 import moneyFormat from '../../utils/money-format';
 import AmountExchange from '../amount-exchange';
+import Icon from '../icon';
 
-export default ({balance, exchange, baseCurrency, dark, style, label, small}) => (
+export default ({balance, exchange, baseCurrency, dark, style, label, small, link}) => (
     <View style={[styles.wolloContainer, style]}>
         <View style={styles.balanceContainer}>
             <Image
@@ -23,6 +24,10 @@ export default ({balance, exchange, baseCurrency, dark, style, label, small}) =>
             ]}>
                 {moneyFormat(balance, ASSET_DPS)}
             </Text>
+
+            {!!link &&
+                <Icon name="chevron" style={styles.icon}/>
+            }
         </View>
         {exchange && (
             <AmountExchange

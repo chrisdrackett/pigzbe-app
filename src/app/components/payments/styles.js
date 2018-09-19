@@ -12,10 +12,9 @@ export default StyleSheet.create({
     },
     date: {
         fontFamily,
-        color: color.blue,
+        color: color.lighterBlue,
         fontWeight: 'bold',
-        fontSize: 14,
-        marginBottom: 5
+        fontSize: 12,
     },
     detail: {
         flex: 1,
@@ -34,28 +33,44 @@ export default StyleSheet.create({
     },
     amount: {
         fontFamily,
-        color: color.darkGrey,
-        fontSize: 16,
+        color: color.blue,
+        fontSize: 12,
         lineHeight: 18,
+        fontWeight: 'bold',
     },
     direction: {
         width: 7,
         flexBasis: 7,
         flexGrow: 0,
         height: 15,
-        marginLeft: 8,
+        marginRight: 8,
     },
     address: {
         fontFamily,
         color: color.grey,
-        fontSize: 12,
-        width: 145,
-        flexBasis: 145,
-        flexGrow: 0,
+        fontSize: 10,
     },
     memo: {
         fontFamily,
         color: color.blue,
-        fontSize: 14
+        fontWeight: 'bold',
+        fontSize: 12
     },
+    buttons: {
+        flexDirection: 'row',
+        paddingLeft: 20,
+        paddingRight: 20,
+        marginTop: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: color.mediumGrey,
+    },
+    toggle: {
+        flex: 1,
+    },
+    button: {
+        borderRadius: 4,
+    },
+    buttonInactive: {
+        borderWidth: 0,
+    }
 });
