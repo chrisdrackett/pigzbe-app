@@ -37,6 +37,8 @@ export class KeysRestore extends Component {
                     onChangeText={this.onChangeText}
                     numberOfLines={4}
                     style={{textAlign: 'center'}}
+                    autoCapitalize="none"
+                    autoCorrect={false}
                 />
                 <Button
                     disabled={!this.state.inputText}

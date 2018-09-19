@@ -98,6 +98,8 @@ export const getKeys = () => async (dispatch, getState) => {
     const secretKey = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
     const {testUserKey} = getState().keys;
 
+    console.log('mnemonic', mnemonic);
+
     if (testUserKey) {
         return Keypair.fromSecret(secretKey);
     }
