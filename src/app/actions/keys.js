@@ -1,4 +1,4 @@
-import {Keypair} from '@pigzbe/stellar-utils';
+import {Keypair, getServer} from '@pigzbe/stellar-utils';
 import {KEYCHAIN_ID_MNEMONIC, KEYCHAIN_ID_STELLAR_KEY} from '../constants';
 import Keychain from '../utils/keychain';
 import {generateMnemonic, getSeedHex, getKeypair, isValidMnemonic} from '../utils/hd-wallet';
@@ -8,6 +8,7 @@ export const KEYS_IMPORT_ERROR = 'KEYS_IMPORT_ERROR';
 export const KEYS_TEST_USER = 'KEYS_TEST_USER';
 export const KEYS_KEYPAIR = 'KEYS_KEYPAIR';
 export const KEYS_KEYPAIR_SAVED = 'KEYS_KEYPAIR_SAVED';
+export const KEYS_RESTORE_LOADING = 'KEYS_RESTORE_LOADING';
 export const KEYS_RESTORE_ERROR = 'KEYS_RESTORE_ERROR';
 
 export const createMnemonic = () => async () => {
@@ -54,10 +55,33 @@ export const saveKeys = () => async (dispatch, getState) => {
 // };
 
 export const restoreKeysError = error => ({type: KEYS_RESTORE_ERROR, error});
+export const restoreKeysLoading = value => ({type: KEYS_RESTORE_LOADING, value});
+
+const getAllPayments = async (publicKey, payments, records) => {
+    if (!payments) {
+        payments = await getServer().payments()
+            .forAccount(publicKey)
+            .order('asc')
+            .limit(10)
+            .call();
+
+        records = payments.records;
+    }
+
+    const next = await payments.next();
+
+    if (next.records.length) {
+        records = records.concat(next.records);
+        return await getAllPayments(publicKey, next, records);
+    }
+
+    return records;
+};
 
 export const restoreKeys = mnemonic => async dispatch => {
     dispatch(restoreKeysError(null));
     dispatch(appError(null));
+    dispatch(restoreKeysLoading(true));
 
     try {
         if (!isValidMnemonic(mnemonic)) {
@@ -65,6 +89,27 @@ export const restoreKeys = mnemonic => async dispatch => {
         }
         const seedHex = getSeedHex(mnemonic);
         const keypair = getKeypair(seedHex, 0);
+        const publicKey = keypair.publicKey();
+
+        const payments = await getAllPayments(publicKey);
+
+        console.log('publicKey', publicKey);
+        console.log('payments', payments);
+        // console.log('next', await payments.next());
+        const accountsCreated = payments.filter(p => p.type === 'create_account' && p.funder === publicKey);
+        console.log('records', accountsCreated);
+
+        for (const payment of accountsCreated) {
+            const key = payment.account;
+            const funder = payment.funder;
+            const transaction = await payment.transaction();
+            const memo = transaction.memo_type === 'text' ? transaction.memo : '';
+            console.log('account', key, memo, funder);
+        }
+
+        // kids to add from address and memo -- search mnemonic indices and get name
+        // also get tasks, goals etc accounts
+
         dispatch(setKeys(keypair, mnemonic, true));
         await dispatch(saveKeys());
     } catch (error) {
@@ -73,6 +118,7 @@ export const restoreKeys = mnemonic => async dispatch => {
         dispatch(restoreKeysError(err));
         dispatch(appError(err));
     }
+    dispatch(restoreKeysLoading(false));
 };
 
 export const importKeyError = error => ({type: KEYS_IMPORT_ERROR, error});
