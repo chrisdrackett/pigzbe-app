@@ -19,6 +19,7 @@ import {
     KEYCHAIN_ID_STELLAR_KEY,
     KEYCHAIN_ID_ETH_KEY,
     KEYCHAIN_ID_PASSCODE,
+    KEYCHAIN_ID_MNEMONIC,
     STORAGE_KEY_SETTINGS,
     STORAGE_KEY_BURNING,
     STORAGE_KEY_KIDS,
@@ -115,6 +116,7 @@ class DevPanel extends Component {
                                     Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
                                     Keychain.clear(KEYCHAIN_ID_PASSCODE);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY);
+                                    Keychain.clear(KEYCHAIN_ID_MNEMONIC);
                                 }} />
                             </View>
                             <View style={styles.block}>

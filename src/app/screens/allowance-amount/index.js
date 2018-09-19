@@ -142,7 +142,7 @@ export class AllowanceAmount extends Component {
         return (
             <StepModule
                 title="Regular Allowance"
-                icon="family"
+                icon="allowance"
                 content={'Would you like to set up a regular Wollo allowance?'}
                 pad
                 loading={loading}

@@ -1,7 +1,7 @@
 import Storage from '../utils/storage';
 import {STORAGE_KEY_KIDS} from '../constants';
 import {loadAccount, sendPayment} from '@pigzbe/stellar-utils';
-import {createKidAccount, getAccountBalance, fundKidAccount} from './';
+import {createKidAccount, getAccountBalance, fundKidAccount, getWolloBalance} from './';
 import {wolloAsset} from '../selectors';
 import wait from '../utils/wait';
 
@@ -58,6 +58,20 @@ export const addKid = (name, dob, photo) => async (dispatch, getState) => {
     console.log('address', address);
 
     dispatch(({type: KIDS_ADD_KID, kid: {name, dob, photo, address, balance: '0', index}}));
+    await dispatch(saveKids());
+    dispatch(kidsLoading(false));
+};
+
+export const restoreKid = (name, address, index, account) => async dispatch => {
+    console.log('restoreKid', name);
+    dispatch(kidsLoading(true));
+
+    dispatch(({type: KIDS_ADD_KID, kid: {
+        name,
+        address,
+        balance: getWolloBalance(account),
+        index
+    }}));
     await dispatch(saveKids());
     dispatch(kidsLoading(false));
 };

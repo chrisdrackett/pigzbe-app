@@ -33,8 +33,10 @@ export const KID_PASSCODE_LENGTH = 3;
 
 export const KID_SEND_MAX_AMOUNT = 100;
 
-export const CHILD_WALLET_BALANCE_XLM = '10';
-export const CHILD_TASKS_BALANCE_XLM = '5';
+export const KID_WALLET_BALANCE_XLM = '10';
+export const KID_TASKS_BALANCE_XLM = '5';
+export const KID_ADD_MEMO_PREPEND = 'Add ';
+
 // @todo make all areas of the site use this
 export const CURRENCIES = {
     USD: {name: 'United States dollar', symbol: '$', dps: 2},

@@ -11,7 +11,7 @@ export default class ClaimVIP extends Component {
             <StepModule
                 title={'Claim Your Wollo'}
                 content={'To get you validated, we just need a few quick details. This should only take a few minutes.'}
-                icon="coins"
+                icon="airdrop"
                 onBack={this.onBack}
                 justify="flex-end"
                 pad

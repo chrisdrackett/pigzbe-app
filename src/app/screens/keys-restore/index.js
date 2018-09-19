@@ -3,29 +3,29 @@ import {connect} from 'react-redux';
 import Button from '../../components/button';
 import {SCREEN_CREATE_KEYS} from '../../constants';
 import TextInput from '../../components/text-input';
-import {importKey} from '../../actions';
+import {restoreKeys} from '../../actions';
 import StepModule from '../../components/step-module';
 
-export class KeysImport extends Component {
+export class KeysRestore extends Component {
     state = {
         inputText: ''
     }
 
-    onImport = () => this.props.dispatch(importKey(this.state.inputText))
+    onImport = () => this.props.dispatch(restoreKeys(this.state.inputText))
 
     onBack = () => this.props.navigation.navigate(SCREEN_CREATE_KEYS)
 
     onChangeText = inputText => this.setState({inputText})
 
     render() {
-        const {error} = this.props;
+        const {error, loading} = this.props;
 
         return (
             <StepModule
-                title="Import Keys"
-                icon="secure"
-                content="Enter your secret key to import an existing account."
-                // error={error}
+                title="Restore Wallet"
+                icon="restore"
+                content="Please enter your previously created Private Key (mnemonic phrase)"
+                loading={loading}
                 onBack={this.onBack}
                 justify="space-between"
                 pad
@@ -33,14 +33,17 @@ export class KeysImport extends Component {
                 <TextInput
                     error={!!error}
                     value={this.state.inputText}
-                    placeholder={'secret key'}
+                    placeholder={'Your 12 word mnemonic'}
                     onChangeText={this.onChangeText}
                     numberOfLines={4}
-                    returnKeyType="done"
+                    style={{textAlign: 'center'}}
+                    autoCapitalize="none"
+                    autoCorrect={false}
                 />
                 <Button
+                    disabled={!this.state.inputText}
                     style={{marginTop: 30}}
-                    label={'Import'}
+                    label={'Recover Wallet'}
                     onPress={this.onImport}
                 />
             </StepModule>
@@ -50,6 +53,7 @@ export class KeysImport extends Component {
 
 export default connect(
     state => ({
-        error: state.keys.importError,
+        error: state.keys.restoreError,
+        loading: state.keys.restoreLoading,
     })
-)(KeysImport);
+)(KeysRestore);

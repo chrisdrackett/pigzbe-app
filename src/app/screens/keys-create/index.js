@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Button from '../../components/button';
-import {SCREEN_MNEMONIC, SCREEN_IMPORT_KEYS} from '../../constants';
+import {SCREEN_MNEMONIC, SCREEN_RESTORE_KEYS} from '../../constants';
 import StepModule from '../../components/step-module';
 import Paragraph from '../../components/paragraph';
 
 export class KeysCreate extends Component {
     onCreate = () => this.props.navigation.navigate(SCREEN_MNEMONIC)
 
-    onImport = () => this.props.navigation.navigate(SCREEN_IMPORT_KEYS)
+    onRestore = () => this.props.navigation.navigate(SCREEN_RESTORE_KEYS)
 
     render() {
         return (
@@ -31,7 +31,7 @@ export class KeysCreate extends Component {
                     <Button
                         theme="outline"
                         label={'Restore with previous keys'}
-                        onPress={this.onImport}
+                        onPress={this.onRestore}
                     />
                 </View>
             </StepModule>

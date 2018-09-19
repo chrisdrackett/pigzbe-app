@@ -43,7 +43,7 @@ export class AllowanceInterval extends Component {
         return (
             <StepModule
                 title="Regular Allowance"
-                icon="family"
+                icon="allowance"
                 content={'How often would you like the allowance to be sent?'}
                 pad
                 loading={loading}
