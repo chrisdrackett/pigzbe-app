@@ -13,4 +13,8 @@ export default {
     transfer: require('./transfer.png'),
     coins: require('./coins.png'),
     family: require('./family.png'),
+    restore: require('./restore.png'),
+    airdrop: require('./airdrop.png'),
+    allowance: require('./allowance.png'),
+    success: require('./success.png'),
 };
