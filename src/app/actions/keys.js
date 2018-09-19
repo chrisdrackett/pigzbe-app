@@ -1,5 +1,5 @@
-import {Keypair, getServer, loadAccount, getData} from '@pigzbe/stellar-utils';
-import {KEYCHAIN_ID_MNEMONIC, KEYCHAIN_ID_STELLAR_KEY} from '../constants';
+import {Keypair, getServer, loadAccount} from '@pigzbe/stellar-utils';
+import {KEYCHAIN_ID_MNEMONIC, KEYCHAIN_ID_STELLAR_KEY, KID_ADD_MEMO_PREPEND} from '../constants';
 import Keychain from '../utils/keychain';
 import {generateMnemonic, getSeedHex, getKeypair, isValidMnemonic} from '../utils/hd-wallet';
 import {appError, loadWallet, restoreKid} from './';
@@ -43,16 +43,6 @@ export const saveKeys = () => async (dispatch, getState) => {
     dispatch({type: KEYS_KEYPAIR_SAVED});
     await dispatch(loadWallet(publicKey));
 };
-
-// export const createKeys = () => async dispatch => {
-//     try {
-//         const keypair = await createKeypair();
-//         return dispatch(setKeys(keypair, null, false));
-//     } catch (e) {
-//         console.log(e);
-//     }
-//     return null;
-// };
 
 export const restoreKeysError = error => ({type: KEYS_RESTORE_ERROR, error});
 export const restoreKeysLoading = value => ({type: KEYS_RESTORE_LOADING, value});
@@ -108,38 +98,20 @@ export const restoreKeys = mnemonic => async dispatch => {
 
         const payments = await getAllPayments(publicKey);
 
-        console.log('publicKey', publicKey);
-        console.log('payments', payments);
-        // console.log('next', await payments.next());
         const accountsCreated = payments.filter(p => p.type === 'create_account' && p.funder === publicKey);
-        console.log('records', accountsCreated);
 
         for (const payment of accountsCreated) {
             const address = payment.account;
-            // const funder = payment.funder;
             const transaction = await payment.transaction();
             const memo = transaction.memo_type === 'text' ? transaction.memo : '';
-            const name = memo.slice(4);
-            console.log('account', address, memo, name);
+            const name = memo.slice(KID_ADD_MEMO_PREPEND.length);
 
             const kidAccount = await loadAccount(address);
-            console.log('kidAccount', kidAccount);
-
-            // const tasksAccount = getData(kidAccount, 'tasks');
-            // if (tasksAccount) {
-            //
-            // }
 
             const {secretKey, index} = findSecretKey(address, seedHex, 1);
-            console.log('kidKSecretKey', secretKey);
-
-            dispatch(restoreKid(name, address, index, kidAccount));
-
             await Keychain.save(`secret_${address}`, secretKey);
+            dispatch(restoreKid(name, address, index, kidAccount));
         }
-
-        // kids to add from address and memo -- search mnemonic indices and get name
-        // also get tasks, goals etc accounts
 
         dispatch(setKeys(keypair, mnemonic, true));
         await dispatch(saveKeys());

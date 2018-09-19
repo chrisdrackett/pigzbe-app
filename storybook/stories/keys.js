@@ -1,7 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
 import {KeysCreate} from '../../src/app/screens/keys-create';
-import {KeysImport} from '../../src/app/screens/keys-import';
 import {KeysMnemonic} from '../../src/app/screens/keys-mnemonic';
 import {KeysRestore} from '../../src/app/screens/keys-restore';
 
@@ -27,17 +26,14 @@ storiesOf('Keys')
     .add('mnemonic warn', () => (
         <KeysMnemonic warningOpen={true}/>
     ))
-    .add('import', () => (
-        <KeysImport {...props}/>
-    ))
-    .add('import with error', () => (
-        <KeysImport {...{
-            ...props,
-            error: new Error('Error importing keys')
-        }}/>
-    ))
     .add('restore', () => (
         <KeysRestore {...{
             ...props
+        }}/>
+    ))
+    .add('restore error', () => (
+        <KeysRestore {...{
+            ...props,
+            error: new Error('Incorrect. Please try again.')
         }}/>
     ));

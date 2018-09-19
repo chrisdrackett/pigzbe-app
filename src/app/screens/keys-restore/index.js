@@ -8,7 +8,7 @@ import StepModule from '../../components/step-module';
 
 export class KeysRestore extends Component {
     state = {
-        inputText: 'guard give enter elegant coach oven chef credit october gift language fit'
+        inputText: ''
     }
 
     onImport = () => this.props.dispatch(restoreKeys(this.state.inputText))
