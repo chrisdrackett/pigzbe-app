@@ -9,6 +9,7 @@ import ClaimAirdrop from '../../screens/claim-airdrop';
 import PasscodeSet from '../../screens/passcode-set';
 import KidsIntro from '../../screens/kids-intro';
 import KidDashboard from '../../screens/kid-dashboard';
+import KidTransactions from '../../screens/kid-transactions';
 import KidsParentNickname from '../../screens/kids-parent-nickname';
 import KidsNumberToAdd from '../../screens/kids-number-to-add';
 import KidsEnterProfile from '../../screens/kids-enter-profile';
@@ -31,6 +32,7 @@ import {
     SCREEN_CHANGE_PASSCODE,
     SCREEN_KIDS_INTRO,
     SCREEN_KID_DASHBOARD,
+    SCREEN_KID_TRANSACTIONS,
     SCREEN_KIDS_PARENT_NICKNAME,
     SCREEN_KIDS_NUMBER_TO_ADD,
     SCREEN_KIDS_ENTER_PROFILE,
@@ -76,6 +78,9 @@ const nav = {
     },
     [SCREEN_KID_DASHBOARD]: {
         screen: KidDashboard
+    },
+    [SCREEN_KID_TRANSACTIONS]: {
+        screen: KidTransactions
     },
     [SCREEN_KIDS_PARENT_NICKNAME]: {
         screen: KidsParentNickname

@@ -31,7 +31,7 @@ export class Payments extends Component {
 
     render() {
         const {filter} = this.state;
-        const {loading, payments} = this.props;
+        const {loading, payments, address} = this.props;
 
         const filters = {
             all: 'All',
@@ -44,15 +44,28 @@ export class Payments extends Component {
                 <Loader
                     loading={true}
                     message={strings.transferHistoryLoading}
+                    light
+                    style={{backgroundColor: 'transparent'}}
                 />
             )
         }
 
-        const filteredPayments = payments.filter(payment => (
-            filter === 'all' || 
-            (filter === 'sent' && payment.direction === 'out') ||
-            (filter === 'received' && payment.direction === 'in')
-        ));
+        let filteredPayments = payments;
+        if (address) {
+            // show a specific address's transactions
+            filteredPayments = payments.filter(payment => (
+                (filter === 'all' && (payment.from === address || payment.to === address)) || 
+                (filter === 'sent' && payment.from === address) ||
+                (filter === 'received' && payment.to === address)
+            ));
+        } else {
+            // show all
+            filteredPayments = payments.filter(payment => (
+                (filter === 'all') || 
+                (filter === 'sent' && payment.direction === 'out') ||
+                (filter === 'received' && payment.direction === 'in')
+            ));
+        }
 
         return (
             <View>
@@ -76,9 +89,9 @@ export class Payments extends Component {
                         items={filteredPayments}
                         ItemComponent={Payment}
                     />
-                )}
+                )} 
                 {!filteredPayments.length && (
-                    <Paragraph>
+                    <Paragraph style={styles.noHistory}>
                         No transaction history
                     </Paragraph>
                 )}

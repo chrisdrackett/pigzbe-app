@@ -72,5 +72,8 @@ export default StyleSheet.create({
     },
     buttonInactive: {
         borderWidth: 0,
-    }
+    },
+    noHistory: {
+        marginTop: 30,
+    },
 });
