@@ -8,7 +8,8 @@ import {
     Operation,
     getServer,
     Memo,
-    Keypair
+    Keypair,
+    loadTransaction
 } from '@pigzbe/stellar-utils';
 import {wolloAsset} from '../selectors';
 import Keychain from '../utils/keychain';
@@ -112,10 +113,33 @@ export const completeTask = (kid, task) => async (dispatch, getState) => {
     }
 };
 
-export const deleteTask = (kid, task) => async dispatch => {
+export const deleteTask = (kid, task) => async (dispatch, getState) => {
     dispatch(taskLoading(true));
+
+    const transaction = await loadTransaction(task.transaction);
+    const operations = await transaction.operations();
+    const {amount, from, to} = operations.records[0];
+
+    const tasksAccount = await loadAccount(to);
+    const asset = wolloAsset(getState());
+    const tx = new TransactionBuilder(tasksAccount)
+        .addOperation(Operation.payment({
+            destination: from,
+            asset,
+            amount
+        }))
+        .addMemo(Memo.text(`Delete ${task.task}`))
+        .build();
+
+    const {secretKey} = getState().keys;
+    const keypair = Keypair.fromSecret(secretKey);
+    tx.sign(keypair);
+
+    const result = getServer().submitTransaction(tx);
+    console.log('result', result);
+
     dispatch(({type: KIDS_DELETE_TASK, data: {kid, task}}));
-    // await dispatch(deleteTask());
+
     await dispatch(saveKids());
     dispatch(taskLoading(false));
 };
