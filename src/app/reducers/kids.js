@@ -30,7 +30,7 @@ const kidDefaults = {
 
 const saveExclude = [
     'loading',
-    'tasksLoading',
+    'taskLoading',
     'allowanceLoading',
     'sendingWollo',
     'sendError',

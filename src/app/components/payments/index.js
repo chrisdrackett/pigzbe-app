@@ -37,7 +37,7 @@ export class Payments extends Component {
             all: 'All',
             sent: 'Sent',
             received: 'Received',
-        }
+        };
 
         if (loading) {
             return (
@@ -47,21 +47,21 @@ export class Payments extends Component {
                     light
                     style={{backgroundColor: 'transparent'}}
                 />
-            )
+            );
         }
 
         let filteredPayments = payments;
         if (address) {
             // show a specific address's transactions
             filteredPayments = payments.filter(payment => (
-                (filter === 'all' && (payment.from === address || payment.to === address)) || 
+                (filter === 'all' && (payment.from === address || payment.to === address)) ||
                 (filter === 'sent' && payment.from === address) ||
                 (filter === 'received' && payment.to === address)
             ));
         } else {
             // show all
             filteredPayments = payments.filter(payment => (
-                (filter === 'all') || 
+                (filter === 'all') ||
                 (filter === 'sent' && payment.direction === 'out') ||
                 (filter === 'received' && payment.direction === 'in')
             ));
@@ -71,7 +71,8 @@ export class Payments extends Component {
             <View>
                 <View style={styles.buttons}>
                     {Object.keys(filters).map(key =>
-                        <Toggle
+                        (<Toggle
+                            key={key}
                             style={styles.toggle}
                             innerStyle={[styles.button, this.state.filter === key ? null : styles.buttonInactive]}
                             label={filters[key]}
@@ -79,7 +80,7 @@ export class Payments extends Component {
                                 this.setState({filter: key});
                             }}
                             active={this.state.filter === key}
-                        />
+                        />)
                     )}
                 </View>
 
@@ -89,7 +90,7 @@ export class Payments extends Component {
                         items={filteredPayments}
                         ItemComponent={Payment}
                     />
-                )} 
+                )}
                 {!filteredPayments.length && (
                     <Paragraph style={styles.noHistory}>
                         No transaction history

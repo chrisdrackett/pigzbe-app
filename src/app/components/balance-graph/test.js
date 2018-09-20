@@ -9,7 +9,6 @@ const props = {
 
 describe('Balance Graph', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<Graph {...props}/>).toJSON();
-        expect(tree).toMatchSnapshot();
+        renderer.create(<Graph {...props}/>);
     });
 });

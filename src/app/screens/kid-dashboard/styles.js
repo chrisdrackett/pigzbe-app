@@ -55,7 +55,13 @@ export default StyleSheet.create({
         marginTop: 8,
     },
     itemAmount: {
-        minWidth: 80,
-        alignItems: 'flex-end',
-    }
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    itemWollo: {
+        alignItems: 'flex-start',
+        minWidth: 120,
+        marginRight: 10,
+    },
 });
