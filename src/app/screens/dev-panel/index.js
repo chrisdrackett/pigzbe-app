@@ -135,7 +135,6 @@ class DevPanel extends Component {
                                 <Button style={styles.button} label="Clear cache burning" onPress={() => {
                                     console.log('clear');
                                     Storage.clear(STORAGE_KEY_BURNING);
-                                    Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY);
                                 }} />
                             </View>

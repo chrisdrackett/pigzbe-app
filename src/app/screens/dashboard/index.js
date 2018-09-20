@@ -24,6 +24,7 @@ import {
     fundAccount,
     loadWallet
 } from '../../actions';
+import openURL from '../../utils/open-url';
 
 export class Dashboard extends Component {
     state = {
@@ -77,6 +78,7 @@ export class Dashboard extends Component {
             baseCurrency,
             firstTime,
             kids,
+            publicKey
         } = this.props;
 
         const loading = (!exchange && !error) || this.state.funding;
@@ -105,12 +107,20 @@ export class Dashboard extends Component {
                         <View>
                             <BalanceGraph balance={balance} balanceXLM={balanceXLM} exchange={exchange} baseCurrency={baseCurrency}/>
                             {__DEV__ && (
-                                <Button
-                                    label="Fund account"
-                                    theme="light"
-                                    onPress={this.onFund}
-                                    style={{marginTop: 20}}
-                                />
+                                <View>
+                                    <Button
+                                        label={publicKey}
+                                        theme="light"
+                                        onPress={() => openURL(`https://horizon-testnet.stellar.org/accounts/${publicKey}`)}
+                                        style={{marginTop: 20}}
+                                    />
+                                    <Button
+                                        label="Fund account"
+                                        theme="light"
+                                        onPress={this.onFund}
+                                        // style={{marginTop: 20}}
+                                    />
+                                </View>
                             )}
                             <Kids
                                 kids={kids}
@@ -157,5 +167,6 @@ export default connect(
         sending: state.wollo.sending,
         sendStatus: state.wollo.sendStatus,
         sendComplete: state.wollo.sendComplete,
+        publicKey: state.keys.publicKey,
     })
 )(Dashboard);
