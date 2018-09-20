@@ -44,4 +44,7 @@ export default StyleSheet.create({
     balance__small: {
         fontSize: 14,
     },
+    icon: {
+        marginTop: 2, marginLeft: 10
+    },
 });

@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {color} from '../../styles';
-import {SCREEN_DASHBOARD, SCREEN_TASKS_LIST, SCREEN_ALLOWANCE_AMOUNT} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_TASKS_LIST, SCREEN_ALLOWANCE_AMOUNT, SCREEN_KID_TRANSACTIONS} from '../../constants';
 import BalanceGraph from '../../components/balance-graph';
 import Wollo from '../../components/wollo';
 import StepModule from '../../components/step-module';
@@ -10,6 +10,7 @@ import KidAvatar from '../../components/kid-avatar';
 import ActionPanel from '../../components/action-panel';
 import ActionSheet from '../../components/action-sheet';
 import WolloSendSlider from 'app/components/wollo-send-slider';
+import Icon from 'app/components/icon';
 import styles from './styles';
 import {deleteAllowance, deleteTask} from '../../actions';
 
@@ -91,6 +92,8 @@ export class KidDashboard extends Component {
         taskToEdit: task,
     })
 
+    onTransactions = () => this.props.navigation.navigate(SCREEN_KID_TRANSACTIONS, {kid: this.props.kid});
+
     render () {
         const {
             kid,
@@ -109,11 +112,15 @@ export class KidDashboard extends Component {
                         <View style={styles.header}>
                             <KidAvatar photo={kid.photo} size={54}/>
                             <Text style={styles.name}>{kid.name}</Text>
-                            <Wollo
-                                balance={kid.balance}
-                                exchange={exchange}
-                                baseCurrency={baseCurrency}
-                            />
+
+                            <TouchableOpacity onPress={this.onTransactions}>
+                                <Wollo
+                                    balance={kid.balance}
+                                    exchange={exchange}
+                                    baseCurrency={baseCurrency}
+                                    link
+                                />
+                            </TouchableOpacity>
                         </View>
                     )}
                     backgroundColor={color.transparent}

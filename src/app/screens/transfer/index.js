@@ -8,22 +8,10 @@ import {
 } from '../../constants';
 import Button from '../../components/button';
 import Payments from '../../components/payments';
-import {loadPayments, wolloError} from '../../actions';
-import Paragraph from '../../components/paragraph';
+import {wolloError} from '../../actions';
 import StepModule from '../../components/step-module';
 
 export class Transfer extends Component {
-
-    componentDidMount() {
-        this.focusListener = this.props.navigation.addListener('didFocus', this.update);
-        this.update();
-    }
-
-    componentWillUnMount() {
-        this.focusListener.remove();
-    }
-
-    update = () => this.props.dispatch(loadPayments())
 
     onTransfer = () => {
         const {hasGas, balanceXLM, minXLM} = this.props;
@@ -37,7 +25,7 @@ export class Transfer extends Component {
     }
 
     render() {
-        const {error, balance, hasGas, loading, payments} = this.props;
+        const {error, balance, hasGas} = this.props;
 
         return (
             <Fragment>
@@ -46,21 +34,8 @@ export class Transfer extends Component {
                     icon="transfer"
                     error={error}
                     scroll={false}
-                    paddingTop={payments.length ? 0 : 30}
-                    loading={loading && !payments.length}
-                    loaderMessage={strings.transferHistoryLoading}
                 >
-                    {!!payments.length && (
-                        <Payments
-                            balance={balance}
-                            payments={payments}
-                        />
-                    )}
-                    {(!loading && !payments.length && !error) && (
-                        <Paragraph>
-                            No transaction history
-                        </Paragraph>
-                    )}
+                    <Payments navigation={this.props.navigation} />
                 </StepModule>
                 <View style={styles.button}>
                     <Button
@@ -81,7 +56,5 @@ export default connect(
         balanceXLM: state.wollo.balanceXLM,
         minXLM: state.wollo.minXLM,
         hasGas: state.wollo.hasGas,
-        loading: state.wollo.loading,
-        payments: state.wollo.payments
     })
 )(Transfer);
