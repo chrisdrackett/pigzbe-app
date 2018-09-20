@@ -14,7 +14,6 @@ const props = {
 
 describe('ConvertBalance', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<ConvertBalance {...props}/>).toJSON();
-        expect(tree).toMatchSnapshot();
+        renderer.create(<ConvertBalance {...props}/>);
     });
 });
