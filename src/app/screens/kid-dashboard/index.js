@@ -10,7 +10,6 @@ import KidAvatar from '../../components/kid-avatar';
 import ActionPanel from '../../components/action-panel';
 import ActionSheet from '../../components/action-sheet';
 import WolloSendSlider from 'app/components/wollo-send-slider';
-import Icon from 'app/components/icon';
 import styles from './styles';
 import {deleteAllowance, deleteTask} from '../../actions';
 
@@ -23,9 +22,9 @@ const Item = ({first, title, subtitle, amount, onPress}) => (
                 }
             </Text>
             <View style={styles.itemAmount}>
-                <Wollo dark balance={amount} />
+                <Wollo dark balance={amount} style={styles.itemWollo} />
+                <Image source={require('./images/iconOverflow.png')} />
             </View>
-            <Image source={require('./images/iconOverflow.png')} />
         </View>
     </TouchableOpacity>
 );

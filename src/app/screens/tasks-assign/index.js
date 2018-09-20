@@ -102,7 +102,7 @@ export class TasksAssign extends Component {
 
 export default connect(
     (state, props) => ({
-        loading: state.kids.loading,
+        loading: state.kids.taskLoading,
         kid: props.navigation.state.params.kid,
         task: props.navigation.state.params.task,
         taskToEdit: props.navigation.state.params.taskToEdit,

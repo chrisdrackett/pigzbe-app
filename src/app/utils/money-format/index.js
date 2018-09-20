@@ -5,5 +5,5 @@ export default (amount, dp = 2) => {
         amount = amount.toFixed(8);
     }
     const num = new BigNumber(amount);
-    return num.toFormat(Math.min(num.dp(), dp));
+    return num.toFormat(Math.min(Math.max(num.dp(), 2), dp));
 };
