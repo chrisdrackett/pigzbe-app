@@ -8,6 +8,9 @@ import {
     KIDS_BALANCE_UPDATE,
     KIDS_LOADING_TASK,
     KIDS_ASSIGN_TASK,
+    KIDS_LOADING_GOAL,
+    KIDS_ASSIGN_GOAL,
+    KIDS_DELETE_GOAL,
     KIDS_COMPLETE_TASK,
     KIDS_DELETE_TASK,
     KIDS_LOADING_ALLOWANCE,
@@ -25,12 +28,14 @@ const kidDefaults = {
     balance: null,
     dob: null,
     tasks: [],
+    goals: [],
     allowances: [],
 };
 
 const saveExclude = [
     'loading',
     'taskLoading',
+    'goalLoading',
     'allowanceLoading',
     'sendingWollo',
     'sendError',
@@ -40,6 +45,7 @@ const saveExclude = [
 export const initialState = {
     loading: false,
     taskLoading: false,
+    goalLoading: false,
     allowanceLoading: false,
     sendingWollo: null,
     sendError: null,
@@ -127,6 +133,39 @@ export default (state = initialState, action) => {
                         return {
                             ...k,
                             tasks: k.tasks.concat({...action.data}),
+                        };
+                    }
+                    return k;
+                }),
+            };
+        case KIDS_LOADING_GOAL:
+            return {
+                ...state,
+                goalLoading: action.value
+            };
+        case KIDS_ASSIGN_GOAL:
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    if (k.address === action.kid.address) {
+                        return {
+                            ...k,
+                            goals: (k.goals || []).concat({...action.goal}),
+                        };
+                    }
+                    return k;
+                }),
+            };
+        case KIDS_DELETE_GOAL:
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    if (k.address === action.kid.address) {
+                        return {
+                            ...k,
+                            goals: k.goals.filter(goal => {
+                                return goal.address !== action.goal.address;
+                            }),
                         };
                     }
                     return k;

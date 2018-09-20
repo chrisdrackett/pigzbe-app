@@ -2,7 +2,7 @@ import {Keypair, paymentHistoryAll, loadAccount} from '@pigzbe/stellar-utils';
 import {KEYCHAIN_ID_MNEMONIC, KEYCHAIN_ID_STELLAR_KEY, KID_ADD_MEMO_PREPEND} from '../constants';
 import Keychain from '../utils/keychain';
 import {generateMnemonic, getSeedHex, getKeypair, isValidMnemonic} from '../utils/hd-wallet';
-import {appError, loadWallet, restoreKid} from './';
+import {appError, loadWallet, restoreKid, settingsUpdate} from './';
 
 export const KEYS_IMPORT_ERROR = 'KEYS_IMPORT_ERROR';
 export const KEYS_TEST_USER = 'KEYS_TEST_USER';
@@ -19,11 +19,17 @@ export const createMnemonic = () => async () => {
 
 export const createKeysFromSeed = (seedHex, index = 0) => () => getKeypair(seedHex, index);
 
-export const createKeypair = index => async (dispatch, getState) => {
+export const createKeypair = () => async (dispatch, getState) => {
     const {mnemonic} = getState().keys;
 
+    const keyIndex = getState().settings.keyIndex + 1;
+
+    console.log("createKeypair keyIndex", keyIndex)
+
+    await dispatch(settingsUpdate({keyIndex}))
+
     if (mnemonic) {
-        return getKeypair(getSeedHex(mnemonic), index);
+        return getKeypair(getSeedHex(mnemonic), keyIndex);
     }
 
     if (typeof Keypair.randomAsync === 'function') {

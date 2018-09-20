@@ -11,6 +11,7 @@ export const initialState = {
     firstTime: true,
     lastMessageDate: 0,
     baseCurrency: BASE_CURRENCY,
+    keyIndex: 0,
 };
 
 export default (state = initialState, action) => {

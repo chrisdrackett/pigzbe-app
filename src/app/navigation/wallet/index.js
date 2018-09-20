@@ -10,6 +10,7 @@ import PasscodeSet from '../../screens/passcode-set';
 import KidsIntro from '../../screens/kids-intro';
 import KidDashboard from '../../screens/kid-dashboard';
 import KidTransactions from '../../screens/kid-transactions';
+import KidGoalAdd from '../../screens/kid-goal-add';
 import KidsParentNickname from '../../screens/kids-parent-nickname';
 import KidsNumberToAdd from '../../screens/kids-number-to-add';
 import KidsEnterProfile from '../../screens/kids-enter-profile';
@@ -32,6 +33,7 @@ import {
     SCREEN_CHANGE_PASSCODE,
     SCREEN_KIDS_INTRO,
     SCREEN_KID_DASHBOARD,
+    SCREEN_KID_GOAL_ADD,
     SCREEN_KID_TRANSACTIONS,
     SCREEN_KIDS_PARENT_NICKNAME,
     SCREEN_KIDS_NUMBER_TO_ADD,
@@ -81,6 +83,9 @@ const nav = {
     },
     [SCREEN_KID_TRANSACTIONS]: {
         screen: KidTransactions
+    },
+    [SCREEN_KID_GOAL_ADD]: {
+        screen: KidGoalAdd
     },
     [SCREEN_KIDS_PARENT_NICKNAME]: {
         screen: KidsParentNickname

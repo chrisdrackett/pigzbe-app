@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {color} from '../../styles';
-import {SCREEN_DASHBOARD, SCREEN_TASKS_LIST, SCREEN_ALLOWANCE_AMOUNT, SCREEN_KID_TRANSACTIONS} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_TASKS_LIST, SCREEN_ALLOWANCE_AMOUNT, SCREEN_KID_TRANSACTIONS, SCREEN_KID_GOAL_ADD} from '../../constants';
 import BalanceGraph from '../../components/balance-graph';
 import Wollo from '../../components/wollo';
 import StepModule from '../../components/step-module';
@@ -11,7 +11,7 @@ import ActionPanel from '../../components/action-panel';
 import ActionSheet from '../../components/action-sheet';
 import WolloSendSlider from 'app/components/wollo-send-slider';
 import styles from './styles';
-import {deleteAllowance, deleteTask} from '../../actions';
+import {deleteAllowance, deleteTask, deleteGoal} from '../../actions';
 
 const Item = ({first, title, subtitle, amount, onPress}) => (
     <TouchableOpacity onPress={onPress}>
@@ -35,11 +35,15 @@ export class KidDashboard extends Component {
         allowancePanelOpen: false,
         taskToEdit: null,
         allowanceToEdit: null,
+        goalPanelOpen: false,
+        goalToEdit: null,
     }
 
     onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
 
     onAddTask = () => this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid})
+
+    onAddGoal = () => this.props.navigation.navigate(SCREEN_KID_GOAL_ADD, {kid: this.props.kid})
 
     onAddAllowance = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid})
 
@@ -81,6 +85,20 @@ export class KidDashboard extends Component {
         });
     }
 
+    onGoalAlertOptionSelected = async (option) => {
+        switch (option.selectedOption) {
+            case 0:
+                this.props.dispatch(deleteGoal(this.props.kid, this.state.goalToEdit));
+                break;
+            default:
+                // do nothing
+        }
+
+        this.setState({
+            goalPanelOpen: false,
+        });
+    }
+
     onDisplayAllowanceModal = allowance => this.setState({
         allowancePanelOpen: true,
         allowanceToEdit: allowance,
@@ -91,6 +109,11 @@ export class KidDashboard extends Component {
         taskToEdit: task,
     })
 
+    onDisplayGoalModal = goal => this.setState({
+        goalPanelOpen: true,
+        goalToEdit: goal,
+    })
+
     onTransactions = () => this.props.navigation.navigate(SCREEN_KID_TRANSACTIONS, {kid: this.props.kid});
 
     render () {
@@ -99,9 +122,12 @@ export class KidDashboard extends Component {
             exchange,
             error,
             baseCurrency,
+            goalLoading,
+            taskLoading,
+            allowanceLoading,
         } = this.props;
 
-        const loading = !exchange && !error;
+        const loading = (!exchange && !error) || goalLoading || taskLoading || allowanceLoading;
 
         return (
             <Fragment>
@@ -181,11 +207,25 @@ export class KidDashboard extends Component {
                             <ActionPanel
                                 title="Goals"
                                 label="Add a new goal"
-                                onAdd={() => {}}
+                                onAdd={this.onAddGoal}
                                 style={styles.panel}
                                 boxButton
                             >
-                                <View style={styles.box} />
+                                {(kid.goals && kid.goals.length) &&
+                                    <View style={styles.box}>
+                                        {kid.goals.map((goal, i) => (
+                                            <Item
+                                                key={i}
+                                                first={i === 0}
+                                                title={goal.name}
+                                                amount={goal.reward}
+                                                onPress={() => {
+                                                    this.onDisplayGoalModal(goal);
+                                                }}
+                                            />
+                                        ))}
+                                    </View>
+                                }
                             </ActionPanel>
 
                             <ActionPanel
@@ -217,6 +257,14 @@ export class KidDashboard extends Component {
                     onRequestClose={() => this.setState({allowancePanelOpen: false})}
                     onSelect={index => this.onAllowanceAlertOptionSelected({selectedOption: index})}
                 />
+                <ActionSheet
+                    open={this.state.goalPanelOpen}
+                    options={['Delete']}
+                    title="All changes will also update child wallet"
+                    onRequestClose={() => this.setState({goalPanelOpen: false})}
+                    onSelect={index => this.onGoalAlertOptionSelected({selectedOption: index})}
+                />
+                
             </Fragment>
         );
     }
@@ -234,5 +282,8 @@ export default connect(
         sending: state.wollo.sending,
         sendStatus: state.wollo.sendStatus,
         sendComplete: state.wollo.sendComplete,
+        goalLoading: state.kids.goalLoading,
+        taskLoading: state.kids.taskLoading,
+        allowanceLoading: state.kids.allowanceLoading,
     })
 )(KidDashboard);
