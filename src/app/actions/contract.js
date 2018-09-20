@@ -89,6 +89,8 @@ const getKeys = () => async dispatch => {
         const stellar = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
         const eth = await Keychain.load(KEYCHAIN_ID_ETH_KEY);
 
+        console.log('getKeys, stellar', stellar);
+
         if (stellar) {
             const keypair = Keypair.fromSecret(stellar);
 
@@ -138,7 +140,7 @@ const sendSignedTransaction = (web3, serializedTx, error) => new Promise(async (
 
 export const burn = (amount) => async (dispatch, getState) => {
     const {address, instance} = getState().contract;
-    const {coinbase, stellar, privateKey} = getState().user;
+    const {coinbase, privateKey} = getState().user;
     const {localStorage} = getState().content;
     const {network} = getState().config;
     const web3 = getState().web3.instance;
@@ -148,13 +150,15 @@ export const burn = (amount) => async (dispatch, getState) => {
 
     try {
         const key = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
-        const keypair = (stellar && stellar.sk && Keypair.fromSecret(stellar.sk)) || await Keypair.randomAsync();
+
+        const keypair = Keypair.fromSecret(key);
+        // const keypair = (stellar && stellar.sk && Keypair.fromSecret(stellar.sk)) || await Keypair.randomAsync();
 
         console.log('keypair', keypair.publicKey());
 
-        if (!key) {
-            await Keychain.save(KEYCHAIN_ID_STELLAR_KEY, keypair.secret());
-        }
+        // if (!key) {
+        //     await Keychain.save(KEYCHAIN_ID_STELLAR_KEY, keypair.secret());
+        // }
 
         dispatch({type: STELLAR, payload: {
             pk: keypair.publicKey(),

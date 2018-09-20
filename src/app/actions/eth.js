@@ -15,19 +15,24 @@ import {utils} from 'web3';
 const getMaxNumBurnTokens = (balanceWei, config) => {
     const {network, stellar} = config;
     const {maxClaimTokens} = stellar.networks[network];
-    console.log('maxClaimTokens', maxClaimTokens);
 
-    return new BigNumber(maxClaimTokens).plus(Math.random()).times(10 ** 18).toString(10);
+    return new BigNumber(maxClaimTokens)
+        .plus(BigNumber.random())
+        .times(10 ** 18)
+        .integerValue(BigNumber.ROUND_FLOOR)
+        .toString(10);
 };
 
 export const getBalance = () => async (dispatch, getState) => {
     try {
         const web3 = getState().web3.instance;
         const contract = getState().contract.instance;
+
         const accountBalanceWei = await contract.methods.balanceOf(getState().user.get('coinbase')).call();
         const maxAmount = getState().user.maxAmount || getMaxNumBurnTokens(accountBalanceWei, getState().config);
         const balanceWei = BigNumber.min(accountBalanceWei, maxAmount).toString(10);
         const balanceWollo = new BigNumber(web3.utils.fromWei(balanceWei, 'ether')).toFixed(7, BigNumber.ROUND_DOWN);
+
         dispatch({type: USER_BALANCE, payload: {
             balanceWei,
             balanceWollo,

@@ -75,6 +75,8 @@ export const claim = () => async (dispatch, getState) => {
 
     dispatch({type: LOADING, payload: 'Validating Ethereum Transaction'});
 
+    console.log('stellar.pk', stellar.pk);
+
     try {
         let payload;
 
