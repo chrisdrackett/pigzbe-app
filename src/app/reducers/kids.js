@@ -10,6 +10,7 @@ import {
     KIDS_ASSIGN_TASK,
     KIDS_LOADING_GOAL,
     KIDS_ASSIGN_GOAL,
+    KIDS_UPDATE_GOAL,
     KIDS_DELETE_GOAL,
     KIDS_COMPLETE_TASK,
     KIDS_DELETE_TASK,
@@ -151,6 +152,28 @@ export default (state = initialState, action) => {
                         return {
                             ...k,
                             goals: (k.goals || []).concat({...action.goal}),
+                        };
+                    }
+                    return k;
+                }),
+            };
+        case KIDS_UPDATE_GOAL:
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    if (k.address === action.kid.address) {
+                        return {
+                            ...k,
+                            goals: k.goals.map(goal => {
+                                if (goal.address === action.goal.address) {
+                                    return {
+                                        ...goal,
+                                        name: action.goal.name,
+                                        reward: action.goal.reward,
+                                    }
+                                }
+                                return goal;
+                            })
                         };
                     }
                     return k;

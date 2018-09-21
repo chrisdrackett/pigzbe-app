@@ -92,6 +92,9 @@ export class KidDashboard extends Component {
 
         switch (option.selectedOption) {
             case 0:
+                this.props.navigation.navigate(SCREEN_KID_GOAL_ADD, {kid: this.props.kid, goal: this.state.goalToEdit})
+                break;
+            case 1:
                 await this.props.dispatch(deleteGoal(this.props.kid, this.state.goalToEdit));
                 break;
             default:
@@ -259,7 +262,7 @@ export class KidDashboard extends Component {
                 />
                 <ActionSheet
                     open={this.state.goalPanelOpen}
-                    options={['Delete']}
+                    options={['Edit', 'Delete']}
                     title="All changes will also update child wallet"
                     onRequestClose={() => this.setState({goalPanelOpen: false})}
                     onSelect={index => this.onGoalAlertOptionSelected({selectedOption: index})}
