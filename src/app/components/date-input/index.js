@@ -15,7 +15,7 @@ export default class DateInputComponent extends Component {
         } = this.props;
 
         return (
-            <BaseInputField 
+            <BaseInputField
                 label={label}
                 error={error}
                 placeholder={placeholder}
@@ -27,8 +27,8 @@ export default class DateInputComponent extends Component {
                     mode="date"
                     placeholder=" "
                     format="DD/MM/YYYY"
-                    minDate="01/01/2000"
-                    maxDate="01/01/2011"
+                    // minDate="01/01/2000"
+                    // maxDate="01/01/2011"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     // this doesn't seem to work properly, need to find different solution in order to implement placeholder design:
@@ -42,12 +42,10 @@ export default class DateInputComponent extends Component {
                         dateTouchBody: styles.dateTouchBody,
                         placeholderText: styles.placeholderText,
                     }}
-                    onDateChange={value => onChangeSelection(value)}
+                    onDateChange={onChangeSelection}
                     showIcon={false}
                 />
             </BaseInputField>
         );
     }
 }
-
-

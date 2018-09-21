@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Image, Text} from 'react-native';
+import {View, Image, Text, TouchableOpacity} from 'react-native';
 import {pickImage} from '../../utils/image-picker';
 import {SCREEN_DASHBOARD, SCREEN_ALLOWANCE_AMOUNT} from '../../constants';
 import TextInput from '../../components/text-input';
@@ -91,7 +91,7 @@ export class KidsEnterProfile extends Component {
                 <View>
                     <TextInput
                         numberOfLines={1}
-                        placeholder="Name"
+                        placeholder="Nickname"
                         onChangeText={this.onChangeName}
                         returnKeyType="done"
                         value={this.state.name}
@@ -105,19 +105,21 @@ export class KidsEnterProfile extends Component {
                         This helps us serve appropriate content
                     </Text>
                 </View>
-                <Text style={styles.subTitle}>Add photo</Text>
-                <Image
-                    style={styles.imageStyle}
-                    source={this.state.image ? {uri: this.state.image} : images.icon.smiley}
-                />
-                <Button onPress={this.getImage} label={'Get Image'} />
+                <TouchableOpacity onPress={this.getImage}>
+                    <Text style={styles.subTitle}>Add image</Text>
+                    <Image
+                        style={styles.imageStyle}
+                        source={this.state.image ? {uri: this.state.image} : images.icon.smiley}
+                    />
+                </TouchableOpacity>
+                {/* <Button onPress={this.getImage} label={'Get Image'} /> */}
                 <Button
                     label={`Create Profile${numberProfile}`}
                     disabled={!this.state.datePickerHasChanged || this.state.name.length === 0}
                     onPress={this.onNext}
                 />
                 <Text style={styles.smallText}>
-                    Your childs data will always be kept secure and never shared!
+                    Your child's data will always be kept secure and never shared!
                     Check our Privacy Policy for more details
                 </Text>
             </StepModule>
