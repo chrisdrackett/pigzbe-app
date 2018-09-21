@@ -18,6 +18,7 @@ import {saveKids, getWolloBalance, appAddSuccessAlert} from '.';
 
 export const KIDS_LOADING_GOAL = 'KIDS_LOADING_GOAL';
 export const KIDS_ASSIGN_GOAL = 'KIDS_ASSIGN_GOAL';
+export const KIDS_UPDATE_GOAL = 'KIDS_UPDATE_GOAL';
 export const KIDS_DELETE_GOAL = 'KIDS_DELETE_GOAL';
 
 const goalLoading = value => ({type: KIDS_LOADING_GOAL, value});
@@ -38,6 +39,22 @@ export const assignGoal = (kid, goalName, reward) => async (dispatch, getState) 
     dispatch(goalLoading(false));
 
     dispatch(appAddSuccessAlert('Added goal'));
+};
+
+export const updateGoal = (kid, goalName, reward, goalAddress) => async (dispatch, getState) => {
+    dispatch(goalLoading(true));
+
+    await dispatch(({type: KIDS_UPDATE_GOAL, kid, goal: {
+        address: goalAddress,
+        name: goalName,
+        reward,
+    }}));
+
+    await dispatch(saveKids());
+
+    dispatch(goalLoading(false));
+
+    dispatch(appAddSuccessAlert('Updated goal'));
 };
 
 export const deleteGoal = (kid, goal) => async (dispatch, getState) => {

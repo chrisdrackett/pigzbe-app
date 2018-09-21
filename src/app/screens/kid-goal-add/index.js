@@ -8,13 +8,17 @@ import TextInput from 'app/components/text-input';
 import Button from 'app/components/button';
 import WolloInput from 'app/components/wollo-input';
 import styles from './styles';
-import {assignGoal} from 'app/actions';
+import {assignGoal, updateGoal} from 'app/actions';
 
 export class KidGoalAdd extends Component {
-    state = {
-        step: 'name',
-        name: '',
-        amount: '',
+    constructor(props) {
+        super(props);
+        const {goal} = props;
+        this.state = {
+            step: 'name',
+            name: goal ? goal.name : '',
+            amount: goal ? goal.reward : 0,
+        }
     }
 
     onBack = () => {
@@ -26,13 +30,18 @@ export class KidGoalAdd extends Component {
     };
 
     onAddGoal = async () => {
-        await this.props.dispatch(assignGoal(this.props.kid, this.state.name, this.state.amount));
+        if (this.props.goal) {
+            await this.props.dispatch(updateGoal(this.props.kid, this.state.name, this.state.amount, this.props.goal.address));
+        } else {
+            await this.props.dispatch(assignGoal(this.props.kid, this.state.name, this.state.amount));
+        }
         this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid: this.props.kid});
     }
 
     render() { 
         const {step, name, amount} = this.state;
-        const {kid, loading} = this.props;
+        const {kid, loading, goal} = this.props;
+
         return (
             <StepModule
                 customTitle="Goal"
@@ -45,7 +54,7 @@ export class KidGoalAdd extends Component {
                 <View style={styles.form}>
                     {step === 'name' &&
                         <Fragment>
-                            <Paragraph>Create a goal for <Text style={styles.name}>{kid.name}</Text> to save towards</Paragraph>
+                            <Paragraph>{goal ? 'Update the' : 'Create a'} goal for <Text style={styles.name}>{kid.name}</Text> to save towards</Paragraph>
                             <TextInput
                                 value={name}
                                 placeholder={'Goal description'}
@@ -57,6 +66,7 @@ export class KidGoalAdd extends Component {
                         <Fragment>
                             <Paragraph>Set the goal value that <Text style={styles.name}>{kid.name}</Text> needs to save</Paragraph>
                             <WolloInput
+                                initialAmount={this.state.amount}
                                 onChangeAmount={amount => this.setState({amount})}
                             />
                         </Fragment>
@@ -73,7 +83,7 @@ export class KidGoalAdd extends Component {
                     {step === 'amount' &&
                         <Button
                             disabled={amount == 0}
-                            label="Set Goal"
+                            label={goal ? 'Update Goal' : 'Set Goal'}
                             onPress={this.onAddGoal}
                         />
                     }
@@ -86,6 +96,7 @@ export class KidGoalAdd extends Component {
 export default connect(
     (state, props) => ({
         kid: state.kids.kids.find(k => k.address === props.navigation.state.params.kid.address),
+        goal: props.navigation.state.params.goal,
         loading: state.kids.goalLoading,
     })
 )(KidGoalAdd);
