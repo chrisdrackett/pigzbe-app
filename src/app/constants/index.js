@@ -35,6 +35,7 @@ export const KID_SEND_MAX_AMOUNT = 100;
 
 export const KID_WALLET_BALANCE_XLM = '10';
 export const KID_TASKS_BALANCE_XLM = '5';
+export const KID_GOAL_BALANCE_XLM = '5';
 export const KID_ADD_MEMO_PREPEND = 'Add ';
 
 // @todo make all areas of the site use this

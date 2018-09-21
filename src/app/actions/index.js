@@ -15,3 +15,4 @@ export * from './settings';
 export * from './tasks';
 export * from './vip';
 export * from './wollo';
+export * from './goals';

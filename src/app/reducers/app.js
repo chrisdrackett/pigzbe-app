@@ -1,9 +1,10 @@
-import {APP_CONNECTION_STATUS, APP_ERROR} from '../actions';
+import {APP_CONNECTION_STATUS, APP_ADD_ALERT, APP_DELETE_ALERT} from '../actions';
 import isDesktop from '../utils/is-desktop';
 
 const initialState = {
     isConnected: isDesktop,
-    error: null,
+    alertType: null,
+    alertMessage: null,
 };
 
 export default (state = initialState, action) => {
@@ -13,10 +14,17 @@ export default (state = initialState, action) => {
                 ...state,
                 isConnected: action.isConnected
             };
-        case APP_ERROR:
+        case APP_ADD_ALERT:
             return {
                 ...state,
-                error: action.error
+                alertType: action.alertType,
+                alertMessage: action.alertMessage,
+            };
+        case APP_DELETE_ALERT:
+            return {
+                ...state,
+                alertType: null,
+                alertMessage: null,
             };
         default:
             return state;

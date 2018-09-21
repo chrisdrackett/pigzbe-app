@@ -1,85 +1,74 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, Image, Animated} from 'react-native';
+import Icon from 'app/components/icon';
 import styles from './styles';
-import {strings} from '../../constants';
-
-const getErrorDetail = error => {
-    if (!error) {
-        return strings.errorUnknown;
-    }
-
-    if (error.message && error.message.title) {
-        return error.message.title;
-    }
-
-    if (error.message) {
-        return error.message;
-    }
-
-    return strings.errorUnknown;
-};
 
 export default class Alert extends Component {
     state = {
-        dismissed: false,
-        prevError: null,
-        position: new Animated.Value(-90),
-        height: 0,
+        prevType: null,
+        prevMessage: null,
     }
 
-    componentDidMount() {
-        this.onUpdate();
+    componentWillMount() {
+        this._timeoutId = null;
+        this._isVisible = new Animated.Value(this.props.message ? 1 : 0);
+        this._height = 80;
     }
 
-    componentDidUpdate() {
-        this.onUpdate();
-    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.message !== this.props.message || prevProps.type !== this.props.type) {
+            this.setState({
+                prevType: prevProps.type,
+                prevMessage: prevProps.message,
+            });
 
-    componentWillReceiveProps(nextProps) {
-        if (!nextProps.error && this.props.error) {
-            this.setState({prevError: this.props.error, height: 0});
+            if (this._timeoutId) {
+                clearTimeout(this._timeoutId);
+                this._timeoutId = null;
+            }
+            if (this.props.onDismiss) {
+                this._timeoutId = setTimeout(() => {
+                    this.props.onDismiss();
+                }, 3000);
+            }
         }
-    }
 
-    onUpdate = () => {
-        const {prevError, dismissed, height} = this.state;
-        const {error} = this.props;
-        const showError = error && (!dismissed || prevError !== error);
-        const toValue = showError ? -10 : -height;
-
-        Animated.timing(this.state.position, {
-            toValue,
+        Animated.timing(this._isVisible, {
+            toValue: this.props.message ? 1 : 0,
             duration: 300,
         }).start();
     }
 
-    dismiss = () => {
-        const {error} = this.props;
-
-        this.setState({
-            prevError: error,
-            dismissed: true,
-            height: 0,
-        });
-    }
-
-    onLayout = event => {
-        if (!this.state.height) {
-            this.setState({height: event.nativeEvent.layout.height + 2});
+    componentWillUnmount() {
+        if (this._timeoutId) {
+            clearTimeout(this._timeoutId);
+            this._timeoutId = null;
         }
     }
 
+    onLayout = event => {
+        this._height = Math.max(this._height, event.nativeEvent.layout.height + 2);
+    }
+
     render() {
-        const error = this.props.error || this.state.prevError;
+        const type = this.props.type || this.state.prevType;
+        const message = this.props.message || this.state.prevMessage;
 
         return (
-            <Animated.View style={[styles.error, {top: this.state.position}]} onLayout={this.onLayout}>
-                <Text style={styles.message}>{getErrorDetail(error)}</Text>
-                <View style={styles.dismiss}>
-                    <TouchableOpacity style={styles.close} onPress={this.dismiss}>
-                        <Image style={styles.closeIcon} source={require('./images/close.png')} />
-                    </TouchableOpacity>
-                </View>
+            <Animated.View style={[styles.alert, type ? styles[`alert__${type}`] : null, {
+                top: this._isVisible.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [-this._height, 0],
+                }),
+            }]} onLayout={this.onLayout}>
+                <Text style={styles.message}>{message}</Text>
+                {!!this.props.onDismiss &&
+                    <View style={styles.dismiss}>
+                        <TouchableOpacity style={styles.close} onPress={this.props.onDismiss}>
+                            <Icon style={styles.closeIcon} name="cross" />
+                        </TouchableOpacity>
+                    </View>
+                }
             </Animated.View>
         );
     }

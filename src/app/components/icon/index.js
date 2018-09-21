@@ -9,6 +9,7 @@ const icons = {
     nok: require(`./images/nok.png`),
     stellar: require(`./images/stellar.png`),
     swissFranc: require(`./images/swissFranc.png`),
+    cross: require(`./images/cross.png`),
 }
 
 export default ({name, style={}}) => (

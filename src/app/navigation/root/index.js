@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {NetInfo} from 'react-native';
 import Auth from '../auth';
 import Alert from '../../components/alert';
-import {connectionState} from '../../actions';
+import {connectionState, appAddAlert, appDeleteAlert} from '../../actions';
 import {strings} from '../../constants';
 
 class Root extends Component {
@@ -20,14 +20,15 @@ class Root extends Component {
     onConnectionChange = isConnected => this.props.dispatch(connectionState(isConnected))
 
     render() {
-        const {error, isConnected} = this.props;
-
-        const errorMessage = error || (!isConnected ? new Error(strings.errorConnection) : null);
-
+        const {alertType, alertMessage, isConnected} = this.props;
         return (
             <Fragment>
                 <Auth/>
-                <Alert error={errorMessage}/>
+                <Alert
+                    type={alertType || (!isConnected ? 'error' : null)}
+                    message={alertMessage || (!isConnected ? strings.errorConnection : null)}
+                    onDismiss={alertMessage ? () => this.props.dispatch(appDeleteAlert()) : null}
+                />
             </Fragment>
         );
     }
@@ -42,6 +43,7 @@ export default connect(
     state => ({
         // error: filterErrors(state),
         isConnected: state.app.isConnected,
-        error: state.app.error,
+        alertType: state.app.alertType,
+        alertMessage: state.app.alertMessage,
     })
 )(Root);

@@ -22,6 +22,7 @@ import {
     ASSET_CODE,
     KID_WALLET_BALANCE_XLM,
     KID_TASKS_BALANCE_XLM,
+    KID_GOAL_BALANCE_XLM,
     KID_ADD_MEMO_PREPEND
 } from '../constants';
 import Keychain from '../utils/keychain';
@@ -198,7 +199,7 @@ export const createKidAccount = (name, index) => async (dispatch, getState) => {
     console.log('createKidAccount', name);
     // const {publicKey, secretKey} = getState().keys;
     const {secretKey} = getState().keys;
-    const keypair = await dispatch(createKeypair(index));
+    const keypair = await dispatch(createKeypair());
     const destination = keypair.publicKey();
     console.log('secretKey, destination', secretKey, destination);
 
@@ -214,7 +215,7 @@ export const createKidAccount = (name, index) => async (dispatch, getState) => {
 export const createTasksAccount = kid => async (dispatch, getState) => {
     try {
         const {publicKey, secretKey} = getState().keys;
-        const keypair = await dispatch(createKeypair(kid.index + 1));
+        const keypair = await dispatch(createKeypair());
         const destination = keypair.publicKey();
         console.log('secretKey, destination', secretKey, destination);
 
@@ -225,6 +226,47 @@ export const createTasksAccount = kid => async (dispatch, getState) => {
         const account = await createAccount(secretKey, destination, KID_TASKS_BALANCE_XLM, `Tasks: ${kid.name}`);
 
         console.log('account', account);
+
+        const signers = [{
+            publicKey,
+            weight: 1
+        }, {
+            publicKey: kid.address,
+            weight: 1
+        }];
+
+        const weights = {
+            masterWeight: 1,
+            lowThreshold: 1,
+            medThreshold: 1,
+            highThreshold: 1
+        };
+
+        const txb = new TransactionBuilder(account);
+        multiSigTransaction(txb, signers, weights);
+
+        const asset = wolloAsset(getState());
+        trustAssetTransaction(txb, asset);
+
+        const transaction = txb.build();
+        transaction.sign(keypair);
+        await submitTransaction(transaction);
+
+        return keypair.publicKey();
+    } catch (error) {
+        console.log(error);
+    }
+    return null;
+};
+
+export const createGoalAccount = (kid, goalName) => async (dispatch, getState) => {
+    try {
+        const {publicKey, secretKey} = getState().keys;
+        const keypair = await dispatch(createKeypair());
+        const destination = keypair.publicKey();
+        await Keychain.save(`secret_${destination}`, keypair.secret());
+
+        const account = await createAccount(secretKey, destination, KID_GOAL_BALANCE_XLM, `Goal: ${kid.name} - ${goalName}`.slice(0,28));
 
         const signers = [{
             publicKey,
