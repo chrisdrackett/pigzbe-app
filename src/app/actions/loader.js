@@ -36,14 +36,15 @@ export const loadContent = () => async dispatch => {
     try {
         dispatch(loaderMessage('Loading'));
         await dispatch(loadConfig());
-        await dispatch(loadMessages());
-        await dispatch(loadExchange());
     } catch (error) {
         console.log(error);
         dispatch(loaderError(error));
     }
     dispatch(loaderMessage(null));
     dispatch(loaderLoading(false));
+
+    dispatch(loadExchange());
+    dispatch(loadMessages());
 };
 
 export const loginAndLoad = passcode => async dispatch => {
@@ -56,10 +57,10 @@ export const loginAndLoad = passcode => async dispatch => {
             await dispatch(loadConfig());
             await dispatch(loadKeys());
             await dispatch(loadWallet());
-            await dispatch(loadMessages());
             await dispatch(loadExchange());
-            // await dispatch(loadKids());
             await dispatch(loadKidsBalances());
+            await dispatch(loadCustomTasks());
+            dispatch(loadMessages());
         }
     } catch (error) {
         console.log(error);
@@ -67,6 +68,7 @@ export const loginAndLoad = passcode => async dispatch => {
     }
     dispatch(loaderMessage(null));
     dispatch(loaderLoading(false));
+    dispatch(loadMessages());
 };
 
 export const loginAndLoadKid = (kid, passcode) => async dispatch => {
@@ -81,6 +83,7 @@ export const loginAndLoadKid = (kid, passcode) => async dispatch => {
             await dispatch(loadConfig());
             await dispatch(loadExchange());
             await dispatch(loadKidsBalances(kid.address));
+            await dispatch(loadCustomTasks());
         }
     } catch (error) {
         console.log(error);
@@ -110,6 +113,7 @@ export const tryTouchIdLogin = () => async (dispatch, getState) => {
 };
 
 export const initialize = () => async (dispatch, getState) => {
+    console.log('===> initialize');
     if (!getState().loader.initializing) {
         return;
     }
@@ -117,9 +121,9 @@ export const initialize = () => async (dispatch, getState) => {
     dispatch(initializeConfig());
     await dispatch(loadSettings());
     await dispatch(loadKids());
-    await dispatch(loadCustomTasks());
     await dispatch(authCheckTouchId());
-    dispatch(tryTouchIdLogin());
-    await wait(1);
+    if (!getState().kids.kids.length) {
+        dispatch(tryTouchIdLogin());
+    }
     dispatch(initializing(false));
 };

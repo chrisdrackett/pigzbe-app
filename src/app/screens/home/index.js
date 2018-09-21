@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Text, View, TouchableOpacity} from 'react-native';
-import {initialize, loadContent, authKeychainKid} from '../../actions';
+import {initialize, loadContent, authKeychainKid, tryTouchIdLogin} from '../../actions';
 import styles from './styles';
 import Button from '../../components/button';
 import Loader from '../../components/loader';
@@ -92,8 +92,6 @@ class Home extends Component {
     onLogin = () => this.props.navigation.navigate(SCREEN_LOGIN)
 
     onCreate = async () => {
-
-        //this.props.navigation.navigate(SCREEN_CLAIM_VIP);
         await this.props.dispatch(loadContent());
         this.props.navigation.navigate(SCREEN_DEVICE_AUTH);
     }
@@ -104,7 +102,10 @@ class Home extends Component {
         this.props.navigation.navigate(nextScreenId, {kid});
     }
 
-    onOverride = () => this.setState({parentOverride: true})
+    onOverride = () => {
+        this.props.dispatch(tryTouchIdLogin());
+        this.setState({parentOverride: true});
+    }
 
     render() {
         const {initializing, loading, message, kids} = this.props;
