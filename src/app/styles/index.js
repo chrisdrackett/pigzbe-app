@@ -22,9 +22,11 @@ export const color = {
     yellow: 'rgb(253, 223, 6)',
     red: 'rgb(255, 0, 0)',
     errorRed: 'rgb(236, 111, 134)',
+    errorRedOpacity95: 'rgba(236, 111, 134, 0.95)',
     green: 'rgb(149, 198, 100)',
     lightGreen: 'rgb(126, 211, 33)',
     darkGreen: 'rgb(65, 117, 5)',
+    successGreenOpacity95: 'rgba(74, 207, 186, 0.95)',
     grey: 'rgb(155, 155, 155)',
     lightGrey: 'rgb(247, 247, 250)',
     mediumGrey: 'rgb(225, 225, 225)',
@@ -35,6 +37,7 @@ export const color = {
     lightPurple: 'rgb(241, 241, 255)',
     transparent: 'rgba(255, 255, 255, 0)',
     orange: 'rgb(255, 98, 66)',
+    warningOrangeOpacity95: 'rgba(255, 186, 109, 0.95)',
     lightRed: 'rgb(231, 110, 102)',
 };
 

@@ -11,7 +11,7 @@ import ActionPanel from '../../components/action-panel';
 import ActionSheet from '../../components/action-sheet';
 import WolloSendSlider from 'app/components/wollo-send-slider';
 import styles from './styles';
-import {deleteAllowance, deleteTask, deleteGoal} from '../../actions';
+import {deleteAllowance, deleteTask, deleteGoal, appError} from '../../actions';
 
 const Item = ({first, title, subtitle, amount, onPress}) => (
     <TouchableOpacity onPress={onPress}>
@@ -86,17 +86,17 @@ export class KidDashboard extends Component {
     }
 
     onGoalAlertOptionSelected = async (option) => {
+        this.setState({
+            goalPanelOpen: false,
+        });
+
         switch (option.selectedOption) {
             case 0:
-                this.props.dispatch(deleteGoal(this.props.kid, this.state.goalToEdit));
+                await this.props.dispatch(deleteGoal(this.props.kid, this.state.goalToEdit));
                 break;
             default:
                 // do nothing
         }
-
-        this.setState({
-            goalPanelOpen: false,
-        });
     }
 
     onDisplayAllowanceModal = allowance => this.setState({
@@ -148,7 +148,7 @@ export class KidDashboard extends Component {
                             </TouchableOpacity>
                         </View>
                     )}
-                    backgroundColor={color.transparent}
+                    backgroundColor={loading ? color.white : color.transparent}
                     loading={loading}
                     error={error}
                     onBack={this.onBack}

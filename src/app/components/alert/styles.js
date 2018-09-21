@@ -5,17 +5,26 @@ import {
 } from '../../styles';
 
 export default StyleSheet.create({
-    error: {
+    alert: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: color.orange,
+        backgroundColor: color.transparent,
         position: 'absolute',
         left: 0,
         top: 0,
         right: 0,
-        paddingTop: 20,
+        paddingTop: 10,
+    },
+    alert__error: {
+        backgroundColor: color.errorRedOpacity95,
+    },
+    alert__warning: {
+        backgroundColor: color.warningOrangeOpacity95,
+    },
+    alert__success: {
+        backgroundColor: color.successGreenOpacity95,
     },
     message: {
         fontFamily,
@@ -32,8 +41,7 @@ export default StyleSheet.create({
         marginRight: 10
     },
     closeIcon: {
-        width: 16,
-        height: 16
+        height: 13
     },
     close: {
         width: 40,

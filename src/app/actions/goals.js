@@ -14,7 +14,7 @@ import {
 import {wolloAsset} from '../selectors';
 import Keychain from '../utils/keychain';
 import BigNumber from 'bignumber.js';
-import {saveKids, getWolloBalance} from '.';
+import {saveKids, getWolloBalance, appAddSuccessAlert} from '.';
 
 export const KIDS_LOADING_GOAL = 'KIDS_LOADING_GOAL';
 export const KIDS_ASSIGN_GOAL = 'KIDS_ASSIGN_GOAL';
@@ -36,6 +36,8 @@ export const assignGoal = (kid, goalName, reward) => async (dispatch, getState) 
     await dispatch(saveKids());
 
     dispatch(goalLoading(false));
+
+    dispatch(appAddSuccessAlert('Added goal'));
 };
 
 export const deleteGoal = (kid, goal) => async (dispatch, getState) => {
@@ -76,6 +78,10 @@ export const deleteGoal = (kid, goal) => async (dispatch, getState) => {
     
         await dispatch(saveKids());
         dispatch(goalLoading(false));
+
+
+        dispatch(appAddSuccessAlert('Deleted goal'));
+
     } catch (err) {
         console.log("ERROR");
         console.log(err);
