@@ -3,11 +3,11 @@ package com.pigzbeapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import org.reactnative.camera.RNCameraPackage;
-import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
-import com.imagepicker.ImagePickerPackage;
 import com.rnfingerprint.FingerprintAuthPackage;
 import com.oblador.keychain.KeychainPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
+import org.reactnative.camera.RNCameraPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -29,11 +29,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-          new RNCameraPackage(),
-          new ReactNativeConfigPackage(),
-          new ImagePickerPackage(),
           new FingerprintAuthPackage(),
           new KeychainPackage(),
+          new ImagePickerPackage(),
+          new ReactNativeConfigPackage(),
+          new RNCameraPackage(),
           new RandomBytesPackage()
       );
     }
