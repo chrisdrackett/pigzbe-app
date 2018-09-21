@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, FlatList, TouchableOpacity, Text, Image, TextInput} from 'react-native';
 import Button from '../../components/button';
-import {SCREEN_DASHBOARD, SCREEN_ALLOWANCE_INTERVAL} from '../../constants';
+import {SCREEN_KID_DASHBOARD, SCREEN_DASHBOARD, SCREEN_ALLOWANCE_INTERVAL} from '../../constants';
 import StepModule from '../../components/step-module';
 import Toggle from '../../components/toggle';
 import {CURRENCIES} from '../../constants';
@@ -45,7 +45,7 @@ export class AllowanceAmount extends Component {
         return deconstructedAllowances;
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD);
+    onBack = () => this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid: this.props.kid});
 
     onChangeText = (amount) => {
         this.setState({custom: amount});

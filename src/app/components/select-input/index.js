@@ -1,13 +1,10 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {Text, View, Image, Picker, TouchableOpacity} from 'react-native';
-import Modal from "react-native-modal";
+import Modal from 'react-native-modal';
 import styles from './styles';
-import isAndroid from '../../utils/is-android';
 import BaseInputField from '../base-input-field';
 import SearchableList from 'app/components/searchable-list';
 import StepModule from 'app/components/step-module';
-
-const padding = isAndroid ? 11 : 0;
 
 export default class SelectInputComponent extends Component {
 
@@ -41,14 +38,13 @@ export default class SelectInputComponent extends Component {
             error = false,
             value = '',
             label,
-            style,
             searchable,
         } = this.props;
 
         const options = this.getOptions();
 
         return (
-            <BaseInputField 
+            <BaseInputField
                 label={label}
                 error={error}
                 placeholder={placeholder}
@@ -62,7 +58,7 @@ export default class SelectInputComponent extends Component {
                         <Text style={styles.text}>{options[value]}</Text>
                     }
                     {!value &&
-                        <Text></Text>
+                        <Text />
                     }
                     <Image style={[styles.arrow, searchable ? styles.arrowSearchable : null]} source={require('./images/down-arrow.png')} />
                 </TouchableOpacity>
@@ -84,7 +80,8 @@ export default class SelectInputComponent extends Component {
                                     selectedValue={value}
                                     onValueChange={(itemValue) => onChangeSelection(itemValue)}
                                     itemStyle={styles.pickerItem}>
-                                    {Object.keys(options).map(key =>
+                                    <Picker.Item label="" value="" />
+                                    {Object.keys(options).filter(key => !!key).map(key =>
                                         <Picker.Item key={key} label={options[key]} value={key} />
                                     )}
                                 </Picker>
