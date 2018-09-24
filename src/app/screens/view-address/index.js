@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {View, Text, Share, Clipboard} from 'react-native';
 import {connect} from 'react-redux';
 import Button from '../../components/button';
-import {SCREEN_SEND} from '../../constants';
 import StepModule from '../../components/step-module';
 import Title from '../../components/title';
 import Paragraph from '../../components/paragraph';
@@ -11,7 +10,7 @@ import styles from './styles';
 import {appAddSuccessAlert} from '../../actions';
 
 export class ViewAddress extends Component {
-    onBack = () => this.props.navigation.navigate(SCREEN_SEND)
+    onBack = () => this.props.onBack()
 
     onCopy = async () => {
         Clipboard.setString(this.props.publicKey);

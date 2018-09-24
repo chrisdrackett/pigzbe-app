@@ -10,8 +10,17 @@ import Button from '../../components/button';
 import Payments from '../../components/payments';
 import {wolloError} from '../../actions';
 import StepModule from '../../components/step-module';
+import {ViewAddress} from '../view-address';
+import ReactModal from 'react-native-modal';
 
 export class Transfer extends Component {
+    state = {
+        showViewAdressModal: false,
+    }
+
+    onViewAddress = () => this.setState({showViewAdressModal: true})
+
+    onHideAddress = () => this.setState({showViewAdressModal: false})
 
     onTransfer = () => {
         const {hasGas, balanceXLM, minXLM} = this.props;
@@ -34,6 +43,8 @@ export class Transfer extends Component {
                     icon="transfer"
                     error={error}
                     scroll={false}
+                    settingsIcon="qrCode"
+                    onSettings={this.onViewAddress}
                 >
                     <Payments navigation={this.props.navigation} />
                 </StepModule>
@@ -44,6 +55,17 @@ export class Transfer extends Component {
                         disabled={!hasGas || !Number(balance)}
                     />
                 </View>
+                <ReactModal
+                    isVisible={this.state.showViewAdressModal}
+                    animationIn="slideInRight"
+                    animationOut="slideOutRight"
+                    style={{margin: 0}}
+                >
+                    <ViewAddress
+                        publicKey={this.props.publicKey}
+                        onBack={this.onHideAddress}
+                    />
+                </ReactModal>
             </Fragment>
         );
     }
@@ -56,5 +78,6 @@ export default connect(
         balanceXLM: state.wollo.balanceXLM,
         minXLM: state.wollo.minXLM,
         hasGas: state.wollo.hasGas,
+        publicKey: state.keys.publicKey,
     })
 )(Transfer);

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
-    Image,
     Text,
     View,
     TouchableOpacity,
@@ -25,6 +24,7 @@ import {
     STORAGE_KEY_KIDS,
     STORAGE_KEY_TASKS,
 } from '../../constants';
+import Icon from '../../components/icon';
 
 const SwitchControl = ({
     label,
@@ -195,7 +195,7 @@ class DevPanel extends Component {
                 <TouchableOpacity
                     style={styles.settings}
                     onPress={() => this.setState({isOpen: true})}>
-                    <Image style={styles.settingsIcon} source={require('../../components/header/images/settings-icon.png')} />
+                    <Icon style={styles.settingsIcon} name="settings" />
                 </TouchableOpacity>
             </View>
         );
