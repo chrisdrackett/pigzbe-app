@@ -15,6 +15,7 @@ export class AllowanceInterval extends Component {
         interval: null,
         intervals: ['Daily', 'Weekly', 'Fortnightly', 'Monthly'],
         days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        monthly: ['1st', '15th'],
     }
 
     componentWillMount() {
@@ -37,8 +38,11 @@ export class AllowanceInterval extends Component {
     }
 
     render() {
-        const {interval, day, intervals, days} = this.state;
+        const {interval, day, intervals, days, monthly} = this.state;
         const {loading} = this.props;
+
+        const dayOptions = interval === 'Monthly' ? monthly : days;
+        const showSecondInput = interval !== 'Daily';
 
         return (
             <StepModule
@@ -55,21 +59,21 @@ export class AllowanceInterval extends Component {
                         <SelectInput
                             value={interval}
                             placeholder={'How often?'}
-                            onChangeSelection={value => this.setState({interval: value})}
+                            onChangeSelection={value => this.setState({interval: value, day: null})}
                             options={intervals}
                         />
-                        <SelectInput
+                        {showSecondInput && <SelectInput
                             value={day}
                             placeholder={'Which day'}
                             onChangeSelection={value => this.setState({day: value})}
-                            options={days}
-                        />
+                            options={dayOptions}
+                        />}
                     </View>
                     <View style={{marginTop: 20}}>
                         <Button
                             label={'Complete'}
                             onPress={this.next}
-                            disabled={!day || !interval}
+                            disabled={!(day && interval || interval === 'Daily')}
                         />
                     </View>
                 </View>
