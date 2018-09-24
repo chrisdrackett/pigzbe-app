@@ -95,4 +95,19 @@ export default StyleSheet.create({
         fontSize: 14,
         marginBottom: 10,
     },
+    scanIcon: {
+        width: 14,
+        height: 14,
+    },
+    scanButton: {
+        position: 'absolute',
+        right: 4,
+        top: 48,
+        width: 40,
+        height: 40,
+        paddingTop: 13,
+        paddingRight: 13,
+        paddingBottom: 13,
+        paddingLeft: 13,
+    },
 });

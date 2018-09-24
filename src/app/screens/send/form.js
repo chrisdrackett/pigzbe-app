@@ -1,17 +1,22 @@
 import React, {Component, Fragment} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {strings} from '../../constants';
 import Button from '../../components/button';
 import TextInput from '../../components/text-input';
 import WolloInput from '../../components/wollo-input';
 import Wollo from '../../components/wollo';
+import Icon from '../../components/icon';
+import Title from '../../components/title';
 import ExchangedDisplay from '../../components/exchanged-display';
+import StepModule from '../../components/step-module';
 import {isValidPublicKey} from '@pigzbe/stellar-utils';
 import moneyFormat from '../../utils/money-format';
 import {ASSET_CODE, COIN_DPS} from '../../constants';
 import BigNumber from 'bignumber.js';
 import {sendWollo} from '../../actions';
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import ReactModal from 'react-native-modal';
 
 const remainingBalance = (balance, amount) => new BigNumber(balance).minus(amount);
 
@@ -30,6 +35,7 @@ export default class Form extends Component {
         amountError: null,
         memoError: null,
         error: null,
+        showScanner: false,
     }
 
     static defaultProps = {
@@ -45,17 +51,10 @@ export default class Form extends Component {
         this.setState({accountKey, keyValid});
     }
 
-    // updateAmount = value => this.setState({
-    //     amount: value,
-    //     amountValid: true,
-    // })
-    updateAmount = value => {
-        console.log('updateAmount', value);
-        this.setState({
-            amount: value,
-            amountValid: true,
-        });
-    }
+    updateAmount = value => this.setState({
+        amount: value,
+        amountValid: true,
+    })
 
     updateMemo = memo => {
         const memoValid = !memo || memo.length < 29;
@@ -86,6 +85,24 @@ export default class Form extends Component {
     edit = () => {
         this.setState({review: false});
         this.props.onReview(false);
+    }
+
+    onScanQrCode = () => this.setState({showScanner: true})
+
+    onCancelScanQrCode = () => this.setState({showScanner: false})
+
+    onScan = event => {
+        console.log('onscan', event.data);
+
+        const accountKey = event.data;
+
+        const keyValid = isValidPublicKey(accountKey);
+
+        this.setState({
+            showScanner: false,
+            accountKey,
+            keyValid,
+        });
     }
 
     render() {
@@ -173,6 +190,9 @@ export default class Form extends Component {
                     baseStyle={review ? styles.inputConfirm : null}
                     numberOfLines={3}
                 />
+                <TouchableOpacity style={styles.scanButton} onPress={this.onScanQrCode}>
+                    <Icon style={styles.scanIcon} name="qrCodeScan" />
+                </TouchableOpacity>
                 <WolloInput
                     error={!!amountError}
                     label={strings.transferAmount}
@@ -196,6 +216,32 @@ export default class Form extends Component {
                         onPress={this.submit}
                     />
                 </View>
+                <ReactModal
+                    isVisible={this.state.showScanner}
+                    animationIn="slideInRight"
+                    animationOut="slideOutRight"
+                    style={{margin: 0}}
+                >
+                    <StepModule
+                        onBack={this.onCancelScanQrCode}
+                        justify="space-between"
+                        plain
+                        customTitle="Scan"
+                    >
+                        <QRCodeScanner
+                            containerStyle={{alignItems: 'center'}}
+                            topViewStyle={{width: 280}}
+                            bottomViewStyle={{width: 280}}
+                            cameraStyle={{width: 280, height: 280}}
+                            onRead={this.onScan}
+                            topContent={
+                                <Title dark style={{textAlign: 'center'}}>
+                                    Align camera to the QR code
+                                </Title>
+                            }
+                        />
+                    </StepModule>
+                </ReactModal>
             </View>
         );
     }
