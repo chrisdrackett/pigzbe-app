@@ -59,7 +59,7 @@ export class AllowanceInterval extends Component {
             }
         } else if (interval === 'Daily') {
             return moment();
-        } else if (interval === 'Monthly') {
+        } else { // interval is monthly
             if (moment().date() === 1 && day === '1st' || moment().date() === 15 && day === '15st') {
                 return moment();
             } else {
@@ -69,7 +69,6 @@ export class AllowanceInterval extends Component {
                     return moment().date(15);
                 }
                 return moment().add(1, 'month').date(15);
-                // need to return next possible 1st or 15th
             }
         }
     }
