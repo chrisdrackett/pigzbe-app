@@ -41,6 +41,7 @@ function loadStories() {
     require('./stories/allowance.js');
     require('./stories/claim-vip.js');
     require('./stories/loader-modal.js');
+    require('./stories/view-address.js');
 }
 
 configure(loadStories, module);
