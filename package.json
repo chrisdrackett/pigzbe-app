@@ -63,6 +63,7 @@
     "react-native-image-picker": "0.26.10",
     "react-native-keychain": "3.0.0-rc.3",
     "react-native-modal": "^6.5.0",
+    "react-native-qrcode": "^0.2.7",
     "react-native-touch-id": "4.0.4",
     "react-native-version": "2.6.2",
     "react-native-web": "0.8.8",
