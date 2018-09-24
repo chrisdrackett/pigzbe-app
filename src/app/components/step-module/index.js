@@ -29,6 +29,7 @@ export default class StepModule extends Component {
           onBack,
           pad,
           onSettings,
+          settingsIcon,
           paddingTop,
           keyboardOffset,
           loading,
@@ -43,7 +44,13 @@ export default class StepModule extends Component {
       return (
           <Container style={styles.wrapper} scroll={false}>
               <View style={styles.bg}/>
-              <Header onBack={onBack} onSettings={onSettings} hideLogo={hideLogo} customTitle={customTitle} />
+              <Header
+                  onBack={onBack}
+                  onSettings={onSettings}
+                  settingsIcon={settingsIcon}
+                  hideLogo={hideLogo}
+                  customTitle={customTitle}
+              />
               {
                   title || icon || headerChildren ? <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader> : null
               }
