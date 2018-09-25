@@ -78,5 +78,12 @@ export default StyleSheet.create({
         width: '100%',
         marginTop: 15,
         textAlign: 'center',
+    },
+    text: {
+        color: color.blue,
+        fontSize: 14,
+        lineHeight: 21,
+        marginTop: 20,
+        textAlign: 'center',
     }
 });

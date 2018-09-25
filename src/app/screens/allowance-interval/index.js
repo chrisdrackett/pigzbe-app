@@ -121,7 +121,7 @@ export class AllowanceInterval extends Component {
                             onChangeSelection={value => this.changeDay(value)}
                             options={dayOptions}
                         />}
-                        {!disabled && <Text>First Allowance:{'\n'}{nextDate.format('dddd, MMMM Do')}</Text>}
+                        {!disabled && nextDate && <Text style={styles.text}>First Allowance:{'\n'}{nextDate.format('dddd, MMMM Do')}</Text>}
                     </View>
                     <View style={{marginTop: 20}}>
                         <Button
