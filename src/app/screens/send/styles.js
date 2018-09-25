@@ -1,8 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {
-    color,
-    fontFamily
-} from '../../styles';
+import {color, fontFamily} from '../../styles';
 
 export default StyleSheet.create({
     containerForm: {

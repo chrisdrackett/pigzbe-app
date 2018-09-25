@@ -7,16 +7,13 @@ import TextInput from '../../components/text-input';
 import WolloInput from '../../components/wollo-input';
 import Wollo from '../../components/wollo';
 import Icon from '../../components/icon';
-import Title from '../../components/title';
 import ExchangedDisplay from '../../components/exchanged-display';
-import StepModule from '../../components/step-module';
 import {isValidPublicKey} from '@pigzbe/stellar-utils';
 import moneyFormat from '../../utils/money-format';
 import {ASSET_CODE, COIN_DPS} from '../../constants';
 import BigNumber from 'bignumber.js';
 import {sendWollo} from '../../actions';
-import QRCodeScanner from 'react-native-qrcode-scanner';
-import ReactModal from 'react-native-modal';
+import QRScanner from '../../components/qr-scanner';
 
 const remainingBalance = (balance, amount) => new BigNumber(balance).minus(amount);
 
@@ -91,7 +88,7 @@ export default class Form extends Component {
 
     onCancelScanQrCode = () => this.setState({showScanner: false})
 
-    onScan = event => {
+    onScanResult = event => {
         console.log('onscan', event.data);
 
         const accountKey = event.data;
@@ -102,6 +99,7 @@ export default class Form extends Component {
             showScanner: false,
             accountKey,
             keyValid,
+            keyError: keyValid ? null : new Error(strings.transferErrorInvalidKey),
         });
     }
 
@@ -186,9 +184,8 @@ export default class Form extends Component {
                     label={strings.transferSendTo}
                     placeholder={strings.transferSendKey}
                     onChangeText={this.updateKey}
-                    editable={!review}
-                    baseStyle={review ? styles.inputConfirm : null}
                     numberOfLines={3}
+                    style={{paddingRight: 20}}
                 />
                 <TouchableOpacity style={styles.scanButton} onPress={this.onScanQrCode}>
                     <Icon style={styles.scanIcon} name="qrCodeScan" />
@@ -202,11 +199,9 @@ export default class Form extends Component {
                     error={!!memoError}
                     value={this.state.memo}
                     label={strings.transferMessage}
-                    placeholder={review ? '' : strings.transferMessagePlaceholder}
+                    placeholder={strings.transferMessagePlaceholder}
                     onChangeText={this.updateMemo}
                     maxLength={28}
-                    editable={!review}
-                    baseStyle={review ? styles.inputConfirm : null}
                     numberOfLines={2}
                 />
                 <View style={styles.buttonWrapper}>
@@ -216,32 +211,11 @@ export default class Form extends Component {
                         onPress={this.submit}
                     />
                 </View>
-                <ReactModal
-                    isVisible={this.state.showScanner}
-                    animationIn="slideInRight"
-                    animationOut="slideOutRight"
-                    style={{margin: 0}}
-                >
-                    <StepModule
-                        onBack={this.onCancelScanQrCode}
-                        justify="space-between"
-                        plain
-                        customTitle="Scan"
-                    >
-                        <QRCodeScanner
-                            containerStyle={{alignItems: 'center'}}
-                            topViewStyle={{width: 280}}
-                            bottomViewStyle={{width: 280}}
-                            cameraStyle={{width: 280, height: 280}}
-                            onRead={this.onScan}
-                            topContent={
-                                <Title dark style={{textAlign: 'center'}}>
-                                    Align camera to the QR code
-                                </Title>
-                            }
-                        />
-                    </StepModule>
-                </ReactModal>
+                <QRScanner
+                    visible={this.state.showScanner}
+                    onScan={this.onScanResult}
+                    onCancel={this.onCancelScanQrCode}
+                />
             </View>
         );
     }
