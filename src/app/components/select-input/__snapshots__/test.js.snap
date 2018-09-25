@@ -224,6 +224,11 @@ exports[`SelectInput renders correctly 1`] = `
                 items={
                   Array [
                     Object {
+                      "label": "",
+                      "textColor": undefined,
+                      "value": "",
+                    },
+                    Object {
                       "label": "Mr",
                       "textColor": undefined,
                       "value": "Mr",
@@ -502,6 +507,11 @@ exports[`SelectInput renders correctly with options open 1`] = `
               <RCTPicker
                 items={
                   Array [
+                    Object {
+                      "label": "",
+                      "textColor": undefined,
+                      "value": "",
+                    },
                     Object {
                       "label": "Mr",
                       "textColor": undefined,
