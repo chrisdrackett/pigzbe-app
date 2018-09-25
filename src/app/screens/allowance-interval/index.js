@@ -26,10 +26,10 @@ export class AllowanceInterval extends Component {
     onBack = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid});
 
     next = async () => {
-        const {day, interval} = this.state;
+        const {day, interval, nextDate} = this.state;
         const {kid, amount} = this.props;
 
-        await this.props.dispatch(addAllowance(kid, amount, interval, day));
+        await this.props.dispatch(addAllowance(kid, amount, interval, day, nextDate));
 
         // todo navigate to kid screen instead
         if (kid) {
@@ -76,7 +76,7 @@ export class AllowanceInterval extends Component {
     setNextPaymentDate = () => {
         const nextDate = this.getNextPaymentInfo();
         console.log('nextDate:', nextDate);
-        this.setState({nextDate: nextDate.format('dddd, MMMM Do')});
+        this.setState({nextDate});
     }
 
     changeInterval(interval) {
@@ -121,7 +121,7 @@ export class AllowanceInterval extends Component {
                             onChangeSelection={value => this.changeDay(value)}
                             options={dayOptions}
                         />}
-                        {!disabled && <Text>First Allowance:{'\n'}{nextDate}</Text>}
+                        {!disabled && <Text>First Allowance:{'\n'}{nextDate.format('dddd, MMMM Do')}</Text>}
                     </View>
                     <View style={{marginTop: 20}}>
                         <Button
