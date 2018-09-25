@@ -139,6 +139,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-device-info')
     implementation project(':react-native-camera')
     implementation project(':react-native-config')
     implementation project(':react-native-touch-id')
