@@ -66,10 +66,12 @@ const updateXLM = account => dispatch => {
 };
 
 export const loadWallet = publicKey => async (dispatch, getState) => {
+    console.log('loadWallet');
     try {
         const key = publicKey || getState().keys.publicKey;
         if (key) {
             const account = await loadAccount(key);
+            console.log('account', account);
             dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
             dispatch(updateBalance(getWolloBalance(account)));
 
@@ -266,7 +268,7 @@ export const createGoalAccount = (kid, goalName) => async (dispatch, getState) =
         const destination = keypair.publicKey();
         await Keychain.save(`secret_${destination}`, keypair.secret());
 
-        const account = await createAccount(secretKey, destination, KID_GOAL_BALANCE_XLM, `Goal: ${kid.name} - ${goalName}`.slice(0,28));
+        const account = await createAccount(secretKey, destination, KID_GOAL_BALANCE_XLM, `Goal: ${kid.name} - ${goalName}`.slice(0, 28));
 
         const signers = [{
             publicKey,
