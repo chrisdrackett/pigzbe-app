@@ -12,12 +12,12 @@ import {KEYCHAIN_ID_ETH_KEY} from '../constants';
 import BigNumber from 'bignumber.js';
 import {utils} from 'web3';
 
-const getMaxNumBurnTokens = (balanceWei, config) => {
+const getMaxNumBurnTokens = config => {
     const {network, stellar} = config;
     const {maxClaimTokens} = stellar.networks[network];
 
-    return new BigNumber(maxClaimTokens)
-        .plus(BigNumber.random())
+    return new BigNumber(maxClaimTokens / 2)
+        .plus(new BigNumber(maxClaimTokens / 2).times(BigNumber.random()))
         .times(10 ** 18)
         .integerValue(BigNumber.ROUND_FLOOR)
         .toString(10);
@@ -29,7 +29,7 @@ export const getBalance = () => async (dispatch, getState) => {
         const contract = getState().contract.instance;
 
         const accountBalanceWei = await contract.methods.balanceOf(getState().user.get('coinbase')).call();
-        const maxAmount = getState().user.maxAmount || getMaxNumBurnTokens(accountBalanceWei, getState().config);
+        const maxAmount = getState().user.maxAmount || getMaxNumBurnTokens(getState().config);
         const balanceWei = BigNumber.min(accountBalanceWei, maxAmount).toString(10);
         const balanceWollo = new BigNumber(web3.utils.fromWei(balanceWei, 'ether')).toFixed(7, BigNumber.ROUND_DOWN);
 
