@@ -56,20 +56,20 @@ export class ClaimICO extends Component {
   onImportKey = async () => {
       const {mnemonic, pk} = this.state;
 
-      const badAddress = pk.trim() === '' || !utils.isAddress(pk);
-      const badSeed = mnemonic.trim() === '' || !isValidSeed(mnemonic);
+      const badAddress = pk.trim() === '' || !utils.isAddress(pk.trim());
+      const badSeed = mnemonic.trim() === '' || !isValidSeed(mnemonic.trim());
       this.setState({badAddress, badSeed});
 
       if (badAddress || badSeed) {
           return;
       }
 
-      let publicKey = pk;
+      let publicKey = pk.trim();
       if (pk.substr(0, 2) !== '0x') {
           publicKey = `0x${pk}`;
       }
 
-      const success = await this.props.userLogin(mnemonic, publicKey);
+      const success = await this.props.userLogin(mnemonic.trim(), publicKey);
 
       if (success) {
           this.setState({loading: 'Loading your Ethereum account'});
