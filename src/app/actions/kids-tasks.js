@@ -1,4 +1,4 @@
-import {createTasksAccount} from './';
+import {createTasksAccount, appAddSuccessAlert, appAddWarningAlert} from './';
 import {
     loadAccount,
     getData,
@@ -24,43 +24,49 @@ export const KIDS_DELETE_TASK = 'KIDS_DELETE_TASK';
 const taskLoading = value => ({type: KIDS_LOADING_TASK, value});
 
 export const assignTask = (kid, task, reward) => async (dispatch, getState) => {
-    console.log('kid', kid, 'task', task, 'reward', reward);
-    const {secretKey} = getState().keys;
-    // dispatch(kidsLoading(true));
-    dispatch(taskLoading(true));
+    try {
+        console.log('kid', kid, 'task', task, 'reward', reward);
+        const {secretKey} = getState().keys;
+        // dispatch(kidsLoading(true));
+        dispatch(taskLoading(true));
 
-    console.log('assignTask', kid.address);
-    const account = await loadAccount(kid.address);
-    let destination = getData(account, 'tasks');
-    if (!destination) {
-        console.log('create tasksAccount');
-        destination = await dispatch(createTasksAccount(kid));
-        console.log('destination', destination);
-        const kidSecretKey = await Keychain.load(`secret_${kid.address}`);
-        console.log('kidSecretKey', kidSecretKey);
-        await setData(kidSecretKey, 'tasks', destination);
+        console.log('assignTask', kid.address);
+        const account = await loadAccount(kid.address);
+        let destination = getData(account, 'tasks');
+        if (!destination) {
+            console.log('create tasksAccount');
+            destination = await dispatch(createTasksAccount(kid));
+            console.log('destination', destination);
+            const kidSecretKey = await Keychain.load(`secret_${kid.address}`);
+            console.log('kidSecretKey', kidSecretKey);
+            await setData(kidSecretKey, 'tasks', destination);
+        }
+
+        console.log('send money to tasks account', destination);
+
+        const asset = wolloAsset(getState());
+        // memo needs to be a unique ref to task
+        const memo = task.slice(0, 28);
+        const result = await sendPayment(secretKey, destination, reward, memo, asset);
+
+        console.log('result', result);
+
+        await dispatch(({type: KIDS_ASSIGN_TASK, data: {
+            kid,
+            task,
+            reward,
+            transaction: result.hash
+        }}));
+
+        await dispatch(saveKids());
+
+        // dispatch(kidsLoading(false));
+        dispatch(taskLoading(false));
+        dispatch(appAddSuccessAlert('Added task'));
+    } catch (error) {
+        console.log(error);
+        dispatch(appAddWarningAlert('Add task failed'));
     }
-
-    console.log('send money to tasks account', destination);
-
-    const asset = wolloAsset(getState());
-    // memo needs to be a unique ref to task
-    const memo = task.slice(0, 28);
-    const result = await sendPayment(secretKey, destination, reward, memo, asset);
-
-    console.log('result', result);
-
-    await dispatch(({type: KIDS_ASSIGN_TASK, data: {
-        kid,
-        task,
-        reward,
-        transaction: result.hash
-    }}));
-
-    await dispatch(saveKids());
-
-    // dispatch(kidsLoading(false));
-    dispatch(taskLoading(false));
 };
 
 export const completeTask = (kid, task) => async (dispatch, getState) => {
@@ -107,39 +113,47 @@ export const completeTask = (kid, task) => async (dispatch, getState) => {
 
         await dispatch(saveKids());
 
+        dispatch(appAddSuccessAlert('Completed task'));
+
         // setTimeout(() => dispatch(loadKidsBalances(kid.address)), 1000);
     } catch (error) {
         console.log(error);
+        dispatch(appAddWarningAlert('Completing task failed'));
     }
 };
 
 export const deleteTask = (kid, task) => async (dispatch, getState) => {
-    dispatch(taskLoading(true));
+    try {
+        dispatch(taskLoading(true));
 
-    const transaction = await loadTransaction(task.transaction);
-    const operations = await transaction.operations();
-    const {amount, from, to} = operations.records[0];
+        const transaction = await loadTransaction(task.transaction);
+        const operations = await transaction.operations();
+        const {amount, from, to} = operations.records[0];
 
-    const tasksAccount = await loadAccount(to);
-    const asset = wolloAsset(getState());
-    const tx = new TransactionBuilder(tasksAccount)
-        .addOperation(Operation.payment({
-            destination: from,
-            asset,
-            amount
-        }))
-        .addMemo(Memo.text(`Delete ${task.task}`))
-        .build();
+        const tasksAccount = await loadAccount(to);
+        const asset = wolloAsset(getState());
+        const tx = new TransactionBuilder(tasksAccount)
+            .addOperation(Operation.payment({
+                destination: from,
+                asset,
+                amount
+            }))
+            .addMemo(Memo.text(`Delete ${task.task}`))
+            .build();
 
-    const {secretKey} = getState().keys;
-    const keypair = Keypair.fromSecret(secretKey);
-    tx.sign(keypair);
+        const {secretKey} = getState().keys;
+        const keypair = Keypair.fromSecret(secretKey);
+        tx.sign(keypair);
 
-    const result = getServer().submitTransaction(tx);
-    console.log('result', result);
+        const result = getServer().submitTransaction(tx);
+        console.log('result', result);
 
-    dispatch(({type: KIDS_DELETE_TASK, data: {kid, task}}));
+        dispatch(({type: KIDS_DELETE_TASK, data: {kid, task}}));
 
-    await dispatch(saveKids());
-    dispatch(taskLoading(false));
+        await dispatch(saveKids());
+        dispatch(taskLoading(false));
+    } catch (error) {
+        console.log(error);
+        dispatch(appAddWarningAlert('Delete task failed'));
+    }
 };
