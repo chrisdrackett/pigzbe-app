@@ -5,15 +5,22 @@ import Button from '../../components/button';
 import Form from './form';
 import Progress from '../../components/progress';
 import StepModule from '../../components/step-module';
+import {ViewAddress} from '../view-address';
+import ReactModal from 'react-native-modal';
 
 export class Send extends Component {
     state = {
-        review: false
+        review: false,
+        showViewAdressModal: false,
     }
 
     onTransfer = () => this.props.navigation.navigate(SCREEN_TRANSFER)
 
     onReview = review => this.setState({review})
+
+    onViewAddress = () => this.setState({showViewAdressModal: true})
+
+    onHideAddress = () => this.setState({showViewAdressModal: false})
 
     render() {
         const {dispatch, balance, exchange, sending, sendComplete, sendStatus, error} = this.props;
@@ -27,6 +34,8 @@ export class Send extends Component {
                     pad
                     paddingTop={10}
                     keyboardOffset={-50}
+                    settingsIcon="qrCode"
+                    onSettings={this.onViewAddress}
                 >
                     <Fragment>
                         <Form
@@ -51,6 +60,17 @@ export class Send extends Component {
                     buttonLabel={strings.transferProgressButtonLabel}
                     onPress={this.onTransfer}
                 />
+                <ReactModal
+                    isVisible={this.state.showViewAdressModal}
+                    animationIn="slideInRight"
+                    animationOut="slideOutRight"
+                    style={{margin: 0}}
+                >
+                    <ViewAddress
+                        publicKey={this.props.publicKey}
+                        onBack={this.onHideAddress}
+                    />
+                </ReactModal>
             </Fragment>
         );
     }
@@ -64,5 +84,6 @@ export default connect(
         sending: state.wollo.sending,
         sendStatus: state.wollo.sendStatus,
         sendComplete: state.wollo.sendComplete,
+        publicKey: state.keys.publicKey,
     })
 )(Send);

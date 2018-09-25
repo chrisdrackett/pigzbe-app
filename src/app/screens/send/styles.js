@@ -1,8 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {
-    color,
-    fontFamily
-} from '../../styles';
+import {color, fontFamily} from '../../styles';
 
 export default StyleSheet.create({
     containerForm: {
@@ -94,5 +91,20 @@ export default StyleSheet.create({
     exchange: {
         fontSize: 14,
         marginBottom: 10,
+    },
+    scanIcon: {
+        width: 14,
+        height: 14,
+    },
+    scanButton: {
+        position: 'absolute',
+        right: 4,
+        top: 48,
+        width: 40,
+        height: 40,
+        paddingTop: 13,
+        paddingRight: 13,
+        paddingBottom: 13,
+        paddingLeft: 13,
     },
 });

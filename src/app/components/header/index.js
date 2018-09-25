@@ -1,14 +1,21 @@
 import React from 'react';
-import {Image, TouchableOpacity, View, Text} from 'react-native';
+import {TouchableOpacity, View, Text} from 'react-native';
 import Logo from '../logo';
+import Icon from '../icon';
 import styles from './styles';
 
-export default ({onSettings, onBack, hideLogo, customTitle}) => (
+export default ({
+    onBack,
+    onSettings,
+    settingsIcon = 'settings',
+    hideLogo,
+    customTitle,
+}) => (
     <View style={styles.container}>
         <View style={styles.iconContainer}>
             {onBack && (
                 <TouchableOpacity style={styles.back} onPress={onBack}>
-                    <Image style={styles.backIcon} source={require('./images/btn_back.png')}/>
+                    <Icon style={styles.backIcon} name="back" />
                 </TouchableOpacity>
             )}
         </View>
@@ -21,7 +28,7 @@ export default ({onSettings, onBack, hideLogo, customTitle}) => (
         <View style={styles.iconContainer}>
             {onSettings &&
                 <TouchableOpacity style={styles.settings} onPress={onSettings}>
-                    <Image style={styles.settingsIcon} source={require('./images/settings-icon.png')} />
+                    <Icon style={styles.settingsIcon} name={settingsIcon} />
                 </TouchableOpacity>
             }
         </View>
