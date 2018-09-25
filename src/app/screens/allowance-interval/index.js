@@ -8,6 +8,7 @@ import {SCREEN_DASHBOARD, SCREEN_ALLOWANCE_AMOUNT, SCREEN_KID_DASHBOARD} from '.
 import StepModule from '../../components/step-module';
 import styles from './styles';
 import {addAllowance} from '../../actions';
+import DeviceInfo from 'react-native-device-info';
 
 
 export class AllowanceInterval extends Component {
@@ -18,6 +19,7 @@ export class AllowanceInterval extends Component {
         days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         monthly: ['1st', '15th'],
         nextDate: null,
+        timezone: DeviceInfo.getTimezone(),
     }
 
     componentWillMount() {
@@ -26,10 +28,10 @@ export class AllowanceInterval extends Component {
     onBack = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid});
 
     next = async () => {
-        const {day, interval, nextDate} = this.state;
+        const {day, interval, nextDate, timezone} = this.state;
         const {kid, amount} = this.props;
 
-        await this.props.dispatch(addAllowance(kid, amount, interval, day, nextDate));
+        await this.props.dispatch(addAllowance(kid, amount, interval, day, nextDate, timezone));
 
         // todo navigate to kid screen instead
         if (kid) {
@@ -90,7 +92,7 @@ export class AllowanceInterval extends Component {
     }
 
     render() {
-        const {interval, day, intervals, days, monthly, nextDate} = this.state;
+        const {interval, day, intervals, days, monthly, nextDate, timezone} = this.state;
         const {loading} = this.props;
 
         const dayOptions = interval === 'Monthly' ? monthly : days;
@@ -122,6 +124,7 @@ export class AllowanceInterval extends Component {
                             options={dayOptions}
                         />}
                         {!disabled && nextDate && <Text style={styles.text}>First Allowance:{'\n'}{nextDate.format('dddd, MMMM Do')}</Text>}
+                        {DeviceInfo && <Text style={styles.text}>Your Timezone:{'\n'}{timezone}</Text>}
                     </View>
                     <View style={{marginTop: 20}}>
                         <Button
