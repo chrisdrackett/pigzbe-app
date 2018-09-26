@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
-import Transfer from './';
+import {Transfer} from './';
 import wollo from '../../reducers/wollo';
 import {mockStore} from '../../../setupTests';
 
@@ -16,6 +16,12 @@ const props = {
         },
         actions: {}
     },
+    error: null,
+    balance: '0',
+    balanceXLM: '0',
+    minXLM: '0',
+    hasGas: false,
+    publicKey: 'GD5Q7KRFQC3Q7YQPYAZ4G65B65EBCJOVSHPE65MIYQMCLUQULQDKBLUX',
 };
 
 describe('Transfer', () => {
