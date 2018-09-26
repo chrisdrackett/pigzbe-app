@@ -4,7 +4,6 @@ import {DevPanelComponent} from './';
 
 describe('DevPanel', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<DevPanelComponent/>).toJSON();
-        expect(tree).toMatchSnapshot();
+        renderer.create(<DevPanelComponent/>);
     });
 });
