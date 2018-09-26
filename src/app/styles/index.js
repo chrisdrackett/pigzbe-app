@@ -39,6 +39,8 @@ export const color = {
     orange: 'rgb(255, 98, 66)',
     warningOrangeOpacity95: 'rgba(255, 186, 109, 0.95)',
     lightRed: 'rgb(231, 110, 102)',
+    skyBlueTop: 'rgb(168, 232, 247)',
+    skyBlueBottom: 'rgb(174, 236, 251)',
 };
 
 // export const paddingH = '9.375%';
