@@ -1,4 +1,4 @@
-import {saveKids} from './';
+import {saveKids, appAddSuccessAlert, appAddWarningAlert} from './';
 
 export const KIDS_ADD_ALLOWANCE = 'KIDS_ADD_ALLOWANCE';
 export const KIDS_DELETE_ALLOWANCE = 'KIDS_DELETE_ALLOWANCE';
@@ -7,19 +7,31 @@ export const KIDS_LOADING_ALLOWANCE = 'KIDS_LOADING_ALLOWANCE';
 const allowanceLoading = value => ({type: KIDS_LOADING_ALLOWANCE, value});
 
 export const addAllowance = (kid, amount, interval, day, nextDate, timezone) => async dispatch => {
-    console.log('addAllowance amount =', amount);
-    dispatch(allowanceLoading(true));
+    try {
+        console.log('addAllowance amount =', amount);
+        dispatch(allowanceLoading(true));
 
-    dispatch(({type: KIDS_ADD_ALLOWANCE, kid, data: {amount, interval, day, nextDate, timezone}}));
-    // await dispatch(addAllowance());
-    await dispatch(saveKids());
-    dispatch(allowanceLoading(false));
+        dispatch(({type: KIDS_ADD_ALLOWANCE, kid, data: {amount, interval, day, nextDate, timezone}}));
+        // await dispatch(addAllowance());
+        await dispatch(saveKids());
+        dispatch(allowanceLoading(false));
+        dispatch(appAddSuccessAlert('Added allowance'));
+    } catch (error) {
+        console.log(error);
+        dispatch(appAddWarningAlert('Add allowance has failed'));
+    }
 };
 
 export const deleteAllowance = (kid, allowance) => async dispatch => {
-    dispatch(allowanceLoading(true));
-    dispatch(({type: KIDS_DELETE_ALLOWANCE, data: {kid, allowance}}));
-    // await dispatch(deleteAllowance());
-    await dispatch(saveKids());
-    dispatch(allowanceLoading(false));
+    try {
+        dispatch(allowanceLoading(true));
+        dispatch(({type: KIDS_DELETE_ALLOWANCE, data: {kid, allowance}}));
+        // await dispatch(deleteAllowance());
+        await dispatch(saveKids());
+        dispatch(allowanceLoading(false));
+        dispatch(appAddSuccessAlert('Deleted allowance'));
+    } catch (error) {
+        console.log(error);
+        dispatch(appAddWarningAlert('Delete allowance has failed'));
+    }
 };

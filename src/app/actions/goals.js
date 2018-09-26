@@ -14,7 +14,7 @@ import {
 import {wolloAsset} from '../selectors';
 import Keychain from '../utils/keychain';
 import BigNumber from 'bignumber.js';
-import {saveKids, getWolloBalance, appAddSuccessAlert} from '.';
+import {saveKids, getWolloBalance, appAddSuccessAlert, appAddWarningAlert} from '.';
 
 export const KIDS_LOADING_GOAL = 'KIDS_LOADING_GOAL';
 export const KIDS_ASSIGN_GOAL = 'KIDS_ASSIGN_GOAL';
@@ -24,37 +24,49 @@ export const KIDS_DELETE_GOAL = 'KIDS_DELETE_GOAL';
 const goalLoading = value => ({type: KIDS_LOADING_GOAL, value});
 
 export const assignGoal = (kid, goalName, reward) => async (dispatch, getState) => {
-    dispatch(goalLoading(true));
+    try {
+        dispatch(goalLoading(true));
 
-    const destination = await dispatch(createGoalAccount(kid, goalName));
+        const destination = await dispatch(createGoalAccount(kid, goalName));
 
-    await dispatch(({type: KIDS_ASSIGN_GOAL, kid, goal: {
-        address: destination,
-        name: goalName,
-        reward,
-    }}));
+        await dispatch(({type: KIDS_ASSIGN_GOAL, kid, goal: {
+            address: destination,
+            name: goalName,
+            reward,
+        }}));
 
-    await dispatch(saveKids());
+        await dispatch(saveKids());
 
-    dispatch(goalLoading(false));
+        dispatch(goalLoading(false));
 
-    dispatch(appAddSuccessAlert('Added goal'));
+        dispatch(appAddSuccessAlert('Added goal'));
+
+    } catch (err) {
+        console.log(err);
+        dispatch(appAddWarningAlert('Add goal failed'));
+    }
 };
 
 export const updateGoal = (kid, goalName, reward, goalAddress) => async (dispatch, getState) => {
-    dispatch(goalLoading(true));
+    try {
+        dispatch(goalLoading(true));
 
-    await dispatch(({type: KIDS_UPDATE_GOAL, kid, goal: {
-        address: goalAddress,
-        name: goalName,
-        reward,
-    }}));
+        await dispatch(({type: KIDS_UPDATE_GOAL, kid, goal: {
+            address: goalAddress,
+            name: goalName,
+            reward,
+        }}));
 
-    await dispatch(saveKids());
+        await dispatch(saveKids());
 
-    dispatch(goalLoading(false));
+        dispatch(goalLoading(false));
 
-    dispatch(appAddSuccessAlert('Updated goal'));
+        dispatch(appAddSuccessAlert('Updated goal'));
+    } catch (err) {
+        console.log('ERROR');
+        console.log(err);
+        dispatch(appAddWarningAlert('Update goal failed'));
+    }
 };
 
 export const deleteGoal = (kid, goal) => async (dispatch, getState) => {
@@ -84,15 +96,15 @@ export const deleteGoal = (kid, goal) => async (dispatch, getState) => {
         txb.addMemo(Memo.text(`Delete ${goal.name}`));
 
         const tx = txb.build();
-    
+
         const {secretKey} = getState().keys;
         const keypair = Keypair.fromSecret(secretKey);
         tx.sign(keypair);
-    
+
         const result = getServer().submitTransaction(tx);
-    
+
         dispatch({type: KIDS_DELETE_GOAL, kid, goal});
-    
+
         await dispatch(saveKids());
         dispatch(goalLoading(false));
 
@@ -100,7 +112,7 @@ export const deleteGoal = (kid, goal) => async (dispatch, getState) => {
         dispatch(appAddSuccessAlert('Deleted goal'));
 
     } catch (err) {
-        console.log("ERROR");
         console.log(err);
+        dispatch(appAddWarningAlert('Delete goal failed'));
     }
-}
+};
