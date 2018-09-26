@@ -43,10 +43,11 @@ storiesOf('Game')
     .add('default', () => (
         <Game {...props}/>
     ))
-    .add('bg', () => (
-        <GameBg {...{
-            ...props,
-        }}/>
+    .add('bg start', () => (
+        <GameBg />
+    ))
+    .add('bg anim', () => (
+        <GameBg targetX={2000} />
     ))
     .add('with learn', () => (
         <Game {...{

@@ -1,11 +1,21 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {color} from '../../styles';
+
+// uikit width of widest ios screen
+export const MAP_WIDTH = 1366;
 
 export default StyleSheet.create({
     wrapper: {
         flex: 1,
         position: 'relative',
         backgroundColor: color.skyBlueBottom,
+    },
+    scrollable: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        width: MAP_WIDTH,
     },
     sky: {
         backgroundColor: color.skyBlueTop,
@@ -40,15 +50,18 @@ export default StyleSheet.create({
         height: 210,
     },
     mountainsLeft: {
-        left: -440,
+        // left: -440,
+        left: 33,
     },
     mountainsRight: {
-        left: Dimensions.get('window').width - 120,
+        // left: Dimensions.get('window').width - 120,
+        left: 33 + 560 + 180,
     },
     foliage: {
         position: 'absolute',
         bottom: 148,
-        left: -14,
+        // left: -14,
+        left: 33 + 440 - 14,
         width: 105,
         height: 25,
     },
@@ -59,9 +72,11 @@ export default StyleSheet.create({
         height: 7,
     },
     grassLeft: {
-        left: -10,
+        // left: -10,
+        left: 33 + 440 - 10,
     },
     grassRight: {
-        left: Dimensions.get('window').width - 60,
+        // left: Dimensions.get('window').width - 60,
+        left: 33 + 440 + 67 + 260,
     },
 });
