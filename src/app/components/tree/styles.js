@@ -5,7 +5,7 @@ export default StyleSheet.create({
         width: 200,
         height: 200,
         position: 'relative',
-        borderColor: '#f00',
+        borderColor: '#0f0',
         borderWidth: 1,
     },
     trunk: {
@@ -19,5 +19,18 @@ export default StyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         opacity: 0.8,
+    },
+    leaf: {
+        position: 'absolute',
+        left: '50%',
+    },
+    leaves: {
+        position: 'absolute',
+        width: 200,
+        height: 150,
+        top: 0,
+        right: 0,
+        left: 0,
+        borderColor: '#000',
     },
 });
