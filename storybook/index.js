@@ -42,6 +42,7 @@ function loadStories() {
     require('./stories/claim-vip.js');
     require('./stories/loader-modal.js');
     require('./stories/view-address.js');
+    require('./stories/tree.js');
 }
 
 configure(loadStories, module);
