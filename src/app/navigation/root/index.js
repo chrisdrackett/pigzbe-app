@@ -1,6 +1,7 @@
 import React, {Fragment, Component} from 'react';
 import {connect} from 'react-redux';
 import {NetInfo} from 'react-native';
+import BackgroundTask from 'react-native-background-task';
 import Auth from '../auth';
 import Alert from '../../components/alert';
 import {connectionState, appAddAlert, appDeleteAlert} from '../../actions';
@@ -11,6 +12,7 @@ class Root extends Component {
     componentDidMount() {
         NetInfo.isConnected.fetch(this.onConnectionChange);
         NetInfo.isConnected.addEventListener('connectionChange', this.onConnectionChange);
+        BackgroundTask.schedule();
     }
 
     componentWillUnmount() {

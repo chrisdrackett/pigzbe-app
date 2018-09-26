@@ -17,6 +17,7 @@ import {
     KIDS_LOADING_ALLOWANCE,
     KIDS_ADD_ALLOWANCE,
     KIDS_DELETE_ALLOWANCE,
+    KIDS_UPDATE_ALLOWANCE,
     KIDS_SENDING_WOLLO,
     KIDS_SEND_ERROR,
     KIDS_SEND_COMPLETE,
@@ -242,7 +243,10 @@ export default (state = initialState, action) => {
                     if (!action.kid || k.address === action.kid.address) {
                         return {
                             ...k,
-                            allowances: k.allowances.concat({...action.data}),
+                            allowances: k.allowances.concat({
+                                id: k.allowances.length === 0 ? 1 : (k.allowances[k.allowances.length - 1].id + 1),
+                                ...action.data
+                            }),
                         };
                     }
                     return k;
@@ -256,7 +260,25 @@ export default (state = initialState, action) => {
                         return {
                             ...k,
                             allowances: k.allowances.filter(allowance => {
-                                return allowance.amount !== action.data.allowance.amount;
+                                return allowance.id !== action.data.allowance.id;
+                            }),
+                        };
+                    }
+                    return k;
+                }),
+            };
+        case KIDS_UPDATE_ALLOWANCE:
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    if (k.address === action.data.kid.address) {
+                        return {
+                            ...k,
+                            allowances: k.allowances.map(allowance => {
+                                if (allowance.id === action.data.allowance.id) {
+                                    return action.data.allowance
+                                }
+                                return allowance;
                             }),
                         };
                     }
