@@ -50,11 +50,9 @@ export default StyleSheet.create({
         height: 210,
     },
     mountainsLeft: {
-        // left: -440,
         left: 33,
     },
     mountainsRight: {
-        // left: Dimensions.get('window').width - 120,
         left: 33 + 560 + 180,
     },
     foliage: {
@@ -72,11 +70,9 @@ export default StyleSheet.create({
         height: 7,
     },
     grassLeft: {
-        // left: -10,
         left: 33 + 440 - 10,
     },
     grassRight: {
-        // left: Dimensions.get('window').width - 60,
         left: 33 + 440 + 67 + 260,
     },
 });

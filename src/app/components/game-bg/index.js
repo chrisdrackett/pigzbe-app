@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {View, Image, Dimensions} from 'react-native';
 import styles, {MAP_WIDTH} from './styles';
+import Birds from '../game-birds';
 
 const cameraW = Dimensions.get('window').width;
 const startX = (cameraW - MAP_WIDTH) / 2;
@@ -102,10 +103,11 @@ export default class Bg extends Component {
     state = {
         x: 0,
         delta: 0,
+        birdX: 0,
     }
 
     static defaultProps = {
-        targetX: 0
+        targetX: 0,
     }
 
     componentDidMount() {
@@ -146,6 +148,7 @@ export default class Bg extends Component {
                     Layer={Front}
                     speed={this.state.delta}
                 />
+                <Birds />
             </View>
         );
     }
