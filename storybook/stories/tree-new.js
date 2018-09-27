@@ -17,13 +17,14 @@ const flexStyle = {
 };
 
 storiesOf('Game')
-    .add('tree', () => (
+    .add('new goal tree', () => (
         <View
             style={flexStyle}
         >
             <Tree
                 value={20}
-                name="HOMETREE"
+                name="New Goal?"
+                newValue
             />
         </View>
     ));

@@ -8,7 +8,7 @@ export class Tree extends Component {
 
         this.state = {
             numberLeaves: Math.max(2, Math.floor(props.value / 10)),
-            leafLocations: [[0, -10], [-10, 10], [-20, -20], [-30, 20]],
+            leafLocations: [[0, -10], [-10, 10], [-20, -20], [-30, 20], [-30, 0], [-40, 20], [-50, -10], [-60, 30], [-70, 0], [-80, -10]],
             colors: ['rgb(50,165,113)', 'rgb(77,204,70)'],
         };
     }
@@ -21,8 +21,8 @@ export class Tree extends Component {
             top: 100,
             width: 50,
             height: 50,
-            marginLeft: leaf.position[1] - 25,
             marginTop: leaf.position[0],
+            marginLeft: leaf.position[1] - 25,
             borderRadius: 25,
             backgroundColor: leaf.color,
         };
@@ -41,7 +41,7 @@ export class Tree extends Component {
         for (let i = 0; i < numberLeaves; i++) {
             leavesList.push({
                 key: `key_${i}`,
-                position: leafLocations[i],
+                position: leafLocations[i % 10],
                 color: this.state.colors[Math.floor(Math.random() * 2)],
             });
         }

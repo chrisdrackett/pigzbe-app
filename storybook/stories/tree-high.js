@@ -17,13 +17,13 @@ const flexStyle = {
 };
 
 storiesOf('Game')
-    .add('tree', () => (
+    .add('high tree', () => (
         <View
             style={flexStyle}
         >
             <Tree
-                value={20}
-                name="HOMETREE"
+                value={1000}
+                name="LARGE Tree"
             />
         </View>
     ));

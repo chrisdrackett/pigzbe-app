@@ -43,6 +43,8 @@ function loadStories() {
     require('./stories/loader-modal.js');
     require('./stories/view-address.js');
     require('./stories/tree.js');
+    require('./stories/tree-new.js');
+    require('./stories/tree-high.js');
 }
 
 configure(loadStories, module);
