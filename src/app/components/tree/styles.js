@@ -5,8 +5,6 @@ export default StyleSheet.create({
         width: 200,
         height: 200,
         position: 'relative',
-        borderColor: '#0f0',
-        borderWidth: 1,
     },
     trunk: {
         position: 'absolute',
@@ -36,7 +34,6 @@ export default StyleSheet.create({
         top: 0,
         right: 0,
         left: 0,
-        borderColor: '#000',
     },
     value: {
         width: 42,
@@ -78,7 +75,5 @@ export default StyleSheet.create({
     outer: {
         position: 'relative',
         height: 250,
-        borderColor: '#000',
-        borderWidth: 1,
     },
 });

@@ -1,11 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Tree from './';
+import Leaf from './';
 
-describe('Tree', () => {
+describe('Leaf', () => {
     test('renders correctly', () => {
         renderer.create(
-            <Tree value={30} />
+            <Leaf diameter={40} />
         );
     });
 });

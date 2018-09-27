@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Animated} from 'react-native';
-import styles from './styles';
+// import styles from './styles';
 
 export class Leaf extends Component {
     constructor(props) {
@@ -46,9 +46,7 @@ export class Leaf extends Component {
     }
 
     render() {
-        // const {diameter} = this.props;
         const {color, diameter, borderRadius, offset} = this.state;
-        console.log('color, ', this.state.color);
 
         const currentStyles = {
             position: 'absolute',

@@ -8,7 +8,6 @@ export class Tree extends Component {
         super(props);
 
         this.state = {
-            // numberLeaves: ,
             leafLocations: [[0, 0], [-10, 10], [-20, -20], [-30, 20], [-30, 0], [-40, 20], [-50, -10], [-60, 30], [-70, 0], [-80, -10]],
             colors: ['rgb(50,165,113)', 'rgb(77,204,70)'],
         };
@@ -43,8 +42,6 @@ export class Tree extends Component {
 
         const leavesList = [];
 
-        console.log('+++++ get leavesList +++++', numberLeaves);
-
         for (let i = 0; i < numberLeaves; i++) {
             leavesList.push({
                 id: i,
@@ -59,7 +56,6 @@ export class Tree extends Component {
 
     render() {
         const {value, name, newValue} = this.props;
-        // const {numberLeaves} = this.state;
 
         return (
             <View style={styles.outer}>
