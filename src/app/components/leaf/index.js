@@ -23,19 +23,24 @@ export class Leaf extends Component {
 
     componentDidMount() {
         const {diameter, diameterTo, borderRadius, borderTo, offset} = this.state;
+        const {id} = this.props;
+        const delay = id * 60;
 
         Animated.parallel([
             Animated.timing(diameter, {
                 toValue: diameterTo,
                 duration: 1000,
+                delay: delay,
             }),
             Animated.timing(borderRadius, {
                 toValue: borderTo,
                 duration: 1000,
+                delay: delay,
             }),
             Animated.timing(offset, {
                 toValue: 25 - borderTo,
                 duration: 1000,
+                delay: delay,
             })
         ]).start();
     }
