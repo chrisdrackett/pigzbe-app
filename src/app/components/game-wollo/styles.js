@@ -1,25 +1,23 @@
 import {StyleSheet} from 'react-native';
-import {
-    color,
-    fontFamily
-} from '../../styles';
+import {color, fontFamily} from '../../styles';
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: color.white,
-        height: 29,
-        borderRadius: 29 / 2,
-        paddingTop: 3,
-        paddingBottom: 3,
-        paddingLeft: 3,
-        paddingRight: 6,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        height: 27,
+    },
+    container__small: {
+        height: 23,
     },
     wollo: {
         width: 23,
         height: 23,
+    },
+    wollo__small: {
+        width: 19,
+        height: 19,
     },
     times: {
         width: 12,
@@ -32,6 +30,8 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         color: color.blue,
-        lineHeight: 26,
+    },
+    text__small: {
+        fontSize: 16,
     },
 });
