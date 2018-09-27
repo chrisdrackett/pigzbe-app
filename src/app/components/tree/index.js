@@ -51,18 +51,22 @@ export class Tree extends Component {
 
     render() {
         const {value} = this.props;
+        const {numberLeaves} = this.state;
 
         return (
             <View style={styles.outer}>
                 <View style={styles.tree}>
                     <Image style={styles.trunk} source={require('./images/trunk.png')} />
-                    <FlatList
+                    {numberLeaves > 2 ? <FlatList
                         data={this.getLeavesList()}
                         contentContainerStyle={styles.leaves}
                         renderItem={({item}) => this.renderLeaf(item)}
-                    />
+                    /> : <Image style={styles.sprout} source={require('./images/sprout.png')} />
+                    }
                 </View>
-                <Text style={styles.value}>{value}</Text>
+                <View style={styles.valueWrapper}>
+                    <Text style={styles.value}>{value}</Text>
+                </View>
             </View>
         );
     }

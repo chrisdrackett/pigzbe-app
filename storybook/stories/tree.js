@@ -13,6 +13,7 @@ const flexStyle = {
     marginLeft: 20,
     marginRight: 20,
     height: Dimensions.get('window').height,
+    backgroundColor: 'rgba(106, 50, 16, 0.2)',
 };
 
 storiesOf('Game')
@@ -21,7 +22,7 @@ storiesOf('Game')
             style={flexStyle}
         >
             <Tree
-                value={30}
+                value={20}
             />
         </View>
     ));
