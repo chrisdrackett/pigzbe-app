@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
+import com.jamesisaac.rnbackgroundtask.BackgroundTaskPackage;
 import com.rnfingerprint.FingerprintAuthPackage;
 import com.oblador.keychain.KeychainPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -30,7 +32,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNDeviceInfo(),
+          new RNDeviceInfo(),
+          new RNBackgroundFetchPackage(),
+          new BackgroundTaskPackage(),
           new FingerprintAuthPackage(),
           new KeychainPackage(),
           new ImagePickerPackage(),
@@ -55,5 +59,6 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    BackgroundTaskPackage.useContext(this);
   }
 }

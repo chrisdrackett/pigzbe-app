@@ -10,19 +10,15 @@ import styles from './styles';
 import {addAllowance} from '../../actions';
 import DeviceInfo from 'react-native-device-info';
 
+import {intervals, daysOfWeek, daysOfMonth, getFirstPaymentDate} from 'app/utils/allowances';
+
 
 export class AllowanceInterval extends Component {
     state = {
         day: null,
         interval: null,
-        intervals: ['Daily', 'Weekly', 'Fortnightly', 'Monthly'],
-        days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        monthly: ['1st', '15th'],
         nextDate: null,
         timezone: DeviceInfo.getTimezone(),
-    }
-
-    componentWillMount() {
     }
 
     onBack = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid});
@@ -31,7 +27,7 @@ export class AllowanceInterval extends Component {
         const {day, interval, nextDate, timezone} = this.state;
         const {kid, amount} = this.props;
 
-        await this.props.dispatch(addAllowance(kid, amount, interval, day, nextDate, timezone));
+        await this.props.dispatch(addAllowance(kid, amount, interval, day, nextDate.toISOString(), timezone));
 
         // todo navigate to kid screen instead
         if (kid) {
@@ -41,42 +37,10 @@ export class AllowanceInterval extends Component {
         }
     }
 
-    getNextPaymentInfo = () => {
-        const {interval, day, days} = this.state;
-
-        console.log('++ interval', interval);
-
-        if (interval === 'Weekly' || interval === 'Fortnightly') {
-            const dayNeeded = days.indexOf(day) + 1; // for Thursday
-            console.log('day in need', days, dayNeeded);
-            const today = moment().isoWeekday();
-
-            // if we haven't yet passed the day of the week that I need:
-            if (today <= dayNeeded) {
-                // then just give me this week's instance of that day
-                return moment().isoWeekday(dayNeeded);
-            } else {
-                // otherwise, give me *next week's* instance of that same day
-                return moment().add(1, 'weeks').isoWeekday(dayNeeded);
-            }
-        } else if (interval === 'Daily') {
-            return moment();
-        } else { // interval is monthly
-            if (moment().date() === 1 && day === '1st' || moment().date() === 15 && day === '15st') {
-                return moment();
-            } else {
-                if (day === '1st') {
-                    return moment().add(1, 'month').date(1);
-                } else if (moment().date() < 15 && day === '15th') {
-                    return moment().date(15);
-                }
-                return moment().add(1, 'month').date(15);
-            }
-        }
-    }
 
     setNextPaymentDate = () => {
-        const nextDate = this.getNextPaymentInfo();
+        const {interval, day} = this.state;
+        const nextDate = getFirstPaymentDate({interval, day});
         console.log('nextDate:', nextDate);
         this.setState({nextDate});
     }
@@ -92,10 +56,10 @@ export class AllowanceInterval extends Component {
     }
 
     render() {
-        const {interval, day, intervals, days, monthly, nextDate, timezone} = this.state;
+        const {interval, day, nextDate, timezone} = this.state;
         const {loading} = this.props;
 
-        const dayOptions = interval === 'Monthly' ? monthly : days;
+        const dayOptions = interval === 'Monthly' ? daysOfMonth : daysOfWeek;
         const showSecondInput = interval !== 'Daily';
         const disabled = !(day && interval || interval === 'Daily');
 

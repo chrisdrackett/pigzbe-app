@@ -8,11 +8,10 @@ import {mockStore} from '../../../setupTests';
 
 describe('Learn', () => {
     test('renders correctly', () => {
-        const tree = renderer.create((
+        renderer.create(
             <Provider store={mockStore({coins, game})}>
                 <Learn/>
             </Provider>
-        )).toJSON();
-        expect(tree).toMatchSnapshot();
+        );
     });
 });

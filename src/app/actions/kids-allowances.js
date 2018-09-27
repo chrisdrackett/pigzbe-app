@@ -1,21 +1,25 @@
 import {saveKids, appAddSuccessAlert, appAddWarningAlert} from './';
+import {handleAllowances} from 'app/utils/allowances';
 
 export const KIDS_ADD_ALLOWANCE = 'KIDS_ADD_ALLOWANCE';
 export const KIDS_DELETE_ALLOWANCE = 'KIDS_DELETE_ALLOWANCE';
 export const KIDS_LOADING_ALLOWANCE = 'KIDS_LOADING_ALLOWANCE';
+export const KIDS_UPDATE_ALLOWANCE = 'KIDS_UPDATE_ALLOWANCE';
 
 const allowanceLoading = value => ({type: KIDS_LOADING_ALLOWANCE, value});
 
-export const addAllowance = (kid, amount, interval, day, nextDate, timezone) => async dispatch => {
+export const addAllowance = (kid, amount, interval, day, nextDate, timezone) => async (dispatch,getState)  => {
     try {
         console.log('addAllowance amount =', amount);
         dispatch(allowanceLoading(true));
 
-        dispatch(({type: KIDS_ADD_ALLOWANCE, kid, data: {amount, interval, day, nextDate, timezone}}));
-        // await dispatch(addAllowance());
+        dispatch(({type: KIDS_ADD_ALLOWANCE, kid, data: {amount, interval, day, nextDate, timezone, payments: []}}));
         await dispatch(saveKids());
         dispatch(allowanceLoading(false));
         dispatch(appAddSuccessAlert('Added allowance'));
+
+        // Fire and forget the logic to handle allowances
+        handleAllowances({dispatch, getState});
     } catch (error) {
         console.log(error);
         dispatch(appAddWarningAlert('Add allowance has failed'));
@@ -34,4 +38,11 @@ export const deleteAllowance = (kid, allowance) => async dispatch => {
         console.log(error);
         dispatch(appAddWarningAlert('Delete allowance has failed'));
     }
+};
+
+export const updateAllowance = (kid, allowance) => async dispatch => {
+    dispatch(allowanceLoading(true));
+    dispatch(({type: KIDS_UPDATE_ALLOWANCE, data: {kid, allowance}}));
+    await dispatch(saveKids());
+    dispatch(allowanceLoading(false));
 };

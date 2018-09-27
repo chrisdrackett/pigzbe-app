@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 import ButtonIcon from '../../components/button-icon';
-import Counter from '../../components/counter';
+import Counter from '../../components/game-wollo';
 import styles from './styles';
 import images from './images';
 import moneyFormat from '../../utils/money-format';

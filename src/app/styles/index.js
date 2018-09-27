@@ -3,6 +3,7 @@ export const fontFamily = 'Poppins';
 export const color = {
     black: 'rgb(0, 0, 0)',
     blackOpacity5: 'rgba(0, 0, 0, 0.05)',
+    blackOpacity10: 'rgba(0, 0, 0, 0.1)',
     white: 'rgb(255, 255, 255)',
     whiteOpacity60: 'rgba(255, 255, 255, 0.6)',
     whiteOpacity70: 'rgba(255, 255, 255, 0.7)',
@@ -39,6 +40,8 @@ export const color = {
     orange: 'rgb(255, 98, 66)',
     warningOrangeOpacity95: 'rgba(255, 186, 109, 0.95)',
     lightRed: 'rgb(231, 110, 102)',
+    skyBlueTop: 'rgb(168, 232, 247)',
+    skyBlueBottom: 'rgb(174, 236, 251)',
 };
 
 // export const paddingH = '9.375%';
