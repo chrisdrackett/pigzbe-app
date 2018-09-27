@@ -59,6 +59,7 @@ export default StyleSheet.create({
         left: '50%',
         marginLeft: -50,
         fontSize: 8,
+        textTransform: 'uppercase',
     },
     valueWrapper: {
         borderRadius: 15,
