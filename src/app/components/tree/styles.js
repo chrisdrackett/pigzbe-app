@@ -49,6 +49,17 @@ export default StyleSheet.create({
         fontSize: 15,
         lineHeight: 28,
     },
+    name: {
+        position: 'absolute',
+        width: 100,
+        height: 20,
+        textAlign: 'center',
+        color: '#fff',
+        bottom: 24,
+        left: '50%',
+        marginLeft: -50,
+        fontSize: 8,
+    },
     valueWrapper: {
         borderRadius: 15,
         width: 42,

@@ -50,7 +50,7 @@ export class Tree extends Component {
     }
 
     render() {
-        const {value} = this.props;
+        const {value, name} = this.props;
         const {numberLeaves} = this.state;
 
         return (
@@ -64,6 +64,7 @@ export class Tree extends Component {
                     /> : <Image style={styles.sprout} source={require('./images/sprout.png')} />
                     }
                 </View>
+                <Text style={styles.name}>{name}</Text>
                 <View style={styles.valueWrapper}>
                     <Text style={styles.value}>{value}</Text>
                 </View>
