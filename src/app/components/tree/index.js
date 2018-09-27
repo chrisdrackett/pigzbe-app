@@ -17,13 +17,15 @@ export class Tree extends Component {
     }
 
     renderLeaf(leaf) {
+        const diameter = 30 + Math.floor(Math.random() * 20);
+
         const currentStyles = {
             top: 100,
-            width: 50,
-            height: 50,
+            width: diameter,
+            height: diameter,
             marginTop: leaf.position[0],
             marginLeft: leaf.position[1] - 25,
-            borderRadius: 25,
+            borderRadius: diameter / 2,
             backgroundColor: leaf.color,
         };
 
