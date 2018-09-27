@@ -22,6 +22,7 @@ function loadStories() {
     require('./stories/escrow.js');
     require('./stories/claim.js');
     require('./stories/game.js');
+    require('./stories/game-components.js');
     require('./stories/tabs.js');
     require('./stories/loader.js');
     require('./stories/load-error.js');
