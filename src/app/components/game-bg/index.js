@@ -148,7 +148,9 @@ export default class Bg extends Component {
                     Layer={Front}
                     speed={this.state.delta}
                 />
-                <Birds />
+                <Birds
+                    offset={this.state.delta / 2}
+                />
             </View>
         );
     }

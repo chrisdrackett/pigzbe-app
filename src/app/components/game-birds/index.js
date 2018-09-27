@@ -30,10 +30,14 @@ const bird = [
 const startX = Dimensions.get('window').width + 100;
 const startY = 100;
 
-export default class Bg extends Component {
+export default class Birds extends Component {
     state = {
         x: startX,
         y: startY,
+    }
+
+    static defaultProps = {
+        offset: 0,
     }
 
     componentDidMount() {
@@ -59,7 +63,7 @@ export default class Bg extends Component {
             <SpritePlayer
                 frames={bird}
                 style={[styles.bird, {
-                    left: this.state.x,
+                    left: this.state.x + this.props.offset,
                     top: this.state.y
                 }]}
             />
