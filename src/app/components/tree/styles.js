@@ -10,13 +10,13 @@ export default StyleSheet.create({
     },
     trunk: {
         position: 'absolute',
-        width: 10,
-        height: 60,
-        backgroundColor: 'rgb(106, 50, 16)',
+        width: 8,
+        height: 57,
+        // backgroundColor: 'rgb(106, 50, 16)',
         bottom: 0,
         left: '50%',
-        marginLeft: -5,
-        borderRadius: 5,
+        marginLeft: -4,
+        // borderRadius: 5,
         opacity: 0.8,
     },
     leaf: {
@@ -32,4 +32,24 @@ export default StyleSheet.create({
         left: 0,
         borderColor: '#000',
     },
+    value: {
+        position: 'absolute',
+        left: '50%',
+        bottom: 0,
+        marginLeft: -21,
+        width: 42,
+        height: 30,
+        backgroundColor: '#fff',
+        borderRadius: 15,
+        color: 'rgb(72, 70, 148)',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 20,
+    },
+    outer: {
+        position: 'relative',
+        height: 250,
+        borderColor: '#000',
+        borderWidth: 1,
+    }
 });

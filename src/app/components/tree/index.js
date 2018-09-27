@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, Text, Image} from 'react-native';
 import styles from './styles';
 
 export class Tree extends Component {
@@ -50,14 +50,19 @@ export class Tree extends Component {
     }
 
     render() {
+        const {value} = this.props;
+
         return (
-            <View style={styles.tree}>
-                <View style={styles.trunk} />
-                <FlatList
-                    data={this.getLeavesList()}
-                    contentContainerStyle={styles.leaves}
-                    renderItem={({item}) => this.renderLeaf(item)}
-                />
+            <View style={styles.outer}>
+                <View style={styles.tree}>
+                    <Image style={styles.trunk} source={require('./images/trunk.png')} />
+                    <FlatList
+                        data={this.getLeavesList()}
+                        contentContainerStyle={styles.leaves}
+                        renderItem={({item}) => this.renderLeaf(item)}
+                    />
+                </View>
+                <Text style={styles.value}>{value}</Text>
             </View>
         );
     }
