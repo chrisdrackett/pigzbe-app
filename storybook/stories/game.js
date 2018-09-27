@@ -4,6 +4,7 @@ import {storiesOf} from '@storybook/react-native';
 import {Game} from '../../src/app/screens/game';
 import Learn from '../../src/app/screens/learn';
 import GameTasks from '../../src/app/screens/game-tasks';
+import GameBg from '../../src/app/components/game-bg';
 
 const props = {
     dispatch: () => {},
@@ -41,6 +42,12 @@ const props = {
 storiesOf('Game')
     .add('default', () => (
         <Game {...props}/>
+    ))
+    .add('bg start', () => (
+        <GameBg />
+    ))
+    .add('bg anim', () => (
+        <GameBg targetX={2000} />
     ))
     .add('with learn', () => (
         <Game {...{
