@@ -22,11 +22,11 @@ export class Tree extends Component {
 
         const currentStyles = {
             position: 'absolute',
-            top: 100,
-            width: diameter,
-            height: diameter,
+            top: 120,
+            width: 50,
+            height: 50,
             marginTop: leaf.position[0],
-            marginLeft: leaf.position[1] - (diameter / 2),
+            marginLeft: leaf.position[1] - 25,
             left: '50%',
             // borderRadius: diameter / 2,
             // backgroundColor: leaf.color,
