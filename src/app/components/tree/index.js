@@ -8,7 +8,7 @@ export class Tree extends Component {
         super(props);
 
         this.state = {
-            numberLeaves: Math.max(2, Math.floor(props.value / 10)),
+            // numberLeaves: ,
             leafLocations: [[0, 0], [-10, 10], [-20, -20], [-30, 20], [-30, 0], [-40, 20], [-50, -10], [-60, 30], [-70, 0], [-80, -10]],
             colors: ['rgb(50,165,113)', 'rgb(77,204,70)'],
         };
@@ -36,8 +36,14 @@ export class Tree extends Component {
     }
 
     getLeavesList = () => {
-        const {leafLocations, numberLeaves} = this.state;
+        const {leafLocations} = this.state;
+        const {value} = this.props;
+
+        const numberLeaves = Math.max(2, Math.floor(value / 10));
+
         const leavesList = [];
+
+        console.log('+++++ get leavesList +++++', numberLeaves);
 
         for (let i = 0; i < numberLeaves; i++) {
             leavesList.push({
@@ -53,15 +59,16 @@ export class Tree extends Component {
 
     render() {
         const {value, name, newValue} = this.props;
-        const {numberLeaves} = this.state;
+        // const {numberLeaves} = this.state;
 
         return (
             <View style={styles.outer}>
                 <View style={styles.tree}>
                     <Image style={styles.trunk} source={require('./images/trunk.png')} />
-                    {numberLeaves > 2 ? <FlatList
+                    {value > 2 ? <FlatList
                         data={this.getLeavesList()}
                         contentContainerStyle={styles.leaves}
+                        extraData={this.props.numberLeaves}
                         renderItem={({item}) => this.renderLeaf(item)}
                     /> : <Image style={styles.sprout} source={require('./images/sprout.png')} />
                     }
