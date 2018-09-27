@@ -17,7 +17,6 @@ export default StyleSheet.create({
         left: '50%',
         marginLeft: -5,
         borderRadius: 5,
-        borderWidth: 1,
         opacity: 0.8,
     },
     leaf: {
