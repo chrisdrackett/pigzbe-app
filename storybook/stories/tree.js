@@ -24,6 +24,7 @@ storiesOf('Game')
             <Tree
                 value={20}
                 name="HOMETREE"
+                newValue
             />
         </View>
     ));

@@ -70,10 +70,16 @@ export default StyleSheet.create({
         marginLeft: -21,
         backgroundColor: '#fff',
     },
+    newValue: {
+        backgroundColor: 'transparent',
+        borderStyle: 'dashed',
+        borderWidth: 1,
+        borderColor: '#fff',
+    },
     outer: {
         position: 'relative',
         height: 250,
         borderColor: '#000',
         borderWidth: 1,
-    }
+    },
 });

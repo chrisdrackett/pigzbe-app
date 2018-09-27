@@ -50,7 +50,7 @@ export class Tree extends Component {
     }
 
     render() {
-        const {value, name} = this.props;
+        const {value, name, newValue} = this.props;
         const {numberLeaves} = this.state;
 
         return (
@@ -65,7 +65,7 @@ export class Tree extends Component {
                     }
                 </View>
                 <Text style={styles.name}>{name}</Text>
-                <View style={styles.valueWrapper}>
+                <View style={[styles.valueWrapper, newValue ? styles.newValue : {}]}>
                     <Text style={styles.value}>{value}</Text>
                 </View>
             </View>
