@@ -42,6 +42,7 @@ export const color = {
     lightRed: 'rgb(231, 110, 102)',
     skyBlueTop: 'rgb(168, 232, 247)',
     skyBlueBottom: 'rgb(174, 236, 251)',
+    violet: 'rgb(171, 170, 211)',
 };
 
 // export const paddingH = '9.375%';
