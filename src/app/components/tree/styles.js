@@ -12,11 +12,9 @@ export default StyleSheet.create({
         position: 'absolute',
         width: 8,
         height: 57,
-        // backgroundColor: 'rgb(106, 50, 16)',
         bottom: 0,
         left: '50%',
         marginLeft: -4,
-        // borderRadius: 5,
         opacity: 0.8,
     },
     leaf: {

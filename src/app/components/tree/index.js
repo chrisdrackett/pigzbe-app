@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, FlatList, Text, Image} from 'react-native';
+import Leaf from '../leaf';
 import styles from './styles';
 
 export class Tree extends Component {
@@ -20,20 +21,25 @@ export class Tree extends Component {
         const diameter = 30 + Math.floor(Math.random() * 20);
 
         const currentStyles = {
+            position: 'absolute',
             top: 100,
             width: diameter,
             height: diameter,
             marginTop: leaf.position[0],
-            marginLeft: leaf.position[1] - 25,
-            borderRadius: diameter / 2,
-            backgroundColor: leaf.color,
+            marginLeft: leaf.position[1] - (diameter / 2),
+            left: '50%',
+            // borderRadius: diameter / 2,
+            // backgroundColor: leaf.color,
         };
 
         console.log('styles', {...styles.leaf, ...currentStyles});
 
-        return (<View
-            style={[styles.leaf, currentStyles]}
-        />);
+        // return (<View
+        //     style={[styles.leaf, currentStyles]}
+        // />);
+        return (<View style={currentStyles}>
+            <Leaf diameter={diameter} />
+        </View>);
     }
 
     getLeavesList = () => {
