@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {View, Image, Dimensions} from 'react-native';
+import {View, Image, Dimensions, Text} from 'react-native';
 import styles, {MAP_WIDTH} from './styles';
 import Birds from '../game-birds';
 
@@ -108,6 +108,8 @@ export default class Bg extends Component {
 
     static defaultProps = {
         targetX: 0,
+        minX: 0,
+        maxX: 1000,
     }
 
     componentDidMount() {
@@ -115,19 +117,20 @@ export default class Bg extends Component {
     }
 
     update = () => {
-        let x = this.state.x + (this.props.targetX - this.state.x) * 0.01;
+        const targetX = Math.min(this.props.targetX, this.props.maxX);
+
+        console.log('targetX', targetX);
+        let x = this.state.x + (targetX - this.state.x) * 0.05;
         let delta = x - this.state.x;
 
-        if (delta < 1) {
-            x = this.props.targetX;
+        if (Math.abs(delta) < 0.01) {
+            x = targetX;
             delta = 0;
         }
 
-        if (delta) {
-            this.setState({
-                x,
-                delta,
-            });
+        if (x !== this.state.x) {
+            console.log('x', x);
+            this.setState({x, delta});
         }
 
         requestAnimationFrame(this.update);
@@ -148,6 +151,14 @@ export default class Bg extends Component {
                     Layer={Front}
                     speed={this.state.delta}
                 />
+                <View style={[styles.children, {
+                    left: 0 - this.state.x
+                }]}>
+                    <Text style={{position: 'absolute', top: 60, left: 20}}>
+                        {this.state.x}
+                    </Text>
+                    {this.props.children}
+                </View>
                 <Birds
                     offset={this.state.delta / 2}
                 />
