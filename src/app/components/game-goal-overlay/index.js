@@ -8,6 +8,7 @@ import GameGoalWolloMove from 'app/components/game-goal-wollo-move';
 import GameGoalParentSend from 'app/components/game-goal-parent-send';
 import GameGoalTransactions from 'app/components/game-goal-transactions';
 import {Dots} from 'app/components/game-carousel';
+import Icon from 'app/components/icon';
 
 import styles from './styles';
 
@@ -37,13 +38,18 @@ export default class GameGoalOverlay extends Component {
                 backdropOpacity={0.35}
                 backdropColor="rgb(0, 50, 120)"
             >
-
                 <View style={styles.container}>
-
-                    <TouchableOpacity
+                    <View
                         style={styles.spacer} 
                         onPress={onClose}
                     />
+                    <TouchableOpacity onPress={onClose} style={{
+                        position: 'absolute',
+                        left: 10,
+                        top: 40,
+                    }}>
+                        <Icon name="gameBack" />
+                    </TouchableOpacity>
                     
                     {!goalAddress &&
                         <GameGoalCreate />
