@@ -43,6 +43,10 @@ function loadStories() {
     require('./stories/claim-vip.js');
     require('./stories/loader-modal.js');
     require('./stories/view-address.js');
+    require('./stories/tree.js');
+    require('./stories/tree-new.js');
+    require('./stories/tree-high.js');
+    require('./stories/tree-with-leaf-added.js');
 }
 
 configure(loadStories, module);
