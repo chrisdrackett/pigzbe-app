@@ -1,10 +1,11 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
-import {View} from 'react-native';
+import {View, Dimensions} from 'react-native';
 
 import GameMessageBubble from 'app/components/game-message-bubble';
 import GameNotification from 'app/components/game-notification';
 import GameCounter from 'app/components/game-counter';
+import GameCarousel from 'app/components/game-carousel';
 
 const style = {
     flex: 1,
@@ -41,6 +42,21 @@ storiesOf('Game Components')
             />
         </CenteredView>
     ))
+    .add('counter', () => (
+        <CenteredView>
+            <GameCounter
+                value="10"
+            />
+        </CenteredView>
+    ))
+    .add('counter 50.868', () => (
+        <CenteredView>
+            <GameCounter
+                small
+                value="50.868"
+            />
+        </CenteredView>
+    ))
     .add('notification', () => (
         <CenteredView>
             <GameNotification
@@ -65,18 +81,27 @@ storiesOf('Game Components')
             />
         </CenteredView>
     ))
-    .add('counter', () => (
+    .add('notification carousel', () => (
         <CenteredView>
-            <GameCounter
-                value="10"
-            />
-        </CenteredView>
-    ))
-    .add('counter 50.868', () => (
-        <CenteredView>
-            <GameCounter
-                small
-                value="50.868"
+            <GameCarousel
+                {...{
+                    Item: GameNotification,
+                    width: Dimensions.get('window').width,
+                    itemWidth: 200,
+                    data: [{
+                        key: '1',
+                        amount: '1',
+                        text: 'Allowance',
+                    }, {
+                        key: '2',
+                        amount: '2',
+                        text: 'Wash the dishes',
+                    }, {
+                        key: '3',
+                        amount: '3',
+                        text: 'Do your homework',
+                    }]
+                }}
             />
         </CenteredView>
     ));
