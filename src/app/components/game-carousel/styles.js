@@ -25,4 +25,12 @@ export default StyleSheet.create({
     dot__active: {
         backgroundColor: color.blue,
     },
+    dot__light: {
+        backgroundColor: color.white,
+        opacity: 0.5,
+    },
+    dot__active_light: {
+        backgroundColor: color.white,
+        opacity: 1,
+    },
 });

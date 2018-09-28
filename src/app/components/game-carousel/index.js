@@ -4,12 +4,19 @@ import SideSwipe from 'react-native-sideswipe';
 import array from 'usfl/array/array';
 import styles from './styles';
 
-const Dot = ({active}) => <View style={[styles.dot, active ? styles.dot__active : null]}/>;
+const Dot = ({active, light}) => (
+    <View style={[
+        [styles.dot],
+        active ? styles.dot__active : null,
+        light ? styles.dot__light : null,
+        (light && active) ? styles.dot__active_light : null
+    ]} />
+);
 
-const Dots = ({length, index = 0}) => (
+export const Dots = ({length, index = 0, light=false}) => (
     <View style={[styles.dots, {width: 20 * length}]}>
         {array(length).map(n => (
-            <Dot key={n} active={n === index}/>
+            <Dot key={n} active={n === index} light={light} />
         ))}
     </View>
 );
