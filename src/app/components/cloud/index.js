@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, Text, Image} from 'react-native';
+import {TouchableOpacity, View, Text, Image} from 'react-native';
 import styles from './styles';
 
 export class Cloud extends Component {
@@ -20,8 +20,10 @@ export class Cloud extends Component {
         return (
             <TouchableOpacity style={styles.outer} onPress={callback}>
                 <Image style={styles.cloud} source={require('./images/cloud.png')} />
-                <Text style={styles.value}>{value}</Text>
-                <Text style={styles.type}>{type}</Text>
+                <View style={styles.content}>
+                    <Text style={styles.value}>{value}</Text>
+                    <Text style={styles.type}>{type}</Text>
+                </View>
             </TouchableOpacity>
         );
     }
