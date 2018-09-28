@@ -15,12 +15,13 @@ export class Cloud extends Component {
     }
 
     render() {
-        const {value, callback} = this.props;
+        const {value, type, callback} = this.props;
 
         return (
             <TouchableOpacity style={styles.outer} onPress={callback}>
                 <Image style={styles.cloud} source={require('./images/cloud.png')} />
                 <Text style={styles.value}>{value}</Text>
+                <Text style={styles.type}>{type}</Text>
             </TouchableOpacity>
         );
     }

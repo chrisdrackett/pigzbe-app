@@ -1,39 +1,17 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-    tree: {
-        width: 200,
-        height: 200,
-        position: 'relative',
-    },
-    trunk: {
-        position: 'absolute',
-        width: 8,
-        height: 57,
-        bottom: 0,
-        left: '50%',
-        marginLeft: -4,
-        opacity: 0.8,
-    },
-    leaf: {
-        position: 'absolute',
-        left: '50%',
-    },
-    sprout: {
-        position: 'absolute',
-        width: 28,
-        height: 31,
-        bottom: 40,
-        left: '50%',
-        marginLeft: -14,
-    },
-    leaves: {
-        position: 'absolute',
-        width: 200,
-        height: 150,
-        top: 0,
-        right: 0,
+    cloud: {
         left: 0,
+        top: 0,
+        position: 'absolute',
+    },
+    type: {
+        position: 'absolute',
+        bottom: 20,
+        left: 0,
+        right: 0,
+        textAlign: 'center',
     },
     value: {
         width: 42,
@@ -44,36 +22,9 @@ export default StyleSheet.create({
         fontSize: 15,
         lineHeight: 28,
     },
-    name: {
-        position: 'absolute',
-        width: 100,
-        height: 20,
-        textAlign: 'center',
-        color: '#fff',
-        bottom: 24,
-        left: '50%',
-        marginLeft: -50,
-        fontSize: 8,
-        textTransform: 'uppercase',
-    },
-    valueWrapper: {
-        borderRadius: 15,
-        width: 42,
-        height: 30,
-        position: 'absolute',
-        left: '50%',
-        bottom: 0,
-        marginLeft: -21,
-        backgroundColor: '#fff',
-    },
-    newValue: {
-        backgroundColor: 'transparent',
-        borderStyle: 'dashed',
-        borderWidth: 1,
-        borderColor: '#fff',
-    },
     outer: {
         position: 'relative',
+        width: 400,
         height: 250,
     },
 });
