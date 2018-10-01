@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, View, Text, Image} from 'react-native';
+import {TouchableOpacity, View, Text} from 'react-native';
 import GameCloud from '../game-cloud';
 import GameMessageBubble from '../game-message-bubble';
 import styles from './styles';
