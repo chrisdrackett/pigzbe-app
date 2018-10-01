@@ -16,7 +16,8 @@ export class Cloud extends Component {
     }
 
     render() {
-        const {value, type, callback} = this.props;
+        const {value, type, callback, name} = this.props;
+        const text = type === 'ALLOWANCE' ? type : name;
 
         return (
             <TouchableOpacity style={styles.outer} onPress={callback}>
@@ -25,7 +26,7 @@ export class Cloud extends Component {
                     <View style={styles.value}>
                         <GameWollo value={value} small />
                     </View>
-                    <Text style={styles.type}>{type}</Text>
+                    <Text style={styles.type}>{text}</Text>
                 </View>
             </TouchableOpacity>
         );

@@ -42,7 +42,37 @@ class CloudComponent extends Component {
     }
 }
 
+class CloudComponentWithTask extends Component {
+    state = {
+        value: 50,
+    }
+
+    reduceValue = () => {
+        console.log('reduceValue', this.state.value);
+
+        this.setState({
+            value: this.state.value - 1,
+        });
+    }
+
+    render() {
+        return (<View
+            style={flexStyle}
+        >
+            <Cloud
+                value={this.state.value}
+                type="TASK"
+                name="Wash your dishes"
+                callback={this.reduceValue}
+            />
+        </View>);
+    }
+}
+
 storiesOf('Game')
     .add('cloud', () => (
         <CloudComponent />
+    ))
+    .add('cloud wth task', () => (
+        <CloudComponentWithTask />
     ));

@@ -19,6 +19,7 @@ export default StyleSheet.create({
         fontSize: 10,
         color: 'rgb(72, 70, 148)',
         fontWeight: 'bold',
+        textTransform: 'uppercase',
     },
     value: {
         width: '100%',
