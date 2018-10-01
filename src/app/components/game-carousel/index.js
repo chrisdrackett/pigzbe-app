@@ -9,7 +9,6 @@ const Dot = ({active, light}) => (
         [styles.dot],
         active ? styles.dot__active : null,
         light ? styles.dot__light : null,
-        (light && active) ? styles.dot__active_light : null
     ]} />
 );
 
