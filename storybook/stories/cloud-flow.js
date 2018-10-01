@@ -62,6 +62,7 @@ class CloudFlowComponent extends Component {
                 clouds={this.state.clouds}
                 type="ALLOWANCE"
                 changeStatus={this.changeStatus}
+                value={10}
             />
         </View>);
     }

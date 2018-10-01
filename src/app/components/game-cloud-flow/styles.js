@@ -34,7 +34,5 @@ export default StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignContent: 'center',
-        borderWidth: 1,
-        borderColor: '#0f0',
     },
 });

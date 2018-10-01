@@ -6,20 +6,13 @@ export default StyleSheet.create({
         top: 0,
         position: 'absolute',
     },
-    content: {
-        borderWidth: 1,
-        borderColor: '#f00',
-    },
     type: {
-        // position: 'absolute',
-        // bottom: 10,
-        // left: 0,
-        // right: 0,
         textAlign: 'center',
         fontSize: 10,
         color: 'rgb(72, 70, 148)',
         fontWeight: 'bold',
         textTransform: 'uppercase',
+        marginTop: 5,
     },
     value: {
         width: '100%',
@@ -36,7 +29,5 @@ export default StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignContent: 'center',
-        borderWidth: 1,
-        borderColor: '#0f0',
     },
 });
