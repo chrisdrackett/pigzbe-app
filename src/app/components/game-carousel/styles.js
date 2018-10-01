@@ -16,13 +16,17 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     dot: {
-        backgroundColor: color.violet,
+        backgroundColor: color.blue,
         borderRadius: 3,
         width: 6,
         height: 6,
         margin: 3,
+        opacity: 0.5,
+    },
+    dot__light: {
+        backgroundColor: color.white,
     },
     dot__active: {
-        backgroundColor: color.blue,
+        opacity: 1,
     },
 });

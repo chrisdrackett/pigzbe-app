@@ -14,6 +14,7 @@ const icons = {
     qrCodeScan: require('./images/qrCodeScan.png'),
     settings: require('./images/settings.png'),
     back: require('./images/back.png'),
+    gameBack: require('./images/gameBack.png'),
 };
 
 export default ({name, style = {}}) => (
