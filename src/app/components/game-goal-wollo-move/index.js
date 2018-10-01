@@ -1,13 +1,14 @@
 
 import React, {Component} from 'react';
 import {View} from 'react-native';
+import {connect} from 'react-redux';
 import SelectInput from 'app/components/select-input';
 import Button from 'app/components/button';
 import WolloSlider from 'app/components/wollo-slider';
-
+import {moveGoalWollo} from 'app/actions';
 import styles from './styles';
 
-export default class GameGoalWolloMove extends Component {
+export class GameGoalWolloMove extends Component {
     static defaultProps = {
         goals: [],
     }
@@ -41,10 +42,19 @@ export default class GameGoalWolloMove extends Component {
                     label="Move Wollo"
                     disabled={this.state.amount === 0 || !this.state.goalAddress}
                     onPress={() => {
-                        alert(`${this.state.goalAddress} ${this.state.amount}`)
+                        this.props.moveWollo(this.state.goalAddress, this.state.amount);
                     }}
                 />
             </View>
         )
     }
 }
+
+export default connect(
+    state => ({
+        loading: state.kids.goalLoading,
+    }),
+    (dispatch, ownProps) => ({
+        moveWollo: (destinationGoalAddress, amount) => dispatch(moveGoalWollo(ownProps.goalAddress, destinationGoalAddress, amount))
+    })
+)(GameGoalWolloMove);

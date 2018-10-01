@@ -1,12 +1,13 @@
 
 import React, {Component} from 'react';
 import {View} from 'react-native';
+import {connect} from 'react-redux';
 import Button from 'app/components/button';
 import WolloSlider from 'app/components/wollo-slider';
-
+import {sendGoalWolloToParent} from 'app/actions';
 import styles from './styles';
 
-export default class GameGoalParentSend extends Component {
+export class GameGoalParentSend extends Component {
     state = {
         amount: 0,
     }
@@ -24,12 +25,21 @@ export default class GameGoalParentSend extends Component {
                 />
                 <Button
                     label="Send Wollo"
-                    disabled={this.state.amount === 0 || !this.state.goalAddress}
+                    disabled={this.state.amount === 0}
                     onPress={() => {
-                        alert(`${this.state.goalAddress} ${this.state.amount}`)
+                        this.props.sendToParent(this.state.amount);
                     }}
                 />
             </View>
         )
     }
 }
+
+export default connect(
+    state => ({
+        loading: state.kids.goalLoading,
+    }),
+    (dispatch, ownProps) => ({
+        sendToParent: (amount) => dispatch(sendGoalWolloToParent(ownProps.goalAddress, amount))
+    })
+)(GameGoalParentSend);

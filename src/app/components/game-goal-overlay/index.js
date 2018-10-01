@@ -75,6 +75,7 @@ export default class GameGoalOverlay extends Component {
                                                         <Text style={styles.title}>Move to another tree</Text>
                                                     </View>
                                                     <GameGoalWolloMove
+                                                        goalAddress={goalAddress}
                                                         goals={goals}
                                                         goalBalance={goalBalance}
                                                     />
@@ -86,6 +87,7 @@ export default class GameGoalOverlay extends Component {
                                                         <Text style={styles.title}>Send Wollo to {parentName}</Text>
                                                     </View>
                                                     <GameGoalParentSend
+                                                        goalAddress={goalAddress}
                                                         goalBalance={goalBalance}
                                                     />
                                                 </Fragment>
@@ -95,7 +97,9 @@ export default class GameGoalOverlay extends Component {
                                                     <View>
                                                         <Text style={styles.title}>Deposits / withdrawls</Text>
                                                     </View>
-                                                    <GameGoalTransactions />
+                                                    <GameGoalTransactions
+                                                        goalAddress={goalAddress}
+                                                    />
                                                 </Fragment>
                                             }
                                             

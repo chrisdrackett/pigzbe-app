@@ -116,3 +116,71 @@ export const deleteGoal = (kid, goal) => async (dispatch, getState) => {
         dispatch(appAddWarningAlert('Delete goal failed'));
     }
 };
+
+export const moveGoalWollo = (fromAddress, destinationAddress, amount) => async (dispatch, getState) => {
+    try {
+        dispatch(goalLoading(true));
+
+        const asset = wolloAsset(getState());
+        const {secretKey} = getState().keys;
+        const keypair = Keypair.fromSecret(secretKey);
+
+        const goalAccount = await loadAccount(fromAddress);
+        const wolloBalance = getWolloBalance(goalAccount);
+        if (wolloBalance > amount) {
+            throw new Error("Not enough wollo to move to different goal");
+        }
+
+        const txb = new TransactionBuilder(goalAccount);
+        txb.addOperation(Operation.payment({
+            destination: destinationAddress,
+            asset,
+            amount: String(amount),
+        }))
+        txb.addMemo(Memo.text(`Moved wollo to other goal`));
+
+        const tx = txb.build();
+        tx.sign(keypair);
+
+        getServer().submitTransaction(tx);
+
+        dispatch(goalLoading(false));
+    } catch (err) {
+        console.log(err);
+        dispatch(appAddWarningAlert('Move wollo failed'));
+    }
+};
+
+export const sendGoalWolloToParent = (goalAddress, amount) => async (dispatch, getState) => {
+    try {
+        dispatch(goalLoading(true));
+
+        const asset = wolloAsset(getState());
+        const {publicKey, secretKey} = getState().keys;
+        const keypair = Keypair.fromSecret(secretKey);
+
+        const goalAccount = await loadAccount(goalAddress);
+        const wolloBalance = getWolloBalance(goalAccount);
+        if (wolloBalance > amount) {
+            throw new Error("Not enough wollo to move to different goal");
+        }
+
+        const txb = new TransactionBuilder(goalAccount);
+        txb.addOperation(Operation.payment({
+            destination: publicKey,
+            asset,
+            amount: String(amount),
+        }))
+        txb.addMemo(Memo.text(`Sent wollo to parent`));
+
+        const tx = txb.build();
+        tx.sign(keypair);
+
+        getServer().submitTransaction(tx);
+
+        dispatch(goalLoading(false));
+    } catch (err) {
+        console.log(err);
+        dispatch(appAddWarningAlert('Send wollo failed'));
+    }
+};

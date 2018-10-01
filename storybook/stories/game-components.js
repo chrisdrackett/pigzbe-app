@@ -33,6 +33,9 @@ const store = createStore(combineReducers({
         loading: false,
         payments: [],
     }),
+    kids: () => ({
+        goalLoading: false,
+    }),
 }), applyMiddleware(thunk));
 
 const style = {

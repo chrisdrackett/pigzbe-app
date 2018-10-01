@@ -9,7 +9,7 @@ export default class GameGoalTransactions extends Component {
     render() {
         return (
             <View style={styles.box}>
-                <Payments />
+                <Payments address={this.props.goalAddress} />
             </View>
         )
     }
