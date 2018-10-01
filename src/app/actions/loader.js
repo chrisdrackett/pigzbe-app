@@ -14,7 +14,8 @@ import {
     loadExchange,
     loadKids,
     loadCustomTasks,
-    loadKidsBalances
+    loadKidsBalances,
+    loadKidActions
 } from './';
 
 export const LOADER_INITIALIZING = 'LOADER_INITIALIZING';
@@ -84,6 +85,7 @@ export const loginAndLoadKid = (kid, passcode) => async dispatch => {
             await dispatch(loadExchange());
             await dispatch(loadKidsBalances(kid.address));
             await dispatch(loadCustomTasks());
+            await dispatch(loadKidActions(kid.address));
         }
     } catch (error) {
         console.log(error);

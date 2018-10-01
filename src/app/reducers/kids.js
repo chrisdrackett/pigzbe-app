@@ -21,6 +21,7 @@ import {
     KIDS_SENDING_WOLLO,
     KIDS_SEND_ERROR,
     KIDS_SEND_COMPLETE,
+    KIDS_UPDATE_ACTIONS,
 } from '../actions';
 
 const kidDefaults = {
@@ -32,6 +33,7 @@ const kidDefaults = {
     tasks: [],
     goals: [],
     allowances: [],
+    actions: [],
 };
 
 const saveExclude = [
@@ -171,7 +173,7 @@ export default (state = initialState, action) => {
                                         ...goal,
                                         name: action.goal.name,
                                         reward: action.goal.reward,
-                                    }
+                                    };
                                 }
                                 return goal;
                             })
@@ -276,10 +278,23 @@ export default (state = initialState, action) => {
                             ...k,
                             allowances: k.allowances.map(allowance => {
                                 if (allowance.id === action.data.allowance.id) {
-                                    return action.data.allowance
+                                    return action.data.allowance;
                                 }
                                 return allowance;
                             }),
+                        };
+                    }
+                    return k;
+                }),
+            };
+        case KIDS_UPDATE_ACTIONS:
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    if (k.address === action.address) {
+                        return {
+                            ...k,
+                            actions: action.actions,
                         };
                     }
                     return k;
