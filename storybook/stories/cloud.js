@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {storiesOf} from '@storybook/react-native';
 import {View, Dimensions} from 'react-native';
-import Cloud from '../../src/app/components/cloud';
+import Cloud from '../../src/app/components/game-cloud';
 
 const flexStyle = {
     display: 'flex',
