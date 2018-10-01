@@ -37,7 +37,7 @@ export class CloudFlow extends Component {
     }
 
     getBubbleContent() {
-        return "CONTENT";
+        return <Text>CONTENT</Text>;
     }
 
     render() {

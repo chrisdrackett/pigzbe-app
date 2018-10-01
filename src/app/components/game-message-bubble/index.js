@@ -14,7 +14,7 @@ export default ({content, top=false, style = {}}) => (
                     <Text style={[styles.text, top ? styles.textTop : null]}>{content}</Text>
                 }
                 {typeof content !== 'string' &&
-                    {content}
+                    content
                 }
             </View>
 
