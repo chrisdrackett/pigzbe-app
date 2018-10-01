@@ -36,9 +36,7 @@ export class GameGoalParentSend extends Component {
 }
 
 export default connect(
-    state => ({
-        loading: state.kids.goalLoading,
-    }),
+    state => ({}),
     (dispatch, ownProps) => ({
         sendToParent: (amount) => dispatch(sendGoalWolloToParent(ownProps.goalAddress, amount))
     })

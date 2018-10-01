@@ -51,9 +51,7 @@ export class GameGoalWolloMove extends Component {
 }
 
 export default connect(
-    state => ({
-        loading: state.kids.goalLoading,
-    }),
+    state => ({}),
     (dispatch, ownProps) => ({
         moveWollo: (destinationGoalAddress, amount) => dispatch(moveGoalWollo(ownProps.goalAddress, destinationGoalAddress, amount))
     })

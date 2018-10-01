@@ -48,9 +48,7 @@ export class GameGoalCreate extends Component {
 }
 
 export default connect(
-    state => ({
-        loading: state.kids.goalLoading,
-    }),
+    state => ({}),
     (dispatch, ownProps) => ({
         addGoal: (name, amount) => dispatch(assignGoal(ownProps.kid, name, amount))
     })

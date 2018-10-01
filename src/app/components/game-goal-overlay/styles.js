@@ -25,5 +25,12 @@ export default StyleSheet.create({
     dots: {
         alignItems: 'center',
         marginBottom: 10,
-    }
+    },
+    loader: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
 });
