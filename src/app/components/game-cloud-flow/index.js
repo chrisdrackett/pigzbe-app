@@ -28,8 +28,8 @@ export class CloudFlow extends Component {
                 break;
             case 'TASK':
                 this.setState({
-                    status: 'ALLOWANCE_QUESTION',
-                    showBubble: true
+                    status: 'TASK_QUESTION',
+                    showBubble: true,
                 });
                 break;
             default:
@@ -38,35 +38,41 @@ export class CloudFlow extends Component {
 
     getBubbleContent() {
         switch (this.state.status) {
-            case 'ALLOWANCE_CLOUD':
+            case 'TASK_QUESTION':
                 return (
                     <View>
                         <Text style={styles.text}>Have you completed your task?</Text>
                         <View style={styles.buttons}>
                             <TouchableOpacity style={styles.button} onPress={() =>
                                 this.setState({
-                                    status: 'ALLOWANCE_GREAT',
+                                    status: 'TASK_GREAT',
                                 })}>
                                 <Text style={styles.buttonText}>YES</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.button} onPress={() =>
                                 this.setState({
-                                    status: 'ALLOWANCE_FINISH_TASK',
+                                    status: 'TASK_FINISH',
                                 })}>
                                 <Text style={styles.buttonText}>NO</Text>
                             </TouchableOpacity>
                         </View>
                     </View>);
-            case 'ALLOWANCE_GREAT':
+            case 'TASK_GREAT':
                 return (
                     <View>
                         <Text style={styles.text}>Great, place your finger onto tree to save your 50 Wollo there</Text>
                     </View>);
-            case 'ALLOWANCE_FINISH_TASK':
+            case 'TASK_FINISH':
                 return (
                     <View>
                         <Text style={styles.text}>Please complete your task before collecting your Wollo</Text>
                     </View>);
+            case 'ALLOWANCE_CLOUD':
+                return (
+                    <View>
+                        <Text style={styles.text}>Great, place your finger onto tree to save your 50 Wollo there</Text>
+                    </View>
+                );
             default:
                 return '';
         }
