@@ -73,6 +73,6 @@ storiesOf('Game')
     .add('cloud', () => (
         <CloudComponent />
     ))
-    .add('cloud wth task', () => (
+    .add('cloud with task', () => (
         <CloudComponentWithTask />
     ));
