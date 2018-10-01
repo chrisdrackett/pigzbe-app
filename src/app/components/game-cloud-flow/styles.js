@@ -1,33 +1,31 @@
 import {StyleSheet} from 'react-native';
+import {color} from '../../styles';
 
 export default StyleSheet.create({
-    cloud: {
-        left: 0,
-        top: 0,
-        position: 'absolute',
-    },
-    content: {
-        borderWidth: 1,
-        borderColor: '#f00',
-    },
-    type: {
-        // position: 'absolute',
-        // bottom: 10,
-        // left: 0,
-        // right: 0,
+    text: {
+        color: 'white',
         textAlign: 'center',
-        fontSize: 10,
-        color: 'rgb(72, 70, 148)',
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
     },
-    value: {
-        width: '100%',
-        color: 'rgb(72, 70, 148)',
+    buttons: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 10,
+    },
+    button: {
+        backgroundColor: 'white',
+        height: 21,
+        borderRadius: 10,
+        width: '45%',
         textAlign: 'center',
-        fontWeight: 'bold',
-        fontSize: 15,
-        lineHeight: 28,
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: color.blue,
+        lineHeight: 21,
+    },
+    bubbleWrap: {
+        marginTop: 20,
     },
     outer: {
         position: 'relative',

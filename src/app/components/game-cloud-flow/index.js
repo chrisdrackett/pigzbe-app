@@ -9,7 +9,7 @@ export class CloudFlow extends Component {
         super(props);
 
         this.state = {
-            type: null,
+            status: null,
             showBubble: false,
         };
     }
@@ -37,7 +37,33 @@ export class CloudFlow extends Component {
     }
 
     getBubbleContent() {
-        return <Text>CONTENT</Text>;
+        switch (this.state.status) {
+            case 'ALLOWANCE_CLOUD':
+                return (
+                    <View>
+                        <Text style={styles.text}>Have you completed your task?</Text>
+                        <View style={styles.buttons}>
+                            <TouchableOpacity style={styles.button} onPress={() =>
+                                this.setState({
+                                    status: 'ALLOWANCE_GREAT',
+                                })}>
+                                <Text style={styles.buttonText}>YES</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.button} onPress={() =>
+                                this.setState({
+                                    status: 'ALLOWANCE_FINISH_TASK',
+                                })}>
+                                <Text style={styles.buttonText}>NO</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>);
+            case 'ALLOWANCE_GREAT':
+                return <Text style={styles.text}>Great, place your finger onto tree to save your 50 Wollo there</Text>;
+            case 'ALLOWANCE_FINISH_TASK':
+                return <Text style={styles.text}>Please complete your task before collecting your Wollo</Text>;
+            default:
+                return '';
+        }
     }
 
     render() {
@@ -48,7 +74,7 @@ export class CloudFlow extends Component {
             <View style={styles.outer} onPress={callback}>
                 <GameCloud type={type} value={value} name={name} callback={this.cloudClicked} />
                 {
-                    showBubble && <GameMessageBubble content={this.getBubbleContent()} />
+                    showBubble && <View style={styles.bubbleWrap}><GameMessageBubble content={this.getBubbleContent()} top /></View>
                 }
             </View>
         );
