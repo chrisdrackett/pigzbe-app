@@ -50,14 +50,18 @@ class CloudFlowComponent extends Component {
     //     });
     // }
 
+    changeStatus = (newStatus) => {
+        console.log('>>> CHANGE STATUS: ', newStatus);
+    }
+
     render() {
         return (<View
             style={flexStyle}
         >
             <CloudFlow
-                value={this.state.value}
+                clouds={this.state.clouds}
                 type="ALLOWANCE"
-                callback={this.reduceValue}
+                changeStatus={this.changeStatus}
             />
         </View>);
     }
