@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {View, Image, Dimensions} from 'react-native';
+import {View, Image, Dimensions, Text, PanResponder} from 'react-native';
 import styles, {MAP_WIDTH} from './styles';
 import Birds from '../game-birds';
 
@@ -108,26 +108,45 @@ export default class Bg extends Component {
 
     static defaultProps = {
         targetX: 0,
+        onMove: () => {},
+        onRelease: () => {},
     }
 
     componentDidMount() {
         this.update();
     }
 
+    componentWillMount = () => {
+        this.panResponder = PanResponder.create({
+            // onStartShouldSetPanResponder: () => true,
+            // onStartShouldSetPanResponderCapture: () => true,
+            onMoveShouldSetPanResponder: () => true,
+            onMoveShouldSetPanResponderCapture: () => true,
+            // onMoveShouldSetPanResponder: this.handleGestureCapture,
+            onPanResponderMove: this.handleGestureMove,
+            onPanResponderRelease: this.handleGestureRelease,
+            // onPanResponderTerminationRequest: this.handleGestureTerminationRequest,
+        });
+    }
+
+    handleGestureRelease = () => this.props.onRelease()
+
+    handleGestureMove = (e, {dx}) => this.props.onMove(dx)
+
     update = () => {
-        let x = this.state.x + (this.props.targetX - this.state.x) * 0.01;
-        let delta = x - this.state.x;
+        const {targetX} = this.props;
+        if (targetX !== this.state.x) {
+            let x = this.state.x + (targetX - this.state.x) * 0.05;
+            let delta = x - this.state.x;
 
-        if (delta < 1) {
-            x = this.props.targetX;
-            delta = 0;
-        }
+            if (Math.abs(delta) < 0.01) {
+                x = targetX;
+                delta = 0;
+            }
 
-        if (delta) {
-            this.setState({
-                x,
-                delta,
-            });
+            if (x !== this.state.x) {
+                this.setState({x, delta});
+            }
         }
 
         requestAnimationFrame(this.update);
@@ -148,6 +167,25 @@ export default class Bg extends Component {
                     Layer={Front}
                     speed={this.state.delta}
                 />
+                <View
+                    {...this.panResponder.panHandlers}
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        bottom: 0,
+                        right: 0,
+                        // backgroundColor: 'red',
+                    }}
+                />
+                <View style={[styles.children, {
+                    left: 0 - this.state.x
+                }]}>
+                    <Text style={{position: 'absolute', top: 60, left: 20}}>
+                        {this.state.x}
+                    </Text>
+                    {this.props.children}
+                </View>
                 <Birds
                     offset={this.state.delta / 2}
                 />

@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
 import {View, Dimensions} from 'react-native';
-import Tree from '../../src/app/components/tree';
+import Tree from '../../src/app/components/game-tree';
 
 const flexStyle = {
     display: 'flex',

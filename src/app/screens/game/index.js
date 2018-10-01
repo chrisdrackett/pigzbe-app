@@ -1,11 +1,41 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Text} from 'react-native';
+import {View, Text, Dimensions} from 'react-native';
 import styles from './styles';
 import Learn from '../learn';
 import GameTasks from '../game-tasks';
+import GameBg from '../../components/game-bg';
+import Button from '../../components/button';
+import GameCounter from '../../components/game-counter';
+import Tree from '../../components/game-tree';
+import Pigzbe from '../../components/game-pigzbe';
+import GameNotification from 'app/components/game-notification';
+import GameCarousel from 'app/components/game-carousel';
+import {gameOverlayOpen} from '../../actions';
+
+const TREE_WIDTH = 200;
 
 export class Game extends Component {
+    state = {
+        targetX: 0,
+    }
+
+    onClickCounter = () => this.props.dispatch(gameOverlayOpen(true))
+
+    onMove = dx => {
+        const moveX = dx * -0.5;
+        const numGoals = this.props.kid.goals && this.props.kid.goals.length || 0;
+        const minX = 0;
+        const maxX = (1 + numGoals) * TREE_WIDTH;
+        const newX = Math.max(minX, Math.min(maxX, this.state.targetX + moveX));
+        this.setState({targetX: newX});
+    }
+
+    onRelease = () => {
+        const targetX = Math.floor(this.state.targetX / TREE_WIDTH) * TREE_WIDTH;
+        this.setState({targetX});
+    }
+
     render() {
         const {
             dispatch,
@@ -18,10 +48,64 @@ export class Game extends Component {
 
         return (
             <View style={styles.full}>
-                <View
-                    ref={el => (this.el = el)}
-                    style={styles.full}
+                <GameBg
+                    targetX={this.state.targetX}
+                    onMove={this.onMove}
+                    onRelease={this.onRelease}>
+                    <View style={styles.trees}>
+                        <Tree
+                            name="HOMETREE"
+                            value={'0'}
+                        />
+                        {kid.goals && kid.goals.map((goal, i) => (
+                            <Tree
+                                key={i}
+                                name={goal.name}
+                                value={goal.reward}
+                            />
+                        ))}
+                        <Tree
+                            name="NEW GOAL?"
+                            newValue={true}
+                            value={'0'}
+                        />
+                    </View>
+                </GameBg>
+                <Pigzbe
+                    style={{
+                        position: 'absolute',
+                        bottom: 148,
+                        left: 36
+                    }}
                 />
+                <View style={{position: 'absolute', top: 75, left: 0}}>
+                    <GameCarousel
+                        {...{
+                            Item: GameNotification,
+                            width: Dimensions.get('window').width,
+                            itemWidth: 200,
+                            data: [{
+                                key: '1',
+                                amount: '1',
+                                text: 'Allowance',
+                            }, {
+                                key: '2',
+                                amount: '2',
+                                text: 'Wash the dishes',
+                            }, {
+                                key: '3',
+                                amount: '3',
+                                text: 'Do your homework',
+                            }]
+                        }}
+                    />
+                </View>
+                <View style={styles.counter}>
+                    <GameCounter
+                        value={kid.balance}
+                        onPress={this.onClickCounter}
+                    />
+                </View>
                 <Learn
                     dispatch={dispatch}
                     exchange={exchange}
@@ -35,11 +119,16 @@ export class Game extends Component {
                         kid={kid}
                     />
                 ) : null}
-                <View style={{position: 'absolute', top: 30, left: 0, padding: 5, backgroundColor: 'white'}}>
+                <View style={{position: 'absolute', top: 30, right: 0, padding: 5, backgroundColor: 'white'}}>
                     <Text>{kid.name}</Text>
                     <Text>Address: {kid.address}</Text>
                     <Text>Balance: {kid.balance}</Text>
-                    <Text>Tasks: {kid.tasks.length}</Text>
+                    <Text>Tasks: {kid.tasks && kid.tasks.length || 0}</Text>
+                    <Text>Allowances: {kid.allowances && kid.allowances.length || 0}</Text>
+                    <Text>Goals: {kid.goals && kid.goals.length || 0}</Text>
+                    {/* <Text>MAX: {kid.goals && kid.goals.length || 0}</Text> */}
+                    <Button label="NEXT TREE" onPress={this.nextTree}/>
+                    <Button label="PREV TREE" onPress={this.prevTree}/>
                 </View>
             </View>
         );

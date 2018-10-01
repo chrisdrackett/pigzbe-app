@@ -75,4 +75,12 @@ export default StyleSheet.create({
     grassRight: {
         left: 33 + 440 + 67 + 260,
     },
+    children: {
+        // backgroundColor: 'red',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        // width: '100%',
+        height: '100%',
+    },
 });

@@ -41,8 +41,11 @@ export default StyleSheet.create({
         color: 'rgb(72, 70, 148)',
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: 15,
+        fontSize: 20,
         lineHeight: 28,
+    },
+    valueNew: {
+        color: '#fff',
     },
     name: {
         position: 'absolute',
@@ -55,6 +58,7 @@ export default StyleSheet.create({
         marginLeft: -50,
         fontSize: 8,
         textTransform: 'uppercase',
+        fontWeight: 'bold',
     },
     valueWrapper: {
         borderRadius: 15,
@@ -75,5 +79,6 @@ export default StyleSheet.create({
     outer: {
         position: 'relative',
         height: 250,
+        width: 200,
     },
 });

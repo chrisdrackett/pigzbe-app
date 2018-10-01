@@ -71,7 +71,7 @@ export class Tree extends Component {
                 </View>
                 <Text style={styles.name}>{name}</Text>
                 <View style={[styles.valueWrapper, newValue ? styles.newValue : {}]}>
-                    <Text style={styles.value}>{value}</Text>
+                    <Text style={[styles.value, newValue ? styles.valueNew : {}]}>{value}</Text>
                 </View>
             </View>
         );
