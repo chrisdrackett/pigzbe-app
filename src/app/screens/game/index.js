@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Text} from 'react-native';
+import {View, Text, Dimensions} from 'react-native';
 import styles from './styles';
 import Learn from '../learn';
 import GameTasks from '../game-tasks';
@@ -9,24 +9,32 @@ import Button from '../../components/button';
 import GameCounter from '../../components/game-counter';
 import Tree from '../../components/game-tree';
 import Pigzbe from '../../components/game-pigzbe';
+import GameNotification from 'app/components/game-notification';
+import GameCarousel from 'app/components/game-carousel';
 import {gameOverlayOpen} from '../../actions';
 
 const TREE_WIDTH = 200;
 
 export class Game extends Component {
     state = {
-        treeIndex: 0,
+        targetX: 0,
     }
 
     onClickCounter = () => this.props.dispatch(gameOverlayOpen(true))
 
-    nextTree = () => this.setState({
-        treeIndex: Math.min(this.state.treeIndex + 1, (1 + (this.props.kid.goals && this.props.kid.goals.length || 0)))
-    })
+    onMove = dx => {
+        const moveX = dx * -0.5;
+        const numGoals = this.props.kid.goals && this.props.kid.goals.length || 0;
+        const minX = 0;
+        const maxX = (1 + numGoals) * TREE_WIDTH;
+        const newX = Math.max(minX, Math.min(maxX, this.state.targetX + moveX));
+        this.setState({targetX: newX});
+    }
 
-    prevTree = () => this.setState({
-        treeIndex: Math.max(this.state.treeIndex - 1, 0)
-    })
+    onRelease = () => {
+        const targetX = Math.floor(this.state.targetX / TREE_WIDTH) * TREE_WIDTH;
+        this.setState({targetX});
+    }
 
     render() {
         const {
@@ -41,9 +49,9 @@ export class Game extends Component {
         return (
             <View style={styles.full}>
                 <GameBg
-                    minX={0}
-                    maxX={(1 + (kid.goals && kid.goals.length || 0)) * TREE_WIDTH}
-                    targetX={this.state.treeIndex * TREE_WIDTH}>
+                    targetX={this.state.targetX}
+                    onMove={this.onMove}
+                    onRelease={this.onRelease}>
                     <View style={styles.trees}>
                         <Tree
                             name="HOMETREE"
@@ -70,6 +78,28 @@ export class Game extends Component {
                         left: 36
                     }}
                 />
+                <View style={{position: 'absolute', top: 75, left: 0}}>
+                    <GameCarousel
+                        {...{
+                            Item: GameNotification,
+                            width: Dimensions.get('window').width,
+                            itemWidth: 200,
+                            data: [{
+                                key: '1',
+                                amount: '1',
+                                text: 'Allowance',
+                            }, {
+                                key: '2',
+                                amount: '2',
+                                text: 'Wash the dishes',
+                            }, {
+                                key: '3',
+                                amount: '3',
+                                text: 'Do your homework',
+                            }]
+                        }}
+                    />
+                </View>
                 <View style={styles.counter}>
                     <GameCounter
                         value={kid.balance}
