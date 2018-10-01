@@ -58,9 +58,15 @@ export class CloudFlow extends Component {
                         </View>
                     </View>);
             case 'ALLOWANCE_GREAT':
-                return <Text style={styles.text}>Great, place your finger onto tree to save your 50 Wollo there</Text>;
+                return (
+                    <View>
+                        <Text style={styles.text}>Great, place your finger onto tree to save your 50 Wollo there</Text>
+                    </View>);
             case 'ALLOWANCE_FINISH_TASK':
-                return <Text style={styles.text}>Please complete your task before collecting your Wollo</Text>;
+                return (
+                    <View>
+                        <Text style={styles.text}>Please complete your task before collecting your Wollo</Text>
+                    </View>);
             default:
                 return '';
         }
