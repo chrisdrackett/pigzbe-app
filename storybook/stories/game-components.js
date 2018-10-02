@@ -48,7 +48,7 @@ const style = {
     alignItems: 'center',
 };
 const CenteredView = ({children}) => (
-    <View style={{ flex: 1}}>
+    <View style={{flex: 1}}>
         <GameBG />
         <View style={style}>
             {children}
@@ -63,14 +63,14 @@ class GoalOverlayTest extends Component {
             <CenteredView>
                 <Button label="Open goal overlay" style={{marginBottom: 200}} onPress={() => this.setState({isOpen: true})} />
                 <Provider store={store}>
-                    <GameGoalOverlay 
+                    <GameGoalOverlay
                         isOpen={this.state.isOpen}
                         onClose={() => this.setState({isOpen: false})}
                         {...this.props}
                     />
                 </Provider>
             </CenteredView>
-        )
+        );
     }
 }
 
@@ -131,7 +131,7 @@ storiesOf('Game Components')
         <CenteredView>
             <GameNotification
                 amount="50"
-                text="Allowance"
+                memo="Allowance"
             />
         </CenteredView>
     ))
@@ -139,7 +139,7 @@ storiesOf('Game Components')
         <CenteredView>
             <GameNotification
                 amount="50"
-                text="Take out trash all week"
+                memo="Task: Take out trash all week"
             />
         </CenteredView>
     ))
@@ -147,7 +147,7 @@ storiesOf('Game Components')
         <CenteredView>
             <GameNotification
                 amount="100.4567"
-                text="Allowance"
+                memo="Task: Tidy your room"
             />
         </CenteredView>
     ))
@@ -158,19 +158,40 @@ storiesOf('Game Components')
                     Item: GameNotification,
                     width: Dimensions.get('window').width,
                     itemWidth: 200,
-                    data: [{
-                        key: '1',
-                        amount: '1',
-                        text: 'Allowance',
-                    }, {
-                        key: '2',
-                        amount: '2',
-                        text: 'Wash the dishes',
-                    }, {
-                        key: '3',
-                        amount: '3',
-                        text: 'Do your homework',
-                    }]
+                    data: [
+                        {
+                            memo: 'Task: Tidy your room',
+                            type: 'task',
+                            amount: '7',
+                            totalAmount: '7',
+                            hash: '6d3c2a5960fc02cb9cc87a6f74d2c8ebc64a795e079589bb3a618185095ac866',
+                            date: '2018-10-02T13:09:00Z'
+                        },
+                        {
+                            memo: 'From dad',
+                            type: 'gift',
+                            amount: '14',
+                            totalAmount: '14',
+                            hash: '8dc2a1571d8e781398d67e26b6520dcd23f40eef259e126476441f02160333e6',
+                            date: '2018-10-02T13:09:15Z'
+                        },
+                        {
+                            memo: 'Allowance #2.1 to Iggy',
+                            type: 'allowance',
+                            amount: '2',
+                            totalAmount: '2',
+                            hash: 'bc4fc79e3ebb25a7a5cab899654abb262e69ba9b218676604151319a014c26de',
+                            date: '2018-10-02T13:09:45Z'
+                        },
+                        {
+                            memo: 'Allowance #2.1 to Iggy',
+                            type: 'allowance',
+                            amount: '2',
+                            totalAmount: '2',
+                            hash: '18e3fb908459e4dfe3d3a4493a9a4ed5fb62295d6eed3330093e7f2543c5e24d',
+                            date: '2018-10-02T13:09:50Z'
+                        }
+                    ]
                 }}
             />
         </CenteredView>
