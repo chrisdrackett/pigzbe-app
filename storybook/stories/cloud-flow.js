@@ -42,16 +42,9 @@ class CloudFlowComponent extends Component {
         ]
     }
 
-    // reduceValue = () => {
-    //     console.log('reduceValue', this.state.value);
-    //
-    //     this.setState({
-    //         value: this.state.value - 1,
-    //     });
-    // }
-
-    changeStatus = (newStatus) => {
-        console.log('>>> CHANGE STATUS: ', newStatus);
+    changeStatus = (status) => {
+        console.log('>>> CHANGE STATUS: ', status);
+        this.setState({status});
     }
 
     render() {
@@ -60,8 +53,10 @@ class CloudFlowComponent extends Component {
         >
             <CloudFlow
                 clouds={this.state.clouds}
-                type="ALLOWANCE"
+                type="TASK"
+                name="do homework"
                 changeStatus={this.changeStatus}
+                status={this.state.status}
                 value={10}
             />
         </View>);

@@ -8,10 +8,10 @@ export class CloudFlow extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            status: null,
-            showBubble: false,
-        };
+        // this.state = {
+        //     status: null,
+        //     showBubble: false,
+        // };
     }
 
     componentDidMount() {
@@ -21,38 +21,29 @@ export class CloudFlow extends Component {
         console.log('cloudClicked', this.props.type);
         switch (this.props.type) {
             case 'ALLOWANCE':
-                this.setState({
-                    status: 'ALLOWANCE_CLOUD',
-                    showBubble: true
-                });
+                this.props.changeStatus('ALLOWANCE_CLOUD');
+                // showBubble: true
                 break;
             case 'TASK':
-                this.setState({
-                    status: 'TASK_QUESTION',
-                    showBubble: true,
-                });
+                this.props.changeStatus('TASK_QUESTION');
                 break;
             default:
         }
     }
 
     getBubbleContent() {
-        switch (this.state.status) {
+        switch (this.props.status) {
             case 'TASK_QUESTION':
                 return (
                     <View>
                         <Text style={styles.text}>Have you completed your task?</Text>
                         <View style={styles.buttons}>
                             <TouchableOpacity style={styles.button} onPress={() =>
-                                this.setState({
-                                    status: 'TASK_GREAT',
-                                })}>
+                                this.props.changeStatus('TASK_GREAT')}>
                                 <Text style={styles.buttonText}>YES</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.button} onPress={() =>
-                                this.setState({
-                                    status: 'TASK_FINISH',
-                                })}>
+                                this.props.changeStatus('TASK_FINISH')}>
                                 <Text style={styles.buttonText}>NO</Text>
                             </TouchableOpacity>
                         </View>
@@ -79,8 +70,9 @@ export class CloudFlow extends Component {
     }
 
     render() {
-        const {value, type, callback, name} = this.props;
-        const {showBubble} = this.state;
+        const {value, type, callback, name, status} = this.props;
+        const showBubble = status === 'ALLOWANCE_CLOUD' || status === 'TASK_QUESTION' ||
+            status === 'TASK_GREAT' || status === 'TASK_FINISH';
 
         return (
             <View style={styles.outer} onPress={callback}>
