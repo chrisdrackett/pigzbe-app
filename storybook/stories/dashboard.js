@@ -97,6 +97,19 @@ storiesOf('Dashboard')
             balance: '1000',
         }}/>
     ))
+    .add('with kid not funded message', () => (
+        <Dashboard {...{
+            ...props,
+            kids: [{
+                ...kids[0],
+                balance: 0,
+            }],
+            balance: '0',
+            balanceXLM: '0',
+            firstTime: false,
+            showFundingMessage: true,
+        }}/>
+    ))
     .add('first time', () => (
         <Dashboard {...{...props, firstTime: true}}/>
     ))
