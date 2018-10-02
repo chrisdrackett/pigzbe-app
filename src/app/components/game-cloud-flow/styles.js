@@ -30,7 +30,6 @@ export default StyleSheet.create({
     outer: {
         position: 'relative',
         width: 157,
-        height: 66,
         display: 'flex',
         justifyContent: 'center',
         alignContent: 'center',
