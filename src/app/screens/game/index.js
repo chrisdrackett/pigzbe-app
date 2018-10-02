@@ -12,6 +12,7 @@ import Pigzbe from '../../components/game-pigzbe';
 import GameNotification from 'app/components/game-notification';
 import GameCarousel from 'app/components/game-carousel';
 import {gameOverlayOpen} from '../../actions';
+import {claimWollo} from '../../actions';
 
 const TREE_WIDTH = 200;
 
@@ -34,6 +35,13 @@ export class Game extends Component {
     onRelease = () => {
         const targetX = Math.floor(this.state.targetX / TREE_WIDTH) * TREE_WIDTH;
         this.setState({targetX});
+    }
+
+    onClaim = (hash, amount) => {
+        console.log('this.props.kid', this.props.kid);
+        this.props.dispatch(claimWollo(
+            this.props.kid.address, this.props.kid.goals[0].address, hash, amount
+        ));
     }
 
     render() {
@@ -84,7 +92,11 @@ export class Game extends Component {
                             Item: GameNotification,
                             width: Dimensions.get('window').width,
                             itemWidth: 200,
-                            data: kid.actions.map(a => ({...a, key: a.hash}))
+                            data: kid.actions.map(a => ({
+                                ...a,
+                                key: a.hash,
+                                onClaim: this.onClaim
+                            }))
                         }}
                     />
                 </View>

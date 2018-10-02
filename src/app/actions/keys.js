@@ -20,7 +20,9 @@ export const createMnemonic = () => async () => {
 export const createKeysFromSeed = (seedHex, index = 0) => () => getKeypair(seedHex, index);
 
 export const createKeypair = () => async (dispatch, getState) => {
-    const {mnemonic} = getState().keys;
+    // const {mnemonic} = getState().keys;
+    const mnemonic = await Keychain.load(KEYCHAIN_ID_MNEMONIC);
+    console.log('createKeypair mnemonic', mnemonic);
 
     const keyIndex = getState().settings.keyIndex + 1;
 

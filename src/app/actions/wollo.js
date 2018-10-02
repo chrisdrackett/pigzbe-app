@@ -266,6 +266,7 @@ export const createGoalAccount = (kid, goalName) => async (dispatch, getState) =
         const {publicKey, secretKey} = getState().keys;
         const keypair = await dispatch(createKeypair());
         const destination = keypair.publicKey();
+        console.log('destination', destination);
         await Keychain.save(`secret_${destination}`, keypair.secret());
 
         const account = await createAccount(secretKey, destination, KID_GOAL_BALANCE_XLM, `Goal: ${kid.name} - ${goalName}`.slice(0, 28));
@@ -293,7 +294,9 @@ export const createGoalAccount = (kid, goalName) => async (dispatch, getState) =
 
         const transaction = txb.build();
         transaction.sign(keypair);
-        await submitTransaction(transaction);
+        const result = await submitTransaction(transaction);
+
+        console.log('result', result);
 
         return keypair.publicKey();
     } catch (error) {

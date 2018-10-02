@@ -6,6 +6,7 @@ import {wolloAsset} from '../selectors';
 import wait from '../utils/wait';
 import Keychain from '../utils/keychain';
 import BigNumber from 'bignumber.js';
+import moment from 'moment';
 
 export const KIDS_LOAD = 'KIDS_LOAD';
 export const KIDS_LOADING = 'KIDS_LOADING';
@@ -118,8 +119,10 @@ const getType = memo => {
             return 'allowance';
         case 'from':
             return 'gift';
+        case 'task':
+            return 'task';
         default:
-            return id;
+            return null;
 
     }
 };
@@ -128,27 +131,44 @@ export const loadKidActions = address => async dispatch => {
     console.log('loadKidActions', address);
     const actions = [];
     try {
-        // setServer(true);
-
         // const account = await loadAccount(publicKey);
         // console.log('unclaimed balance = ', getWolloBalance(account));
 
+        const data = await Storage.load(`records_${address}`);
+        // data.entries
+        // data.completions
+        // data.pagingToken;
+        const {pagingToken = '0'} = data;
+
+        console.log('pagingToken', pagingToken);
+
         const txs = await getServer().transactions()
             .forAccount(address)
-            .order('desc')
+            .cursor(pagingToken)
+            .order('asc')
             .limit(100)
             .call();
 
         const records = txs.records;
 
-        const entries = records.filter(r => r.memo && r.memo_type === 'text' && ['task', 'allo', 'from'].includes(r.memo.slice(0, 4).toLowerCase()));
+        if (records.length) {
+            console.log('new pagingToken:', records.slice(-1).paging_token);
+        }
+
+        // filter existing entries by amount left to claim > 0
+
+        // TODO: store entries and completetions in short format
+        // for new entries map to format first and then compare
+
+        const entries = records.filter(r => r.memo && r.memo_type === 'text' && getType(r.memo));
         const completions = records.filter(r => r.memo && r.memo_type === 'hash');
 
         // console.log('num entries', entries.length);
         // console.log('num completions', completions.length);
 
         for (const entry of entries) {
-            // console.log('entry', entry);
+            console.log('entry', entry);
+            console.log('date', moment(entry.created_at).format('LLL'));
             const entryCompletions = completions.filter(c => new Buffer(c.memo, 'base64').toString('hex') === entry.hash);
             const entryClaimed = !!entryCompletions.length;
             let amountClaimed = new BigNumber(0);
@@ -160,9 +180,7 @@ export const loadKidActions = address => async dispatch => {
             }
             const {amount} = await getPayment(entry);
             const amountLeftToClaim = new BigNumber(amount).minus(amountClaimed);
-            // const fullyClaimed = new BigNumber(amount).isEqualTo(amountClaimed);
 
-            // TODO: sort by oldest first
             if (amountLeftToClaim.isGreaterThan(0)) {
                 actions.push({
                     memo: entry.memo,
@@ -189,41 +207,19 @@ const getPayment = async transaction => {
     return operations.records.find(o => o.type === 'payment');
 };
 
-export const claimWollo = (address, txHash, completions) => async (dispatch, getState) => {
-    console.log('claimWollo', address, txHash, completions);
+export const claimWollo = (address, destination, hash, amount) => async (dispatch, getState) => {
+    console.log('claimWollo', destination, hash, amount);
 
     try {
-
-        const transaction = await getServer()
-            .transactions()
-            .transaction(txHash)
-            .call();
-
-        const completion = completions.find(c => c.memo === transaction.hash);
-
-        console.log('completion', completion);
-
-        const operations = await transaction.operations();
-
-        console.log('transaction', transaction);
-
-        const payment = operations.records.find(o => o.type === 'payment');
-        console.log('from', payment.from);
-        console.log('amount', payment.amount);
-
-        // check if unclaimed
-        // get amount
-        // const destination = getState().keys.publicKey;
-        // console.log('destination', destination);
         const account = await loadAccount(address);
         const asset = wolloAsset(getState());
         const tx = new TransactionBuilder(account)
             .addOperation(Operation.payment({
-                destination: payment.from,
+                destination,
                 asset,
-                amount: payment.amount
+                amount
             }))
-            .addMemo(Memo.hash(txHash))
+            .addMemo(Memo.hash(hash))
             .build();
 
         const kidSecretKey = await Keychain.load(`secret_${address}`);
@@ -231,8 +227,9 @@ export const claimWollo = (address, txHash, completions) => async (dispatch, get
         const keypair = Keypair.fromSecret(kidSecretKey);
         tx.sign(keypair);
 
-        const result = getServer().submitTransaction(tx);
+        const result = await getServer().submitTransaction(tx);
         console.log('result', result);
+        await dispatch(loadKidActions(address));
 
     } catch (e) {
         console.log(e);
