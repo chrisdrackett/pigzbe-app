@@ -40,7 +40,7 @@ export class Game extends Component {
     onClaim = (hash, amount) => {
         console.log('this.props.kid', this.props.kid);
         this.props.dispatch(claimWollo(
-            this.props.kid.address, this.props.kid.goals[0].address, hash, amount
+            this.props.kid.address, this.props.kid.home, hash, amount
         ));
     }
 
@@ -63,7 +63,7 @@ export class Game extends Component {
                     <View style={styles.trees}>
                         <Tree
                             name="HOMETREE"
-                            value={'0'}
+                            value={kid.balance}
                         />
                         {kid.goals && kid.goals.map((goal, i) => (
                             <Tree

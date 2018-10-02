@@ -22,11 +22,13 @@ import {
     KIDS_SEND_ERROR,
     KIDS_SEND_COMPLETE,
     KIDS_UPDATE_ACTIONS,
+    KIDS_COMPLETE_ACTION,
 } from '../actions';
 
 const kidDefaults = {
     name: null,
     address: null,
+    home: null,
     photo: null,
     balance: null,
     dob: null,
@@ -295,6 +297,19 @@ export default (state = initialState, action) => {
                         return {
                             ...k,
                             actions: action.actions,
+                        };
+                    }
+                    return k;
+                }),
+            };
+        case KIDS_COMPLETE_ACTION:
+            return {
+                ...state,
+                kids: state.kids.map(k => {
+                    if (k.address === action.address) {
+                        return {
+                            ...k,
+                            actions: k.actions.filter(a => a.hash !== action.hash),
                         };
                     }
                     return k;

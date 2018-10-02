@@ -83,7 +83,7 @@ export const loginAndLoadKid = (kid, passcode) => async dispatch => {
             await dispatch(loaderMessage('Loading'));
             await dispatch(loadConfig());
             await dispatch(loadExchange());
-            await dispatch(loadKidsBalances(kid.address));
+            await dispatch(loadKidsBalances(kid.home));
             await dispatch(loadCustomTasks());
             await dispatch(loadKidActions(kid.address));
         }

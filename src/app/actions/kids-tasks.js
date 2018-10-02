@@ -109,7 +109,7 @@ export const completeTask = (kid, task) => async (dispatch, getState) => {
         console.log('result', result);
 
         const balance = new BigNumber(kid.balance).plus(task.reward).toString(10);
-        dispatch(updateKidBalance(kid.address, balance));
+        dispatch(updateKidBalance(kid.home, balance));
 
         await dispatch(({type: KIDS_COMPLETE_TASK, data: {
             kid,

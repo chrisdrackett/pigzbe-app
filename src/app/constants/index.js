@@ -34,9 +34,10 @@ export const KID_PASSCODE_LENGTH = 3;
 export const KID_SEND_MAX_AMOUNT = 100;
 
 export const KID_WALLET_BALANCE_XLM = '10';
-export const KID_TASKS_BALANCE_XLM = '5';
-export const KID_GOAL_BALANCE_XLM = '5';
+export const KID_HOME_BALANCE_XLM = '2.51';
+export const KID_GOAL_BALANCE_XLM = '2.51';
 export const KID_ADD_MEMO_PREPEND = 'Add ';
+export const KID_HOME_MEMO_PREPEND = 'Home ';
 
 // @todo make all areas of the site use this
 export const CURRENCIES = {

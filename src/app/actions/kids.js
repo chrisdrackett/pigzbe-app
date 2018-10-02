@@ -1,5 +1,4 @@
 import Storage from '../utils/storage';
-import {STORAGE_KEY_KIDS} from '../constants';
 import {loadAccount, sendPayment, getServer, Keypair, TransactionBuilder, Operation, Memo} from '@pigzbe/stellar-utils';
 import {createKidAccount, getAccountBalance, fundKidAccount, getWolloBalance} from './';
 import {wolloAsset} from '../selectors';
@@ -7,6 +6,13 @@ import wait from '../utils/wait';
 import Keychain from '../utils/keychain';
 import BigNumber from 'bignumber.js';
 import moment from 'moment';
+import {
+    STORAGE_KEY_KIDS,
+    KID_WALLET_BALANCE_XLM,
+    KID_HOME_BALANCE_XLM,
+    KID_ADD_MEMO_PREPEND,
+    KID_HOME_MEMO_PREPEND
+} from '../constants';
 
 export const KIDS_LOAD = 'KIDS_LOAD';
 export const KIDS_LOADING = 'KIDS_LOADING';
@@ -18,6 +24,7 @@ export const KIDS_SEND_ERROR = 'KIDS_SEND_ERROR';
 export const KIDS_SEND_COMPLETE = 'KIDS_SEND_COMPLETE';
 export const KIDS_BALANCE_UPDATE = 'KIDS_BALANCE_UPDATE';
 export const KIDS_UPDATE_ACTIONS = 'KIDS_UPDATE_ACTIONS';
+export const KIDS_COMPLETE_ACTION = 'KIDS_COMPLETE_ACTION';
 
 const kidsLoading = value => ({type: KIDS_LOADING, value});
 
@@ -46,12 +53,25 @@ export const setParentNickname = parentNickname => ({type: KIDS_PARENT_NICKNAME,
 
 export const setNumKidsToAdd = numKidsToAdd => ({type: KIDS_NUM_TO_ADD, numKidsToAdd});
 
-export const addKid = (name, dob, photo) => async dispatch => {
+export const addKid = (nickname, dob, photo) => async dispatch => {
     dispatch(kidsLoading(true));
+    try {
+        const address = await dispatch(createKidAccount(KID_ADD_MEMO_PREPEND, nickname, KID_WALLET_BALANCE_XLM));
+        if (!address) {
+            throw new Error('Could not create kid account');
+        }
 
-    const address = await dispatch(createKidAccount(name));
-    dispatch(({type: KIDS_ADD_KID, kid: {name, dob, photo, address, balance: '0'}}));
-    await dispatch(saveKids());
+        const home = await dispatch(createKidAccount(KID_HOME_MEMO_PREPEND, nickname, KID_HOME_BALANCE_XLM));
+        if (!home) {
+            throw new Error('Could not create kid home account');
+        }
+
+        dispatch(({type: KIDS_ADD_KID, kid: {name: nickname, dob, photo, address, home, balance: '0'}}));
+        await dispatch(saveKids());
+
+    } catch (error) {
+        console.log(error);
+    }
     dispatch(kidsLoading(false));
 };
 
@@ -80,7 +100,7 @@ export const sendWolloToKid = (address, amount) => async (dispatch, getState) =>
     } catch (e) {
         console.log('Could not load account. Attemptiung to fund');
         const name = getState().kids.kids.find(k => k.address === address).name;
-        await dispatch(fundKidAccount(name, address));
+        await dispatch(fundKidAccount(`${KID_ADD_MEMO_PREPEND}${name}`, address, KID_WALLET_BALANCE_XLM));
     }
     try {
         const {parentNickname} = getState().kids;
@@ -102,9 +122,9 @@ export const updateKidBalance = (address, balance) => ({type: KIDS_BALANCE_UPDAT
 export const loadKidsBalances = (address, waitSeconds = 0) => async (dispatch, getState) => {
     try {
         await wait(waitSeconds);
-        const kids = getState().kids.kids.filter(k => !address || k.address === address);
+        const kids = getState().kids.kids.filter(k => !address || k.home === address);
         for (const kid of kids) {
-            const balance = await dispatch(getAccountBalance(kid.address));
+            const balance = await dispatch(getAccountBalance(kid.home));
             dispatch(updateKidBalance(kid.address, balance));
         }
     } catch (error) {
@@ -230,6 +250,10 @@ export const claimWollo = (address, destination, hash, amount) => async (dispatc
         const result = await getServer().submitTransaction(tx);
         console.log('result', result);
         await dispatch(loadKidActions(address));
+        dispatch(loadKidsBalances(destination));
+
+        // TODO: if amount === totalAmount
+        dispatch({type: KIDS_COMPLETE_ACTION, address, hash});
 
     } catch (e) {
         console.log(e);
