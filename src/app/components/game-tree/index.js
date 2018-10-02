@@ -38,7 +38,7 @@ export class Tree extends Component {
         const {leafLocations} = this.state;
         const {value} = this.props;
 
-        const numberLeaves = Math.max(2, Math.floor(value / 10));
+        const numberLeaves = Math.min(10, Math.max(2, Math.floor(value / 10)));
 
         const leavesList = [];
 
