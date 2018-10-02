@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {color} from '../../styles';
 
 export default StyleSheet.create({
@@ -28,10 +28,13 @@ export default StyleSheet.create({
         marginTop: 20,
     },
     outer: {
-        position: 'relative',
+        position: 'absolute',
         width: 157,
         display: 'flex',
         justifyContent: 'center',
         alignContent: 'center',
+        top: 0,
+        left: Dimensions.get('window').width / 2,
+        marginLeft: -79,
     },
 });
