@@ -76,7 +76,7 @@ export class CloudFlow extends Component {
 
         return (
             <View style={styles.outer} onPress={callback}>
-                <GameCloud type={type} value={value} name={name} callback={this.cloudClicked} />
+                <GameCloud type={type} value={value} name={name} callback={this.cloudClicked} happy={showBubble} />
                 {
                     showBubble && <View style={styles.bubbleWrap}><GameMessageBubble content={this.getBubbleContent()} top /></View>
                 }

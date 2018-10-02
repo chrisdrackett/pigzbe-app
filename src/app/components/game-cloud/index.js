@@ -16,18 +16,18 @@ export class Cloud extends Component {
     }
 
     render() {
-        const {value, type, callback, name} = this.props;
+        const {value, type, callback, name, happy} = this.props;
         const text = type === 'ALLOWANCE' ? type : name;
 
         return (
             <TouchableOpacity style={styles.outer} onPress={callback}>
-                <Image style={styles.cloud} source={require('./images/cloud.png')} />
-                <View style={styles.content}>
+                <Image style={styles.cloud} source={happy ? require('./images/happy_cloud.png') : require('./images/cloud.png')} />
+                {!happy && <View style={styles.content}>
                     <View style={styles.value}>
                         <GameWollo value={value} small />
                     </View>
                     <Text style={styles.type}>{text}</Text>
-                </View>
+                </View>}
             </TouchableOpacity>
         );
     }

@@ -19,7 +19,7 @@ const flexStyle = {
 class CloudFlowComponent extends Component {
     state = {
         value: 50,
-        status: 'bubble',
+        status: 'INIT',
         clouds: [
             {
                 type: 'ALLOWANCE',
