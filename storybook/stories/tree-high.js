@@ -22,7 +22,7 @@ storiesOf('Game')
             style={flexStyle}
         >
             <Tree
-                value={100}
+                value={10000}
                 name="LARGE Tree"
             />
         </View>
