@@ -20,22 +20,26 @@ export const createMnemonic = () => async () => {
 export const createKeysFromSeed = (seedHex, index = 0) => () => getKeypair(seedHex, index);
 
 export const createKeypair = () => async (dispatch, getState) => {
-    const {mnemonic} = getState().keys;
+    // const {mnemonic} = getState().keys;
+    const mnemonic = await Keychain.load(KEYCHAIN_ID_MNEMONIC);
+    console.log('createKeypair mnemonic', mnemonic);
 
     const keyIndex = getState().settings.keyIndex + 1;
 
-    console.log("createKeypair keyIndex", keyIndex)
+    console.log('createKeypair keyIndex', keyIndex);
 
-    await dispatch(settingsUpdate({keyIndex}))
+    await dispatch(settingsUpdate({keyIndex}));
 
     if (mnemonic) {
         return getKeypair(getSeedHex(mnemonic), keyIndex);
     }
 
-    if (typeof Keypair.randomAsync === 'function') {
-        return await Keypair.randomAsync();
-    }
-    return Keypair.random();
+    return null;
+
+    // if (typeof Keypair.randomAsync === 'function') {
+    //     return await Keypair.randomAsync();
+    // }
+    // return Keypair.random();
 };
 
 export const setKeys = (keypair, mnemonic, keysSaved) => ({type: KEYS_KEYPAIR, keypair, mnemonic, keysSaved});
@@ -93,9 +97,9 @@ export const restoreKeys = mnemonic => async dispatch => {
 
             const kidAccount = await loadAccount(address);
 
-            const {secretKey, index} = findSecretKey(address, seedHex, 1);
+            const {secretKey} = findSecretKey(address, seedHex, 1);
             await Keychain.save(`secret_${address}`, secretKey);
-            dispatch(restoreKid(name, address, index, kidAccount));
+            dispatch(restoreKid(name, address, kidAccount));
         }
 
         dispatch(setKeys(keypair, mnemonic, true));

@@ -181,9 +181,9 @@ export default class Bg extends Component {
                 <View style={[styles.children, {
                     left: 0 - this.state.x
                 }]}>
-                    <Text style={{position: 'absolute', top: 60, left: 20}}>
+                    {/* <Text style={{position: 'absolute', top: 60, left: 20}}>
                         {this.state.x}
-                    </Text>
+                    </Text> */}
                     {this.props.children}
                 </View>
                 <Birds

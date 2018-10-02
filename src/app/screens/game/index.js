@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {View, Text, Dimensions} from 'react-native';
 import styles from './styles';
 import Learn from '../learn';
-import GameTasks from '../game-tasks';
+// import GameTasks from '../game-tasks';
 import GameBg from '../../components/game-bg';
 import Button from '../../components/button';
 import GameCounter from '../../components/game-counter';
@@ -12,6 +12,7 @@ import Pigzbe from '../../components/game-pigzbe';
 import GameNotification from 'app/components/game-notification';
 import GameCarousel from 'app/components/game-carousel';
 import {gameOverlayOpen} from '../../actions';
+import {claimWollo} from '../../actions';
 
 const TREE_WIDTH = 200;
 
@@ -36,6 +37,13 @@ export class Game extends Component {
         this.setState({targetX});
     }
 
+    onClaim = (hash, amount) => {
+        console.log('this.props.kid', this.props.kid);
+        this.props.dispatch(claimWollo(
+            this.props.kid.address, this.props.kid.home, hash, amount
+        ));
+    }
+
     render() {
         const {
             dispatch,
@@ -43,7 +51,7 @@ export class Game extends Component {
             wolloCollected,
             overlayOpen,
             kid,
-            parentNickname
+            // parentNickname
         } = this.props;
 
         return (
@@ -55,7 +63,7 @@ export class Game extends Component {
                     <View style={styles.trees}>
                         <Tree
                             name="HOMETREE"
-                            value={'0'}
+                            value={kid.balance}
                         />
                         {kid.goals && kid.goals.map((goal, i) => (
                             <Tree
@@ -84,19 +92,11 @@ export class Game extends Component {
                             Item: GameNotification,
                             width: Dimensions.get('window').width,
                             itemWidth: 200,
-                            data: [{
-                                key: '1',
-                                amount: '1',
-                                text: 'Allowance',
-                            }, {
-                                key: '2',
-                                amount: '2',
-                                text: 'Wash the dishes',
-                            }, {
-                                key: '3',
-                                amount: '3',
-                                text: 'Do your homework',
-                            }]
+                            data: kid.actions.map(a => ({
+                                ...a,
+                                key: a.hash,
+                                onClaim: this.onClaim
+                            }))
                         }}
                     />
                 </View>
@@ -112,20 +112,21 @@ export class Game extends Component {
                     wolloCollected={wolloCollected}
                     overlayOpen={overlayOpen}
                 />
-                {kid.tasks.length ? (
+                {/* {kid.tasks.length ? (
                     <GameTasks
                         dispatch={dispatch}
                         parentNickname={parentNickname}
                         kid={kid}
                     />
-                ) : null}
+                ) : null} */}
                 <View style={{position: 'absolute', top: 30, right: 0, padding: 5, backgroundColor: 'white'}}>
                     <Text>{kid.name}</Text>
-                    <Text>Address: {kid.address}</Text>
+                    <Text>Address: {kid.address ? `${kid.address.slice(0, 6)}...` : ''}</Text>
                     <Text>Balance: {kid.balance}</Text>
                     <Text>Tasks: {kid.tasks && kid.tasks.length || 0}</Text>
                     <Text>Allowances: {kid.allowances && kid.allowances.length || 0}</Text>
                     <Text>Goals: {kid.goals && kid.goals.length || 0}</Text>
+                    <Text>Actions: {kid.actions && kid.actions.length || 0}</Text>
                     {/* <Text>MAX: {kid.goals && kid.goals.length || 0}</Text> */}
                     <Button label="NEXT TREE" onPress={this.nextTree}/>
                     <Button label="PREV TREE" onPress={this.prevTree}/>
@@ -137,7 +138,7 @@ export class Game extends Component {
 
 export default connect(state => ({
     kid: state.kids.kids.find(k => k.address === state.auth.kid),
-    parentNickname: state.kids.parentNickname,
+    // parentNickname: state.kids.parentNickname,
     exchange: state.coins.exchange,
     wolloCollected: state.game.wolloCollected,
     overlayOpen: state.game.overlayOpen
