@@ -4,6 +4,14 @@ import {View, Dimensions} from 'react-native';
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
+
+import {
+    TRANSFER_TYPE_ALLOWANCE,
+    TRANSFER_TYPE_TASK,
+    TRANSFER_TYPE_GIFT,
+} from 'app/constants/game';
+
+
 import Button from 'app/components/button';
 
 import GameBG from 'app/components/game-bg';
@@ -161,7 +169,7 @@ storiesOf('Game Components')
                     data: [
                         {
                             memo: 'Task: Tidy your room',
-                            type: 'task',
+                            type: TRANSFER_TYPE_TASK,
                             amount: '7',
                             totalAmount: '7',
                             hash: '6d3c2a5960fc02cb9cc87a6f74d2c8ebc64a795e079589bb3a618185095ac866',
@@ -169,7 +177,7 @@ storiesOf('Game Components')
                         },
                         {
                             memo: 'From dad',
-                            type: 'gift',
+                            type: TRANSFER_TYPE_GIFT,
                             amount: '14',
                             totalAmount: '14',
                             hash: '8dc2a1571d8e781398d67e26b6520dcd23f40eef259e126476441f02160333e6',
@@ -177,7 +185,7 @@ storiesOf('Game Components')
                         },
                         {
                             memo: 'Allowance #2.1 to Iggy',
-                            type: 'allowance',
+                            type: TRANSFER_TYPE_ALLOWANCE,
                             amount: '2',
                             totalAmount: '2',
                             hash: 'bc4fc79e3ebb25a7a5cab899654abb262e69ba9b218676604151319a014c26de',
@@ -185,7 +193,7 @@ storiesOf('Game Components')
                         },
                         {
                             memo: 'Allowance #2.1 to Iggy',
-                            type: 'allowance',
+                            type: TRANSFER_TYPE_ALLOWANCE,
                             amount: '2',
                             totalAmount: '2',
                             hash: '18e3fb908459e4dfe3d3a4493a9a4ed5fb62295d6eed3330093e7f2543c5e24d',

@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {TouchableOpacity, View, Text, Image} from 'react-native';
 import GameWollo from '../game-wollo';
 import styles from './styles';
+import {
+    TRANSFER_TYPE_TASK,
+} from 'app/constants/game';
 
 export class Cloud extends Component {
     constructor(props) {
@@ -17,7 +20,7 @@ export class Cloud extends Component {
 
     render() {
         const {value, type, callback, name, happy} = this.props;
-        const text = type === 'ALLOWANCE' ? type : name;
+        const text = type !== TRANSFER_TYPE_TASK ? type : name;
 
         return (
             <TouchableOpacity style={styles.outer} onPress={callback}>

@@ -3,6 +3,15 @@ import {TouchableOpacity, View, Text} from 'react-native';
 import GameCloud from '../game-cloud';
 import GameMessageBubble from '../game-message-bubble';
 import styles from './styles';
+import {
+    TRANSFER_TYPE_ALLOWANCE,
+    TRANSFER_TYPE_TASK,
+    // TRANSFER_TYPE_GIFT,
+    NOTIFICATION_STAGE_TASK_QUESTION,
+    NOTIFICATION_STAGE_TASK_GREAT,
+    NOTIFICATION_STAGE_TASK_FINISH,
+    NOTIFICATION_STAGE_ALLOWANCE_CLOUD
+} from 'app/constants/game';
 
 export class CloudFlow extends Component {
     constructor(props) {
@@ -20,12 +29,12 @@ export class CloudFlow extends Component {
     cloudClicked = () => {
         console.log('cloudClicked', this.props.type);
         switch (this.props.type) {
-            case 'ALLOWANCE':
-                this.props.changeStatus('ALLOWANCE_CLOUD');
+            case TRANSFER_TYPE_ALLOWANCE:
+                this.props.changeStatus(NOTIFICATION_STAGE_ALLOWANCE_CLOUD);
                 // showBubble: true
                 break;
-            case 'TASK':
-                this.props.changeStatus('TASK_QUESTION');
+            case TRANSFER_TYPE_TASK:
+                this.props.changeStatus(NOTIFICATION_STAGE_TASK_QUESTION);
                 break;
             default:
         }
@@ -33,7 +42,7 @@ export class CloudFlow extends Component {
 
     getBubbleContent() {
         switch (this.props.status) {
-            case 'TASK_QUESTION':
+            case NOTIFICATION_STAGE_TASK_QUESTION:
                 return (
                     <View>
                         <Text style={styles.text}>Have you completed your task?</Text>
@@ -48,17 +57,17 @@ export class CloudFlow extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>);
-            case 'TASK_GREAT':
+            case NOTIFICATION_STAGE_TASK_GREAT:
                 return (
                     <View>
                         <Text style={styles.text}>Great, place your finger onto tree to save your 50 Wollo there</Text>
                     </View>);
-            case 'TASK_FINISH':
+            case NOTIFICATION_STAGE_TASK_FINISH:
                 return (
                     <View>
                         <Text style={styles.text}>Please complete your task before collecting your Wollo</Text>
                     </View>);
-            case 'ALLOWANCE_CLOUD':
+            case NOTIFICATION_STAGE_ALLOWANCE_CLOUD:
                 return (
                     <View>
                         <Text style={styles.text}>Great, place your finger onto tree to save your 50 Wollo there</Text>
@@ -71,8 +80,8 @@ export class CloudFlow extends Component {
 
     render() {
         const {value, type, callback, name, status} = this.props;
-        const showBubble = status === 'ALLOWANCE_CLOUD' || status === 'TASK_QUESTION' ||
-            status === 'TASK_GREAT' || status === 'TASK_FINISH';
+        const showBubble = status === NOTIFICATION_STAGE_ALLOWANCE_CLOUD || status === NOTIFICATION_STAGE_TASK_QUESTION ||
+            status === NOTIFICATION_STAGE_TASK_GREAT || status === NOTIFICATION_STAGE_TASK_FINISH;
 
         return (
             <View style={styles.outer} onPress={callback}>
