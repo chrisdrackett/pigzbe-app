@@ -29,6 +29,12 @@ export const assignGoal = (kid, goalName, reward) => async (dispatch, getState) 
 
         const destination = await dispatch(createGoalAccount(kid, goalName));
 
+        if (!destination) {
+            throw new Error('Could not create goal');
+        }
+
+        console.log('assignGoal destination', destination);
+
         await dispatch(({type: KIDS_ASSIGN_GOAL, kid, goal: {
             address: destination,
             name: goalName,
@@ -84,7 +90,7 @@ export const deleteGoal = (kid, goal) => async (dispatch, getState) => {
                 destination: kid.address,
                 asset,
                 amount: String(wolloBalance),
-            }))
+            }));
         }
         txb.addOperation(Operation.changeTrust({
             asset,
@@ -128,7 +134,7 @@ export const moveGoalWollo = (fromAddress, destinationAddress, amount) => async 
         const goalAccount = await loadAccount(fromAddress);
         const wolloBalance = getWolloBalance(goalAccount);
         if (wolloBalance > amount) {
-            throw new Error("Not enough wollo to move to different goal");
+            throw new Error('Not enough wollo to move to different goal');
         }
 
         const txb = new TransactionBuilder(goalAccount);
@@ -136,8 +142,8 @@ export const moveGoalWollo = (fromAddress, destinationAddress, amount) => async 
             destination: destinationAddress,
             asset,
             amount: String(amount),
-        }))
-        txb.addMemo(Memo.text(`Moved wollo to other goal`));
+        }));
+        txb.addMemo(Memo.text('Moved wollo to other goal'));
 
         const tx = txb.build();
         tx.sign(keypair);
@@ -162,7 +168,7 @@ export const sendGoalWolloToParent = (goalAddress, amount) => async (dispatch, g
         const goalAccount = await loadAccount(goalAddress);
         const wolloBalance = getWolloBalance(goalAccount);
         if (wolloBalance > amount) {
-            throw new Error("Not enough wollo to move to different goal");
+            throw new Error('Not enough wollo to move to different goal');
         }
 
         const txb = new TransactionBuilder(goalAccount);
@@ -170,8 +176,8 @@ export const sendGoalWolloToParent = (goalAddress, amount) => async (dispatch, g
             destination: publicKey,
             asset,
             amount: String(amount),
-        }))
-        txb.addMemo(Memo.text(`Sent wollo to parent`));
+        }));
+        txb.addMemo(Memo.text('Sent wollo to parent'));
 
         const tx = txb.build();
         tx.sign(keypair);

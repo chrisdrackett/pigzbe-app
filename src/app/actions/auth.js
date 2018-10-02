@@ -2,7 +2,7 @@ import Keychain from '../utils/keychain';
 import TouchId from '../utils/touch-id';
 import {KEYCHAIN_ID_PASSCODE} from '../constants';
 // import {clearKeys, appError} from './';
-import {appError} from './';
+import {appError, loginAndLoadKid} from './';
 
 export const AUTH_CREATE = 'AUTH_CREATE';
 export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
@@ -42,10 +42,11 @@ export const authCreateKid = (kid, passcode) => async dispatch => {
     dispatch({type: AUTH_CREATE, passcode});
     await Keychain.save(kid.address, JSON.stringify(Array.from(passcode)));
     // await dispatch(clearKeys());
-    await dispatch(authLoginKid(kid, passcode));
+    // await dispatch(authLoginKid(kid, passcode));
+    await dispatch(loginAndLoadKid(kid, passcode));
 };
 
-export const authClearKidPasscode = (address) => async dispatch => {
+export const authClearKidPasscode = (address) => async () => {
     await Keychain.clear(address);
 };
 

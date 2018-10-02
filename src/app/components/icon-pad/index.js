@@ -32,7 +32,6 @@ export default class IconPad extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('nextProps', nextProps);
         if (nextProps.error && !this.props.error) {
             this.setState({inputs: new Set()});
             this.props.onInput('');
@@ -40,7 +39,6 @@ export default class IconPad extends Component {
     }
 
     onInput = image => {
-        console.log('on local input', this.props.maxLength);
         if (this.state.inputs.size === this.props.maxLength) {
             return;
         }

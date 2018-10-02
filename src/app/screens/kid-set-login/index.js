@@ -41,32 +41,24 @@ export class KidSetLogin extends Component {
             }
         }
 
-        console.log('confirmed: ', confirmed);
-
         if (confirmed) {
             this.setState({
                 confirmed,
                 error: !confirmed,
-                loading: confirmed,
             });
 
             this.props.dispatch(appError(null));
-
-            console.log('onCodeConfirmed', this.props.kid.name, code);
 
             await this.props.dispatch(authCreateKid(this.props.kid, code));
         } else {
             this.setState({
                 confirmed,
                 error: !confirmed,
-                loading: confirmed,
                 prevCode: null,
                 input: new Set(),
             });
 
             this.props.dispatch(appError(new Error('Passcodes do not match')));
-
-            console.log('--- ---', this.state);
         }
     }
 
@@ -77,6 +69,7 @@ export class KidSetLogin extends Component {
                 icon="keys"
                 content={'Set your *Secret Code* by picking 3 images'}
                 pad
+                loading={this.props.loading}
                 headerChildren={(
                     <View style={{marginTop: 30}}>
                         <Dots length={KID_PASSCODE_LENGTH} progress={this.state.input.size}/>
@@ -98,5 +91,6 @@ export class KidSetLogin extends Component {
 export default connect(
     (state, props) => ({
         kid: props.navigation.state.params.kid,
+        loading: state.loader.loading,
     })
 )(KidSetLogin);

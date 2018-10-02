@@ -1,8 +1,10 @@
-import {createTasksAccount, appAddSuccessAlert, appAddWarningAlert} from './';
+import {
+    // createTasksAccount,
+    appAddSuccessAlert, appAddWarningAlert} from './';
 import {
     loadAccount,
     getData,
-    setData,
+    // setData,
     sendPayment,
     TransactionBuilder,
     Operation,
@@ -31,22 +33,25 @@ export const assignTask = (kid, task, reward) => async (dispatch, getState) => {
         dispatch(taskLoading(true));
 
         console.log('assignTask', kid.address);
-        const account = await loadAccount(kid.address);
-        let destination = getData(account, 'tasks');
-        if (!destination) {
-            console.log('create tasksAccount');
-            destination = await dispatch(createTasksAccount(kid));
-            console.log('destination', destination);
-            const kidSecretKey = await Keychain.load(`secret_${kid.address}`);
-            console.log('kidSecretKey', kidSecretKey);
-            await setData(kidSecretKey, 'tasks', destination);
-        }
+        // const account = await loadAccount(kid.address);
+        // let destination = getData(account, 'tasks');
+        // if (!destination) {
+        //     console.log('create tasksAccount');
+        //     destination = await dispatch(createTasksAccount(kid));
+        //     console.log('destination', destination);
+        //     const kidSecretKey = await Keychain.load(`secret_${kid.address}`);
+        //     console.log('kidSecretKey', kidSecretKey);
+        //     await setData(kidSecretKey, 'tasks', destination);
+        // }
+
+        const destination = kid.address;
 
         console.log('send money to tasks account', destination);
 
         const asset = wolloAsset(getState());
         // memo needs to be a unique ref to task
-        const memo = task.slice(0, 28);
+        // const memo = task.slice(0, 28);
+        const memo = `Task: ${task}`.slice(0, 28);
         const result = await sendPayment(secretKey, destination, reward, memo, asset);
 
         console.log('result', result);
@@ -104,7 +109,7 @@ export const completeTask = (kid, task) => async (dispatch, getState) => {
         console.log('result', result);
 
         const balance = new BigNumber(kid.balance).plus(task.reward).toString(10);
-        dispatch(updateKidBalance(kid.address, balance));
+        dispatch(updateKidBalance(kid.home, balance));
 
         await dispatch(({type: KIDS_COMPLETE_TASK, data: {
             kid,
