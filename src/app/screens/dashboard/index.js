@@ -25,10 +25,17 @@ import {
     loadWallet
 } from '../../actions';
 import openURL from '../../utils/open-url';
+import ReactModal from 'react-native-modal';
+import FundingMessage from '../../components/funding-message';
 
 export class Dashboard extends Component {
     state = {
         funding: false,
+        showFundingMessage: this.props.showFundingMessage,
+    }
+
+    static defaultProps = {
+        showFundingMessage: false,
     }
 
     componentDidMount() {
@@ -41,10 +48,13 @@ export class Dashboard extends Component {
 
     update = () => this.props.dispatch(loadExchange())
 
-    onCloseModal = () => this.props.dispatch(settingsFirstTime())
+    onCloseFirstTime = () => this.props.dispatch(settingsFirstTime())
+
+    onCloseFundingMessage = () => this.setState({showFundingMessage: false})
 
     onSettings = () => {
-        this.onCloseModal();
+        this.onCloseFundingMessage();
+        this.onCloseFirstTime();
         this.props.navigation.navigate(SCREEN_SETTINGS);
     }
 
@@ -118,7 +128,6 @@ export class Dashboard extends Component {
                                         label="Fund account"
                                         theme="light"
                                         onPress={this.onFund}
-                                        // style={{marginTop: 20}}
                                     />
                                 </View>
                             )}
@@ -133,14 +142,20 @@ export class Dashboard extends Component {
                         </View>
                     )}
                 </StepModule>
-                {firstTime && (
+
+                <ReactModal
+                    isVisible={firstTime}
+                    animationIn="slideInUp"
+                    animationOut="slideOutDown"
+                    style={{margin: 0}}
+                >
                     <Modal>
                         <Title dark>Howdy!</Title>
                         <Paragraph>Welcome to your Pigzbe wallet. To fully activate your wallet you need to transfer funds into it.</Paragraph>
                         <Paragraph style={{marginBottom: 40}}>If you’re an *ICO* participant, you can do this via settings.</Paragraph>
                         <Button
                             label={'Good to know!'}
-                            onPress={this.onCloseModal}
+                            onPress={this.onCloseFirstTime}
                         />
                         <Button
                             theme="outline"
@@ -148,7 +163,12 @@ export class Dashboard extends Component {
                             onPress={this.onSettings}
                         />
                     </Modal>
-                )}
+                </ReactModal>
+                <FundingMessage
+                    isVisible={!firstTime && this.state.showFundingMessage}
+                    onSettings={this.onSettings}
+                    onClose={this.onCloseFundingMessage}
+                />
             </Fragment>
         );
     }
