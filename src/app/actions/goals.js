@@ -20,6 +20,7 @@ export const KIDS_LOADING_GOAL = 'KIDS_LOADING_GOAL';
 export const KIDS_ASSIGN_GOAL = 'KIDS_ASSIGN_GOAL';
 export const KIDS_UPDATE_GOAL = 'KIDS_UPDATE_GOAL';
 export const KIDS_DELETE_GOAL = 'KIDS_DELETE_GOAL';
+export const KIDS_SET_BALANCE = 'KIDS_SET_BALANCE';
 
 const goalLoading = value => ({type: KIDS_LOADING_GOAL, value});
 
@@ -49,7 +50,9 @@ export const assignGoal = (kid, goalName, reward) => async (dispatch, getState) 
 
     } catch (err) {
         console.log(err);
-        dispatch(appAddWarningAlert('Add goal failed'));
+        dispatch(appAddWarningAlert('Failed to add goal'));
+
+        dispatch(goalLoading(false));
     }
 };
 
@@ -107,7 +110,7 @@ export const deleteGoal = (kid, goal) => async (dispatch, getState) => {
         const keypair = Keypair.fromSecret(secretKey);
         tx.sign(keypair);
 
-        const result = getServer().submitTransaction(tx);
+        await getServer().submitTransaction(tx);
 
         dispatch({type: KIDS_DELETE_GOAL, kid, goal});
 
@@ -133,7 +136,8 @@ export const moveGoalWollo = (fromAddress, destinationAddress, amount) => async 
 
         const goalAccount = await loadAccount(fromAddress);
         const wolloBalance = getWolloBalance(goalAccount);
-        if (wolloBalance > amount) {
+
+        if (wolloBalance < amount) {
             throw new Error('Not enough wollo to move to different goal');
         }
 
@@ -148,12 +152,19 @@ export const moveGoalWollo = (fromAddress, destinationAddress, amount) => async 
         const tx = txb.build();
         tx.sign(keypair);
 
-        getServer().submitTransaction(tx);
+        await getServer().submitTransaction(tx);
 
         dispatch(goalLoading(false));
+
+        dispatch(appAddSuccessAlert('Sucessfully sent wollo'));
+
+        dispatch(updateBalance(fromAddress));
+        dispatch(updateBalance(destinationAddress));
+
     } catch (err) {
         console.log(err);
         dispatch(appAddWarningAlert('Move wollo failed'));
+        dispatch(goalLoading(false));
     }
 };
 
@@ -167,7 +178,7 @@ export const sendGoalWolloToParent = (goalAddress, amount) => async (dispatch, g
 
         const goalAccount = await loadAccount(goalAddress);
         const wolloBalance = getWolloBalance(goalAccount);
-        if (wolloBalance > amount) {
+        if (wolloBalance < amount) {
             throw new Error('Not enough wollo to move to different goal');
         }
 
@@ -182,11 +193,23 @@ export const sendGoalWolloToParent = (goalAddress, amount) => async (dispatch, g
         const tx = txb.build();
         tx.sign(keypair);
 
-        getServer().submitTransaction(tx);
+        await getServer().submitTransaction(tx);
 
         dispatch(goalLoading(false));
+
+        dispatch(updateBalance(goalAddress));
+
+        dispatch(appAddSuccessAlert('Sucessfully sent wollo'));
+
     } catch (err) {
         console.log(err);
         dispatch(appAddWarningAlert('Send wollo failed'));
+        dispatch(goalLoading(false));
     }
+};
+
+export const updateBalance = address => async dispatch => {
+    const account = await loadAccount(address);
+    const balance = getWolloBalance(account);
+    dispatch({type: KIDS_SET_BALANCE, address, balance});
 };
