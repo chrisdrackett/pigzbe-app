@@ -4,7 +4,7 @@ import GameWollo from '../game-wollo';
 import styles from './styles';
 import {
     TRANSFER_TYPE_TASK,
-    TRANSFER_TYPE_ALLOWANCE,
+    TRANSFER_TYPE_GIFT,
 } from 'app/constants/game';
 
 export class Cloud extends Component {
@@ -21,7 +21,7 @@ export class Cloud extends Component {
 
     render() {
         const {value, type, callback, name, happy} = this.props;
-        const text = type === TRANSFER_TYPE_TASK ? name : TRANSFER_TYPE_ALLOWANCE ? 'Allowance' : 'Gift';
+        const text = type === TRANSFER_TYPE_TASK ? name : (TRANSFER_TYPE_GIFT ? 'Gift' : 'Allowance');
 
         return (
             <TouchableOpacity style={styles.outer} onPress={callback}>
