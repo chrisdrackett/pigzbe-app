@@ -4,6 +4,7 @@ import {View, Dimensions} from 'react-native';
 import StepModule from 'app/components/step-module';
 import Paragraph from 'app/components/paragraph';
 import Button from 'app/components/button';
+import TextInput from 'app/components/text-input';
 import InputBoxes from 'app/components/input-boxes';
 
 const boxes = 6;
@@ -26,7 +27,7 @@ export default class TextCodeEnter extends Component {
                         <Paragraph>
                             Lipsum dolor es.
                         </Paragraph>
-
+                        
                         <View style={{marginTop: 50}}>
                             <InputBoxes
                                 boxes={boxes}
@@ -38,7 +39,7 @@ export default class TextCodeEnter extends Component {
                             />
                         </View>
                     </Fragment>
-                }
+                }   
                 onBack={onBack}
                 pad
             >

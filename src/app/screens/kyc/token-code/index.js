@@ -15,25 +15,29 @@ export default class TokenCode extends Component {
         return (
             <StepModule
                 title="Your unique Token Code"
-                content="We're almost there! Please enter your unique token code supplied to you by Pigzbe"
+                content={
+                    <Fragment>
+                        <Paragraph>We're almost there! Please enter your unique token code supplied to you by Pigzbe</Paragraph>
+                        <TextInput
+                            numberOfLines={3}
+                            placeholder="Your Pigzbe token code"
+                            value={this.state.tokenCode}
+                            onChangeText={(tokenCode) => this.setState({tokenCode})}
+                        />
+                    </Fragment>
+                }   
                 onBack={onBack}
-                justify="space-between"
                 pad
             >
-                <Fragment>
-                    <TextInput
-                        numberOfLines={1}
-                        placeholder="Your Pigzbe token code"
-                        value={this.state.tokenCode}
-                        onChangeText={(tokenCode) => this.setState({tokenCode})}
-                    />
+                <View>
                     <Button
                         label="Next"
                         onPress={() => {
-                            onNext(this.state.tokenCode);
+                            // @todo validation
+                            onNext(this.state.tokenCode)
                         }}
                     />
-                </Fragment>
+                </View>
             </StepModule>
         );
     }

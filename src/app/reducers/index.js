@@ -14,6 +14,7 @@ import settings from './settings';
 import kids from './kids';
 import tasks from './tasks';
 import vip from './vip';
+import kyc from './kyc';
 
 import user from './claim/user';
 import events from './claim/events';
@@ -37,6 +38,7 @@ export default combineReducers({
     kids,
     tasks,
     vip,
+    kyc,
     // claim reducers
     user,
     events,

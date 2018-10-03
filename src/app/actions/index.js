@@ -14,5 +14,6 @@ export * from './messages';
 export * from './settings';
 export * from './tasks';
 export * from './vip';
+export * from './kyc';
 export * from './wollo';
 export * from './goals';

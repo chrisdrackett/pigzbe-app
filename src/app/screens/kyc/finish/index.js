@@ -8,7 +8,6 @@ export default ({onNext, onBack, wollo}) => (
         title="Congratulations"
         content={`Tap 'Claim Wollo' Below to add your ${wollo} Wollo to your Pigzbe wallet.`}
         icon="tick"
-        justify="flex-end"
         pad
     >
         <View>
