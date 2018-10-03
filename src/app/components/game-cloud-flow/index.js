@@ -4,8 +4,8 @@ import GameCloud from '../game-cloud';
 import GameMessageBubble from '../game-message-bubble';
 import styles from './styles';
 import {
-    TRANSFER_TYPE_ALLOWANCE,
-    TRANSFER_TYPE_TASK,
+    // TRANSFER_TYPE_ALLOWANCE,
+    // TRANSFER_TYPE_TASK,
     // TRANSFER_TYPE_GIFT,
     NOTIFICATION_STAGE_TASK_QUESTION,
     NOTIFICATION_STAGE_TASK_GREAT,
@@ -14,31 +14,6 @@ import {
 } from 'app/constants/game';
 
 export class CloudFlow extends Component {
-    constructor(props) {
-        super(props);
-
-        // this.state = {
-        //     status: props.type === TRANSFER_TYPE_TASK ? NOTIFICATION_STAGE_TASK_QUESTION : NOTIFICATION_STAGE_ALLOWANCE_CLOUD,
-        //     showBubble: false,
-        // };
-    }
-
-    componentDidMount() {
-    }
-
-    // cloudClicked = () => {
-    //     console.log('cloudClicked', this.props.type);
-    //     switch (this.props.type) {
-    //         case TRANSFER_TYPE_ALLOWANCE:
-    //             this.props.changeStatus(NOTIFICATION_STAGE_ALLOWANCE_CLOUD);
-    //             // showBubble: true
-    //             break;
-    //         case TRANSFER_TYPE_TASK:
-    //             this.props.changeStatus(NOTIFICATION_STAGE_TASK_QUESTION);
-    //             break;
-    //         default:
-    //     }
-    // }
 
     getBubbleContent() {
         switch (this.props.status) {
@@ -58,21 +33,11 @@ export class CloudFlow extends Component {
                         </View>
                     </View>);
             case NOTIFICATION_STAGE_TASK_GREAT:
-                return (
-                    <View>
-                        <Text style={styles.text}>Great, place your finger onto tree to save your 50 Wollo there</Text>
-                    </View>);
+                return 'Great, place your finger onto tree to save your 50 Wollo there';
             case NOTIFICATION_STAGE_TASK_FINISH:
-                return (
-                    <View>
-                        <Text style={styles.text}>Please complete your task before collecting your Wollo</Text>
-                    </View>);
+                return 'Please complete your task before collecting your Wollo';
             case NOTIFICATION_STAGE_ALLOWANCE_CLOUD:
-                return (
-                    <View>
-                        <Text style={styles.text}>Great, place your finger onto tree to save your 50 Wollo there</Text>
-                    </View>
-                );
+                return 'Great, place your finger onto tree to save your 50 Wollo there';
             default:
                 return '';
         }
