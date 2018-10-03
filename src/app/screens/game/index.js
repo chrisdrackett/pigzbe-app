@@ -54,6 +54,12 @@ export class Game extends Component {
         ));
     }
 
+    onTreeClicked = (goal) => {
+        // untested:
+        console.log('TODO: add this cash:', this.state.currentCloud);
+        console.log('to this goal:', goal);
+    }
+
     onActivateCloud = (currentCloud) => {
         console.log('onActivateCloud', currentCloud);
 
@@ -100,6 +106,7 @@ export class Game extends Component {
                                 key={i}
                                 name={goal.name}
                                 value={goal.reward}
+                                onPress={() => this.treeClickHandler(goal)}
                             />
                         ))}
                         <Tree
