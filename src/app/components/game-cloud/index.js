@@ -21,7 +21,7 @@ export class Cloud extends Component {
 
     render() {
         const {value, type, callback, name, happy} = this.props;
-        const text = type === TRANSFER_TYPE_TASK ? name : (TRANSFER_TYPE_GIFT ? 'Gift' : 'Allowance');
+        const text = type === TRANSFER_TYPE_TASK ? name : (type === TRANSFER_TYPE_GIFT ? 'Gift' : 'Allowance');
 
         return (
             <TouchableOpacity style={styles.outer} onPress={callback}>
