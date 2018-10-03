@@ -1,13 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import GameCloud from './';
+import GameCloudFlow from './';
 
-describe('GameCloud', () => {
+describe('GameCloudFlow', () => {
     test('renders correctly', () => {
         renderer.create(
-            <GameCloud value={30} type="allowance" callback={() => {
-                console.log('callback');
-            }} />
+            <GameCloudFlow value={30} status={null} cloudData={{}} />
         );
     });
 });
