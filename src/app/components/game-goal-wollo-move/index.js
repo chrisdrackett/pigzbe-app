@@ -11,6 +11,7 @@ import styles from './styles';
 export class GameGoalWolloMove extends Component {
     static defaultProps = {
         goals: [],
+        onWolloMoved: () => {},
     }
     state = {
         goalAddress: null,
@@ -41,8 +42,9 @@ export class GameGoalWolloMove extends Component {
                 <Button
                     label="Move Wollo"
                     disabled={this.state.amount === 0 || !this.state.goalAddress}
-                    onPress={() => {
-                        this.props.moveWollo(this.state.goalAddress, this.state.amount);
+                    onPress={async () => {
+                        await this.props.moveWollo(this.state.goalAddress, this.state.amount);
+                        this.props.onWolloMoved();
                     }}
                 />
             </View>
@@ -53,6 +55,6 @@ export class GameGoalWolloMove extends Component {
 export default connect(
     state => ({}),
     (dispatch, ownProps) => ({
-        moveWollo: (destinationGoalAddress, amount) => dispatch(moveGoalWollo(ownProps.goalAddress, destinationGoalAddress, amount))
+        moveWollo: async (destinationGoalAddress, amount) => dispatch(moveGoalWollo(ownProps.goalAddress, destinationGoalAddress, amount))
     })
 )(GameGoalWolloMove);

@@ -58,6 +58,11 @@ export class Payments extends Component {
                 (filter === 'sent' && payment.from === address) ||
                 (filter === 'received' && payment.to === address)
             ));
+            
+            filteredPayments.forEach(payment => {
+                payment.direction = payment.to === address ? 'in' : 'out';
+            });
+
         } else {
             // show all
             filteredPayments = payments.filter(payment => (
@@ -65,6 +70,7 @@ export class Payments extends Component {
                 (filter === 'sent' && payment.direction === 'out') ||
                 (filter === 'received' && payment.direction === 'in')
             ));
+
         }
 
         return (

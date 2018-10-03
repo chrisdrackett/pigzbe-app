@@ -11,27 +11,43 @@ import GameGoalTransactions from 'app/components/game-goal-transactions';
 import {Dots} from 'app/components/game-carousel';
 import Icon from 'app/components/icon';
 import Loader from 'app/components/loader';
-
+import {updateBalance} from 'app/actions';
 import styles from './styles';
 
 export class GameGoalOverlay extends Component {
     state = {
         currentIndex: 0,
     }
+    componentDidMount() {
+        if (this.props.goalAddress) {
+            this.props.dispatch(updateBalance(this.props.goalAddress));
+        }
+    }
+    componentDidUpdate(prevProps) {
+        if (this.props.goalAddress && prevProps.goalAddress !== this.props.goalAddress) {
+            this.props.dispatch(updateBalance(this.props.goalAddress));
+        }
+    }
     render() {
         const {
+            kid,
             isOpen,
             goalAddress,
-            goalBalance,
-            goals,
             onClose,
             parentName,
+            balances,
         } = this.props;
 
         const width = Dimensions.get('window').width;
         const itemWidth = width;
 
         const contentOffset = (width - itemWidth) / 2;
+
+        const goalBalance = (balances && balances[goalAddress]) ? balances[goalAddress] : 0;
+        const goals = [
+            {address: kid.home, name: 'Hometree'},
+            ...kid.goals,
+        ].filter(goal => goal.address !== goalAddress);
 
         return (
             <Fragment>
@@ -52,10 +68,19 @@ export class GameGoalOverlay extends Component {
                             top: 40,
                         }}>
                             <Icon name="gameBack" />
+                            <Text style={{color: 'white', fontWeight: 'bold', fontSize: 10, maxWidth: 200}}>Address: {goalAddress}</Text>
                         </TouchableOpacity>
                         
                         {!goalAddress &&
-                            <GameGoalCreate />
+                            <Fragment>
+                                <View>
+                                    <Text style={styles.title}>New Goal</Text>
+                                </View>
+                                <GameGoalCreate
+                                    kid={kid}
+                                    onGoalAdded={onClose}
+                                />
+                            </Fragment>
                         }
                         {!!goalAddress &&
                             <View>
@@ -78,9 +103,11 @@ export class GameGoalOverlay extends Component {
                                                             <Text style={styles.title}>Move to another tree</Text>
                                                         </View>
                                                         <GameGoalWolloMove
+                                                            kid={kid}
                                                             goalAddress={goalAddress}
                                                             goals={goals}
                                                             goalBalance={goalBalance}
+                                                            onWolloMoved={onClose}
                                                         />
                                                     </Fragment>
                                                 }
@@ -92,6 +119,7 @@ export class GameGoalOverlay extends Component {
                                                         <GameGoalParentSend
                                                             goalAddress={goalAddress}
                                                             goalBalance={goalBalance}
+                                                            onWolloMoved={onClose}
                                                         />
                                                     </Fragment>
                                                 }
@@ -133,5 +161,6 @@ export class GameGoalOverlay extends Component {
 export default connect(
     state => ({
         loading: state.kids.goalLoading,
+        balances: state.kids.balances,
     })
 )(GameGoalOverlay);

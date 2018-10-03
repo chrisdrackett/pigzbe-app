@@ -38,8 +38,9 @@ export class GameGoalCreate extends Component {
                 <Button
                     label="Create saving goal"
                     disabled={this.state.amount === 0 || this.state.name.length === 0}
-                    onPress={() => {
-                        this.props.addGoal(this.state.name, this.state.amount);
+                    onPress={async () => {
+                        await this.props.addGoal(this.state.name, this.state.amount);
+                        this.props.onGoalAdded();
                     }}
                 />
             </View>
@@ -50,6 +51,6 @@ export class GameGoalCreate extends Component {
 export default connect(
     state => ({}),
     (dispatch, ownProps) => ({
-        addGoal: (name, amount) => dispatch(assignGoal(ownProps.kid, name, amount))
+        addGoal: async (name, amount) => dispatch(assignGoal(ownProps.kid, name, amount))
     })
 )(GameGoalCreate);
