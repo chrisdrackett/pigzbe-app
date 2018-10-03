@@ -10,6 +10,7 @@ import styles from './styles';
 export class GameGoalParentSend extends Component {
     state = {
         amount: 0,
+        onWolloMoved: () => {},
     }
     render() {
         const {goalBalance} = this.props;
@@ -26,8 +27,9 @@ export class GameGoalParentSend extends Component {
                 <Button
                     label="Send Wollo"
                     disabled={this.state.amount === 0}
-                    onPress={() => {
-                        this.props.sendToParent(this.state.amount);
+                    onPress={async () => {
+                        await this.props.sendToParent(this.state.amount);
+                        this.props.onWolloMoved();
                     }}
                 />
             </View>
@@ -38,6 +40,6 @@ export class GameGoalParentSend extends Component {
 export default connect(
     state => ({}),
     (dispatch, ownProps) => ({
-        sendToParent: (amount) => dispatch(sendGoalWolloToParent(ownProps.goalAddress, amount))
+        sendToParent: async (amount) => dispatch(sendGoalWolloToParent(ownProps.goalAddress, amount))
     })
 )(GameGoalParentSend);

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Text, Dimensions} from 'react-native';
+import {View, Text, Dimensions, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Learn from '../learn';
 // import GameTasks from '../game-tasks';
@@ -11,14 +11,17 @@ import Tree from '../../components/game-tree';
 import Pigzbe from '../../components/game-pigzbe';
 import GameNotification from 'app/components/game-notification';
 import GameCarousel from 'app/components/game-carousel';
+import GoalOverlay from 'app/components/game-goal-overlay';
 import {gameOverlayOpen} from '../../actions';
-import {claimWollo} from '../../actions';
+import {sendWollo, claimWollo} from '../../actions';
 
 const TREE_WIDTH = 200;
 
 export class Game extends Component {
     state = {
         targetX: 0,
+        isGoalOverlayOpen: false,
+        goalOverlayAddress: null,
     }
 
     onClickCounter = () => this.props.dispatch(gameOverlayOpen(true))
@@ -44,6 +47,23 @@ export class Game extends Component {
         ));
     }
 
+    openGoalOverlay = (address = null) => {
+        this.setState({
+            isGoalOverlayOpen: true,
+            goalOverlayAddress: address,
+        });
+    }
+
+    closeGoalOverlay = () => {
+        this.setState({
+            isGoalOverlayOpen: false,
+            goalOverlayAddress: null,
+        });
+    }
+
+    nextTree = () => this.setState({targetX: this.state.targetX + TREE_WIDTH})
+    prevTree = () => this.setState({targetX: this.state.targetX - TREE_WIDTH})
+
     render() {
         const {
             dispatch,
@@ -51,8 +71,15 @@ export class Game extends Component {
             wolloCollected,
             overlayOpen,
             kid,
-            // parentNickname
+            parentNickname,
+            balances,
         } = this.props;
+        console.log("kid", kid)
+        console.log("balances", balances);
+
+        const totalWollo = (parseFloat(balances[kid.home]) || 0) + kid.goals.reduce((total,goal) => {
+            return total + (parseFloat(balances[goal.address]) || 0)
+        }, 0);
 
         return (
             <View style={styles.full}>
@@ -61,22 +88,28 @@ export class Game extends Component {
                     onMove={this.onMove}
                     onRelease={this.onRelease}>
                     <View style={styles.trees}>
-                        <Tree
-                            name="HOMETREE"
-                            value={kid.balance}
-                        />
-                        {kid.goals && kid.goals.map((goal, i) => (
+                        <TouchableOpacity onPress={() => this.openGoalOverlay(kid.home)}>
                             <Tree
-                                key={i}
-                                name={goal.name}
-                                value={goal.reward}
+                                name="HOMETREE"
+                                value={(balances && balances[kid.home] !== undefined) ? parseFloat(balances[kid.home]) : 0}
                             />
+                        </TouchableOpacity>
+                        {kid.goals && kid.goals.map((goal, i) => (
+                            <TouchableOpacity key={i} onPress={() => this.openGoalOverlay(goal.address)}>
+                                <Tree
+                                    name={goal.name}
+                                    value={(balances && balances[goal.address] !== undefined) ? parseFloat(balances[goal.address]) : 0}
+                                />
+                            </TouchableOpacity>
                         ))}
-                        <Tree
-                            name="NEW GOAL?"
-                            newValue={true}
-                            value={'0'}
-                        />
+
+                        <TouchableOpacity onPress={() => this.openGoalOverlay()}>
+                            <Tree
+                                name="NEW GOAL?"
+                                newValue={true}
+                                value={'0'}
+                            />
+                        </TouchableOpacity>
                     </View>
                 </GameBg>
                 <Pigzbe
@@ -102,7 +135,7 @@ export class Game extends Component {
                 </View>
                 <View style={styles.counter}>
                     <GameCounter
-                        value={kid.balance}
+                        value={totalWollo}
                         onPress={this.onClickCounter}
                     />
                 </View>
@@ -131,6 +164,14 @@ export class Game extends Component {
                     <Button label="NEXT TREE" onPress={this.nextTree}/>
                     <Button label="PREV TREE" onPress={this.prevTree}/>
                 </View>
+
+                <GoalOverlay
+                    kid={kid}
+                    isOpen={this.state.isGoalOverlayOpen}
+                    onClose={this.closeGoalOverlay}
+                    goalAddress={this.state.goalOverlayAddress}
+                    parentName={parentNickname}
+                />
             </View>
         );
     }
@@ -138,8 +179,9 @@ export class Game extends Component {
 
 export default connect(state => ({
     kid: state.kids.kids.find(k => k.address === state.auth.kid),
-    // parentNickname: state.kids.parentNickname,
+    parentNickname: state.kids.parentNickname,
     exchange: state.coins.exchange,
     wolloCollected: state.game.wolloCollected,
-    overlayOpen: state.game.overlayOpen
+    overlayOpen: state.game.overlayOpen,
+    balances: state.kids.balances,
 }))(Game);

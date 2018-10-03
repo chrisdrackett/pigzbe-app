@@ -1,6 +1,6 @@
 import Storage from '../utils/storage';
 import {loadAccount, sendPayment, getServer, Keypair, TransactionBuilder, Operation, Memo} from '@pigzbe/stellar-utils';
-import {createKidAccount, getAccountBalance, fundKidAccount, getWolloBalance} from './';
+import {createKidAccount, getAccountBalance, fundKidAccount, getWolloBalance, updateBalance} from './';
 import {wolloAsset} from '../selectors';
 import wait from '../utils/wait';
 import Keychain from '../utils/keychain';
@@ -126,6 +126,13 @@ export const loadKidsBalances = (address, waitSeconds = 0) => async (dispatch, g
         for (const kid of kids) {
             const balance = await dispatch(getAccountBalance(kid.home));
             dispatch(updateKidBalance(kid.address, balance));
+
+            // Load their goal balances too
+            // @todo speed this up, it gets slow!
+            for (const goal of kid.goals) {
+                await dispatch(updateBalance(goal.address));
+            }
+            await dispatch(updateBalance(kid.home));
         }
     } catch (error) {
         console.log(error);
