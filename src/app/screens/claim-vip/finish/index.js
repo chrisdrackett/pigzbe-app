@@ -3,23 +3,18 @@ import {View} from 'react-native';
 import StepModule from 'app/components/step-module';
 import Button from 'app/components/button';
 
-export default ({onNext, onBack, wollo}) => (
+export default ({onNext}) => (
     <StepModule
         title="Congratulations"
-        content={`Tap 'Claim Wollo' Below to add your ${wollo} Wollo to your Pigzbe wallet.`}
+        content="Pigzbe has registered your public key"
         icon="tick"
         justify="flex-end"
         pad
     >
         <View>
             <Button
-                label="Claim Wollo"
+                label="Done"
                 onPress={onNext}
-            />
-            <Button
-                label="Cancel"
-                onPress={onBack}
-                theme="outline"
             />
         </View>
     </StepModule>

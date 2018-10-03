@@ -17,6 +17,7 @@ storiesOf('ClaimVIP')
     ))
     .add('token-code', () => (
         <TokenCode
+            email="example@example.com"
             onNext={() => undefined}
             onBack={() => undefined}
         />

@@ -4,6 +4,9 @@ const getErrorDetail = error => {
     if (!error) {
         return strings.errorUnknown;
     }
+    if (typeof error === 'string') {
+        return error;
+    }
     if (error.message && error.message.title) {
         return error.message.title;
     }
@@ -19,7 +22,7 @@ export const APP_DELETE_ALERT = 'APP_DELETE_ALERT';
 
 export const appError = error => {
     if (error === null) {
-        return {type: APP_DELETE_ALERT}
+        return {type: APP_DELETE_ALERT};
     }
     return {type: APP_ADD_ALERT, alertType: 'error', alertMessage: getErrorDetail(error)};
 };
