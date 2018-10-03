@@ -79,6 +79,17 @@ storiesOf('Kid Dashboard')
             ...props
         }}/>
     ))
+    .add('with zero balance', () => (
+        <KidDashboard {...{
+            ...props,
+            balance: '0',
+            balanceXLM: '0',
+            kid: {
+                ...kid,
+                balance: '0',
+            }
+        }}/>
+    ))
     .add('with 1 task', () => (
         <KidDashboard {...{
             ...props,

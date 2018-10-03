@@ -23,6 +23,7 @@ import {
     KIDS_SEND_COMPLETE,
     KIDS_UPDATE_ACTIONS,
     KIDS_COMPLETE_ACTION,
+    KIDS_SET_BALANCE,
 } from '../actions';
 
 const kidDefaults = {
@@ -60,6 +61,7 @@ export const initialState = {
     numKidsToAdd: 0,
     numKidsAdded: 0,
     kids: [],
+    balances: {},
 };
 
 export default (state = initialState, action) => {
@@ -314,6 +316,14 @@ export default (state = initialState, action) => {
                     }
                     return k;
                 }),
+            };
+        case KIDS_SET_BALANCE:
+            return {
+                ...state,
+                balances: {
+                    ...state.balances,
+                    [action.address]: action.balance,
+                },
             };
         default:
             return state;

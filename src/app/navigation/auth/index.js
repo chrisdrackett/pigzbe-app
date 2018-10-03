@@ -14,7 +14,11 @@ class Auth extends Component {
         // console.log('keysSaved', keysSaved);
         // console.log('loading', loading);
 
-        if (loggedIn && keysSaved && !loading) {
+        if (loggedIn && keysSaved && !loading && kid) {
+            return <Game />;
+        }
+
+        if (loggedIn && keysSaved && !loading && !kid) {
             return (
                 <Fragment>
                     <Tabs />
@@ -25,10 +29,6 @@ class Auth extends Component {
 
         if (loggedIn && !loading && !kid) {
             return <Keys />;
-        }
-
-        if (loggedIn && !loading && kid) {
-            return <Game />;
         }
 
         return <Home />;

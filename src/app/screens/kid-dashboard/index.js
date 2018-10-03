@@ -2,7 +2,14 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {color} from '../../styles';
-import {SCREEN_DASHBOARD, SCREEN_TASKS_LIST, SCREEN_ALLOWANCE_AMOUNT, SCREEN_KID_TRANSACTIONS, SCREEN_KID_GOAL_ADD} from '../../constants';
+import {
+    SCREEN_DASHBOARD,
+    SCREEN_TASKS_LIST,
+    SCREEN_ALLOWANCE_AMOUNT,
+    SCREEN_KID_TRANSACTIONS,
+    SCREEN_KID_GOAL_ADD,
+    SCREEN_SETTINGS
+} from '../../constants';
 import BalanceGraph from '../../components/balance-graph';
 import Wollo from '../../components/wollo';
 import StepModule from '../../components/step-module';
@@ -12,6 +19,7 @@ import ActionSheet from '../../components/action-sheet';
 import WolloSendSlider from 'app/components/wollo-send-slider';
 import styles from './styles';
 import {deleteAllowance, deleteTask, deleteGoal, appError} from '../../actions';
+import FundingMessage from '../../components/funding-message';
 
 const Item = ({first, title, subtitle, amount, onPress}) => (
     <TouchableOpacity onPress={onPress}>
@@ -37,15 +45,28 @@ export class KidDashboard extends Component {
         allowanceToEdit: null,
         goalPanelOpen: false,
         goalToEdit: null,
+        showFundingMessage: this.props.showFundingMessage,
+    }
+
+    static defaultProps = {
+        showFundingMessage: false,
     }
 
     onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
 
-    onAddTask = () => this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid})
+    addItem = screen => {
+        if (Number(this.props.balance) === 0 || Number(this.props.balanceXLM) === 0) {
+            this.showFundingMessage();
+            return;
+        }
+        this.props.navigation.navigate(screen, {kid: this.props.kid});
+    }
 
-    onAddGoal = () => this.props.navigation.navigate(SCREEN_KID_GOAL_ADD, {kid: this.props.kid})
+    onAddTask = () => this.addItem(SCREEN_TASKS_LIST)
 
-    onAddAllowance = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid})
+    onAddGoal = () => this.addItem(SCREEN_KID_GOAL_ADD)
+
+    onAddAllowance = () => this.addItem(SCREEN_ALLOWANCE_AMOUNT)
 
     onTaskAlertOptionSelected = async (option) => {
         console.log('++ onTaskAlertOptionSelected option', option);
@@ -92,7 +113,7 @@ export class KidDashboard extends Component {
 
         switch (option.selectedOption) {
             case 0:
-                this.props.navigation.navigate(SCREEN_KID_GOAL_ADD, {kid: this.props.kid, goal: this.state.goalToEdit})
+                this.props.navigation.navigate(SCREEN_KID_GOAL_ADD, {kid: this.props.kid, goal: this.state.goalToEdit});
                 break;
             case 1:
                 await this.props.dispatch(deleteGoal(this.props.kid, this.state.goalToEdit));
@@ -118,6 +139,15 @@ export class KidDashboard extends Component {
     })
 
     onTransactions = () => this.props.navigation.navigate(SCREEN_KID_TRANSACTIONS, {kid: this.props.kid});
+
+    showFundingMessage = () => this.setState({showFundingMessage: true})
+
+    onCloseFundingMessage = () => this.setState({showFundingMessage: false})
+
+    onSettings = () => {
+        this.onCloseFundingMessage();
+        this.props.navigation.navigate(SCREEN_SETTINGS);
+    }
 
     render () {
         const {
@@ -267,7 +297,11 @@ export class KidDashboard extends Component {
                     onRequestClose={() => this.setState({goalPanelOpen: false})}
                     onSelect={index => this.onGoalAlertOptionSelected({selectedOption: index})}
                 />
-                
+                <FundingMessage
+                    isVisible={this.state.showFundingMessage}
+                    onSettings={this.onSettings}
+                    onClose={this.onCloseFundingMessage}
+                />
             </Fragment>
         );
     }
