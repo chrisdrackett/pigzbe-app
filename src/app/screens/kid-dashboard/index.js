@@ -76,6 +76,7 @@ export class KidDashboard extends Component {
                 this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid, taskToEdit: this.state.taskToEdit});
                 break;
             case 1:
+                console.log('>>>> this.state.taskToEdit', this.state.taskToEdit);
                 await this.props.dispatch(deleteTask(this.props.kid, this.state.taskToEdit));
                 break;
             default:

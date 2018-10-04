@@ -26,7 +26,7 @@ export class Cloud extends Component {
         return (
             <TouchableOpacity style={styles.outer} onPress={callback}>
                 <Image style={styles.cloud} source={happy ? require('./images/happy_cloud.png') : require('./images/cloud.png')} />
-                {!happy && <View style={styles.content}>
+                {/*!happy*/true && <View style={styles.content}>
                     <View style={styles.value}>
                         <GameWollo value={value} small />
                     </View>

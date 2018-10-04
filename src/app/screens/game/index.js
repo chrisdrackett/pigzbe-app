@@ -61,13 +61,38 @@ export class Game extends Component {
 
     onTreeClicked = async (goalAddress) => {
         // untested:
-        console.log('this.cloudStatus', this.cloudStatus);
+        console.log('this.cloudStatus', this.state.cloudStatus);
         if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
-            console.log('----- if this.cloudStatus', this.cloudStatus);
+            console.log('----- if this.cloudStatus', this.state.cloudStatus, this.state.currentCloud.amount);
+            console.log('--------------------------------------- this.state.currentCloud.amount - 1', this.state.currentCloud.amount - 1);
 
-            this.props.dispatch(claimWollo(
-                this.props.kid.address, goalAddress, this.state.currentCloud.hash, this.state.currentCloud.amount
-            ));
+            if (this.state.currentCloud.amount > 0) {
+                // if there's one wollo left on the current cloud
+                // let's just optimistically count down + hide cloud
+                if (this.state.currentCloud.amount === 1) {
+                    this.setState({
+                        cloudStatus: null,
+                        showCloud: false,
+                        currentCloud: {
+                            ...this.state.currentCloud,
+                            amount: this.state.currentCloud.amount - 1
+                        }
+                    });
+                // if we have more than one wollo left on the current task
+                // let's only just optimistically count down
+                } else if (this.state.currentCloud.amount > 1) {
+                    this.setState({
+                        currentCloud: {
+                            ...this.state.currentCloud,
+                            amount: this.state.currentCloud.amount - 1
+                        }
+                    });
+                }
+
+                this.props.dispatch(claimWollo(
+                    this.props.kid.address, goalAddress, this.state.currentCloud.hash, '1'
+                ));
+            }
 
             // only do this if all wollos have been sent:
             if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT) {
@@ -75,10 +100,6 @@ export class Game extends Component {
                 // await this.props.dispatch(deleteTask(this.props.kid, this.state.currentCloud.taskToEdit));
             }
 
-            this.setState({
-                cloudStatus: null,
-                showCloud: false
-            });
         } else {
             console.log('----- else this.cloudStatus', this.cloudStatus);
             this.openGoalOverlay(goalAddress);
