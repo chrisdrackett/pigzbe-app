@@ -24,8 +24,6 @@ import GameMessageBubble from 'app/components/game-message-bubble';
 import {gameOverlayOpen} from '../../actions';
 import {claimWollo} from '../../actions';
 
-const TREE_WIDTH = 200;
-
 export class Game extends Component {
     state = {
         targetX: 0,
@@ -76,9 +74,9 @@ export class Game extends Component {
     onMove = dx => {
         const numGoals = this.props.kid.goals && this.props.kid.goals.length || 0;
         const minX = 0;
-        const maxX = (1 + numGoals) * TREE_WIDTH;
-        const newX = Math.max(minX, Math.min(maxX, this.state.targetX + dx * TREE_WIDTH));
-        const targetX = Math.floor(newX / TREE_WIDTH) * TREE_WIDTH;
+        const maxX = (1 + numGoals) * Tree.WIDTH;
+        const newX = Math.max(minX, Math.min(maxX, this.state.targetX + dx * Tree.WIDTH));
+        const targetX = Math.floor(newX / Tree.WIDTH) * Tree.WIDTH;
         this.setState({targetX});
     }
 
@@ -224,7 +222,9 @@ export class Game extends Component {
                     <GameBg
                         targetX={this.state.targetX}
                         onMove={this.onMove}>
-                        <View style={styles.trees}>
+                        <View style={[styles.trees, {
+                            left: (Dimensions.get('window').width - Tree.WIDTH) / 2,
+                        }]}>
                             <TouchableOpacity onPress={() => this.openGoalOverlay(kid.home)}>
                                 <Tree
                                     name="HOMETREE"

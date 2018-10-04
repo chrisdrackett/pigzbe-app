@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {color} from '../../styles';
 
 export default StyleSheet.create({
@@ -13,12 +13,9 @@ export default StyleSheet.create({
         left: 15,
     },
     trees: {
-        // backgroundColor: 'red',
         flexDirection: 'row',
         position: 'absolute',
-        bottom: 80,
-        left: Dimensions.get('window').width / 2 - 100,
-        // width: '100%',
+        bottom: 75,
         alignItems: 'flex-start',
     },
     clouds: {

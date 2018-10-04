@@ -3,7 +3,14 @@ import {View, FlatList, Text, Image} from 'react-native';
 import Leaf from '../leaf';
 import styles from './styles';
 
+const WIDTH = 190;
+// const WIDTH = Math.floor(Dimensions.get('window').width * 0.45);
+
+// console.log('Tree.WIDTH', WIDTH);
+
 export class Tree extends Component {
+    static WIDTH = WIDTH
+
     constructor(props) {
         super(props);
 
@@ -58,12 +65,12 @@ export class Tree extends Component {
         const {value, name, newValue} = this.props;
 
         return (
-            <View style={styles.outer}>
-                <View style={styles.tree}>
+            <View style={[styles.outer, {width: WIDTH}]}>
+                <View style={[styles.tree, {width: WIDTH}]}>
                     <Image style={styles.trunk} source={require('./images/trunk.png')} />
                     {value > 2 ? <FlatList
                         data={this.getLeavesList()}
-                        contentContainerStyle={styles.leaves}
+                        contentContainerStyle={[styles.leaves, {width: WIDTH}]}
                         extraData={this.props.numberLeaves}
                         renderItem={({item}) => this.renderLeaf(item)}
                     /> : <Image style={styles.sprout} source={require('./images/sprout.png')} />
