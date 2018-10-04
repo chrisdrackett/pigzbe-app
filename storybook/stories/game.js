@@ -5,11 +5,64 @@ import {Game} from '../../src/app/screens/game';
 import Learn from '../../src/app/screens/learn';
 import GameTasks from '../../src/app/screens/game-tasks';
 import GameBg from '../../src/app/components/game-bg';
-import {
-    TRANSFER_TYPE_TASK,
-    TRANSFER_TYPE_GIFT,
-    TRANSFER_TYPE_ALLOWANCE,
-} from 'app/constants/game';
+// import {
+//     TRANSFER_TYPE_TASK,
+//     TRANSFER_TYPE_GIFT,
+//     TRANSFER_TYPE_ALLOWANCE,
+// } from 'app/constants/game';
+import {Provider} from 'react-redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+
+const store = createStore(combineReducers({
+    kids: () => ({
+        goalLoading: false,
+        balances: {
+            GAXMIBCMT6EZ65OVCWMWHNMFX6Z3UAKTMAQP3P4QK7KH2TAVHMZR4USS: '0.0000000',
+            GC4F2Y35HHKUZRQEVDNON2V3YZULS6KASP6SO45EQBHUQF5CX6Z5SKPB: '0.0000000',
+            GBRGWC5G5A4EXE2Y4WOVH2RQUUEGMUG5P7AJ3FUK5PM67N3CMV2ZFYHO: '0.0000000',
+            GCJXZI6X7RMUPELH7KORB34IEQVWOZLUU46IYAW3O6CNTGBFU5ADHCGB: '0.0000000'
+        },
+    }),
+    settings: () => ({
+        baseCurrency: 'USD',
+    }),
+    coins: () => ({
+        exchange: {
+            USD: 0.12,
+            EUR: 0.103992,
+            JPY: 13.704,
+            GBP: 0.092388,
+            AUD: 0.168,
+            CAD: 0.1596,
+            CHF: 0.11868,
+            CNY: 0.804,
+            SEK: 1.0836,
+            NZD: 0.2028,
+            MXN: 2.2476,
+            SGD: 0.1656,
+            HKD: 0.9468,
+            NOK: 1.014,
+            KRW: 136.5156,
+            TRY: 0.738,
+            RUB: 8.0184,
+            INR: 8.736,
+            BRL: 0.4764,
+            ZAR: 1.8192,
+            GOLD: 0.003384,
+            XLM: 0.4908,
+            BTC: 0.00001829,
+            ETH: 0.00053592
+        },
+    }),
+    wollo: () => ({
+        loading: false,
+        payments: [],
+    }),
+    keys: () => ({
+        publicKey: '',
+    }),
+}), applyMiddleware(thunk));
 
 const props = {
     dispatch: () => {},
@@ -22,63 +75,146 @@ const props = {
         },
         actions: {}
     },
-    exchange: {
-        XLM: 0.3936,
-        BTC: 0.0000147,
-        ETH: 0.00025584,
-        EUR: 0.102828,
-        USD: 0.12,
-        JPY: 13.8984,
-        GBP: 0.091956,
-        GOLD: 0.0031452
-    },
-    wolloCollected: 10,
-    overlayOpen: false,
     kid: {
-        name: 'Ella',
-        dob: '01/01/2010',
-        photo: null,
-        balance: '20',
-        tasks: [],
+        name: 'Iggy',
+        address: 'GADOVZSAP7QXAY2GOBXSMBOP2EPHIYBYQXW7FY7GKYU6A5TQULT2FS6P',
+        home: 'GAXMIBCMT6EZ65OVCWMWHNMFX6Z3UAKTMAQP3P4QK7KH2TAVHMZR4USS',
+        photo: '',
+        balance: '0.0000000',
+        dob: '04/10/2018',
+        tasks: [
+            {
+                kid: {
+                    name: 'Iggy',
+                    address: 'GADOVZSAP7QXAY2GOBXSMBOP2EPHIYBYQXW7FY7GKYU6A5TQULT2FS6P',
+                    home: 'GAXMIBCMT6EZ65OVCWMWHNMFX6Z3UAKTMAQP3P4QK7KH2TAVHMZR4USS',
+                    photo: '',
+                    balance: '0',
+                    dob: '04/10/2018',
+                    tasks: [],
+                    goals: [],
+                    allowances: [
+                        {
+                            id: 1,
+                            amount: '25',
+                            interval: 'Daily',
+                            day: null,
+                            nextDate: '2018-10-05T14:22:43.215Z',
+                            timezone: 'Europe/London',
+                            payments: [
+                                {
+                                    id: 1,
+                                    status: 'success'
+                                }
+                            ]
+                        }
+                    ],
+                    actions: []
+                },
+                task: 'Clean the car',
+                reward: 5,
+                transaction: 'f5671760e6c9015b1940631605be4d5af207cbe86177cf87c399b1f94cf8144c'
+            }
+        ],
+        goals: [
+            {
+                address: 'GC4F2Y35HHKUZRQEVDNON2V3YZULS6KASP6SO45EQBHUQF5CX6Z5SKPB',
+                name: 'Goal 1',
+                reward: 39
+            },
+            {
+                address: 'GBRGWC5G5A4EXE2Y4WOVH2RQUUEGMUG5P7AJ3FUK5PM67N3CMV2ZFYHO',
+                name: 'Goal 2',
+                reward: 245
+            },
+            {
+                address: 'GCJXZI6X7RMUPELH7KORB34IEQVWOZLUU46IYAW3O6CNTGBFU5ADHCGB',
+                name: 'Goal 3',
+                reward: 708
+            }
+        ],
+        allowances: [
+            {
+                id: 1,
+                amount: '25',
+                interval: 'Daily',
+                day: null,
+                nextDate: '2018-10-05T14:22:43.215Z',
+                timezone: 'Europe/London',
+                payments: [
+                    {
+                        id: 1,
+                        status: 'success'
+                    }
+                ]
+            }
+        ],
         actions: [
             {
-                memo: 'Task: Tidy your room',
-                type: TRANSFER_TYPE_TASK,
-                amount: '7',
-                totalAmount: '7',
-                hash: '6d3c2a5960fc02cb9cc87a6f74d2c8ebc64a795e079589bb3a618185095ac866',
-                date: '2018-10-02T13:09:00Z'
+                memo: 'Allowance #1.1 to Iggy',
+                type: 'TRANSFER_TYPE_ALLOWANCE',
+                amount: '25',
+                totalAmount: '25',
+                hash: '1cc7255d877ace1ada0be8f0150a921491c8687ab9a7125d1329a8d9e3ac099f',
+                date: '2018-10-04T14:22:52Z'
+            },
+            {
+                memo: 'Task: Clean the car',
+                type: 'TRANSFER_TYPE_TASK',
+                amount: '5',
+                totalAmount: '5',
+                hash: 'f5671760e6c9015b1940631605be4d5af207cbe86177cf87c399b1f94cf8144c',
+                date: '2018-10-04T14:23:02Z'
             },
             {
                 memo: 'From dad',
-                type: TRANSFER_TYPE_GIFT,
-                amount: '14',
-                totalAmount: '14',
-                hash: '8dc2a1571d8e781398d67e26b6520dcd23f40eef259e126476441f02160333e6',
-                date: '2018-10-02T13:09:15Z'
-            },
-            {
-                memo: 'Allowance #2.1 to Iggy',
-                type: TRANSFER_TYPE_ALLOWANCE,
-                amount: '2',
-                totalAmount: '2',
-                hash: 'bc4fc79e3ebb25a7a5cab899654abb262e69ba9b218676604151319a014c26de',
-                date: '2018-10-02T13:09:45Z'
-            },
-            {
-                memo: 'Allowance #2.1 to Iggy',
-                type: TRANSFER_TYPE_ALLOWANCE,
-                amount: '2',
-                totalAmount: '2',
-                hash: '18e3fb908459e4dfe3d3a4493a9a4ed5fb62295d6eed3330093e7f2543c5e24d',
-                date: '2018-10-02T13:09:50Z'
+                type: 'TRANSFER_TYPE_GIFT',
+                amount: '8',
+                totalAmount: '8',
+                hash: 'f8ae3b2fae64b68c4248c0c2171b8f2e9db244d56f0ed862a2ec29db084d653c',
+                date: '2018-10-04T14:23:22Z'
             }
         ]
     },
-    parentNickname: 'Dad',
+    parentNickname: 'dad',
+    exchange: {
+        USD: 0.12,
+        EUR: 0.103992,
+        JPY: 13.704,
+        GBP: 0.092388,
+        AUD: 0.168,
+        CAD: 0.1596,
+        CHF: 0.11868,
+        CNY: 0.804,
+        SEK: 1.0836,
+        NZD: 0.2028,
+        MXN: 2.2476,
+        SGD: 0.1656,
+        HKD: 0.9468,
+        NOK: 1.014,
+        KRW: 136.5156,
+        TRY: 0.738,
+        RUB: 8.0184,
+        INR: 8.736,
+        BRL: 0.4764,
+        ZAR: 1.8192,
+        GOLD: 0.003384,
+        XLM: 0.4908,
+        BTC: 0.00001829,
+        ETH: 0.00053592
+    },
+    wolloCollected: 0,
+    overlayOpen: false,
+    balances: {
+        GAXMIBCMT6EZ65OVCWMWHNMFX6Z3UAKTMAQP3P4QK7KH2TAVHMZR4USS: '0.0000000',
+        GC4F2Y35HHKUZRQEVDNON2V3YZULS6KASP6SO45EQBHUQF5CX6Z5SKPB: '0.0000000',
+        GBRGWC5G5A4EXE2Y4WOVH2RQUUEGMUG5P7AJ3FUK5PM67N3CMV2ZFYHO: '0.0000000',
+        GCJXZI6X7RMUPELH7KORB34IEQVWOZLUU46IYAW3O6CNTGBFU5ADHCGB: '0.0000000'
+    },
 };
 
 storiesOf('Game')
+    .addDecorator(story => <Provider store={store}>{story()}</Provider>)
     .add('default', () => (
         <Game {...props}/>
     ))
