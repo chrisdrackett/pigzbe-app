@@ -74,16 +74,11 @@ export class Game extends Component {
     onClickCounter = () => this.props.dispatch(gameOverlayOpen(true))
 
     onMove = dx => {
-        const moveX = dx * -0.5;
         const numGoals = this.props.kid.goals && this.props.kid.goals.length || 0;
         const minX = 0;
         const maxX = (1 + numGoals) * TREE_WIDTH;
-        const newX = Math.max(minX, Math.min(maxX, this.state.targetX + moveX));
-        this.setState({targetX: newX});
-    }
-
-    onRelease = () => {
-        const targetX = Math.floor(this.state.targetX / TREE_WIDTH) * TREE_WIDTH;
+        const newX = Math.max(minX, Math.min(maxX, this.state.targetX + dx * TREE_WIDTH));
+        const targetX = Math.floor(newX / TREE_WIDTH) * TREE_WIDTH;
         this.setState({targetX});
     }
 
@@ -217,8 +212,7 @@ export class Game extends Component {
             <View style={styles.full}>
                 <GameBg
                     targetX={this.state.targetX}
-                    onMove={this.onMove}
-                    onRelease={this.onRelease}>
+                    onMove={this.onMove}>
                     <View style={styles.trees}>
                         <TouchableOpacity onPress={() => this.openGoalOverlay(kid.home)}>
                             <Tree
@@ -253,14 +247,7 @@ export class Game extends Component {
                     wolloCollected={wolloCollected}
                     overlayOpen={overlayOpen}
                 />
-                {/* {kid.tasks.length ? (
-                    <GameTasks
-                        dispatch={dispatch}
-                        parentNickname={parentNickname}
-                        kid={kid}
-                    />
-                ) : null} */}
-                <View style={{position: 'absolute', top: 30, right: 0, padding: 5, backgroundColor: 'white'}}>
+                {/* <View style={{position: 'absolute', top: 30, right: 0, padding: 5, backgroundColor: 'white'}}>
                     <Text>{kid.name}</Text>
                     <Text>Address: {kid.address ? `${kid.address.slice(0, 6)}...` : ''}</Text>
                     <Text>Balance: {kid.balance}</Text>
@@ -268,10 +255,7 @@ export class Game extends Component {
                     <Text>Allowances: {kid.allowances && kid.allowances.length || 0}</Text>
                     <Text>Goals: {kid.goals && kid.goals.length || 0}</Text>
                     <Text>Actions: {kid.actions && kid.actions.length || 0}</Text>
-                    {/* <Text>MAX: {kid.goals && kid.goals.length || 0}</Text> */}
-                    <Button label="NEXT TREE" onPress={this.nextTree}/>
-                    <Button label="PREV TREE" onPress={this.prevTree}/>
-                </View>
+                </View> */}
 
                 <GoalOverlay
                     kid={kid}

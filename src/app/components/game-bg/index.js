@@ -1,7 +1,8 @@
 import React, {Component, Fragment} from 'react';
-import {View, Image, Dimensions, Text, PanResponder} from 'react-native';
+import {View, Image, Dimensions} from 'react-native';
 import styles, {MAP_WIDTH} from './styles';
 import Birds from '../game-birds';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 const cameraW = Dimensions.get('window').width;
 const startX = (cameraW - MAP_WIDTH) / 2;
@@ -116,27 +117,14 @@ export default class Bg extends Component {
         this.update();
     }
 
-    componentWillMount = () => {
-        this.panResponder = PanResponder.create({
-            // onStartShouldSetPanResponder: () => true,
-            // onStartShouldSetPanResponderCapture: () => true,
-            onMoveShouldSetPanResponder: () => true,
-            onMoveShouldSetPanResponderCapture: () => true,
-            // onMoveShouldSetPanResponder: this.handleGestureCapture,
-            onPanResponderMove: this.handleGestureMove,
-            onPanResponderRelease: this.handleGestureRelease,
-            // onPanResponderTerminationRequest: this.handleGestureTerminationRequest,
-        });
-    }
+    onSwipeLeft = () => this.props.onMove(1)
 
-    handleGestureRelease = () => this.props.onRelease()
-
-    handleGestureMove = (e, {dx}) => this.props.onMove(dx)
+    onSwipeRight = () => this.props.onMove(-1)
 
     update = () => {
         const {targetX} = this.props;
         if (targetX !== this.state.x) {
-            let x = this.state.x + (targetX - this.state.x) * 0.05;
+            let x = this.state.x + (targetX - this.state.x) * 0.1;
             let delta = x - this.state.x;
 
             if (Math.abs(delta) < 0.01) {
@@ -167,8 +155,13 @@ export default class Bg extends Component {
                     Layer={Front}
                     speed={this.state.delta}
                 />
-                <View
-                    {...this.panResponder.panHandlers}
+                <GestureRecognizer
+                    onSwipeLeft={this.onSwipeLeft}
+                    onSwipeRight={this.onSwipeRight}
+                    config={{
+                        velocityThreshold: 0.3,
+                        directionalOffsetThreshold: 80
+                    }}
                     style={{
                         position: 'absolute',
                         top: 0,
