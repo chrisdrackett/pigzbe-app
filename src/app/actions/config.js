@@ -20,7 +20,7 @@ export const loadConfig = () => async (dispatch, getState) => {
         if (config.message === 'Missing Authentication Token') {
             throw new Error('Failed to load config');
         }
-        // console.log(JSON.stringify(config, null, 2));
+        console.log(JSON.stringify(config.stellar, null, 2));
         dispatch(configUpdate(config));
         dispatch(setUseTestnet(config.network !== config.NETWORK_MAINNET));
     } catch (error) {
