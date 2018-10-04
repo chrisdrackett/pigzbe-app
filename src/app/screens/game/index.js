@@ -57,8 +57,21 @@ export class Game extends Component {
         ));
     }
 
-    onTreeClicked = (goal) => {
+    onTreeClicked = (goalAddress) => {
         // untested:
+        console.log('this.cloudStatus', this.cloudStatus);
+        if (!this.state.cloudStatus) {
+            console.log('this.cloudStatus', this.cloudStatus);
+            this.openGoalOverlay(goalAddress);
+        } else {
+            console.log();
+            this.onClaim(this.state.currentCloud.hash, this.state.currentCloud.amount);
+            this.setState({
+                cloudStatus: null,
+                currentCloud: null
+            });
+        }
+
         console.log('TODO: add this cash:', this.state.currentCloud);
         console.log('to this goal:', goal);
     }
@@ -131,7 +144,7 @@ export class Game extends Component {
                             />
                         </TouchableOpacity>
                         {kid.goals && kid.goals.map((goal, i) => (
-                            <TouchableOpacity key={i} onPress={() => this.openGoalOverlay(goal.address)}>
+                            <TouchableOpacity key={i} onPress={() => this.openTreeClicked(goal.address)}>
                                 <Tree
                                     name={goal.name}
                                     value={(balances && balances[goal.address] !== undefined) ? parseFloat(balances[goal.address]) : 0}
