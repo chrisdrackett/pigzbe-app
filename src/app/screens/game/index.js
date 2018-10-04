@@ -22,7 +22,8 @@ import GameCarousel from 'app/components/game-carousel';
 import GameCloudFlow from 'app/components/game-cloud-flow';
 import GoalOverlay from 'app/components/game-goal-overlay';
 import {gameOverlayOpen} from '../../actions';
-import {sendWollo, claimWollo} from '../../actions';
+import {sendWollo, claimWollo, deleteAllowance, deleteTask} from '../../actions';
+
 
 const TREE_WIDTH = 200;
 
@@ -58,20 +59,24 @@ export class Game extends Component {
         ));
     }
 
-    onTreeClicked = (goalAddress) => {
+    onTreeClicked = async (goalAddress) => {
         // untested:
         console.log('this.cloudStatus', this.cloudStatus);
         if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
             console.log('----- if this.cloudStatus', this.cloudStatus);
-            // this.onClaim(this.state.currentCloud.hash, this.state.currentCloud.amount);
 
             this.props.dispatch(claimWollo(
                 this.props.kid.address, goalAddress, this.state.currentCloud.hash, this.state.currentCloud.amount
             ));
 
+            // only do this if all wollos have been sent:
+            if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT) {
+                // todo need to get rid of task but need to derive task data currently
+                // await this.props.dispatch(deleteTask(this.props.kid, this.state.currentCloud.taskToEdit));
+            }
+
             this.setState({
                 cloudStatus: null,
-                // currentCloud: null
                 showCloud: false
             });
         } else {
@@ -79,7 +84,6 @@ export class Game extends Component {
             this.openGoalOverlay(goalAddress);
             this.setState({
                 cloudStatus: null,
-                // currentCloud: null,
                 showCloud: false
             });
         }
