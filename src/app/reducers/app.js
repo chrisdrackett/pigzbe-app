@@ -1,8 +1,7 @@
 import {APP_CONNECTION_STATUS, APP_ADD_ALERT, APP_DELETE_ALERT} from '../actions';
-import isDesktop from '../utils/is-desktop';
 
 const initialState = {
-    isConnected: isDesktop,
+    isConnected: true,
     alertType: null,
     alertMessage: null,
 };
