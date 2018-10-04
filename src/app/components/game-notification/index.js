@@ -1,16 +1,12 @@
 import React from 'react';
-import {View, Image, Text, TouchableOpacity} from 'react-native';
+import {View} from 'react-native';
 import styles from './styles';
-import GameWollo from '../game-wollo';
+import GameCloud from '../game-cloud';
 
-export default ({amount, memo, hash, onClaim}) => (
-    <TouchableOpacity onPress={() => onClaim(hash, amount)}>
+export default ({amount, memo, hash, onActivateCloud, type}) => (
+    <View>
         <View style={styles.wrapper}>
-            <Image style={styles.cloud} source={require('./images/cloud.png')} />
-            <View style={styles.amount}>
-                <GameWollo small value={amount} />
-            </View>
-            <Text style={styles.text}>{memo}</Text>
+            <GameCloud type={type} value={amount} name={memo} callback={() => onActivateCloud({amount, memo, hash, type}) } />
         </View>
-    </TouchableOpacity>
+    </View>
 );

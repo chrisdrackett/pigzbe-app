@@ -13,6 +13,12 @@ import {
     KID_ADD_MEMO_PREPEND,
     KID_HOME_MEMO_PREPEND
 } from '../constants';
+import {
+    TRANSFER_TYPE_TASK,
+    TRANSFER_TYPE_GIFT,
+    TRANSFER_TYPE_ALLOWANCE,
+} from 'app/constants/game';
+
 
 export const KIDS_LOAD = 'KIDS_LOAD';
 export const KIDS_LOADING = 'KIDS_LOADING';
@@ -142,11 +148,11 @@ const getType = memo => {
     const id = memo.slice(0, 4).toLowerCase();
     switch (id) {
         case 'allo':
-            return 'allowance';
+            return TRANSFER_TYPE_ALLOWANCE;
         case 'from':
-            return 'gift';
+            return TRANSFER_TYPE_GIFT;
         case 'task':
-            return 'task';
+            return TRANSFER_TYPE_TASK;
         default:
             return null;
 

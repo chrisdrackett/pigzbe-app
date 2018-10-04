@@ -48,6 +48,8 @@ function loadStories() {
     require('./stories/tree-new.js');
     require('./stories/tree-high.js');
     require('./stories/tree-with-leaf-added.js');
+    require('./stories/cloud.js');
+    require('./stories/cloud-flow.js');
 }
 
 configure(loadStories, module);

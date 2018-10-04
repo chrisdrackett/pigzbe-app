@@ -6,7 +6,7 @@ import styles from './styles';
 const tail = require('./images/tail.png');
 const tailTop = require('./images/tail-blue.png');
 
-export default ({content, top=false, style = {}}) => (
+export default ({content, top = false, style = {}}) => (
     <View style={styles.boxOuter}>
         <View style={[styles.boxInner, top ? styles.boxInnerTop : null]}>
             <View style={styles.textContainer}>
@@ -14,7 +14,7 @@ export default ({content, top=false, style = {}}) => (
                     <Text style={[styles.text, top ? styles.textTop : null]}>{content}</Text>
                 }
                 {typeof content !== 'string' &&
-                    {content}
+                    content
                 }
             </View>
 

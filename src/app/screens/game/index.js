@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, Text, Dimensions, TouchableOpacity} from 'react-native';
+import {
+    TRANSFER_TYPE_TASK,
+    // TRANSFER_TYPE_GIFT,
+    NOTIFICATION_STAGE_TASK_QUESTION,
+    NOTIFICATION_STAGE_ALLOWANCE_CLOUD
+} from 'app/constants/game';
+
 import styles from './styles';
 import Learn from '../learn';
 // import GameTasks from '../game-tasks';
@@ -11,6 +18,7 @@ import Tree from '../../components/game-tree';
 import Pigzbe from '../../components/game-pigzbe';
 import GameNotification from 'app/components/game-notification';
 import GameCarousel from 'app/components/game-carousel';
+import GameCloudFlow from 'app/components/game-cloud-flow';
 import GoalOverlay from 'app/components/game-goal-overlay';
 import {gameOverlayOpen} from '../../actions';
 import {sendWollo, claimWollo} from '../../actions';
@@ -20,6 +28,7 @@ const TREE_WIDTH = 200;
 export class Game extends Component {
     state = {
         targetX: 0,
+        cloudStatus: null,
         isGoalOverlayOpen: false,
         goalOverlayAddress: null,
     }
@@ -42,9 +51,34 @@ export class Game extends Component {
 
     onClaim = (hash, amount) => {
         console.log('this.props.kid', this.props.kid);
+
         this.props.dispatch(claimWollo(
             this.props.kid.address, this.props.kid.home, hash, amount
         ));
+    }
+
+    onTreeClicked = (goal) => {
+        // untested:
+        console.log('TODO: add this cash:', this.state.currentCloud);
+        console.log('to this goal:', goal);
+    }
+
+    onActivateCloud = (currentCloud) => {
+        console.log('onActivateCloud', currentCloud);
+
+        this.setState({
+            showCloud: true,
+            currentCloud,
+            cloudStatus: currentCloud.type === TRANSFER_TYPE_TASK ? NOTIFICATION_STAGE_TASK_QUESTION : NOTIFICATION_STAGE_ALLOWANCE_CLOUD
+        });
+    }
+
+    onCloudStatusChange = (status) => {
+        console.log('onCloudStatusChange', status);
+
+        this.setState({
+            cloudStatus: status
+        });
     }
 
     openGoalOverlay = (address = null) => {
@@ -78,6 +112,8 @@ export class Game extends Component {
         const totalWollo = (parseFloat(balances[kid.home]) || 0) + kid.goals.reduce((total,goal) => {
             return total + (parseFloat(balances[goal.address]) || 0)
         }, 0);
+
+        const {showCloud, currentCloud} = this.state;
 
         return (
             <View style={styles.full}>
@@ -118,7 +154,11 @@ export class Game extends Component {
                     }}
                 />
                 <View style={{position: 'absolute', top: 75, left: 0}}>
-                    <GameCarousel
+                    {showCloud ? <GameCloudFlow
+                        changeStatus={this.onCloudStatusChange}
+                        status={this.state.cloudStatus}
+                        cloudData={currentCloud}
+                    /> : <GameCarousel
                         {...{
                             Item: GameNotification,
                             width: Dimensions.get('window').width,
@@ -126,10 +166,10 @@ export class Game extends Component {
                             data: kid.actions.map(a => ({
                                 ...a,
                                 key: a.hash,
-                                onClaim: this.onClaim
+                                onActivateCloud: this.onActivateCloud
                             }))
                         }}
-                    />
+                    />}
                 </View>
                 <View style={styles.counter}>
                     <GameCounter

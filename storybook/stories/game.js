@@ -5,6 +5,11 @@ import {Game} from '../../src/app/screens/game';
 import Learn from '../../src/app/screens/learn';
 import GameTasks from '../../src/app/screens/game-tasks';
 import GameBg from '../../src/app/components/game-bg';
+import {
+    TRANSFER_TYPE_TASK,
+    TRANSFER_TYPE_GIFT,
+    TRANSFER_TYPE_ALLOWANCE,
+} from 'app/constants/game';
 
 const props = {
     dispatch: () => {},
@@ -38,7 +43,7 @@ const props = {
         actions: [
             {
                 memo: 'Task: Tidy your room',
-                type: 'task',
+                type: TRANSFER_TYPE_TASK,
                 amount: '7',
                 totalAmount: '7',
                 hash: '6d3c2a5960fc02cb9cc87a6f74d2c8ebc64a795e079589bb3a618185095ac866',
@@ -46,7 +51,7 @@ const props = {
             },
             {
                 memo: 'From dad',
-                type: 'gift',
+                type: TRANSFER_TYPE_GIFT,
                 amount: '14',
                 totalAmount: '14',
                 hash: '8dc2a1571d8e781398d67e26b6520dcd23f40eef259e126476441f02160333e6',
@@ -54,7 +59,7 @@ const props = {
             },
             {
                 memo: 'Allowance #2.1 to Iggy',
-                type: 'allowance',
+                type: TRANSFER_TYPE_ALLOWANCE,
                 amount: '2',
                 totalAmount: '2',
                 hash: 'bc4fc79e3ebb25a7a5cab899654abb262e69ba9b218676604151319a014c26de',
@@ -62,7 +67,7 @@ const props = {
             },
             {
                 memo: 'Allowance #2.1 to Iggy',
-                type: 'allowance',
+                type: TRANSFER_TYPE_ALLOWANCE,
                 amount: '2',
                 totalAmount: '2',
                 hash: '18e3fb908459e4dfe3d3a4493a9a4ed5fb62295d6eed3330093e7f2543c5e24d',
