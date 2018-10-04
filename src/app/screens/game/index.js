@@ -5,7 +5,8 @@ import {
     TRANSFER_TYPE_TASK,
     // TRANSFER_TYPE_GIFT,
     NOTIFICATION_STAGE_TASK_QUESTION,
-    NOTIFICATION_STAGE_ALLOWANCE_CLOUD
+    NOTIFICATION_STAGE_ALLOWANCE_CLOUD,
+    NOTIFICATION_STAGE_TASK_GREAT
 } from 'app/constants/game';
 
 import styles from './styles';
@@ -60,20 +61,31 @@ export class Game extends Component {
     onTreeClicked = (goalAddress) => {
         // untested:
         console.log('this.cloudStatus', this.cloudStatus);
-        if (!this.state.cloudStatus) {
-            console.log('this.cloudStatus', this.cloudStatus);
-            this.openGoalOverlay(goalAddress);
-        } else {
-            console.log();
-            this.onClaim(this.state.currentCloud.hash, this.state.currentCloud.amount);
+        if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
+            console.log('----- if this.cloudStatus', this.cloudStatus);
+            // this.onClaim(this.state.currentCloud.hash, this.state.currentCloud.amount);
+
+            this.props.dispatch(claimWollo(
+                this.props.kid.address, goalAddress, this.state.currentCloud.hash, this.state.currentCloud.amount
+            ));
+
             this.setState({
                 cloudStatus: null,
-                currentCloud: null
+                // currentCloud: null
+                showCloud: false
+            });
+        } else {
+            console.log('----- else this.cloudStatus', this.cloudStatus);
+            this.openGoalOverlay(goalAddress);
+            this.setState({
+                cloudStatus: null,
+                // currentCloud: null,
+                showCloud: false
             });
         }
 
         console.log('TODO: add this cash:', this.state.currentCloud);
-        console.log('to this goal:', goal);
+        console.log('to this goal:', goalAddress);
     }
 
     onActivateCloud = (currentCloud) => {
@@ -142,7 +154,7 @@ export class Game extends Component {
                             />
                         </TouchableOpacity>
                         {kid.goals && kid.goals.map((goal, i) => (
-                            <TouchableOpacity key={i} onPress={() => this.openTreeClicked(goal.address)}>
+                            <TouchableOpacity key={i} onPress={() => this.onTreeClicked(goal.address)}>
                                 <Tree
                                     name={goal.name}
                                     value={(balances && balances[goal.address] !== undefined) ? parseFloat(balances[goal.address]) : 0}
