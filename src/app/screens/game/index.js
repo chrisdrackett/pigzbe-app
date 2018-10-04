@@ -28,11 +28,17 @@ import {sendWollo, claimWollo, deleteAllowance, deleteTask} from '../../actions'
 const TREE_WIDTH = 200;
 
 export class Game extends Component {
-    state = {
-        targetX: 0,
-        cloudStatus: null,
-        isGoalOverlayOpen: false,
-        goalOverlayAddress: null,
+    constructor(props) {
+        super(props);
+        console.log('balances', props.balances);
+
+        this.state = {
+            targetX: 0,
+            cloudStatus: null,
+            isGoalOverlayOpen: false,
+            goalOverlayAddress: null,
+            optimisticBalances: props.balances,
+        };
     }
 
     onClickCounter = () => this.props.dispatch(gameOverlayOpen(true))
@@ -69,14 +75,20 @@ export class Game extends Component {
             if (this.state.currentCloud.amount > 0) {
                 // if there's one wollo left on the current cloud
                 // let's just optimistically count down + hide cloud
+
+                const optimisticBalancesCopy = {...this.state.optimisticBalances};
+                optimisticBalancesCopy[goalAddress] = parseFloat(optimisticBalancesCopy[goalAddress]) + 1;
+
                 if (this.state.currentCloud.amount === 1) {
+
                     this.setState({
                         cloudStatus: null,
                         showCloud: false,
                         currentCloud: {
                             ...this.state.currentCloud,
                             amount: this.state.currentCloud.amount - 1
-                        }
+                        },
+                        optimisticBalances: optimisticBalancesCopy,
                     });
                 // if we have more than one wollo left on the current task
                 // let's only just optimistically count down
@@ -85,7 +97,8 @@ export class Game extends Component {
                         currentCloud: {
                             ...this.state.currentCloud,
                             amount: this.state.currentCloud.amount - 1
-                        }
+                        },
+                        optimisticBalances: optimisticBalancesCopy,
                     });
                 }
 
@@ -156,8 +169,10 @@ export class Game extends Component {
             overlayOpen,
             kid,
             parentNickname,
-            balances,
+            // balances,
         } = this.props;
+
+        const balances = this.state.optimisticBalances;
 
         const totalWollo = (parseFloat(balances[kid.home]) || 0) + kid.goals.reduce((total,goal) => {
             return total + (parseFloat(balances[goal.address]) || 0)
