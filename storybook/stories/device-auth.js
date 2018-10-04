@@ -1,6 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
 import {DeviceAuth} from '../../src/app/screens/device-auth';
+import VerfiyCode from '../../src/app/components/verify-code';
 
 const props = {
     dispatch: () => {},
@@ -47,6 +48,13 @@ storiesOf('Device Auth')
     ))
     .add('registered loading', () => (
         <DeviceAuth {...{
+            ...props,
+            id: '123',
+            loading: true
+        }}/>
+    ))
+    .add('verify component', () => (
+        <VerfiyCode {...{
             ...props,
             id: '123',
             loading: true

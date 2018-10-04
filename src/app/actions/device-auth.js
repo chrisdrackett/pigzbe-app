@@ -108,7 +108,7 @@ export const deviceAuthVerify = code => async (dispatch, getState) => {
         console.log('result', result);
         if (result.success) {
             dispatch({type: DEVICE_AUTH_VERIFY_SUCCESS});
-            dispatch(settingsUpdate({email, phone, country}));
+            dispatch(settingsUpdate({authyId: id, email, phone, country}));
         } else {
             dispatch({type: DEVICE_AUTH_VERIFY_FAIL});
             const err = new Error(result.message.message || result.message);

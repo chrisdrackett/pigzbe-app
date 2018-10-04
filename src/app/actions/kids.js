@@ -134,11 +134,10 @@ export const loadKidsBalances = (address, waitSeconds = 0) => async (dispatch, g
             dispatch(updateKidBalance(kid.address, balance));
 
             // Load their goal balances too
-            // @todo speed this up, it gets slow!
             for (const goal of kid.goals) {
-                await dispatch(updateBalance(goal.address));
+                dispatch(updateBalance(goal.address));
             }
-            await dispatch(updateBalance(kid.home));
+            dispatch(updateBalance(kid.home));
         }
     } catch (error) {
         console.log(error);

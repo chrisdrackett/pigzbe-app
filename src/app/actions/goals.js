@@ -131,7 +131,9 @@ export const moveGoalWollo = (fromAddress, destinationAddress, amount) => async 
         dispatch(goalLoading(true));
 
         const asset = wolloAsset(getState());
-        const {secretKey} = getState().keys;
+
+        // Load the GOAL (or home tree) secret key
+        const secretKey = await Keychain.load(`secret_${fromAddress}`);
         const keypair = Keypair.fromSecret(secretKey);
 
         const goalAccount = await loadAccount(fromAddress);
@@ -173,7 +175,10 @@ export const sendGoalWolloToParent = (goalAddress, amount) => async (dispatch, g
         dispatch(goalLoading(true));
 
         const asset = wolloAsset(getState());
-        const {publicKey, secretKey} = getState().keys;
+        const {publicKey} = getState().keys;
+
+        // Load the GOAL (or home tree) secret key
+        const secretKey = await Keychain.load(`secret_${goalAddress}`);
         const keypair = Keypair.fromSecret(secretKey);
 
         const goalAccount = await loadAccount(goalAddress);

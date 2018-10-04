@@ -5,6 +5,7 @@ import {BASE_CURRENCY} from '../constants';
 export const initialState = {
     enableTouchId: false,
     subscribe: false,
+    authyId: null,
     email: null,
     phone: null,
     country: null,

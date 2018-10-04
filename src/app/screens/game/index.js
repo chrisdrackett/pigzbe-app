@@ -121,8 +121,6 @@ export class Game extends Component {
             parentNickname,
             balances,
         } = this.props;
-        console.log("kid", kid)
-        console.log("balances", balances);
 
         const totalWollo = (parseFloat(balances[kid.home]) || 0) + kid.goals.reduce((total,goal) => {
             return total + (parseFloat(balances[goal.address]) || 0)

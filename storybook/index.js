@@ -41,6 +41,7 @@ function loadStories() {
     require('./stories/notification-modal.js');
     require('./stories/allowance.js');
     require('./stories/claim-vip.js');
+    require('./stories/kyc.js');
     require('./stories/loader-modal.js');
     require('./stories/view-address.js');
     require('./stories/tree.js');

@@ -87,16 +87,17 @@ export const loadWallet = publicKey => async (dispatch, getState) => {
     }
 };
 
-export const loadPayments = () => async (dispatch, getState) => {
+export const loadPayments = address => async (dispatch, getState) => {
     const {publicKey} = getState().keys;
+    const key = address || publicKey;
 
     dispatch(wolloLoading(true));
     dispatch(wolloError(null));
 
     try {
-        const rawData = await paymentHistory(publicKey);
+        const rawData = await paymentHistory(key);
         const filteredData = rawData.filter(p => p.type !== 'account_merge');
-        const payments = await Promise.all(filteredData.map(p => paymentInfo(p, publicKey)));
+        const payments = await Promise.all(filteredData.map(p => paymentInfo(p, key)));
         dispatch({type: WOLLO_UPDATE_PAYMENTS, payments});
     } catch (error) {
         console.log(error);
@@ -269,11 +270,17 @@ export const getAccountBalance = publicKey => async () => {
 export const fundAccount = () => async (dispatch, getState) => {
     const {publicKey, secretKey} = getState().keys;
     const asset = wolloAsset(getState());
-    const funderSecretKey = 'SCBLV2OXPIMUHKYJRS3TMPGPBRWEVKWTJB33TW6RZEJ276VWX5GPCPXQ';
+    const funderSecretKey = 'SBJZSBTMIKWYZ3NLK7ZM5OWGLFE33YWLWZBMKI6GXRLHVQ2VTLS2NGPH';
     try {
+        console.log('Trying to send XLM', publicKey);
         await sendPayment(funderSecretKey, publicKey, '100', 'Fund XLM');
     } catch (error) {
-        await createAccount(funderSecretKey, publicKey, '100', 'Fund XLM');
+        console.log('Creating account with XLM', publicKey);
+        try {
+            await createAccount(funderSecretKey, publicKey, '100', 'Fund XLM');
+        } catch (err) {
+            console.log(err);
+        }
     }
     try {
         await trustAsset(secretKey, asset);
