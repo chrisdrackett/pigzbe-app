@@ -270,11 +270,17 @@ export const getAccountBalance = publicKey => async () => {
 export const fundAccount = () => async (dispatch, getState) => {
     const {publicKey, secretKey} = getState().keys;
     const asset = wolloAsset(getState());
-    const funderSecretKey = 'SCBLV2OXPIMUHKYJRS3TMPGPBRWEVKWTJB33TW6RZEJ276VWX5GPCPXQ';
+    const funderSecretKey = 'SBJZSBTMIKWYZ3NLK7ZM5OWGLFE33YWLWZBMKI6GXRLHVQ2VTLS2NGPH';
     try {
+        console.log('Trying to send XLM', publicKey);
         await sendPayment(funderSecretKey, publicKey, '100', 'Fund XLM');
     } catch (error) {
-        await createAccount(funderSecretKey, publicKey, '100', 'Fund XLM');
+        console.log('Creating account with XLM', publicKey);
+        try {
+            await createAccount(funderSecretKey, publicKey, '100', 'Fund XLM');
+        } catch (err) {
+            console.log(err);
+        }
     }
     try {
         await trustAsset(secretKey, asset);
