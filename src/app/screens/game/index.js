@@ -149,6 +149,7 @@ export class Game extends Component {
     prevTree = () => this.setState({targetX: this.state.targetX - TREE_WIDTH})
 
     render() {
+        // console.log(JSON.stringify(this.props, null, 2));
         const {
             dispatch,
             exchange,
@@ -165,8 +166,8 @@ export class Game extends Component {
             showTapCloudOrTree
         } = this.state;
 
-        const totalWollo = (parseFloat(balances[kid.home]) || 0) + kid.goals.reduce((total,goal) => {
-            return total + (parseFloat(balances[goal.address]) || 0)
+        const totalWollo = (parseFloat(balances[kid.home]) || 0) + kid.goals.reduce((total, goal) => {
+            return total + (parseFloat(balances[goal.address]) || 0);
         }, 0);
 
         const {showCloud, currentCloud} = this.state;
@@ -186,7 +187,7 @@ export class Game extends Component {
                     onPress={this.onClickCounter}
                 />
             </View>
-        )
+        );
         const clouds = (!kid.actions || kid.actions.length === 0) ? null : (
             <View style={styles.clouds}>
                 {showCloud ? (
@@ -210,7 +211,7 @@ export class Game extends Component {
                     />
                 )}
             </View>
-        )
+        );
 
         return (
             <View style={styles.full}>
@@ -288,8 +289,8 @@ export class Game extends Component {
                     </View>
                 }
                 {showAskParent &&
-                    <TouchableOpacity style={styles.bubble}  onPress={() => {
-                        this.setState({showAskParent: false})
+                    <TouchableOpacity style={styles.bubble} onPress={() => {
+                        this.setState({showAskParent: false});
                     }}>
                         <GameMessageBubble
                             content={`Why not ask ${parentNickname} to set you some tasks?`}
@@ -338,7 +339,7 @@ export class Game extends Component {
                     if (lastStepTime && (lastStepTime + 500 > timeNow)) {
                         return;
                     }
-                    let nextTourStep = tourStep + 1;
+                    const nextTourStep = tourStep + 1;
                     if (nextTourStep <= 4) {
                         this.setState({
                             tourStep: nextTourStep,
@@ -413,7 +414,7 @@ export class Game extends Component {
                     }
                     {pigzbe}
                 </TouchableOpacity>
-            )
+            );
         }
     }
 }
