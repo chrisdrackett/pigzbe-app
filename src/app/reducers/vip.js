@@ -1,24 +1,17 @@
-
 import {
     VIP_SET_STEP,
-    VIP_SET_DETAILS,
-    VIP_SET_FETCHING_ADDRESSES,
-    VIP_SET_PENDING_ADDRESS,
-    VIP_ADD_ADDRESS,
-    VIP_SET_DOCUMENT_TYPE,
-    VIP_ADD_DOCUMENT_IMAGE,
-    VIP_CLEAR_DOCUMENT_IMAGES,
+    VIP_EMAIL_VERIFIED,
+    VIP_ERROR,
+    VIP_LOADING,
+    VIP_CONFIRMED
 } from '../actions';
 
 export const initialState = {
     step: null,
-    details: {},
-    addresses: [],
-    pendingAddress: null,
-    documentType: null,
-    documentImages: [],
-    fetchingAddresses: false,
-    possibleAddresses: [],
+    emailVerified: false,
+    loading: false,
+    confirmed: false,
+    error: null,
 };
 
 export default (state = initialState, action) => {
@@ -28,50 +21,26 @@ export default (state = initialState, action) => {
                 ...state,
                 step: action.step,
             };
-        case VIP_SET_DETAILS:
+        case VIP_EMAIL_VERIFIED:
             return {
                 ...state,
-                details: {
-                    ...state.details,
-                    ...action.details,
-                },
+                emailVerified: action.verified,
             };
-        case VIP_SET_FETCHING_ADDRESSES:
+        case VIP_ERROR:
             return {
                 ...state,
-                fetchingAddresses: action.fetchingAddresses,
+                error: action.error,
             };
-        case VIP_SET_PENDING_ADDRESS:
+        case VIP_LOADING:
             return {
                 ...state,
-                pendingAddress: action.pendingAddress,
+                loading: action.loading,
             };
-        case VIP_ADD_ADDRESS:
+        case VIP_CONFIRMED:
             return {
                 ...state,
-                addresses: [
-                    ...state.addresses,
-                    action.address,
-                ]
-            }
-        case VIP_SET_DOCUMENT_TYPE:
-            return {
-                ...state,
-                documentType: action.documentType,
-            }
-        case VIP_ADD_DOCUMENT_IMAGE:
-            return {
-                ...state,
-                documentImages: [
-                    ...state.documentImages,
-                    action.documentImage,
-                ],
-            }
-        case VIP_CLEAR_DOCUMENT_IMAGES:
-            return {
-                ...state,
-                documentImages: [],
-            }
+                confirmed: true,
+            };
         default:
             return state;
     }
