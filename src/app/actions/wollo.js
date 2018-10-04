@@ -87,16 +87,17 @@ export const loadWallet = publicKey => async (dispatch, getState) => {
     }
 };
 
-export const loadPayments = () => async (dispatch, getState) => {
+export const loadPayments = address => async (dispatch, getState) => {
     const {publicKey} = getState().keys;
+    const key = address || publicKey;
 
     dispatch(wolloLoading(true));
     dispatch(wolloError(null));
 
     try {
-        const rawData = await paymentHistory(publicKey);
+        const rawData = await paymentHistory(key);
         const filteredData = rawData.filter(p => p.type !== 'account_merge');
-        const payments = await Promise.all(filteredData.map(p => paymentInfo(p, publicKey)));
+        const payments = await Promise.all(filteredData.map(p => paymentInfo(p, key)));
         dispatch({type: WOLLO_UPDATE_PAYMENTS, payments});
     } catch (error) {
         console.log(error);

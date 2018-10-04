@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {View, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import Payment from './payment';
 import ScrollList from 'app/components/scroll-list';
@@ -27,11 +27,11 @@ export class Payments extends Component {
         }
     }
 
-    update = () => this.props.loadPayments()
+    update = () => this.props.loadPayments(this.props.address)
 
     render() {
         const {filter} = this.state;
-        const {loading, payments, address} = this.props;
+        const {loading, payments} = this.props;
 
         const filters = {
             all: 'All',
@@ -50,31 +50,23 @@ export class Payments extends Component {
             );
         }
 
+        const address = this.props.address || this.props.publicKey;
+
         let filteredPayments = payments;
-        if (address) {
-            // show a specific address's transactions
-            filteredPayments = payments.filter(payment => (
-                (filter === 'all' && (payment.from === address || payment.to === address)) ||
-                (filter === 'sent' && payment.from === address) ||
-                (filter === 'received' && payment.to === address)
-            ));
-            
-            filteredPayments.forEach(payment => {
-                payment.direction = payment.to === address ? 'in' : 'out';
-            });
 
-        } else {
-            // show all
-            filteredPayments = payments.filter(payment => (
-                (filter === 'all') ||
-                (filter === 'sent' && payment.direction === 'out') ||
-                (filter === 'received' && payment.direction === 'in')
-            ));
+        // show a specific address's transactions
+        filteredPayments = payments.filter(payment => (
+            (filter === 'all' && (payment.from === address || payment.to === address)) ||
+            (filter === 'sent' && payment.from === address) ||
+            (filter === 'received' && payment.to === address)
+        ));
 
-        }
+        filteredPayments.forEach(payment => {
+            payment.direction = payment.to === address ? 'in' : 'out';
+        });
 
         return (
-            <View>
+            <View style={{flex:1}}>
                 <View style={styles.buttons}>
                     {Object.keys(filters).map(key =>
                         (<Toggle
@@ -89,13 +81,13 @@ export class Payments extends Component {
                         />)
                     )}
                 </View>
-
-
                 {!!filteredPayments.length && (
-                    <ScrollList
-                        items={filteredPayments}
-                        ItemComponent={Payment}
-                    />
+                    <View style={{flex:1}}>
+                        <ScrollList
+                            items={filteredPayments}
+                            ItemComponent={Payment}
+                        />
+                    </View>
                 )}
                 {!filteredPayments.length && (
                     <Paragraph style={styles.noHistory}>
@@ -110,9 +102,10 @@ export class Payments extends Component {
 export default connect(
     state => ({
         loading: state.wollo.loading,
-        payments: state.wollo.payments
+        payments: state.wollo.payments,
+        publicKey: state.keys.publicKey,
     }),
     (dispatch) => ({
-        loadPayments: () => dispatch(loadPayments())
+        loadPayments: (address) => dispatch(loadPayments(address))
     })
 )(Payments);

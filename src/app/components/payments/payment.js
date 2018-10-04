@@ -11,7 +11,7 @@ import {ASSET_DPS} from '../../constants';
 import images from './images';
 
 export default ({date, amount, direction, assetCode, memo, address}) => (
-    <View style={styles.payment}>
+    <View style={styles.payment} onStartShouldSetResponder={() => true}>
         <Text style={styles.date}>
             {daysAgo(date)}
         </Text>

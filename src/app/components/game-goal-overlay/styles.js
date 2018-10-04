@@ -13,7 +13,7 @@ export default StyleSheet.create({
         flex: 1,
     },
     spacer: {
-        height: '50%',
+        height: '45%',
     },
     title: {
         fontFamily,
@@ -32,5 +32,10 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
+    },
+    backIcon: {
+        position: 'absolute',
+        left: 10,
+        top: 40,
     },
 });

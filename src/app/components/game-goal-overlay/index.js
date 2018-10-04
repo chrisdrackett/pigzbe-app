@@ -62,14 +62,6 @@ export class GameGoalOverlay extends Component {
                             style={styles.spacer} 
                             onPress={onClose}
                         />
-                        <TouchableOpacity onPress={onClose} style={{
-                            position: 'absolute',
-                            left: 10,
-                            top: 40,
-                        }}>
-                            <Icon name="gameBack" />
-                            <Text style={{color: 'white', fontWeight: 'bold', fontSize: 10, maxWidth: 200}}>Address: {goalAddress}</Text>
-                        </TouchableOpacity>
                         
                         {!goalAddress &&
                             <Fragment>
@@ -83,7 +75,7 @@ export class GameGoalOverlay extends Component {
                             </Fragment>
                         }
                         {!!goalAddress &&
-                            <View>
+                            <View style={{flex: 1}}>
                                 <View style={styles.dots}>
                                     <Dots length={3} index={this.state.currentIndex} light />
                                 </View>
@@ -96,6 +88,7 @@ export class GameGoalOverlay extends Component {
                                         <TouchableWithoutFeedback>
                                             <View style={{
                                                 width: width,
+                                                flex: 1,
                                             }}>
                                                 {itemIndex === 0 &&
                                                     <Fragment>
@@ -124,14 +117,14 @@ export class GameGoalOverlay extends Component {
                                                     </Fragment>
                                                 }
                                                 {itemIndex === 2 &&
-                                                    <Fragment>
+                                                    <View style={{flex:1}}>
                                                         <View>
                                                             <Text style={styles.title}>Deposits / withdrawls</Text>
                                                         </View>
                                                         <GameGoalTransactions
                                                             goalAddress={goalAddress}
                                                         />
-                                                    </Fragment>
+                                                    </View>
                                                 }
                                                 
                                             </View>
@@ -139,12 +132,16 @@ export class GameGoalOverlay extends Component {
                                     )}
                                     style={{
                                         width: width,
-                    
+                                        flex: 1,
                                     }}
                                     itemWidth={itemWidth}
                                 />
                             </View>
                         }
+
+                        <TouchableOpacity onPress={onClose} style={styles.backIcon}>
+                            <Icon name="gameBack" />
+                        </TouchableOpacity>
                     </View>
 
                     {this.props.loading &&
