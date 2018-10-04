@@ -28,13 +28,13 @@ export default StyleSheet.create({
     sunWrapper: {
         alignItems: 'center',
         position: 'absolute',
-        bottom: -40,
+        bottom: 122,
         left: 0,
         width: '100%',
     },
     sun: {
         width: 406,
-        height: 406,
+        height: 244,
     },
     ground: {
         position: 'absolute',

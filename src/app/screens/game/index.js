@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {View, Text, Dimensions, TouchableOpacity} from 'react-native';
+import {View, Dimensions, TouchableOpacity, Animated, Easing} from 'react-native';
 import {
     TRANSFER_TYPE_TASK,
     // TRANSFER_TYPE_GIFT,
@@ -11,10 +11,8 @@ import {
 import Storage from 'app/utils/storage';
 import moment from 'moment';
 import styles from './styles';
-import Learn from '../learn';
-// import GameTasks from '../game-tasks';
+// import Learn from '../learn';
 import GameBg from '../../components/game-bg';
-import Button from '../../components/button';
 import GameCounter from '../../components/game-counter';
 import Tree from '../../components/game-tree';
 import Pigzbe from '../../components/game-pigzbe';
@@ -42,6 +40,8 @@ export class Game extends Component {
         showTapFirstCloud: false,
         showAskParent: false,
         showTapCloudOrTree: false,
+
+        y: new Animated.Value(0),
     }
 
     async componentDidMount() {
@@ -130,18 +130,24 @@ export class Game extends Component {
             showTapFirstCloud: false,
             showAskParent: false,
             showTapCloudOrTree: false,
-        });
+        }, this.animateBg);
     }
 
     closeGoalOverlay = () => {
         this.setState({
             isGoalOverlayOpen: false,
             goalOverlayAddress: null,
-        });
+        }, this.animateBg);
     }
 
-    nextTree = () => this.setState({targetX: this.state.targetX + TREE_WIDTH})
-    prevTree = () => this.setState({targetX: this.state.targetX - TREE_WIDTH})
+    animateBg = () => {
+        const open = this.state.isGoalOverlayOpen;
+        Animated.timing(this.state.y, {
+            toValue: open ? -350 : 0,
+            duration: open ? 500 : 400,
+            easing: open ? Easing.out(Easing.quad) : Easing.back(1),
+        }).start();
+    }
 
     render() {
         // console.log(JSON.stringify(this.props, null, 2));
@@ -210,43 +216,49 @@ export class Game extends Component {
 
         return (
             <View style={styles.full}>
-                <GameBg
-                    targetX={this.state.targetX}
-                    onMove={this.onMove}>
-                    <View style={styles.trees}>
-                        <TouchableOpacity onPress={() => this.openGoalOverlay(kid.home)}>
-                            <Tree
-                                name="HOMETREE"
-                                value={(balances && balances[kid.home] !== undefined) ? parseFloat(balances[kid.home]) : 0}
-                            />
-                        </TouchableOpacity>
-                        {kid.goals && kid.goals.map((goal, i) => (
-                            <TouchableOpacity key={i} onPress={() => this.openGoalOverlay(goal.address)}>
+                <Animated.View style={{
+                    backgroundColor: 'red',
+                    flex: 1,
+                    top: this.state.y
+                }}>
+                    <GameBg
+                        targetX={this.state.targetX}
+                        onMove={this.onMove}>
+                        <View style={styles.trees}>
+                            <TouchableOpacity onPress={() => this.openGoalOverlay(kid.home)}>
                                 <Tree
-                                    name={goal.name}
-                                    value={(balances && balances[goal.address] !== undefined) ? parseFloat(balances[goal.address]) : 0}
+                                    name="HOMETREE"
+                                    value={(balances && balances[kid.home] !== undefined) ? parseFloat(balances[kid.home]) : 0}
                                 />
                             </TouchableOpacity>
-                        ))}
+                            {kid.goals && kid.goals.map((goal, i) => (
+                                <TouchableOpacity key={i} onPress={() => this.openGoalOverlay(goal.address)}>
+                                    <Tree
+                                        name={goal.name}
+                                        value={(balances && balances[goal.address] !== undefined) ? parseFloat(balances[goal.address]) : 0}
+                                    />
+                                </TouchableOpacity>
+                            ))}
 
-                        <TouchableOpacity onPress={() => this.openGoalOverlay()}>
-                            <Tree
-                                name="NEW GOAL?"
-                                newValue={true}
-                                value={'0'}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </GameBg>
-                {pigzbe}
+                            <TouchableOpacity onPress={() => this.openGoalOverlay()}>
+                                <Tree
+                                    name="NEW GOAL?"
+                                    newValue={true}
+                                    value={'0'}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    </GameBg>
+                    {pigzbe}
+                </Animated.View>
                 {clouds}
                 {wolloCounter}
-                <Learn
+                {/* <Learn
                     dispatch={dispatch}
                     exchange={exchange}
                     wolloCollected={wolloCollected}
                     overlayOpen={overlayOpen}
-                />
+                /> */}
                 {/* <View style={{position: 'absolute', top: 30, right: 0, padding: 5, backgroundColor: 'white'}}>
                     <Text>{kid.name}</Text>
                     <Text>Address: {kid.address ? `${kid.address.slice(0, 6)}...` : ''}</Text>

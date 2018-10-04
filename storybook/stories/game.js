@@ -11,7 +11,8 @@ import GameBg from '../../src/app/components/game-bg';
 //     TRANSFER_TYPE_ALLOWANCE,
 // } from 'app/constants/game';
 import {Provider} from 'react-redux';
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 
 const store = createStore(combineReducers({
     kids: () => ({
@@ -61,7 +62,7 @@ const store = createStore(combineReducers({
     keys: () => ({
         publicKey: '',
     }),
-}));
+}), applyMiddleware(thunk));
 
 const props = {
     dispatch: () => {},

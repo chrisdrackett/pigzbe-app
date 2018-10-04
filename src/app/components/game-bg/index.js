@@ -110,7 +110,6 @@ export default class Bg extends Component {
     static defaultProps = {
         targetX: 0,
         onMove: () => {},
-        onRelease: () => {},
     }
 
     componentDidMount() {

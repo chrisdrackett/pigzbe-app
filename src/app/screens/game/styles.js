@@ -3,7 +3,7 @@ import {color} from '../../styles';
 
 export default StyleSheet.create({
     full: {
-        backgroundColor: color.skyBlue,
+        backgroundColor: color.earth,
         alignSelf: 'stretch',
         flex: 1
     },
