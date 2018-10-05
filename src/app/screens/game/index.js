@@ -24,10 +24,10 @@ import GoalOverlay from 'app/components/game-goal-overlay';
 import GameMessageBubble from 'app/components/game-message-bubble';
 import {gameOverlayOpen} from '../../actions';
 import {sendWollo, claimWollo, deleteAllowance, deleteTask} from '../../actions';
-import {claimWollo} from '../../actions';
 
 export class Game extends Component {
     constructor(props) {
+        super(props);
         this.state = {
             targetX: 0,
             cloudStatus: null,
@@ -291,14 +291,14 @@ export class Game extends Component {
                         <View style={[styles.trees, {
                             left: (Dimensions.get('window').width - Tree.WIDTH) / 2,
                         }]}>
-                            <TouchableOpacity onPress={() => this.openGoalOverlay(kid.home)}>
+                            <TouchableOpacity onPress={() => this.onTreeClicked(kid.home)}>
                                 <Tree
                                     name="HOMETREE"
                                     value={(balances && balances[kid.home] !== undefined) ? parseFloat(balances[kid.home]) : 0}
                                 />
                             </TouchableOpacity>
                             {kid.goals && kid.goals.map((goal, i) => (
-                                <TouchableOpacity key={i} onPress={() => this.openGoalOverlay(goal.address)}>
+                                <TouchableOpacity key={i} onPress={() => this.onTreeClicked(goal.address)}>
                                     <Tree
                                         name={goal.name}
                                         value={(balances && balances[goal.address] !== undefined) ? parseFloat(balances[goal.address]) : 0}
