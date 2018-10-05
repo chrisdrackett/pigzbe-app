@@ -1,20 +1,20 @@
 import Web3 from 'web3';
-import {Record} from 'immutable';
-import {
-    INIT_WEB3,
-} from '../../constants/action-types';
+import {CLAIM_INIT_WEB3} from '../../actions/claim-contract';
 
-const initialState = new Record({
+const initialState = {
     instance: null,
-})();
+};
 
 export default (state = initialState, action) => {
+    if (!action.type) {
+        throw new Error('UNDEFINED ACTION TYPE');
+    }
     switch (action.type) {
-        case INIT_WEB3: {
-            return state
-                .set('instance', new Web3(new Web3.providers.HttpProvider(action.payload.rpc)));
-        }
-
+        case CLAIM_INIT_WEB3:
+            return {
+                ...state,
+                instance: new Web3(new Web3.providers.HttpProvider(action.payload.rpc))
+            };
         default:
             return state;
     }

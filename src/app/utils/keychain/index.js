@@ -1,7 +1,7 @@
 import * as Keychain from 'react-native-keychain';
 
-export const KEYCHAIN_NO_CREDENTIALS_STORED = 'No credentials stored';
-export const KEYCHAIN_NO_ACCESS = 'Keychain could not be accessed';
+export const KEYCHAIN_NO_CREDENTIALS_STORED = 'Keychain error: No credentials stored';
+export const KEYCHAIN_NO_ACCESS = 'Keychain error: Keychain could not be accessed';
 
 export const save = async (id, key) => await Keychain.setGenericPassword('pigzbekey', key, id);
 
@@ -15,11 +15,10 @@ export const load = async id => {
         if (credentials) {
             key = credentials.password;
         } else {
-            error = new Error(KEYCHAIN_NO_CREDENTIALS_STORED);
+            error = `${KEYCHAIN_NO_CREDENTIALS_STORED} for key ${id}`;
         }
     } catch (err) {
-        error = new Error(KEYCHAIN_NO_ACCESS);
-        console.log(err);
+        error = KEYCHAIN_NO_ACCESS;
     }
 
     if (error) {

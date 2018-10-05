@@ -32,13 +32,13 @@ import Icon from 'app/components/icon';
 import styles from './styles';
 
 const currenciesForSelect = {};
-Object.keys(CURRENCIES).forEach(key => currenciesForSelect[key] = CURRENCIES[key].name);
+Object.keys(CURRENCIES).forEach(key => (currenciesForSelect[key] = CURRENCIES[key].name));
 
 
 const Items = ({children}) => (
     <Fragment>
         {React.Children.toArray(children).map((child, index) => (
-            <View style={[styles.item, index === children.length - 1 ? styles.itemLast : null]}>
+            <View key={index} style={[styles.item, index === children.length - 1 ? styles.itemLast : null]}>
                 {child}
             </View>
         ))}
@@ -91,7 +91,7 @@ export class Settings extends Component {
             kids,
         } = this.props;
 
-        console.log("kids", kids);
+        console.log('kids', kids);
 
         return (
             <StepModule
@@ -100,7 +100,7 @@ export class Settings extends Component {
                 onBack={this.onBack}
                 paddingTop={20}
                 backgroundColor="transparent"
-            >   
+            >
                 {escrow && (
                     <View style={styles.section}>
                         <Button
@@ -142,25 +142,25 @@ export class Settings extends Component {
                         <View style={styles.itemInner}>
                             <Text style={styles.itemName}>{strings.accountMailingListOptIn}</Text>
                             <Switch
-                                value={subscribe} 
+                                value={subscribe}
                                 onValueChange={this.onSubscribe}
                             />
                         </View>
                     </Items>
                 </View>
                 <Text style={styles.sectionTitle}>
-                    Security 
+                    Security
                 </Text>
                 <View style={[styles.section, styles.sectionNoVPadding]}>
                     <Items>
                         {touchIdSupport && (
-                                <View style={styles.itemInner}>
-                                    <Text style={styles.itemName}>{touchIdSupport === 'FaceID' ? 'Face' : 'Touch'} ID</Text>
-                                    <Switch
-                                        value={enableTouchId} 
-                                        onValueChange={this.onSetTouchId}
-                                    />
-                                </View>
+                            <View style={styles.itemInner}>
+                                <Text style={styles.itemName}>{touchIdSupport === 'FaceID' ? 'Face' : 'Touch'} ID</Text>
+                                <Switch
+                                    value={enableTouchId}
+                                    onValueChange={this.onSetTouchId}
+                                />
+                            </View>
                         )}
                         <TouchableOpacity style={styles.itemInner} onPress={this.onChangePasscode}>
                             <Text style={styles.itemName}>Change Passcode</Text>
@@ -172,8 +172,8 @@ export class Settings extends Component {
                                 <Text style={styles.itemName}>Reset 2-Factor Authentication</Text>
                             </TouchableOpacity>
                         )}
-                        {kids.map((kid,index) => (
-                            <TouchableOpacity style={styles.itemInner} onPress={() => {
+                        {kids.map((kid, index) => (
+                            <TouchableOpacity key={index} style={styles.itemInner} onPress={() => {
                                 Alert.alert(
                                     `Are you sure you want to reset ${kid.name}'s secret code?`,
                                     'This will require them to enter a new secret code next time they log on',
@@ -197,7 +197,7 @@ export class Settings extends Component {
                         <TouchableOpacity style={styles.itemInner} onPress={this.onSupport}>
                             <Text style={styles.itemName}>Support</Text>
                         </TouchableOpacity>
-                  
+
                         <TouchableOpacity style={styles.itemInner} onPress={this.onPrivacy}>
                             <Text style={styles.itemName}>Privacy Policy</Text>
                         </TouchableOpacity>
@@ -221,7 +221,7 @@ export class Settings extends Component {
 
                 {false &&
                 <View style={styles.section}>
-                    
+
                     {/* <Button
                         theme="plain"
                         label={strings.accountPrivacyButtonLabel}

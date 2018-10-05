@@ -1,57 +1,58 @@
-import {Record} from 'immutable';
 import {
-    // ACTIVITY,
-    CLAIM,
-    TRANSFER,
-    LOADING,
-    ERROR,
-    BURNED,
-} from '../../constants/action-types';
+    CLAIM_BURNED,
+} from '../../actions/claim-contract';
 
-const initialState = new Record({
+import {
+    CLAIM_CLEAR_DATA,
+} from '../../actions/claim-data';
+
+import {
+    CLAIM_TRANSFER,
+    CLAIM_LOADING,
+    CLAIM_ERROR,
+} from '../../actions/claim-api';
+
+const initialState = {
     activity: [],
-    claim: null,
+    // claim: null,
     transfer: null,
     loading: null,
     error: null,
     transactionHash: null,
-})();
+};
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        // case ACTIVITY: {
-        //     let events = state.activity.concat([]);
-        //     if (!action.payload.transactionHash) {
-        //         return state;
-        //     }
-        //     if (events.filter(e => e.transactionHash === action.payload.transactionHash).length > 0) {
-        //         return state;
-        //     }
-        //     events = events.concat([action.payload]);
-        //     return state
-        //         .set('activity', events);
-        // }
-
-        case BURNED:
-            return state
-                .set('transactionHash', action.payload);
-
-        case ERROR:
-            return state
-                .set('error', action.payload);
-
-        case LOADING:
-            return state
-                .set('loading', action.payload);
-
-        case CLAIM:
-            return state
-                .set('claim', action.payload);
-
-        case TRANSFER:
-            return state
-                .set('transfer', action.payload);
-
+        case CLAIM_BURNED:
+            return {
+                ...state,
+                transactionHash: action.transactionHash
+            };
+        case CLAIM_ERROR:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case CLAIM_LOADING:
+            return {
+                ...state,
+                loading: action.payload
+            };
+        // case CLAIM_CLAIM:
+        //     return {
+        //         ...state,
+        //         claim: action.payload
+        //     };
+        case CLAIM_TRANSFER:
+            return {
+                ...state,
+                transfer: action.payload
+            };
+        case CLAIM_CLEAR_DATA:
+            return {
+                ...state,
+                ...initialState
+            };
         default:
             return state;
     }

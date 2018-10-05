@@ -1,16 +1,14 @@
-import {
-    USER_BALANCE,
-    USER_LOGIN,
-    LOCAL_STORAGE,
-    ERROR,
-    LOADING,
-    PRIVATE_KEY
-} from '../constants/action-types';
 import {isValidSeed, generateAddressFromSeed} from '../utils/web3';
-import {load, save} from '../utils/keychain';
+import Keychain from '../utils/keychain';
 import {KEYCHAIN_ID_ETH_KEY} from '../constants';
 import BigNumber from 'bignumber.js';
 import {utils} from 'web3';
+import {updateClaimData} from './claim-data';
+import {claimLoading, claimError} from './claim-api';
+
+export const CLAIM_ETH_COINBASE = 'CLAIM_ETH_COINBASE';
+export const CLAIM_ETH_BALANCE = 'CLAIM_ETH_BALANCE';
+export const CLAIM_ETH_PRIVATE_KEY = 'CLAIM_ETH_PRIVATE_KEY';
 
 const getMaxNumBurnTokens = config => {
     const {network, stellar} = config;
@@ -23,17 +21,17 @@ const getMaxNumBurnTokens = config => {
         .toString(10);
 };
 
-export const getBalance = () => async (dispatch, getState) => {
+export const getClaimBalance = () => async (dispatch, getState) => {
     try {
         const web3 = getState().web3.instance;
         const contract = getState().contract.instance;
 
-        const accountBalanceWei = await contract.methods.balanceOf(getState().user.get('coinbase')).call();
-        const maxAmount = getState().user.maxAmount || getMaxNumBurnTokens(getState().config);
+        const accountBalanceWei = await contract.methods.balanceOf(getState().eth.coinbase).call();
+        const maxAmount = getState().eth.maxAmount || getMaxNumBurnTokens(getState().config);
         const balanceWei = BigNumber.min(accountBalanceWei, maxAmount).toString(10);
         const balanceWollo = new BigNumber(web3.utils.fromWei(balanceWei, 'ether')).toFixed(7, BigNumber.ROUND_DOWN);
 
-        dispatch({type: USER_BALANCE, payload: {
+        dispatch({type: CLAIM_ETH_BALANCE, payload: {
             balanceWei,
             balanceWollo,
             maxAmount
@@ -41,41 +39,44 @@ export const getBalance = () => async (dispatch, getState) => {
 
     } catch (e) {
         console.log(e);
-        dispatch({type: ERROR, payload: e.message});
+        dispatch(claimError(e.message));
     }
 
 };
 
-export const checkUserCache = () => async (dispatch, getState) => {
-    const {localStorage} = getState().content;
-    const {coinbase} = localStorage;
-    const privateKey = await load(KEYCHAIN_ID_ETH_KEY);
+export const loadPrivateKey = () => async dispatch => {
+    try {
+        const privateKey = await Keychain.load(KEYCHAIN_ID_ETH_KEY);
 
-    if (!coinbase || !privateKey.key) {
+        if (privateKey) {
+            dispatch(setPrivateKey(privateKey));
+        }
+    } catch (e) {}
+};
+
+export const setPrivateKey = privateKey => ({type: CLAIM_ETH_PRIVATE_KEY, privateKey});
+
+export const setCoinbase = coinbase => ({type: CLAIM_ETH_COINBASE, coinbase});
+
+export const checkUserCache = () => async (dispatch, getState) => {
+    const {claimData} = getState();
+    const {coinbase} = claimData;
+    const privateKey = await Keychain.load(KEYCHAIN_ID_ETH_KEY);
+
+    if (!coinbase || !privateKey) {
         return;
     }
 
-    dispatch({
-        type: USER_LOGIN,
-        payload: {
-            coinbase
-        },
-    });
+    dispatch(setCoinbase(coinbase));
+    dispatch(setPrivateKey(privateKey));
 
-    dispatch({
-        type: PRIVATE_KEY,
-        payload: {
-            privateKey: privateKey.key
-        },
-    });
-
-    dispatch(getBalance());
+    dispatch(getClaimBalance());
 };
 
 export const userLogin = (mnemonic, pk) => async (dispatch, getState) => {
     const web3 = getState().web3.instance;
 
-    dispatch({type: LOADING, payload: null});
+    dispatch(claimLoading(null));
 
     try {
         if (!isValidSeed(mnemonic)) {
@@ -90,35 +91,18 @@ export const userLogin = (mnemonic, pk) => async (dispatch, getState) => {
         const account = web3.eth.accounts.privateKeyToAccount(`0x${address.privateKey}`);
         const coinbase = account.address;
 
-        await save(KEYCHAIN_ID_ETH_KEY, address.privateKey);
+        await Keychain.save(KEYCHAIN_ID_ETH_KEY, address.privateKey);
 
-        dispatch({
-            type: LOCAL_STORAGE,
-            payload: {
-                coinbase
-            }
-        });
+        dispatch(updateClaimData({coinbase}));
+        dispatch(setPrivateKey(address.privateKey));
+        dispatch(setCoinbase(coinbase));
 
-        dispatch({
-            type: PRIVATE_KEY,
-            payload: {
-                privateKey: address.privateKey
-            },
-        });
-
-        dispatch({
-            type: USER_LOGIN,
-            payload: {
-                coinbase
-            },
-        });
-
-        dispatch(getBalance());
+        dispatch(getClaimBalance());
 
         return true;
     } catch (e) {
         console.log(e);
-        dispatch({type: ERROR, payload: e.message});
+        dispatch(claimError(e.message));
         return false;
     }
 };

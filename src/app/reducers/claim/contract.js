@@ -1,7 +1,9 @@
-import {Record} from 'immutable';
-import {CONTRACT_UPDATE, INIT_WEB3} from '../../constants/action-types';
+import {
+    CLAIM_INIT_WEB3,
+    CLAIM_CONTRACT_UPDATE,
+} from '../../actions/claim-contract';
 
-const initialState = new Record({
+const initialState = {
     abi: null,
     address: '',
     supply: 0,
@@ -10,24 +12,20 @@ const initialState = new Record({
     owner: '',
     instance: null,
     network: null,
-})();
+};
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case INIT_WEB3:
-            console.log('INIT_WEB3', action.payload.network);
-            return state
-                .set('network', action.payload.network);
-        case CONTRACT_UPDATE:
-            return state
-                .set('instance', action.payload.instance)
-                .set('abi', action.payload.abi)
-                .set('supply', action.payload.supply)
-                .set('name', action.payload.name)
-                .set('symbol', action.payload.symbol)
-                .set('owner', action.payload.owner)
-                .set('address', action.payload.address);
-
+        case CLAIM_INIT_WEB3:
+            return {
+                ...state,
+                network: action.payload.network
+            };
+        case CLAIM_CONTRACT_UPDATE:
+            return {
+                ...state,
+                ...action.payload
+            };
         default:
             return state;
     }
