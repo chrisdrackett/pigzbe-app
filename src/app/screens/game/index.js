@@ -67,8 +67,7 @@ export class Game extends Component {
     }
 
     onTreeClicked = async (goalAddress) => {
-        // untested:
-        console.log('this.cloudStatus', this.state.cloudStatus);
+        console.log('---- this.cloudStatus', this.state.cloudStatus);
         if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
             console.log('----- if this.cloudStatus', this.state.cloudStatus, this.state.currentCloud.amount);
             console.log('--------------------------------------- this.state.currentCloud.amount - 1', this.state.currentCloud.amount - 1);
@@ -81,32 +80,17 @@ export class Game extends Component {
                 optimisticBalancesCopy[goalAddress] = parseFloat(optimisticBalancesCopy[goalAddress]) + 1;
                 clearTimeout(this.timeoutHandle);
 
-                if (this.state.currentCloud.amount === 1) {
-
-                    this.setState({
-                        cloudStatus: null,
-                        showCloud: false,
-                        currentCloud: {
-                            ...this.state.currentCloud,
-                            amount: this.state.currentCloud.amount - 1
-                        },
-                        optimisticBalances: optimisticBalancesCopy,
-                        raining: true,
-                        lastTreeClicked: Date.now(),
-                    });
-                // if we have more than one wollo left on the current task
-                // let's only just optimistically count down
-                } else if (this.state.currentCloud.amount > 1) {
-                    this.setState({
-                        currentCloud: {
-                            ...this.state.currentCloud,
-                            amount: this.state.currentCloud.amount - 1
-                        },
-                        optimisticBalances: optimisticBalancesCopy,
-                        raining: true,
-                        lastTreeClicked: Date.now(),
-                    });
-                }
+                this.setState({
+                    cloudStatus: this.state.currentCloud.amount === 1 ? null : this.state.cloudStatus,
+                    showCloud: this.state.currentCloud.amount === 1 ? false : this.state.showCloud,
+                    currentCloud: {
+                        ...this.state.currentCloud,
+                        amount: this.state.currentCloud.amount - 1
+                    },
+                    optimisticBalances: optimisticBalancesCopy,
+                    raining: true,
+                    lastTreeClicked: Date.now(),
+                });
 
                 this.timeoutHandle = setTimeout(() => {
                     const delta = Date.now() - this.state.lastTreeClicked;
@@ -114,6 +98,8 @@ export class Game extends Component {
                     if (delta > 1500) {
                         this.setState({raining: false});
                     }
+
+                    // check here if stuff has actually been updated in the blockchain?
                 }, 2000);
 
                 this.props.dispatch(claimWollo(
