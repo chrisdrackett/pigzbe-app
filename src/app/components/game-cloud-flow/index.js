@@ -46,7 +46,6 @@ export class CloudFlow extends Component {
     render() {
         const {callback, status, cloudData, raining} = this.props;
         const {amount, type, memo} = cloudData;
-        console.log('value in cloud flow', amount, cloudData);
         const showBubble = (status === NOTIFICATION_STAGE_ALLOWANCE_CLOUD || status === NOTIFICATION_STAGE_TASK_QUESTION ||
             status === NOTIFICATION_STAGE_TASK_GREAT || status === NOTIFICATION_STAGE_TASK_FINISH) && !raining;
 
