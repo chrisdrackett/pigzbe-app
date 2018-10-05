@@ -131,11 +131,12 @@ export class Game extends Component {
                         this.setState({raining: false});
 
                         console.log('TIMEOUT RAN OUT: dispatch claim wollo function', this.state.currentCloudStartAmount - this.state.currentCloud.amount);
+                        const amountToSend = this.state.currentCloudStartAmount - this.state.currentCloud.amount;
 
                         this.props.dispatch(claimWollo(
-                            this.props.kid.address, goalAddress, this.state.currentCloud.hash, this.state.currentCloudStartAmount - this.state.currentCloud.amount
-                            // check here if stuff has actually been updated in the blockchain?
+                            this.props.kid.address, goalAddress, this.state.currentCloud.hash, amountToSend.toString()
                         ));
+                        // check here if stuff has actually been updated in the blockchain
                     }
                 }, 2000);
             }
