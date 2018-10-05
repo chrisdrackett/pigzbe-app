@@ -62,7 +62,7 @@ export default StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         backgroundColor: '#fff',
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     newValue: {
         backgroundColor: 'transparent',

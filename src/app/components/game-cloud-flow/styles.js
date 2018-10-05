@@ -32,7 +32,7 @@ export default StyleSheet.create({
         fontSize: 12,
     },
     bubbleWrap: {
-        marginTop: 50,
+        marginTop: 7,
     },
     outer: {
         position: 'absolute',

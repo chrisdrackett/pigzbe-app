@@ -58,12 +58,14 @@ export default class GameCarousel extends Component {
                       </View>
                   )}
               />
-              <View style={styles.dotsWrapper}>
-                  <Dots
-                      length={data.length}
-                      index={this.state.currentIndex}
-                  />
-              </View>
+              {data.length > 1 &&
+                <View style={styles.dotsWrapper}>
+                    <Dots
+                        length={data.length}
+                        index={this.state.currentIndex}
+                    />
+                </View>
+              }
           </View>
       );
   }

@@ -38,6 +38,6 @@ export default StyleSheet.create({
     bubble: {
         position: 'absolute',
         left: 35,
-        bottom: 210,
+        bottom: 195,
     },
 });

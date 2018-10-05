@@ -44,6 +44,21 @@ export default class TextInputComponent extends Component {
             paddingTop,
         }];
 
+        if (isAndroid) {
+            if (numberOfLines === 1) {
+                s = s.concat({
+                    marginTop: 12,
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                })
+            } else {
+                s = s.concat({
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                })
+            }
+        }
+
         if (style) {
             s = s.concat(style);
         }
