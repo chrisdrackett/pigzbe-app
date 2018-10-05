@@ -22,7 +22,7 @@ import GameCarousel from 'app/components/game-carousel';
 import GameCloudFlow from 'app/components/game-cloud-flow';
 import GoalOverlay from 'app/components/game-goal-overlay';
 import {gameOverlayOpen} from '../../actions';
-import {sendWollo, claimWollo, deleteAllowance, deleteTask} from '../../actions';
+import {claimWollo} from '../../actions';
 
 
 const TREE_WIDTH = 200;
@@ -30,7 +30,6 @@ const TREE_WIDTH = 200;
 export class Game extends Component {
     constructor(props) {
         super(props);
-        console.log('balances', props.balances);
 
         this.state = {
             targetX: 0,
@@ -67,10 +66,7 @@ export class Game extends Component {
     }
 
     onTreeClicked = async (goalAddress) => {
-        console.log('---- this.cloudStatus', this.state.cloudStatus);
         if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
-            console.log('----- if this.cloudStatus', this.state.cloudStatus, this.state.currentCloud.amount);
-            console.log('--------------------------------------- this.state.currentCloud.amount - 1', this.state.currentCloud.amount - 1);
 
             if (this.state.currentCloud.amount > 0) {
                 // if there's one wollo left on the current cloud
@@ -98,7 +94,7 @@ export class Game extends Component {
                     if (delta > 1500) {
                         this.setState({raining: false});
 
-                        console.log('--- dispatch claim wollo function', this.state.currentCloudStartAmount - this.state.currentCloud.amount);
+                        console.log('TIMEOUT RAN OUT: dispatch claim wollo function', this.state.currentCloudStartAmount - this.state.currentCloud.amount);
 
                         this.props.dispatch(claimWollo(
                             this.props.kid.address, goalAddress, this.state.currentCloud.hash, this.state.currentCloudStartAmount - this.state.currentCloud.amount
@@ -176,8 +172,8 @@ export class Game extends Component {
 
         const balances = this.state.optimisticBalances;
 
-        const totalWollo = (parseFloat(balances[kid.home]) || 0) + kid.goals.reduce((total,goal) => {
-            return total + (parseFloat(balances[goal.address]) || 0)
+        const totalWollo = (parseFloat(balances[kid.home]) || 0) + kid.goals.reduce((total, goal) => {
+            return total + (parseFloat(balances[goal.address]) || 0);
         }, 0);
 
         const {showCloud, currentCloud} = this.state;
