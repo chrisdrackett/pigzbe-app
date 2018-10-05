@@ -115,17 +115,17 @@ export const userLoginPrivateKey = (privateKey, publicKey) => async (dispatch, g
         }
 
         let privKey = privateKey.trim();
-        if (privKey.substr(0, 2) !== '0x') {
-            privKey = `0x${privKey}`;
+        if (privKey.substr(0, 2) === '0x') {
+            privKey = privKey.slice(2);
         }
 
-        const account = web3.eth.accounts.privateKeyToAccount(privKey);
+        const account = web3.eth.accounts.privateKeyToAccount(`0x${privKey}`);
         const coinbase = account.address;
 
-        await Keychain.save(KEYCHAIN_ID_ETH_KEY, privateKey);
+        await Keychain.save(KEYCHAIN_ID_ETH_KEY, privKey);
 
         dispatch(updateClaimData({coinbase}));
-        dispatch(setPrivateKey(privateKey));
+        dispatch(setPrivateKey(privKey));
         dispatch(setCoinbase(coinbase));
 
         dispatch(getClaimBalance());
