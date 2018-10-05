@@ -94,8 +94,6 @@ export class Game extends Component {
             showTapCloudOrTree: false,
         });
 
-        console.log('this.props.kid', this.props.kid);
-
         this.props.dispatch(claimWollo(
             this.props.kid.address, this.props.kid.home, hash, amount
         ));
@@ -111,13 +109,14 @@ export class Game extends Component {
                 const optimisticBalancesCopy = {...this.state.optimisticBalances};
                 optimisticBalancesCopy[goalAddress] = parseFloat(optimisticBalancesCopy[goalAddress]) + 1;
                 clearTimeout(this.timeoutHandle);
+                const amountAfterUpdate = this.state.currentCloud.amount - 1;
 
                 this.setState({
-                    cloudStatus: this.state.currentCloud.amount === 1 ? null : this.state.cloudStatus,
-                    showCloud: this.state.currentCloud.amount === 1 ? false : this.state.showCloud,
+                    cloudStatus: amountAfterUpdate === 0 ? null : this.state.cloudStatus,
+                    showCloud: amountAfterUpdate === 0 ? false : this.state.showCloud,
                     currentCloud: {
                         ...this.state.currentCloud,
-                        amount: this.state.currentCloud.amount - 1
+                        amount: amountAfterUpdate
                     },
                     optimisticBalances: optimisticBalancesCopy,
                     raining: true,
@@ -130,11 +129,11 @@ export class Game extends Component {
                     if (delta > 1500) {
                         this.setState({raining: false});
 
-                        console.log('TIMEOUT RAN OUT: dispatch claim wollo function', this.state.currentCloudStartAmount - this.state.currentCloud.amount);
+                        console.log('timeout: dispatch claim wollo function', this.state.currentCloudStartAmount - this.state.currentCloud.amount);
                         const amountToSend = this.state.currentCloudStartAmount - this.state.currentCloud.amount;
 
                         this.props.dispatch(claimWollo(
-                            this.props.kid.address, goalAddress, this.state.currentCloud.hash, amountToSend.toString()
+                            this.props.kid.address, goalAddress, this.state.currentCloud.hash, amountToSend.toString(), amountAfterUpdate
                         ));
                         // check here if stuff has actually been updated in the blockchain
                     }
@@ -148,21 +147,15 @@ export class Game extends Component {
             }
 
         } else {
-            console.log('----- else this.cloudStatus', this.cloudStatus);
             this.openGoalOverlay(goalAddress);
             this.setState({
                 cloudStatus: null,
                 showCloud: false
             });
         }
-
-        console.log('TODO: add this cash:', this.state.currentCloud);
-        console.log('to this goal:', goalAddress);
     }
 
     onActivateCloud = (currentCloud) => {
-        console.log('onActivateCloud', currentCloud);
-
         this.setState({
             showCloud: true,
             currentCloud,
@@ -172,8 +165,6 @@ export class Game extends Component {
     }
 
     onCloudStatusChange = (status) => {
-        console.log('onCloudStatusChange', status);
-
         this.setState({
             cloudStatus: status
         });
