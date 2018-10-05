@@ -22,6 +22,10 @@ export default StyleSheet.create({
         fontSize: 15,
         lineHeight: 28,
     },
+    raining: {
+        position: 'relative',
+        marginTop: -60,
+    },
     outer: {
         position: 'relative',
         width: 157,

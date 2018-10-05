@@ -18,6 +18,7 @@ import {
     TRANSFER_TYPE_GIFT,
     TRANSFER_TYPE_ALLOWANCE,
 } from 'app/constants/game';
+import {deleteTask} from '.';
 
 
 export const KIDS_LOAD = 'KIDS_LOAD';
@@ -239,8 +240,8 @@ const getPayment = async transaction => {
     return operations.records.find(o => o.type === 'payment');
 };
 
-export const claimWollo = (address, destination, hash, amount) => async (dispatch, getState) => {
-    console.log('claimWollo', destination, hash, amount);
+export const claimWollo = (address, destination, hash, amount, amountLeftAfterUpdate) => async (dispatch, getState) => {
+    console.log('claimWollo', destination, hash, amount, amountLeftAfterUpdate);
 
     try {
         const account = await loadAccount(address);
@@ -264,9 +265,12 @@ export const claimWollo = (address, destination, hash, amount) => async (dispatc
         await dispatch(loadKidActions(address));
         dispatch(loadKidsBalances(destination));
 
-        // TODO: if amount === totalAmount
-        dispatch({type: KIDS_COMPLETE_ACTION, address, hash});
-
+        if (amountLeftAfterUpdate === 0) {
+            dispatch({type: KIDS_COMPLETE_ACTION, address, hash});
+            // todo: in this case also delete the task
+            // - need to find task by hash
+            // dispatch(deleteTask(this.props.kid, taskId));
+        }
     } catch (e) {
         console.log(e);
     }

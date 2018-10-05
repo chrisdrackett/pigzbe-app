@@ -20,14 +20,16 @@ export class Cloud extends Component {
     }
 
     render() {
-        const {value, type, callback, name, happy} = this.props;
+        const {value, type, callback, name, happy, raining} = this.props;
         const text = type === TRANSFER_TYPE_TASK ? name : (type === TRANSFER_TYPE_GIFT ? 'Gift' : 'Allowance');
+        const cloudImage = happy ? require('./images/happy_cloud.png') :
+            (raining ? require('./images/sad_cloud.png') : require('./images/cloud.png'));
 
         return (
             <TouchableOpacity style={styles.outer} onPress={callback}>
-                <Image style={styles.cloud} source={happy ? require('./images/happy_cloud.png') : require('./images/cloud.png')} />
+                <Image style={styles.cloud} source={cloudImage} />
                 {!happy && <View style={styles.content}>
-                    <View style={styles.value}>
+                    <View style={[styles.value, raining ? styles.raining : {}]}>
                         <GameWollo value={value} small />
                     </View>
                     <Text style={styles.type}>{text}</Text>

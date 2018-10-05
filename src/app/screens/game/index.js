@@ -5,7 +5,8 @@ import {
     TRANSFER_TYPE_TASK,
     // TRANSFER_TYPE_GIFT,
     NOTIFICATION_STAGE_TASK_QUESTION,
-    NOTIFICATION_STAGE_ALLOWANCE_CLOUD
+    NOTIFICATION_STAGE_ALLOWANCE_CLOUD,
+    NOTIFICATION_STAGE_TASK_GREAT
 } from 'app/constants/game';
 
 import Storage from 'app/utils/storage';
@@ -25,21 +26,26 @@ import {gameOverlayOpen} from '../../actions';
 import {claimWollo} from '../../actions';
 
 export class Game extends Component {
-    state = {
-        targetX: 0,
-        cloudStatus: null,
-        isGoalOverlayOpen: false,
-        goalOverlayAddress: null,
+    constructor(props) {
+        super(props);
+        this.state = {
+            targetX: 0,
+            cloudStatus: null,
+            isGoalOverlayOpen: false,
+            goalOverlayAddress: null,
+            optimisticBalances: props.balances,
+            raining: false,
 
-        // Tour state
-        tourType: null,
-        tourStep: 0,
-        lastStepTime: null,
-        showTapFirstCloud: false,
-        showAskParent: false,
-        showTapCloudOrTree: false,
+            // Tour state
+            tourType: null,
+            tourStep: 0,
+            lastStepTime: null,
+            showTapFirstCloud: false,
+            showAskParent: false,
+            showTapCloudOrTree: false,
 
-        y: new Animated.Value(0),
+            y: new Animated.Value(0),
+        }
     }
 
     async componentDidMount() {
@@ -88,32 +94,77 @@ export class Game extends Component {
             showTapCloudOrTree: false,
         });
 
-        console.log('this.props.kid', this.props.kid);
-
         this.props.dispatch(claimWollo(
             this.props.kid.address, this.props.kid.home, hash, amount
         ));
     }
 
-    onTreeClicked = (goal) => {
-        // untested:
-        console.log('TODO: add this cash:', this.state.currentCloud);
-        console.log('to this goal:', goal);
+    onTreeClicked = async (goalAddress) => {
+        if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
+
+            if (this.state.currentCloud.amount > 0) {
+                // if there's one wollo left on the current cloud
+                // let's just optimistically count down + hide cloud
+
+                const optimisticBalancesCopy = {...this.state.optimisticBalances};
+                optimisticBalancesCopy[goalAddress] = parseFloat(optimisticBalancesCopy[goalAddress]) + 1;
+                clearTimeout(this.timeoutHandle);
+                const amountAfterUpdate = this.state.currentCloud.amount - 1;
+
+                this.setState({
+                    cloudStatus: amountAfterUpdate === 0 ? null : this.state.cloudStatus,
+                    showCloud: amountAfterUpdate === 0 ? false : this.state.showCloud,
+                    currentCloud: {
+                        ...this.state.currentCloud,
+                        amount: amountAfterUpdate
+                    },
+                    optimisticBalances: optimisticBalancesCopy,
+                    raining: true,
+                    lastTreeClicked: Date.now(),
+                });
+
+                this.timeoutHandle = setTimeout(() => {
+                    const delta = Date.now() - this.state.lastTreeClicked;
+
+                    if (delta > 1500) {
+                        this.setState({raining: false});
+
+                        console.log('timeout: dispatch claim wollo function', this.state.currentCloudStartAmount - this.state.currentCloud.amount);
+                        const amountToSend = this.state.currentCloudStartAmount - this.state.currentCloud.amount;
+
+                        this.props.dispatch(claimWollo(
+                            this.props.kid.address, goalAddress, this.state.currentCloud.hash, amountToSend.toString(), amountAfterUpdate
+                        ));
+                        // check here if stuff has actually been updated in the blockchain
+                    }
+                }, 2000);
+            }
+
+            // only do this if all wollos have been sent:
+            if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT) {
+                // todo need to get rid of task but need to derive task data currently
+                // await this.props.dispatch(deleteTask(this.props.kid, this.state.currentCloud.taskToEdit));
+            }
+
+        } else {
+            this.openGoalOverlay(goalAddress);
+            this.setState({
+                cloudStatus: null,
+                showCloud: false
+            });
+        }
     }
 
     onActivateCloud = (currentCloud) => {
-        console.log('onActivateCloud', currentCloud);
-
         this.setState({
             showCloud: true,
             currentCloud,
+            currentCloudStartAmount: currentCloud.amount,
             cloudStatus: currentCloud.type === TRANSFER_TYPE_TASK ? NOTIFICATION_STAGE_TASK_QUESTION : NOTIFICATION_STAGE_ALLOWANCE_CLOUD
         });
     }
 
     onCloudStatusChange = (status) => {
-        console.log('onCloudStatusChange', status);
-
         this.setState({
             cloudStatus: status
         });
@@ -156,20 +207,23 @@ export class Game extends Component {
             overlayOpen,
             kid,
             parentNickname,
-            balances,
         } = this.props;
 
         const {
+            showCloud,
+            currentCloud,
+            cloudStatus,
+            raining,
+            optimisticBalances: balances,
             showTapFirstCloud,
             showAskParent,
-            showTapCloudOrTree
+            showTapCloudOrTree,
         } = this.state;
 
         const totalWollo = (parseFloat(balances[kid.home]) || 0) + kid.goals.reduce((total, goal) => {
             return total + (parseFloat(balances[goal.address]) || 0);
         }, 0);
 
-        const {showCloud, currentCloud} = this.state;
         const pigzbe = (
             <Pigzbe
                 style={{
@@ -192,8 +246,9 @@ export class Game extends Component {
                 {showCloud ? (
                     <GameCloudFlow
                         changeStatus={this.onCloudStatusChange}
-                        status={this.state.cloudStatus}
+                        status={cloudStatus}
                         cloudData={currentCloud}
+                        raining={raining}
                     />
                 ) : (
                     <GameCarousel
@@ -225,14 +280,14 @@ export class Game extends Component {
                         <View style={[styles.trees, {
                             left: (Dimensions.get('window').width - Tree.WIDTH) / 2,
                         }]}>
-                            <TouchableOpacity onPress={() => this.openGoalOverlay(kid.home)}>
+                            <TouchableOpacity onPress={() => this.onTreeClicked(kid.home)}>
                                 <Tree
                                     name="HOMETREE"
                                     value={(balances && balances[kid.home] !== undefined) ? parseFloat(balances[kid.home]) : 0}
                                 />
                             </TouchableOpacity>
                             {kid.goals && kid.goals.map((goal, i) => (
-                                <TouchableOpacity key={i} onPress={() => this.openGoalOverlay(goal.address)}>
+                                <TouchableOpacity key={i} onPress={() => this.onTreeClicked(goal.address)}>
                                     <Tree
                                         name={goal.name}
                                         value={(balances && balances[goal.address] !== undefined) ? parseFloat(balances[goal.address]) : 0}
