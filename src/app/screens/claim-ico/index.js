@@ -2,16 +2,14 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {utils} from 'web3';
 import Config from 'react-native-config';
-import {
-    Step1,
-    Step2,
-    Step3,
-    Step4,
-    Step5
-} from './steps';
+import Step1 from './steps/step1';
+import Step2 from './steps/step2';
+import Step3 from './steps/step3';
+import Step4 from './steps/step4';
+import Step5 from './steps/step5';
 import Loader from '../../components/loader';
 import Progress from '../../components/progress';
-import Modal from './modal';
+import GasModal from '../../components/gas-modal';
 import {userLogin, getGasPrice} from '../../actions/claim-eth';
 import {loadWallet} from '../../actions/wollo';
 import {clearClaimData} from '../../actions/claim-data';
@@ -41,17 +39,17 @@ export class ClaimICO extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      console.log('componentWillReceiveProps', nextProps);
-
-      if (nextProps.claimData && Object.keys(nextProps.claimData).length === 0 && nextProps.claimData.constructor === Object) {
-          this.setState({loading: null, step: 1});
+      if (!nextProps.claimData.loaded) {
+          return;
       }
 
-      const unfinished = this.props.claimData && nextProps.eth.coinbase && nextProps.eth.balanceWollo;
-      const hasError = this.props.claimData && this.props.claimData.error;
+      const unfinished = nextProps.eth.coinbase && nextProps.eth.balanceWollo;
+      const hasError = nextProps.claimData.error;
 
       if (unfinished || hasError) {
           this.setState({step: 5, loading: null});
+      } else {
+          this.setState({step: 1, loading: null});
       }
   }
 
@@ -187,7 +185,7 @@ export class ClaimICO extends Component {
       console.log('claimData', claimData);
       console.log('this.state.loading', this.state.loading);
 
-      if (!web3 || !contract || !claimData || this.state.loading !== null) {
+      if (!web3 || !contract || !claimData.loaded || this.state.loading !== null) {
           return (
               <Loader loading message={this.state.loading} />
           );
@@ -230,7 +228,7 @@ export class ClaimICO extends Component {
                   }
               </Fragment>
 
-              <Modal
+              <GasModal
                   visible={modal.visible}
                   message={modal.message}
                   estimatedCost={estimatedCost}

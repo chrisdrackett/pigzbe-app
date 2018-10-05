@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import styles from '../styles';
-import Paragraph from '../../../components/paragraph';
+import Paragraph from '../paragraph';
+import styles from './styles';
 
 export default ({items}) => (
-    <View style={styles.list}>
+    <View>
         {items.map((item, i) => (
             <View style={styles.listItem} key={i}>
                 <Text style={[styles.text, styles.num]}>{String(i + 1)}.</Text>

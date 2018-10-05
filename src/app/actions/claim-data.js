@@ -8,17 +8,15 @@ export const CLAIM_CLEAR_DATA = 'CLAIM_CLEAR_DATA';
 
 export const loadClaimData = () => async (dispatch) => {
     const payload = await Storage.load(STORAGE_KEY_BURNING);
-    dispatch(updateClaimData(payload));
-    dispatch(checkUserCache());
+    await dispatch(updateClaimData({...payload, loaded: false}));
+    await dispatch(checkUserCache());
+    await dispatch(updateClaimData({loaded: true}));
 };
 
 export const updateClaimData = payload => async (dispatch, getState) => {
-    console.log('updateClaimData');
-    console.log(' -- before:', getState().claimData);
     dispatch({type: CLAIM_UPDATE_DATA, payload});
     const {claimData} = getState();
     await Storage.save(STORAGE_KEY_BURNING, claimData);
-    console.log(' -- after:', getState().claimData);
 };
 
 export const clearClaimData = () => dispatch => {
