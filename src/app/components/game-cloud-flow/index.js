@@ -44,15 +44,22 @@ export class CloudFlow extends Component {
     }
 
     render() {
-        const {callback, status, cloudData} = this.props;
+        const {callback, status, cloudData, raining} = this.props;
         const {amount, type, memo} = cloudData;
         console.log('value in cloud flow', amount, cloudData);
-        const showBubble = status === NOTIFICATION_STAGE_ALLOWANCE_CLOUD || status === NOTIFICATION_STAGE_TASK_QUESTION ||
-            status === NOTIFICATION_STAGE_TASK_GREAT || status === NOTIFICATION_STAGE_TASK_FINISH;
+        const showBubble = (status === NOTIFICATION_STAGE_ALLOWANCE_CLOUD || status === NOTIFICATION_STAGE_TASK_QUESTION ||
+            status === NOTIFICATION_STAGE_TASK_GREAT || status === NOTIFICATION_STAGE_TASK_FINISH) && !raining;
 
         return (
             <View style={styles.outer} onPress={callback}>
-                <GameCloud type={type} value={amount} name={memo} callback={() => {}} happy={showBubble} />
+                <GameCloud
+                    type={type}
+                    value={amount}
+                    name={memo}
+                    callback={() => {}}
+                    happy={showBubble}
+                    raining={raining}
+                />
                 {
                     showBubble && <View style={styles.bubbleWrap}><GameMessageBubble content={this.getBubbleContent()} top /></View>
                 }

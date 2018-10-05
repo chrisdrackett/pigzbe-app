@@ -38,6 +38,7 @@ export class Game extends Component {
             isGoalOverlayOpen: false,
             goalOverlayAddress: null,
             optimisticBalances: props.balances,
+            raining: false,
         };
     }
 
@@ -78,6 +79,7 @@ export class Game extends Component {
 
                 const optimisticBalancesCopy = {...this.state.optimisticBalances};
                 optimisticBalancesCopy[goalAddress] = parseFloat(optimisticBalancesCopy[goalAddress]) + 1;
+                clearTimeout(this.timeoutHandle);
 
                 if (this.state.currentCloud.amount === 1) {
 
@@ -89,6 +91,8 @@ export class Game extends Component {
                             amount: this.state.currentCloud.amount - 1
                         },
                         optimisticBalances: optimisticBalancesCopy,
+                        raining: true,
+                        lastTreeClicked: Date.now(),
                     });
                 // if we have more than one wollo left on the current task
                 // let's only just optimistically count down
@@ -99,8 +103,18 @@ export class Game extends Component {
                             amount: this.state.currentCloud.amount - 1
                         },
                         optimisticBalances: optimisticBalancesCopy,
+                        raining: true,
+                        lastTreeClicked: Date.now(),
                     });
                 }
+
+                this.timeoutHandle = setTimeout(() => {
+                    const delta = Date.now() - this.state.lastTreeClicked;
+
+                    if (delta > 1500) {
+                        this.setState({raining: false});
+                    }
+                }, 2000);
 
                 this.props.dispatch(claimWollo(
                     this.props.kid.address, goalAddress, this.state.currentCloud.hash, '1'
@@ -187,7 +201,7 @@ export class Game extends Component {
                     onMove={this.onMove}
                     onRelease={this.onRelease}>
                     <View style={styles.trees}>
-                        <TouchableOpacity onPress={() => this.openGoalOverlay(kid.home)}>
+                        <TouchableOpacity onPress={() => this.onTreeClicked(kid.home)}>
                             <Tree
                                 name="HOMETREE"
                                 value={(balances && balances[kid.home] !== undefined) ? parseFloat(balances[kid.home]) : 0}
@@ -223,6 +237,7 @@ export class Game extends Component {
                         changeStatus={this.onCloudStatusChange}
                         status={this.state.cloudStatus}
                         cloudData={currentCloud}
+                        raining={this.state.raining}
                     /> : <GameCarousel
                         {...{
                             Item: GameNotification,
