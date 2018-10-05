@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 export default StyleSheet.create({
     outer: {
@@ -39,8 +39,8 @@ export default StyleSheet.create({
     },
     rain: {
         position: 'absolute',
-        bottom: -300,
-        height: 300,
+        bottom: (Dimensions.get('window').height - 280) * -1,
+        height: Dimensions.get('window').height - 280,
         width: 95,
         left: 31,
         backgroundColor: 'rgba(117, 235, 255, 50)',
