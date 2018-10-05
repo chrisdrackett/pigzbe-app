@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {Modal, View, Text} from 'react-native';
-import Button from '../../components/button';
+import Button from '../button';
 import styles from './styles';
 import {color} from '../../styles';
 
@@ -17,7 +17,7 @@ export default ({
                 <Fragment>
                     <Text style={styles.modalTitle}>The estimated gas for this transaction is</Text>
                     <Text style={[styles.modalTitle, styles.modalTitleCost]}>{estimatedCost}</Text>
-                    <Text style={styles.modalText}>Are you sure you want to burn your tokens? They will be automatically converted into Wollo tokens.</Text>
+                    <Text style={styles.modalText}>Click confirm to claim your Wollo tokens.</Text>
                     <View>
                         <Button
                             label="Confirm"

@@ -1,13 +1,13 @@
 import React from 'react';
 import {View} from 'react-native';
-import Button from '../../../components/button';
-import StepModule from '../../../components/step-module';
+import Button from '../button';
+import StepModule from '../step-module';
 
-const StepWrapper = ({title, content, children, onNext, onBack, buttonNextLabel}) => (
+const StepWrapper = ({title, content, icon, children, onNext, onBack, buttonNextLabel}) => (
     <StepModule
         title={title}
         content={content}
-        icon="eidoo"
+        icon={icon}
         onBack={onBack}
         justify="space-between"
         pad
@@ -22,7 +22,8 @@ const StepWrapper = ({title, content, children, onNext, onBack, buttonNextLabel}
 );
 
 StepWrapper.defaultProps = {
-    buttonNextLabel: 'Next'
+    buttonNextLabel: 'Next',
+    icon: 'eidoo'
 };
 
 export default StepWrapper;

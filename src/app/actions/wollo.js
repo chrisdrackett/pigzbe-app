@@ -67,8 +67,8 @@ const updateXLM = account => dispatch => {
 
 export const loadWallet = publicKey => async (dispatch, getState) => {
     console.log('loadWallet');
+    const key = publicKey || getState().keys.publicKey;
     try {
-        const key = publicKey || getState().keys.publicKey;
         if (key) {
             const account = await loadAccount(key);
             console.log('account', account);
@@ -83,7 +83,7 @@ export const loadWallet = publicKey => async (dispatch, getState) => {
             dispatch(updateXLM(account));
         }
     } catch (error) {
-        console.log(error);
+        console.log('Could not load wallet with publicKey', key);
     }
 };
 

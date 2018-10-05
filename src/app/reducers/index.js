@@ -16,10 +16,10 @@ import tasks from './tasks';
 import vip from './vip';
 import kyc from './kyc';
 
-import user from './claim/user';
+import eth from './claim/eth';
 import events from './claim/events';
 import contract from './claim/contract';
-import content from './claim/content';
+import claimData from './claim/claim-data';
 import web3 from './claim/web3';
 
 export default combineReducers({
@@ -40,9 +40,9 @@ export default combineReducers({
     vip,
     kyc,
     // claim reducers
-    user,
+    eth,
     events,
     contract,
-    content,
+    claimData,
     web3,
 });

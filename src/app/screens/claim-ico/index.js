@@ -2,22 +2,19 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {utils} from 'web3';
 import Config from 'react-native-config';
-import {
-    Step1,
-    Step2,
-    Step3,
-    Step4,
-    Step5
-} from './steps';
+import Step1 from './steps/step1';
+import Step2 from './steps/step2';
+import Step3 from './steps/step3';
+import Step4 from './steps/step4';
+import Step5 from './steps/step5';
 import Loader from '../../components/loader';
 import Progress from '../../components/progress';
-import Modal from './modal';
-import {userLogin, getGasPrice} from '../../actions/eth';
+import GasModal from '../../components/gas-modal';
+import {userLogin, getGasPrice} from '../../actions/claim-eth';
 import {loadWallet} from '../../actions/wollo';
-import {clearClaimData} from '../../actions/content';
-import {transfer, burn, initWeb3} from '../../actions/contract';
+import {clearClaimData} from '../../actions/claim-data';
+import {transfer, burn, initWeb3} from '../../actions/claim-contract';
 import {isValidSeed} from '../../utils/web3';
-// import {SCREEN_DASHBOARD, SCREEN_CLAIM} from '../../constants';
 import {SCREEN_DASHBOARD, SCREEN_SETTINGS} from '../../constants';
 
 export class ClaimICO extends Component {
@@ -42,14 +39,17 @@ export class ClaimICO extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      // console.log('componentWillReceiveProps', nextProps);
-
-      if (nextProps.localStorage && Object.keys(nextProps.localStorage).length === 0 && nextProps.localStorage.constructor === Object) {
-          this.setState({loading: null, step: 1});
+      if (!nextProps.claimData.loaded) {
+          return;
       }
 
-      if (this.props.localStorage && nextProps.user.coinbase && nextProps.user.balanceWollo) {
+      const unfinished = nextProps.eth.coinbase && nextProps.eth.balanceWollo;
+      const hasError = nextProps.claimData.error;
+
+      if (unfinished || hasError) {
           this.setState({step: 5, loading: null});
+      } else {
+          this.setState({step: 1, loading: null});
       }
   }
 
@@ -79,10 +79,10 @@ export class ClaimICO extends Component {
   onChangeStep = step => this.setState({step})
 
   onSubmitBurn = async () => {
-      const {localStorage, contract, user} = this.props;
+      const {claimData, contract, eth} = this.props;
 
-      if (localStorage.transactionHash && localStorage.value) {
-          this.props.burn(localStorage.value);
+      if (claimData.transactionHash && claimData.value) {
+          this.props.burn(claimData.value);
           return;
       }
 
@@ -94,10 +94,10 @@ export class ClaimICO extends Component {
       });
 
       try {
-          const amountBurn = user.balanceWei;
+          const amountBurn = eth.balanceWei;
           // const gasPrice = await this.props.web3.eth.getGasPrice();
           const gasPrice = await this.props.getGasPrice();
-          const estimatedGas = await contract.instance.methods.burn(amountBurn).estimateGas({from: user.coinbase});
+          const estimatedGas = await contract.methods.burn(amountBurn).estimateGas({from: eth.coinbase});
           const estimatedCost = utils.fromWei(String(estimatedGas * gasPrice), 'ether');
 
           let estimatedCostUSD = '';
@@ -108,9 +108,6 @@ export class ClaimICO extends Component {
 
           this.setState({
               estimatedCost: `${estimatedCost} ETH ($${estimatedCostUSD})`,
-          });
-
-          this.setState({
               modal: {
                   visible: true,
                   message: 'confirm'
@@ -125,7 +122,7 @@ export class ClaimICO extends Component {
   onConfirmedSubmitBurn = () => {
       this.closeModal();
 
-      this.props.burn(this.props.user.balanceWei);
+      this.props.burn(this.props.eth.balanceWei);
   }
 
   closeModal = () => this.setState({
@@ -147,6 +144,7 @@ export class ClaimICO extends Component {
   onBack = () => this.props.navigation.navigate(SCREEN_SETTINGS)
 
   onCompleteClaim = () => {
+      console.log('onCompleteClaim');
       this.props.clearClaimData();
       this.props.loadWallet();
       this.props.navigation.navigate(SCREEN_DASHBOARD);
@@ -169,40 +167,31 @@ export class ClaimICO extends Component {
           step,
           modal,
       } = this.state;
+
       const {
           loading,
           contract,
-          user,
-          events,
+          eth,
+          transactionHash,
           web3,
-          localStorage,
-          errorBurning
+          claimData,
+          errorBurning,
+          publicKey
       } = this.props;
-
-      // console.log(JSON.stringify({
-      //     loading,
-      //     contract,
-      //     user,
-      //     events,
-      //     // web3,
-      //     localStorage,
-      //     errorBurning
-      // }, null, 2));
-      // console.log('errorBurning', errorBurning);
 
       console.log('===> step', step);
       console.log('web3', web3);
-      console.log('contract.instance', contract.instance);
-      console.log('localStorage', localStorage);
+      console.log('contract', contract);
+      console.log('claimData', claimData);
       console.log('this.state.loading', this.state.loading);
 
-      if (!web3 || !contract.instance || !localStorage || this.state.loading !== null) {
+      if (!web3 || !contract || !claimData.loaded || this.state.loading !== null) {
           return (
               <Loader loading message={this.state.loading} />
           );
       }
 
-      const tx = localStorage.transactionHash || events.get('transactionHash');
+      const tx = claimData.transactionHash || transactionHash;
 
       return (
           <Fragment>
@@ -225,20 +214,21 @@ export class ClaimICO extends Component {
 
                   {step === 5 &&
                       <Step5
-                          error={errorBurning || localStorage.error}
+                          error={errorBurning || claimData.error}
                           tx={tx}
                           pk={pk}
-                          userBalance={user.balanceWollo}
-                          continueApplication={!localStorage.complete && localStorage.started}
-                          startApplication={!localStorage.complete && !localStorage.started}
-                          buttonNextLabel={!user.balanceWollo ? 'Back' : !localStorage.complete && !localStorage.started ? 'Claim Wollo' : 'Continue'}
-                          onNext={user.balanceWollo ? this.onSubmitBurn : this.onCloseClaim}
-                          onBack={user.balanceWollo ? this.onBack : null}
+                          stellarPK={publicKey}
+                          userBalance={eth.balanceWollo}
+                          continueApplication={!claimData.complete && claimData.started}
+                          startApplication={!claimData.complete && !claimData.started}
+                          buttonNextLabel={!eth.balanceWollo ? 'Back' : !claimData.complete && !claimData.started ? 'Claim Wollo' : 'Continue'}
+                          onNext={eth.balanceWollo ? this.onSubmitBurn : this.onCloseClaim}
+                          onBack={eth.balanceWollo ? this.onBack : null}
                       />
                   }
               </Fragment>
 
-              <Modal
+              <GasModal
                   visible={modal.visible}
                   message={modal.message}
                   estimatedCost={estimatedCost}
@@ -247,14 +237,14 @@ export class ClaimICO extends Component {
               />
               {!this.state.clickedClose ? (
                   <Progress
-                      active={loading !== null && !localStorage.complete && !errorBurning}
-                      complete={localStorage.complete}
-                      title={localStorage.complete ? 'Congrats' : 'Claim progress'}
+                      active={loading !== null && !claimData.complete && !errorBurning}
+                      complete={claimData.complete}
+                      title={claimData.complete ? 'Congrats' : 'Claim progress'}
                       error={errorBurning}
-                      text={localStorage.complete ? `Congrats! You are now the owner of ${user.balanceWollo} Wollo, you rock.` : loading}
-                      // buttonLabel={localStorage.complete || errorBurning ? 'Next' : null}
+                      text={claimData.complete ? `Congrats! You are now the owner of ${eth.balanceWollo} Wollo, you rock.` : loading}
+                      // buttonLabel={claimData.complete || errorBurning ? 'Next' : null}
                       buttonLabel={'Next'}
-                      onPress={localStorage.complete ? this.onCompleteClaim : this.closeProgress}
+                      onPress={claimData.complete ? this.onCompleteClaim : this.closeProgress}
                   />
               ) : null}
           </Fragment>
@@ -262,22 +252,23 @@ export class ClaimICO extends Component {
   }
 }
 
-export default connect(({config, user, web3, events, contract, content}) => ({
-    config,
-    user,
-    events,
-    contract,
-    localStorage: content.get('localStorage'),
-    web3: web3.instance,
-    loading: events.get('loading'),
-    errorBurning: events.get('error'),
-}), {
-    getGasPrice,
-    userLogin,
-    initWeb3,
-    transfer,
-    burn,
-    clearClaimData,
-    loadWallet
-},
+export default connect(
+    ({eth, claimData, web3, events, contract, keys}) => ({
+        eth,
+        claimData,
+        contract: contract.instance,
+        transactionHash: events.transactionHash,
+        web3: web3.instance,
+        loading: events.loading,
+        errorBurning: events.error,
+        publicKey: keys.publicKey,
+    }), {
+        getGasPrice,
+        userLogin,
+        initWeb3,
+        transfer,
+        burn,
+        clearClaimData,
+        loadWallet
+    },
 )(ClaimICO);

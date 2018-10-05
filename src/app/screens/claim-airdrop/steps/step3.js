@@ -45,7 +45,7 @@ export default ({
         buttonNextLabel={buttonNextLabel}
         content={startApplication ? (
             <Fragment>
-                <Paragraph>{`You have *${userBalance} ERC20 Tokens* in your Eidoo account.`}</Paragraph>
+                <Paragraph>{`You have *${userBalance} ERC20 Tokens* in your account.`}</Paragraph>
                 {Number(userBalance) > 0 ? (
                     <Paragraph>{`Tap *Claim Wollo* bellow to convert your tokens to *${userBalance} Wollo* and create your Pigzbe wallet.`}</Paragraph>
                 ) : null}

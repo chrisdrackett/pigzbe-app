@@ -1,23 +1,14 @@
 import Tx from 'ethereumjs-tx';
-import {
-    ERROR,
-    CONTRACT_UPDATE,
-    LOADING,
-    STELLAR,
-    PRIVATE_KEY,
-    INIT_WEB3,
-    LOCAL_STORAGE,
-    BURNED,
-} from '../constants/action-types';
 import {watchConfirmations} from '../utils/web3';
-import {getBalance, getGasPrice} from './eth';
-import {validate} from './api';
-import {loadLocalStorage} from './content';
 import {NUM_VALIDATIONS} from '../constants';
-import {Keypair} from '@pigzbe/stellar-utils';
-import Keychain from '../utils/keychain';
-import {KEYCHAIN_ID_STELLAR_KEY, KEYCHAIN_ID_ETH_KEY} from '../constants';
 import {apiURL} from '../selectors';
+import {loadPrivateKey, getClaimBalance, getGasPrice} from './claim-eth';
+import {loadClaimData, updateClaimData} from './claim-data';
+import {claimLoading, claimError, validate} from './claim-api';
+
+export const CLAIM_INIT_WEB3 = 'CLAIM_INIT_WEB3';
+export const CLAIM_CONTRACT_UPDATE = 'CLAIM_CONTRACT_UPDATE';
+export const CLAIM_BURNED = 'CLAIM_BURNED';
 
 const getContract = () => async (dispatch, getState) => {
 
@@ -26,7 +17,7 @@ const getContract = () => async (dispatch, getState) => {
     try {
         const {network, ethereum} = getState().config;
         const web3 = getState().web3.instance;
-        const {coinbase} = getState().user;
+        const {coinbase} = getState().eth;
 
         console.log('network:', network);
         console.log('ethereum:', ethereum);
@@ -56,7 +47,7 @@ const getContract = () => async (dispatch, getState) => {
         console.log(results);
 
         dispatch({
-            type: CONTRACT_UPDATE,
+            type: CLAIM_CONTRACT_UPDATE,
             payload: {
                 owner: results[3],
                 instance: deployedContract,
@@ -69,46 +60,15 @@ const getContract = () => async (dispatch, getState) => {
         });
 
         if (coinbase) {
-            dispatch(getBalance());
+            dispatch(getClaimBalance());
         }
 
-        dispatch(loadLocalStorage());
+        dispatch(loadClaimData());
 
         return null;
     } catch (e) {
         console.log(e);
-        return dispatch({
-            type: ERROR,
-            payload: e,
-        });
-    }
-};
-
-const getKeys = () => async dispatch => {
-    try {
-        const stellar = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
-        const eth = await Keychain.load(KEYCHAIN_ID_ETH_KEY);
-
-        console.log('getKeys, stellar', stellar);
-
-        if (stellar) {
-            const keypair = Keypair.fromSecret(stellar);
-
-            dispatch({type: STELLAR, payload: {
-                pk: keypair.publicKey(),
-                sk: keypair.secret()
-            }});
-        }
-
-        if (eth) {
-            dispatch({type: PRIVATE_KEY, payload: {
-                privateKey: eth
-            }});
-        }
-
-        return true;
-    } catch (e) {
-        return false;
+        return dispatch(claimError(e));
     }
 };
 
@@ -118,13 +78,13 @@ export const initWeb3 = () => async (dispatch, getState) => {
     const {rpc} = ethereum.networks[network];
     console.log('rpc', rpc);
     dispatch({
-        type: INIT_WEB3,
+        type: CLAIM_INIT_WEB3,
         payload: {network, rpc}
     });
 
     await dispatch(getContract());
 
-    await dispatch(getKeys());
+    await dispatch(loadPrivateKey());
 };
 
 const sendSignedTransaction = (web3, serializedTx, error) => new Promise(async (resolve, reject) => {
@@ -139,33 +99,19 @@ const sendSignedTransaction = (web3, serializedTx, error) => new Promise(async (
 });
 
 export const burn = (amount) => async (dispatch, getState) => {
+    const {publicKey} = getState().keys;
     const {address, instance} = getState().contract;
-    const {coinbase, privateKey} = getState().user;
-    const {localStorage} = getState().content;
+    const {coinbase, privateKey} = getState().eth;
+    const {claimData} = getState();
     const {network} = getState().config;
     const web3 = getState().web3.instance;
     const api = apiURL(getState());
 
-    dispatch({type: LOADING, payload: 'Waiting Ethereum network confirmation'});
+    dispatch(claimLoading('Waiting Ethereum network confirmation'));
 
     try {
-        const key = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
 
-        const keypair = Keypair.fromSecret(key);
-        // const keypair = (stellar && stellar.sk && Keypair.fromSecret(stellar.sk)) || await Keypair.randomAsync();
-
-        console.log('keypair', keypair.publicKey());
-
-        // if (!key) {
-        //     await Keychain.save(KEYCHAIN_ID_STELLAR_KEY, keypair.secret());
-        // }
-
-        dispatch({type: STELLAR, payload: {
-            pk: keypair.publicKey(),
-            sk: keypair.secret()
-        }});
-
-        if (!localStorage.started) {
+        if (!claimData.started) {
             console.log(`${api}/stellar`);
             const payload = await (await fetch(`${api}/stellar`, {
                 method: 'POST',
@@ -173,7 +119,7 @@ export const burn = (amount) => async (dispatch, getState) => {
                 cache: 'no-cache',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    pk: keypair.publicKey(),
+                    pk: publicKey,
                     eth: coinbase,
                     value: amount,
                 })
@@ -183,35 +129,25 @@ export const burn = (amount) => async (dispatch, getState) => {
 
             if (payload.error) {
                 console.log('payload error', payload.error);
-                // dispatch({type: ERROR, payload});
-                dispatch({type: ERROR, payload: 'Error creating Stellar account'});
-                // setTimeout(dispatch, 4000, {type: LOADING, payload: null});
+                dispatch(claimError('Error creating Stellar account'));
                 return;
             }
 
-            dispatch({
-                type: LOCAL_STORAGE,
-                payload: {
-                    stellar: {pk: keypair.publicKey()},
-                    ethAddress: coinbase,
-                    value: amount,
-                    started: true,
-                }
-            });
+            dispatch(updateClaimData({
+                ethAddress: coinbase,
+                value: amount,
+                started: true,
+            }));
         }
 
         let transactionHash;
 
-        if (!localStorage.transactionHash) {
+        if (!claimData.transactionHash) {
             const bufferPrivateKey = new Buffer(privateKey, 'hex');
             const data = instance.methods.burn(amount).encodeABI();
 
-            // const gasPrice = await web3.eth.getGasPrice();
             const gasPrice = await dispatch(getGasPrice());
             console.log('burn gasPrice', gasPrice);
-
-            // const ethGasStationGasPrice = await getEthGasStationGasPrice();
-            // console.log('ethGasStationGasPrice', ethGasStationGasPrice);
 
             const rawTx = {
                 nonce: web3.utils.toHex(await web3.eth.getTransactionCount(coinbase)),
@@ -229,31 +165,28 @@ export const burn = (amount) => async (dispatch, getState) => {
 
             transactionHash = await sendSignedTransaction(web3, serializedTx, 'An error occurred when burning your tokens');
 
-            dispatch({
-                type: LOCAL_STORAGE,
-                payload: {
-                    transactionHash: transactionHash
-                }
-            });
+            dispatch(updateClaimData({
+                transactionHash: transactionHash
+            }));
 
-            dispatch({type: LOADING, payload: 'Transaction accepted!\n\nWaiting for network confirmations\n\nThis step can take a while, it\'s safe to come back later'});
+            dispatch(claimLoading('Transaction accepted!\n\nWaiting for network confirmations\n\nThis step can take a while, it\'s safe to come back later'));
 
             if (!transactionHash) {
-                dispatch({type: ERROR, payload: 'An error occurred when burning your tokens'});
+                dispatch(claimError('An error occurred when burning your tokens'));
                 // setTimeout(dispatch, 6000, {type: LOADING, payload: null});
                 return;
             }
         } else {
-            transactionHash = localStorage.transactionHash;
+            transactionHash = claimData.transactionHash;
         }
 
-        if (!localStorage.burned) {
-            dispatch({type: LOADING, payload: 'Transaction accepted!\n\nWaiting for network confirmations\n\nThis step can take a while, it\'s safe to come back later'});
+        if (!claimData.burned) {
+            dispatch(claimLoading('Transaction accepted!\n\nWaiting for network confirmations\n\nThis step can take a while, it\'s safe to come back later'));
             console.log(transactionHash);
 
             const validations = NUM_VALIDATIONS;
 
-            const onValidatedBlock = (blocks) => dispatch({type: LOADING, payload: `Blocks confirmed: ${blocks} / ${validations}\n\nThis step can take a while, it\'s safe to come back later`});
+            const onValidatedBlock = (blocks) => dispatch(claimLoading(`Blocks confirmed: ${blocks} / ${validations}\n\nThis step can take a while, it\'s safe to come back later`));
 
             const validateTransaction = await watchConfirmations({
                 network,
@@ -265,29 +198,20 @@ export const burn = (amount) => async (dispatch, getState) => {
 
             if (validateTransaction.from.toLowerCase() !== coinbase.toLowerCase()) {
                 console.log('error', validateTransaction);
-                dispatch({type: ERROR, payload: 'Ethereum Transaction invalid'});
+                dispatch(claimError('Ethereum Transaction invalid'));
                 // setTimeout(dispatch, 4000, {type: LOADING, payload: null});
                 return;
             }
 
             console.log(validateTransaction);
 
-            dispatch({
-                type: LOADING,
-                payload: 'ERC20 Tokens burned, transfering Wollo',
-            });
+            dispatch(claimLoading('ERC20 Tokens burned, transfering Wollo'));
 
-            dispatch({
-                type: LOCAL_STORAGE,
-                payload: {
-                    burned: true
-                }
-            });
+            dispatch(updateClaimData({
+                burned: true
+            }));
 
-            dispatch({
-                type: BURNED,
-                payload: transactionHash
-            });
+            dispatch({type: CLAIM_BURNED, transactionHash});
         }
 
         console.log('burned');
@@ -297,6 +221,6 @@ export const burn = (amount) => async (dispatch, getState) => {
 
     } catch (e) {
         console.log(e);
-        dispatch({type: ERROR, payload: e.message});
+        dispatch(claimError(e.message));
     }
 };

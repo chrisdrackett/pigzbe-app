@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
-import StepWrapper from './stepWrapper';
-import StepList from './step-list';
+import StepWrapper from '../../../components/step-wrapper';
+import OrderedList from '../../../components/ordered-list';
 import Paragraph from '../../../components/paragraph';
 
 export default ({onNext, onBack}) => (
@@ -11,7 +11,7 @@ export default ({onNext, onBack}) => (
         content={(
             <Fragment>
                 <Paragraph>Next up in the Eidoo app.</Paragraph>
-                <StepList
+                <OrderedList
                     items={[
                         'Go to *Your Assets*',
                         'Tap the QR code button top on the right',

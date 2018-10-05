@@ -8,34 +8,34 @@ export default ({
     onNext,
     onBack,
     pk,
-    mnemonic,
-    onChangeMnemonic,
+    privateKey,
+    onChangePrivateKey,
     onChangePk,
     badAddress,
     badSeed
 }) => (
     <StepWrapper
-        title={'Import your Eidoo wallet'}
+        title={'Import your wallet'}
         onNext={onNext}
         onBack={onBack}
         content={(
             <Fragment>
-                <Paragraph small>We're almost there! Enter your Eidoo wallet address and the 12 word seed below and let's claim.</Paragraph>
+                <Paragraph small>We're almost there! Enter your wallet address and private key below and let's claim.</Paragraph>
                 <View>
                     <TextInput
                         error={badAddress}
                         value={pk}
                         numberOfLines={2}
-                        placeholder="Your Eidoo wallet address"
+                        placeholder="Your wallet address"
                         onChangeText={onChangePk}
                         returnKeyType="done"
                     />
                     <TextInput
                         error={badSeed}
-                        value={mnemonic}
+                        value={privateKey}
                         numberOfLines={3}
-                        placeholder="Your 12 word seed, you must include spaces"
-                        onChangeText={onChangeMnemonic}
+                        placeholder="Your private key"
+                        onChangeText={onChangePrivateKey}
                         returnKeyType="done"
                     />
                 </View>

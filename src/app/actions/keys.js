@@ -20,13 +20,9 @@ export const createMnemonic = () => async () => {
 export const createKeysFromSeed = (seedHex, index = 0) => () => getKeypair(seedHex, index);
 
 export const createKeypair = () => async (dispatch, getState) => {
-    // const {mnemonic} = getState().keys;
     const mnemonic = await Keychain.load(KEYCHAIN_ID_MNEMONIC);
-    console.log('createKeypair mnemonic', mnemonic);
 
     const keyIndex = getState().settings.keyIndex + 1;
-
-    console.log('createKeypair keyIndex', keyIndex);
 
     await dispatch(settingsUpdate({keyIndex}));
 
@@ -35,11 +31,6 @@ export const createKeypair = () => async (dispatch, getState) => {
     }
 
     return null;
-
-    // if (typeof Keypair.randomAsync === 'function') {
-    //     return await Keypair.randomAsync();
-    // }
-    // return Keypair.random();
 };
 
 export const setKeys = (keypair, mnemonic, keysSaved) => ({type: KEYS_KEYPAIR, keypair, mnemonic, keysSaved});
@@ -61,7 +52,6 @@ const findSecretKey = (publicKey, seedHex, index) => {
     if (index > 100) {
         return null;
     }
-    console.log('findSecretKey at index', index);
     const keypair = getKeypair(seedHex, index);
     if (keypair.publicKey() === publicKey) {
         return {
@@ -135,8 +125,6 @@ export const getKeys = () => async (dispatch, getState) => {
     const mnemonic = await Keychain.load(KEYCHAIN_ID_MNEMONIC);
     const secretKey = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
     const {testUserKey} = getState().keys;
-
-    console.log('mnemonic', mnemonic);
 
     if (testUserKey) {
         return Keypair.fromSecret(secretKey);

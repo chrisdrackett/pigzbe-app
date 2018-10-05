@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import StepWrapper from './stepWrapper';
+import StepWrapper from '../../../components/step-wrapper';
 import Paragraph from '../../../components/paragraph';
 
 export default ({onNext, onBack}) => (
