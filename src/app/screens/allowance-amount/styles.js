@@ -12,7 +12,7 @@ export default StyleSheet.create({
         borderColor: color.blue,
         fontSize: 14,
         paddingTop: 10,
-        height: Dimensions.get('window').width / 8,
+        height: (Dimensions.get('window').width / 8) + 10,
         lineHeight: Dimensions.get('window').width / 8,
         width: Dimensions.get('window').width / 8,
         textAlign: 'center',

@@ -10,6 +10,8 @@ export default StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.1)',
         borderRadius: 15,
         maxWidth: 230,
+        marginBottom: 12,
+        marginTop: 12,
     },
     boxInner: {
         backgroundColor: 'white',
@@ -37,11 +39,11 @@ export default StyleSheet.create({
         height: 16,
         position: 'absolute',
         left: 20,
-        bottom: -14,
+        bottom: 0,
     },
     tailContainer: {
         position: 'absolute',
-        top: -13,
+        top: 1,
         left: 0,
         right: 0,
         alignItems: 'center',
