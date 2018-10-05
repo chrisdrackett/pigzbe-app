@@ -33,11 +33,11 @@ export class CloudFlow extends Component {
                         </View>
                     </View>);
             case NOTIFICATION_STAGE_TASK_GREAT:
-                return 'Great, place your finger onto tree to save your 50 Wollo there';
+                return `Great, place your finger onto tree to save your ${this.props.cloudData.amount} Wollo there`;
             case NOTIFICATION_STAGE_TASK_FINISH:
                 return 'Please complete your task before collecting your Wollo';
             case NOTIFICATION_STAGE_ALLOWANCE_CLOUD:
-                return 'Great, place your finger onto tree to save your 50 Wollo there';
+                return `Great, place your finger onto tree to save your ${this.props.cloudData.amount} Wollo there`;
             default:
                 return '';
         }
