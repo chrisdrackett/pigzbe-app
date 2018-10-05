@@ -97,14 +97,15 @@ export class Game extends Component {
 
                     if (delta > 1500) {
                         this.setState({raining: false});
+
+                        console.log('--- dispatch claim wollo function', this.state.currentCloudStartAmount - this.state.currentCloud.amount);
+
+                        this.props.dispatch(claimWollo(
+                            this.props.kid.address, goalAddress, this.state.currentCloud.hash, this.state.currentCloudStartAmount - this.state.currentCloud.amount
+                            // check here if stuff has actually been updated in the blockchain?
+                        ));
                     }
-
-                    // check here if stuff has actually been updated in the blockchain?
                 }, 2000);
-
-                this.props.dispatch(claimWollo(
-                    this.props.kid.address, goalAddress, this.state.currentCloud.hash, '1'
-                ));
             }
 
             // only do this if all wollos have been sent:
@@ -132,6 +133,7 @@ export class Game extends Component {
         this.setState({
             showCloud: true,
             currentCloud,
+            currentCloudStartAmount: currentCloud.amount,
             cloudStatus: currentCloud.type === TRANSFER_TYPE_TASK ? NOTIFICATION_STAGE_TASK_QUESTION : NOTIFICATION_STAGE_ALLOWANCE_CLOUD
         });
     }
