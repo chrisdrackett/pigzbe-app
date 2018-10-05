@@ -5,6 +5,11 @@ export default StyleSheet.create({
         position: 'relative',
         width: 157,
         height: 66,
+    },
+    touchable: {
+        position: 'relative',
+        width: 157,
+        height: 66,
         display: 'flex',
         justifyContent: 'center',
         alignContent: 'center',
@@ -43,6 +48,7 @@ export default StyleSheet.create({
         height: Dimensions.get('window').height - 278,
         width: 95,
         left: 27,
-        backgroundColor: 'rgba(117, 235, 255, 50)',
+        backgroundColor: 'rgb(117, 235, 255)',
+        opacity: 0.5,
     }
 });

@@ -26,16 +26,18 @@ export class Cloud extends Component {
             (raining ? require('./images/sad_cloud.png') : require('./images/cloud.png'));
 
         return (
-            <TouchableOpacity onPress={callback} style={styles.outer}>
-                <Image style={styles.cloud} source={cloudImage} />
-                {!happy && <View style={styles.content}>
-                    <View style={[raining ? styles.raining : {}]}>
-                        <GameWollo value={value} small />
-                    </View>
-                    {!raining && <Text style={styles.type}>{text}</Text>}
-                </View>}
-                {raining && <View style={styles.rain} />}
-            </TouchableOpacity>
+            <View style={styles.outer}>
+                <TouchableOpacity onPress={callback} style={styles.touchable}>
+                    <Image style={styles.cloud} source={cloudImage} />
+                    {!happy && <View style={styles.content}>
+                        <View style={[raining ? styles.raining : {}]}>
+                            <GameWollo value={value} small />
+                        </View>
+                        {!raining && <Text style={styles.type}>{text}</Text>}
+                    </View>}
+                </TouchableOpacity>
+                {raining && <View style={styles.rain} pointerEvents="none" />}
+            </View>
         );
     }
 }

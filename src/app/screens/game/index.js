@@ -221,6 +221,8 @@ export class Game extends Component {
             showTapCloudOrTree,
         } = this.state;
 
+        console.log('>>> balances', this.state.balances);
+
         const totalWollo = (parseFloat(balances[kid.home]) || 0) + kid.goals.reduce((total, goal) => {
             return total + (parseFloat(balances[goal.address]) || 0);
         }, 0);
