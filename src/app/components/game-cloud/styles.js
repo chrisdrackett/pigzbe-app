@@ -39,10 +39,10 @@ export default StyleSheet.create({
     },
     rain: {
         position: 'absolute',
-        bottom: (Dimensions.get('window').height - 280) * -1,
-        height: Dimensions.get('window').height - 280,
+        bottom: (Dimensions.get('window').height - 279) * -1,
+        height: Dimensions.get('window').height - 278,
         width: 95,
-        left: 31,
+        left: 27,
         backgroundColor: 'rgba(117, 235, 255, 50)',
     }
 });
