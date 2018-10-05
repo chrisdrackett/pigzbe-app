@@ -25,7 +25,7 @@ export default StyleSheet.create({
         lineHeight: 21,
     },
     bubbleWrap: {
-        marginTop: 20,
+        marginTop: 50,
     },
     outer: {
         position: 'absolute',

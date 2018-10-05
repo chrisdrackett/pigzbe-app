@@ -1,6 +1,14 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
+    outer: {
+        position: 'relative',
+        width: 157,
+        height: 66,
+        display: 'flex',
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
     cloud: {
         left: 0,
         top: 0,
@@ -12,7 +20,6 @@ export default StyleSheet.create({
         color: 'rgb(72, 70, 148)',
         fontWeight: 'bold',
         textTransform: 'uppercase',
-        marginTop: 5,
     },
     value: {
         width: '100%',
@@ -20,18 +27,22 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         fontSize: 15,
-        lineHeight: 28,
     },
     raining: {
-        position: 'relative',
-        marginTop: -60,
-    },
-    outer: {
-        position: 'relative',
-        width: 157,
-        height: 66,
+        position: 'absolute',
+        top: -60,
+        left: 0,
+        right: 0,
         display: 'flex',
         justifyContent: 'center',
         alignContent: 'center',
     },
+    rain: {
+        position: 'absolute',
+        bottom: -300,
+        height: 300,
+        width: 95,
+        left: 31,
+        backgroundColor: 'rgba(117, 235, 255, 50)',
+    }
 });
