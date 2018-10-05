@@ -1,40 +1,48 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {color} from '../../styles';
 
+const WIDTH = 260;
+
 export default StyleSheet.create({
     text: {
         color: 'white',
         textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 14,
     },
     buttons: {
-        display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         marginTop: 10,
     },
     button: {
         backgroundColor: 'white',
         height: 21,
         borderRadius: 10,
-        width: '45%',
+        width: 100,
         textAlign: 'center',
+        marginLeft: 8,
+        marginRight: 8,
     },
     buttonText: {
+        fontWeight: 'bold',
         textAlign: 'center',
         color: color.blue,
         lineHeight: 21,
+        fontSize: 12,
     },
     bubbleWrap: {
         marginTop: 50,
     },
     outer: {
         position: 'absolute',
-        width: 157,
-        display: 'flex',
+        width: WIDTH,
         justifyContent: 'center',
         alignContent: 'center',
         top: 0,
-        left: Dimensions.get('window').width / 2,
-        marginLeft: -79,
+        left: (Dimensions.get('window').width - WIDTH) / 2,
+    },
+    cloud: {
+        left: (WIDTH - 157) / 2,
     },
 });

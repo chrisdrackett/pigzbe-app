@@ -45,7 +45,7 @@ export class Game extends Component {
             showTapCloudOrTree: false,
 
             y: new Animated.Value(0),
-        }
+        };
     }
 
     async componentDidMount() {
@@ -166,7 +166,8 @@ export class Game extends Component {
 
     onCloudStatusChange = (status) => {
         this.setState({
-            cloudStatus: status
+            cloudStatus: status,
+            showCloud: !!status,
         });
     }
 

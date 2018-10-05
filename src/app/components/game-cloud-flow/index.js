@@ -24,18 +24,29 @@ export class CloudFlow extends Component {
                         <View style={styles.buttons}>
                             <TouchableOpacity style={styles.button} onPress={() =>
                                 this.props.changeStatus(NOTIFICATION_STAGE_TASK_GREAT)}>
-                                <Text style={styles.buttonText}>YES</Text>
+                                <Text style={styles.buttonText}>Yes</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.button} onPress={() =>
                                 this.props.changeStatus(NOTIFICATION_STAGE_TASK_FINISH)}>
-                                <Text style={styles.buttonText}>NO</Text>
+                                <Text style={styles.buttonText}>No</Text>
                             </TouchableOpacity>
                         </View>
-                    </View>);
+                    </View>
+                );
             case NOTIFICATION_STAGE_TASK_GREAT:
                 return `Great, place your finger onto tree to save your ${this.props.cloudData.amount} Wollo there`;
             case NOTIFICATION_STAGE_TASK_FINISH:
-                return 'Please complete your task before collecting your Wollo';
+                return (
+                    <View>
+                        <Text style={styles.text}>Please complete your task before collecting your Wollo</Text>
+                        <View style={styles.buttons}>
+                            <TouchableOpacity style={styles.button} onPress={() =>
+                                this.props.changeStatus(null)}>
+                                <Text style={styles.buttonText}>Okay</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                );
             case NOTIFICATION_STAGE_ALLOWANCE_CLOUD:
                 return `Great, place your finger onto tree to save your ${this.props.cloudData.amount} Wollo there`;
             default:
@@ -51,16 +62,27 @@ export class CloudFlow extends Component {
 
         return (
             <View style={styles.outer} onPress={callback}>
-                <GameCloud
-                    type={type}
-                    value={amount}
-                    name={memo}
-                    callback={() => {}}
-                    happy={showBubble}
-                    raining={raining}
-                />
+                <View style={styles.cloud}>
+                    <GameCloud
+                        type={type}
+                        value={amount}
+                        name={memo}
+                        callback={() => {}}
+                        happy={showBubble}
+                        raining={raining}
+                    />
+                </View>
                 {
-                    showBubble && <View style={styles.bubbleWrap}><GameMessageBubble content={this.getBubbleContent()} top /></View>
+                    showBubble && (
+                        <View style={styles.bubbleWrap}>
+                            <GameMessageBubble
+                                style={{maxWidth: 260, width: 260}}
+                                textStyle={{textAlign: 'center'}}
+                                content={this.getBubbleContent()}
+                                top
+                            />
+                        </View>
+                    )
                 }
             </View>
         );
