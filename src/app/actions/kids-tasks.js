@@ -74,43 +74,19 @@ export const assignTask = (kid, task, reward) => async (dispatch, getState) => {
     }
 };
 
-export const completeTask = (kid, task) => async (dispatch, getState) => {
-    console.log('COMPLETE TASK', kid.name, task.task, task.transaction);
+export const completeTask = (kidAddress, hash) => async (dispatch, getState) => {
+    console.log('COMPLETE TASK', kidAddress, hash);
+    const {kids} = getState().kids;
+
+    const kid = kids.find(k => k.address === kidAddress);
+
+    console.log(kid);
+
+    const task = kid.tasks.find(t => t.transaction === hash);
+
+    console.log(task);
 
     try {
-        console.log('kid.address', kid.address);
-        let kidAccount;
-        try {
-            kidAccount = await loadAccount(kid.address);
-        } catch (e) {
-            console.log(e);
-        }
-        console.log('kidAccount', kidAccount);
-        const tasksPublicKey = getData(kidAccount, 'tasks');
-        console.log('tasksPublicKey', tasksPublicKey);
-        const tasksAccount = await loadAccount(tasksPublicKey);
-        console.log('tasksAccount', tasksAccount);
-        const asset = wolloAsset(getState());
-        const tx = new TransactionBuilder(tasksAccount)
-            .addOperation(Operation.payment({
-                destination: kid.address,
-                asset,
-                amount: String(task.reward)
-            }))
-            .addMemo(Memo.text(task.task))
-            .build();
-
-        const kidSecretKey = await Keychain.load(`secret_${kid.address}`);
-        console.log('kidSecretKey', kidSecretKey);
-        const keypair = Keypair.fromSecret(kidSecretKey);
-        tx.sign(keypair);
-
-        const result = getServer().submitTransaction(tx);
-        console.log('result', result);
-
-        const balance = new BigNumber(kid.balance).plus(task.reward).toString(10);
-        dispatch(updateKidBalance(kid.home, balance));
-
         await dispatch(({type: KIDS_COMPLETE_TASK, data: {
             kid,
             task,
@@ -118,12 +94,12 @@ export const completeTask = (kid, task) => async (dispatch, getState) => {
 
         await dispatch(saveKids());
 
-        dispatch(appAddSuccessAlert('Completed task'));
+        // dispatch(appAddSuccessAlert('Completed task'));
 
         // setTimeout(() => dispatch(loadKidsBalances(kid.address)), 1000);
     } catch (error) {
         console.log(error);
-        dispatch(appAddWarningAlert('Completing task failed'));
+        // dispatch(appAddWarningAlert('Completing task failed'));
     }
 };
 

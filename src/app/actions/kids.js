@@ -18,8 +18,7 @@ import {
     TRANSFER_TYPE_GIFT,
     TRANSFER_TYPE_ALLOWANCE,
 } from 'app/constants/game';
-import {deleteTask} from '.';
-
+import {completeTask} from './';
 
 export const KIDS_LOAD = 'KIDS_LOAD';
 export const KIDS_LOADING = 'KIDS_LOADING';
@@ -269,7 +268,7 @@ export const claimWollo = (address, destination, hash, amount, amountLeftAfterUp
             dispatch({type: KIDS_COMPLETE_ACTION, address, hash});
             // todo: in this case also delete the task
             // - need to find task by hash
-            // dispatch(deleteTask(this.props.kid, taskId));
+            dispatch(completeTask(address, hash));
         }
     } catch (e) {
         console.log(e);
