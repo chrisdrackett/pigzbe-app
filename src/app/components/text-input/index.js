@@ -30,7 +30,7 @@ export default class TextInputComponent extends Component {
     }
 
     getStyle() {
-        const {style, numberOfLines, showTopPlaceholder} = this.props;
+        const {style, numberOfLines = 1, showTopPlaceholder} = this.props;
 
         let paddingTop;
         if (numberOfLines > 1) {

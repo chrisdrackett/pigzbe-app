@@ -9,17 +9,6 @@ import Toggle from '../../components/toggle';
 import {color} from '../../styles';
 import {addCustomTask, loadCustomTasks} from '../../actions';
 
-const buttonStyle = {
-    background: 'transparent',
-    border: color.blue,
-    fontSize: 14,
-    paddingTop: 10,
-    height: 45,
-    lineHeight: 40,
-    marginBottom: 20,
-    width: '100%',
-    textAlign: 'center',
-};
 
 const innerStyle = {
     borderRadius: 5,
@@ -55,6 +44,7 @@ export class TasksList extends Component {
         console.log('++++ this.props.taskToEdit', props.taskToEdit);
 
         this.state = {
+            newTask: '',
             loading: false,
             showingInput: false,
             tasks: ['wash dishes', 'clean room', 'do your homework'],
@@ -111,7 +101,6 @@ export class TasksList extends Component {
                                 this.getTasksList()
                             }
                             renderItem={({item}) => (<Toggle
-                                style={buttonStyle}
                                 innerStyle={innerStyle}
                                 label={item.key}
                                 onPress={() => {
@@ -130,6 +119,7 @@ export class TasksList extends Component {
                                         placeholder="New Task"
                                         onChangeText={this.onChangeText}
                                         returnKeyType="done"
+                                        value={this.state.newTask}
                                     />
                                     <TouchableOpacity
                                         onPress={this.cancelInput}

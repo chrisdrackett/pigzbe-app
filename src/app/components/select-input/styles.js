@@ -52,5 +52,6 @@ export default StyleSheet.create({
     },
     pickerItem: {
         color: color.blue,
+        fontFamily,
     },
 });
