@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4.4</string>
+	<string>1.4.6</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>28</string>
+	<string>30</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -41,6 +41,16 @@
 	<string>Allow Pigzbe to use your camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Give Pigzbe permission to access your photos</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Give Pigzbe permission to access your calendar</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Give Pigzbe permission to access your bluetooth</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Give Pigzbe permission to access your apple music</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Give Pigzbe permission to access your motion data</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Give Pigzbe permission to access your speech recognition</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>PoppinsRegular.ttf</string>

@@ -76,8 +76,6 @@ export class Game extends Component {
         }
     }
 
-    onClickCounter = () => this.props.dispatch(gameOverlayOpen(true))
-
     onMove = dx => {
         const numGoals = this.props.kid.goals && this.props.kid.goals.length || 0;
         const minX = 0;
@@ -98,6 +96,13 @@ export class Game extends Component {
         this.props.dispatch(claimWollo(
             this.props.kid.address, this.props.kid.home, hash, amount
         ));
+    }
+
+    onNewTreeClicked = () => {
+        const goals = this.props.kid.goals || [];
+        const index = goals.length + 1;
+        this.setState({targetX: Tree.WIDTH * index});
+        this.openGoalOverlay();
     }
 
     onTreeClicked = async (goalAddress, index) => {
@@ -249,7 +254,6 @@ export class Game extends Component {
             <View style={styles.counter}>
                 <GameCounter
                     value={totalWollo}
-                    onPress={this.onClickCounter}
                 />
             </View>
         );
@@ -310,7 +314,7 @@ export class Game extends Component {
                                 </TouchableOpacity>
                             ))}
 
-                            <TouchableOpacity onPress={() => this.openGoalOverlay()}>
+                            <TouchableOpacity onPress={this.onNewTreeClicked}>
                                 <Tree
                                     name="NEW GOAL?"
                                     newValue
