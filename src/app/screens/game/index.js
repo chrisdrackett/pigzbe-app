@@ -100,6 +100,13 @@ export class Game extends Component {
         ));
     }
 
+    onNewTreeClicked = () => {
+        const goals = this.props.kid.goals || [];
+        const index = goals.length + 1;
+        this.setState({targetX: Tree.WIDTH * index});
+        this.openGoalOverlay();
+    }
+
     onTreeClicked = async (goalAddress, index) => {
         this.setState({targetX: Tree.WIDTH * index});
 
@@ -307,7 +314,7 @@ export class Game extends Component {
                                 </TouchableOpacity>
                             ))}
 
-                            <TouchableOpacity onPress={() => this.openGoalOverlay()}>
+                            <TouchableOpacity onPress={this.onNewTreeClicked}>
                                 <Tree
                                     name="NEW GOAL?"
                                     newValue={true}
