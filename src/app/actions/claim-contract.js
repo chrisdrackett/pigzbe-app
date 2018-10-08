@@ -4,7 +4,7 @@ import {NUM_VALIDATIONS} from '../constants';
 import {apiURL} from '../selectors';
 import {loadPrivateKey, getClaimBalance, getGasPrice} from './claim-eth';
 import {loadClaimData, updateClaimData} from './claim-data';
-import {claimLoading, claimError, validate} from './claim-api';
+import {claimLoading, claimError, validateClaim} from './claim-api';
 
 export const CLAIM_INIT_WEB3 = 'CLAIM_INIT_WEB3';
 export const CLAIM_CONTRACT_UPDATE = 'CLAIM_CONTRACT_UPDATE';
@@ -16,8 +16,8 @@ const getContract = () => async (dispatch, getState) => {
 
     try {
         const {network, ethereum} = getState().config;
-        const web3 = getState().web3.instance;
-        const {coinbase} = getState().eth;
+        const {currentClaim, claims} = getState().claim;
+        const {web3: {instance: web3}, eth: {coinbase}} = claims[currentClaim];
 
         console.log('network:', network);
         console.log('ethereum:', ethereum);
@@ -73,10 +73,9 @@ const getContract = () => async (dispatch, getState) => {
 };
 
 export const initWeb3 = () => async (dispatch, getState) => {
-    console.log('changeNetwork');
     const {network, ethereum} = getState().config;
     const {rpc} = ethereum.networks[network];
-    console.log('rpc', rpc);
+
     dispatch({
         type: CLAIM_INIT_WEB3,
         payload: {network, rpc}
@@ -99,13 +98,16 @@ const sendSignedTransaction = (web3, serializedTx, error) => new Promise(async (
 });
 
 export const burn = (amount) => async (dispatch, getState) => {
-    const {publicKey} = getState().keys;
-    const {address, instance} = getState().contract;
-    const {coinbase, privateKey} = getState().eth;
-    const {claimData} = getState();
-    const {network} = getState().config;
-    const web3 = getState().web3.instance;
     const api = apiURL(getState());
+    const {publicKey} = getState().keys;
+    const {network} = getState().config;
+
+    const {currentClaim, claims} = getState().claim;
+    const claim = claims[currentClaim];
+    const {address, instance} = claim.contract;
+    const {coinbase, privateKey} = claim.eth;
+    const claimData = claim.data;
+    const web3 = claim.web3.instance;
 
     dispatch(claimLoading('Waiting Ethereum network confirmation'));
 
@@ -217,7 +219,7 @@ export const burn = (amount) => async (dispatch, getState) => {
         console.log('burned');
 
         // dispatch(getActivity());
-        dispatch(validate());
+        dispatch(validateClaim());
 
     } catch (e) {
         console.log(e);

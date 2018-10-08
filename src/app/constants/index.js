@@ -18,15 +18,23 @@ export const SUPPORT_URL = 'https://pigzbe.com/support';
 
 export const NUM_VALIDATIONS = 7;
 
+export const ID_ICO = 'ico';
+export const ID_AIRDROP = 'airdrop';
+
 export const KEYCHAIN_ID_MNEMONIC = 'com.pigzbe.PigzbeApp.mnemonic';
 export const KEYCHAIN_ID_PASSCODE = 'com.pigzbe.PigzbeApp.passcode';
 export const KEYCHAIN_ID_STELLAR_KEY = 'com.pigzbe.PigzbeApp.stellarKey';
 export const KEYCHAIN_ID_ETH_KEY = 'com.pigzbe.PigzbeApp.ethKey';
+export const KEYCHAIN_ID_ETH_KEY_ICO = `${KEYCHAIN_ID_ETH_KEY}_${ID_ICO}`;
+export const KEYCHAIN_ID_ETH_KEY_AIRDROP = `${KEYCHAIN_ID_ETH_KEY}_${ID_AIRDROP}`;
 
 export const STORAGE_KEY_SETTINGS = 'settings';
-export const STORAGE_KEY_BURNING = 'burning';
 export const STORAGE_KEY_KIDS = 'kids';
 export const STORAGE_KEY_TASKS = 'tasks';
+export const STORAGE_KEY_BURNING = 'burning';
+export const STORAGE_KEY_BURNING_ICO = `${STORAGE_KEY_BURNING}_${ID_ICO}`;
+export const STORAGE_KEY_BURNING_AIRDROP = `${STORAGE_KEY_BURNING}_${ID_AIRDROP}`;
+
 
 export const PASSCODE_LENGTH = 6;
 export const KID_PASSCODE_LENGTH = 3;

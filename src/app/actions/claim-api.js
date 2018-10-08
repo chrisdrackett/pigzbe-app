@@ -3,10 +3,13 @@ import {trustAsset} from '@pigzbe/stellar-utils';
 import {getClaimBalance} from './claim-eth';
 import {updateClaimData} from './claim-data';
 
+export const CLAIM_START = 'CLAIM_START';
 export const CLAIM_LOADING = 'CLAIM_LOADING';
 export const CLAIM_ERROR = 'CLAIM_ERROR';
 export const CLAIM_TRANSFER = 'CLAIM_TRANSFER';
 // export const CLAIM_CLAIM = 'CLAIM_CLAIM';
+
+export const claimStart = currentClaim => ({type: CLAIM_START, currentClaim});
 
 export const claimLoading = payload => ({type: CLAIM_LOADING, payload});
 
@@ -15,13 +18,14 @@ export const claimError = payload => async dispatch => {
     dispatch(updateClaimData({error: payload}));
 };
 
-export const validate = () => async (dispatch, getState) => {
+export const validateClaim = () => async (dispatch, getState) => {
     const {publicKey} = getState().keys;
-    const {claimData} = getState();
-    const transactionHash = claimData.transactionHash || getState().events.transactionHash;
+    const {currentClaim, claims} = getState().claim;
+    const {data, events} = claims[currentClaim];
+    const transactionHash = data.transactionHash || events.transactionHash;
     const api = apiURL(getState());
 
-    console.log('validate');
+    console.log('validateClaim');
     console.log(transactionHash);
 
     dispatch(claimLoading('Finishing validation'));
@@ -29,7 +33,7 @@ export const validate = () => async (dispatch, getState) => {
     try {
         let payload;
 
-        if (!(claimData.stellarAccount && claimData.receipt)) {
+        if (!(data.stellarAccount && data.receipt)) {
             payload = await (await fetch(`${api}/claim`, {
                 method: 'POST',
                 mode: 'cors',
@@ -57,8 +61,8 @@ export const validate = () => async (dispatch, getState) => {
 
         } else {
             payload = {
-                stellar: claimData.stellarAccount,
-                receipt: claimData.receipt,
+                stellar: data.stellarAccount,
+                receipt: data.receipt,
             };
         }
 
@@ -71,10 +75,12 @@ export const validate = () => async (dispatch, getState) => {
 };
 
 export const claim = () => async (dispatch, getState) => {
-    const {publicKey} = getState().keys;
-    const {claimData} = getState();
-    const transactionHash = claimData.transactionHash || getState().events.transactionHash;
     const api = apiURL(getState());
+    const {publicKey} = getState().keys;
+    const {currentClaim, claims} = getState().claim;
+    const claimData = claims[currentClaim].data;
+    const events = claims[currentClaim].events;
+    const transactionHash = claimData.transactionHash || events.transactionHash;
 
     dispatch(claimLoading('Validating Transaction'));
 
@@ -132,8 +138,9 @@ export const claim = () => async (dispatch, getState) => {
 };
 
 export const trustStellarAsset = () => async (dispatch, getState) => {
-    const {claimData} = getState();
     const {secretKey} = getState().keys;
+    const {currentClaim, claims} = getState().claim;
+    const claimData = claims[currentClaim].data;
 
     dispatch(claimLoading('Trusting WLO asset'));
 

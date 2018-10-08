@@ -8,11 +8,17 @@ import Step3 from './steps/step3';
 import Loader from '../../components/loader';
 import Progress from '../../components/progress';
 import GasModal from '../../components/gas-modal';
-import {userLoginPrivateKey, getGasPrice} from '../../actions/claim-eth';
 import {loadWallet} from '../../actions/wollo';
-import {clearClaimData} from '../../actions/claim-data';
-import {transfer, burn, initWeb3} from '../../actions/claim-contract';
-import {SCREEN_DASHBOARD, SCREEN_SETTINGS} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_SETTINGS, ID_AIRDROP} from '../../constants';
+import {
+    claimStart,
+    transfer,
+    burn,
+    initWeb3,
+    clearClaimData,
+    userLoginPrivateKey,
+    getGasPrice
+} from '../../actions';
 
 export class ClaimAirdrop extends Component {
   state = {
@@ -32,16 +38,17 @@ export class ClaimAirdrop extends Component {
   }
 
   componentWillMount() {
+      this.props.claimStart(ID_AIRDROP);
       this.props.initWeb3();
   }
 
   componentWillReceiveProps(nextProps) {
-      if (!nextProps.claimData.loaded) {
+      if (!nextProps.data.loaded) {
           return;
       }
 
       const unfinished = nextProps.eth.coinbase && nextProps.eth.balanceWollo;
-      const hasError = nextProps.claimData.error;
+      const hasError = nextProps.data.error;
 
       if (unfinished || hasError) {
           this.setState({step: 3, loading: null});
@@ -75,10 +82,10 @@ export class ClaimAirdrop extends Component {
   onChangeStep = step => this.setState({step})
 
   onSubmitBurn = async () => {
-      const {claimData, contract, eth} = this.props;
+      const {data, contract, eth} = this.props;
 
-      if (claimData.transactionHash && claimData.value) {
-          this.props.burn(claimData.value);
+      if (data.transactionHash && data.value) {
+          this.props.burn(data.value);
           return;
       }
 
@@ -167,7 +174,7 @@ export class ClaimAirdrop extends Component {
           eth,
           transactionHash,
           web3,
-          claimData,
+          data,
           errorBurning,
           publicKey
       } = this.props;
@@ -175,16 +182,16 @@ export class ClaimAirdrop extends Component {
       console.log('===> step', step);
       console.log('web3', web3);
       console.log('contract', contract);
-      console.log('claimData', claimData);
+      console.log('data', data);
       console.log('this.state.loading', this.state.loading);
 
-      if (!web3 || !contract || !claimData.loaded || this.state.loading !== null) {
+      if (!web3 || !contract || !data.loaded || this.state.loading !== null) {
           return (
               <Loader loading message={this.state.loading} />
           );
       }
 
-      const tx = claimData.transactionHash || transactionHash;
+      const tx = data.transactionHash || transactionHash;
 
       return (
           <Fragment>
@@ -204,14 +211,14 @@ export class ClaimAirdrop extends Component {
                   }
                   {step === 3 &&
                       <Step3
-                          error={errorBurning || claimData.error}
+                          error={errorBurning || data.error}
                           tx={tx}
                           pk={pk}
                           stellarPK={publicKey}
                           userBalance={eth.balanceWollo}
-                          continueApplication={!claimData.complete && claimData.started}
-                          startApplication={!claimData.complete && !claimData.started}
-                          buttonNextLabel={!eth.balanceWollo ? 'Back' : !claimData.complete && !claimData.started ? 'Claim Wollo' : 'Continue'}
+                          continueApplication={!data.complete && data.started}
+                          startApplication={!data.complete && !data.started}
+                          buttonNextLabel={!eth.balanceWollo ? 'Back' : !data.complete && !data.started ? 'Claim Wollo' : 'Continue'}
                           onNext={eth.balanceWollo ? this.onSubmitBurn : this.onCloseClaim}
                           onBack={eth.balanceWollo ? this.onBack : null}
                       />
@@ -227,14 +234,14 @@ export class ClaimAirdrop extends Component {
               />
               {!this.state.clickedClose ? (
                   <Progress
-                      active={loading !== null && !claimData.complete && !errorBurning}
-                      complete={claimData.complete}
-                      title={claimData.complete ? 'Congrats' : 'Claim progress'}
+                      active={loading !== null && !data.complete && !errorBurning}
+                      complete={data.complete}
+                      title={data.complete ? 'Congrats' : 'Claim progress'}
                       error={errorBurning}
-                      text={claimData.complete ? `Congrats! You are now the owner of ${eth.balanceWollo} Wollo, you rock.` : loading}
-                      // buttonLabel={claimData.complete || errorBurning ? 'Next' : null}
+                      text={data.complete ? `Congrats! You are now the owner of ${eth.balanceWollo} Wollo, you rock.` : loading}
+                      // buttonLabel={data.complete || errorBurning ? 'Next' : null}
                       buttonLabel={'Next'}
-                      onPress={claimData.complete ? this.onCompleteClaim : this.closeProgress}
+                      onPress={data.complete ? this.onCompleteClaim : this.closeProgress}
                   />
               ) : null}
           </Fragment>
@@ -243,9 +250,9 @@ export class ClaimAirdrop extends Component {
 }
 
 export default connect(
-    ({eth, claimData, web3, events, contract, keys}) => ({
+    ({keys, claim: {claims: {[ID_AIRDROP]: {eth, data, web3, events, contract}}}}) => ({
         eth,
-        claimData,
+        data,
         contract: contract.instance,
         transactionHash: events.transactionHash,
         web3: web3.instance,
@@ -259,6 +266,7 @@ export default connect(
         transfer,
         burn,
         clearClaimData,
-        loadWallet
+        loadWallet,
+        claimStart,
     },
 )(ClaimAirdrop);

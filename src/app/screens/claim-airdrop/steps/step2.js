@@ -16,6 +16,7 @@ export default ({
 }) => (
     <StepWrapper
         title={'Import your wallet'}
+        icon="airdrop"
         onNext={onNext}
         onBack={onBack}
         content={(
