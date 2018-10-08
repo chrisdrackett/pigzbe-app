@@ -43,7 +43,7 @@
 	<string>Give Pigzbe permission to access your photos</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Give Pigzbe permission to access your calendar</string>
-	<key>NSBluetoothPeripheralUsageDescription </key>
+	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Give Pigzbe permission to access your bluetooth</string>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Give Pigzbe permission to access your apple music</string>
