@@ -72,7 +72,7 @@ export default StyleSheet.create({
     },
     outer: {
         position: 'relative',
-        height: 250,
+        height: 270,
         width: 200,
         display: 'flex',
         flexDirection: 'column',

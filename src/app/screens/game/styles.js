@@ -15,7 +15,7 @@ export default StyleSheet.create({
     trees: {
         flexDirection: 'row',
         position: 'absolute',
-        bottom: 75,
+        bottom: 65,
         alignItems: 'flex-start',
     },
     clouds: {
