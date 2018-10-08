@@ -62,7 +62,7 @@ export class Tree extends Component {
     }
 
     render() {
-        const {value, name, newValue} = this.props;
+        const {value, name, newValue, overlayOpen} = this.props;
 
         return (
             <View style={[styles.outer, {width: WIDTH}]}>
@@ -77,9 +77,9 @@ export class Tree extends Component {
                     }
                 </View>
                 <Text style={styles.name}>{name}</Text>
-                <View style={[styles.valueWrapper, newValue ? styles.newValue : {}]}>
+                {(!overlayOpen || newValue) && <View style={[styles.valueWrapper, newValue ? styles.newValue : {}]}>
                     <Text style={[styles.value, newValue ? styles.valueNew : {}]}>{value}</Text>
-                </View>
+                </View>}
             </View>
         );
     }
