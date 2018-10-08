@@ -49,6 +49,18 @@ export class Game extends Component {
         };
     }
 
+    componentDidUpdate(prevProps) {
+        // Temporary fix for balances not updating after doing manual transfers etc
+        // Will want to remove this and make optomistic balances be in addition to prop.balances
+        if (!this.state.cloudStatus && !this.state.raining) {
+            if (JSON.stringify(this.state.optimisticBalances) !== JSON.stringify(this.props.balances)) {
+                this.setState({
+                    optimisticBalances: this.props.balances,
+                });
+            }
+        }
+    }
+
     async componentDidMount() {
         // Open the tour if needed
         const key = `${this.props.kid.address}_numVisits`;
