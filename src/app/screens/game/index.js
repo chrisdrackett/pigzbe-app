@@ -45,7 +45,7 @@ export class Game extends Component {
             showTapCloudOrTree: false,
 
             y: new Animated.Value(0),
-        }
+        };
     }
 
     async componentDidMount() {
@@ -57,7 +57,7 @@ export class Game extends Component {
             this.setState({
                 tourType: 'firstTime',
             });
-        } else if (numVisits === 1) {
+        } else if (true || numVisits === 1) {
             this.setState({
                 tourType: 'secondTime',
             });
@@ -160,13 +160,19 @@ export class Game extends Component {
             showCloud: true,
             currentCloud,
             currentCloudStartAmount: currentCloud.amount,
-            cloudStatus: currentCloud.type === TRANSFER_TYPE_TASK ? NOTIFICATION_STAGE_TASK_QUESTION : NOTIFICATION_STAGE_ALLOWANCE_CLOUD
+            cloudStatus: currentCloud.type === TRANSFER_TYPE_TASK ? NOTIFICATION_STAGE_TASK_QUESTION : NOTIFICATION_STAGE_ALLOWANCE_CLOUD,
+
+            // Close any message bubbles asking the user to click a cloud
+            showTapFirstCloud: false,
+            showAskParent: false,
+            showTapCloudOrTree: false,
         });
     }
 
     onCloudStatusChange = (status) => {
         this.setState({
-            cloudStatus: status
+            cloudStatus: status,
+            showCloud: !!status,
         });
     }
 
@@ -253,18 +259,18 @@ export class Game extends Component {
                         raining={raining}
                     />
                 ) : (
-                    <GameCarousel
-                        {...{
-                            Item: GameNotification,
-                            width: Dimensions.get('window').width,
-                            itemWidth: 200,
-                            data: kid.actions.map(a => ({
-                                ...a,
-                                key: a.hash,
-                                onActivateCloud: this.onActivateCloud
-                            }))
-                        }}
-                    />
+                        <GameCarousel
+                            {...{
+                                Item: GameNotification,
+                                width: 200,
+                                itemWidth: 200,
+                                data: kid.actions.map(a => ({
+                                    ...a,
+                                    key: a.hash,
+                                    onActivateCloud: this.onActivateCloud
+                                }))
+                            }}
+                        />
                 )}
             </View>
         );
