@@ -25,6 +25,7 @@ export default StyleSheet.create({
         color: 'rgb(72, 70, 148)',
         fontWeight: 'bold',
         textTransform: 'uppercase',
+        marginTop: 7,
     },
     value: {
         width: '100%',
