@@ -50,8 +50,6 @@ export class GameGoalOverlay extends Component {
         ].filter(goal => goal.address !== goalAddress);
         const currentGoal = kid.goals.filter(goal => goal.address === goalAddress)[0];
 
-        console.log('++++ goalReward ++++', currentGoal);
-
         return (
             <Fragment>
                 <Modal
