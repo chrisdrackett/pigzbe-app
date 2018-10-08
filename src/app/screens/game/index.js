@@ -57,7 +57,7 @@ export class Game extends Component {
             this.setState({
                 tourType: 'firstTime',
             });
-        } else if (true || numVisits === 1) {
+        } else {
             this.setState({
                 tourType: 'secondTime',
             });
@@ -99,7 +99,9 @@ export class Game extends Component {
         ));
     }
 
-    onTreeClicked = async (goalAddress) => {
+    onTreeClicked = async (goalAddress, index) => {
+        this.setState({targetX: Tree.WIDTH * index});
+
         if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
 
             if (this.state.currentCloud.amount > 0) {
@@ -259,18 +261,18 @@ export class Game extends Component {
                         raining={raining}
                     />
                 ) : (
-                        <GameCarousel
-                            {...{
-                                Item: GameNotification,
-                                width: 200,
-                                itemWidth: 200,
-                                data: kid.actions.map(a => ({
-                                    ...a,
-                                    key: a.hash,
-                                    onActivateCloud: this.onActivateCloud
-                                }))
-                            }}
-                        />
+                    <GameCarousel
+                        {...{
+                            Item: GameNotification,
+                            width: 200,
+                            itemWidth: 200,
+                            data: kid.actions.map(a => ({
+                                ...a,
+                                key: a.hash,
+                                onActivateCloud: this.onActivateCloud
+                            }))
+                        }}
+                    />
                 )}
             </View>
         );
@@ -288,14 +290,14 @@ export class Game extends Component {
                         <View style={[styles.trees, {
                             left: (Dimensions.get('window').width - Tree.WIDTH) / 2,
                         }]}>
-                            <TouchableOpacity onPress={() => this.onTreeClicked(kid.home)}>
+                            <TouchableOpacity onPress={() => this.onTreeClicked(kid.home, 0)}>
                                 <Tree
                                     name="HOMETREE"
                                     value={(balances && balances[kid.home] !== undefined) ? parseFloat(balances[kid.home]) : 0}
                                 />
                             </TouchableOpacity>
                             {kid.goals && kid.goals.map((goal, i) => (
-                                <TouchableOpacity key={i} onPress={() => this.onTreeClicked(goal.address)}>
+                                <TouchableOpacity key={i} onPress={() => this.onTreeClicked(goal.address, i + 1)}>
                                     <Tree
                                         name={goal.name}
                                         value={(balances && balances[goal.address] !== undefined) ? parseFloat(balances[goal.address]) : 0}
