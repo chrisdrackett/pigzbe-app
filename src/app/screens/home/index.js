@@ -86,11 +86,11 @@ class Home extends Component {
         this.props.dispatch(initialize());
     }
 
-    onLogin = () => this.props.navigation.navigate(SCREEN_LOGIN)
+    onLogin = () => this.props.navigation.push(SCREEN_LOGIN)
 
     onCreate = async () => {
         await this.props.dispatch(loadContent());
-        this.props.navigation.navigate(SCREEN_DEVICE_AUTH);
+        this.props.navigation.push(SCREEN_DEVICE_AUTH);
     }
 
     onKidLogin = async kid => {

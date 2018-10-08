@@ -1,4 +1,4 @@
-import {createSwitchNavigator} from 'react-navigation';
+import {createSwitchNavigator, createStackNavigator} from 'react-navigation';
 import Dashboard from '../../screens/dashboard';
 import Settings from '../../screens/settings';
 import Escrow from '../../screens/escrow';
@@ -110,6 +110,7 @@ const nav = {
     },
 };
 
-export default createSwitchNavigator(nav, {
-    initialRouteName: SCREEN_DASHBOARD
+export default createStackNavigator(nav, {
+    initialRouteName: SCREEN_DASHBOARD,
+    headerMode: 'none',
 });

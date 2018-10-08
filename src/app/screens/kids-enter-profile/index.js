@@ -20,7 +20,7 @@ export class KidsEnterProfile extends Component {
         image: '',
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD);
+    onBack = () => this.props.navigation.goBack();
 
     onNext = async () => {
         this.setState({loading: true});
@@ -36,7 +36,7 @@ export class KidsEnterProfile extends Component {
             });
         } else {
             // add allowance for all kids:
-            this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {currency: 'GBP'});
+            this.props.navigation.push(SCREEN_ALLOWANCE_AMOUNT, {currency: 'GBP'});
         }
     }
 

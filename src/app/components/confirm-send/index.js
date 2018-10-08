@@ -14,7 +14,7 @@ export default ({
     onYes,
     onNo
 }) => (
-    <RNModal isVisible={true} style={{margin: 0}}>
+    <RNModal isVisible={true} style={{margin: 0}} onBackButtonPress={onNo}>
         <Modal>
             <View>
                 <Title dark>Send Wollo?</Title>

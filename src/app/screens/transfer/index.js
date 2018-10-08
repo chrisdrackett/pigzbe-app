@@ -30,7 +30,7 @@ export class Transfer extends Component {
             this.props.dispatch(wolloError(new Error(errMsg)));
             return;
         }
-        this.props.navigation.navigate(SCREEN_SEND);
+        this.props.navigation.push(SCREEN_SEND);
     }
 
     render() {
@@ -60,6 +60,7 @@ export class Transfer extends Component {
                     animationIn="slideInRight"
                     animationOut="slideOutRight"
                     style={{margin: 0}}
+                    onBackButtonPress={this.onHideAddress}
                 >
                     <ViewAddress
                         publicKey={this.props.publicKey}

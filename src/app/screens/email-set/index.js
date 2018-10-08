@@ -6,7 +6,6 @@ import Paragraph from '../../components/paragraph'
 import TextInput from '../../components/text-input';
 import {settingsUpdate} from '../../actions';
 import StepModule from '../../components/step-module';
-import {SCREEN_SETTINGS} from '../../constants';
 
 export class EmailSet extends Component {
     constructor(props) {
@@ -56,8 +55,8 @@ export default connect(
     (dispatch, ownProps) => ({
         onSetEmail: email => {
             dispatch(settingsUpdate({email}))
-            ownProps.navigation.navigate(SCREEN_SETTINGS)
+            ownProps.navigation.goBack()
         },
-        onBack: () => ownProps.navigation.navigate(SCREEN_SETTINGS),
+        onBack: () => ownProps.navigation.goBack(),
     }),
 )(EmailSet);

@@ -50,7 +50,7 @@ export class Settings extends Component {
         this.props.dispatch(loadEscrow());
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
+    onBack = () => this.props.navigation.goBack()
 
     onClaim = () => this.props.navigation.navigate(SCREEN_CLAIM)
     //onClaim = () => this.props.navigation.navigate(SCREEN_CLAIM_ICO)
@@ -72,11 +72,11 @@ export class Settings extends Component {
 
     onPrivacy = () => openURL(PRIVACY_URL)
 
-    onChangePasscode = () => this.props.navigation.navigate(SCREEN_CHANGE_PASSCODE)
+    onChangePasscode = () => this.props.navigation.push(SCREEN_CHANGE_PASSCODE)
 
-    onChangeEmail = () => this.props.navigation.navigate(SCREEN_SET_EMAIL)
+    onChangeEmail = () => this.props.navigation.push(SCREEN_SET_EMAIL)
 
-    onChangeCurrency = () => this.props.navigation.navigate(SCREEN_SET_CURRENCY)
+    onChangeCurrency = () => this.props.navigation.push(SCREEN_SET_CURRENCY)
 
     render() {
         const {

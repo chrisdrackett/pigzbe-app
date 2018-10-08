@@ -14,7 +14,7 @@ export class PasscodeLogin extends Component {
         error: false,
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_HOME)
+    onBack = () => this.props.navigation.goBack()
 
     onInput = input => this.setState({input})
 

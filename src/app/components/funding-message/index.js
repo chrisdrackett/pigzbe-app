@@ -23,6 +23,7 @@ export default class FundingMessage extends Component {
                 animationIn="slideInUp"
                 animationOut="slideOutDown"
                 style={{margin: 0}}
+                onBackButtonPress={this.onClose}
             >
                 <Modal>
                     <Title dark>Activate!</Title>

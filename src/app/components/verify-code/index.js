@@ -81,6 +81,7 @@ export default class VerifyCode extends Component {
                         animationIn="slideInRight"
                         animationOut="slideOutRight"
                         style={{margin: 0}}
+                        onBackButtonPress={this.onCloseQRCode}
                     >
                         <Modal>
                             <Title dark>QR Code</Title>

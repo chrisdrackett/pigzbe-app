@@ -1,4 +1,4 @@
-import {createSwitchNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation';
 import Transfer from '../../screens/transfer';
 import Send from '../../screens/send';
 import {
@@ -15,6 +15,7 @@ const nav = {
     }
 };
 
-export default createSwitchNavigator(nav, {
-    initialRouteName: SCREEN_TRANSFER
+export default createStackNavigator(nav, {
+    initialRouteName: SCREEN_TRANSFER,
+    headerMode: 'none',
 });
