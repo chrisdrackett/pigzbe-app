@@ -21,6 +21,7 @@ import GameNotification from 'app/components/game-notification';
 import GameCarousel from 'app/components/game-carousel';
 import GameCloudFlow from 'app/components/game-cloud-flow';
 import GoalOverlay from 'app/components/game-goal-overlay';
+import Loader from 'app/components/loader';
 import GameMessageBubble from 'app/components/game-message-bubble';
 import {gameOverlayOpen} from '../../actions';
 import {claimWollo} from '../../actions';
@@ -129,7 +130,7 @@ export class Game extends Component {
                     const delta = Date.now() - this.state.lastTreeClicked;
 
                     if (delta > 1500) {
-                        this.setState({raining: false});
+                        this.setState({raining: false, showCloud: false});
 
                         console.log('timeout: dispatch claim wollo function', this.state.currentCloudStartAmount - this.state.currentCloud.amount);
                         const amountToSend = this.state.currentCloudStartAmount - this.state.currentCloud.amount;
@@ -215,6 +216,7 @@ export class Game extends Component {
             overlayOpen,
             kid,
             parentNickname,
+            loading,
         } = this.props;
 
         const {
@@ -253,7 +255,7 @@ export class Game extends Component {
         );
         const clouds = (!kid.actions || kid.actions.length === 0) ? null : (
             <View style={styles.clouds}>
-                {showCloud ? (
+                {showCloud || loading ? (
                     <GameCloudFlow
                         changeStatus={this.onCloudStatusChange}
                         status={cloudStatus}
@@ -366,6 +368,13 @@ export class Game extends Component {
                     </View>
                 }
                 {this.renderTour(pigzbe, clouds, wolloCounter)}
+                {loading && <View style={styles.loading}>
+                    <Loader
+                        loading
+                        message=""
+                        light
+                    />
+                </View>}
             </View>
         );
     }
@@ -487,4 +496,5 @@ export default connect(state => ({
     wolloCollected: state.game.wolloCollected,
     overlayOpen: state.game.overlayOpen,
     balances: state.kids.balances,
+    loading: state.kids.loading
 }))(Game);
