@@ -14,7 +14,6 @@ import {
 
 const initialState = {
     activity: [],
-    // claim: null,
     transfer: null,
     loading: null,
     error: null,
@@ -38,11 +37,6 @@ export default (state = initialState, action) => {
                 ...state,
                 loading: action.payload
             };
-        // case CLAIM_CLAIM:
-        //     return {
-        //         ...state,
-        //         claim: action.payload
-        //     };
         case CLAIM_TRANSFER:
             return {
                 ...state,

@@ -15,12 +15,7 @@ import kids from './kids';
 import tasks from './tasks';
 import vip from './vip';
 import kyc from './kyc';
-
-import eth from './claim/eth';
-import events from './claim/events';
-import contract from './claim/contract';
-import claimData from './claim/claim-data';
-import web3 from './claim/web3';
+import claim from './claim';
 
 export default combineReducers({
     app,
@@ -39,10 +34,5 @@ export default combineReducers({
     tasks,
     vip,
     kyc,
-    // claim reducers
-    eth,
-    events,
-    contract,
-    claimData,
-    web3,
+    claim,
 });

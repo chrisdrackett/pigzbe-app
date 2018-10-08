@@ -1,9 +1,8 @@
 import {isValidSeed, generateAddressFromSeed} from '../utils/web3';
 import Keychain from '../utils/keychain';
-import {KEYCHAIN_ID_ETH_KEY} from '../constants';
 import BigNumber from 'bignumber.js';
 import {utils} from 'web3';
-import {updateClaimData} from './claim-data';
+import {updateClaimData, getClaimKeychainId} from './claim-data';
 import {claimLoading, claimError} from './claim-api';
 
 export const CLAIM_ETH_COINBASE = 'CLAIM_ETH_COINBASE';
@@ -23,11 +22,13 @@ const getMaxNumBurnTokens = config => {
 
 export const getClaimBalance = () => async (dispatch, getState) => {
     try {
-        const web3 = getState().web3.instance;
-        const contract = getState().contract.instance;
+        const {currentClaim, claims} = getState().claim;
+        const web3 = claims[currentClaim].web3.instance;
+        const contract = claims[currentClaim].contract.instance;
+        const eth = claims[currentClaim].eth;
 
-        const accountBalanceWei = await contract.methods.balanceOf(getState().eth.coinbase).call();
-        const maxAmount = getState().eth.maxAmount || getMaxNumBurnTokens(getState().config);
+        const accountBalanceWei = await contract.methods.balanceOf(eth.coinbase).call();
+        const maxAmount = eth.maxAmount || getMaxNumBurnTokens(getState().config);
         const balanceWei = BigNumber.min(accountBalanceWei, maxAmount).toString(10);
         const balanceWollo = new BigNumber(web3.utils.fromWei(balanceWei, 'ether')).toFixed(7, BigNumber.ROUND_DOWN);
 
@@ -42,9 +43,10 @@ export const getClaimBalance = () => async (dispatch, getState) => {
     }
 };
 
-export const loadPrivateKey = () => async dispatch => {
+export const loadPrivateKey = () => async (dispatch, getState) => {
     try {
-        const privateKey = await Keychain.load(KEYCHAIN_ID_ETH_KEY);
+        const {currentClaim} = getState().claim;
+        const privateKey = await Keychain.load(getClaimKeychainId(currentClaim));
 
         if (privateKey) {
             dispatch(setPrivateKey(privateKey));
@@ -57,8 +59,12 @@ export const setPrivateKey = privateKey => ({type: CLAIM_ETH_PRIVATE_KEY, privat
 export const setCoinbase = coinbase => ({type: CLAIM_ETH_COINBASE, coinbase});
 
 export const checkUserCache = () => async (dispatch, getState) => {
-    const {coinbase} = getState().claimData;
-    const privateKey = await Keychain.load(KEYCHAIN_ID_ETH_KEY);
+    const {currentClaim, claims} = getState().claim;
+    const {coinbase} = claims[currentClaim].eth;
+    const privateKey = await Keychain.load(getClaimKeychainId(currentClaim));
+
+    console.log('coinbase', coinbase);
+    console.log('privateKey', privateKey);
 
     if (!coinbase || !privateKey) {
         return;
@@ -71,7 +77,8 @@ export const checkUserCache = () => async (dispatch, getState) => {
 };
 
 export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => {
-    const web3 = getState().web3.instance;
+    const {currentClaim, claims} = getState().claim;
+    const web3 = claims[currentClaim].web3.instance;
 
     dispatch(claimLoading(null));
 
@@ -88,7 +95,7 @@ export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => 
         const account = web3.eth.accounts.privateKeyToAccount(`0x${address.privateKey}`);
         const coinbase = account.address;
 
-        await Keychain.save(KEYCHAIN_ID_ETH_KEY, address.privateKey);
+        await Keychain.save(getClaimKeychainId(currentClaim), address.privateKey);
 
         dispatch(updateClaimData({coinbase}));
         dispatch(setPrivateKey(address.privateKey));
@@ -105,7 +112,8 @@ export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => 
 };
 
 export const userLoginPrivateKey = (privateKey, publicKey) => async (dispatch, getState) => {
-    const web3 = getState().web3.instance;
+    const {currentClaim, claims} = getState().claim;
+    const web3 = claims[currentClaim].web3.instance;
 
     dispatch(claimLoading(null));
 
@@ -122,7 +130,7 @@ export const userLoginPrivateKey = (privateKey, publicKey) => async (dispatch, g
         const account = web3.eth.accounts.privateKeyToAccount(`0x${privKey}`);
         const coinbase = account.address;
 
-        await Keychain.save(KEYCHAIN_ID_ETH_KEY, privKey);
+        await Keychain.save(getClaimKeychainId(currentClaim), privKey);
 
         dispatch(updateClaimData({coinbase}));
         dispatch(setPrivateKey(privKey));
@@ -139,7 +147,8 @@ export const userLoginPrivateKey = (privateKey, publicKey) => async (dispatch, g
 };
 
 export const getGasPrice = () => async (disptach, getState) => {
-    const web3 = getState().web3.instance;
+    const {currentClaim, claims} = getState().claim;
+    const web3 = claims[currentClaim].web3.instance;
 
     let gasPrice = utils.toWei('20', 'gwei');
     let egsGasPrice = '0';
