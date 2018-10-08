@@ -130,7 +130,7 @@ export class Game extends Component {
                     const delta = Date.now() - this.state.lastTreeClicked;
 
                     if (delta > 1500) {
-                        this.setState({raining: false, showCloud: false});
+                        this.setState({raining: false});
 
                         console.log('timeout: dispatch claim wollo function', this.state.currentCloudStartAmount - this.state.currentCloud.amount);
                         const amountToSend = this.state.currentCloudStartAmount - this.state.currentCloud.amount;
