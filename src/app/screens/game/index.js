@@ -76,8 +76,6 @@ export class Game extends Component {
         }
     }
 
-    onClickCounter = () => this.props.dispatch(gameOverlayOpen(true))
-
     onMove = dx => {
         const numGoals = this.props.kid.goals && this.props.kid.goals.length || 0;
         const minX = 0;
@@ -256,7 +254,6 @@ export class Game extends Component {
             <View style={styles.counter}>
                 <GameCounter
                     value={totalWollo}
-                    onPress={this.onClickCounter}
                 />
             </View>
         );

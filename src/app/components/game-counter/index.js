@@ -3,8 +3,8 @@ import {View} from 'react-native';
 import styles from './styles';
 import GameWollo from '../game-wollo';
 
-export default ({value, onPress}) => (
-    <View style={styles.wrapper} onPress={onPress}>
+export default ({value}) => (
+    <View style={styles.wrapper}>
         <View style={styles.container}>
             <GameWollo value={value} />
         </View>
