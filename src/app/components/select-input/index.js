@@ -118,6 +118,7 @@ export default class SelectInputComponent extends Component {
                                 style={{
                                     margin: 0,
                                 }}
+                                onBackButtonPress={this.onClose}
                             >
                                 <StepModule
                                     onBack={() => this.setState({open: false})}

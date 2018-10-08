@@ -148,6 +148,7 @@ export class Dashboard extends Component {
                     animationIn="slideInUp"
                     animationOut="slideOutDown"
                     style={{margin: 0}}
+                    onBackButtonPress={this.onCloseFirstTime}
                 >
                     <Modal>
                         <Title dark>Howdy!</Title>

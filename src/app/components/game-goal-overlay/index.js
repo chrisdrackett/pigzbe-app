@@ -56,6 +56,7 @@ export class GameGoalOverlay extends Component {
                     style={styles.modal}
                     backdropOpacity={0.35}
                     backdropColor="rgb(0, 50, 120)"
+                    onBackButtonPress={onClose}
                 >
                     <View style={styles.container}>
                         <View

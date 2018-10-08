@@ -60,6 +60,7 @@ export class Transfer extends Component {
                     animationIn="slideInRight"
                     animationOut="slideOutRight"
                     style={{margin: 0}}
+                    onBackButtonPress={this.onHideAddress}
                 >
                     <ViewAddress
                         publicKey={this.props.publicKey}
