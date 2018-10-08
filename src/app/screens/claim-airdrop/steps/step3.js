@@ -40,6 +40,7 @@ export default ({
 }) => (
     <StepWrapper
         title={startApplication ? 'Claim your Wollo' : 'Continue your application'}
+        icon="airdrop"
         onNext={onNext}
         onBack={onBack}
         buttonNextLabel={buttonNextLabel}

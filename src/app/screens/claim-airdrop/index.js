@@ -9,7 +9,7 @@ import Loader from '../../components/loader';
 import Progress from '../../components/progress';
 import GasModal from '../../components/gas-modal';
 import {loadWallet} from '../../actions/wollo';
-import {SCREEN_DASHBOARD, SCREEN_SETTINGS} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_SETTINGS, ID_AIRDROP} from '../../constants';
 import {
     claimStart,
     transfer,
@@ -38,7 +38,7 @@ export class ClaimAirdrop extends Component {
   }
 
   componentWillMount() {
-      this.props.claimStart('airdrop');
+      this.props.claimStart(ID_AIRDROP);
       this.props.initWeb3();
   }
 
@@ -250,7 +250,7 @@ export class ClaimAirdrop extends Component {
 }
 
 export default connect(
-    ({keys, claim: {claims: {airdrop: {eth, data, web3, events, contract}}}}) => ({
+    ({keys, claim: {claims: {[ID_AIRDROP]: {eth, data, web3, events, contract}}}}) => ({
         eth,
         data,
         contract: contract.instance,

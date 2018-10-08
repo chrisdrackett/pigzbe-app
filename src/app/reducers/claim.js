@@ -1,5 +1,7 @@
 import Web3 from 'web3';
 
+import {ID_AIRDROP, ID_ICO} from '../constants';
+
 import {
     CLAIM_START,
     CLAIM_UPDATE_DATA,
@@ -35,7 +37,6 @@ const defaultClaim = {
         maxAmount: null,
     },
     events: {
-        activity: [],
         transfer: null,
         loading: null,
         error: null,
@@ -49,8 +50,8 @@ const defaultClaim = {
 const initialState = {
     currentClaim: null,
     claims: {
-        airdrop: {...defaultClaim},
-        ico: {...defaultClaim},
+        [ID_AIRDROP]: {...defaultClaim},
+        [ID_ICO]: {...defaultClaim},
     },
 };
 
@@ -128,12 +129,9 @@ export default (state = initialState, action) => {
             return updateClaim(state, {
                 events: {
                     ...state.claims[state.currentClaim].events,
+                    transactionHash: action.transactionHash,
                 }
             });
-            return {
-                ...state,
-                transactionHash: action.transactionHash
-            };
         case CLAIM_ERROR:
             return updateClaim(state, {
                 events: {
@@ -142,6 +140,9 @@ export default (state = initialState, action) => {
                 }
             });
         case CLAIM_LOADING:
+            if (!state.currentClaim) {
+                return state;
+            }
             return updateClaim(state, {
                 events: {
                     ...state.claims[state.currentClaim].events,

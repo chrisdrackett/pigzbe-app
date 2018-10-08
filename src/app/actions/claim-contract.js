@@ -73,10 +73,9 @@ const getContract = () => async (dispatch, getState) => {
 };
 
 export const initWeb3 = () => async (dispatch, getState) => {
-    console.log('changeNetwork');
     const {network, ethereum} = getState().config;
     const {rpc} = ethereum.networks[network];
-    console.log('rpc', rpc);
+
     dispatch({
         type: CLAIM_INIT_WEB3,
         payload: {network, rpc}

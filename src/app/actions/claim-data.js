@@ -6,9 +6,21 @@ import {checkUserCache} from './claim-eth';
 export const CLAIM_UPDATE_DATA = 'CLAIM_UPDATE_DATA';
 export const CLAIM_CLEAR_DATA = 'CLAIM_CLEAR_DATA';
 
-export const getClaimStorageKey = currentClaim => `${STORAGE_KEY_BURNING}_${currentClaim}`;
+const getClaimStorageKey = currentClaim => `${STORAGE_KEY_BURNING}_${currentClaim}`;
 
-export const getClaimKeychainId = currentClaim => `${KEYCHAIN_ID_ETH_KEY}_${currentClaim}`;
+const getClaimKeychainId = currentClaim => `${KEYCHAIN_ID_ETH_KEY}_${currentClaim}`;
+
+export const loadClaimPrivateKey = () => async (dispatch, getState) => {
+    const {currentClaim} = getState().claim;
+    const id = getClaimKeychainId(currentClaim);
+    return await Keychain.load(id);
+};
+
+export const saveClaimPrivateKey = privateKey => async (dispatch, getState) => {
+    const {currentClaim} = getState().claim;
+    const id = getClaimKeychainId(currentClaim);
+    return await Keychain.save(id, privateKey);
+};
 
 export const loadClaimData = () => async (dispatch, getState) => {
     const {currentClaim} = getState().claim;

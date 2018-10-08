@@ -21,6 +21,10 @@ import {
     KEYCHAIN_ID_MNEMONIC,
     STORAGE_KEY_SETTINGS,
     STORAGE_KEY_BURNING,
+    STORAGE_KEY_BURNING_ICO,
+    STORAGE_KEY_BURNING_AIRDROP,
+    KEYCHAIN_ID_ETH_KEY_ICO,
+    KEYCHAIN_ID_ETH_KEY_AIRDROP,
     STORAGE_KEY_KIDS,
     STORAGE_KEY_TASKS,
 } from '../../constants';
@@ -125,9 +129,12 @@ class DevPanel extends Component {
                             <View style={styles.block}>
                                 <Text style={styles.subtitle}>Claim tool</Text>
                                 <Button style={styles.button} label="Clear cache burning" onPress={() => {
-                                    console.log('clear');
                                     Storage.clear(STORAGE_KEY_BURNING);
+                                    Storage.clear(STORAGE_KEY_BURNING_ICO);
+                                    Storage.clear(STORAGE_KEY_BURNING_AIRDROP);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY);
+                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY_ICO);
+                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY_AIRDROP);
                                 }} />
                             </View>
                             <Text style={styles.subtitle}>

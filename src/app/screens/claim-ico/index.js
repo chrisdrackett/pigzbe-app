@@ -12,7 +12,7 @@ import Progress from '../../components/progress';
 import GasModal from '../../components/gas-modal';
 import {loadWallet} from '../../actions/wollo';
 import {isValidSeed} from '../../utils/web3';
-import {SCREEN_DASHBOARD, SCREEN_SETTINGS} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_SETTINGS, ID_ICO} from '../../constants';
 import {
     claimStart,
     transfer,
@@ -41,7 +41,7 @@ export class ClaimICO extends Component {
   }
 
   componentWillMount() {
-      this.props.claimStart('ico');
+      this.props.claimStart(ID_ICO);
       this.props.initWeb3();
   }
 
@@ -260,7 +260,7 @@ export class ClaimICO extends Component {
 }
 
 export default connect(
-    ({keys, claim: {claims: {ico: {eth, data, web3, events, contract}}}}) => ({
+    ({keys, claim: {claims: {[ID_ICO]: {eth, data, web3, events, contract}}}}) => ({
         eth,
         data,
         contract: contract.instance,
