@@ -64,7 +64,7 @@ export class GameGoalOverlay extends Component {
                             onPress={onClose}
                         />
                         {!goalAddress &&
-                            <Fragment>
+                            <View style={styles.newGoal}>
                                 <View>
                                     <Text style={styles.title}>New Goal</Text>
                                 </View>
@@ -72,14 +72,14 @@ export class GameGoalOverlay extends Component {
                                     kid={kid}
                                     onGoalAdded={onClose}
                                 />
-                            </Fragment>
+                            </View>
                         }
                         {!!goalAddress &&
                             <View style={{flex: 1}}>
-                                <View style={styles.goalValueWrap}>
+                                {currentGoal && <View style={styles.goalValueWrap}>
                                     <Image style={styles.goalBackground} source={require('./images/goal.png')} />
                                     <Text style={styles.goalValue}>Goal {currentGoal.reward}</Text>
-                                </View>
+                                </View>}
                                 <View style={styles.dots}>
                                     <Dots length={3} index={this.state.currentIndex} light />
                                 </View>

@@ -296,6 +296,7 @@ export class Game extends Component {
                                 <Tree
                                     name="HOMETREE"
                                     value={(balances && balances[kid.home] !== undefined) ? parseFloat(balances[kid.home]) : 0}
+                                    overlayOpen={this.state.isGoalOverlayOpen}
                                 />
                             </TouchableOpacity>
                             {kid.goals && kid.goals.map((goal, i) => (
@@ -314,6 +315,7 @@ export class Game extends Component {
                                     name="NEW GOAL?"
                                     newValue
                                     value={'0'}
+                                    overlayOpen={this.state.isGoalOverlayOpen}
                                 />
                             </TouchableOpacity>
                         </View>

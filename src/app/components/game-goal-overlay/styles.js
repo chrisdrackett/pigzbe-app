@@ -59,4 +59,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 2,
     },
+    newGoal: {
+        paddingTop: 20,
+    }
 });

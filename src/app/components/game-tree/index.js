@@ -77,7 +77,7 @@ export class Tree extends Component {
                     }
                 </View>
                 <Text style={styles.name}>{name}</Text>
-                {!overlayOpen && <View style={[styles.valueWrapper, newValue ? styles.newValue : {}]}>
+                {(!overlayOpen || newValue) && <View style={[styles.valueWrapper, newValue ? styles.newValue : {}]}>
                     <Text style={[styles.value, newValue ? styles.valueNew : {}]}>{value}</Text>
                 </View>}
             </View>
