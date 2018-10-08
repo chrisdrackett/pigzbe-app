@@ -13,7 +13,7 @@ export default StyleSheet.create({
         flex: 1,
     },
     spacer: {
-        height: '45%',
+        height: '41%',
     },
     title: {
         fontFamily,
@@ -37,5 +37,26 @@ export default StyleSheet.create({
         position: 'absolute',
         left: 10,
         top: 40,
+    },
+    goalValueWrap: {
+        width: 87,
+        height: 26,
+        position: 'relative',
+        alignSelf: 'center',
+        marginBottom: 5,
+    },
+    goalBackground: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+    },
+    goalValue: {
+        color: '#fff',
+        textAlign: 'center',
+        fontSize: 10,
+        fontWeight: 'bold',
+        marginTop: 2,
     },
 });

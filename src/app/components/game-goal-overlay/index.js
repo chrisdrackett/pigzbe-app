@@ -1,6 +1,6 @@
 
 import React, {Component, Fragment} from 'react';
-import {View, Text, TouchableOpacity, Dimensions, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Dimensions, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import Modal from 'react-native-modal';
 import SideSwipe from 'react-native-sideswipe';
@@ -48,6 +48,9 @@ export class GameGoalOverlay extends Component {
             {address: kid.home, name: 'Hometree'},
             ...kid.goals,
         ].filter(goal => goal.address !== goalAddress);
+        const currentGoal = kid.goals.filter(goal => goal.address === goalAddress)[0];
+
+        console.log('++++ goalReward ++++', currentGoal);
 
         return (
             <Fragment>
@@ -59,10 +62,9 @@ export class GameGoalOverlay extends Component {
                 >
                     <View style={styles.container}>
                         <View
-                            style={styles.spacer} 
+                            style={styles.spacer}
                             onPress={onClose}
                         />
-                        
                         {!goalAddress &&
                             <Fragment>
                                 <View>
@@ -76,6 +78,10 @@ export class GameGoalOverlay extends Component {
                         }
                         {!!goalAddress &&
                             <View style={{flex: 1}}>
+                                <View style={styles.goalValueWrap}>
+                                    <Image style={styles.goalBackground} source={require('./images/goal.png')} />
+                                    <Text style={styles.goalValue}>Goal {currentGoal.reward}</Text>
+                                </View>
                                 <View style={styles.dots}>
                                     <Dots length={3} index={this.state.currentIndex} light />
                                 </View>
@@ -126,7 +132,7 @@ export class GameGoalOverlay extends Component {
                                                         />
                                                     </View>
                                                 }
-                                                
+
                                             </View>
                                         </TouchableWithoutFeedback>
                                     )}

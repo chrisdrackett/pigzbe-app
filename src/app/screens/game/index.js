@@ -303,6 +303,8 @@ export class Game extends Component {
                                     <Tree
                                         name={goal.name}
                                         value={(balances && balances[goal.address] !== undefined) ? parseFloat(balances[goal.address]) : 0}
+                                        goalValue={goal.reward}
+                                        overlayOpen={this.state.isGoalOverlayOpen}
                                     />
                                 </TouchableOpacity>
                             ))}
@@ -310,7 +312,7 @@ export class Game extends Component {
                             <TouchableOpacity onPress={() => this.openGoalOverlay()}>
                                 <Tree
                                     name="NEW GOAL?"
-                                    newValue={true}
+                                    newValue
                                     value={'0'}
                                 />
                             </TouchableOpacity>
