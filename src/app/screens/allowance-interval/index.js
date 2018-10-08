@@ -21,7 +21,7 @@ export class AllowanceInterval extends Component {
         timezone: DeviceInfo.getTimezone(),
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid});
+    onBack = () => this.props.navigation.goBack();
 
     next = async () => {
         const {day, interval, nextDate, timezone} = this.state;

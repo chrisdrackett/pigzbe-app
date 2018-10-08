@@ -66,7 +66,7 @@ export class PasscodeSet extends Component {
             await this.props.dispatch(authCreate(this.state.code));
 
             if (this.state.isPasscodeChange) {
-                this.props.navigation.navigate(SCREEN_SETTINGS);
+                this.props.navigation.goBack();
             }
         } else {
             this.props.dispatch(appError(new Error('Passcodes do not match')));
@@ -95,7 +95,7 @@ export class PasscodeSet extends Component {
                     <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                 )}
                 loading={loading || this.state.loading}
-                onBack={this.state.code ? this.onReset : null}
+                onBack={this.state.code ? this.onReset : () => this.props.navigation.goBack()}
                 justify="center"
             >
                 <NumPad

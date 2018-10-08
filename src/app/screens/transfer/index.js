@@ -30,7 +30,7 @@ export class Transfer extends Component {
             this.props.dispatch(wolloError(new Error(errMsg)));
             return;
         }
-        this.props.navigation.navigate(SCREEN_SEND);
+        this.props.navigation.push(SCREEN_SEND);
     }
 
     render() {

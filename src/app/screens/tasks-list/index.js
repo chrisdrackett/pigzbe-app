@@ -60,7 +60,7 @@ export class TasksList extends Component {
         key: task,
     }));
 
-    onBack = () => this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid: this.props.kid});
+    onBack = () => this.props.navigation.goBack();
 
     onChangeText = (task) => {
         this.setState({newTask: task});
@@ -77,7 +77,7 @@ export class TasksList extends Component {
             await this.props.dispatch(addCustomTask(this.state.newTask));
         }
 
-        this.props.navigation.navigate(SCREEN_TASKS_ASSIGN, {kid: this.props.kid, task: newTask ? newTask : active, taskToEdit: this.props.taskToEdit});
+        this.props.navigation.push(SCREEN_TASKS_ASSIGN, {kid: this.props.kid, task: newTask ? newTask : active, taskToEdit: this.props.taskToEdit});
     }
 
     render() {

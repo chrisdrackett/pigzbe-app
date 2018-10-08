@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {settingsUpdate} from 'app/actions';
 import StepModule from 'app/components/step-module';
 import SearchableList from 'app/components/searchable-list';
-import {SCREEN_SETTINGS, CURRENCIES} from 'app/constants';
+import {CURRENCIES} from 'app/constants';
 
 const currenciesForSelect = Object.keys(CURRENCIES).reduce((obj, key) => {
     if (key !== 'WLO') {
@@ -37,9 +37,9 @@ export default connect(
     }),
     (dispatch, ownProps) => ({
         onSetBaseCurrency: baseCurrency => {
-            dispatch(settingsUpdate({baseCurrency}))
-            ownProps.navigation.navigate(SCREEN_SETTINGS)
+            dispatch(settingsUpdate({baseCurrency}));
+            ownProps.navigation.goBack();
         },
-        onBack: () => ownProps.navigation.navigate(SCREEN_SETTINGS),
+        onBack: () => ownProps.navigation.goBack(),
     }),
 )(CurrencySet);

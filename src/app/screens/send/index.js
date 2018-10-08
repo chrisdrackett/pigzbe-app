@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {strings, SCREEN_TRANSFER} from '../../constants';
+import {strings} from '../../constants';
 import Button from '../../components/button';
 import Form from './form';
 import Progress from '../../components/progress';
@@ -14,7 +14,7 @@ export class Send extends Component {
         showViewAdressModal: false,
     }
 
-    onTransfer = () => this.props.navigation.navigate(SCREEN_TRANSFER)
+    onTransfer = () => this.props.navigation.goBack()
 
     onReview = review => this.setState({review})
 
@@ -36,6 +36,7 @@ export class Send extends Component {
                     keyboardOffset={-50}
                     settingsIcon="qrCode"
                     onSettings={this.onViewAddress}
+                    onBack={() => this.props.navigation.goBack()}
                 >
                     <Fragment>
                         <Form

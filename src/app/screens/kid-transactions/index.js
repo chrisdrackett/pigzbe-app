@@ -1,16 +1,15 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text} from 'react-native';
 import KidAvatar from 'app/components/kid-avatar';
 import StepModule from 'app/components/step-module';
 import Payments from 'app/components/payments';
 import styles from './styles';
-import {SCREEN_KID_DASHBOARD} from 'app/constants';
 
 
 export class KidTransactions extends Component {
  
-    onBack = () => this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid: this.props.navigation.state.params.kid});
+    onBack = () => this.props.navigation.goBack();
 
     render () {
         const {kid, navigation} = this.props;

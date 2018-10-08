@@ -1,4 +1,4 @@
-import {createSwitchNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation';
 import Home from '../../screens/home';
 import PasscodeLogin from '../../screens/passcode-login';
 import DeviceAuth from '../../screens/device-auth';
@@ -40,6 +40,7 @@ const nav = {
     },
 };
 
-export default createSwitchNavigator(nav, {
-    initialRouteName: SCREEN_HOME
+export default createStackNavigator(nav, {
+    initialRouteName: SCREEN_HOME,
+    headerMode: 'none',
 });

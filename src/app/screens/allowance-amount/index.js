@@ -45,7 +45,7 @@ export class AllowanceAmount extends Component {
         return deconstructedAllowances;
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid: this.props.kid});
+    onBack = () => this.props.navigation.goBack();
 
     onChangeText = (amount) => {
         this.setState({custom: amount});
@@ -128,11 +128,11 @@ export class AllowanceAmount extends Component {
     next = async () => {
         const {custom, active} = this.state;
 
-        this.props.navigation.navigate(SCREEN_ALLOWANCE_INTERVAL, {kid: this.props.kid, amount: custom ? custom : active});
+        this.props.navigation.push(SCREEN_ALLOWANCE_INTERVAL, {kid: this.props.kid, amount: custom ? custom : active});
     }
 
     skip = async () => {
-        this.props.navigation.navigate(SCREEN_DASHBOARD);
+        this.props.navigation.push(SCREEN_DASHBOARD);
     }
 
     render() {

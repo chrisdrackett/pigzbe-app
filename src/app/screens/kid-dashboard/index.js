@@ -52,14 +52,14 @@ export class KidDashboard extends Component {
         showFundingMessage: false,
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
+    onBack = () => this.props.navigation.goBack()
 
     addItem = screen => {
         if (Number(this.props.balance) === 0 || Number(this.props.balanceXLM) === 0) {
             this.showFundingMessage();
             return;
         }
-        this.props.navigation.navigate(screen, {kid: this.props.kid});
+        this.props.navigation.push(screen, {kid: this.props.kid});
     }
 
     onAddTask = () => this.addItem(SCREEN_TASKS_LIST)
@@ -73,7 +73,7 @@ export class KidDashboard extends Component {
         switch (option.selectedOption) {
             case 0:
                 // todo navigate to task screen with active tasks
-                this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid, taskToEdit: this.state.taskToEdit});
+                this.props.navigation.push(SCREEN_TASKS_LIST, {kid: this.props.kid, taskToEdit: this.state.taskToEdit});
                 break;
             case 1:
                 await this.props.dispatch(deleteTask(this.props.kid, this.state.taskToEdit));
@@ -92,7 +92,7 @@ export class KidDashboard extends Component {
         switch (option.selectedOption) {
             case 0:
                 // todo navigate to task screen with active tasks
-                this.props.navigation.navigate(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid, allowanceToEdit: this.state.allowanceToEdit});
+                this.props.navigation.push(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid, allowanceToEdit: this.state.allowanceToEdit});
                 break;
             case 1:
                 await this.props.dispatch(deleteAllowance(this.props.kid, this.state.allowanceToEdit));
@@ -113,7 +113,7 @@ export class KidDashboard extends Component {
 
         switch (option.selectedOption) {
             case 0:
-                this.props.navigation.navigate(SCREEN_KID_GOAL_ADD, {kid: this.props.kid, goal: this.state.goalToEdit});
+                this.props.navigation.push(SCREEN_KID_GOAL_ADD, {kid: this.props.kid, goal: this.state.goalToEdit});
                 break;
             case 1:
                 await this.props.dispatch(deleteGoal(this.props.kid, this.state.goalToEdit));
@@ -138,7 +138,7 @@ export class KidDashboard extends Component {
         goalToEdit: goal,
     })
 
-    onTransactions = () => this.props.navigation.navigate(SCREEN_KID_TRANSACTIONS, {kid: this.props.kid});
+    onTransactions = () => this.props.navigation.push(SCREEN_KID_TRANSACTIONS, {kid: this.props.kid});
 
     showFundingMessage = () => this.setState({showFundingMessage: true})
 
@@ -146,7 +146,7 @@ export class KidDashboard extends Component {
 
     onSettings = () => {
         this.onCloseFundingMessage();
-        this.props.navigation.navigate(SCREEN_SETTINGS);
+        this.props.navigation.push(SCREEN_SETTINGS);
     }
 
     render () {

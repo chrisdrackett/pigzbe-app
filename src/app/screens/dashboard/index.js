@@ -64,12 +64,12 @@ export class Dashboard extends Component {
             // this.props.navigation.navigate(SCREEN_FAMILY_PROFILE);
             // return;
         }
-        this.props.navigation.navigate(SCREEN_KIDS_INTRO);
+        this.props.navigation.push(SCREEN_KIDS_INTRO);
     }
 
     onDashboard = address => {
         const kid = this.props.kids.find(k => k.address === address);
-        this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid});
+        this.props.navigation.push(SCREEN_KID_DASHBOARD, {kid});
     }
 
     onFund = async () => {

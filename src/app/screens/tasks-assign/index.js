@@ -47,7 +47,7 @@ export class TasksAssign extends Component {
         };
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_TASKS_LIST, {kid: this.props.kid});
+    onBack = () => this.props.navigation.goBack();
 
     onChangeAmount = wollos => {
         this.setState({wollos});

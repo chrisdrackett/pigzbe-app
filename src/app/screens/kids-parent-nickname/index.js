@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Toggle from '../../components/toggle';
-import {SCREEN_DASHBOARD, SCREEN_KIDS_NUMBER_TO_ADD} from '../../constants';
+import {SCREEN_KIDS_NUMBER_TO_ADD} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Button from '../../components/button';
@@ -15,12 +15,12 @@ export class KidsParentNickname extends Component {
         type: null,
     }
 
-    onBack = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
+    onBack = () => this.props.navigation.goBack()
 
     onNext = async () => {
         this.setState({loading: true});
         await this.props.dispatch(setParentNickname(this.state.type === 'custom' ? this.state.custom : this.state.type));
-        this.props.navigation.navigate(SCREEN_KIDS_NUMBER_TO_ADD);
+        this.props.navigation.push(SCREEN_KIDS_NUMBER_TO_ADD);
     }
 
     onChangeText = (text) => {

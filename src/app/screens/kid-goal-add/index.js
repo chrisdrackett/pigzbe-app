@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import {SCREEN_KID_DASHBOARD} from '../../constants';
 import StepModule from 'app/components/step-module';
 import Paragraph from 'app/components/paragraph';
 import TextInput from 'app/components/text-input';
@@ -25,7 +24,7 @@ export class KidGoalAdd extends Component {
         if (this.state.step === 'amount') {
             this.setState({step: 'name'});
         } else {
-            this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid: this.props.kid});
+            this.props.navigation.goBack();
         }
     };
 
@@ -35,7 +34,7 @@ export class KidGoalAdd extends Component {
         } else {
             await this.props.dispatch(assignGoal(this.props.kid, this.state.name, this.state.amount));
         }
-        this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid: this.props.kid});
+        this.props.navigation.goBack();
     }
 
     render() { 

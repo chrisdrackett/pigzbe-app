@@ -40,7 +40,7 @@ export class DeviceAuth extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.verified && !prevProps.verified) {
             const screen = this.props.touchIdSupport ? SCREEN_TOUCH_ID : SCREEN_SET_PASSCODE;
-            this.props.navigation.navigate(screen);
+            this.props.navigation.push(screen);
         }
     }
 
@@ -63,7 +63,7 @@ export class DeviceAuth extends Component {
 
     onVerify = code => this.props.dispatch(deviceAuthVerify(code))
 
-    onBack = () => this.props.navigation.navigate(SCREEN_HOME)
+    onBack = () => this.props.navigation.goBack()
 
     onClear = () => this.props.dispatch(deviceAuthClear())
 
