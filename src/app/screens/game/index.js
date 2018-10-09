@@ -117,56 +117,76 @@ export class Game extends Component {
         this.openGoalOverlay();
     }
 
-    onTreeClicked = async (goalAddress, index) => {
+    countUpBalance = (goalAddress) => {
+        if (this.state.currentCloud.amount > 0) {
+            // if there's one wollo left on the current cloud
+            // let's just optimistically count down + hide cloud
+
+            const optimisticBalancesCopy = {...this.state.optimisticBalances};
+            optimisticBalancesCopy[goalAddress] = parseFloat(optimisticBalancesCopy[goalAddress]) + 1;
+            clearTimeout(this.timeoutHandle);
+            const amountAfterUpdate = this.state.currentCloud.amount - 1;
+
+            this.setState({
+                cloudStatus: amountAfterUpdate === 0 ? null : this.state.cloudStatus,
+                showCloud: amountAfterUpdate === 0 ? false : this.state.showCloud,
+                currentCloud: {
+                    ...this.state.currentCloud,
+                    amount: amountAfterUpdate
+                },
+                optimisticBalances: optimisticBalancesCopy,
+                raining: true,
+                lastTreeClicked: Date.now(),
+            });
+        }
+    }
+
+    onTouchStart = (goalAddress, index) => {
+        console.log('onTouchStart', goalAddress, index);
+
+        // current Tree:
         this.setState({targetX: Tree.WIDTH * index});
 
         if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
 
-            if (this.state.currentCloud.amount > 0) {
-                // if there's one wollo left on the current cloud
-                // let's just optimistically count down + hide cloud
+            this.countUpBalance(goalAddress);
 
-                const optimisticBalancesCopy = {...this.state.optimisticBalances};
-                optimisticBalancesCopy[goalAddress] = parseFloat(optimisticBalancesCopy[goalAddress]) + 1;
-                clearTimeout(this.timeoutHandle);
-                const amountAfterUpdate = this.state.currentCloud.amount - 1;
+        }
 
-                this.setState({
-                    cloudStatus: amountAfterUpdate === 0 ? null : this.state.cloudStatus,
-                    showCloud: amountAfterUpdate === 0 ? false : this.state.showCloud,
-                    currentCloud: {
-                        ...this.state.currentCloud,
-                        amount: amountAfterUpdate
-                    },
-                    optimisticBalances: optimisticBalancesCopy,
-                    raining: true,
-                    lastTreeClicked: Date.now(),
-                });
+        this.touchStartTime = new Date();
+        this.touchTimer = setInterval(() => {
+            this.countUpBalance(goalAddress);
+        }, 300);
+    }
 
-                this.timeoutHandle = setTimeout(() => {
-                    const delta = Date.now() - this.state.lastTreeClicked;
+    onTouchEnd = (goalAddress, index) => {
+        console.log('onTouchEnd', goalAddress, index, this.state);
+        clearInterval(this.touchTimer);
 
-                    if (delta > 1500) {
-                        this.setState({raining: false});
+        if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
+            this.timeoutHandle = setTimeout(() => {
+                const delta = Date.now() - this.state.lastTreeClicked;
 
-                        console.log('timeout: dispatch claim wollo function', this.state.currentCloudStartAmount - this.state.currentCloud.amount);
-                        const amountToSend = this.state.currentCloudStartAmount - this.state.currentCloud.amount;
+                console.log('delta', delta);
 
-                        this.props.dispatch(claimWollo(
-                            this.props.kid.address, goalAddress, this.state.currentCloud.hash, amountToSend.toString(), amountAfterUpdate
-                        ));
-                        // check here if stuff has actually been updated in the blockchain
-                    }
-                }, 2000);
-            }
+                if (delta > 1500) {
+                    this.setState({
+                        raining: false
+                    });
 
-            // only do this if all wollos have been sent:
-            if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT) {
-                // todo need to get rid of task but need to derive task data currently
-                // await this.props.dispatch(deleteTask(this.props.kid, this.state.currentCloud.taskToEdit));
-            }
+                    console.log('timeout: dispatch claim wollo function', this.state.currentCloudStartAmount - this.state.currentCloud.amount);
+                    const amountToSend = this.state.currentCloudStartAmount - this.state.currentCloud.amount;
 
-        } else {
+
+                    this.props.dispatch(claimWollo(
+                        this.props.kid.address, goalAddress, this.state.currentCloud.hash, amountToSend.toString(), this.state.currentCloud.amount - 1
+                    ));
+                    // check here if stuff has actually been updated in the blockchain
+                }
+            }, 2000);
+        } else if (!this.state.raining) {
+            // if we are not dropping wollos on tree let's treat as normal tree click:
+
             this.openGoalOverlay(goalAddress);
             this.setState({
                 cloudStatus: null,
@@ -304,22 +324,31 @@ export class Game extends Component {
                         <View style={[styles.trees, {
                             left: (Dimensions.get('window').width - Tree.WIDTH) / 2,
                         }]}>
-                            <TouchableOpacity onPress={() => this.onTreeClicked(kid.home, 0)}>
+                            <View
+                                onStartShouldSetResponder={() => true}
+                                onResponderStart={() => this.onTouchStart(kid.home, 0)}
+                                onResponderEnd={() => this.onTouchEnd(kid.home, 0)}
+                            >
                                 <Tree
                                     name="HOMETREE"
                                     value={(balances && balances[kid.home] !== undefined) ? parseFloat(balances[kid.home]) : 0}
                                     overlayOpen={this.state.isGoalOverlayOpen}
                                 />
-                            </TouchableOpacity>
+                            </View>
                             {kid.goals && kid.goals.map((goal, i) => (
-                                <TouchableOpacity key={i} onPress={() => this.onTreeClicked(goal.address, i + 1)}>
+                                <View
+                                    key={i}
+                                    onStartShouldSetResponder={() => true}
+                                    onResponderStart={() => this.onTouchStart(goal.address, i + 1)}
+                                    onResponderEnd={() => this.onTouchEnd(goal.address, i + 1)}
+                                >
                                     <Tree
                                         name={goal.name}
                                         value={(balances && balances[goal.address] !== undefined) ? parseFloat(balances[goal.address]) : 0}
                                         goalValue={goal.reward}
                                         overlayOpen={this.state.isGoalOverlayOpen}
                                     />
-                                </TouchableOpacity>
+                                </View>
                             ))}
 
                             <TouchableOpacity onPress={this.onNewTreeClicked}>
