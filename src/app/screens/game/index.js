@@ -244,6 +244,11 @@ export class Game extends Component {
         }).start();
     }
 
+    componentWillUnmount() {
+        clearTimeout(this.timeoutHandle);
+        clearInterval(this.touchTimer);
+    }
+
     render() {
         // console.log(JSON.stringify(this.props, null, 2));
         const {
