@@ -1,10 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity, BackHandler} from 'react-native';
 import {initialize, loadContent, authKeychainKid, tryTouchIdLogin} from '../../actions';
 import styles from './styles';
 import Button from '../../components/button';
 import Loader from '../../components/loader';
+import Header from '../../components/header';
 import Pig from '../../components/pig';
 import {strings} from '../../constants';
 import DevPanel from '../dev-panel';
@@ -86,6 +87,19 @@ class Home extends Component {
         this.props.dispatch(initialize());
     }
 
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
+    handleBackPress = () => {
+        this.setState({parentOverride: false});
+        return true;
+    }
+
     onLogin = () => this.props.navigation.push(SCREEN_LOGIN)
 
     onCreate = async () => {
@@ -117,6 +131,14 @@ class Home extends Component {
                     onKidLogin={this.onKidLogin}
                     onOverride={this.onOverride}
                 />
+                {kids.length > 0 && this.state.parentOverride &&
+                    <View style={styles.header}>
+                        <Header
+                            onBack={() => this.setState({parentOverride: false})}
+                            hideLogo={true}
+                        />
+                    </View>
+                }
                 <DevPanel/>
                 <Loader
                     loading={initializing || loading}

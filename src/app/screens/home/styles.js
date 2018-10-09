@@ -97,5 +97,11 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginTop: 8,
-    }
+    },
+    header: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        right: 0,
+    },
 });
