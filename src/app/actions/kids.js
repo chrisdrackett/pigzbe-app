@@ -276,7 +276,10 @@ export const claimWollo = (address, destination, hash, amount, amountLeftAfterUp
     try {
         dispatch(kidsLoading(true));
 
+        console.log('amountLeftAfterUpdate', amountLeftAfterUpdate);
+
         if (amountLeftAfterUpdate === 0) {
+            console.log('remove cloud');
             dispatch({type: KIDS_COMPLETE_ACTION, address, hash});
             dispatch(completeTask(address, hash));
         }
@@ -303,9 +306,9 @@ export const claimWollo = (address, destination, hash, amount, amountLeftAfterUp
         await dispatch(loadKidActions(address));
         dispatch(loadKidsBalances(destination));
 
-        dispatch(kidsLoading(false));
-
     } catch (e) {
         console.log(e);
     }
+
+    dispatch(kidsLoading(false));
 };
