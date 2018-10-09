@@ -11,13 +11,11 @@ export class Cloud extends Component {
     constructor(props) {
         super(props);
 
-        const rainHeight = Dimensions.get('window').height - 278;
-
         this.state = {
             rainBottomPosition: new Animated.Value(0),
             rainTopPosition: new Animated.Value(66),
             rainOpacity: new Animated.Value(0),
-            rainHeight,
+            rainHeight: Dimensions.get('window').height - 278,
         };
     }
 
