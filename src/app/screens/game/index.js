@@ -218,7 +218,7 @@ export class Game extends Component {
     animateBg = () => {
         const open = this.state.isGoalOverlayOpen;
         Animated.timing(this.state.y, {
-            toValue: open ? -350 : 0,
+            toValue: open ? 80 - Dimensions.get('window').height * 0.59 : 0,
             duration: open ? 500 : 400,
             easing: open ? Easing.out(Easing.quad) : Easing.back(1),
         }).start();
@@ -227,10 +227,6 @@ export class Game extends Component {
     render() {
         // console.log(JSON.stringify(this.props, null, 2));
         const {
-            dispatch,
-            exchange,
-            wolloCollected,
-            overlayOpen,
             kid,
             parentNickname,
             loading,

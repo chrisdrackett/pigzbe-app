@@ -1,9 +1,6 @@
 import {StyleSheet} from 'react-native';
-
-import {
-    paddingH,
-    color,
-} from '../../styles';
+import {paddingH, color} from '../../styles';
+import {MAX_INNER_WIDTH} from '../../constants';
 
 export default StyleSheet.create({
     container: {
@@ -11,6 +8,7 @@ export default StyleSheet.create({
         width: '88.75%',
         borderTopRightRadius: 5,
         borderTopLeftRadius: 5,
+        maxWidth: MAX_INNER_WIDTH,
     },
     containerText: {
         paddingLeft: paddingH,

@@ -15,6 +15,7 @@ export const PRIVACY_URL = 'https://pigzbe.com/pdf/pigzbe_privacy_notice.pdf';
 export const TERMS_URL = 'https://pigzbe.com/pdf/pigzbe_terms_of_website_use.pdf';
 export const SUPPORT_URL = 'https://pigzbe.com/support';
 
+export const MAX_INNER_WIDTH = 440;
 
 export const NUM_VALIDATIONS = 7;
 
