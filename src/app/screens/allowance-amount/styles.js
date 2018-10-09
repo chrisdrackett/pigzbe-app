@@ -1,20 +1,22 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {color} from '../../styles';
 
+const getWidth = () => Math.min(Dimensions.get('window').width, 500);
+
 export default StyleSheet.create({
     wrapper: {
         marginBottom: 20,
-        marginLeft: Dimensions.get('window').width / 50,
-        marginRight: Dimensions.get('window').width / 50,
+        marginLeft: getWidth() / 50,
+        marginRight: getWidth() / 50,
     },
     button: {
         backgroundColor: 'transparent',
         borderColor: color.blue,
         fontSize: 14,
         paddingTop: 10,
-        height: (Dimensions.get('window').width / 8) + 10,
-        lineHeight: Dimensions.get('window').width / 8,
-        width: Dimensions.get('window').width / 8,
+        height: (getWidth() / 8) + 10,
+        lineHeight: getWidth() / 8,
+        width: getWidth() / 8,
         textAlign: 'center',
     },
     textInput: {
@@ -23,11 +25,11 @@ export default StyleSheet.create({
         borderColor: color.pink,
         fontSize: 14,
         fontWeight: 'bold',
-        height: Dimensions.get('window').width / 8,
-        // lineHeight: Dimensions.get('window').width / 8,
-        width: Dimensions.get('window').width / 4 + Dimensions.get('window').width / 25,
+        height: getWidth() / 8,
+        // lineHeight: getWidth() / 8,
+        width: getWidth() / 4 + getWidth() / 25,
         textAlign: 'left',
-        borderRadius: Dimensions.get('window').width / 12,
+        borderRadius: getWidth() / 12,
         paddingLeft: 20,
         paddingRight: 40,
     },
@@ -37,13 +39,13 @@ export default StyleSheet.create({
         marginBottom: -10,
     },
     inner: {
-        borderRadius: Dimensions.get('window').width / 16,
-        lineHeight: Dimensions.get('window').width / 8,
+        borderRadius: getWidth() / 16,
+        lineHeight: getWidth() / 8,
         display: 'flex',
         borderWidth: 1,
         alignContent: 'center',
         justifyContent: 'center',
-        height: Dimensions.get('window').width / 8,
+        height: getWidth() / 8,
         textAlign: 'center',
     },
     innerText: {
@@ -51,16 +53,16 @@ export default StyleSheet.create({
         borderColor: color.mediumBlue,
         color: color.mediumBlue,
         fontSize: 20,
-        lineHeight: Dimensions.get('window').width / 9,
+        lineHeight: getWidth() / 9,
     },
     cancel: {
         position: 'absolute',
-        top: Dimensions.get('window').width / 25,
-        right: Dimensions.get('window').width / 35,
+        top: getWidth() / 25,
+        right: getWidth() / 35,
     },
     cancelImage: {
         color: color.mediumBlue,
-        width: Dimensions.get('window').width / 30,
+        width: getWidth() / 30,
         width: Dimensions.get('window').height / 30,
     },
     flex: {

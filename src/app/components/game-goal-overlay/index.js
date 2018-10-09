@@ -13,6 +13,7 @@ import Icon from 'app/components/icon';
 import Loader from 'app/components/loader';
 import {updateBalance} from 'app/actions';
 import styles from './styles';
+import {MAX_INNER_WIDTH} from 'app/constants';
 
 export class GameGoalOverlay extends Component {
     state = {
@@ -38,7 +39,7 @@ export class GameGoalOverlay extends Component {
             balances,
         } = this.props;
 
-        const width = Dimensions.get('window').width;
+        const width = Math.min(MAX_INNER_WIDTH, Dimensions.get('window').width);
         const itemWidth = width;
 
         const contentOffset = (width - itemWidth) / 2;
@@ -65,7 +66,7 @@ export class GameGoalOverlay extends Component {
                             onPress={onClose}
                         />
                         {!goalAddress &&
-                            <View style={styles.newGoal}>
+                            <View style={[styles.newGoal, {width: width, alignSelf: 'center'}]}>
                                 <View>
                                     <Text style={styles.title}>New Goal</Text>
                                 </View>
@@ -76,7 +77,7 @@ export class GameGoalOverlay extends Component {
                             </View>
                         }
                         {!!goalAddress &&
-                            <View style={{flex: 1}}>
+                            <View style={{flex: 1, alignSelf: 'center'}}>
                                 {currentGoal && <View style={styles.goalValueWrap}>
                                     <Image style={styles.goalBackground} source={require('./images/goal.png')} />
                                     <Text style={styles.goalValue}>Goal {currentGoal.reward}</Text>
@@ -86,7 +87,7 @@ export class GameGoalOverlay extends Component {
                                 </View>
                                 <SideSwipe
                                     index={this.state.currentIndex}
-                                    data={[1,2,3]}
+                                    data={[1, 2, 3]}
                                     contentOffset={contentOffset}
                                     onIndexChange={currentIndex => this.setState({currentIndex})}
                                     renderItem={({itemIndex, currentIndex, item, animatedValue}) => (
@@ -122,7 +123,7 @@ export class GameGoalOverlay extends Component {
                                                     </Fragment>
                                                 }
                                                 {itemIndex === 2 &&
-                                                    <View style={{flex:1}}>
+                                                    <View style={{flex: 1}}>
                                                         <View>
                                                             <Text style={styles.title}>Deposits / withdrawls</Text>
                                                         </View>
@@ -156,7 +157,7 @@ export class GameGoalOverlay extends Component {
                     }
                 </Modal>
             </Fragment>
-        )
+        );
     }
 }
 
