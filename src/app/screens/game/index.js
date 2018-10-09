@@ -32,7 +32,7 @@ export class Game extends Component {
         cloudStatus: null,
         isGoalOverlayOpen: false,
         goalOverlayAddress: null,
-        optimisticBalances: this.props.balances,
+        optimisticBalances: {...this.props.balances},
         raining: false,
         y: new Animated.Value(0),
 
@@ -118,19 +118,6 @@ export class Game extends Component {
         this.setState({targetX});
     }
 
-    onClaim = (hash, amount) => {
-        // Close any message bubbles asking the user to click a cloud
-        this.setState({
-            showTapFirstCloud: false,
-            showAskParent: false,
-            showTapCloudOrTree: false,
-        });
-
-        this.props.dispatch(claimWollo(
-            this.props.kid.address, this.props.kid.home, hash, amount
-        ));
-    }
-
     onNewTreeClicked = () => {
         const goals = this.props.kid.goals || [];
         const index = goals.length + 1;
@@ -139,29 +126,35 @@ export class Game extends Component {
     }
 
     countUpBalance = (goalAddress) => {
-        if (this.state.currentCloud.amount > 0) {
+        console.log('this.state.currentCloud.amount', this.state.currentCloud.amount);
+        console.log('new BigNumber(this.state.currentCloud.amount).isGreaterThan(0)', new BigNumber(this.state.currentCloud.amount).isGreaterThan(0));
+        if (new BigNumber(this.state.currentCloud.amount).isGreaterThan(0)) {
             console.log('clearTimeout');
             clearTimeout(this.timeoutHandle);
             // if there's one wollo left on the current cloud
             // let's just optimistically count down + hide cloud
 
-            const amountToAdd = Math.min(this.state.currentCloud.amount, 1);
+            // TODO: convert to bignumber.js
+
+            const amountToAdd = BigNumber.min(this.state.currentCloud.amount, 1);
+
+            console.log('amountToAdd', amountToAdd);
 
             const optimisticBalancesCopy = {...this.state.optimisticBalances};
-            optimisticBalancesCopy[goalAddress] = parseFloat(optimisticBalancesCopy[goalAddress]) + amountToAdd;
+            const newBalance = new BigNumber(optimisticBalancesCopy[goalAddress]).plus(amountToAdd);
+            optimisticBalancesCopy[goalAddress] = newBalance.toString(10);
 
-            const amountAfterUpdate = this.state.currentCloud.amount - amountToAdd;
+            const amountAfterUpdate = new BigNumber(this.state.currentCloud.amount).minus(amountToAdd);
 
             this.setState({
-                cloudStatus: amountAfterUpdate === 0 ? null : this.state.cloudStatus,
-                showCloud: amountAfterUpdate === 0 ? false : this.state.showCloud,
+                // cloudStatus: amountAfterUpdate === 0 ? null : this.state.cloudStatus,
+                // showCloud: amountAfterUpdate === 0 ? false : this.state.showCloud,
                 currentCloud: {
                     ...this.state.currentCloud,
-                    amount: amountAfterUpdate
+                    amount: amountAfterUpdate.toString(10)
                 },
                 optimisticBalances: optimisticBalancesCopy,
                 raining: true,
-                lastTreeClicked: Date.now(),
             });
         }
     }
@@ -178,7 +171,6 @@ export class Game extends Component {
 
         }
 
-        this.touchStartTime = new Date();
         this.touchTimer = setInterval(() => {
             this.countUpBalance(goalAddress);
         }, 300);
@@ -191,9 +183,19 @@ export class Game extends Component {
         console.log('this.state.cloudStatus', this.state.cloudStatus);
 
         if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
+            console.log('this.state.currentCloud.amount', this.state.currentCloud.amount);
+            console.log('this.state.currentCloud && Number(this.state.currentCloud.amount) === 0', this.state.currentCloud && Number(this.state.currentCloud.amount) === 0);
+            if (this.state.currentCloud && Number(this.state.currentCloud.amount) === 0) {
+                this.setState({
+                    cloudStatus: null,
+                    showCloud: false,
+                });
+            }
             console.log('START TIMEOUT');
             clearTimeout(this.timeoutHandle);
-            this.timeoutHandle = setTimeout(this.transferWollo, 2000);
+            this.timeoutHandle = setTimeout(() => {
+                this.transferWollo(this.state.currentCloud.hash);
+            }, 4000);
         } else if (!this.state.raining) {
             // if we are not dropping wollos on tree let's treat as normal tree click:
 
@@ -205,53 +207,34 @@ export class Game extends Component {
         }
     }
 
-    transferWollo = () => {
+    transferWollo = hash => {
         console.log('transferWollo');
 
-        const delta = Date.now() - this.state.lastTreeClicked;
+        this.setState({
+            raining: false
+        });
 
-        console.log('delta', delta);
+        const {kid, balances} = this.props;
+        const {optimisticBalances} = this.state;
 
-        if (delta > 1500) {
-            console.log('START TRANSFER');
-            this.setState({
-                raining: false
-            });
+        const addresses = kid.goals.map(g => g.address).concat(kid.home);
 
-            const {kid, balances} = this.props;
-            const {optimisticBalances} = this.state;
+        const transfers = addresses.reduce((arr, destination) => {
+            const balance = new BigNumber(balances[destination]);
+            const optimisticBalance = new BigNumber(optimisticBalances[destination]);
+            if (optimisticBalance.isGreaterThan(balance)) {
+                const amount = optimisticBalance.minus(balance).toString(10);
+                arr.push({
+                    destination,
+                    amount,
+                });
+            }
+            return arr;
+        }, []);
 
-            const addresses = kid.goals.map(g => g.address).concat(kid.home);
+        console.log('======> transfers', transfers);
 
-            const transfers = addresses.reduce((arr, address) => {
-                const balance = new BigNumber(balances[address]);
-                const optimisticBalance = new BigNumber(optimisticBalances[address]);
-                if (optimisticBalance.isGreaterThan(balance)) {
-                    const amount = optimisticBalance.minus(balance).toString(10);
-                    arr.push({
-                        address,
-                        amount,
-                    });
-                }
-                return arr;
-            }, []);
-
-            console.log('======> transfers', transfers);
-
-
-            // const totalWollo = (parseFloat(balances[kid.home]) || 0) + kid.goals.reduce((total, goal) => {
-            //     return total + (parseFloat(balances[goal.address]) || 0);
-            // }, 0);
-
-            // console.log('timeout: dispatch claim wollo function', this.state.currentCloudStartAmount - this.state.currentCloud.amount);
-            // const amountToSend = this.state.currentCloudStartAmount - this.state.currentCloud.amount;
-            //
-            //
-            // this.props.dispatch(claimWollo(
-            //     this.props.kid.address, goalAddress, this.state.currentCloud.hash, amountToSend.toString(), this.state.currentCloud.amount - 1
-            // ));
-            // check here if stuff has actually been updated in the blockchain
-        }
+        this.props.dispatch(claimWollo(this.props.kid.address, transfers, hash, !this.state.showCloud));
     }
 
     onActivateCloud = (currentCloud) => this.setState({
@@ -314,15 +297,9 @@ export class Game extends Component {
 
         console.log('>>> balances', this.state.balances);
 
-        const totalWollo = (parseFloat(balances[kid.home]) || 0) + kid.goals.reduce((total, goal) => {
-            return total + (parseFloat(balances[goal.address]) || 0);
-        }, 0);
-        console.log('totalWollo', totalWollo);
-
-        const totalWollo2 = kid.goals.reduce((n, g) => {
+        const totalWollo = kid.goals.reduce((n, g) => {
             return n.plus(balances[g.address]);
         }, new BigNumber(balances[kid.home])).toString(10);
-        console.log('totalWollo2', totalWollo2);
 
         const pigzbe = (
             <Pigzbe

@@ -270,41 +270,43 @@ export const loadKidActions = address => async dispatch => {
     return actions;
 };
 
-export const claimWollo = (address, destination, hash, amount, amountLeftAfterUpdate) => async (dispatch, getState) => {
-    console.log('claimWollo', destination, hash, amount, amountLeftAfterUpdate);
+export const claimWollo = (address, transfers, hash, complete) => async (dispatch, getState) => {
+    console.log('claimWollo');
 
     try {
         dispatch(kidsLoading(true));
 
-        console.log('amountLeftAfterUpdate', amountLeftAfterUpdate);
-
-        if (amountLeftAfterUpdate === 0) {
+        if (complete) {
             console.log('remove cloud');
             dispatch({type: KIDS_COMPLETE_ACTION, address, hash});
             dispatch(completeTask(address, hash));
         }
 
-        const account = await loadAccount(address);
-        console.log('account', account);
-        const asset = wolloAsset(getState());
-        const tx = new TransactionBuilder(account)
-            .addOperation(Operation.payment({
-                destination,
-                asset,
-                amount
-            }))
-            .addMemo(Memo.hash(hash))
-            .build();
-
         const kidSecretKey = await Keychain.load(`secret_${address}`);
         console.log('kidSecretKey', kidSecretKey);
         const keypair = Keypair.fromSecret(kidSecretKey);
-        tx.sign(keypair);
 
-        const result = await getServer().submitTransaction(tx);
-        console.log('result', result);
+        const account = await loadAccount(address);
+        console.log('account', account);
+        const asset = wolloAsset(getState());
+
+        for (const transfer of transfers) {
+            const {destination, amount} = transfer;
+            const txb = new TransactionBuilder(account);
+            txb.addOperation(Operation.payment({
+                destination,
+                asset,
+                amount
+            }));
+            txb.addMemo(Memo.hash(hash));
+            const tx = txb.build();
+            tx.sign(keypair);
+            const result = await getServer().submitTransaction(tx);
+            console.log('result', result);
+        }
+
         await dispatch(loadKidActions(address));
-        dispatch(loadKidsBalances(destination));
+        dispatch(loadKidsBalances(address));
 
     } catch (e) {
         console.log(e);
