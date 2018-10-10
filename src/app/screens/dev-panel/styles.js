@@ -8,13 +8,13 @@ import {
 export default StyleSheet.create({
     topBar: {
         position: 'absolute',
-        top: 30,
-        left: 0,
+        top: 25,
+        width: '70%',
+        right: 0,
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        width: '100%',
+        justifyContent: 'flex-end',
         paddingLeft: paddingH,
         paddingRight: paddingH
     },
