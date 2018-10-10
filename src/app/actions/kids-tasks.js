@@ -79,12 +79,12 @@ export const completeTask = (kidAddress, hash) => async (dispatch, getState) => 
     const {kids} = getState().kids;
 
     const kid = kids.find(k => k.address === kidAddress);
-
-    console.log(kid);
-
     const task = kid.tasks.find(t => t.transaction === hash);
 
-    console.log(task);
+    if (!task) {
+        console.log('Not a task!');
+        return;
+    }
 
     try {
         await dispatch(({type: KIDS_COMPLETE_TASK, data: {

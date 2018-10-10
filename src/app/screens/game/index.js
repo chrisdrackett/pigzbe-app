@@ -35,6 +35,7 @@ export class Game extends Component {
         optimisticBalances: {...this.props.balances},
         raining: false,
         y: new Animated.Value(0),
+        transfers: [],
 
         // Tour state
         tourType: null,
@@ -45,17 +46,14 @@ export class Game extends Component {
         showTapCloudOrTree: false,
     }
 
-    // componentDidUpdate(prevProps) {
-    //     // Temporary fix for balances not updating after doing manual transfers etc
-    //     // Will want to remove this and make optomistic balances be in addition to prop.balances
-    //     if (!this.state.cloudStatus && !this.state.raining) {
-    //         if (JSON.stringify(this.state.optimisticBalances) !== JSON.stringify(this.props.balances)) {
-    //             this.setState({
-    //                 optimisticBalances: this.props.balances,
-    //             });
-    //         }
-    //     }
-    // }
+    componentDidUpdate(prevProps) {
+        if (prevProps.balances !== this.props.balances) {
+            console.log('UPDATE BALANCES FROM PROPS UPDATE');
+            this.setState({
+                optimisticBalances: {...this.props.balances},
+            });
+        }
+    }
 
     async componentDidMount() {
         // Open the tour if needed
@@ -138,23 +136,29 @@ export class Game extends Component {
 
             const amountToAdd = BigNumber.min(this.state.currentCloud.amount, 1);
 
-            console.log('amountToAdd', amountToAdd);
+            console.log('amountToAdd', amountToAdd.toString(10));
+
+            const transfer = {
+                amount: amountToAdd.toString(10),
+                hash: this.state.currentCloud.hash,
+                destination: goalAddress,
+            };
 
             const optimisticBalancesCopy = {...this.state.optimisticBalances};
             const newBalance = new BigNumber(optimisticBalancesCopy[goalAddress]).plus(amountToAdd);
             optimisticBalancesCopy[goalAddress] = newBalance.toString(10);
 
             const amountAfterUpdate = new BigNumber(this.state.currentCloud.amount).minus(amountToAdd);
+            console.log('amountAfterUpdate', amountAfterUpdate.toString(10));
 
             this.setState({
-                // cloudStatus: amountAfterUpdate === 0 ? null : this.state.cloudStatus,
-                // showCloud: amountAfterUpdate === 0 ? false : this.state.showCloud,
                 currentCloud: {
                     ...this.state.currentCloud,
                     amount: amountAfterUpdate.toString(10)
                 },
                 optimisticBalances: optimisticBalancesCopy,
                 raining: true,
+                transfers: this.state.transfers.concat(transfer)
             });
         }
     }
@@ -183,6 +187,7 @@ export class Game extends Component {
         console.log('this.state.cloudStatus', this.state.cloudStatus);
 
         if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
+            clearTimeout(this.timeoutHandle);
             console.log('this.state.currentCloud.amount', this.state.currentCloud.amount);
             console.log('this.state.currentCloud && Number(this.state.currentCloud.amount) === 0', this.state.currentCloud && Number(this.state.currentCloud.amount) === 0);
             if (this.state.currentCloud && Number(this.state.currentCloud.amount) === 0) {
@@ -190,12 +195,13 @@ export class Game extends Component {
                     cloudStatus: null,
                     showCloud: false,
                 });
+                this.transferWollo();
+            } else {
+                console.log('START TIMEOUT');
+                this.timeoutHandle = setTimeout(() => {
+                    this.transferWollo();
+                }, 4000);
             }
-            console.log('START TIMEOUT');
-            clearTimeout(this.timeoutHandle);
-            this.timeoutHandle = setTimeout(() => {
-                this.transferWollo(this.state.currentCloud.hash);
-            }, 4000);
         } else if (!this.state.raining) {
             // if we are not dropping wollos on tree let's treat as normal tree click:
 
@@ -207,40 +213,27 @@ export class Game extends Component {
         }
     }
 
-    transferWollo = hash => {
+    transferWollo = () => {
         console.log('transferWollo');
 
         this.setState({
             raining: false
         });
 
-        const {kid, balances} = this.props;
-        const {optimisticBalances} = this.state;
+        const {transfers} = this.state;
 
-        const addresses = kid.goals.map(g => g.address).concat(kid.home);
+        for (const transfer of transfers) {
+            console.log('-- transfer', transfer.amount, transfer.hash, transfer.destination);
+        }
 
-        const transfers = addresses.reduce((arr, destination) => {
-            const balance = new BigNumber(balances[destination]);
-            const optimisticBalance = new BigNumber(optimisticBalances[destination]);
-            if (optimisticBalance.isGreaterThan(balance)) {
-                const amount = optimisticBalance.minus(balance).toString(10);
-                arr.push({
-                    destination,
-                    amount,
-                });
-            }
-            return arr;
-        }, []);
+        this.setState({transfers: []});
 
-        console.log('======> transfers', transfers);
-
-        this.props.dispatch(claimWollo(this.props.kid.address, transfers, hash, !this.state.showCloud));
+        this.props.dispatch(claimWollo(this.props.kid.address, transfers));
     }
 
     onActivateCloud = (currentCloud) => this.setState({
         showCloud: true,
         currentCloud,
-        currentCloudStartAmount: currentCloud.amount,
         cloudStatus: currentCloud.type === TRANSFER_TYPE_TASK ? NOTIFICATION_STAGE_TASK_QUESTION : NOTIFICATION_STAGE_ALLOWANCE_CLOUD,
         // Close any message bubbles asking the user to click a cloud
         showTapFirstCloud: false,
