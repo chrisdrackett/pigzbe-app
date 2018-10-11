@@ -11,7 +11,7 @@ export class TouchId extends Component {
         this.onSkip();
     }
 
-    onSkip = () => this.props.navigation.goBack()
+    onSkip = () => this.props.navigation.navigate(SCREEN_SET_PASSCODE)
 
     render() {
         const face = this.props.touchIdSupport === 'FaceID';
