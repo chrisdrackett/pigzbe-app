@@ -1,6 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Game} from './';
+import {Provider} from 'react-redux';
+import wollo from '../../reducers/wollo';
+import keys from '../../reducers/keys';
+import kids from '../../reducers/kids';
+import settings from '../../reducers/settings';
+import coins from '../../reducers/coins';
+import {mockStore} from '../../../setupTests';
 
 const props = {
     dispatch: () => {},
@@ -36,7 +43,8 @@ const props = {
         }, {
             task: 'Do your homework',
             reward: '100',
-        }]
+        }],
+        goals: []
     },
     parentNickname: 'Dad',
 };
@@ -44,7 +52,9 @@ const props = {
 describe('Game', () => {
     test('renders correctly', () => {
         renderer.create(
-            <Game {...props} />
+            <Provider store={mockStore({wollo, keys, kids, settings, coins})}>
+                <Game {...props} />
+            </Provider>
         );
     });
 });

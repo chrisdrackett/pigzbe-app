@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
 import {Transfer} from './';
 import wollo from '../../reducers/wollo';
+import keys from '../../reducers/keys';
 import {mockStore} from '../../../setupTests';
 
 const props = {
@@ -27,7 +28,7 @@ const props = {
 describe('Transfer', () => {
     test('renders correctly', () => {
         renderer.create(
-            <Provider store={mockStore({wollo})}>
+            <Provider store={mockStore({wollo, keys})}>
                 <Transfer {...props}/>
             </Provider>
         );

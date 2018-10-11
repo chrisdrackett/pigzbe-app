@@ -271,6 +271,7 @@ exports[`SelectInput renders correctly 1`] = `
                     },
                     Object {
                       "color": "rgb(0, 50, 120)",
+                      "fontFamily": "Poppins",
                     },
                   ]
                 }
@@ -555,6 +556,7 @@ exports[`SelectInput renders correctly with options open 1`] = `
                     },
                     Object {
                       "color": "rgb(0, 50, 120)",
+                      "fontFamily": "Poppins",
                     },
                   ]
                 }
