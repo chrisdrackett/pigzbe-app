@@ -46,6 +46,8 @@ export const assignGoal = (kid, goalName, reward) => async (dispatch, getState) 
 
         dispatch(goalLoading(false));
 
+        dispatch({type: KIDS_SET_BALANCE, address: destination, balance: 0});
+
         dispatch(appAddSuccessAlert('Added goal'));
 
     } catch (err) {

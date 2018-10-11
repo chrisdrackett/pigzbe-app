@@ -126,7 +126,7 @@ export class Game extends Component {
     countUpBalance = (goalAddress) => {
         console.log('this.state.currentCloud.amount', this.state.currentCloud.amount);
         console.log('new BigNumber(this.state.currentCloud.amount).isGreaterThan(0)', new BigNumber(this.state.currentCloud.amount).isGreaterThan(0));
-        if (new BigNumber(this.state.currentCloud.amount).isGreaterThan(0)) {
+        if (this.state.currentCloud && new BigNumber(this.state.currentCloud.amount).isGreaterThan(0)) {
             console.log('clearTimeout');
             clearTimeout(this.timeoutHandle);
             // if there's one wollo left on the current cloud
@@ -164,7 +164,7 @@ export class Game extends Component {
     }
 
     onTouchStart = (goalAddress, index) => {
-        console.log('onTouchStart', goalAddress, index);
+        console.log('onTouchStart', goalAddress, index, this.state.cloudStatus);
 
         // current Tree:
         this.setState({targetX: Tree.WIDTH * index});
@@ -173,11 +173,10 @@ export class Game extends Component {
 
             this.countUpBalance(goalAddress);
 
+            this.touchTimer = setInterval(() => {
+                this.countUpBalance(goalAddress);
+            }, 300);
         }
-
-        this.touchTimer = setInterval(() => {
-            this.countUpBalance(goalAddress);
-        }, 300);
     }
 
     onTouchEnd = (goalAddress, index) => {
@@ -296,7 +295,7 @@ export class Game extends Component {
         console.log('>>> balances', this.state.balances);
 
         const totalWollo = kid.goals.reduce((n, g) => {
-            return n.plus(balances[g.address]);
+            return balances[g.address] ? n.plus(balances[g.address]) : n;
         }, new BigNumber(balances[kid.home])).toString(10);
 
         const pigzbe = (

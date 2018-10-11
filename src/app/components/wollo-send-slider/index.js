@@ -43,6 +43,7 @@ export class WolloSendSlider extends Component {
 
     onCloseSendModal = () => this.setState({
         sendModalClosed: true,
+        confirmSend: false,
         value: 0,
         amount: 0
     })
