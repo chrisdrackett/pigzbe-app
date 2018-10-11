@@ -1,7 +1,7 @@
 import React from 'react';
-import {TouchableOpacity, View, Text} from 'react-native';
+import {View, Text} from 'react-native';
 import Logo from '../logo';
-import Icon from '../icon';
+import IconButton from '../icon-button';
 import styles from './styles';
 
 export default ({
@@ -14,9 +14,12 @@ export default ({
     <View style={styles.container}>
         <View style={styles.iconContainer}>
             {onBack && (
-                <TouchableOpacity style={styles.back} onPress={onBack}>
-                    <Icon style={styles.backIcon} name="back" />
-                </TouchableOpacity>
+                <IconButton
+                    icon="back"
+                    size={14}
+                    padding={16}
+                    onPress={onBack}
+                />
             )}
         </View>
         <View style={styles.titleContainer}>
@@ -27,9 +30,12 @@ export default ({
         </View>
         <View style={styles.iconContainer}>
             {onSettings &&
-                <TouchableOpacity style={styles.settings} onPress={onSettings}>
-                    <Icon style={styles.settingsIcon} name={settingsIcon} />
-                </TouchableOpacity>
+                <IconButton
+                    icon={settingsIcon}
+                    size={18}
+                    padding={12}
+                    onPress={onSettings}
+                />
             }
         </View>
     </View>

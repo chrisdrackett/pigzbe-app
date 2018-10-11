@@ -20,10 +20,7 @@ import {
 import {
     strings,
     ASSET_CODE,
-    KID_WALLET_BALANCE_XLM,
-    KID_HOME_BALANCE_XLM,
     KID_GOAL_BALANCE_XLM,
-    KID_ADD_MEMO_PREPEND
 } from '../constants';
 import Keychain from '../utils/keychain';
 import {wolloAsset} from '../selectors';
@@ -99,7 +96,7 @@ export const refreshBalance = () => async (dispatch, getState) => {
     } catch (error) {
         console.log('Could not load wallet with publicKey', key);
     }
-}
+};
 
 export const loadPayments = address => async (dispatch, getState) => {
     const {publicKey} = getState().keys;
@@ -281,24 +278,24 @@ export const getAccountBalance = publicKey => async () => {
     return '0';
 };
 
-export const fundAccount = () => async (dispatch, getState) => {
+export const fundAccount = (xlm = '100', wollo = '500') => async (dispatch, getState) => {
     const {publicKey, secretKey} = getState().keys;
     const asset = wolloAsset(getState());
     const funderSecretKey = 'SBJZSBTMIKWYZ3NLK7ZM5OWGLFE33YWLWZBMKI6GXRLHVQ2VTLS2NGPH';
     try {
         console.log('Trying to send XLM', publicKey);
-        await sendPayment(funderSecretKey, publicKey, '100', 'Fund XLM');
+        await sendPayment(funderSecretKey, publicKey, xlm, 'Fund XLM');
     } catch (error) {
         console.log('Creating account with XLM', publicKey);
         try {
-            await createAccount(funderSecretKey, publicKey, '100', 'Fund XLM');
+            await createAccount(funderSecretKey, publicKey, xlm, 'Fund XLM');
         } catch (err) {
             console.log(err);
         }
     }
     try {
         await trustAsset(secretKey, asset);
-        await sendPayment(funderSecretKey, publicKey, '500', 'Fund WLO', asset);
+        await sendPayment(funderSecretKey, publicKey, wollo, 'Fund WLO', asset);
     } catch (error) {
         console.log(error);
     }

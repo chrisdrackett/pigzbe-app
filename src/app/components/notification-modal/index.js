@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Image, Text, Modal} from 'react-native';
 import styles from './styles';
 import Button from '../button';
+import IconButton from '../icon-button';
 
 const types = {
     success: {
@@ -26,6 +27,8 @@ export default ({
     onRequestClose,
     buttonLabel = 'Got it!',
     hideButton,
+    onButtonPress = null,
+    closeCross
 }) => (
     <Modal
         transparent={true}
@@ -42,10 +45,19 @@ export default ({
                 {!hideButton &&
                     <Button
                         label={buttonLabel}
-                        onPress={onRequestClose}
+                        onPress={onButtonPress ? onButtonPress : onRequestClose}
                         style={styles.button}
                     />
                 }
+                {closeCross && (
+                    <IconButton
+                        style={{position: 'absolute', top: 0, right: 0}}
+                        icon="crossBlue"
+                        size={20}
+                        padding={16}
+                        onPress={onRequestClose}
+                    />
+                )}
             </View>
         </View>
     </Modal>

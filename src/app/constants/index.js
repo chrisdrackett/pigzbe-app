@@ -14,6 +14,7 @@ export const ASSET_DPS = COIN_DPS[ASSET_CODE];
 export const PRIVACY_URL = 'https://pigzbe.com/pdf/pigzbe_privacy_notice.pdf';
 export const TERMS_URL = 'https://pigzbe.com/pdf/pigzbe_terms_of_website_use.pdf';
 export const SUPPORT_URL = 'https://pigzbe.com/support';
+export const FUNDING_URL = 'https://medium.com/@pigzbe';
 
 export const MAX_INNER_WIDTH = 440;
 
@@ -42,11 +43,15 @@ export const KID_PASSCODE_LENGTH = 3;
 
 export const KID_SEND_MAX_AMOUNT = 100;
 
-export const KID_WALLET_BALANCE_XLM = '10';
+export const KID_WALLET_BALANCE_XLM = '8';
 export const KID_HOME_BALANCE_XLM = '2.51';
 export const KID_GOAL_BALANCE_XLM = '2.51';
 export const KID_ADD_MEMO_PREPEND = 'Add ';
 export const KID_HOME_MEMO_PREPEND = 'Home ';
+
+export const MIN_BALANCE = 2.52;
+export const MIN_BALANCE_XLM_ADD_KID = 8;
+export const MIN_BALANCE_XLM_ADD_GOAL = 2.52;
 
 // @todo make all areas of the site use this
 export const CURRENCIES = {

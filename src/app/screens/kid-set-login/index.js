@@ -70,6 +70,7 @@ export class KidSetLogin extends Component {
                 content={'Set your *Secret Code* by picking 3 images'}
                 pad
                 loading={this.props.loading}
+                justify="center"
                 headerChildren={(
                     <View style={{marginTop: 30}}>
                         <Dots length={KID_PASSCODE_LENGTH} progress={this.state.input.size}/>

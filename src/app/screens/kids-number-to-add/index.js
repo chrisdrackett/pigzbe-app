@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Toggle from '../../components/toggle';
-import {SCREEN_KIDS_ENTER_PROFILE} from '../../constants';
+import {SCREEN_KIDS_ENTER_PROFILE, MIN_BALANCE, MIN_BALANCE_XLM_ADD_KID} from '../../constants';
 import StepModule from '../../components/step-module';
 import Button from '../../components/button';
 import {setNumKidsToAdd} from '../../actions';
 import styles from './styles';
+import BigNumber from 'bignumber.js';
 
 export class KidsNumberToAdd extends Component {
     state = {
@@ -23,6 +24,13 @@ export class KidsNumberToAdd extends Component {
     }
 
     render() {
+
+        const numCanAdd = new BigNumber(this.props.balanceXLM)
+            .minus(MIN_BALANCE)
+            .dividedToIntegerBy(MIN_BALANCE_XLM_ADD_KID);
+
+        console.log('numCanAdd', numCanAdd.toString(10));
+
         return (
             <StepModule
                 title="Your children"
@@ -45,6 +53,7 @@ export class KidsNumberToAdd extends Component {
                         active={this.state.type === 1}
                     />
                     <Toggle
+                        disabled={numCanAdd.isLessThan(2)}
                         style={styles.buttonStyle}
                         innerStyle={styles.innerStyle}
                         label={'2'}
@@ -54,6 +63,7 @@ export class KidsNumberToAdd extends Component {
                         active={this.state.type === 2}
                     />
                     <Toggle
+                        disabled={numCanAdd.isLessThan(3)}
                         style={styles.buttonStyle}
                         innerStyle={styles.innerStyle}
                         label={'3'}
@@ -63,9 +73,10 @@ export class KidsNumberToAdd extends Component {
                         active={this.state.type === 3}
                     />
                     <Toggle
+                        disabled={numCanAdd.isLessThan(4)}
                         style={styles.buttonStyle}
                         innerStyle={styles.innerStyle}
-                        label={'4+'}
+                        label={'4'}
                         onPress={() => {
                             this.setState({type: 4});
                         }}
@@ -82,4 +93,8 @@ export class KidsNumberToAdd extends Component {
     }
 }
 
-export default connect()(KidsNumberToAdd);
+export default connect(
+    state => ({
+        balanceXLM: state.wollo.balanceXLM,
+    })
+)(KidsNumberToAdd);

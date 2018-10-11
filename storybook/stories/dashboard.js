@@ -31,6 +31,7 @@ const store = createStore(combineReducers({
 const props = {
     dispatch: () => {},
     navigation: {
+        push: () => {},
         navigate: () => {},
         addListener: () => {},
         state: {
@@ -112,6 +113,13 @@ storiesOf('Dashboard')
     ))
     .add('first time', () => (
         <Dashboard {...{...props, firstTime: true}}/>
+    ))
+    .add('kids funding message', () => (
+        <Dashboard {...{...props,
+            showKidAddFundingMessage: true,
+            balance: '0',
+            balanceXLM: '0',
+        }}/>
     ))
     .add('loading', () => (
         <Dashboard {...{...props, exchange: null}}/>

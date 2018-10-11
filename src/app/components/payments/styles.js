@@ -76,4 +76,16 @@ export default StyleSheet.create({
     noHistory: {
         marginTop: 30,
     },
+    helpText: {
+        fontFamily,
+        color: color.lighterBlue,
+        fontWeight: 'bold',
+        fontSize: 14,
+        maxWidth: '60%',
+        textAlign: 'center',
+    },
+    helpButton: {
+        marginTop: 20,
+        maxWidth: 180,
+    }
 });
