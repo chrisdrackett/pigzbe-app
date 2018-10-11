@@ -296,7 +296,7 @@ export class Game extends Component {
         console.log('>>> balances', this.state.balances);
 
         const totalWollo = kid.goals.reduce((n, g) => {
-            return n.plus(balances[g.address]);
+            return balances[g.address] ? n.plus(balances[g.address]) : n;
         }, new BigNumber(balances[kid.home])).toString(10);
 
         const pigzbe = (
