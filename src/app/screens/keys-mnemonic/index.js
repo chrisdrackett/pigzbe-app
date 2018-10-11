@@ -73,15 +73,15 @@ export class KeysMnemonic extends Component {
 
     onBack = () => this.setState({mnemonicConfirm: [], confirm: false})
 
-    updateMnemonicConfirm = word => {
-        if (this.state.mnemonicConfirm.includes(word)) {
-            return this.state.mnemonicConfirm.filter(w => w !== word);
+    updateMnemonicConfirm = index => {
+        if (this.state.mnemonicConfirm.includes(index)) {
+            return this.state.mnemonicConfirm.filter(w => w !== index);
         }
-        return this.state.mnemonicConfirm.concat(word);
+        return this.state.mnemonicConfirm.concat(index);
     }
 
-    onSelectWord = word => this.setState({
-        mnemonicConfirm: this.updateMnemonicConfirm(word)
+    onSelectWord = index => this.setState({
+        mnemonicConfirm: this.updateMnemonicConfirm(index)
     })
 
     render() {
@@ -111,7 +111,7 @@ export class KeysMnemonic extends Component {
                         <Button
                             label={'Done'}
                             onPress={this.onDone}
-                            disabled={this.state.mnemonicConfirm.join(' ') !== this.state.mnemonic}
+                            disabled={this.state.mnemonicConfirm.map(index => this.state.words[index]).join(' ') !== this.state.mnemonic}
                         />
                     ) : (
                         <Button

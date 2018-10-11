@@ -31,13 +31,13 @@ export default ({
     if (confirm) {
         return (
             <View>
-                <Input value={mnemonicConfirm.join(' ')}/>
+                <Input value={mnemonicConfirm.map(index => words[index]).join(' ')}/>
                 <View style={styles.wordHolder}>
-                    {words.map(word => (
-                        <TouchableOpacity key={word} onPress={() => onSelect(word)}>
+                    {words.map((word,index) => (
+                        <TouchableOpacity key={index} onPress={() => onSelect(index)}>
                             <Word
                                 word={word}
-                                selected={mnemonicConfirm.includes(word)}
+                                selected={mnemonicConfirm.includes(index)}
                             />
                         </TouchableOpacity>
                     ))}
