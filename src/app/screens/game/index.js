@@ -32,10 +32,10 @@ export class Game extends Component {
         cloudStatus: null,
         isGoalOverlayOpen: false,
         goalOverlayAddress: null,
-        optimisticBalances: {...this.props.balances},
         raining: false,
         y: new Animated.Value(0),
         transfers: [],
+        pendingTransfers: [],
 
         // Tour state
         tourType: null,
@@ -44,15 +44,6 @@ export class Game extends Component {
         showTapFirstCloud: false,
         showAskParent: false,
         showTapCloudOrTree: false,
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.balances !== this.props.balances) {
-            console.log('UPDATE BALANCES FROM PROPS UPDATE');
-            this.setState({
-                optimisticBalances: {...this.props.balances},
-            });
-        }
     }
 
     async componentDidMount() {
@@ -144,10 +135,6 @@ export class Game extends Component {
                 destination: goalAddress,
             };
 
-            const optimisticBalancesCopy = {...this.state.optimisticBalances};
-            const newBalance = new BigNumber(optimisticBalancesCopy[goalAddress]).plus(amountToAdd);
-            optimisticBalancesCopy[goalAddress] = newBalance.toString(10);
-
             const amountAfterUpdate = new BigNumber(this.state.currentCloud.amount).minus(amountToAdd);
             console.log('amountAfterUpdate', amountAfterUpdate.toString(10));
 
@@ -156,7 +143,6 @@ export class Game extends Component {
                     ...this.state.currentCloud,
                     amount: amountAfterUpdate.toString(10)
                 },
-                optimisticBalances: optimisticBalancesCopy,
                 raining: true,
                 transfers: this.state.transfers.concat(transfer)
             });
@@ -212,7 +198,7 @@ export class Game extends Component {
         }
     }
 
-    transferWollo = () => {
+    transferWollo = async () => {
         console.log('transferWollo');
 
         this.setState({
@@ -225,9 +211,16 @@ export class Game extends Component {
             console.log('-- transfer', transfer.amount, transfer.hash, transfer.destination);
         }
 
-        this.setState({transfers: []});
+        this.setState({
+            transfers: [],
+            pendingTransfers: transfers,
+        });
 
-        this.props.dispatch(claimWollo(this.props.kid.address, transfers));
+        await this.props.dispatch(claimWollo(this.props.kid.address, transfers));
+
+        this.setState({
+            pendingTransfers: [],
+        });
     }
 
     onActivateCloud = (currentCloud) => this.setState({
@@ -286,13 +279,22 @@ export class Game extends Component {
             currentCloud,
             cloudStatus,
             raining,
-            optimisticBalances: balances,
             showTapFirstCloud,
             showAskParent,
             showTapCloudOrTree,
+            transfers,
+            pendingTransfers,
         } = this.state;
 
-        console.log('>>> balances', this.state.balances);
+        const balances = Object.keys(this.props.balances || {}).reduce((obj, key) => {
+            // See if we have any this.state.transfers
+            const transferAmount = transfers.concat(pendingTransfers).reduce((total, transfer) => {
+                return total + (transfer.destination === key ? parseFloat(transfer.amount) : 0);
+            }, 0);
+
+            obj[key] = parseFloat(this.props.balances[key]) + transferAmount;
+            return obj;
+        }, {});
 
         const totalWollo = kid.goals.reduce((n, g) => {
             return balances[g.address] ? n.plus(balances[g.address]) : n;
