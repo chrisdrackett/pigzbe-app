@@ -5,7 +5,7 @@ import Wollo from '../wollo';
 import KidAvatar from '../kid-avatar';
 import WolloSendSlider from '../wollo-send-slider';
 
-export default class Kids extends Component {
+export default class Kid extends Component {
 
     onDashboard = () => this.props.onDashboard(this.props.address)
 

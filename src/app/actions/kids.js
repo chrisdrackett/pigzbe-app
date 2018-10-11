@@ -131,12 +131,8 @@ export const updateKidBalance = (address, balance) => ({type: KIDS_BALANCE_UPDAT
 export const loadKidsBalances = (address, waitSeconds = 0) => async (dispatch, getState) => {
     try {
         await wait(waitSeconds);
-        const kids = getState().kids.kids.filter(k => !address || k.home === address);
+        const kids = getState().kids.kids.filter(k => !address || k.address === address);
         for (const kid of kids) {
-            const balance = await dispatch(getAccountBalance(kid.home));
-            dispatch(updateKidBalance(kid.address, balance));
-
-            // Load their goal balances too
             for (const goal of kid.goals) {
                 dispatch(updateBalance(goal.address));
             }
@@ -369,7 +365,12 @@ export const claimWollo = (address, transfers) => async (dispatch, getState) => 
         }
 
         await dispatch(loadKidActions(address));
-        dispatch(loadKidsBalances(address));
+
+        // refresh just the goals that have been changed
+        for (let transfer of sanitisedTransfers) {
+            await dispatch(updateBalance(transfer.destination));
+        }
+
 
     } catch (e) {
         console.log(e);
