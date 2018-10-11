@@ -15,8 +15,9 @@ const icons = {
     settings: require('./images/settings.png'),
     back: require('./images/back.png'),
     gameBack: require('./images/gameBack.png'),
+    crossBlue: require('./images/cross_blue.png'),
 };
 
 export default ({name, style = {}}) => (
-    icons[name] ? <Image style={[style]} source={icons[name]} resizeMode="contain" /> : null
+    icons[name] ? <Image style={style} source={icons[name]} resizeMode="contain" /> : null
 );

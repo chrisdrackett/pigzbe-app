@@ -6,8 +6,12 @@ import {
     SCREEN_SETTINGS,
     SCREEN_KIDS_INTRO,
     SCREEN_KID_DASHBOARD,
+    SCREEN_KIDS_ENTER_PROFILE,
     COINS,
-    COIN_DPS
+    COIN_DPS,
+    FUNDING_URL,
+    MIN_BALANCE,
+    MIN_BALANCE_XLM_ADD_KID
 } from '../../constants';
 import ConvertBalance from '../../components/convert-balance';
 import BalanceGraph from '../../components/balance-graph';
@@ -19,60 +23,67 @@ import Title from '../../components/title';
 import Paragraph from '../../components/paragraph';
 import StepModule from '../../components/step-module';
 import {
-    loadExchange,
+    // loadExchange,
     settingsFirstTime,
     fundAccount,
-    loadWallet
+    loadWallet,
+    setNumKidsToAdd
 } from '../../actions';
 import openURL from '../../utils/open-url';
 import ReactModal from 'react-native-modal';
 import FundingMessage from '../../components/funding-message';
-import NotificationModal from 'app/components/notification-modal';
+import IconButton from 'app/components/icon-button';
 
 export class Dashboard extends Component {
     state = {
         funding: false,
-        showFundingMessage: this.props.showFundingMessage,
-        showKidAddFundingMessage: false,
+        showKidAddFundingMessage: this.props.showKidAddFundingMessage,
     }
 
     static defaultProps = {
-        showFundingMessage: false,
+        showKidAddFundingMessage: false,
     }
 
     componentDidMount() {
-        this.focusListener = this.props.navigation.addListener('didFocus', this.update);
+        this.focusListener = this.props.navigation.addListener('willFocus', this.update);
     }
 
     componentWillUnMount() {
         this.focusListener.remove();
     }
 
-    update = () => this.props.dispatch(loadExchange())
+    // update = () => this.props.dispatch(loadExchange())
+    update = () => this.props.dispatch(loadWallet())
 
     onCloseFirstTime = () => this.props.dispatch(settingsFirstTime())
 
-    onCloseFundingMessage = () => this.setState({showFundingMessage: false})
-
     onSettings = () => {
-        this.onCloseFundingMessage();
+        this.onCloseKidAddFundingMessage();
         this.onCloseFirstTime();
         this.props.navigation.navigate(SCREEN_SETTINGS);
     }
 
+    onFundingInfo = () => {
+        this.onCloseKidAddFundingMessage();
+        this.onCloseFirstTime();
+        openURL(FUNDING_URL);
+    }
+
     onAddKids = () => {
-        if (parseFloat(this.props.balanceXLM) === 0) {
+        if (parseFloat(this.props.balanceXLM) < MIN_BALANCE + MIN_BALANCE_XLM_ADD_KID) {
             this.setState({showKidAddFundingMessage: true});
             return;
         }
 
         if (this.props.kids.length) {
-            // TODO: skip to the profile if already been through first steps
-            // this.props.navigation.navigate(SCREEN_FAMILY_PROFILE);
-            // return;
+            this.props.dispatch(setNumKidsToAdd(1));
+            this.props.navigation.navigate(SCREEN_KIDS_ENTER_PROFILE);
+            return;
         }
         this.props.navigation.push(SCREEN_KIDS_INTRO);
     }
+
+    onCloseKidAddFundingMessage = () => this.setState({showKidAddFundingMessage: false})
 
     onDashboard = address => {
         const kid = this.props.kids.find(k => k.address === address);
@@ -81,7 +92,8 @@ export class Dashboard extends Component {
 
     onFund = async () => {
         this.setState({funding: true});
-        await this.props.dispatch(fundAccount());
+        // await this.props.dispatch(fundAccount('13', '5'));
+        await this.props.dispatch(fundAccount('100', '500'));
         await this.props.dispatch(loadWallet());
         this.setState({funding: false});
     }
@@ -102,8 +114,8 @@ export class Dashboard extends Component {
 
         const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
 
-        console.log("balance", balance);
-        console.log("balanceXLM", balanceXLM);
+        console.log('balance', balance);
+        console.log('balanceXLM', balanceXLM);
 
         return (
             <Fragment>
@@ -165,34 +177,27 @@ export class Dashboard extends Component {
                         <Paragraph>Welcome to your Pigzbe wallet. To fully activate your wallet you need to transfer funds into it.</Paragraph>
                         <Paragraph style={{marginBottom: 40}}>If you’re an *ICO*, *Airdrop*, *Bounty* or *VIP* you can do this via settings.</Paragraph>
                         <Button
-                            label={'Good to know!'}
-                            onPress={this.onCloseFirstTime}
+                            label={'Learn how to transfer funds'}
+                            onPress={this.onFundingInfo}
                         />
                         <Button
                             theme="outline"
                             label={'Go to settings'}
                             onPress={this.onSettings}
                         />
+                        <IconButton
+                            style={{position: 'absolute', top: 0, right: 0}}
+                            icon="crossBlue"
+                            size={20}
+                            padding={16}
+                            onPress={this.onCloseFirstTime}
+                        />
                     </Modal>
                 </ReactModal>
                 <FundingMessage
-                    isVisible={!firstTime && this.state.showFundingMessage}
-                    onSettings={this.onSettings}
-                    onClose={this.onCloseFundingMessage}
-                />
-
-                <NotificationModal
                     open={this.state.showKidAddFundingMessage}
-                    type={'warning'}
-                    text='You currently have no XLM in your wallet. Children can only be added once you have funded your account'
-                    onRequestClose={() => this.setState({showKidAddFundingMessage: false})}
-                    buttonLabel="Learn more"
-                    onButtonPress={() => {
-                        this.setState({showKidAddFundingMessage: false})
-                        setTimeout(() => {
-                            alert("Send to medium page...")
-                        }, 10);
-                    }}
+                    balanceXLM={balanceXLM}
+                    onClose={this.onCloseKidAddFundingMessage}
                 />
             </Fragment>
         );

@@ -3,12 +3,13 @@ import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {color} from '../../styles';
 import {
-    SCREEN_DASHBOARD,
     SCREEN_TASKS_LIST,
     SCREEN_ALLOWANCE_AMOUNT,
     SCREEN_KID_TRANSACTIONS,
     SCREEN_KID_GOAL_ADD,
-    SCREEN_SETTINGS
+    SCREEN_SETTINGS,
+    MIN_BALANCE,
+    MIN_BALANCE_XLM_ADD_GOAL,
 } from '../../constants';
 import BalanceGraph from '../../components/balance-graph';
 import Wollo from '../../components/wollo';
@@ -18,7 +19,7 @@ import ActionPanel from '../../components/action-panel';
 import ActionSheet from '../../components/action-sheet';
 import WolloSendSlider from 'app/components/wollo-send-slider';
 import styles from './styles';
-import {deleteAllowance, deleteTask, deleteGoal, appError} from '../../actions';
+import {deleteAllowance, deleteTask, deleteGoal} from '../../actions';
 import FundingMessage from '../../components/funding-message';
 
 const Item = ({first, title, subtitle, amount, onPress}) => (
@@ -46,6 +47,7 @@ export class KidDashboard extends Component {
         goalPanelOpen: false,
         goalToEdit: null,
         showFundingMessage: this.props.showFundingMessage,
+        fundingType: null,
     }
 
     static defaultProps = {
@@ -55,10 +57,19 @@ export class KidDashboard extends Component {
     onBack = () => this.props.navigation.goBack()
 
     addItem = screen => {
-        if (Number(this.props.balance) === 0 || Number(this.props.balanceXLM) === 0) {
-            this.showFundingMessage();
+        const balanceXLM = parseFloat(this.props.balanceXLM);
+        const balanceWLO = parseFloat(this.props.balance);
+
+        if (screen === SCREEN_KID_GOAL_ADD && balanceXLM < MIN_BALANCE + MIN_BALANCE_XLM_ADD_GOAL) {
+            this.showFundingMessage(FundingMessage.ADD_GOAL);
             return;
         }
+
+        if (screen === SCREEN_TASKS_LIST && balanceWLO === 0 || balanceXLM === 0) {
+            this.showFundingMessage(FundingMessage.ADD_TASK);
+            return;
+        }
+
         this.props.navigation.push(screen, {kid: this.props.kid});
     }
 
@@ -140,9 +151,9 @@ export class KidDashboard extends Component {
 
     onTransactions = () => this.props.navigation.push(SCREEN_KID_TRANSACTIONS, {kid: this.props.kid});
 
-    showFundingMessage = () => this.setState({showFundingMessage: true})
+    showFundingMessage = fundingType => this.setState({showFundingMessage: true, fundingType})
 
-    onCloseFundingMessage = () => this.setState({showFundingMessage: false})
+    onCloseFundingMessage = () => this.setState({showFundingMessage: false, fundingType: null})
 
     onSettings = () => {
         this.onCloseFundingMessage();
@@ -158,9 +169,13 @@ export class KidDashboard extends Component {
             goalLoading,
             taskLoading,
             allowanceLoading,
+            balanceXLM,
+            balance,
         } = this.props;
 
         const loading = (!exchange && !error) || goalLoading || taskLoading || allowanceLoading;
+
+        console.log('showFundingMessage', this.state.showFundingMessage);
 
         return (
             <Fragment>
@@ -298,9 +313,11 @@ export class KidDashboard extends Component {
                     onSelect={index => this.onGoalAlertOptionSelected({selectedOption: index})}
                 />
                 <FundingMessage
-                    isVisible={this.state.showFundingMessage}
-                    onSettings={this.onSettings}
+                    open={this.state.showFundingMessage}
+                    balance={balance}
+                    balanceXLM={balanceXLM}
                     onClose={this.onCloseFundingMessage}
+                    fundingType={this.state.fundingType}
                 />
             </Fragment>
         );

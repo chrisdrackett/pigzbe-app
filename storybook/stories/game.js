@@ -3,13 +3,7 @@ import {View} from 'react-native';
 import {storiesOf} from '@storybook/react-native';
 import {Game} from '../../src/app/screens/game';
 import Learn from '../../src/app/screens/learn';
-import GameTasks from '../../src/app/screens/game-tasks';
 import GameBg from '../../src/app/components/game-bg';
-// import {
-//     TRANSFER_TYPE_TASK,
-//     TRANSFER_TYPE_GIFT,
-//     TRANSFER_TYPE_ALLOWANCE,
-// } from 'app/constants/game';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
@@ -250,23 +244,6 @@ storiesOf('Game')
             <Learn {...{
                 ...props,
                 overlayOpen: true,
-            }}/>
-        </View>
-    ))
-    .add('tasks', () => (
-        <View style={{flex: 1, backgroundColor: 'black'}}>
-            <GameTasks {...{
-                ...props,
-                kid: {
-                    ...props.kid,
-                    tasks: [{
-                        task: 'Clean the car',
-                        reward: '10',
-                    }, {
-                        task: 'Do your homework',
-                        reward: '100',
-                    }]
-                },
             }}/>
         </View>
     ));

@@ -2,54 +2,20 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, FlatList, TouchableOpacity, Text} from 'react-native';
 import Button from '../../components/button';
-import {SCREEN_KID_DASHBOARD, SCREEN_TASKS_ASSIGN} from '../../constants';
+import {SCREEN_TASKS_ASSIGN} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Toggle from '../../components/toggle';
-import {color} from '../../styles';
 import {addCustomTask, loadCustomTasks} from '../../actions';
-
-
-const innerStyle = {
-    borderRadius: 5,
-    display: 'flex',
-    alignContent: 'center',
-    justifyContent: 'center',
-    height: 45,
-};
-
-const cancelStyle = {
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    borderBottomWidth: 1,
-    borderBottomColor: color.blue,
-};
-
-const cancelInner = {
-    color: color.blue,
-    fontSize: 14,
-};
-
-const flexStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    justifyContent: 'space-between',
-};
+import styles from './styles';
 
 export class TasksList extends Component {
-    constructor(props) {
-        super(props);
-
-        console.log('++++ this.props.taskToEdit', props.taskToEdit);
-
-        this.state = {
-            newTask: '',
-            loading: false,
-            showingInput: false,
-            tasks: ['wash dishes', 'clean room', 'do your homework'],
-            active: props.taskToEdit ? props.taskToEdit.task : null,
-        };
+    state = {
+        newTask: '',
+        loading: false,
+        showingInput: false,
+        tasks: ['wash dishes', 'clean room', 'do your homework'],
+        active: this.props.taskToEdit ? this.props.taskToEdit.task : null,
     }
 
     componentWillMount() {
@@ -93,7 +59,7 @@ export class TasksList extends Component {
                 loading={loading}
                 onBack={this.onBack}
             >
-                <View style={flexStyle}>
+                <View style={styles.flexStyle}>
                     <View>
                         <FlatList
                             style={{marginBottom: 10}}
@@ -101,7 +67,7 @@ export class TasksList extends Component {
                                 this.getTasksList()
                             }
                             renderItem={({item}) => (<Toggle
-                                innerStyle={innerStyle}
+                                innerStyle={styles.innerStyle}
                                 label={item.key}
                                 onPress={() => {
                                     this.setState({active: item.key});
@@ -123,10 +89,10 @@ export class TasksList extends Component {
                                     />
                                     <TouchableOpacity
                                         onPress={this.cancelInput}
-                                        style={cancelStyle}
+                                        style={styles.cancelStyle}
                                     >
                                         <Text
-                                            style={cancelInner}
+                                            style={styles.cancelInner}
                                         >
                                             Cancel
                                         </Text>
@@ -135,10 +101,10 @@ export class TasksList extends Component {
                                 :
                                 <TouchableOpacity
                                     onPress={this.showInput}
-                                    style={cancelStyle}
+                                    style={styles.cancelStyle}
                                 >
                                     <Text
-                                        style={cancelInner}
+                                        style={styles.cancelInner}
                                     >
                                         Add another
                                     </Text>
