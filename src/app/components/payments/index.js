@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {View, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import Payment from './payment';
 import ScrollList from 'app/components/scroll-list';
 import Paragraph from 'app/components/paragraph';
 import Loader from 'app/components/loader';
 import Toggle from 'app/components/toggle';
+import Button from 'app/components/button';
 import {loadPayments} from 'app/actions';
 import {strings} from 'app/constants';
 import styles from './styles';
@@ -31,7 +32,7 @@ export class Payments extends Component {
 
     render() {
         const {filter} = this.state;
-        const {loading, payments} = this.props;
+        const {loading, payments, showHelp} = this.props;
 
         const filters = {
             all: 'All',
@@ -39,7 +40,7 @@ export class Payments extends Component {
             received: 'Received',
         };
 
-        if (loading) {
+        if (!showHelp && loading) {
             return (
                 <Loader
                     loading={true}
@@ -81,7 +82,7 @@ export class Payments extends Component {
                         />)
                     )}
                 </View>
-                {!!filteredPayments.length && (
+                {!!filteredPayments.length && !showHelp && (
                     <View style={{flex:1}}>
                         <ScrollList
                             items={filteredPayments}
@@ -89,10 +90,25 @@ export class Payments extends Component {
                         />
                     </View>
                 )}
-                {!filteredPayments.length && (
+                {!filteredPayments.length && !showHelp && (
                     <Paragraph style={styles.noHistory}>
                         No transaction history
                     </Paragraph>
+                )}
+                {showHelp && (
+                    <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={styles.helpText}>
+                            Learn how to buy and fund your account with Wollo
+                        </Text>
+                        <Button
+                            label="Learn more"
+                            theme="outline"
+                            onPress={() => {
+                                alert("Send to medium post")
+                            }}
+                            style={styles.helpButton}
+                        />
+                    </View>
                 )}
             </View>
         );

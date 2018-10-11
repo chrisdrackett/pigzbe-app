@@ -26,6 +26,7 @@ export default ({
     onRequestClose,
     buttonLabel = 'Got it!',
     hideButton,
+    onButtonPress = null
 }) => (
     <Modal
         transparent={true}
@@ -42,7 +43,7 @@ export default ({
                 {!hideButton &&
                     <Button
                         label={buttonLabel}
-                        onPress={onRequestClose}
+                        onPress={onButtonPress ? onButtonPress : onRequestClose}
                         style={styles.button}
                     />
                 }

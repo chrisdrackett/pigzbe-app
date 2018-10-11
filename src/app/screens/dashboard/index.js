@@ -27,11 +27,13 @@ import {
 import openURL from '../../utils/open-url';
 import ReactModal from 'react-native-modal';
 import FundingMessage from '../../components/funding-message';
+import NotificationModal from 'app/components/notification-modal';
 
 export class Dashboard extends Component {
     state = {
         funding: false,
         showFundingMessage: this.props.showFundingMessage,
+        showKidAddFundingMessage: false,
     }
 
     static defaultProps = {
@@ -59,6 +61,11 @@ export class Dashboard extends Component {
     }
 
     onAddKids = () => {
+        if (parseFloat(this.props.balanceXLM) === 0) {
+            this.setState({showKidAddFundingMessage: true});
+            return;
+        }
+
         if (this.props.kids.length) {
             // TODO: skip to the profile if already been through first steps
             // this.props.navigation.navigate(SCREEN_FAMILY_PROFILE);
@@ -94,6 +101,9 @@ export class Dashboard extends Component {
         const loading = (!exchange && !error) || this.state.funding;
 
         const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
+
+        console.log("balance", balance);
+        console.log("balanceXLM", balanceXLM);
 
         return (
             <Fragment>
@@ -153,7 +163,7 @@ export class Dashboard extends Component {
                     <Modal>
                         <Title dark>Howdy!</Title>
                         <Paragraph>Welcome to your Pigzbe wallet. To fully activate your wallet you need to transfer funds into it.</Paragraph>
-                        <Paragraph style={{marginBottom: 40}}>If you’re an *ICO* participant, you can do this via settings.</Paragraph>
+                        <Paragraph style={{marginBottom: 40}}>If you’re an *ICO*, *Airdrop*, *Bounty* or *VIP* you can do this via settings.</Paragraph>
                         <Button
                             label={'Good to know!'}
                             onPress={this.onCloseFirstTime}
@@ -169,6 +179,20 @@ export class Dashboard extends Component {
                     isVisible={!firstTime && this.state.showFundingMessage}
                     onSettings={this.onSettings}
                     onClose={this.onCloseFundingMessage}
+                />
+
+                <NotificationModal
+                    open={this.state.showKidAddFundingMessage}
+                    type={'warning'}
+                    text='You currently have no XLM in your wallet. Children can only be added once you have funded your account'
+                    onRequestClose={() => this.setState({showKidAddFundingMessage: false})}
+                    buttonLabel="Learn more"
+                    onButtonPress={() => {
+                        this.setState({showKidAddFundingMessage: false})
+                        setTimeout(() => {
+                            alert("Send to medium page...")
+                        }, 10);
+                    }}
                 />
             </Fragment>
         );

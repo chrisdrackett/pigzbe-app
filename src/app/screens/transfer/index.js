@@ -46,7 +46,10 @@ export class Transfer extends Component {
                     settingsIcon="qrCode"
                     onSettings={this.onViewAddress}
                 >
-                    <Payments navigation={this.props.navigation} />
+                    <Payments
+                        navigation={this.props.navigation}
+                        showHelp={parseFloat(balance) === 0}
+                    />
                 </StepModule>
                 <View style={styles.button}>
                     <Button
