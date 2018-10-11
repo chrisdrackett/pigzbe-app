@@ -1,6 +1,6 @@
 import Storage from '../utils/storage';
 import {loadAccount, sendPayment, getServer, Keypair, TransactionBuilder, Operation, Memo} from '@pigzbe/stellar-utils';
-import {createKidAccount, getAccountBalance, fundKidAccount, getWolloBalance, updateBalance} from './';
+import {createKidAccount, getAccountBalance, fundKidAccount, getWolloBalance, updateBalance, refreshBalance} from './';
 import {wolloAsset} from '../selectors';
 import wait from '../utils/wait';
 import Keychain from '../utils/keychain';
@@ -120,8 +120,10 @@ export const sendWolloToKid = (address, amount) => async (dispatch, getState) =>
         console.log(error);
         dispatch(sendError(new Error('Failed to send Wollo')));
     }
+
     dispatch(loadKidsBalances(address, 1));
     dispatch(sendingWolloToKid(null));
+    dispatch(refreshBalance());
 };
 
 export const updateKidBalance = (address, balance) => ({type: KIDS_BALANCE_UPDATE, address, balance});

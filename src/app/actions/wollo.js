@@ -87,6 +87,20 @@ export const loadWallet = publicKey => async (dispatch, getState) => {
     }
 };
 
+export const refreshBalance = () => async (dispatch, getState) => {
+    const key = getState().keys.publicKey;
+    try {
+        if (key) {
+            const account = await loadAccount(key);
+            dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
+            dispatch(updateBalance(getWolloBalance(account)));
+            dispatch(updateXLM(account));
+        }
+    } catch (error) {
+        console.log('Could not load wallet with publicKey', key);
+    }
+}
+
 export const loadPayments = address => async (dispatch, getState) => {
     const {publicKey} = getState().keys;
     const key = address || publicKey;
