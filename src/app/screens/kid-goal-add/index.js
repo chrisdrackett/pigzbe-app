@@ -43,12 +43,13 @@ export class KidGoalAdd extends Component {
 
         return (
             <StepModule
-                customTitle="Goal"
+                //customTitle="Goal"
                 loading={loading}
                 loaderMessage="Adding goal..."
                 pad
                 onBack={this.onBack}
                 justify="space-between"
+                icon="coins"
             >
                 <View style={styles.form}>
                     {step === 'name' &&

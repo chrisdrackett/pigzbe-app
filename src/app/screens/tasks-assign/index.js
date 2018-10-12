@@ -55,7 +55,8 @@ export class TasksAssign extends Component {
                     loading={loading}
                     onBack={this.onBack}
                     plain
-                    customTitle={'Tasks'}
+                    //customTitle={'Tasks'}
+                    icon="coins"
                 >
                     <View style={styles.flexStyle}>
                         <View>
