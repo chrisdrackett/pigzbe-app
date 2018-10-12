@@ -20,7 +20,7 @@ export class Cloud extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('prevProps', prevProps, 'props', this.props);
+        // console.log('prevProps', prevProps, 'props', this.props);
         if (!prevProps.raining && this.props.raining) {
             // not raining -> raining
             // reset values so we can animate top down again

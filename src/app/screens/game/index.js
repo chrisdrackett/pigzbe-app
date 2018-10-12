@@ -98,14 +98,11 @@ export class Game extends Component {
 
     hideAskParent = () => this.setState({showAskParent: false})
 
-    onMove = dx => {
-        const numGoals = this.props.kid.goals && this.props.kid.goals.length || 0;
-        const minX = 0;
-        const maxX = (1 + numGoals) * Tree.WIDTH;
-        const newX = Math.max(minX, Math.min(maxX, this.state.targetX + dx * Tree.WIDTH));
-        const targetX = Math.floor(newX / Tree.WIDTH) * Tree.WIDTH;
-        this.setState({targetX});
-    }
+    onMoveComplete = x => this.setState({
+        // snap:
+        // targetX: Math.round(x / Tree.WIDTH) * Tree.WIDTH
+        targetX: x
+    })
 
     onNewTreeClicked = () => {
         const goals = this.props.kid.goals || [];
@@ -300,6 +297,8 @@ export class Game extends Component {
             return balances[g.address] ? n.plus(balances[g.address]) : n;
         }, new BigNumber(balances[kid.home])).toString(10);
 
+        const numGoals = this.props.kid.goals && this.props.kid.goals.length || 0;
+
         const pigzbe = (
             <Pigzbe
                 style={{
@@ -349,8 +348,9 @@ export class Game extends Component {
                     top: this.state.y
                 }}>
                     <GameBg
+                        maxX={(1 + numGoals) * Tree.WIDTH}
                         targetX={this.state.targetX}
-                        onMove={this.onMove}>
+                        onMoveComplete={this.onMoveComplete}>
                         <Trees
                             kid={kid}
                             balances={balances}
