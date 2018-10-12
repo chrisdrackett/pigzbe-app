@@ -21,11 +21,16 @@ export class KidSetLogin extends Component {
     }
 
     onCodeEntered = code => {
-        if (this.state.prevCode) {
-            this.onCodeConfirmed(code);
-        } else {
-            this.setState({prevCode: code});
-        }
+        setTimeout(() => {
+            if (this.state.prevCode) {
+                this.onCodeConfirmed(code);
+            } else {
+                this.setState({
+                    prevCode: code,
+                    input: new Set(),
+                });
+            }
+        }, 200);
     }
 
     onCodeConfirmed = async code => {
@@ -67,7 +72,7 @@ export class KidSetLogin extends Component {
             <StepModule
                 title="First time here"
                 icon="keys"
-                content={'Set your *Secret Code* by picking 3 images'}
+                content={this.state.prevCode ? 'Confirm your *Secret Code* by picking the same 3 images again' : 'Set your *Secret Code* by picking 3 images'}
                 pad
                 loading={this.props.loading}
                 justify="center"
