@@ -241,12 +241,19 @@ export default (state = initialState, action) => {
             };
         case KIDS_ADD_ALLOWANCE:
             console.log('REDUCER KIDS_ADD_ALLOWANCE', action.data);
+
+            const kidsToAddAllowanceTo = (
+                action.kid ?
+                state.kids.filter(kid => kid.address === action.kid.address) :
+                state.kids.slice(-(action.numKidsAdded || 1))
+            ).map(kid => kid.address);
+
             return {
                 ...state,
                 kids: state.kids.map(k => {
                     // if no child name is passed the assign tasks to all kids
                     // this is the case when part of the initial add children process
-                    if (!action.kid || k.address === action.kid.address) {
+                    if (kidsToAddAllowanceTo.includes(k.address)) {
                         return {
                             ...k,
                             allowances: k.allowances.concat({

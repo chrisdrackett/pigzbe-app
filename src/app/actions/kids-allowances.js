@@ -8,12 +8,12 @@ export const KIDS_UPDATE_ALLOWANCE = 'KIDS_UPDATE_ALLOWANCE';
 
 const allowanceLoading = value => ({type: KIDS_LOADING_ALLOWANCE, value});
 
-export const addAllowance = (kid, amount, interval, day, nextDate, timezone) => async (dispatch,getState)  => {
+export const addAllowance = (kid, amount, interval, day, nextDate, timezone, numKidsAdded) => async (dispatch,getState)  => {
     try {
         console.log('addAllowance amount =', amount);
         dispatch(allowanceLoading(true));
 
-        dispatch(({type: KIDS_ADD_ALLOWANCE, kid, data: {amount, interval, day, nextDate, timezone, payments: []}}));
+        dispatch(({type: KIDS_ADD_ALLOWANCE, kid, data: {amount, interval, day, nextDate, timezone, payments: []}, numKidsAdded}));
         await dispatch(saveKids());
         dispatch(allowanceLoading(false));
         dispatch(appAddSuccessAlert('Added allowance'));
