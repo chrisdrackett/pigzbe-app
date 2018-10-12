@@ -35,7 +35,7 @@ export class Game extends Component {
         raining: false,
         y: new Animated.Value(0),
         transfers: [],
-        pendingTransfers: [],
+        pendingTransferIds: [],
 
         // Tour state
         tourType: null,
@@ -130,6 +130,7 @@ export class Game extends Component {
             console.log('amountToAdd', amountToAdd.toString(10));
 
             const transfer = {
+                id: moment().valueOf(),
                 amount: amountToAdd.toString(10),
                 hash: this.state.currentCloud.hash,
                 destination: goalAddress,
@@ -199,27 +200,25 @@ export class Game extends Component {
     }
 
     transferWollo = async () => {
-        console.log('transferWollo');
-
         this.setState({
             raining: false
         });
 
-        const {transfers} = this.state;
-
-        for (const transfer of transfers) {
-            console.log('-- transfer', transfer.amount, transfer.hash, transfer.destination);
-        }
+        const transferIds = this.state.transfers
+            .filter(transfer => !this.state.pendingTransferIds.includes(transfer.id))
+            .map(transfer => transfer.id);
 
         this.setState({
-            transfers: [],
-            pendingTransfers: transfers,
+            pendingTransferIds: this.state.pendingTransferIds.concat(transferIds),
         });
 
-        await this.props.dispatch(claimWollo(this.props.kid.address, transfers));
+        await this.props.dispatch(claimWollo(this.props.kid.address, this.state.transfers.filter(transfer => transferIds.includes(transfer.id))));
 
+        // Clean up by removing these transfers and the pending ids
+        // Important to use latest this.state here
         this.setState({
-            pendingTransfers: [],
+            transfers: this.state.transfers.filter(transfer => !transferIds.includes(transfer.id)),
+            pendingTransferIds: this.state.pendingTransferIds.filter(id => !transferIds.includes(id)),
         });
     }
 
@@ -288,7 +287,7 @@ export class Game extends Component {
 
         const balances = Object.keys(this.props.balances || {}).reduce((obj, key) => {
             // See if we have any this.state.transfers
-            const transferAmount = transfers.concat(pendingTransfers).reduce((total, transfer) => {
+            const transferAmount = transfers.reduce((total, transfer) => {
                 return total + (transfer.destination === key ? parseFloat(transfer.amount) : 0);
             }, 0);
 
