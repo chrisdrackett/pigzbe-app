@@ -77,6 +77,7 @@ export default class Bg extends Component {
         delta: 0,
         birdX: 0,
         animating: false,
+        startX: 0,
     }
 
     static defaultProps = {
@@ -86,31 +87,27 @@ export default class Bg extends Component {
 
     componentWillMount() {
         this.panResponder = PanResponder.create({
-            onMoveShouldSetPanResponder: this.handleGestureCapture,
-            onPanResponderMove: this.handleGestureMove,
-            onPanResponderRelease: this.handleGestureRelease,
-            onPanResponderTerminationRequest: this.handleGestureTerminationRequest
+            onMoveShouldSetResponderCapture: () => false,
+            onMoveShouldSetPanResponder: this.onMoveShouldSetPanResponder,
+            onPanResponderMove: this.onPanResponderMove,
+            onPanResponderRelease: this.onPanResponderRelease,
+            onPanResponderTerminationRequest: this.onPanResponderTerminationRequest
         });
     }
 
-    handleGestureTerminationRequest = (e, s) => {
-        console.log('handleGestureTerminationRequest');
-        // this.props.shouldRelease(s);
+    onPanResponderTerminationRequest = (e, s) => {
+        // console.log('onPanResponderTerminationRequest');
+        return true;
     }
 
-    handleGestureCapture = (e, s) => {
-        // console.log('handleGestureCapture');
-        // this.props.shouldCapture(s);
-        // return evt.nativeEvent.touches.length === 1 && !this._gestureIsClick(gestureState);
-        return e.nativeEvent.touches.length === 1;
+    onMoveShouldSetPanResponder = (e, {dx, dy}) => {
+        // console.log('onMoveShouldSetPanResponder', dx, dy);
+        // this.setState({startX: this.state.x});
+        return e.nativeEvent.touches.length === 1 && Math.abs(dx) < 2;
     }
 
-    _gestureIsClick(gestureState) {
-        return Math.abs(gestureState.dx) < 5 && Math.abs(gestureState.dy) < 5;
-    }
-
-    handleGestureMove = (e, {dx}) => {
-        console.log('handleGestureMove', dx);
+    onPanResponderMove = (e, {dx}) => {
+        // console.log('onPanResponderMove', dx);
         const moveDelta = this.state.offset - dx;
 
         let x = this.state.x + moveDelta;
@@ -132,10 +129,16 @@ export default class Bg extends Component {
         });
     };
 
-    handleGestureRelease = (e, {dx, vx}) => {
-        console.log('handleGestureRelease', dx, vx);
+    onPanResponderRelease = (e, {dx, vx}) => {
+        // console.log('onPanResponderRelease', dx, vx);
         this.setState({offset: 0, animating: true});
         this.props.onMoveComplete(this.state.x);
+
+        // const moveX = this.state.startX - this.state.x;
+        // console.log('moveX', moveX);
+        // if (Math.abs(moveX) < 2) {
+        //     this.props.
+        // }
     }
 
     componentDidMount() {
