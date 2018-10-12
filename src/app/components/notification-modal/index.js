@@ -47,19 +47,19 @@ export default ({
                             style={styles.button}
                         />
                     }
-                    {closeCross && (
-                        <IconButton
-                            style={{position: 'absolute', top: 0, right: 0}}
-                            icon="crossBlue"
-                            size={20}
-                            padding={16}
-                            onPress={onRequestClose}
-                        />
-                    )}
                 </View>
                 <View style={styles.iconContainer}>
                     <Image source={types[type].icon} style={styles.icon} />
                 </View>
+                {closeCross && (
+                    <IconButton
+                        style={{position: 'absolute', top: 32, right: 32}}
+                        icon="crossBlue"
+                        size={20}
+                        padding={16}
+                        onPress={onRequestClose}
+                    />
+                )}
             </View>
         </View>
     </Modal>
