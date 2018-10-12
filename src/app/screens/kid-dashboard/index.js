@@ -21,6 +21,7 @@ import WolloSendSlider from 'app/components/wollo-send-slider';
 import styles from './styles';
 import {deleteAllowance, deleteTask, deleteGoal} from '../../actions';
 import FundingMessage from '../../components/funding-message';
+import {kidsWithBalances} from 'app/selectors';
 
 const Item = ({first, title, subtitle, amount, onPress}) => (
     <TouchableOpacity onPress={onPress}>
@@ -326,7 +327,7 @@ export class KidDashboard extends Component {
 
 export default connect(
     (state, props) => ({
-        kid: state.kids.kids.find(k => k.address === props.navigation.state.params.kid.address),
+        kid: kidsWithBalances(state).find(k => k.address === props.navigation.state.params.kid.address),
         error: state.coins.error,
         exchange: state.coins.exchange,
         balance: state.wollo.balance,

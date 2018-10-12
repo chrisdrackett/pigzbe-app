@@ -33,6 +33,7 @@ import openURL from '../../utils/open-url';
 import ReactModal from 'react-native-modal';
 import FundingMessage from '../../components/funding-message';
 import IconButton from 'app/components/icon-button';
+import {kidsWithBalances} from 'app/selectors';
 
 export class Dashboard extends Component {
     state = {
@@ -212,7 +213,7 @@ export default connect(
         balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.settings.baseCurrency,
         firstTime: state.settings.firstTime,
-        kids: state.kids.kids,
+        kids: kidsWithBalances(state),
         sendError: state.wollo.error,
         sending: state.wollo.sending,
         sendStatus: state.wollo.sendStatus,
