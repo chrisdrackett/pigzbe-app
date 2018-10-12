@@ -30,7 +30,7 @@ export default StyleSheet.create({
     leaves: {
         position: 'absolute',
         width: 200,
-        height: 150,
+        height: 160,
         top: 0,
         right: 0,
         left: 0,

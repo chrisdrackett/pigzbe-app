@@ -6,7 +6,6 @@ export default StyleSheet.create({
         borderColor: color.blue,
         fontSize: 14,
         paddingTop: 10,
-        height: 45,
         lineHeight: 40,
         marginBottom: 20,
         width: Dimensions.get('window').width * 0.35,

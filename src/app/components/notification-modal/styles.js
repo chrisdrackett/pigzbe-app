@@ -9,6 +9,10 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    outerContainer: {
+        paddingTop: 33,
+        paddingBottom: 33,
+    },
     container: {
         marginLeft: 32,
         marginRight: 32,
@@ -24,7 +28,7 @@ export default StyleSheet.create({
     },
     iconContainer: {
         position: 'absolute',
-        top: -33,
+        top: 0,
         left: 0,
         right: 0,
         display: 'flex',

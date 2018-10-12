@@ -1,6 +1,7 @@
 import React from 'react';
 import {Slider} from 'react-native';
 import styles from './styles';
+import {color} from 'app/styles';
 
 export default ({
     value = 0,
@@ -18,5 +19,7 @@ export default ({
         onChange={event => console.log(event)}
         onValueChange={onValueChange}
         onSlidingComplete={onSlidingComplete}
+        minimumTrackTintColor={color.blue}
+        thumbTintColor={color.blue}
     />
 );
