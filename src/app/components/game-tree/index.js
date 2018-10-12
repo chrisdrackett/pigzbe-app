@@ -36,7 +36,7 @@ export class Tree extends Component {
             left: '50%',
         };
 
-        return (<View style={currentStyles}>
+        return (<View key={leaf.id} style={currentStyles}>
             <Leaf diameter={diameter} id={leaf.id} />
         </View>);
     }
