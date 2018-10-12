@@ -78,6 +78,7 @@ export class WolloInput extends Component {
                             returnKeyType="done"
                             value={currencyAmount === 0 ? '' : currencyAmount.toString()}
                             showTopPlaceholder={false}
+                            keyboardType="numeric"
                         />
                     </View>
                     <View style={styles.toggle}>
