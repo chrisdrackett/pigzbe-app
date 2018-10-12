@@ -12,7 +12,7 @@ export default ({
     onChangePrivateKey,
     onChangePk,
     badAddress,
-    badSeed
+    badPrivateKey
 }) => (
     <StepWrapper
         title={'Import your wallet'}
@@ -29,15 +29,17 @@ export default ({
                         numberOfLines={2}
                         placeholder="Your wallet address"
                         onChangeText={onChangePk}
-                        returnKeyType="done"
+                        autoCapitalize="none"
+                        autoCorrect={false}
                     />
                     <TextInput
-                        error={badSeed}
+                        error={badPrivateKey}
                         value={privateKey}
                         numberOfLines={3}
                         placeholder="Your private key"
                         onChangeText={onChangePrivateKey}
-                        returnKeyType="done"
+                        autoCapitalize="none"
+                        autoCorrect={false}
                     />
                 </View>
             </Fragment>

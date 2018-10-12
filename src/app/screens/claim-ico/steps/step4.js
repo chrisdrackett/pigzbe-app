@@ -28,7 +28,8 @@ export default ({
                         numberOfLines={2}
                         placeholder="Your Eidoo wallet address"
                         onChangeText={onChangePk}
-                        returnKeyType="done"
+                        autoCapitalize="none"
+                        autoCorrect={false}
                     />
                     <TextInput
                         error={badSeed}
@@ -36,7 +37,8 @@ export default ({
                         numberOfLines={3}
                         placeholder="Your 12 word seed, you must include spaces"
                         onChangeText={onChangeMnemonic}
-                        returnKeyType="done"
+                        autoCapitalize="none"
+                        autoCorrect={false}
                     />
                 </View>
             </Fragment>

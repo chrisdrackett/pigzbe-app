@@ -29,7 +29,7 @@ const copyTx = async (tx, pk, stellarPK, userBalance, error) => {
 export default ({
     onNext,
     onBack,
-    // continueApplication,
+    hasBalance,
     startApplication,
     buttonNextLabel,
     userBalance,
@@ -45,10 +45,12 @@ export default ({
         buttonNextLabel={buttonNextLabel}
         content={startApplication ? (
             <Fragment>
-                <Paragraph>{`You have *${userBalance} ERC20 Tokens* in your Eidoo account.`}</Paragraph>
-                {Number(userBalance) > 0 ? (
-                    <Paragraph>{`Tap *Claim Wollo* bellow to convert your tokens to *${userBalance} Wollo* and create your Pigzbe wallet.`}</Paragraph>
-                ) : null}
+                <Paragraph>{`You have *${userBalance} ERC20 Wollo Tokens* in your Eidoo account.`}</Paragraph>
+                {hasBalance ? (
+                    <Paragraph>{`Tap *Claim Wollo* below to convert your tokens to *${userBalance} Wollo* and create your Pigzbe wallet.`}</Paragraph>
+                ) : (
+                    <Paragraph>Go back to check your login details and try again.</Paragraph>
+                )}
             </Fragment>
         ) : (
             <Fragment>

@@ -45,7 +45,6 @@ export const getClaimBalance = () => async (dispatch, getState) => {
 export const loadPrivateKey = () => async dispatch => {
     try {
         const privateKey = await dispatch(loadClaimPrivateKey());
-        console.log('loadPrivateKey', privateKey);
         if (privateKey) {
             dispatch(setPrivateKey(privateKey));
         }
@@ -60,9 +59,6 @@ export const checkUserCache = () => async (dispatch, getState) => {
     const {currentClaim, claims} = getState().claim;
     const {coinbase} = claims[currentClaim].eth;
     const privateKey = await dispatch(loadClaimPrivateKey());
-
-    console.log('coinbase', coinbase);
-    console.log('privateKey', privateKey);
 
     if (!coinbase || !privateKey) {
         return;
@@ -93,6 +89,10 @@ export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => 
         const account = web3.eth.accounts.privateKeyToAccount(`0x${address.privateKey}`);
         const coinbase = account.address;
 
+        if (!coinbase) {
+            throw new Error('Could not load wallet');
+        }
+
         await dispatch(saveClaimPrivateKey(address.privateKey));
 
         dispatch(updateClaimData({coinbase}));
@@ -104,7 +104,6 @@ export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => 
         return true;
     } catch (e) {
         console.log(e);
-        dispatch(claimError(e.message));
         return false;
     }
 };
@@ -128,6 +127,10 @@ export const userLoginPrivateKey = (privateKey, publicKey) => async (dispatch, g
         const account = web3.eth.accounts.privateKeyToAccount(`0x${privKey}`);
         const coinbase = account.address;
 
+        if (!coinbase) {
+            throw new Error('Could not load wallet');
+        }
+
         await dispatch(saveClaimPrivateKey(privKey));
 
         dispatch(updateClaimData({coinbase}));
@@ -139,7 +142,6 @@ export const userLoginPrivateKey = (privateKey, publicKey) => async (dispatch, g
         return true;
     } catch (e) {
         console.log(e);
-        dispatch(claimError(e.message));
         return false;
     }
 };
