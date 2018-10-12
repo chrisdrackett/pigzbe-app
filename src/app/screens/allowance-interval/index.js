@@ -25,9 +25,9 @@ export class AllowanceInterval extends Component {
 
     next = async () => {
         const {day, interval, nextDate, timezone} = this.state;
-        const {kid, amount} = this.props;
+        const {kid, amount, numKidsAdded} = this.props;
 
-        await this.props.dispatch(addAllowance(kid, amount, interval, day, nextDate.toISOString(), timezone));
+        await this.props.dispatch(addAllowance(kid, amount, interval, day, nextDate.toISOString(), timezone, numKidsAdded));
 
         // todo navigate to kid screen instead
         if (kid) {
@@ -108,5 +108,6 @@ export default connect(
         loading: false, /*state.kids.loading,*/
         amount: props.navigation.state.params.amount,
         kid: props.navigation.state.params.kid,
+        numKidsAdded: state.kids.numKidsAdded,
     })
 )(AllowanceInterval);
