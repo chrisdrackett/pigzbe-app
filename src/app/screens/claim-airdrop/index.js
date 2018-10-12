@@ -17,7 +17,8 @@ import {
     initWeb3,
     clearClaimData,
     userLoginPrivateKey,
-    getGasPrice
+    getGasPrice,
+    appAddWarningAlert
 } from '../../actions';
 
 export class ClaimAirdrop extends Component {
@@ -27,7 +28,7 @@ export class ClaimAirdrop extends Component {
       privateKey: (__DEV__ && Config.PRIVATE_KEY) || '',
       pk: (__DEV__ && Config.PK) || '',
       badAddress: false,
-      badSeed: false,
+      badPrivateKey: false,
       loading: 'Loading',
       clickedClose: false,
       modal: {
@@ -61,9 +62,10 @@ export class ClaimAirdrop extends Component {
       const {pk, privateKey} = this.state;
 
       const badAddress = pk.trim() === '' || !utils.isAddress(pk.trim());
-      this.setState({badAddress});
+      this.setState({badAddress, badPrivateKey: false});
 
       if (badAddress) {
+          this.props.appAddWarningAlert('Check your public key');
           return;
       }
 
@@ -76,6 +78,9 @@ export class ClaimAirdrop extends Component {
 
       if (success) {
           this.setState({loading: 'Loading your Ethereum account'});
+      } else {
+          this.setState({badAddress: true, badPrivateKey: true});
+          this.props.appAddWarningAlert('Check your public and private keys');
       }
   }
 
@@ -163,7 +168,7 @@ export class ClaimAirdrop extends Component {
           privateKey,
           pk,
           badAddress,
-          badSeed,
+          badPrivateKey,
           step,
           modal,
       } = this.state;
@@ -193,6 +198,8 @@ export class ClaimAirdrop extends Component {
 
       const tx = data.transactionHash || transactionHash;
 
+      const hasBalance = eth.balanceWollo && Number(eth.balanceWollo) > 0;
+
       return (
           <Fragment>
               <Fragment>
@@ -200,9 +207,9 @@ export class ClaimAirdrop extends Component {
                   {step === 2 &&
                       <Step2
                           onNext={this.onImportKey}
-                          onBack={this.onStep3}
+                          onBack={this.onStep1}
                           badAddress={badAddress}
-                          badSeed={badSeed}
+                          badPrivateKey={badPrivateKey}
                           pk={pk}
                           privateKey={privateKey}
                           onChangePrivateKey={this.onChangePrivateKey}
@@ -211,6 +218,7 @@ export class ClaimAirdrop extends Component {
                   }
                   {step === 3 &&
                       <Step3
+                          hasBalance={hasBalance}
                           error={errorBurning || data.error}
                           tx={tx}
                           pk={pk}
@@ -218,9 +226,9 @@ export class ClaimAirdrop extends Component {
                           userBalance={eth.balanceWollo}
                           continueApplication={!data.complete && data.started}
                           startApplication={!data.complete && !data.started}
-                          buttonNextLabel={!eth.balanceWollo ? 'Back' : !data.complete && !data.started ? 'Claim Wollo' : 'Continue'}
-                          onNext={eth.balanceWollo ? this.onSubmitBurn : this.onCloseClaim}
-                          onBack={eth.balanceWollo ? this.onBack : null}
+                          buttonNextLabel={!hasBalance ? 'Back' : !data.complete && !data.started ? 'Claim Wollo' : 'Continue'}
+                          onNext={hasBalance ? this.onSubmitBurn : this.onStep2}
+                          onBack={this.onStep2}
                       />
                   }
               </Fragment>
@@ -268,5 +276,6 @@ export default connect(
         clearClaimData,
         loadWallet,
         claimStart,
+        appAddWarningAlert,
     },
 )(ClaimAirdrop);

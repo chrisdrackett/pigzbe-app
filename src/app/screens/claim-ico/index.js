@@ -20,7 +20,8 @@ import {
     initWeb3,
     clearClaimData,
     userLogin,
-    getGasPrice
+    getGasPrice,
+    appAddWarningAlert
 } from '../../actions';
 
 export class ClaimICO extends Component {
@@ -67,7 +68,18 @@ export class ClaimICO extends Component {
       const badSeed = mnemonic.trim() === '' || !isValidSeed(mnemonic.trim());
       this.setState({badAddress, badSeed});
 
-      if (badAddress || badSeed) {
+      if (badAddress && badSeed) {
+          this.props.appAddWarningAlert('Check your Eidoo wallet address and 12 word seed');
+          return;
+      }
+
+      if (badAddress) {
+          this.props.appAddWarningAlert('Check your Eidoo wallet address');
+          return;
+      }
+
+      if (badSeed) {
+          this.props.appAddWarningAlert('Check your 12 word seed');
           return;
       }
 
@@ -80,6 +92,9 @@ export class ClaimICO extends Component {
 
       if (success) {
           this.setState({loading: 'Loading your Ethereum account'});
+      } else {
+          this.setState({badAddress: true, badSeed: true});
+          this.props.appAddWarningAlert('Check your Eidoo wallet address and 12 word seed');
       }
   }
 
@@ -200,6 +215,8 @@ export class ClaimICO extends Component {
 
       const tx = data.transactionHash || transactionHash;
 
+      const hasBalance = eth.balanceWollo && Number(eth.balanceWollo) > 0;
+
       return (
           <Fragment>
               <Fragment>
@@ -221,6 +238,7 @@ export class ClaimICO extends Component {
 
                   {step === 5 &&
                       <Step5
+                          hasBalance={hasBalance}
                           error={errorBurning || data.error}
                           tx={tx}
                           pk={pk}
@@ -228,9 +246,9 @@ export class ClaimICO extends Component {
                           userBalance={eth.balanceWollo}
                           continueApplication={!data.complete && data.started}
                           startApplication={!data.complete && !data.started}
-                          buttonNextLabel={!eth.balanceWollo ? 'Back' : !data.complete && !data.started ? 'Claim Wollo' : 'Continue'}
-                          onNext={eth.balanceWollo ? this.onSubmitBurn : this.onCloseClaim}
-                          onBack={eth.balanceWollo ? this.onBack : null}
+                          buttonNextLabel={!hasBalance ? 'Back' : !data.complete && !data.started ? 'Claim Wollo' : 'Continue'}
+                          onNext={hasBalance ? this.onSubmitBurn : this.onStep4}
+                          onBack={this.onStep4}
                       />
                   }
               </Fragment>
@@ -278,5 +296,6 @@ export default connect(
         clearClaimData,
         loadWallet,
         claimStart,
+        appAddWarningAlert
     },
 )(ClaimICO);

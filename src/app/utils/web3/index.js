@@ -30,6 +30,23 @@ export const generateAddressFromSeed = (seed, publicAddress) => {
     return account;
 };
 
+export const deriveMnemonicAccounts = (seed, count = 10) => {
+    const hdwallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed(seed));
+    const wallet_hdpath = 'm/44\'/60\'/0\'/0/';
+
+    const accounts = [];
+    let counter = 0;
+    while (counter < count) {
+        const wallet = hdwallet.derivePath(wallet_hdpath + counter).getWallet();
+        const address = '0x' + wallet.getAddress().toString('hex');
+        const privateKey = wallet.getPrivateKey().toString('hex');
+        accounts.push({publicKey: address, privateKey: privateKey});
+        counter++;
+    }
+
+    return accounts;
+};
+
 export const watchConfirmations = ({
     network,
     web3,
