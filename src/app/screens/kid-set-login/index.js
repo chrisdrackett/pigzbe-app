@@ -21,11 +21,16 @@ export class KidSetLogin extends Component {
     }
 
     onCodeEntered = code => {
-        if (this.state.prevCode) {
-            this.onCodeConfirmed(code);
-        } else {
-            this.setState({prevCode: code});
-        }
+        setTimeout(() => {
+            if (this.state.prevCode) {
+                this.onCodeConfirmed(code);
+            } else {
+                this.setState({
+                    prevCode: code,
+                    input: new Set(),
+                });
+            }
+        }, 200);
     }
 
     onCodeConfirmed = async code => {
