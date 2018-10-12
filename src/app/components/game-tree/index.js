@@ -72,7 +72,7 @@ export class Tree extends Component {
                         <View style={[styles.leaves, {width: WIDTH}]}>
                             {this.getLeavesList().map(leaf => this.renderLeaf(leaf))}
                         </View>
-                    : <Image style={styles.sprout} source={require('./images/sprout.png')} />
+                        : <Image style={styles.sprout} source={require('./images/sprout.png')} />
                     }
                 </View>
                 <Text style={styles.name}>{name}</Text>
