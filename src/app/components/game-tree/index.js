@@ -68,12 +68,11 @@ export class Tree extends Component {
             <View style={[styles.outer, {width: WIDTH}]}>
                 <View style={[styles.tree, {width: WIDTH}]}>
                     <Image style={styles.trunk} source={require('./images/trunk.png')} />
-                    {value > 2 ? <FlatList
-                        data={this.getLeavesList()}
-                        contentContainerStyle={[styles.leaves, {width: WIDTH}]}
-                        extraData={this.props.numberLeaves}
-                        renderItem={({item}) => this.renderLeaf(item)}
-                    /> : <Image style={styles.sprout} source={require('./images/sprout.png')} />
+                    {value > 2 ?
+                        <View style={[styles.leaves, {width: WIDTH}]}>
+                            {this.getLeavesList().map(leaf => this.renderLeaf(leaf))}
+                        </View>
+                    : <Image style={styles.sprout} source={require('./images/sprout.png')} />
                     }
                 </View>
                 <Text style={styles.name}>{name}</Text>
