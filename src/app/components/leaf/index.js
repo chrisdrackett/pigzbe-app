@@ -16,7 +16,6 @@ export class Leaf extends Component {
             offset: new Animated.Value(25),
             diameterTo: diameterTo,
             borderTo: diameterTo / 2,
-            leafLocations: [[0, -10], [-10, 10], [-20, -20], [-30, 20], [-30, 0], [-40, 20], [-50, -10], [-60, 30], [-70, 0], [-80, -10]],
             color: colorOptions[color],
         };
     }

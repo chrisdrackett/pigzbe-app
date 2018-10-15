@@ -125,6 +125,31 @@ const props = {
                 address: 'GCJXZI6X7RMUPELH7KORB34IEQVWOZLUU46IYAW3O6CNTGBFU5ADHCGB',
                 name: 'Goal 3',
                 reward: 708
+            },
+            {
+                address: 'GCJXZI6X7RMUPELH7KORB34IEQVWOZLUU46IYAW3O6CNTGBFU5ADHCGB',
+                name: 'Goal 4',
+                reward: 708
+            },
+            {
+                address: 'GCJXZI6X7RMUPELH7KORB34IEQVWOZLUU46IYAW3O6CNTGBFU5ADHCGB',
+                name: 'Goal 5',
+                reward: 708
+            },
+            {
+                address: 'GCJXZI6X7RMUPELH7KORB34IEQVWOZLUU46IYAW3O6CNTGBFU5ADHCGB',
+                name: 'Goal 6',
+                reward: 708
+            },
+            {
+                address: 'GCJXZI6X7RMUPELH7KORB34IEQVWOZLUU46IYAW3O6CNTGBFU5ADHCGB',
+                name: 'Goal 7',
+                reward: 708
+            },
+            {
+                address: 'GCJXZI6X7RMUPELH7KORB34IEQVWOZLUU46IYAW3O6CNTGBFU5ADHCGB',
+                name: 'Goal 8',
+                reward: 708
             }
         ],
         allowances: [
@@ -200,8 +225,8 @@ const props = {
     wolloCollected: 0,
     overlayOpen: false,
     balances: {
-        GAXMIBCMT6EZ65OVCWMWHNMFX6Z3UAKTMAQP3P4QK7KH2TAVHMZR4USS: '0.0000000',
-        GC4F2Y35HHKUZRQEVDNON2V3YZULS6KASP6SO45EQBHUQF5CX6Z5SKPB: '0.0000000',
+        GAXMIBCMT6EZ65OVCWMWHNMFX6Z3UAKTMAQP3P4QK7KH2TAVHMZR4USS: '4.0000000',
+        GC4F2Y35HHKUZRQEVDNON2V3YZULS6KASP6SO45EQBHUQF5CX6Z5SKPB: '1000000.0000000',
         GBRGWC5G5A4EXE2Y4WOVH2RQUUEGMUG5P7AJ3FUK5PM67N3CMV2ZFYHO: '0.0000000',
         GCJXZI6X7RMUPELH7KORB34IEQVWOZLUU46IYAW3O6CNTGBFU5ADHCGB: '0.0000000'
     },

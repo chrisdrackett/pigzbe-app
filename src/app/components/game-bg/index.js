@@ -6,21 +6,25 @@ import Birds from '../game-birds';
 const cameraW = Dimensions.get('window').width;
 const startX = (cameraW - MAP_WIDTH) / 2;
 
-const Front = ({left}) => (<View style={[styles.scrollable, {
-    left
-}]}>
-    <Image style={styles.ground} resizeMode="repeat" source={require('./images/ground.png')} />
-    <Image style={styles.foliage} source={require('./images/foliage.png')} />
-    <Image style={[styles.grass, styles.grassLeft]} source={require('./images/grass.png')} />
-    <Image style={[styles.grass, styles.grassRight]} source={require('./images/grass.png')} />
-</View>);
+const Front = ({left}) => (
+    <View style={[styles.scrollable, {
+        left
+    }]}>
+        <Image style={styles.ground} resizeMode="repeat" source={require('./images/ground.png')} />
+        <Image style={styles.foliage} source={require('./images/foliage.png')} />
+        <Image style={[styles.grass, styles.grassLeft]} source={require('./images/grass.png')} />
+        <Image style={[styles.grass, styles.grassRight]} source={require('./images/grass.png')} />
+    </View>
+);
 
-const Back = ({left}) => (<View style={[styles.scrollable, {
-    left
-}]}>
-    <Image style={[styles.mountains, styles.mountainsLeft]} source={require('./images/mountains.png')} />
-    <Image style={[styles.mountains, styles.mountainsRight]} source={require('./images/mountains.png')} />
-</View>);
+const Back = ({left}) => (
+    <View style={[styles.scrollable, {
+        left
+    }]}>
+        <Image style={[styles.mountains, styles.mountainsLeft]} source={require('./images/mountains.png')} />
+        <Image style={[styles.mountains, styles.mountainsRight]} source={require('./images/mountains.png')} />
+    </View>
+);
 
 class Scrollable extends Component {
     state = {
@@ -63,10 +67,12 @@ class Scrollable extends Component {
 
     render() {
         const {Layer} = this.props;
-        return (<Fragment>
-            <Layer left={this.state.aX} />
-            <Layer left={this.state.bX} />
-        </Fragment>);
+        return (
+            <Fragment>
+                <Layer left={this.state.aX} />
+                <Layer left={this.state.bX} />
+            </Fragment>
+        );
     }
 }
 
@@ -76,7 +82,7 @@ export default class Bg extends Component {
         offset: 0,
         delta: 0,
         birdX: 0,
-        animating: false,
+        animating: true,
         startX: 0,
     }
 
@@ -87,23 +93,23 @@ export default class Bg extends Component {
 
     componentWillMount() {
         this.panResponder = PanResponder.create({
-            onMoveShouldSetResponderCapture: () => false,
+            // onMoveShouldSetResponderCapture: () => false,
             onMoveShouldSetPanResponder: this.onMoveShouldSetPanResponder,
             onPanResponderMove: this.onPanResponderMove,
             onPanResponderRelease: this.onPanResponderRelease,
-            onPanResponderTerminationRequest: this.onPanResponderTerminationRequest
+            // onPanResponderTerminationRequest: this.onPanResponderTerminationRequest
         });
     }
 
-    onPanResponderTerminationRequest = (e, s) => {
-        // console.log('onPanResponderTerminationRequest');
-        return true;
-    }
+    // onPanResponderTerminationRequest = (e, s) => {
+    // console.log('onPanResponderTerminationRequest');
+    // return true;
+    // }
 
-    onMoveShouldSetPanResponder = (e, {dx, dy}) => {
+    onMoveShouldSetPanResponder = (e, {dx}) => {
         // console.log('onMoveShouldSetPanResponder', dx, dy);
         // this.setState({startX: this.state.x});
-        return e.nativeEvent.touches.length === 1 && Math.abs(dx) < 2;
+        return e.nativeEvent.touches.length === 1 && Math.abs(dx) > 2;
     }
 
     onPanResponderMove = (e, {dx}) => {
@@ -111,6 +117,7 @@ export default class Bg extends Component {
         const moveDelta = this.state.offset - dx;
 
         let x = this.state.x + moveDelta;
+
 
         if (x < 0) {
             x = 0;
@@ -129,16 +136,11 @@ export default class Bg extends Component {
         });
     };
 
-    onPanResponderRelease = (e, {dx, vx}) => {
-        // console.log('onPanResponderRelease', dx, vx);
+    // onPanResponderRelease = (e, {dx}) => {
+    onPanResponderRelease = () => {
+        // console.log('onPanResponderRelease', dx);
         this.setState({offset: 0, animating: true});
         this.props.onMoveComplete(this.state.x);
-
-        // const moveX = this.state.startX - this.state.x;
-        // console.log('moveX', moveX);
-        // if (Math.abs(moveX) < 2) {
-        //     this.props.
-        // }
     }
 
     componentDidMount() {
@@ -148,6 +150,7 @@ export default class Bg extends Component {
     update = () => {
         if (this.state.animating) {
             const {targetX} = this.props;
+            // console.log('targetX', targetX, this.state.x);
             if (targetX !== this.state.x) {
                 let x = this.state.x + (targetX - this.state.x) * 0.1;
                 let delta = x - this.state.x;
@@ -167,33 +170,34 @@ export default class Bg extends Component {
     }
 
     render() {
-        return (<View style={styles.wrapper}>
-            <View style={styles.sky} />
-            <View style={styles.sunWrapper}>
-                <Image style={styles.sun} source={require('./images/sun.png')} />
-            </View>
-            <Scrollable Layer={Back} speed={this.state.delta / 2} />
-            <Scrollable Layer={Front} speed={this.state.delta} />
-            <View {...this.panResponder.panHandlers} style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0,
-                // backgroundColor: 'red',
-            }} />
-            <View style={[
-                styles.children, {
-                    left: 0 - this.state.x
-                }
-            ]}>
-                {/* <Text style={{position: 'absolute', top: 60, left: 20}}>
+        return (
+            <View style={styles.wrapper}>
+                <View style={styles.sky} />
+                <View style={styles.sunWrapper}>
+                    <Image style={styles.sun} source={require('./images/sun.png')} />
+                </View>
+                <Scrollable Layer={Back} speed={this.state.delta / 2} />
+                <Scrollable Layer={Front} speed={this.state.delta} />
+                <View {...this.panResponder.panHandlers} style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                }} />
+                <View style={[
+                    styles.children, {
+                        left: 0 - this.state.x
+                    }
+                ]}>
+                    {/* <Text style={{position: 'absolute', top: 60, left: 20}}>
                         {this.state.x}
                     </Text> */
-                }
-                {this.props.children}
+                    }
+                    {this.props.children}
+                </View>
+                <Birds offset={this.state.delta / 2} />
             </View>
-            <Birds offset={this.state.delta / 2} />
-        </View>);
+        );
     }
 }

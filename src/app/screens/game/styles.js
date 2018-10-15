@@ -12,11 +12,9 @@ export default StyleSheet.create({
         top: 30,
         left: 15,
     },
-    trees: {
-        flexDirection: 'row',
+    tree: {
         position: 'absolute',
         bottom: 65,
-        alignItems: 'flex-start',
     },
     clouds: {
         position: 'absolute',
