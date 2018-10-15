@@ -12,7 +12,7 @@ export default ({
 }) => (
     <Fragment>
         {showTapFirstCloud &&
-        <View style={styles.bubble}>
+        <View style={styles.bubble} pointerEvents="none">
             <GameMessageBubble
                 content="Tap your first cloud to begin!"
             />
@@ -26,7 +26,7 @@ export default ({
         </TouchableOpacity>
         }
         {showTapCloudOrTree &&
-        <View style={styles.bubble}>
+        <View style={styles.bubble} pointerEvents="none">
             <GameMessageBubble
                 content="Select a cloud or tap your tree to manage your Wollo"
             />

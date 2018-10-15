@@ -59,6 +59,11 @@ export class DeviceAuth extends Component {
         this.props.dispatch(deviceAuthRegister(this.state.email, this.state.phone, this.state.countryCode));
     }
 
+    onSkip = () => {
+        const screen = this.props.touchIdSupport ? SCREEN_TOUCH_ID : SCREEN_SET_PASSCODE;
+        this.props.navigation.navigate(screen);
+    }
+
     onResend = () => this.props.dispatch(deviceAuthLogin())
 
     onVerify = code => this.props.dispatch(deviceAuthVerify(code))
@@ -152,16 +157,11 @@ export class DeviceAuth extends Component {
                                     onPress={this.onSend}
                                     disabled={!(this.state.email && this.state.phone && this.state.countryCode)}
                                 />
-                                {__DEV__ && (
-                                    <Button
-                                        theme="plain"
-                                        label={'Skip'}
-                                        onPress={() => {
-                                            const screen = this.props.touchIdSupport ? SCREEN_TOUCH_ID : SCREEN_SET_PASSCODE;
-                                            this.props.navigation.navigate(screen);
-                                        }}
-                                    />
-                                )}
+                                <Button
+                                    theme="outline"
+                                    label={'Skip'}
+                                    onPress={this.onSkip}
+                                />
                             </View>
                         </Fragment>
                     )}

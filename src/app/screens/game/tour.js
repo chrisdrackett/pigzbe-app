@@ -87,7 +87,7 @@ export default ({
                     </Fragment>
                 }
                 {tourStep === 5 &&
-                    <View style={styles.bubble}>
+                    <View style={styles.bubble} pointerEvents="none">
                         <GameMessageBubble
                             content="Tap your first cloud to begin!"
                         />

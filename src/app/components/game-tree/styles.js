@@ -2,8 +2,6 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     tree: {
-        width: 200,
-        height: 200,
         position: 'relative',
     },
     trunk: {
@@ -26,14 +24,6 @@ export default StyleSheet.create({
         bottom: 40,
         left: '50%',
         marginLeft: -14,
-    },
-    leaves: {
-        position: 'absolute',
-        width: 200,
-        height: 160,
-        top: 0,
-        right: 0,
-        left: 0,
     },
     value: {
         height: 30,
@@ -71,11 +61,8 @@ export default StyleSheet.create({
         borderColor: '#fff',
     },
     outer: {
+        // backgroundColor: 'rgba(0, 0, 255, 0.4)',
         position: 'relative',
-        height: 270,
-        width: 200,
-        display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
     },
 });

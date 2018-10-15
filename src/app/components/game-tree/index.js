@@ -1,26 +1,35 @@
-import React, {Component} from 'react';
-import {View, FlatList, Text, Image} from 'react-native';
+import React, {Component, Fragment} from 'react';
+import {View, Text, Image} from 'react-native';
 import Leaf from '../leaf';
 import styles from './styles';
 
-const WIDTH = 190;
+const WIDTH = 100;
+const SPACING = 190;
+const HEIGHT = 270;
 // const WIDTH = Math.floor(Dimensions.get('window').width * 0.45);
 
 // console.log('Tree.WIDTH', WIDTH);
 
 export class Tree extends Component {
     static WIDTH = WIDTH
+    static SPACING = SPACING
+    static HEIGHT = HEIGHT
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            leafLocations: [[0, 0], [-10, 10], [-20, -20], [-30, 20], [-30, 0], [-40, 20], [-50, -10], [-60, 30], [-70, 0], [-80, -10]],
-            colors: ['rgb(50,165,113)', 'rgb(77,204,70)'],
-        };
+    state = {
+        leafLocations: [[0, 0], [10, 10], [20, -20], [30, 20], [30, 0], [40, 20], [50, -10], [60, 30], [70, 0], [80, -10]],
+        colors: ['rgb(50,165,113)', 'rgb(77,204,70)'],
+        leavesList: [],
+        treeHeight: 0,
     }
 
     componentDidMount() {
+        this.getLeavesList();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.value !== prevProps.value) {
+            this.getLeavesList();
+        }
     }
 
     renderLeaf(leaf) {
@@ -28,26 +37,32 @@ export class Tree extends Component {
 
         const currentStyles = {
             position: 'absolute',
-            top: 110,
             width: 50,
             height: 50,
-            marginTop: leaf.position[0],
+            bottom: 40 + leaf.position[0],
             marginLeft: leaf.position[1] - 25,
             left: '50%',
         };
 
-        return (<View key={leaf.id} style={currentStyles}>
-            <Leaf diameter={diameter} id={leaf.id} />
-        </View>);
+        return (
+            <View key={leaf.id} style={currentStyles}>
+                <Leaf diameter={diameter} id={leaf.id} />
+            </View>
+        );
     }
 
     getLeavesList = () => {
         const {leafLocations} = this.state;
         const {value} = this.props;
+        const leavesList = [];
+
+        if (value < 3) {
+            this.setState({leavesList, treeHeight: 80});
+            return;
+        }
 
         const numberLeaves = Math.min(10, Math.max(2, Math.floor(value / 10)));
 
-        const leavesList = [];
 
         for (let i = 0; i < numberLeaves; i++) {
             leavesList.push({
@@ -58,27 +73,48 @@ export class Tree extends Component {
             });
         }
 
-        return leavesList;
+        const treeHeight = 90 + Math.max(...leavesList.map(l => l.position[0]));
+
+        console.log(this.props.name, 'treeHeight', treeHeight);
+
+        this.setState({leavesList, treeHeight});
+
+        this.props.onTreeHeight(treeHeight);
     }
 
     render() {
-        const {value, name, newValue, overlayOpen} = this.props;
+        const {value, name, newValue, overlayOpen, highlight} = this.props;
 
         return (
-            <View style={[styles.outer, {width: WIDTH}]}>
-                <View style={[styles.tree, {width: WIDTH}]}>
+            <View
+                pointerEvents="none"
+                style={[styles.outer, {width: WIDTH}, {
+                    opacity: highlight ? 0.5 : 1
+                }]}>
+                <View style={[styles.tree, {width: WIDTH, height: this.state.treeHeight}]}>
                     <Image style={styles.trunk} source={require('./images/trunk.png')} />
                     {value > 2 ?
-                        <View style={[styles.leaves, {width: WIDTH}]}>
-                            {this.getLeavesList().map(leaf => this.renderLeaf(leaf))}
-                        </View>
-                        : <Image style={styles.sprout} source={require('./images/sprout.png')} />
+                        <Fragment>
+                            {this.state.leavesList.map(leaf => this.renderLeaf(leaf))}
+                        </Fragment>
+                        :
+                        <Image style={styles.sprout} source={require('./images/sprout.png')} />
                     }
                 </View>
                 <Text style={styles.name}>{name}</Text>
-                {(!overlayOpen || newValue) && <View style={[styles.valueWrapper, newValue ? styles.newValue : {}]}>
-                    <Text style={[styles.value, newValue ? styles.valueNew : {}]}>{value}</Text>
-                </View>}
+                <View style={[
+                    styles.valueWrapper,
+                    newValue ? styles.newValue : {
+                        opacity: overlayOpen ? 0 : 1,
+                    }
+                ]}>
+                    <Text style={[
+                        styles.value,
+                        newValue ? styles.valueNew : {
+                            fontSize: String(value).length > 6 ? 16 : 20,
+                        }
+                    ]}>{value}</Text>
+                </View>
             </View>
         );
     }

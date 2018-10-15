@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Dimensions, Animated, Easing} from 'react-native';
+import {View, Dimensions, Animated, Text, Switch} from 'react-native';
 import {
     TRANSFER_TYPE_TASK,
     NOTIFICATION_STAGE_TASK_QUESTION,
@@ -44,6 +44,8 @@ export class Game extends Component {
         showTapFirstCloud: false,
         showAskParent: false,
         showTapCloudOrTree: false,
+
+        snap: true,
     }
 
     async componentDidMount() {
@@ -98,16 +100,23 @@ export class Game extends Component {
 
     hideAskParent = () => this.setState({showAskParent: false})
 
-    onMoveComplete = x => this.setState({
-        // snap:
-        // targetX: Math.round(x / Tree.WIDTH) * Tree.WIDTH
-        targetX: x
-    })
+    onMoveComplete = x => {
+        if (this.state.snap) {
+            const roundingFn = x > this.state.targetX ? Math.ceil : Math.floor;
+            this.setState({
+                targetX: roundingFn(x / Tree.SPACING) * Tree.SPACING
+            });
+            return;
+        }
+        this.setState({
+            targetX: x
+        });
+    }
 
     onNewTreeClicked = () => {
         const goals = this.props.kid.goals || [];
         const index = goals.length + 1;
-        this.setState({targetX: Tree.WIDTH * index});
+        this.setState({targetX: Tree.SPACING * index});
         this.openGoalOverlay();
     }
 
@@ -147,14 +156,13 @@ export class Game extends Component {
         }
     }
 
+    centerCurrentTree = index => this.setState({targetX: Tree.SPACING * index});
+
     onTouchStart = (goalAddress, index) => {
         console.log('onTouchStart', goalAddress, index, this.state.cloudStatus);
 
-        // current Tree:
-        this.setState({targetX: Tree.WIDTH * index});
-
         if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
-
+            this.centerCurrentTree(index);
             this.countUpBalance(goalAddress);
 
             this.touchTimer = setInterval(() => {
@@ -163,8 +171,8 @@ export class Game extends Component {
         }
     }
 
-    onTouchEnd = (goalAddress, index) => {
-        console.log('onTouchEnd', goalAddress, index, this.state);
+    onTouchEnd = (goalAddress, index, outside) => {
+        console.log('onTouchEnd outside =', outside);
         clearInterval(this.touchTimer);
 
         console.log('this.state.cloudStatus', this.state.cloudStatus);
@@ -185,9 +193,9 @@ export class Game extends Component {
                     this.transferWollo();
                 }, 4000);
             }
-        } else if (!this.state.raining) {
+        } else if (!this.state.raining && !outside) {
             // if we are not dropping wollos on tree let's treat as normal tree click:
-
+            this.centerCurrentTree(index);
             this.openGoalOverlay(goalAddress);
             this.setState({
                 cloudStatus: null,
@@ -252,8 +260,8 @@ export class Game extends Component {
         const open = this.state.isGoalOverlayOpen;
         Animated.timing(this.state.y, {
             toValue: open ? 80 - Dimensions.get('window').height * 0.59 : 0,
-            duration: open ? 500 : 400,
-            easing: open ? Easing.out(Easing.quad) : Easing.back(1),
+            duration: open ? 300 : 300,
+            // easing: open ? Easing.out(Easing.quad) : Easing.back(1),
         }).start();
     }
 
@@ -279,9 +287,9 @@ export class Game extends Component {
             showAskParent,
             showTapCloudOrTree,
             transfers,
-            pendingTransfers,
         } = this.state;
 
+        // TODO: convert to bignumber.js
         const balances = Object.keys(this.props.balances || {}).reduce((obj, key) => {
             // See if we have any this.state.transfers
             const transferAmount = transfers.reduce((total, transfer) => {
@@ -300,6 +308,7 @@ export class Game extends Component {
 
         const pigzbe = (
             <Pigzbe
+                pointerEvents="none"
                 style={{
                     position: 'absolute',
                     bottom: 148,
@@ -347,7 +356,7 @@ export class Game extends Component {
                     top: this.state.y
                 }}>
                     <GameBg
-                        maxX={(1 + numGoals) * Tree.WIDTH}
+                        maxX={(1 + numGoals) * Tree.SPACING}
                         targetX={this.state.targetX}
                         onMoveComplete={this.onMoveComplete}>
                         <Trees
@@ -394,6 +403,17 @@ export class Game extends Component {
                         light
                     />
                 </View>}
+                <View style={{position: 'absolute', top: 30, right: 20, flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={{marginRight: 10}}>
+                        Snap
+                    </Text>
+                    <Switch
+                        value={this.state.snap}
+                        onValueChange={() => this.setState({
+                            snap: !this.state.snap
+                        })}
+                    />
+                </View>
             </View>
         );
     }
