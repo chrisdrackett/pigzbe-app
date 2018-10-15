@@ -62,6 +62,7 @@ export const initialState = {
     numKidsAdded: 0,
     kids: [],
     balances: {},
+    balancesXLM: {},
 };
 
 export default (state = initialState, action) => {
