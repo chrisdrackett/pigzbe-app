@@ -109,7 +109,8 @@ export const burn = (amount) => async (dispatch, getState) => {
     const claimData = claim.data;
     const web3 = claim.web3.instance;
 
-    dispatch(claimLoading('Waiting Ethereum network confirmation'));
+    dispatch(claimError(null));
+    dispatch(claimLoading('Waiting for network confirmation'));
 
     try {
 
@@ -167,6 +168,8 @@ export const burn = (amount) => async (dispatch, getState) => {
 
             transactionHash = await sendSignedTransaction(web3, serializedTx, 'An error occurred when burning your tokens');
 
+            console.log('transactionHash', transactionHash);
+
             dispatch(updateClaimData({
                 transactionHash: transactionHash
             }));
@@ -223,6 +226,6 @@ export const burn = (amount) => async (dispatch, getState) => {
 
     } catch (e) {
         console.log(e);
-        dispatch(claimError(e.message));
+        dispatch(claimError(e.message || e));
     }
 };

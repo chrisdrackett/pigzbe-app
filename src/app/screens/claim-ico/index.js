@@ -52,7 +52,7 @@ export class ClaimICO extends Component {
       }
 
       const unfinished = nextProps.eth.coinbase && nextProps.eth.balanceWollo;
-      const hasError = nextProps.data.error;
+      const hasError = nextProps.data.transactionHash && nextProps.data.error;
 
       if (unfinished || hasError) {
           this.setState({step: 5, loading: null});
@@ -197,7 +197,7 @@ export class ClaimICO extends Component {
           transactionHash,
           web3,
           data,
-          errorBurning,
+          error,
           publicKey
       } = this.props;
 
@@ -239,7 +239,7 @@ export class ClaimICO extends Component {
                   {step === 5 &&
                       <Step5
                           hasBalance={hasBalance}
-                          error={errorBurning || data.error}
+                          error={error || data.error}
                           tx={tx}
                           pk={pk}
                           stellarPK={publicKey}
@@ -262,13 +262,12 @@ export class ClaimICO extends Component {
               />
               {!this.state.clickedClose ? (
                   <Progress
-                      active={loading !== null && !data.complete && !errorBurning}
+                      active={loading !== null && !data.complete && !error}
                       complete={data.complete}
                       title={data.complete ? 'Congrats' : 'Claim progress'}
-                      error={errorBurning}
+                      error={error}
                       text={data.complete ? `Congrats! You are now the owner of ${eth.balanceWollo} Wollo, you rock.` : loading}
-                      // buttonLabel={data.complete || errorBurning ? 'Next' : null}
-                      buttonLabel={'Next'}
+                      buttonLabel={error ? 'Close' : 'Next'}
                       onPress={data.complete ? this.onCompleteClaim : this.closeProgress}
                   />
               ) : null}
@@ -285,7 +284,7 @@ export default connect(
         transactionHash: events.transactionHash,
         web3: web3.instance,
         loading: events.loading,
-        errorBurning: events.error,
+        error: events.error,
         publicKey: keys.publicKey,
     }), {
         getGasPrice,

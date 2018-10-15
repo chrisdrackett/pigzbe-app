@@ -133,10 +133,12 @@ export default (state = initialState, action) => {
                 }
             });
         case CLAIM_ERROR:
+            console.log('CLAIM_ERROR', action.payload);
             return updateClaim(state, {
                 events: {
                     ...state.claims[state.currentClaim].events,
-                    error: action.payload
+                    error: action.payload,
+                    loading: null,
                 }
             });
         case CLAIM_LOADING:

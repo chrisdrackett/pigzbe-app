@@ -49,7 +49,7 @@ export class ClaimAirdrop extends Component {
       }
 
       const unfinished = nextProps.eth.coinbase && nextProps.eth.balanceWollo;
-      const hasError = nextProps.data.error;
+      const hasError = nextProps.data.transactionHash && nextProps.data.error;
 
       if (unfinished || hasError) {
           this.setState({step: 3, loading: null});
@@ -122,7 +122,6 @@ export class ClaimAirdrop extends Component {
               }
           });
       } catch (err) {
-          console.log('onSubmitBurn error:');
           console.log(err);
       }
   }
@@ -180,15 +179,14 @@ export class ClaimAirdrop extends Component {
           transactionHash,
           web3,
           data,
-          errorBurning,
+          error,
           publicKey
       } = this.props;
 
       console.log('===> step', step);
-      console.log('web3', web3);
-      console.log('contract', contract);
       console.log('data', data);
       console.log('this.state.loading', this.state.loading);
+      console.log('error', error);
 
       if (!web3 || !contract || !data.loaded || this.state.loading !== null) {
           return (
@@ -219,7 +217,7 @@ export class ClaimAirdrop extends Component {
                   {step === 3 &&
                       <Step3
                           hasBalance={hasBalance}
-                          error={errorBurning || data.error}
+                          error={error || data.error}
                           tx={tx}
                           pk={pk}
                           stellarPK={publicKey}
@@ -242,13 +240,12 @@ export class ClaimAirdrop extends Component {
               />
               {!this.state.clickedClose ? (
                   <Progress
-                      active={loading !== null && !data.complete && !errorBurning}
+                      active={loading !== null && !data.complete && !error}
                       complete={data.complete}
                       title={data.complete ? 'Congrats' : 'Claim progress'}
-                      error={errorBurning}
+                      error={error}
                       text={data.complete ? `Congrats! You are now the owner of ${eth.balanceWollo} Wollo, you rock.` : loading}
-                      // buttonLabel={data.complete || errorBurning ? 'Next' : null}
-                      buttonLabel={'Next'}
+                      buttonLabel={error ? 'Close' : 'Next'}
                       onPress={data.complete ? this.onCompleteClaim : this.closeProgress}
                   />
               ) : null}
@@ -265,7 +262,7 @@ export default connect(
         transactionHash: events.transactionHash,
         web3: web3.instance,
         loading: events.loading,
-        errorBurning: events.error,
+        error: events.error,
         publicKey: keys.publicKey,
     }), {
         getGasPrice,
