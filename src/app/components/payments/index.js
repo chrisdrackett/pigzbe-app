@@ -35,9 +35,9 @@ export class Payments extends Component {
         const {loading, payments, showHelp} = this.props;
 
         const filters = {
-            all: 'All',
-            sent: 'Sent',
-            received: 'Received',
+            all: 'ALL',
+            sent: 'SENT',
+            received: 'RECEIVED',
         };
 
         if (!showHelp && loading) {
