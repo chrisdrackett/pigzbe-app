@@ -30,6 +30,7 @@ import StepModule from '../../components/step-module';
 import Icon from 'app/components/icon';
 
 import styles from './styles';
+import { color } from '../../styles';
 
 const currenciesForSelect = {};
 Object.keys(CURRENCIES).forEach(key => (currenciesForSelect[key] = CURRENCIES[key].name));
@@ -144,6 +145,7 @@ export class Settings extends Component {
                             <Switch
                                 value={subscribe}
                                 onValueChange={this.onSubscribe}
+                                onTintColor={color.pink}
                             />
                         </View>
                     </Items>
@@ -159,6 +161,7 @@ export class Settings extends Component {
                                 <Switch
                                     value={enableTouchId}
                                     onValueChange={this.onSetTouchId}
+                                    onTintColor={color.pink}
                                 />
                             </View>
                         )}

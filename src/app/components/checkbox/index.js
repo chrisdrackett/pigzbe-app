@@ -1,6 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Text, View, Switch} from 'react-native';
 import styles from './styles';
+import { color } from 'app/styles';
 
 export default ({text, value, onValueChange, alt}) => {
     if (alt) {
@@ -12,6 +13,7 @@ export default ({text, value, onValueChange, alt}) => {
                 <Switch
                     value={value}
                     onValueChange={onValueChange}
+                    onTintColor={color.pink}
                 />
             </View>
         );
