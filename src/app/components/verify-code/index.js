@@ -24,7 +24,7 @@ export default class VerifyCode extends Component {
         qrCode: null,
     }
 
-    onChangeCode = code => this.setState({code}, this.onVerify)
+    onChangeCode = code => this.setState({code})
 
     onResend = () => this.props.onResend()
 
