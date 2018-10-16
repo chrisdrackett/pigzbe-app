@@ -87,6 +87,7 @@ export default class StepModule extends Component {
                           style={{
                               borderTopRightRadius: 5,
                               borderTopLeftRadius: 5,
+                              backgroundColor: color.white,
                           }}
                       />
                   </Container>
