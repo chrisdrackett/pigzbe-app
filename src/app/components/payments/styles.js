@@ -28,7 +28,7 @@ export default StyleSheet.create({
     amountWrapper: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent: 'flex-start',
     },
     amount: {
@@ -39,11 +39,9 @@ export default StyleSheet.create({
         fontWeight: 'bold',
     },
     direction: {
-        width: 7,
-        flexBasis: 7,
-        flexGrow: 0,
-        height: 15,
-        marginRight: 8,
+        height: 11,
+        marginRight: 6,
+        marginBottom: 3,
     },
     address: {
         fontFamily,
