@@ -14,6 +14,7 @@ export default class StepModule extends Component {
   static defaultProps = {
       scroll: true,
       keyboardOffset: 0,
+      avoidKeyboard: true,
   }
 
   render() {
@@ -36,10 +37,50 @@ export default class StepModule extends Component {
           loaderMessage,
           customTitle,
           hideLogo,
-          justify
+          justify,
+          avoidKeyboard,
       } = this.props;
 
       const {height} = Dimensions.get('window');
+
+      const container = (
+            <Container
+            scroll={scroll}
+            style={[styles.container, {
+                backgroundColor: backgroundColor || color.white,
+            }]}
+        >
+            {(content || error) && (
+                <View style={[styles.containerText, {paddingTop: height > 568 ? 32 : 25}]}>
+                    {typeof content === 'string' ? (
+                        <Paragraph>{content}</Paragraph>
+                    ) : (
+                        content
+                    )}
+                    {error && (
+                        <Paragraph style={styles.error}>{error.message}</Paragraph>
+                    )}
+                </View>
+            )}
+            <View style={[
+                styles.wrapper,
+                justify ? {justifyContent: justify} : null,
+                pad ? styles.pad : null, paddingTop ? {paddingTop} : null
+            ]}>
+                {children}
+            </View>
+            <Loader
+                light
+                loading={loading}
+                message={loaderMessage}
+                style={{
+                    borderTopRightRadius: 5,
+                    borderTopLeftRadius: 5,
+                    backgroundColor: color.white,
+                }}
+            />
+        </Container>
+      );
 
       return (
           <Container style={styles.wrapper} scroll={false}>
@@ -54,43 +95,14 @@ export default class StepModule extends Component {
               {
                   title || icon || headerChildren ? <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader> : null
               }
-              <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}} offset={keyboardOffset}>
-                  <Container
-                      scroll={scroll}
-                      style={[styles.container, {
-                          backgroundColor: backgroundColor || color.white,
-                      }]}
-                  >
-                      {(content || error) && (
-                          <View style={[styles.containerText, {paddingTop: height > 568 ? 32 : 25}]}>
-                              {typeof content === 'string' ? (
-                                  <Paragraph>{content}</Paragraph>
-                              ) : (
-                                  content
-                              )}
-                              {error && (
-                                  <Paragraph style={styles.error}>{error.message}</Paragraph>
-                              )}
-                          </View>
-                      )}
-                      <View style={[
-                          styles.wrapper,
-                          justify ? {justifyContent: justify} : null,
-                          pad ? styles.pad : null, paddingTop ? {paddingTop} : null
-                      ]}>
-                          {children}
-                      </View>
-                      <Loader
-                          light
-                          loading={loading}
-                          message={loaderMessage}
-                          style={{
-                              borderTopRightRadius: 5,
-                              borderTopLeftRadius: 5,
-                          }}
-                      />
-                  </Container>
-              </KeyboardAvoid>
+              {avoidKeyboard &&
+                <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}} offset={keyboardOffset}>
+                    {container}
+                </KeyboardAvoid>
+              }
+              {!avoidKeyboard &&
+                container
+              }
           </Container>
       );
   }

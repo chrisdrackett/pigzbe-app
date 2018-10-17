@@ -30,6 +30,8 @@ import {
 } from '../../constants';
 import Icon from '../../components/icon';
 
+import { color } from 'app/styles';
+
 const SwitchControl = ({
     label,
     value,
@@ -42,6 +44,7 @@ const SwitchControl = ({
         <Switch
             value={value}
             onValueChange={val => onValueChange(val)}
+            onTintColor={color.pink}
         />
     </View>
 );

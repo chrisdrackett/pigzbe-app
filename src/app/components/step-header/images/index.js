@@ -1,6 +1,7 @@
 export default {
     piggy: require('./piggy.png'),
     tick: require('./tick.png'),
+    tick2: require('./tick2.png'),
     code: require('./code.png'),
     touch: require('./touch.png'),
     keys: require('./keys.png'),

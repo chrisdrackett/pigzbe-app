@@ -371,7 +371,7 @@ export class Game extends Component {
                     {pigzbe}
                 </Animated.View>
                 {clouds}
-                {wolloCounter}
+                {!this.state.isGoalOverlayOpen && wolloCounter}
                 <GoalOverlay
                     kid={kid}
                     isOpen={this.state.isGoalOverlayOpen}

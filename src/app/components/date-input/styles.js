@@ -35,5 +35,8 @@ export default StyleSheet.create({
         width: '100%',
         color: color.lighterBlue,
         fontWeight: 'bold',
-    }
+    },
+    btnTextConfirm: {
+        color: color.blue,
+    },
 })

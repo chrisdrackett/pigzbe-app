@@ -13,7 +13,15 @@ export default ({
 }) => (
     <View style={styles.container}>
         <View style={styles.iconContainer}>
-            {onBack && (
+            {onSettings &&
+                <IconButton
+                    icon={settingsIcon}
+                    size={18}
+                    padding={12}
+                    onPress={onSettings}
+                />
+            }
+            {onBack && !onSettings && (
                 <IconButton
                     icon="back"
                     size={14}
@@ -29,14 +37,6 @@ export default ({
             }
         </View>
         <View style={styles.iconContainer}>
-            {onSettings &&
-                <IconButton
-                    icon={settingsIcon}
-                    size={18}
-                    padding={12}
-                    onPress={onSettings}
-                />
-            }
         </View>
     </View>
 );

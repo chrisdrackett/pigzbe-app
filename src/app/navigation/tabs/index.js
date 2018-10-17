@@ -25,8 +25,7 @@ const nav = {
             title: strings.menuWallet
         },
         icon: 'wallet',
-        iconW: 19,
-        iconH: 19
+        iconH: 18
     },
     [SCREEN_TRANSFER]: {
         screen: Transfer,
@@ -34,8 +33,7 @@ const nav = {
             title: strings.menuTransfer
         },
         icon: 'transfer',
-        iconW: 19,
-        iconH: 17
+        iconH: 18
     },
     [SCREEN_MESSAGES]: {
         screen: Messages,
@@ -43,8 +41,7 @@ const nav = {
             title: strings.menuMessages
         },
         icon: 'messages',
-        iconW: 20,
-        iconH: 13
+        iconH: 18
     },
 };
 
@@ -53,7 +50,6 @@ const TabBarIcon = connect(state => ({
 }))(({
     navItem: {
         icon,
-        iconW,
         iconH
     },
     focused,
@@ -66,10 +62,10 @@ const TabBarIcon = connect(state => ({
             <View>
                 <Image
                     style={{
-                        width: iconW,
                         height: iconH
                     }}
                     source={images[iconName]}
+                    resizeMode="contain"
                 />
                 <Image
                     style={styles.notify}
@@ -82,10 +78,10 @@ const TabBarIcon = connect(state => ({
     return (
         <Image
             style={{
-                width: iconW,
                 height: iconH
             }}
             source={images[iconName]}
+            resizeMode="contain"
         />
     );
 });

@@ -24,8 +24,8 @@ export default StyleSheet.create({
         width: 40,
         display: 'flex',
         justifyContent: 'center',
-        marginLeft: 18,
-        marginRight: 18,
+        marginLeft: 12,
+        marginRight: 12,
     },
     titleContainer: {
         flex: 1,

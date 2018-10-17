@@ -8,6 +8,7 @@ import {
     Image,
 } from 'react-native';
 import styles from './styles';
+import {color} from 'app/styles';
 
 export default class SearchableList extends Component {
     state = {
@@ -44,8 +45,11 @@ export default class SearchableList extends Component {
                         <TextInput
                             style={styles.searchInput}
                             placeholder="Search"
+                            placeholderTextColor={color.blue}
                             value={this.state.searchText}
                             onChangeText={this.onSearchChange}
+                            autoCapitalize="none"
+                            autoCorrect={false}
                         />
                     </View>
                 </View>

@@ -41,6 +41,7 @@ export default class DateInputComponent extends Component {
                         dateText: styles.dateText,
                         dateTouchBody: styles.dateTouchBody,
                         placeholderText: styles.placeholderText,
+                        btnTextConfirm: styles.btnTextConfirm,
                     }}
                     onDateChange={onChangeSelection}
                     showIcon={false}

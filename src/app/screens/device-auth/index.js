@@ -49,10 +49,17 @@ export class DeviceAuth extends Component {
     onChangePhone = phone => this.setState({phone})
 
     // onChangeCountry = option => this.setState({countryName: option.label, country: option.value})
-    onChangeCountry = country => this.setState({
-        countryName: country,
-        countryCode: findCountryCode(country)
-    })
+    onChangeCountry = country => {
+        this.setState({
+            countryName: country,
+            countryCode: findCountryCode(country)
+        });
+        setTimeout(() => {
+            this.setState({
+                showCountryModal: false,
+            });
+        }, 200);
+    }
 
     onSend = () => {
         Keyboard.dismiss();
@@ -88,7 +95,7 @@ export class DeviceAuth extends Component {
             <Fragment>
                 <StepModule
                     title={!id ? 'Get Started' : 'Enter Code'}
-                    icon={!id ? 'tick' : 'code'}
+                    icon={!id ? 'tick2' : 'code'}
                     content={!id
                         ? 'Before we begin, enter your mobile number to verify your mobile device.'
                         : `Now enter the code we sent to +${this.state.countryCode}${this.state.phone.replace(/^0+/, '')}`
@@ -142,6 +149,8 @@ export class DeviceAuth extends Component {
                                 >
                                     <StepModule
                                         onBack={this.onCloseCountryModal}
+                                        customTitle="Countries"
+                                        avoidKeyboard={false}
                                     >
                                         <SearchableList
                                             selectedKey={this.state.countryName}

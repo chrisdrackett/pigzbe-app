@@ -26,8 +26,7 @@ export default StyleSheet.create({
         width: 284,
     },
     bird: {
-        width: 58,
-        height: 39,
+        width: 68,
         alignSelf: 'center',
     },
 });

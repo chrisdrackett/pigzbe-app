@@ -14,8 +14,8 @@ export default StyleSheet.create({
     hit: {
         // alignSelf: 'stretch',
         width: '100%',
-        backgroundColor: color.mediumBlue,
-        borderColor: color.mediumBlue,
+        backgroundColor: color.blue,
+        borderColor: color.blue,
         borderRadius: 22.5,
         borderWidth: 1,
         marginBottom: 10,

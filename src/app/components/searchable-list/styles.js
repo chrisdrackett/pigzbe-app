@@ -29,6 +29,7 @@ export default StyleSheet.create({
     searchInput: {
         marginLeft: 7,
         fontFamily,
+        color: color.blue,
         flex: 1,
         fontSize: 14,
     },

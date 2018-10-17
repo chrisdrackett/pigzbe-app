@@ -20,6 +20,7 @@ export class CurrencySet extends Component {
             <StepModule
                 customTitle="Currencies"
                 onBack={onBack}
+                avoidKeyboard={false}
             >
                 <SearchableList
                     selectedKey={baseCurrency}
@@ -38,7 +39,9 @@ export default connect(
     (dispatch, ownProps) => ({
         onSetBaseCurrency: baseCurrency => {
             dispatch(settingsUpdate({baseCurrency}));
-            ownProps.navigation.goBack();
+            setTimeout(() => {
+                ownProps.navigation.goBack();
+            }, 200);
         },
         onBack: () => ownProps.navigation.goBack(),
     }),

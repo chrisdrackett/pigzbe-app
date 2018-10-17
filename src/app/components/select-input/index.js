@@ -122,12 +122,15 @@ export default class SelectInputComponent extends Component {
                             >
                                 <StepModule
                                     onBack={() => this.setState({open: false})}
+                                    avoidKeyboard={false}
                                 >
                                     <SearchableList
                                         selectedKey={value}
                                         onChangeSelection={key => {
                                             onChangeSelection(key);
-                                            this.setState({open: false});
+                                            setTimeout(() => {
+                                                this.setState({open: false});
+                                            }, 200);
                                         }}
                                         items={options}
                                     />

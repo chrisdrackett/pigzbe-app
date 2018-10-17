@@ -21,8 +21,8 @@ export default StyleSheet.create({
     containerBody: {
         backgroundColor: color.mediumBlue,
         paddingBottom: 20,
-        paddingLeft: paddingH,
-        paddingRight: paddingH,
+        paddingLeft: '12%',
+        paddingRight: '12%',
     },
     containerText: {
         alignItems: 'center',
@@ -37,7 +37,7 @@ export default StyleSheet.create({
     title: {
         fontFamily,
         color: color.white,
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold',
         marginLeft: 20,
         marginRight: 20,
@@ -65,8 +65,6 @@ export default StyleSheet.create({
         fontFamily,
         color: color.white,
         fontSize: 16,
-        marginLeft: 20,
-        marginRight: 20,
         marginBottom: 20,
         textAlign: 'center'
     },
