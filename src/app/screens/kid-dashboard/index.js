@@ -182,27 +182,24 @@ export class KidDashboard extends Component {
             <Fragment>
                 <StepModule
                     scroll
-                    headerChildren={(
-                        <View style={styles.header}>
-                            <KidAvatar photo={kid.photo} size={54}/>
-                            <Text style={styles.name}>{kid.name}</Text>
-
-                            <TouchableOpacity onPress={this.onTransactions}>
-                                <Wollo
-                                    balance={kid.balance}
-                                    exchange={exchange}
-                                    baseCurrency={baseCurrency}
-                                    link
-                                />
-                            </TouchableOpacity>
-                        </View>
-                    )}
                     backgroundColor={loading ? color.white : color.transparent}
                     loading={loading}
                     error={error}
                     onBack={this.onBack}
                     hideLogo
                 >
+                    <View style={styles.header}>
+                        <KidAvatar photo={kid.photo} size={54}/>
+                        <Text style={styles.name}>{kid.name}</Text>
+                        <TouchableOpacity onPress={this.onTransactions}>
+                            <Wollo
+                                balance={kid.balance}
+                                exchange={exchange}
+                                baseCurrency={baseCurrency}
+                                link
+                            />
+                        </TouchableOpacity>
+                    </View>
                     {(!loading && !error) && (
                         <View>
                             <BalanceGraph balance={kid.balance} exchange={exchange} baseCurrency={baseCurrency}/>
