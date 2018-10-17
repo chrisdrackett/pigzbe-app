@@ -92,7 +92,7 @@ export const watchConfirmations = ({
         try {
             const receipt = await web3.eth.getTransaction(transactionHash);
             console.log(receipt);
-            if (receipt.blockNumber) {
+            if (receipt && receipt.blockNumber) {
                 loop = 0;
                 clearTimeout(timeout);
                 checkConfirmations(receipt);

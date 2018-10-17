@@ -38,7 +38,7 @@ export const getClaimBalance = () => async (dispatch, getState) => {
         }});
     } catch (e) {
         console.log(e);
-        dispatch(claimError(e.message));
+        dispatch(claimError('Could not get balance'));
     }
 };
 
