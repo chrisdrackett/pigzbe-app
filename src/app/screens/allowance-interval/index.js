@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View, Text} from 'react-native';
 import moment from 'moment';
@@ -87,8 +87,12 @@ export class AllowanceInterval extends Component {
                             onChangeSelection={value => this.changeDay(value)}
                             options={dayOptions}
                         />}
-                        {!disabled && nextDate && <Text style={styles.text}>First Allowance:{'\n'}{nextDate.format('dddd, MMMM Do')}</Text>}
-                        {DeviceInfo && <Text style={styles.text}>Your Timezone:{'\n'}{timezone}</Text>}
+                        {false &&
+                            <Fragment>
+                                {!disabled && nextDate && <Text style={styles.text}>First Allowance:{'\n'}{nextDate.format('dddd, MMMM Do')}</Text>}
+                                {DeviceInfo && <Text style={styles.text}>Your Timezone:{'\n'}{timezone}</Text>}
+                            </Fragment>
+                        }
                     </View>
                     <View style={{marginTop: 20}}>
                         <Button
