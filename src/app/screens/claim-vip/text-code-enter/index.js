@@ -4,7 +4,7 @@ import VerifyCode from 'app/components/verify-code';
 
 export default class TextCodeEnter extends Component {
     render() {
-        const {onNext, onResend, onBack, countryCode, phone = '', error} = this.props;
+        const {onNext, onResend, onBack, countryCode, phone = '', error, loading} = this.props;
 
         return (
             <StepModule
@@ -12,6 +12,7 @@ export default class TextCodeEnter extends Component {
                 icon="code"
                 content={`Now enter the code we sent to +${countryCode}${phone.replace(/^0+/, '')}`}
                 onBack={onBack}
+                loading={loading}
                 justify="space-between"
                 pad
             >

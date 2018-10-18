@@ -28,8 +28,10 @@ export default class VerifyCode extends Component {
 
     onResend = () => this.props.onResend()
 
+    isValidCode = () => (this.state.code && this.state.code.length === boxes)
+
     onVerify = () => {
-        if (!this.state.code || this.state.code.length < boxes) {
+        if (!this.isValidCode()) {
             return;
         }
         this.props.onVerify(this.state.code);
@@ -72,6 +74,7 @@ export default class VerifyCode extends Component {
                     </View>
                 </View>
                 <Button
+                    disabled={!this.isValidCode()}
                     label={'Verify'}
                     onPress={this.onVerify}
                 />

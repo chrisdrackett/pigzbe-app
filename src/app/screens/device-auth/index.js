@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Keyboard, View} from 'react-native';
 import Button from '../../components/button';
 import TextInput from '../../components/text-input';
-import {SCREEN_HOME, SCREEN_TOUCH_ID, SCREEN_SET_PASSCODE} from '../../constants';
+import {SCREEN_TOUCH_ID, SCREEN_SET_PASSCODE} from '../../constants';
 import {
     deviceAuthOnline,
     deviceAuthRegister,
@@ -33,12 +33,20 @@ export class DeviceAuth extends Component {
         showCountryModal: false,
     }
 
+    static defaultProps = {
+        skippable: true,
+    }
+
     componentDidMount() {
         this.props.dispatch(deviceAuthOnline());
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.verified && !prevProps.verified) {
+            if (typeof this.props.onNext === 'function') {
+                this.props.onNext();
+                return;
+            }
             const screen = this.props.touchIdSupport ? SCREEN_TOUCH_ID : SCREEN_SET_PASSCODE;
             this.props.navigation.push(screen);
         }
@@ -166,11 +174,13 @@ export class DeviceAuth extends Component {
                                     onPress={this.onSend}
                                     disabled={!(this.state.email && this.state.phone && this.state.countryCode)}
                                 />
-                                <Button
-                                    theme="outline"
-                                    label={'Skip'}
-                                    onPress={this.onSkip}
-                                />
+                                {this.props.skippable && (
+                                    <Button
+                                        theme="outline"
+                                        label={'Skip'}
+                                        onPress={this.onSkip}
+                                    />
+                                )}
                             </View>
                         </Fragment>
                     )}
