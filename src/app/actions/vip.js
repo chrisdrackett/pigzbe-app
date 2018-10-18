@@ -22,11 +22,18 @@ export const vipRequestEmail = () => async (dispatch, getState) => {
         const {email} = getState().settings;
         const result = await (await fetch(`${api}/vip/send-email?email=${email}`)).json();
         console.log(result);
+        if (result.error) {
+            dispatch(appError(result.message));
+            return false;
+        }
     } catch (error) {
         console.log('error', error);
+        dispatch(appError('Could not request email'));
         dispatch(vipError(error));
+        return false;
     }
     dispatch(vipLoading(false));
+    return true;
 };
 
 export const vipVerifyEmail = emailCode => async (dispatch, getState) => {
@@ -86,6 +93,10 @@ export const vipConfirm = code => async (dispatch, getState) => {
         const api = apiURL(getState());
         const {publicKey} = getState().keys;
         const {authyId, email} = getState().settings;
+        console.log('authyId', authyId);
+        console.log('email', email);
+        console.log('publicKey', publicKey);
+        console.log('code', code);
         const result = await (await fetch(`${api}/vip/confirm?id=${authyId}&code=${code}&publicKey=${publicKey}&email=${email}`)).json();
         // id', 'code', 'email', 'publicKey'
         console.log('result', result);

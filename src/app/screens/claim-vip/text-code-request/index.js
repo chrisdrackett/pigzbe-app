@@ -5,13 +5,14 @@ import StepModule from 'app/components/step-module';
 import Paragraph from 'app/components/paragraph';
 import Button from 'app/components/button';
 
-export default ({onNext, onBack, number}) => (
+export default ({onNext, onBack, number, loading}) => (
     <StepModule
         title="Text Code"
         icon="code"
         content="Finally, we will now send you a text message with a 6 digit code"
         onBack={onBack}
         justify="space-between"
+        loading={loading}
         pad
     >
         <View>

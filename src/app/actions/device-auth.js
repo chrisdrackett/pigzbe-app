@@ -56,7 +56,7 @@ export const deviceAuthRegister = (email, phone, country) => async (dispatch, ge
         if (result.success) {
             const {user: {id}, qr_code} = result;
             dispatch({type: DEVICE_AUTH_REGSITERED, id, qrCode: qr_code, email, phone, country});
-            dispatch(deviceAuthLogin());
+            await dispatch(deviceAuthLogin());
         } else {
             const err = new Error(result.message.message || result.message);
             dispatch(appError(err));

@@ -38,8 +38,10 @@ export class ClaimVIP extends Component {
     }
 
     onSendEmail = async () => {
-        await this.props.dispatch(vipRequestEmail());
-        this.setStep(STEP_TOKEN_CODE);
+        const sucess = await this.props.dispatch(vipRequestEmail());
+        if (sucess) {
+            this.setStep(STEP_TOKEN_CODE);
+        }
     }
 
     onVerifyEmail = async emailCode => {

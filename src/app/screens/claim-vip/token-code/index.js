@@ -13,7 +13,7 @@ export default class TokenCode extends Component {
     onNext = () => this.props.onNext(this.state.tokenCode)
 
     render() {
-        const {email, onBack} = this.props;
+        const {email, onBack, loading} = this.props;
 
         return (
             <StepModule
@@ -21,6 +21,7 @@ export default class TokenCode extends Component {
                 icon="vip"
                 content={`We're almost there! Please enter the unique code sent to ${email}.`}
                 onBack={onBack}
+                loading={loading}
                 justify="space-between"
                 pad
             >
