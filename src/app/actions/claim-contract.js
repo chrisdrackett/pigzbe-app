@@ -110,7 +110,7 @@ export const burn = (amount) => async (dispatch, getState) => {
     const web3 = claim.web3.instance;
 
     dispatch(claimError(null));
-    dispatch(claimLoading('Waiting for network confirmation'));
+    dispatch(claimLoading('Waiting for Ethereum network confirmation'));
 
     try {
 
