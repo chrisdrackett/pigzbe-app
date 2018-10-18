@@ -1,5 +1,8 @@
 import React, {Fragment} from 'react';
-import {Modal, View, Text} from 'react-native';
+import {View, Text} from 'react-native';
+import Modal from 'react-native-modal';
+import StepModule from 'app/components/step-module';
+import Paragraph from 'app/components/paragraph';
 import Button from '../button';
 import styles from './styles';
 import {color} from '../../styles';
@@ -11,38 +14,46 @@ export default ({
     onConfirm,
     onCancel
 }) => (
-    <Modal animationType="slide" visible={visible} onRequestClose={onCancel}>
-        <View style={styles.modalConfirm}>
-            {message === 'confirm' &&
-                <Fragment>
-                    <Text style={styles.modalTitle}>The estimated gas for this transaction is</Text>
-                    <Text style={[styles.modalTitle, styles.modalTitleCost]}>{estimatedCost}</Text>
-                    <Text style={styles.modalText}>Click confirm to claim your Wollo tokens.</Text>
-                    <View>
-                        <Button
-                            label="Confirm"
-                            onPress={onConfirm}
-                        />
-                        <Button
-                            label="Cancel"
-                            onPress={onCancel}
-                            style={{
-                                backgroundColor: color.blue,
-                                borderColor: color.blue,
-                            }}
-                            textStyle={{
-                                color: color.white
-                            }}
-                        />
-                    </View>
-                </Fragment>
-            }
+    <Modal 
+        isVisible={visible}
+        style={{margin: 0}}
+        onBackButtonPress={onCancel}
+        animationIn="slideInRight"
+        animationOut="slideOutRight"
+    >
+        <StepModule
+            onBack={onCancel}
+            plain
+            pad
+            icon="eidoo"
+            justify="space-between"
+            title="Claim your Wollo"
+        >
+                {message === 'confirm' &&
+                    <Fragment>
+                        <View style={styles.container}>
+                            <Paragraph>{`The estimated gas for this transaction is *${estimatedCost}*`}</Paragraph>
+                            <Paragraph small>Click confirm to claim your Wollo tokens.</Paragraph>
+                        </View>
+                        <View>
+                            <Button
+                                label="Confirm"
+                                onPress={onConfirm}
+                            />
+                            <Button
+                                label="Cancel"
+                                theme="outline"
+                                onPress={onCancel}
+                            />
+                        </View>
+                    </Fragment>
+                }
 
-            {message !== 'confirm' && message !== '' &&
-                <Fragment>
-                    <Text style={styles.modalTitle}>{message}</Text>
-                </Fragment>
-            }
-        </View>
+                {message !== 'confirm' && message !== '' &&
+                    <View style={styles.container}>
+                        <Paragraph>{message}</Paragraph>
+                    </View>
+                }
+        </StepModule>
     </Modal>
 );

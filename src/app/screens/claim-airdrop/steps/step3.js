@@ -48,7 +48,7 @@ export default ({
             <Fragment>
                 <Paragraph>{`You have *${userBalance} ERC20 Wollo Tokens* in your account.`}</Paragraph>
                 {hasBalance ? (
-                    <Paragraph>{`Tap *Claim Wollo* below to convert your tokens to *${userBalance} Wollo* and create your Pigzbe wallet.`}</Paragraph>
+                    <Paragraph>{`Tap Claim Wollo below to convert your tokens to ${userBalance} Wollo and create your Pigzbe wallet.`}</Paragraph>
                 ) : (
                     <Paragraph>Go back to check your login details and try again.</Paragraph>
                 )}

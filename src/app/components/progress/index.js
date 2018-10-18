@@ -1,10 +1,27 @@
-import React, {Component} from 'react';
-import {View, Text, Image} from 'react-native';
-import RNModal from 'react-native-modal';
+import React, {Component, Fragment} from 'react';
+import {View, Text, Image, Modal} from 'react-native';
+//import RNModal from 'react-native-modal';
 import styles from './styles';
+import NotificationModal from 'app/components/notification-modal';
 import Bar from './bar';
-import Button from '../button';
 import Paragraph from '../paragraph';
+
+const Test = ({text, active, title}) => (
+    <Modal
+        transparent={true}
+        visible={true}
+    >
+        <View style={styles.overlay}>
+            <View style={styles.container}>
+                <Text style={styles.title}>{title}</Text>
+                <Paragraph small style={styles.text}>
+                    {text}
+                </Paragraph>
+                <Bar active={active}/>
+            </View>
+        </View>
+    </Modal>
+)
 
 export default class Progress extends Component {
     state = {
@@ -27,6 +44,12 @@ export default class Progress extends Component {
         }
     }
 
+    onPress = () => {
+        this.setState({
+            active: false,
+        });
+    }
+
     render() {
         const {active} = this.state;
 
@@ -37,39 +60,37 @@ export default class Progress extends Component {
         const {
             title,
             text,
-            buttonLabel,
+            complete = false,
             onPress,
-            complete,
             error = null
         } = this.props;
 
         const errorMessage = (error && error.message) || error;
 
+        if (errorMessage === null && (!complete || complete === undefined)) {
+            return (
+                <Test {...this.props} />
+            )
+        }
+
         return (
-            <RNModal isVisible={true} style={{margin: 0}}>
-                <View style={styles.overlay}>
-                    <View style={styles.container}>
-                        <Text style={styles.title}>{title}</Text>
-                        <Paragraph small style={errorMessage ? [styles.text, styles.error] : styles.text}>
-                            {errorMessage || text}
-                        </Paragraph>
-                        {complete ? (
-                            <Image style={styles.check} source={require('./images/check.png')}/>
-                        ) : (
-                            <Bar active={active} error={error}/>
-                        )}
-                        <View style={styles.inner}>
-                            {buttonLabel &&
-                                <Button
-                                    theme="outline"
-                                    disabled={!error && !complete}
-                                    label={buttonLabel}
-                                    onPress={onPress}
-                                />}
-                        </View>
-                    </View>
-                </View>
-            </RNModal>
+            <Fragment>
+                <NotificationModal
+                    open={errorMessage === null && complete}
+                    type="success"
+                    text="Your wallet balance has been updated"
+                    onRequestClose={onPress}
+                    buttonLabel="Ok"
+                />
+                <NotificationModal
+                    open={errorMessage !== null && !complete}
+                    type="error"
+                    text={errorMessage}
+                    onRequestClose={onPress}
+                    buttonLabel="Ok"
+                />
+                
+            </Fragment>
         );
     }
 }

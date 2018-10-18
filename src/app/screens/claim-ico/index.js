@@ -246,7 +246,7 @@ export class ClaimICO extends Component {
                           userBalance={eth.balanceWollo}
                           continueApplication={!data.complete && data.started}
                           startApplication={!data.complete && !data.started}
-                          buttonNextLabel={!hasBalance ? 'Back' : !data.complete && !data.started ? 'Claim Wollo' : 'Continue'}
+                          buttonNextLabel={!hasBalance ? 'Back' : !data.complete && !data.started ? 'Estimate Gas fees' : 'Continue'}
                           onNext={hasBalance ? this.onSubmitBurn : this.onStep4}
                           onBack={this.onStep4}
                       />
@@ -260,17 +260,15 @@ export class ClaimICO extends Component {
                   onConfirm={this.onConfirmedSubmitBurn}
                   onCancel={this.closeModal}
               />
-              {!this.state.clickedClose ? (
-                  <Progress
-                      active={loading !== null && !data.complete && !error}
-                      complete={data.complete}
-                      title={data.complete ? 'Congrats' : 'Claim progress'}
-                      error={error}
-                      text={data.complete ? `Congrats! You are now the owner of ${eth.balanceWollo} Wollo, you rock.` : loading}
-                      buttonLabel={error ? 'Close' : 'Next'}
-                      onPress={data.complete ? this.onCompleteClaim : this.closeProgress}
-                  />
-              ) : null}
+              <Progress
+                  active={!this.state.clickedClose && loading !== null && !data.complete && !error}
+                  complete={data.complete}
+                  title={data.complete ? 'Congrats' : 'Claim progress'}
+                  error={error}
+                  text={data.complete ? `Congrats! You are now the owner of ${eth.balanceWollo} Wollo, you rock.` : loading}
+                  buttonLabel={error ? 'Close' : 'Next'}
+                  onPress={data.complete ? this.onCompleteClaim : this.closeProgress}
+              />
           </Fragment>
       );
   }
