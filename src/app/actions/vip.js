@@ -89,7 +89,7 @@ export const vipConfirm = code => async (dispatch, getState) => {
         const result = await (await fetch(`${api}/vip/confirm?id=${authyId}&code=${code}&publicKey=${publicKey}&email=${email}`)).json();
         // id', 'code', 'email', 'publicKey'
         console.log('result', result);
-        if (result.result.updated) {
+        if (result.result && result.result.updated) {
             dispatch({type: VIP_CONFIRMED});
             dispatch(appAddSuccessAlert('VIP status confirmed'));
             success = true;

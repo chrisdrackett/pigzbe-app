@@ -32,6 +32,7 @@ export default class TokenCode extends Component {
                         onChangeText={this.onChangeText}
                     />
                     <Button
+                        disabled={!this.state.tokenCode}
                         label="Next"
                         onPress={this.onNext}
                     />

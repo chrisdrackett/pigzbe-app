@@ -7,37 +7,57 @@ import TokenCode from './token-code';
 import TextCodeRequest from './text-code-request';
 import TextCodeEnter from './text-code-enter';
 import Finish from './finish';
+import DeviceAuth from '../device-auth';
 
 import {vipRequestEmail, vipVerifyEmail, vipRequestCode, vipConfirm} from '../../actions';
 
+export const STEP_INTRO = 'STEP_INTRO';
+export const STEP_DEVICE_AUTH = 'STEP_DEVICE_AUTH';
+export const STEP_TOKEN_CODE = 'STEP_TOKEN_CODE';
+export const STEP_TEXT_CODE_REQUEST = 'STEP_TEXT_CODE_REQUEST';
+export const STEP_TEXT_CODE_ENTER = 'STEP_TEXT_CODE_ENTER';
+export const STEP_FINISH = 'STEP_FINISH';
+
 export class ClaimVIP extends Component {
     state = {
-        step: 'intro'
+        step: this.props.step
+    }
+
+    static defaultProps = {
+        step: STEP_INTRO
     }
 
     setStep = step => this.setState({step})
 
     onStart = async () => {
+        if (this.props.authyId) {
+            this.onSendEmail();
+        } else {
+            this.setStep(STEP_DEVICE_AUTH);
+        }
+    }
+
+    onSendEmail = async () => {
         await this.props.dispatch(vipRequestEmail());
-        this.setStep('tokenCode');
+        this.setStep(STEP_TOKEN_CODE);
     }
 
     onVerifyEmail = async emailCode => {
         const success = await this.props.dispatch(vipVerifyEmail(emailCode));
         if (success) {
-            this.setStep('textCodeRequest');
+            this.setStep(STEP_TEXT_CODE_REQUEST);
         }
     }
 
     onRequestCode = async () => {
         await this.props.dispatch(vipRequestCode());
-        this.setStep('textCodeEnter');
+        this.setStep(STEP_TEXT_CODE_ENTER);
     }
 
     onConfirm = async code => {
         const success = await this.props.dispatch(vipConfirm(code));
         if (success) {
-            this.setStep('finish');
+            this.setStep(STEP_FINISH);
         }
     }
 
@@ -52,41 +72,47 @@ export class ClaimVIP extends Component {
 
         return (
             <Fragment>
-                {step === 'intro' && (
+                {step === STEP_INTRO && (
                     <Intro
                         loading={this.props.loading}
                         onBack={this.onCancel}
                         onNext={this.onStart}
                     />
                 )}
-                {step === 'tokenCode' && (
+                {step === STEP_DEVICE_AUTH && (
+                    <DeviceAuth
+                        skippable={false}
+                        onNext={this.onSendEmail}
+                    />
+                )}
+                {step === STEP_TOKEN_CODE && (
                     <TokenCode
                         loading={this.props.loading}
                         email={this.props.email}
-                        onBack={() => this.setStep('intro')}
+                        onBack={() => this.setStep(STEP_INTRO)}
                         onNext={this.onVerifyEmail}
                     />
                 )}
-                {step === 'textCodeRequest' &&
+                {step === STEP_TEXT_CODE_REQUEST &&
                     <TextCodeRequest
                         loading={this.props.loading}
-                        onBack={() => this.setStep('tokenCode')}
+                        onBack={() => this.setStep(STEP_TOKEN_CODE)}
                         onNext={this.onRequestCode}
                         number={this.props.phone.slice(-4)}
                     />
                 }
-                {step === 'textCodeEnter' &&
+                {step === STEP_TEXT_CODE_ENTER &&
                     <TextCodeEnter
                         loading={this.props.loading}
                         error={this.props.error}
-                        onBack={() => this.setStep('textCodeRequest')}
+                        onBack={() => this.setStep(STEP_TEXT_CODE_REQUEST)}
                         onNext={this.onConfirm}
                         onResend={this.onResend}
                         phone={this.props.phone}
                         countryCode={this.props.country}
                     />
                 }
-                {step === 'finish' &&
+                {step === STEP_FINISH &&
                     <Finish
                         onNext={this.onFinish}
                     />
