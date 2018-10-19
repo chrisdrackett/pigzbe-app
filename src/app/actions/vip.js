@@ -14,13 +14,18 @@ export const vipLoading = loading => ({type: VIP_LOADING, loading});
 export const vipError = error => ({type: VIP_ERROR, error});
 
 export const vipRequestEmail = () => async (dispatch, getState) => {
-    console.log('vipRequestEmail');
     dispatch(vipLoading(true));
     dispatch(vipError(null));
     try {
+        console.log('deviceAuth');
+        console.log(JSON.stringify(getState().deviceAuth, null, 2));
+        console.log('settings');
+        console.log(JSON.stringify(getState().settings, null, 2));
         const api = apiURL(getState());
-        const {email} = getState().settings;
-        const result = await (await fetch(`${api}/vip/send-email?email=${email}`)).json();
+        const email = getState().deviceAuth.email || getState().settings.email;
+        const phone = getState().deviceAuth.phone || getState().settings.phone;
+        console.log('vipRequestEmail', email);
+        const result = await (await fetch(`${api}/vip/send-email?email=${email}&phone=${phone}`)).json();
         console.log(result);
         if (result.error) {
             dispatch(appError(result.message));
@@ -43,7 +48,7 @@ export const vipVerifyEmail = emailCode => async (dispatch, getState) => {
     let success = false;
     try {
         const api = apiURL(getState());
-        const {email} = getState().settings;
+        const email = getState().deviceAuth.email || getState().settings.email;
         const result = await (await fetch(`${api}/vip/verify-email?email=${email}&emailCode=${emailCode}`)).json();
         console.log(result);
         if (result.error) {
@@ -68,7 +73,7 @@ export const vipRequestCode = () => async (dispatch, getState) => {
 
     try {
         const api = apiURL(getState());
-        const {authyId} = getState().settings;
+        const authyId = getState().deviceAuth.id || getState().settings.authyId;
         const result = await (await fetch(`${api}/auth/login?id=${authyId}`)).json();
 
         if (result.success) {
@@ -92,7 +97,8 @@ export const vipConfirm = code => async (dispatch, getState) => {
     try {
         const api = apiURL(getState());
         const {publicKey} = getState().keys;
-        const {authyId, email} = getState().settings;
+        const authyId = getState().deviceAuth.id || getState().settings.authyId;
+        const email = getState().deviceAuth.email || getState().settings.email;
         console.log('authyId', authyId);
         console.log('email', email);
         console.log('publicKey', publicKey);

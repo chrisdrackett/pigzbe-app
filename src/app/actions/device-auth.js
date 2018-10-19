@@ -28,13 +28,13 @@ export const deviceAuthOnline = () => async (dispatch, getState) => {
     }
 };
 
-export const deviceAuthRegister = (email, phone, country) => async (dispatch, getState) => {
+export const deviceAuthRegister = (email, phone, country, requestLogin = true) => async (dispatch, getState) => {
     const emailValid = email && isEmail(email);
     if (!emailValid) {
         const err = new Error('Invalid email address');
         dispatch(appError(err));
         dispatch(deviceAuthError(err));
-        return;
+        return false;
     }
 
     dispatch(deviceAuthLoading(true));
@@ -56,11 +56,14 @@ export const deviceAuthRegister = (email, phone, country) => async (dispatch, ge
         if (result.success) {
             const {user: {id}, qr_code} = result;
             dispatch({type: DEVICE_AUTH_REGSITERED, id, qrCode: qr_code, email, phone, country});
-            await dispatch(deviceAuthLogin());
+            if (requestLogin) {
+                await dispatch(deviceAuthLogin());
+            }
         } else {
             const err = new Error(result.message.message || result.message);
             dispatch(appError(err));
             dispatch(deviceAuthError(err));
+            return false;
         }
         dispatch(deviceAuthLoading(false));
     } catch (error) {
@@ -68,7 +71,9 @@ export const deviceAuthRegister = (email, phone, country) => async (dispatch, ge
         dispatch(deviceAuthError(error));
         dispatch(appError(error));
         dispatch(deviceAuthLoading(false));
+        return false;
     }
+    return true;
 };
 
 export const deviceAuthLogin = () => async (dispatch, getState) => {

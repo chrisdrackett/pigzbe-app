@@ -41,6 +41,6 @@ export class RequestCode extends Component {
 
 export default connect(
     state => ({
-        phone: state.settings.phone,
+        phone: state.deviceAuth.phone || state.settings.phone,
     })
 )(RequestCode);
