@@ -1,17 +1,17 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Keyboard, View} from 'react-native';
-import Button from '../../components/button';
-import TextInput from '../../components/text-input';
-import {SCREEN_TOUCH_ID, SCREEN_SET_PASSCODE} from '../../constants';
+import Button from 'app/components/button';
+import TextInput from 'app/components/text-input';
+import {SCREEN_TOUCH_ID, SCREEN_SET_PASSCODE} from 'app/constants';
 import {
     deviceAuthOnline,
     deviceAuthRegister,
     deviceAuthLogin,
     deviceAuthClear,
     deviceAuthVerify
-} from '../../actions';
-import StepModule from '../../components/step-module';
+} from 'app/actions';
+import StepModule from 'app/components/step-module';
 import countryCodes from './country-codes';
 import ReactModal from 'react-native-modal';
 import SearchableList from 'app/components/searchable-list';
@@ -35,6 +35,10 @@ export class DeviceAuth extends Component {
 
     static defaultProps = {
         skippable: true,
+        requestLogin: true,
+        onRegister: null,
+        buttonLabel: 'Send Code',
+        introText: 'Before we begin, enter your mobile number to verify your mobile device.',
     }
 
     componentDidMount() {
@@ -69,9 +73,16 @@ export class DeviceAuth extends Component {
         }, 200);
     }
 
-    onSend = () => {
+    onSend = async () => {
         Keyboard.dismiss();
-        this.props.dispatch(deviceAuthRegister(this.state.email, this.state.phone, this.state.countryCode));
+        const {email, phone, countryCode} = this.state;
+        const {requestLogin} = this.props;
+
+        const success = await this.props.dispatch(deviceAuthRegister(email, phone, countryCode, requestLogin));
+
+        if (success && typeof this.props.onRegister === 'function') {
+            this.props.onRegister();
+        }
     }
 
     onSkip = () => {
@@ -97,95 +108,101 @@ export class DeviceAuth extends Component {
             error,
             id,
             qrCode,
+            requestLogin,
         } = this.props;
 
-        return (
-            <Fragment>
+        if (!id || !requestLogin) {
+            return (
                 <StepModule
-                    title={!id ? 'Get Started' : 'Enter Code'}
-                    icon={!id ? 'tick2' : 'code'}
-                    content={!id
-                        ? 'Before we begin, enter your mobile number to verify your mobile device.'
-                        : `Now enter the code we sent to +${this.state.countryCode}${this.state.phone.replace(/^0+/, '')}`
-                    }
-                    onBack={!id ? this.onBack : this.onClear}
+                    title="Get Started"
+                    icon="tick2"
+                    content={this.props.introText}
+                    onBack={this.onBack}
                     loading={loading}
-                    // error={error}
                     justify="space-between"
                     pad
                 >
-                    {id && (
-                        <VerifyCode
-                            qrCode={qrCode}
-                            onVerify={this.onVerify}
-                            onResend={this.onResend}
-                            error={error}
-                        />
-                    )}
-                    {!id && (
-                        <Fragment>
-                            <View>
-                                <TextInput
-                                    error={!!error}
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    keyboardType="email-address"
-                                    value={this.state.email}
-                                    placeholder={'Email address'}
-                                    onChangeText={this.onChangeEmail}
-                                />
-                                <TextInput
-                                    error={!!error}
-                                    keyboardType="number-pad"
-                                    value={this.state.phone}
-                                    style={{width: '100%'}}
-                                    placeholder={'Your mobile number'}
-                                    onChangeText={this.onChangePhone}
-                                />
-                                <Button
-                                    theme="plain"
-                                    label={this.state.countryName}
-                                    onPress={this.onOpenCountryModal}
-                                />
-                                <ReactModal
-                                    isVisible={this.state.showCountryModal}
-                                    animationIn="slideInRight"
-                                    animationOut="slideOutRight"
-                                    style={{
-                                        margin: 0,
-                                    }}
+                    <Fragment>
+                        <View>
+                            <TextInput
+                                error={!!error}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                keyboardType="email-address"
+                                value={this.state.email}
+                                placeholder={'Email address'}
+                                onChangeText={this.onChangeEmail}
+                            />
+                            <TextInput
+                                error={!!error}
+                                keyboardType="number-pad"
+                                value={this.state.phone}
+                                style={{width: '100%'}}
+                                placeholder={'Your mobile number'}
+                                onChangeText={this.onChangePhone}
+                            />
+                            <Button
+                                theme="plain"
+                                label={this.state.countryName}
+                                onPress={this.onOpenCountryModal}
+                            />
+                            <ReactModal
+                                isVisible={this.state.showCountryModal}
+                                animationIn="slideInRight"
+                                animationOut="slideOutRight"
+                                style={{
+                                    margin: 0,
+                                }}
+                            >
+                                <StepModule
+                                    onBack={this.onCloseCountryModal}
+                                    customTitle="Countries"
+                                    avoidKeyboard={false}
                                 >
-                                    <StepModule
-                                        onBack={this.onCloseCountryModal}
-                                        customTitle="Countries"
-                                        avoidKeyboard={false}
-                                    >
-                                        <SearchableList
-                                            selectedKey={this.state.countryName}
-                                            onChangeSelection={this.onChangeCountry}
-                                            items={countryData}
-                                        />
-                                    </StepModule>
-                                </ReactModal>
-                            </View>
-                            <View>
-                                <Button
-                                    label={'Send Code'}
-                                    onPress={this.onSend}
-                                    disabled={!(this.state.email && this.state.phone && this.state.countryCode)}
-                                />
-                                {this.props.skippable && (
-                                    <Button
-                                        theme="outline"
-                                        label={'Skip'}
-                                        onPress={this.onSkip}
+                                    <SearchableList
+                                        selectedKey={this.state.countryName}
+                                        onChangeSelection={this.onChangeCountry}
+                                        items={countryData}
                                     />
-                                )}
-                            </View>
-                        </Fragment>
-                    )}
+                                </StepModule>
+                            </ReactModal>
+                        </View>
+                        <View>
+                            <Button
+                                label={this.props.buttonLabel}
+                                onPress={this.onSend}
+                                disabled={!(this.state.email && this.state.phone && this.state.countryCode)}
+                            />
+                            {this.props.skippable && (
+                                <Button
+                                    theme="outline"
+                                    label={'Skip'}
+                                    onPress={this.onSkip}
+                                />
+                            )}
+                        </View>
+                    </Fragment>
                 </StepModule>
-            </Fragment>
+            );
+        }
+
+        return (
+            <StepModule
+                title="Enter Code"
+                icon="code"
+                content={`Now enter the code we sent to +${this.state.countryCode}${this.state.phone.replace(/^0+/, '')}`}
+                onBack={this.onClear}
+                loading={loading}
+                justify="space-between"
+                pad
+            >
+                <VerifyCode
+                    qrCode={qrCode}
+                    onVerify={this.onVerify}
+                    onResend={this.onResend}
+                    error={error}
+                />
+            </StepModule>
         );
     }
 }

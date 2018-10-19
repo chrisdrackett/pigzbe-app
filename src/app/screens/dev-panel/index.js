@@ -30,7 +30,7 @@ import {
 } from '../../constants';
 import Icon from '../../components/icon';
 
-import { color } from 'app/styles';
+import {color} from 'app/styles';
 
 const SwitchControl = ({
     label,
@@ -116,6 +116,25 @@ class DevPanel extends Component {
                                     Keychain.clear(KEYCHAIN_ID_PASSCODE);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY);
                                     Keychain.clear(KEYCHAIN_ID_MNEMONIC);
+                                    Storage.clear(STORAGE_KEY_BURNING);
+                                    Storage.clear(STORAGE_KEY_BURNING_ICO);
+                                    Storage.clear(STORAGE_KEY_BURNING_AIRDROP);
+                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY);
+                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY_ICO);
+                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY_AIRDROP);
+                                }} />
+                            </View>
+                            <View style={styles.block}>
+                                <Button style={styles.button} label="Clear user data, keep keys" onPress={() => {
+                                    console.log('clear');
+                                    Storage.clear(STORAGE_KEY_SETTINGS);
+                                    Storage.clear(STORAGE_KEY_KIDS);
+                                    Storage.clear(STORAGE_KEY_BURNING);
+                                    Storage.clear(STORAGE_KEY_BURNING_ICO);
+                                    Storage.clear(STORAGE_KEY_BURNING_AIRDROP);
+                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY);
+                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY_ICO);
+                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY_AIRDROP);
                                 }} />
                             </View>
                             <View style={styles.block}>

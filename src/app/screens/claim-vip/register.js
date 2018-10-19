@@ -11,9 +11,14 @@ export class Register extends Component {
     render() {
         return (
             <DeviceAuth
+                navigation={this.props.navigation}
                 skippable={false}
+                requestLogin={false}
                 onNext={this.onNext}
                 onBack={this.onBack}
+                onRegister={this.onNext}
+                buttonLabel="Register"
+                introText="Enter the email address and mobile number registered with Pigzbe."
             />
         );
     }

@@ -48,9 +48,8 @@ export default connect(
     state => ({
         loading: state.vip.loading,
         error: state.vip.error,
-        email: state.settings.email,
-        authyId: state.settings.authyId,
-        phone: state.settings.phone,
-        country: state.settings.country,
+        email: state.deviceAuth.email || state.settings.email,
+        phone: state.deviceAuth.phone || state.settings.phone,
+        country: state.deviceAuth.country || state.settings.country,
     })
 )(TextCodeEnter);
