@@ -4,22 +4,42 @@ import {NetInfo} from 'react-native';
 import BackgroundTask from 'react-native-background-task';
 import Auth from '../auth';
 import Alert from '../../components/alert';
-import {connectionState, appAddAlert, appDeleteAlert} from '../../actions';
+import {connectionState, appDeleteAlert} from '../../actions';
 import {strings} from '../../constants';
 
 class Root extends Component {
 
-    componentDidMount() {
+    async componentDidMount() {
         NetInfo.isConnected.fetch(this.onConnectionChange);
         NetInfo.isConnected.addEventListener('connectionChange', this.onConnectionChange);
+
         BackgroundTask.schedule();
+
+        setInterval(this.checkConnection, 1000 * 10);
+    }
+
+    checkConnection = async () => {
+        try {
+            await fetch('https://pigzbe.com', {method: 'HEAD'});
+            this.onConnectionChange(true, 'ping');
+        } catch (e) {
+            this.onConnectionChange(false, 'ping');
+        }
     }
 
     componentWillUnmount() {
         NetInfo.isConnected.removeEventListener('connectionChange', this.onConnectionChange);
     }
 
-    onConnectionChange = isConnected => this.props.dispatch(connectionState(isConnected))
+    onConnectionChange = (isConnected, source = 'netinfo') => {
+        if (isConnected === this.props.isConnected) {
+            return;
+        }
+        console.log('=======> onConnectionChange isConnected', isConnected, source);
+        this.props.dispatch(connectionState(isConnected));
+    }
+
+    onDismiss = () => this.props.dispatch(appDeleteAlert())
 
     render() {
         const {alertType, alertMessage, isConnected} = this.props;
@@ -29,21 +49,15 @@ class Root extends Component {
                 <Alert
                     type={alertType || (!isConnected ? 'error' : null)}
                     message={alertMessage || (!isConnected ? strings.errorConnection : null)}
-                    onDismiss={alertMessage ? () => this.props.dispatch(appDeleteAlert()) : null}
+                    onDismiss={alertMessage ? this.onDismiss : null}
                 />
             </Fragment>
         );
     }
 }
 
-// const filterErrors = (state) => {
-//     const key = Object.keys(state).find(r => state[r].error);
-//     return state[key] ? state[key].error : null;
-// };
-
 export default connect(
     state => ({
-        // error: filterErrors(state),
         isConnected: state.app.isConnected,
         alertType: state.app.alertType,
         alertMessage: state.app.alertMessage,
