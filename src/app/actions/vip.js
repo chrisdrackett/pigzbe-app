@@ -106,15 +106,16 @@ export const vipConfirm = code => async (dispatch, getState) => {
         const result = await (await fetch(`${api}/vip/confirm?id=${authyId}&code=${code}&publicKey=${publicKey}&email=${email}`)).json();
         // id', 'code', 'email', 'publicKey'
         console.log('result', result);
-        if (result.result && result.result.updated) {
+        if (result && result.updated) {
             await dispatch(loadWallet());
             dispatch({type: VIP_CONFIRMED});
             dispatch(appAddSuccessAlert('VIP status confirmed'));
             success = true;
         } else {
-            const err = new Error(result.message.message || result.message);
+            const msg = result.message.message || result.message;
+            const err = new Error(msg);
             dispatch(vipError(err));
-            dispatch(appError('Could not confirm'));
+            dispatch(appError(msg));
         }
     } catch (error) {
         console.log('error', error);
