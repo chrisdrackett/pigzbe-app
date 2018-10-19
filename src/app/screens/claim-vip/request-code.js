@@ -16,7 +16,7 @@ export class RequestCode extends Component {
             <StepModule
                 title="Text Code"
                 icon="code"
-                content="Finally, we will now send you a text message with a 6 digit code"
+                content="Finally, we will now send you a text message with a 7 digit code"
                 onBack={this.onBack}
                 justify="space-between"
                 loading={this.props.loading}
