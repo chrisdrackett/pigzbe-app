@@ -12,14 +12,15 @@ export default StyleSheet.create({
     },
     date: {
         fontFamily,
-        color: color.blue,
+        color: color.lighterBlue,
         fontWeight: 'bold',
         fontSize: 14,
         marginBottom: 5
     },
     text: {
         fontFamily,
-        color: color.darkGrey,
+        color: color.blue,
+        fontWeight: 'bold',
         fontSize: 14,
         marginRight: 12,
     },
