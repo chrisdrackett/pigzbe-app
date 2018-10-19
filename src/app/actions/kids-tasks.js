@@ -122,7 +122,7 @@ export const deleteTask = (kid, task) => async (dispatch, getState) => {
             .addMemo(Memo.text(`Delete ${task.task}`))
             .build();
 
-        const {secretKey} = getState().keys;
+        const secretKey = await Keychain.load(`secret_${kid.address}`);
         const keypair = Keypair.fromSecret(secretKey);
         tx.sign(keypair);
 
