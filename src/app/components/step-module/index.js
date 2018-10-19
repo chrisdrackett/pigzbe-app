@@ -47,7 +47,7 @@ export default class StepModule extends Component {
           <Container
               scroll={scroll}
               style={[styles.container, {
-                  backgroundColor: backgroundColor || color.white,
+                  backgroundColor: (!error && backgroundColor) || color.white,
               }]}
           >
               {(content || error) && (

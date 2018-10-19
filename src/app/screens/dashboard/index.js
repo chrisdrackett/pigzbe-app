@@ -23,7 +23,7 @@ import Title from '../../components/title';
 import Paragraph from '../../components/paragraph';
 import StepModule from '../../components/step-module';
 import {
-    // loadExchange,
+    loadExchange,
     settingsFirstTime,
     fundAccount,
     loadWallet,
@@ -53,8 +53,16 @@ export class Dashboard extends Component {
         this.focusListener.remove();
     }
 
-    // update = () => this.props.dispatch(loadExchange())
-    update = () => this.props.dispatch(loadWallet())
+    componentDidUpdate(prevProps) {
+        if (this.props.navigation.isFocused() && !prevProps.isConnected && this.props.isConnected) {
+            this.update();
+        }
+    }
+
+    update = () => {
+        this.props.dispatch(loadWallet());
+        this.props.dispatch(loadExchange());
+    }
 
     onCloseFirstTime = () => this.props.dispatch(settingsFirstTime())
 
@@ -134,9 +142,8 @@ export class Dashboard extends Component {
                     onSettings={this.onSettings}
                     loading={loading}
                     loaderMessage={this.state.funding ? 'Funding account' : null}
-                    error={error}
                 >
-                    {(!loading && !error) && (
+                    {!loading && (
                         <View>
                             <BalanceGraph balance={balance} balanceXLM={balanceXLM} exchange={exchange} baseCurrency={baseCurrency}/>
                             {__DEV__ && (
@@ -207,6 +214,7 @@ export class Dashboard extends Component {
 
 export default connect(
     state => ({
+        isConnected: state.app.isConnected,
         error: state.coins.error,
         exchange: state.coins.exchange,
         balance: state.wollo.balance,
