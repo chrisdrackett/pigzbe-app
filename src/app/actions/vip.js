@@ -1,5 +1,5 @@
 import {apiURL} from '../selectors';
-import {appError, appAddSuccessAlert} from './';
+import {appError, appAddSuccessAlert, loadWallet} from './';
 
 export const VIP_SET_STEP = 'VIP_SET_STEP';
 export const VIP_EMAIL_VERIFIED = 'VIP_EMAIL_VERIFIED';
@@ -107,6 +107,7 @@ export const vipConfirm = code => async (dispatch, getState) => {
         // id', 'code', 'email', 'publicKey'
         console.log('result', result);
         if (result.result && result.result.updated) {
+            await dispatch(loadWallet());
             dispatch({type: VIP_CONFIRMED});
             dispatch(appAddSuccessAlert('VIP status confirmed'));
             success = true;
