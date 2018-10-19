@@ -9,8 +9,8 @@ export default ({
     onPress,
     error = null,
 }) => {
-    const type = errorMessage ? 'error' : complete ? 'success' : 'progress';
     const errorMessage = (error && error.message) || error;
+    const type = errorMessage ? 'error' : complete ? 'success' : 'progress';
 
     console.log('open', !!open);
 

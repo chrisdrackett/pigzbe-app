@@ -103,14 +103,14 @@ export class WolloSendSlider extends Component {
                 )}
                 {!this.state.sendModalClosed && (
                     <Progress
-                        active={sending === this.props.address}
+                        open={sendError || sendComplete || sending === this.props.address}
                         complete={sendComplete}
                         title={sendComplete === this.props.address ? 'Success!' : 'Transfer in progress'}
                         error={sendError}
                         text={sendComplete === this.props.address ?
-                            `*${this.state.amount} Wollo* has successfully been sent to ${this.props.name}`
+                            `${this.state.amount} Wollo has successfully been sent to ${this.props.name}`
                             :
-                            `Sending *${this.state.amount} Wollo* to ${this.props.name}`
+                            `Sending ${this.state.amount} Wollo to ${this.props.name}`
                         }
                         buttonLabel="Close"
                         onPress={this.onCloseSendModal}
