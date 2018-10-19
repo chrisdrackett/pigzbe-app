@@ -42,10 +42,14 @@ exports[`SearchableList renders correctly 1`] = `
       />
       <TextInput
         allowFontScaling={true}
+        autoCapitalize="none"
+        autoCorrect={false}
         onChangeText={[Function]}
         placeholder="Search"
+        placeholderTextColor="rgb(0, 50, 120)"
         style={
           Object {
+            "color": "rgb(0, 50, 120)",
             "flex": 1,
             "fontFamily": "Poppins",
             "fontSize": 14,

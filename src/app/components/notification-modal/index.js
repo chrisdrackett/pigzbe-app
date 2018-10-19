@@ -1,8 +1,10 @@
 import React from 'react';
-import {View, Image, Text, Modal} from 'react-native';
+import {View, Image, Text, ActivityIndicator} from 'react-native';
 import styles from './styles';
 import Button from '../button';
 import IconButton from '../icon-button';
+import {color} from '../../styles';
+import Modal from 'react-native-modal';
 
 const types = {
     success: {
@@ -24,22 +26,29 @@ export default ({
     open,
     title,
     text,
-    onRequestClose,
+    onRequestClose = () => {},
     buttonLabel = 'Got it!',
     hideButton,
     onButtonPress = null,
-    closeCross
+    closeCross,
 }) => (
     <Modal
-        transparent={true}
-        visible={open}
-        onRequestClose={onRequestClose}
+        isVisible={open}
+        style={{margin: 0}}
+        backdropOpacity={0.35}
+        backdropColor="rgb(0, 50, 120)"
+        onBackButtonPress={onRequestClose}
     >
         <View style={styles.overlay}>
             <View style={styles.outerContainer}>
                 <View style={styles.container}>
                     <Text style={styles.title}>{title || types[type].title}</Text>
                     <Text style={styles.text}>{text}</Text>
+                    {type === 'progress' && (
+                        <View style={styles.progress}>
+                            <ActivityIndicator size="large" color={color.pink} />
+                        </View>
+                    )}
                     {!hideButton &&
                         <Button
                             label={buttonLabel}
@@ -48,9 +57,11 @@ export default ({
                         />
                     }
                 </View>
-                <View style={styles.iconContainer}>
-                    <Image source={types[type].icon} style={styles.icon} />
-                </View>
+                {types[type] && (
+                    <View style={styles.iconContainer}>
+                        <Image source={types[type].icon} style={styles.icon} />
+                    </View>
+                )}
                 {closeCross && (
                     <IconButton
                         style={{position: 'absolute', top: 32, right: 32}}

@@ -20,8 +20,8 @@ exports[`Button renders correctly 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "backgroundColor": "rgb(21, 74, 150)",
-        "borderColor": "rgb(21, 74, 150)",
+        "backgroundColor": "rgb(0, 50, 120)",
+        "borderColor": "rgb(0, 50, 120)",
         "borderRadius": 22.5,
         "borderWidth": 1,
         "marginBottom": 10,
@@ -78,8 +78,8 @@ exports[`Button renders correctly in plain mode 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "backgroundColor": "rgb(21, 74, 150)",
-        "borderColor": "rgb(21, 74, 150)",
+        "backgroundColor": "rgb(0, 50, 120)",
+        "borderColor": "rgb(0, 50, 120)",
         "borderRadius": 22.5,
         "borderWidth": 1,
         "marginBottom": 10,

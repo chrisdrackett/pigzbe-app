@@ -1,7 +1,7 @@
 import {apiURL, wolloAsset} from '../selectors';
 import {trustAsset} from '@pigzbe/stellar-utils';
 import {getClaimBalance} from './claim-eth';
-import {updateClaimData} from './claim-data';
+import {updateClaimData, flagClaimDataForReload} from './claim-data';
 
 export const CLAIM_START = 'CLAIM_START';
 export const CLAIM_LOADING = 'CLAIM_LOADING';
@@ -10,6 +10,8 @@ export const CLAIM_TRANSFER = 'CLAIM_TRANSFER';
 // export const CLAIM_CLAIM = 'CLAIM_CLAIM';
 
 export const claimStart = currentClaim => ({type: CLAIM_START, currentClaim});
+
+export const claimStop = () => dispatch => dispatch(flagClaimDataForReload());
 
 export const claimLoading = payload => ({type: CLAIM_LOADING, payload});
 

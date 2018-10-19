@@ -1,25 +1,25 @@
-import {createSwitchNavigator, createStackNavigator} from 'react-navigation';
-import Dashboard from '../../screens/dashboard';
-import Settings from '../../screens/settings';
-import Escrow from '../../screens/escrow';
-import Claim from '../../screens/claim';
-import ClaimICO from '../../screens/claim-ico';
-import ClaimVIP from '../../screens/claim-vip';
-import ClaimAirdrop from '../../screens/claim-airdrop';
-import PasscodeSet from '../../screens/passcode-set';
-import KidsIntro from '../../screens/kids-intro';
-import KidDashboard from '../../screens/kid-dashboard';
-import KidTransactions from '../../screens/kid-transactions';
-import KidGoalAdd from '../../screens/kid-goal-add';
-import KidsParentNickname from '../../screens/kids-parent-nickname';
-import KidsNumberToAdd from '../../screens/kids-number-to-add';
-import KidsEnterProfile from '../../screens/kids-enter-profile';
-import TasksList from '../../screens/tasks-list';
-import TasksAssign from '../../screens/tasks-assign';
-import AllowanceAmount from '../../screens/allowance-amount';
-import AllowanceInterval from '../../screens/allowance-interval';
-import EmailSet from '../../screens/email-set';
-import CurrencySet from '../../screens/currency-set';
+import {createStackNavigator} from 'react-navigation';
+import Dashboard from 'app/screens/dashboard';
+import Settings from 'app/screens/settings';
+import Escrow from 'app/screens/escrow';
+import Claim from 'app/screens/claim';
+import ClaimICO from 'app/navigation/claim-ico';
+import ClaimVIP from 'app/navigation/claim-vip';
+import ClaimAirdrop from 'app/navigation/claim-airdrop';
+import PasscodeSet from 'app/screens/passcode-set';
+import KidsIntro from 'app/screens/kids-intro';
+import KidDashboard from 'app/screens/kid-dashboard';
+import KidTransactions from 'app/screens/kid-transactions';
+import KidGoalAdd from 'app/screens/kid-goal-add';
+import KidsParentNickname from 'app/screens/kids-parent-nickname';
+import KidsNumberToAdd from 'app/screens/kids-number-to-add';
+import KidsEnterProfile from 'app/screens/kids-enter-profile';
+import TasksList from 'app/screens/tasks-list';
+import TasksAssign from 'app/screens/tasks-assign';
+import AllowanceAmount from 'app/screens/allowance-amount';
+import AllowanceInterval from 'app/screens/allowance-interval';
+import EmailSet from 'app/screens/email-set';
+import CurrencySet from 'app/screens/currency-set';
 import {
     SCREEN_DASHBOARD,
     SCREEN_SETTINGS,

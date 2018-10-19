@@ -10,6 +10,7 @@ export default ({
     settingsIcon = 'settings',
     hideLogo,
     customTitle,
+    loading,
 }) => (
     <View style={styles.container}>
         <View style={styles.iconContainer}>
@@ -23,6 +24,7 @@ export default ({
             }
             {onBack && !onSettings && (
                 <IconButton
+                    disabled={loading}
                     icon="back"
                     size={14}
                     padding={16}
@@ -36,7 +38,6 @@ export default ({
                 customTitle ? <Text style={styles.customTitle}>{customTitle}</Text> : null
             }
         </View>
-        <View style={styles.iconContainer}>
-        </View>
+        <View style={styles.iconContainer} />
     </View>
 );

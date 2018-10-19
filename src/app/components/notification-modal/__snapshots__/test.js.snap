@@ -20,20 +20,111 @@ exports[`NotificationModal renders correctly 1`] = `
     <View
       style={
         Object {
-          "alignItems": "center",
-          "backgroundColor": "rgb(255, 255, 255)",
-          "borderRadius": 4,
-          "display": "flex",
-          "marginLeft": 32,
-          "marginRight": 32,
-          "minWidth": 250,
-          "paddingBottom": 20,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 43,
+          "paddingBottom": 33,
+          "paddingTop": 33,
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderRadius": 4,
+            "display": "flex",
+            "marginLeft": 32,
+            "marginRight": 32,
+            "minWidth": 250,
+            "paddingBottom": 20,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 43,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "rgb(0, 50, 120)",
+              "fontFamily": "Poppins",
+              "fontSize": 22,
+              "fontWeight": "bold",
+              "marginBottom": 10,
+            }
+          }
+        >
+          Success!
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "rgb(0, 50, 120)",
+              "fontFamily": "Poppins",
+              "textAlign": "center",
+            }
+          }
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+        </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "stretch",
+            }
+          }
+        >
+          <View
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "rgb(0, 50, 120)",
+                "borderColor": "rgb(0, 50, 120)",
+                "borderRadius": 22.5,
+                "borderWidth": 1,
+                "marginBottom": 10,
+                "marginTop": 20,
+                "maxWidth": 400,
+                "opacity": 1,
+                "paddingLeft": 15,
+                "paddingRight": 15,
+                "width": "auto",
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "stretch",
+                    "color": "rgb(255, 255, 255)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                    "height": 45,
+                    "paddingLeft": 20,
+                    "paddingRight": 20,
+                    "paddingTop": 12,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                  null,
+                  undefined,
+                ]
+              }
+            >
+              Got it!
+            </Text>
+          </View>
+        </View>
+      </View>
       <View
         style={
           Object {
@@ -42,7 +133,7 @@ exports[`NotificationModal renders correctly 1`] = `
             "left": 0,
             "position": "absolute",
             "right": 0,
-            "top": -33,
+            "top": 0,
           }
         }
       >
@@ -59,88 +150,6 @@ exports[`NotificationModal renders correctly 1`] = `
             }
           }
         />
-      </View>
-      <Text
-        style={
-          Object {
-            "color": "rgb(0, 50, 120)",
-            "fontFamily": "Poppins",
-            "fontSize": 22,
-            "fontWeight": "bold",
-            "marginBottom": 10,
-          }
-        }
-      >
-        Success!
-      </Text>
-      <Text
-        style={
-          Object {
-            "color": "rgb(0, 50, 120)",
-            "fontFamily": "Poppins",
-            "textAlign": "center",
-          }
-        }
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-      </Text>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "alignSelf": "stretch",
-          }
-        }
-      >
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "backgroundColor": "rgb(21, 74, 150)",
-              "borderColor": "rgb(21, 74, 150)",
-              "borderRadius": 22.5,
-              "borderWidth": 1,
-              "marginBottom": 10,
-              "marginTop": 20,
-              "maxWidth": 400,
-              "opacity": 1,
-              "paddingLeft": 15,
-              "paddingRight": 15,
-              "width": "auto",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "alignSelf": "stretch",
-                  "color": "rgb(255, 255, 255)",
-                  "fontFamily": "Poppins",
-                  "fontSize": 14,
-                  "fontWeight": "bold",
-                  "height": 45,
-                  "paddingLeft": 20,
-                  "paddingRight": 20,
-                  "paddingTop": 12,
-                  "textAlign": "center",
-                },
-                undefined,
-                null,
-                undefined,
-              ]
-            }
-          >
-            Got it!
-          </Text>
-        </View>
       </View>
     </View>
   </View>
@@ -167,20 +176,111 @@ exports[`NotificationModal renders correctly with custom title and btn label 1`]
     <View
       style={
         Object {
-          "alignItems": "center",
-          "backgroundColor": "rgb(255, 255, 255)",
-          "borderRadius": 4,
-          "display": "flex",
-          "marginLeft": 32,
-          "marginRight": 32,
-          "minWidth": 250,
-          "paddingBottom": 20,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 43,
+          "paddingBottom": 33,
+          "paddingTop": 33,
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderRadius": 4,
+            "display": "flex",
+            "marginLeft": 32,
+            "marginRight": 32,
+            "minWidth": 250,
+            "paddingBottom": 20,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 43,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "rgb(0, 50, 120)",
+              "fontFamily": "Poppins",
+              "fontSize": 22,
+              "fontWeight": "bold",
+              "marginBottom": 10,
+            }
+          }
+        >
+          Chaos
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "rgb(0, 50, 120)",
+              "fontFamily": "Poppins",
+              "textAlign": "center",
+            }
+          }
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+        </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "stretch",
+            }
+          }
+        >
+          <View
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "rgb(0, 50, 120)",
+                "borderColor": "rgb(0, 50, 120)",
+                "borderRadius": 22.5,
+                "borderWidth": 1,
+                "marginBottom": 10,
+                "marginTop": 20,
+                "maxWidth": 400,
+                "opacity": 1,
+                "paddingLeft": 15,
+                "paddingRight": 15,
+                "width": "auto",
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "alignSelf": "stretch",
+                    "color": "rgb(255, 255, 255)",
+                    "fontFamily": "Poppins",
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                    "height": 45,
+                    "paddingLeft": 20,
+                    "paddingRight": 20,
+                    "paddingTop": 12,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                  null,
+                  undefined,
+                ]
+              }
+            >
+              Accept
+            </Text>
+          </View>
+        </View>
+      </View>
       <View
         style={
           Object {
@@ -189,7 +289,7 @@ exports[`NotificationModal renders correctly with custom title and btn label 1`]
             "left": 0,
             "position": "absolute",
             "right": 0,
-            "top": -33,
+            "top": 0,
           }
         }
       >
@@ -206,88 +306,6 @@ exports[`NotificationModal renders correctly with custom title and btn label 1`]
             }
           }
         />
-      </View>
-      <Text
-        style={
-          Object {
-            "color": "rgb(0, 50, 120)",
-            "fontFamily": "Poppins",
-            "fontSize": 22,
-            "fontWeight": "bold",
-            "marginBottom": 10,
-          }
-        }
-      >
-        Chaos
-      </Text>
-      <Text
-        style={
-          Object {
-            "color": "rgb(0, 50, 120)",
-            "fontFamily": "Poppins",
-            "textAlign": "center",
-          }
-        }
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-      </Text>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "alignSelf": "stretch",
-          }
-        }
-      >
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "backgroundColor": "rgb(21, 74, 150)",
-              "borderColor": "rgb(21, 74, 150)",
-              "borderRadius": 22.5,
-              "borderWidth": 1,
-              "marginBottom": 10,
-              "marginTop": 20,
-              "maxWidth": 400,
-              "opacity": 1,
-              "paddingLeft": 15,
-              "paddingRight": 15,
-              "width": "auto",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "alignSelf": "stretch",
-                  "color": "rgb(255, 255, 255)",
-                  "fontFamily": "Poppins",
-                  "fontSize": 14,
-                  "fontWeight": "bold",
-                  "height": 45,
-                  "paddingLeft": 20,
-                  "paddingRight": 20,
-                  "paddingTop": 12,
-                  "textAlign": "center",
-                },
-                undefined,
-                null,
-                undefined,
-              ]
-            }
-          >
-            Accept
-          </Text>
-        </View>
       </View>
     </View>
   </View>
@@ -314,20 +332,53 @@ exports[`NotificationModal renders correctly with no button 1`] = `
     <View
       style={
         Object {
-          "alignItems": "center",
-          "backgroundColor": "rgb(255, 255, 255)",
-          "borderRadius": 4,
-          "display": "flex",
-          "marginLeft": 32,
-          "marginRight": 32,
-          "minWidth": 250,
-          "paddingBottom": 20,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 43,
+          "paddingBottom": 33,
+          "paddingTop": 33,
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderRadius": 4,
+            "display": "flex",
+            "marginLeft": 32,
+            "marginRight": 32,
+            "minWidth": 250,
+            "paddingBottom": 20,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 43,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "rgb(0, 50, 120)",
+              "fontFamily": "Poppins",
+              "fontSize": 22,
+              "fontWeight": "bold",
+              "marginBottom": 10,
+            }
+          }
+        >
+          Warning!
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "rgb(0, 50, 120)",
+              "fontFamily": "Poppins",
+              "textAlign": "center",
+            }
+          }
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+        </Text>
+      </View>
       <View
         style={
           Object {
@@ -336,7 +387,7 @@ exports[`NotificationModal renders correctly with no button 1`] = `
             "left": 0,
             "position": "absolute",
             "right": 0,
-            "top": -33,
+            "top": 0,
           }
         }
       >
@@ -354,30 +405,6 @@ exports[`NotificationModal renders correctly with no button 1`] = `
           }
         />
       </View>
-      <Text
-        style={
-          Object {
-            "color": "rgb(0, 50, 120)",
-            "fontFamily": "Poppins",
-            "fontSize": 22,
-            "fontWeight": "bold",
-            "marginBottom": 10,
-          }
-        }
-      >
-        Warning!
-      </Text>
-      <Text
-        style={
-          Object {
-            "color": "rgb(0, 50, 120)",
-            "fontFamily": "Poppins",
-            "textAlign": "center",
-          }
-        }
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-      </Text>
     </View>
   </View>
 </Modal>

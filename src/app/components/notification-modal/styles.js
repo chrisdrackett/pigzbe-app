@@ -24,7 +24,8 @@ export default StyleSheet.create({
         borderRadius: 4,
         display: 'flex',
         alignItems: 'center',
-        minWidth: 250,
+        width: 250,
+        minHeight: 200,
     },
     iconContainer: {
         position: 'absolute',
@@ -55,5 +56,9 @@ export default StyleSheet.create({
         fontFamily,
         color: color.blue,
         textAlign: 'center',
-    }
+    },
+    progress: {
+        marginTop: 20,
+        marginBottom: 20,
+    },
 });

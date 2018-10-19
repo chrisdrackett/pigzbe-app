@@ -2,7 +2,7 @@ import Tx from 'ethereumjs-tx';
 import {watchConfirmations} from '../utils/web3';
 import {NUM_VALIDATIONS} from '../constants';
 import {apiURL} from '../selectors';
-import {loadPrivateKey, getClaimBalance, getGasPrice} from './claim-eth';
+import {getClaimBalance, getGasPrice} from './claim-eth';
 import {loadClaimData, updateClaimData} from './claim-data';
 import {claimLoading, claimError, validateClaim} from './claim-api';
 
@@ -82,8 +82,6 @@ export const initWeb3 = () => async (dispatch, getState) => {
     });
 
     await dispatch(getContract());
-
-    await dispatch(loadPrivateKey());
 };
 
 const sendSignedTransaction = (web3, serializedTx, error) => new Promise(async (resolve, reject) => {
@@ -97,7 +95,7 @@ const sendSignedTransaction = (web3, serializedTx, error) => new Promise(async (
         });
 });
 
-export const burn = (amount) => async (dispatch, getState) => {
+export const burn = () => async (dispatch, getState) => {
     const api = apiURL(getState());
     const {publicKey} = getState().keys;
     const {network} = getState().config;
@@ -105,12 +103,16 @@ export const burn = (amount) => async (dispatch, getState) => {
     const {currentClaim, claims} = getState().claim;
     const claim = claims[currentClaim];
     const {address, instance} = claim.contract;
-    const {coinbase, privateKey} = claim.eth;
+    const {coinbase, privateKey, balanceWei: amount} = claim.eth;
     const claimData = claim.data;
     const web3 = claim.web3.instance;
 
+    console.log('BURN', amount);
+
+    // return
+
     dispatch(claimError(null));
-    dispatch(claimLoading('Waiting for Ethereum network confirmation'));
+    dispatch(claimLoading('Waiting for network confirmation'));
 
     try {
 
@@ -166,7 +168,11 @@ export const burn = (amount) => async (dispatch, getState) => {
             tx.sign(bufferPrivateKey);
             const serializedTx = '0x' + tx.serialize().toString('hex');
 
-            transactionHash = await sendSignedTransaction(web3, serializedTx, 'An error occurred when burning your tokens');
+            // TODO: if user quits while this is awaiting do we end up duping transactions?
+            // could we save nonce and resubmit with higher gas?
+            // or should we search for an existing transaction?
+
+            transactionHash = await sendSignedTransaction(web3, serializedTx, 'Transaction failed');
 
             console.log('transactionHash', transactionHash);
 
@@ -177,7 +183,7 @@ export const burn = (amount) => async (dispatch, getState) => {
             dispatch(claimLoading('Transaction accepted!\n\nWaiting for network confirmations\n\nThis step can take a while, it\'s safe to come back later'));
 
             if (!transactionHash) {
-                dispatch(claimError('An error occurred when burning your tokens'));
+                dispatch(claimError('Transaction failed'));
                 // setTimeout(dispatch, 6000, {type: LOADING, payload: null});
                 return;
             }
@@ -192,6 +198,9 @@ export const burn = (amount) => async (dispatch, getState) => {
             const validations = NUM_VALIDATIONS;
 
             const onValidatedBlock = (blocks) => dispatch(claimLoading(`Blocks confirmed: ${blocks} / ${validations}\n\nThis step can take a while, it\'s safe to come back later`));
+            console.log('network', network);
+            console.log('web3', !!web3);
+            console.log('transactionHash', transactionHash);
 
             const validateTransaction = await watchConfirmations({
                 network,
@@ -201,9 +210,11 @@ export const burn = (amount) => async (dispatch, getState) => {
                 onValidatedBlock
             });
 
+            console.log('validateTransaction', validateTransaction);
+
             if (validateTransaction.from.toLowerCase() !== coinbase.toLowerCase()) {
                 console.log('error', validateTransaction);
-                dispatch(claimError('Ethereum Transaction invalid'));
+                dispatch(claimError('Ethereum transaction invalid'));
                 // setTimeout(dispatch, 4000, {type: LOADING, payload: null});
                 return;
             }

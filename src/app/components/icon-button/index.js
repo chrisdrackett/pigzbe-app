@@ -9,8 +9,12 @@ export default ({
     padding = 10,
     style,
     onPress,
+    disabled,
 }) => (
-    <TouchableOpacity style={[styles.button, {padding}, style]} onPress={onPress}>
+    <TouchableOpacity
+        disabled={disabled}
+        style={[styles.button, {padding}, style]}
+        onPress={onPress}>
         <Icon style={{width: size, height: size}} name={icon} />
     </TouchableOpacity>
 );

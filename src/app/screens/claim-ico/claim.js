@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 import {Share} from 'react-native';
-import StepWrapper from '../../../components/step-wrapper';
-import KeyHolder from '../../../components/key-holder';
-import Paragraph from '../../../components/paragraph';
+import StepWrapper from '../../components/step-wrapper';
+import KeyHolder from '../../components/key-holder';
+import Paragraph from '../../components/paragraph';
 
 const copyTx = async (tx, pk, stellarPK, userBalance, error) => {
     const title = 'Ethereum Transaction Details';
@@ -47,7 +47,7 @@ export default ({
             <Fragment>
                 <Paragraph>{`You have *${userBalance} ERC20 Wollo Tokens* in your Eidoo account.`}</Paragraph>
                 {hasBalance ? (
-                    <Paragraph>{`Tap Claim Wollo below to convert your tokens to ${userBalance} Wollo and create your Pigzbe wallet.`}</Paragraph>
+                    <Paragraph>{`Tap the button below to convert your tokens to ${userBalance} Wollo and create your Pigzbe wallet.`}</Paragraph>
                 ) : (
                     <Paragraph>Go back to check your login details and try again.</Paragraph>
                 )}

@@ -7,9 +7,8 @@ const props = {
 
 describe('Progress', () => {
     test('renders correctly', () => {
-        const tree = renderer.create((
+        renderer.create(
             <Progress {...props}/>
-        )).toJSON();
-        expect(tree).toMatchSnapshot();
+        );
     });
 });

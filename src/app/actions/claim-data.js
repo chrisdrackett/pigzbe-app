@@ -11,9 +11,13 @@ const getClaimStorageKey = currentClaim => `${STORAGE_KEY_BURNING}_${currentClai
 const getClaimKeychainId = currentClaim => `${KEYCHAIN_ID_ETH_KEY}_${currentClaim}`;
 
 export const loadClaimPrivateKey = () => async (dispatch, getState) => {
-    const {currentClaim} = getState().claim;
-    const id = getClaimKeychainId(currentClaim);
-    return await Keychain.load(id);
+    try {
+        const {currentClaim} = getState().claim;
+        const id = getClaimKeychainId(currentClaim);
+        return await Keychain.load(id);
+    } catch (e) {
+        return null;
+    }
 };
 
 export const saveClaimPrivateKey = privateKey => async (dispatch, getState) => {
@@ -26,7 +30,7 @@ export const loadClaimData = () => async (dispatch, getState) => {
     const {currentClaim} = getState().claim;
     const payload = await Storage.load(getClaimStorageKey(currentClaim));
     await dispatch(updateClaimData({...payload, loaded: false}));
-    await dispatch(checkUserCache());
+    await dispatch(checkUserCache(payload));
     await dispatch(updateClaimData({loaded: true}));
 };
 
@@ -43,3 +47,5 @@ export const clearClaimData = () => (dispatch, getState) => {
     Storage.clear(getClaimStorageKey(currentClaim));
     dispatch({type: CLAIM_CLEAR_DATA});
 };
+
+export const flagClaimDataForReload = () => ({type: CLAIM_UPDATE_DATA, payload: {loaded: false}});

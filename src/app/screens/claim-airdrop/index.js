@@ -1,41 +1,21 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {utils} from 'web3';
-import Config from 'react-native-config';
-import Step1 from './steps/step1';
-import Step2 from './steps/step2';
-import Step3 from './steps/step3';
-import Loader from '../../components/loader';
-import Progress from '../../components/progress';
-import GasModal from '../../components/gas-modal';
-import {loadWallet} from '../../actions/wollo';
-import {SCREEN_DASHBOARD, SCREEN_SETTINGS, ID_AIRDROP} from '../../constants';
+import StepWrapper from 'app/components/step-wrapper';
+import {
+    ID_AIRDROP,
+    SCREEN_CLAIM,
+    SCREEN_CLAIM_AIRDROP_ENTER_KEYS,
+    SCREEN_CLAIM_AIRDROP_BURN,
+} from 'app/constants';
 import {
     claimStart,
-    transfer,
-    burn,
+    claimStop,
     initWeb3,
-    clearClaimData,
-    userLoginPrivateKey,
-    getGasPrice,
-    appAddWarningAlert
-} from '../../actions';
+} from 'app/actions';
 
 export class ClaimAirdrop extends Component {
   state = {
-      step: 0,
-      error: null,
-      privateKey: (__DEV__ && Config.PRIVATE_KEY) || '',
-      pk: (__DEV__ && Config.PK) || '',
-      badAddress: false,
-      badPrivateKey: false,
-      loading: 'Loading',
-      clickedClose: false,
-      modal: {
-          visible: false,
-          message: '',
-      },
-      estimatedCost: null,
+      starting: true,
   }
 
   componentWillMount() {
@@ -44,216 +24,68 @@ export class ClaimAirdrop extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      if (!nextProps.data.loaded) {
+      console.log('ClaimAirdrop componentWillReceiveProps', this.props.navigation.isFocused());
+      console.log('  nextProps.eth.coinbase', nextProps.eth.coinbase);
+      console.log('  nextProps.eth.balanceWollo', nextProps.eth.balanceWollo);
+      console.log('  nextProps.eth.balanceWei', nextProps.eth.balanceWei);
+      console.log('  nextProps.data.coinbase', nextProps.data.coinbase);
+      console.log('  nextProps.data.ethAddress', nextProps.data.ethAddress);
+      console.log('  nextProps.data.transactionHash', nextProps.data.transactionHash);
+      console.log('  nextProps.data.started', nextProps.data.started);
+      console.log('  nextProps.data.burned', nextProps.data.burned);
+      console.log('  nextProps.data.complete', nextProps.data.complete);
+      console.log('  nextProps.data.error', nextProps.data.error);
+      console.log('  nextProps.data', nextProps.data);
+
+
+      if (!(nextProps.data.loaded && this.props.navigation.isFocused())) {
           return;
       }
 
-      const unfinished = nextProps.eth.coinbase && nextProps.eth.balanceWollo;
-      const hasError = nextProps.data.transactionHash && nextProps.data.error;
+      // means the burn transaction has been successfully submitted:
+      const inProgress = !!(nextProps.data.started && nextProps.data.ethAddress && nextProps.data.transactionHash && nextProps.eth.coinbase && nextProps.eth.balanceWei);
 
-      if (unfinished || hasError) {
-          this.setState({step: 3, loading: null});
-      } else {
-          this.setState({step: 1, loading: null});
+      console.log('ClaimAirdrop LOADED inProgress =', inProgress);
+
+      this.setState({starting: false});
+
+      if (inProgress) {
+          this.props.navigation.navigate(SCREEN_CLAIM_AIRDROP_BURN);
       }
   }
 
-  onImportKey = async () => {
-      const {pk, privateKey} = this.state;
-
-      const badAddress = pk.trim() === '' || !utils.isAddress(pk.trim());
-      this.setState({badAddress, badPrivateKey: false});
-
-      if (badAddress) {
-          this.props.appAddWarningAlert('Check your public key');
-          return;
-      }
-
-      let publicKey = pk.trim();
-      if (pk.substr(0, 2) !== '0x') {
-          publicKey = `0x${pk}`;
-      }
-
-      const success = await this.props.userLoginPrivateKey(privateKey, publicKey);
-
-      if (success) {
-          this.setState({loading: 'Loading your Ethereum account'});
-      } else {
-          this.setState({badAddress: true, badPrivateKey: true});
-          this.props.appAddWarningAlert('Check your public and private keys');
-      }
+  onBack = () => {
+      this.props.claimStop();
+      this.props.navigation.navigate(SCREEN_CLAIM);
   }
 
-  onChangeStep = step => this.setState({step})
-
-  onSubmitBurn = async () => {
-      const {data, contract, eth} = this.props;
-
-      if (data.transactionHash && data.value) {
-          this.props.burn(data.value);
-          return;
-      }
-
-      this.setState({
-          modal: {
-              visible: true,
-              message: 'Please wait, estimating gas cost...',
-          }
-      });
-
-      try {
-          const amountBurn = eth.balanceWei;
-          // const gasPrice = await this.props.web3.eth.getGasPrice();
-          const gasPrice = await this.props.getGasPrice();
-          const estimatedGas = await contract.methods.burn(amountBurn).estimateGas({from: eth.coinbase});
-          const estimatedCost = utils.fromWei(String(estimatedGas * gasPrice), 'ether');
-
-          let estimatedCostUSD = '';
-          try {
-              const exchange = await (await fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD,GBP,EUR,JPY')).json();
-              estimatedCostUSD = (exchange.USD * Number(estimatedCost)).toFixed(2);
-          } catch (e) {}
-
-          this.setState({
-              estimatedCost: `${estimatedCost} ETH ($${estimatedCostUSD})`,
-              modal: {
-                  visible: true,
-                  message: 'confirm'
-              }
-          });
-      } catch (err) {
-          console.log(err);
-      }
-  }
-
-  onConfirmedSubmitBurn = () => {
-      this.closeModal();
-
-      this.props.burn(this.props.eth.balanceWei);
-  }
-
-  closeModal = () => this.setState({
-      modal: {
-          visible: false,
-          message: ''
-      }
-  });
-
-  closeProgress = () => this.setState({clickedClose: true})
-
-  onChangePrivateKey = privateKey => this.setState({privateKey})
-
-  onChangePk = pk => this.setState({pk})
-
-  onCloseClaim = () => this.props.navigation.navigate(SCREEN_DASHBOARD)
-
-  // onBack = () => this.props.navigation.navigate(SCREEN_CLAIM)
-  onBack = () => this.props.navigation.navigate(SCREEN_SETTINGS)
-
-  onCompleteClaim = () => {
-      this.props.clearClaimData();
-      this.props.loadWallet();
-      this.props.navigation.navigate(SCREEN_DASHBOARD);
-  }
-
-  onStep1 = () => this.onChangeStep(1)
-  onStep2 = () => this.onChangeStep(2)
-  onStep3 = () => this.onChangeStep(3)
+  onNext = () => this.props.navigation.navigate(SCREEN_CLAIM_AIRDROP_ENTER_KEYS)
 
   render () {
 
       const {
-          estimatedCost,
-          privateKey,
-          pk,
-          badAddress,
-          badPrivateKey,
-          step,
-          modal,
-      } = this.state;
-
-      const {
-          loading,
           contract,
-          eth,
-          transactionHash,
           web3,
           data,
-          error,
-          publicKey
       } = this.props;
 
-      console.log('===> step', step);
-      console.log('data', data);
-      console.log('this.state.loading', this.state.loading);
-      console.log('error', error);
-
-      if (!web3 || !contract || !data.loaded || this.state.loading !== null) {
-          return (
-              <Loader loading message={this.state.loading} />
-          );
-      }
-
-      const tx = data.transactionHash || transactionHash;
-
-      const hasBalance = eth.balanceWollo && Number(eth.balanceWollo) > 0;
+      const loading = !web3 || !contract || !data.loaded || this.state.starting;
 
       return (
-          <Fragment>
-              <Fragment>
-                  {step === 1 && <Step1 onNext={this.onStep2} onBack={this.onBack} />}
-                  {step === 2 &&
-                      <Step2
-                          onNext={this.onImportKey}
-                          onBack={this.onStep1}
-                          badAddress={badAddress}
-                          badPrivateKey={badPrivateKey}
-                          pk={pk}
-                          privateKey={privateKey}
-                          onChangePrivateKey={this.onChangePrivateKey}
-                          onChangePk={this.onChangePk}
-                      />
-                  }
-                  {step === 3 &&
-                      <Step3
-                          hasBalance={hasBalance}
-                          error={error || data.error}
-                          tx={tx}
-                          pk={pk}
-                          stellarPK={publicKey}
-                          userBalance={eth.balanceWollo}
-                          continueApplication={!data.complete && data.started}
-                          startApplication={!data.complete && !data.started}
-                          buttonNextLabel={!hasBalance ? 'Back' : !data.complete && !data.started ? 'Estimate Gas fees' : 'Continue'}
-                          onNext={hasBalance ? this.onSubmitBurn : this.onStep2}
-                          onBack={this.onStep2}
-                      />
-                  }
-              </Fragment>
-              
-              <GasModal
-                  visible={modal.visible}
-                  message={modal.message}
-                  estimatedCost={estimatedCost}
-                  onConfirm={this.onConfirmedSubmitBurn}
-                  onCancel={this.closeModal}
-              />
-              <Progress
-                  active={!this.state.clickedClose && loading !== null && !data.complete && !error}
-                  complete={data.complete}
-                  title={data.complete ? 'Congrats' : 'Claim progress'}
-                  error={error}
-                  text={data.complete ? `Congrats! You are now the owner of ${eth.balanceWollo} Wollo, you rock.` : loading}
-                  buttonLabel={error ? 'Close' : 'Next'}
-                  onPress={data.complete ? this.onCompleteClaim : this.closeProgress}
-              />
-          </Fragment>
+          <StepWrapper
+              loading={loading}
+              title="Claim Your Wollo"
+              icon="airdrop"
+              onNext={this.onNext}
+              onBack={this.onBack}
+              content="To get you validated, we just need a few quick details. This should only take a few minutes."
+          />
       );
   }
 }
 
 export default connect(
-    ({keys, claim: {claims: {[ID_AIRDROP]: {eth, data, web3, events, contract}}}}) => ({
+    ({claim: {claims: {[ID_AIRDROP]: {eth, data, web3, events, contract}}}}) => ({
         eth,
         data,
         contract: contract.instance,
@@ -261,16 +93,9 @@ export default connect(
         web3: web3.instance,
         loading: events.loading,
         error: events.error,
-        publicKey: keys.publicKey,
     }), {
-        getGasPrice,
-        userLoginPrivateKey,
         initWeb3,
-        transfer,
-        burn,
-        clearClaimData,
-        loadWallet,
         claimStart,
-        appAddWarningAlert,
+        claimStop,
     },
 )(ClaimAirdrop);

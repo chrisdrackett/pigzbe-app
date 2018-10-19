@@ -42,23 +42,17 @@ export const getClaimBalance = () => async (dispatch, getState) => {
     }
 };
 
-export const loadPrivateKey = () => async dispatch => {
-    try {
-        const privateKey = await dispatch(loadClaimPrivateKey());
-        if (privateKey) {
-            dispatch(setPrivateKey(privateKey));
-        }
-    } catch (e) {}
-};
-
 export const setPrivateKey = privateKey => ({type: CLAIM_ETH_PRIVATE_KEY, privateKey});
 
 export const setCoinbase = coinbase => ({type: CLAIM_ETH_COINBASE, coinbase});
 
-export const checkUserCache = () => async (dispatch, getState) => {
-    const {currentClaim, claims} = getState().claim;
-    const {coinbase} = claims[currentClaim].eth;
+export const checkUserCache = data => async dispatch => {
+    const {coinbase} = data;
     const privateKey = await dispatch(loadClaimPrivateKey());
+
+    console.log('checkUserCache:');
+    console.log('  coinbase', !!coinbase);
+    console.log('  privateKey', !!privateKey);
 
     if (!coinbase || !privateKey) {
         return;
@@ -70,6 +64,20 @@ export const checkUserCache = () => async (dispatch, getState) => {
     await dispatch(getClaimBalance());
 };
 
+export const addHexPrefix = hexStr => {
+    if (hexStr.substr(0, 2) !== '0x') {
+        return `0x${hexStr}`;
+    }
+    return hexStr;
+};
+
+export const removeHexPrefix = hexStr => {
+    if (hexStr.substr(0, 2) === '0x') {
+        return hexStr.slice(2);
+    }
+    return hexStr;
+};
+
 export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => {
     const {currentClaim, claims} = getState().claim;
     const web3 = claims[currentClaim].web3.instance;
@@ -77,20 +85,22 @@ export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => 
     dispatch(claimLoading(null));
 
     try {
-        if (!isValidSeed(mnemonic)) {
-            throw new Error('Please check your 12 memorable words');
-        }
+        mnemonic = mnemonic.trim();
+        publicKey = addHexPrefix(publicKey.trim());
 
-        if (!web3.utils.isAddress(publicKey)) {
-            throw new Error('Please check your wallet address');
+        const validSeed = isValidSeed(mnemonic);
+        const validAddress = web3.utils.isAddress(publicKey);
+
+        if (!validSeed || !validAddress) {
+            return {validSeed, validAddress};
         }
 
         const address = generateAddressFromSeed(mnemonic, publicKey);
-        const account = web3.eth.accounts.privateKeyToAccount(`0x${address.privateKey}`);
+        const account = web3.eth.accounts.privateKeyToAccount(addHexPrefix(address.privateKey));
         const coinbase = account.address;
 
         if (!coinbase) {
-            throw new Error('Could not load wallet');
+            return {};
         }
 
         await dispatch(saveClaimPrivateKey(address.privateKey));
@@ -101,49 +111,78 @@ export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => 
 
         dispatch(getClaimBalance());
 
-        return true;
+        return {success: true};
     } catch (e) {
         console.log(e);
-        return false;
+        return {};
     }
 };
 
 export const userLoginPrivateKey = (privateKey, publicKey) => async (dispatch, getState) => {
+
     const {currentClaim, claims} = getState().claim;
     const web3 = claims[currentClaim].web3.instance;
 
     dispatch(claimLoading(null));
 
     try {
-        if (!web3.utils.isAddress(publicKey)) {
-            throw new Error('Please check your wallet address');
+        privateKey = removeHexPrefix(privateKey.trim());
+        publicKey = addHexPrefix(publicKey.trim());
+
+        const validAddress = web3.utils.isAddress(publicKey);
+
+        if (!validAddress) {
+            return {validAddress};
         }
 
-        let privKey = privateKey.trim();
-        if (privKey.substr(0, 2) === '0x') {
-            privKey = privKey.slice(2);
-        }
-
-        const account = web3.eth.accounts.privateKeyToAccount(`0x${privKey}`);
+        const account = web3.eth.accounts.privateKeyToAccount(addHexPrefix(privateKey));
         const coinbase = account.address;
 
         if (!coinbase) {
-            throw new Error('Could not load wallet');
+            return {};
         }
 
-        await dispatch(saveClaimPrivateKey(privKey));
+        await dispatch(saveClaimPrivateKey(privateKey));
 
         dispatch(updateClaimData({coinbase}));
-        dispatch(setPrivateKey(privKey));
+        dispatch(setPrivateKey(privateKey));
         dispatch(setCoinbase(coinbase));
 
         dispatch(getClaimBalance());
 
-        return true;
+        return {success: true};
     } catch (e) {
         console.log(e);
-        return false;
+        return {};
     }
+};
+
+export const getGasEstimate = () => async (disptach, getState) => {
+    const {currentClaim, claims} = getState().claim;
+    const contract = claims[currentClaim].contract.instance;
+    const eth = claims[currentClaim].eth;
+
+    const amountBurn = eth.balanceWei;
+
+    let estimatedCost = '';
+    try {
+        const gasPrice = await disptach(getGasPrice());
+        const estimatedGas = await contract.methods.burn(amountBurn).estimateGas({from: eth.coinbase});
+        estimatedCost = utils.fromWei(String(estimatedGas * gasPrice), 'ether');
+    } catch (e) {
+        return null;
+    }
+
+    let estimatedCostUSD = '';
+    try {
+        const exchange = await (await fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD,GBP,EUR,JPY')).json();
+        estimatedCostUSD = (exchange.USD * Number(estimatedCost)).toFixed(2);
+    } catch (e) {}
+
+    return {
+        estimatedCost,
+        estimatedCostUSD
+    };
 };
 
 export const getGasPrice = () => async (disptach, getState) => {

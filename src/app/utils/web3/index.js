@@ -2,6 +2,9 @@ import bip39 from 'bip39';
 import hdkey from 'ethereumjs-wallet/hdkey';
 
 export const isValidSeed = seed => {
+    if (!seed.trim()) {
+        return false;
+    }
     const numWords = seed.trim().split(/\s+/g).length;
     if (numWords !== 12) {
         return false;
