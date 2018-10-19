@@ -29,14 +29,12 @@ export default ({balance, exchange, baseCurrency, dark, style, label, small, lin
                 <Icon name="chevron" style={styles.icon}/>
             }
         </View>
-        {exchange && (
-            <AmountExchange
-                style={[styles.label, dark ? styles.label__dark : null]}
-                amount={balance}
-                exchange={exchange}
-                baseCurrency={baseCurrency}
-            />
-        )}
+        <AmountExchange
+            style={[styles.label, dark ? styles.label__dark : null]}
+            amount={balance}
+            exchange={exchange}
+            baseCurrency={baseCurrency}
+        />
         {label && (
             <Text style={[styles.label, dark ? styles.label__dark : null]}>
                 {label}
