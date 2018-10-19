@@ -101,7 +101,7 @@ export class Tree extends Component {
                         <Image style={styles.sprout} source={require('./images/sprout.png')} />
                     }
                 </View>
-                <Text style={styles.name}>{name}</Text>
+                <Text style={styles.name}>{!overlayOpen ? name : ''}</Text>
                 <View style={[
                     styles.valueWrapper,
                     newValue ? styles.newValue : {

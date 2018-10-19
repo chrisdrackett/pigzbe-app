@@ -24,7 +24,7 @@ export class Messages extends Component {
 
         return (
             <StepModule
-                title={strings.messagesTitle}
+                title="Your updates"
                 icon="messages"
                 scroll={false}
                 error={error}

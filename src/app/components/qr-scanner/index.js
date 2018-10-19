@@ -9,20 +9,32 @@ import ReactModal from 'react-native-modal';
 export default class Scanner extends Component {
     state = {
         width: 284,
+        visible: false,
     }
 
     onLayout = event => this.setState({
         width: event.nativeEvent.layout.width
     })
 
+    delayedVisibilitySet = () => this.setState({visible: this.props.visible})
+
+    componentDidMount() {
+        setTimeout(this.delayedVisibilitySet, 500);
+    }
+    componentDidUpdate(oldProps) {
+        if (this.props.visible !== oldProps.visible) {
+            setTimeout(this.delayedVisibilitySet, 500);
+        }
+    }
+
     render() {
-        const {visible, onScan, onCancel} = this.props;
-        const {width} = this.state;
+        const {onScan, onCancel} = this.props;
+        const {visible, width} = this.state;
         const cameraSize = {width, height: width};
 
         return (
             <ReactModal
-                isVisible={visible}
+                isVisible={this.props.visible}
                 animationIn="slideInRight"
                 animationOut="slideOutRight"
                 style={{margin: 0}}

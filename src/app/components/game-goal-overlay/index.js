@@ -11,6 +11,7 @@ import GameGoalTransactions from 'app/components/game-goal-transactions';
 import {Dots} from 'app/components/game-carousel';
 import Icon from 'app/components/icon';
 import Loader from 'app/components/loader';
+import Wollo from 'app/components/wollo';
 import {updateBalance} from 'app/actions';
 import styles from './styles';
 import {MAX_INNER_WIDTH} from 'app/constants';
@@ -37,6 +38,8 @@ export class GameGoalOverlay extends Component {
             onClose,
             parentName,
             balances,
+            exchange,
+            baseCurrency,
         } = this.props;
 
         const width = Math.min(MAX_INNER_WIDTH, Dimensions.get('window').width);
@@ -45,8 +48,9 @@ export class GameGoalOverlay extends Component {
         const contentOffset = (width - itemWidth) / 2;
 
         const goalBalance = (balances && balances[goalAddress]) ? balances[goalAddress] : 0;
+        const homeTree = {address: kid.home, name: 'Hometree'};
         const goals = [
-            {address: kid.home, name: 'Hometree'},
+            homeTree,
             ...kid.goals,
         ].filter(goal => goal.address !== goalAddress);
         const currentGoal = kid.goals.filter(goal => goal.address === goalAddress)[0];
@@ -64,7 +68,18 @@ export class GameGoalOverlay extends Component {
                         <View
                             style={styles.spacer}
                             onPress={onClose}
-                        />
+                        >
+                            {!!goalAddress &&
+                                <View style={styles.balance}>
+                                    <Text style={styles.balanceText}>{currentGoal ? currentGoal.name : homeTree.name}</Text>
+                                    <Wollo
+                                        balance={goalBalance}
+                                        exchange={exchange}
+                                        baseCurrency={baseCurrency}
+                                    />
+                                </View>
+                            }
+                        </View>
                         {!goalAddress &&
                             <View style={[styles.newGoal, {width: width, alignSelf: 'center'}]}>
                                 <View>
@@ -165,5 +180,7 @@ export default connect(
     state => ({
         loading: state.kids.goalLoading,
         balances: state.kids.balances,
+        exchange: state.coins.exchange,
+        baseCurrency: state.settings.baseCurrency,
     })
 )(GameGoalOverlay);

@@ -15,9 +15,9 @@ export default ({
     onNo
 }) => (
     <RNModal isVisible={true} style={{margin: 0}} onBackButtonPress={onNo}>
-        <Modal>
+        <Modal noBird>
             <View>
-                <Title dark>Send Wollo?</Title>
+                <Title dark style={styles.title}>Send Wollo?</Title>
                 <Paragraph small style={styles.bold}>
                     Are you sure you want to send {amount} Wollo to {name}?
                 </Paragraph>

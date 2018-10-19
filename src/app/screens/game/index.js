@@ -259,7 +259,7 @@ export class Game extends Component {
     animateBg = () => {
         const open = this.state.isGoalOverlayOpen;
         Animated.timing(this.state.y, {
-            toValue: open ? 80 - Dimensions.get('window').height * 0.59 : 0,
+            toValue: open ? 80 - Dimensions.get('window').height * 0.55 : 0,
             duration: open ? 300 : 300,
             // easing: open ? Easing.out(Easing.quad) : Easing.back(1),
         }).start();
@@ -370,7 +370,7 @@ export class Game extends Component {
                     </GameBg>
                     {pigzbe}
                 </Animated.View>
-                {clouds}
+                {!this.state.isGoalOverlayOpen && clouds}
                 {!this.state.isGoalOverlayOpen && wolloCounter}
                 <GoalOverlay
                     kid={kid}

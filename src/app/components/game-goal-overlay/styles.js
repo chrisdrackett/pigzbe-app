@@ -61,5 +61,15 @@ export default StyleSheet.create({
     },
     newGoal: {
         paddingTop: 20,
-    }
+    },
+    balance: {
+        alignItems: 'center',
+        marginTop: '20%',
+    },
+    balanceText: {
+        color: 'white',
+        fontFamily,
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
 });
