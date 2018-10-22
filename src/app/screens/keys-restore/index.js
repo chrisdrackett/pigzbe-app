@@ -29,6 +29,7 @@ export class KeysRestore extends Component {
                 onBack={this.onBack}
                 justify="space-between"
                 pad
+                keyboardOffset={-70}
             >
                 <TextInput
                     error={!!error}
