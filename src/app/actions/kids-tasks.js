@@ -134,8 +134,11 @@ export const deleteTask = (kid, task) => async (dispatch, getState) => {
 
         await dispatch(saveKids());
         dispatch(taskLoading(false));
+        return true;
     } catch (error) {
         console.log(error);
-        dispatch(appAddWarningAlert('Delete task failed'));
+        dispatch(taskLoading(false));
+        dispatch(appAddWarningAlert('Failed to delete task'));
+        return false;
     }
 };
