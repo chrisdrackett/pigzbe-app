@@ -1,12 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {strings} from '../../constants';
-import Button from '../../components/button';
+import {strings} from 'app/constants';
+import Button from 'app/components/button';
 import Form from './form';
-import Progress from '../../components/progress';
-import StepModule from '../../components/step-module';
-import {ViewAddress} from '../view-address';
+import Progress from 'app/components/progress';
+import StepModule from 'app/components/step-module';
+import {ViewAddress} from 'app/screens/view-address';
 import ReactModal from 'react-native-modal';
+import {wolloSendReset} from 'app/actions';
 
 export class Send extends Component {
     state = {
@@ -14,7 +15,17 @@ export class Send extends Component {
         showViewAdressModal: false,
     }
 
-    onTransfer = () => this.props.navigation.goBack()
+    onBack = () => this.props.navigation.goBack()
+
+    onReset = () => {
+        this.setState({review: false, showViewAdressModal: false});
+        this.props.dispatch(wolloSendReset());
+    }
+
+    onFinish = () => {
+        this.onReset();
+        this.props.navigation.goBack();
+    }
 
     onReview = review => this.setState({review})
 
@@ -24,6 +35,8 @@ export class Send extends Component {
 
     render() {
         const {dispatch, balance, exchange, sending, sendComplete, sendStatus, error, publicKey} = this.props;
+
+        console.log(this.props);
 
         return (
             <Fragment>
@@ -36,7 +49,7 @@ export class Send extends Component {
                     keyboardOffset={-50}
                     settingsIcon="qrCode"
                     onSettings={this.onViewAddress}
-                    onBack={() => this.props.navigation.goBack()}
+                    onBack={this.onBack}
                 >
                     <Fragment>
                         <Form
@@ -49,18 +62,18 @@ export class Send extends Component {
                         <Button
                             theme="outline"
                             label={strings.transferCancelButtonLabel}
-                            onPress={this.onTransfer}
+                            onPress={this.onFinish}
                         />
                     </Fragment>
                 </StepModule>
                 <Progress
-                    open={sending}
+                    open={sending || sendComplete || error}
                     complete={sendComplete}
-                    title={sendComplete ? 'Transfer complete' : 'Transfer in progress'}
+                    title={(error || sendComplete) ? null : 'In progress'}
                     error={error}
                     text={sendStatus}
                     buttonLabel={strings.transferProgressButtonLabel}
-                    onPress={this.onTransfer}
+                    onPress={error ? this.onReset : this.onFinish}
                 />
                 <ReactModal
                     isVisible={this.state.showViewAdressModal}

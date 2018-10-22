@@ -4,11 +4,13 @@ import {Text} from 'react-native';
 import styles from './styles';
 import moneyFormat from '../../utils/money-format';
 import {ASSET_CODE, CURRENCIES} from '../../constants';
+import {ensureValidAmount} from '@pigzbe/stellar-utils';
 
 const exchangedDisplay = ({amount, currency, exchange, baseCurrency, style}) => {
-    const value = currency === ASSET_CODE ? amount * exchange[baseCurrency] : amount / exchange[baseCurrency];
+    const value = currency === ASSET_CODE ? amount * exchange[baseCurrency] : ensureValidAmount(amount / exchange[baseCurrency]);
     const symbol = currency === ASSET_CODE ? CURRENCIES[baseCurrency].symbol : CURRENCIES[ASSET_CODE].symbol;
-    const display = `${symbol}${moneyFormat(value, CURRENCIES[baseCurrency].dps)}`;
+    const dps = currency === ASSET_CODE ? CURRENCIES[baseCurrency].dps : CURRENCIES[ASSET_CODE].dps;
+    const display = `${symbol}${moneyFormat(value, dps)}`;
 
     return (
         <Text style={[styles.text, style]}>

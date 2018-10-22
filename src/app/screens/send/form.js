@@ -10,17 +10,17 @@ import Icon from '../../components/icon';
 import ExchangedDisplay from '../../components/exchanged-display';
 import {isValidPublicKey} from '@pigzbe/stellar-utils';
 import moneyFormat from '../../utils/money-format';
-import {ASSET_CODE, COIN_DPS} from '../../constants';
+import {ASSET_CODE, CURRENCIES} from '../../constants';
 import BigNumber from 'bignumber.js';
 import {sendWollo} from '../../actions';
 import QRScanner from '../../components/qr-scanner';
 
 const remainingBalance = (balance, amount) => new BigNumber(balance).minus(amount);
 
-const getBalanceAfter = (balance, amount) => moneyFormat(remainingBalance(balance, amount), COIN_DPS[ASSET_CODE]);
+const getBalanceAfter = (balance, amount) => moneyFormat(remainingBalance(balance, amount), CURRENCIES[ASSET_CODE].dps);
 
 export default class Form extends Component {
-    state ={
+    state = {
         review: this.props.review,
         accountKey: this.props.accountKey,
         amount: this.props.amount,
@@ -51,7 +51,7 @@ export default class Form extends Component {
 
     updateAmount = value => this.setState({
         amount: value,
-        amountValid: true,
+        amountValid: new BigNumber(value).isLessThanOrEqualTo(this.props.balance),
     })
 
     updateMemo = memo => {
@@ -113,6 +113,8 @@ export default class Form extends Component {
             memoError,
             review
         } = this.state;
+
+        console.log('amount', this.state.amount);
 
         if (review) {
             return (
@@ -194,6 +196,7 @@ export default class Form extends Component {
                     <Icon style={styles.scanIcon} name="qrCodeScan" />
                 </TouchableOpacity>
                 <WolloInput
+                    initialAmount={this.state.amount}
                     error={!!amountError}
                     label={strings.transferAmount}
                     onChangeAmount={this.updateAmount}

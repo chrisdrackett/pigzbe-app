@@ -9,7 +9,8 @@ import {
     getServer,
     Memo,
     Keypair,
-    loadTransaction
+    loadTransaction,
+    ensureValidAmount
 } from '@pigzbe/stellar-utils';
 import {wolloAsset} from '../selectors';
 import Keychain from '../utils/keychain';
@@ -94,7 +95,7 @@ export const deleteGoal = (kid, goal) => async (dispatch, getState) => {
             txb.addOperation(Operation.payment({
                 destination: kid.address,
                 asset,
-                amount: String(wolloBalance),
+                amount: ensureValidAmount(wolloBalance),
             }));
         }
         txb.addOperation(Operation.changeTrust({
@@ -149,7 +150,7 @@ export const moveGoalWollo = (fromAddress, destinationAddress, amount) => async 
         txb.addOperation(Operation.payment({
             destination: destinationAddress,
             asset,
-            amount: String(amount),
+            amount: ensureValidAmount(amount),
         }));
         txb.addMemo(Memo.text('Moved wollo to other goal'));
 
@@ -193,7 +194,7 @@ export const sendGoalWolloToParent = (goalAddress, amount) => async (dispatch, g
         txb.addOperation(Operation.payment({
             destination: publicKey,
             asset,
-            amount: String(amount),
+            amount: ensureValidAmount(amount),
         }));
         txb.addMemo(Memo.text('Sent wollo to parent'));
 

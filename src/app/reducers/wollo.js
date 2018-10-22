@@ -9,6 +9,7 @@ import {
     WOLLO_SEND_COMPLETE,
     WOLLO_SEND_STATUS,
     WOLLO_UPDATE_XLM,
+    WOLLO_SEND_RESET
 } from '../actions';
 
 export const initialState = {
@@ -76,6 +77,14 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 sending: action.sending
+            };
+        case WOLLO_SEND_RESET:
+            return {
+                ...state,
+                sending: false,
+                error: null,
+                sendComplete: false,
+                sendStatus: null,
             };
         case WOLLO_UPDATE_XLM:
             return {
