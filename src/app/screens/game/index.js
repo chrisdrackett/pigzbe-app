@@ -302,7 +302,7 @@ export class Game extends Component {
 
         const totalWollo = kid.goals.reduce((n, g) => {
             return balances[g.address] ? n.plus(balances[g.address]) : n;
-        }, new BigNumber(balances[kid.home])).toString(10);
+        }, new BigNumber(balances[kid.home] || 0)).toString(10);
 
         const numGoals = this.props.kid.goals && this.props.kid.goals.length || 0;
 
