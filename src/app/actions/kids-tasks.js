@@ -70,7 +70,8 @@ export const assignTask = (kid, task, reward) => async (dispatch, getState) => {
         dispatch(appAddSuccessAlert('Added task'));
     } catch (error) {
         console.log(error);
-        dispatch(appAddWarningAlert('Add task failed'));
+        dispatch(taskLoading(false));
+        dispatch(appAddWarningAlert('Failed to add task'));
     }
 };
 
@@ -133,8 +134,11 @@ export const deleteTask = (kid, task) => async (dispatch, getState) => {
 
         await dispatch(saveKids());
         dispatch(taskLoading(false));
+        return true;
     } catch (error) {
         console.log(error);
-        dispatch(appAddWarningAlert('Delete task failed'));
+        dispatch(taskLoading(false));
+        dispatch(appAddWarningAlert('Failed to delete task'));
+        return false;
     }
 };

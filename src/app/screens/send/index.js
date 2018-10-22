@@ -83,7 +83,7 @@ export default connect(
     state => ({
         error: state.wollo.error,
         balance: state.wollo.balance,
-        exchange: state.coins.exchange,
+        exchange: state.exchange.exchange,
         sending: state.wollo.sending,
         sendStatus: state.wollo.sendStatus,
         sendComplete: state.wollo.sendComplete,

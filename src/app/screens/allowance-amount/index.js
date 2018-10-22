@@ -184,7 +184,7 @@ export default connect(
         loading: false, /*state.kids.loading,*/
         kid: props.navigation.state.params.kid,
         baseCurrency: state.settings.baseCurrency,
-        exchange: state.coins.exchange,
+        exchange: state.exchange.exchange,
         allowanceToEdit: props.navigation.state.params.allowanceToEdit,
     })
 )(AllowanceAmount);

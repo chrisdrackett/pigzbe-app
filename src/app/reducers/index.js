@@ -7,7 +7,7 @@ import loader from './loader';
 import keys from './keys';
 import messages from './messages';
 import wollo from './wollo';
-import coins from './coins';
+import exchange from './exchange';
 import game from './game';
 import deviceAuth from './device-auth';
 import settings from './settings';
@@ -26,7 +26,7 @@ export default combineReducers({
     keys,
     messages,
     wollo,
-    coins,
+    exchange,
     game,
     deviceAuth,
     settings,

@@ -13,6 +13,8 @@ import Container from '../../components/container';
 import {SCREEN_LOGIN, SCREEN_DEVICE_AUTH, SCREEN_KID_LOGIN, SCREEN_KID_SET_LOGIN} from '../../constants';
 import HomeLogo from '../../components/home-logo';
 import KidAvatar from '../../components/kid-avatar';
+import withLoadExchange from 'app/hocs/with-load-exchange';
+import withInitialize from 'app/hocs/with-initialize';
 
 class KidProfile extends Component {
     onChoose = () => this.props.onChoose(this.props.kid)
@@ -83,10 +85,6 @@ class Home extends Component {
         parentOverride: false,
     }
 
-    componentWillMount() {
-        this.props.dispatch(initialize());
-    }
-
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     }
@@ -119,7 +117,7 @@ class Home extends Component {
     }
 
     render() {
-        const {initializing, loading, message, kids} = this.props;
+        const {kids} = this.props;
 
         return (
             <Fragment>
@@ -140,10 +138,6 @@ class Home extends Component {
                     </View>
                 }
                 <DevPanel/>
-                <Loader
-                    loading={initializing || loading}
-                    message={message}
-                />
             </Fragment>
         );
     }
@@ -156,4 +150,4 @@ export default connect(
         message: state.loader.message,
         kids: state.kids.kids,
     })
-)(Home);
+)(withInitialize(withLoadExchange(Home)));

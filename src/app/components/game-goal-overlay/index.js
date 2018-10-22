@@ -1,6 +1,6 @@
 
 import React, {Component, Fragment} from 'react';
-import {View, Text, Image, TouchableOpacity, Dimensions, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Dimensions, TouchableWithoutFeedback, KeyboardAvoidingView} from 'react-native';
 import {connect} from 'react-redux';
 import Modal from 'react-native-modal';
 import SideSwipe from 'react-native-sideswipe';
@@ -15,6 +15,7 @@ import Wollo from 'app/components/wollo';
 import {updateBalance} from 'app/actions';
 import styles from './styles';
 import {MAX_INNER_WIDTH} from 'app/constants';
+import isAndroid from 'app/utils/is-android';
 
 export class GameGoalOverlay extends Component {
     state = {
@@ -64,7 +65,12 @@ export class GameGoalOverlay extends Component {
                     backdropColor="rgb(0, 50, 120)"
                     onBackButtonPress={onClose}
                 >
-                    <View style={styles.container}>
+                    <KeyboardAvoidingView
+                        style={styles.container}
+                        offset={0}
+                        behavior={isAndroid ? null : 'padding'}
+                        enabled
+                    >
                         <View
                             style={styles.spacer}
                             onPress={onClose}
@@ -163,7 +169,7 @@ export class GameGoalOverlay extends Component {
                         <TouchableOpacity onPress={onClose} style={styles.backIcon}>
                             <Icon name="gameBack" />
                         </TouchableOpacity>
-                    </View>
+                    </KeyboardAvoidingView>
 
                     {this.props.loading &&
                         <View style={styles.loader}>
@@ -180,7 +186,7 @@ export default connect(
     state => ({
         loading: state.kids.goalLoading,
         balances: state.kids.balances,
-        exchange: state.coins.exchange,
+        exchange: state.exchange.exchange,
         baseCurrency: state.settings.baseCurrency,
     })
 )(GameGoalOverlay);

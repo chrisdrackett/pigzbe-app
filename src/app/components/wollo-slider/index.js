@@ -59,5 +59,5 @@ export class WolloSlider extends Component {
 
 export default connect((state) => ({
     baseCurrency: state.settings.baseCurrency,
-    exchange: state.coins.exchange,
+    exchange: state.exchange.exchange,
 }))(WolloSlider);
