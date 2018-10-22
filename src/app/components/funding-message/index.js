@@ -18,10 +18,7 @@ export default class FundingMessage extends Component {
     static ADD_GOAL = ADD_GOAL
     static ASSIGN_TASK = ASSIGN_TASK
 
-    onFundLink = () => {
-        openURL(FUNDING_URL);
-        this.props.onClose();
-    }
+    onFundLink = () => openURL(FUNDING_URL)
 
     onButtonPress = () => {
         if (typeof this.props.onButtonPress === 'function') {
