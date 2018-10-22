@@ -66,7 +66,7 @@ export class KidDashboard extends Component {
             return;
         }
 
-        if (screen === SCREEN_TASKS_LIST && balanceWLO === 0 || balanceXLM === 0) {
+        if (screen === SCREEN_TASKS_LIST && (balanceWLO === 0 || balanceXLM === 0)) {
             this.showFundingMessage(FundingMessage.ADD_TASK);
             return;
         }
