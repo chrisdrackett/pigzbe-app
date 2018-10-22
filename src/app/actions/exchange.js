@@ -10,7 +10,6 @@ export const loadCachedExchange = () => async (dispatch) => {
         if (data && Object.keys(data).length > 0) {
             dispatch({type: EXCHANGE_LOAD, payload: {
                 exchange: data,
-                error: null
             }});
         }
     } catch (error) {
@@ -26,17 +25,12 @@ export const loadExchange = () => async (dispatch, getState) => {
 
         dispatch({type: EXCHANGE_LOAD, payload: {
             exchange: values,
-            error: null
         }});
 
         await Storage.save(STORAGE_KEY_EXCHANGE, values);
 
         return true;
     } catch (error) {
-
-        dispatch({type: EXCHANGE_LOAD, payload: {
-            error: new Error('Could not load exchange')
-        }});
         return false;
     }
 };

@@ -110,7 +110,6 @@ export class Dashboard extends Component {
     render () {
         const {
             exchange,
-            error,
             balance,
             balanceXLM,
             baseCurrency,
@@ -119,7 +118,7 @@ export class Dashboard extends Component {
             publicKey
         } = this.props;
 
-        const loading = (!exchange && !error) || this.state.funding;
+        const loading = (!exchange) || this.state.funding;
 
         const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
 
@@ -215,7 +214,6 @@ export class Dashboard extends Component {
 export default connect(
     state => ({
         isConnected: state.app.isConnected,
-        error: state.exchange.error,
         exchange: state.exchange.exchange,
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
