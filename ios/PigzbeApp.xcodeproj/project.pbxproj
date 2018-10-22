@@ -223,7 +223,7 @@
 			remoteGlobalIDString = 9936F32F1F5F2E5B0010BF04;
 			remoteInfo = "privatedata-tvOS";
 		};
-		34773205215D41E4009BB537 /* PBXContainerItemProxy */ = {
+		347732DF217E034D009BB537 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8E6BE56D02884BED905EE40D /* ReactNativePermissions.xcodeproj */;
 			proxyType = 2;
@@ -674,10 +674,10 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		347731DC215D41E4009BB537 /* Products */ = {
+		347732B621625F0C009BB537 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				34773206215D41E4009BB537 /* libReactNativePermissions.a */,
+				347732E0217E034D009BB537 /* libReactNativePermissions.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1026,7 +1026,7 @@
 					ProjectRef = F5EA6995F8D74564A399C6B1 /* ReactNativeConfig.xcodeproj */;
 				},
 				{
-					ProductGroup = 347731DC215D41E4009BB537 /* Products */;
+					ProductGroup = 347732B621625F0C009BB537 /* Products */;
 					ProjectRef = 8E6BE56D02884BED905EE40D /* ReactNativePermissions.xcodeproj */;
 				},
 				{
@@ -1223,11 +1223,11 @@
 			remoteRef = 2DF0FFEC2056DD460020B375 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		34773206215D41E4009BB537 /* libReactNativePermissions.a */ = {
+		347732E0217E034D009BB537 /* libReactNativePermissions.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libReactNativePermissions.a;
-			remoteRef = 34773205215D41E4009BB537 /* PBXContainerItemProxy */;
+			remoteRef = 347732DF217E034D009BB537 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		348CEB1A2149372C00365918 /* libRNCamera.a */ = {
@@ -1653,7 +1653,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 27;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = B5UC9CHDKW;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios/**";
@@ -1687,7 +1687,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = B5UC9CHDKW;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios/**";
 				HEADER_SEARCH_PATHS = (

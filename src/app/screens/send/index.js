@@ -23,7 +23,7 @@ export class Send extends Component {
     onHideAddress = () => this.setState({showViewAdressModal: false})
 
     render() {
-        const {dispatch, balance, exchange, sending, sendComplete, sendStatus, error} = this.props;
+        const {dispatch, balance, exchange, sending, sendComplete, sendStatus, error, publicKey} = this.props;
 
         return (
             <Fragment>
@@ -44,6 +44,7 @@ export class Send extends Component {
                             exchange={exchange}
                             balance={balance}
                             onReview={this.onReview}
+                            publicKey={publicKey}
                         />
                         <Button
                             theme="outline"
@@ -53,7 +54,7 @@ export class Send extends Component {
                     </Fragment>
                 </StepModule>
                 <Progress
-                    active={sending}
+                    open={sending}
                     complete={sendComplete}
                     title={sendComplete ? 'Transfer complete' : 'Transfer in progress'}
                     error={error}

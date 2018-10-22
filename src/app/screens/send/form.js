@@ -43,7 +43,8 @@ export default class Form extends Component {
     }
 
     updateKey = accountKey => {
-        const keyValid = isValidPublicKey(accountKey);
+        const notOwnKey = this.props.publicKey !== accountKey;
+        const keyValid = isValidPublicKey(accountKey) && notOwnKey;
 
         this.setState({accountKey, keyValid});
     }
@@ -62,10 +63,11 @@ export default class Form extends Component {
     submit = () => {
         const {keyValid, amountValid, memoValid} = this.state;
         const review = keyValid && amountValid && memoValid;
+        const notOwnKey = this.props.publicKey !== this.state.accountKey;
 
         this.setState({
             review,
-            keyError: keyValid ? null : new Error(strings.transferErrorInvalidKey),
+            keyError: keyValid && notOwnKey ? null : new Error(strings.transferErrorInvalidKey),
             amountError: amountValid ? null : new Error(strings.transferErrorInvalidAmount),
             memoError: memoValid ? null : new Error(strings.transferErrorInvalidMessage)
         });
@@ -92,8 +94,9 @@ export default class Form extends Component {
         console.log('onscan', event.data);
 
         const accountKey = event.data;
+        const notOwnKey = this.props.publicKey !== this.state.accountKey;
 
-        const keyValid = isValidPublicKey(accountKey);
+        const keyValid = isValidPublicKey(accountKey) && notOwnKey;
 
         this.setState({
             showScanner: false,
