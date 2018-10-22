@@ -70,7 +70,8 @@ export const assignTask = (kid, task, reward) => async (dispatch, getState) => {
         dispatch(appAddSuccessAlert('Added task'));
     } catch (error) {
         console.log(error);
-        dispatch(appAddWarningAlert('Add task failed'));
+        dispatch(taskLoading(false));
+        dispatch(appAddWarningAlert('Failed to add task'));
     }
 };
 
