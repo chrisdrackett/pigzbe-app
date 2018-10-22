@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Dimensions} from 'react-native';
+import {View, Dimensions, SafeAreaView} from 'react-native';
 import Header from '../../components/header';
 import StepHeader from '../../components/step-header';
 import Container from '../../components/container';
@@ -83,28 +83,31 @@ export default class StepModule extends Component {
       );
 
       return (
-          <Container style={styles.wrapper} scroll={false}>
-              <View style={styles.bg}/>
-              <Header
-                  onBack={onBack}
-                  onSettings={onSettings}
-                  settingsIcon={settingsIcon}
-                  hideLogo={hideLogo}
-                  customTitle={customTitle}
-                  loading={loading}
-              />
-              {
-                  title || icon || headerChildren ? <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader> : null
-              }
-              {avoidKeyboard &&
+          <SafeAreaView style={styles.safeArea}>
+              <Container style={styles.wrapper} scroll={false}>
+                  <View style={styles.bg}/>
+                  <Header
+                      onBack={onBack}
+                      onSettings={onSettings}
+                      settingsIcon={settingsIcon}
+                      hideLogo={hideLogo}
+                      customTitle={customTitle}
+                      loading={loading}
+                  />
+                  {
+                      title || icon || headerChildren ? <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader> : null
+                  }
+                  {avoidKeyboard &&
                 <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}} offset={keyboardOffset}>
                     {container}
                 </KeyboardAvoid>
-              }
-              {!avoidKeyboard &&
+                  }
+                  {!avoidKeyboard &&
                 container
-              }
-          </Container>
+                  }
+              </Container>
+              <View style={styles.safeAreaBottom} />
+          </SafeAreaView>
       );
   }
 }
