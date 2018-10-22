@@ -55,10 +55,8 @@ export const loginAndLoad = passcode => async dispatch => {
         const success = await dispatch(authLogin(passcode));
         if (success) {
             await dispatch(loaderMessage('Loading'));
-            await dispatch(loadConfig());
             await dispatch(loadKeys());
             await dispatch(loadWallet());
-            await dispatch(loadExchange());
             await dispatch(loadKidsBalances());
             await dispatch(loadCustomTasks());
             dispatch(loadMessages());
@@ -81,9 +79,7 @@ export const loginAndLoadKid = (kid, passcode) => async dispatch => {
 
         if (success) {
             await dispatch(loaderMessage('Loading'));
-            await dispatch(loadConfig());
             await dispatch(loadKeys());
-            await dispatch(loadExchange());
             await dispatch(loadKidsBalances(kid.address));
             await dispatch(loadCustomTasks());
             await dispatch(loadKidActions(kid.address));
@@ -118,10 +114,11 @@ export const tryTouchIdLogin = () => async (dispatch, getState) => {
 export const initialize = () => async (dispatch, getState) => {
     console.log('===> initialize');
     if (!getState().loader.initializing) {
-        return;
+        return true;
     }
     dispatch(initializing(true));
     dispatch(initializeConfig());
+    await dispatch(loadConfig());
     await dispatch(loadSettings());
     await dispatch(loadKids());
     await dispatch(authCheckTouchId());
@@ -129,4 +126,5 @@ export const initialize = () => async (dispatch, getState) => {
         dispatch(tryTouchIdLogin());
     }
     dispatch(initializing(false));
+    return true;
 };

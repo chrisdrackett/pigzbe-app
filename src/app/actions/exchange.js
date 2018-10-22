@@ -13,11 +13,12 @@ export const loadExchange = () => async (dispatch, getState) => {
             exchange: values,
             error: null
         }});
-
+        return true;
     } catch (error) {
         dispatch({type: EXCHANGE_LOAD, payload: {
-            exchange: null,
             error: new Error('Could not load exchange')
         }});
+        return false;
     }
 };
+
