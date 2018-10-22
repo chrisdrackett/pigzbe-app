@@ -1,6 +1,6 @@
 import React, {Fragment, Component} from 'react';
 import {connect} from 'react-redux';
-import {NetInfo} from 'react-native';
+import {NetInfo, AppState} from 'react-native';
 import BackgroundTask from 'react-native-background-task';
 import Auth from '../auth';
 import Alert from '../../components/alert';
@@ -19,6 +19,9 @@ class Root extends Component {
     }
 
     checkConnection = async () => {
+        if (AppState.currentState !== 'active') {
+            return;
+        }
         try {
             await fetch('https://pigzbe.com', {method: 'HEAD'});
             this.onConnectionChange(true, 'ping');
