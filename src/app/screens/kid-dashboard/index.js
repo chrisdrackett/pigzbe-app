@@ -66,7 +66,7 @@ export class KidDashboard extends Component {
             return;
         }
 
-        if (screen === SCREEN_TASKS_LIST && balanceWLO === 0 || balanceXLM === 0) {
+        if (screen === SCREEN_TASKS_LIST && (balanceWLO === 0 || balanceXLM === 0)) {
             this.showFundingMessage(FundingMessage.ADD_TASK);
             return;
         }
@@ -165,7 +165,6 @@ export class KidDashboard extends Component {
         const {
             kid,
             exchange,
-            error,
             baseCurrency,
             goalLoading,
             taskLoading,
@@ -174,7 +173,7 @@ export class KidDashboard extends Component {
             balance,
         } = this.props;
 
-        const loading = (!exchange && !error) || goalLoading || taskLoading || allowanceLoading;
+        const loading = (!exchange) || goalLoading || taskLoading || allowanceLoading;
 
         console.log('showFundingMessage', this.state.showFundingMessage);
 
@@ -184,7 +183,6 @@ export class KidDashboard extends Component {
                     scroll
                     backgroundColor={loading ? color.white : color.transparent}
                     loading={loading}
-                    error={error}
                     onBack={this.onBack}
                     hideLogo
                 >
@@ -200,7 +198,7 @@ export class KidDashboard extends Component {
                             />
                         </TouchableOpacity>
                     </View>
-                    {(!loading && !error) && (
+                    {!loading && (
                         <View>
                             <BalanceGraph balance={kid.balance} exchange={exchange} baseCurrency={baseCurrency}/>
                             <ActionPanel
@@ -325,8 +323,7 @@ export class KidDashboard extends Component {
 export default connect(
     (state, props) => ({
         kid: kidsWithBalances(state).find(k => k.address === props.navigation.state.params.kid.address),
-        error: state.coins.error,
-        exchange: state.coins.exchange,
+        exchange: state.exchange.exchange,
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.settings.baseCurrency,

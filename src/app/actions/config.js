@@ -1,5 +1,6 @@
 import Config from 'react-native-config';
 import {setUseTestnet} from './';
+import blockchainConfig from 'app/data/blockchain';
 
 export const CONFIG_UPDATE = 'CONFIG_UPDATE';
 
@@ -14,14 +15,8 @@ export const initializeConfig = () => dispatch => {
 
 export const loadConfig = () => async (dispatch, getState) => {
     try {
-        const {configURL, networkOverride} = getState().config;
-        const url = networkOverride ? `${configURL}?network=${networkOverride}` : configURL;
-        const config = await (await fetch(url)).json();
-        if (config.message === 'Missing Authentication Token') {
-            throw new Error('Failed to load config');
-        }
-        dispatch(configUpdate(config));
-        dispatch(setUseTestnet(config.network !== config.NETWORK_MAINNET));
+        dispatch(configUpdate(blockchainConfig));
+        dispatch(setUseTestnet(blockchainConfig.network !== blockchainConfig.NETWORK_MAINNET));
     } catch (error) {
         console.log(error);
     }

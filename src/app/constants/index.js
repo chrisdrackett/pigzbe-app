@@ -60,6 +60,7 @@ export const STORAGE_KEY_SETTINGS = 'settings';
 export const STORAGE_KEY_KIDS = 'kids';
 export const STORAGE_KEY_TASKS = 'tasks';
 export const STORAGE_KEY_BURNING = 'burning';
+export const STORAGE_KEY_EXCHANGE = 'exchange';
 export const STORAGE_KEY_BURNING_ICO = `${STORAGE_KEY_BURNING}_${ID_ICO}`;
 export const STORAGE_KEY_BURNING_AIRDROP = `${STORAGE_KEY_BURNING}_${ID_AIRDROP}`;
 

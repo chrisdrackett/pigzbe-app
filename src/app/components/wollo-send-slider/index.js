@@ -126,7 +126,7 @@ export default connect(
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.settings.baseCurrency,
-        exchange: state.coins.exchange,
+        exchange: state.exchange.exchange,
         sendError: state.kids.sendError,
         sending: state.kids.sendingWollo,
         sendComplete: state.kids.sendComplete,

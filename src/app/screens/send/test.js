@@ -7,7 +7,7 @@ import wollo from '../../reducers/wollo';
 import settings from '../../reducers/settings';
 import {mockStore} from '../../../setupTests';
 
-const coins = () => ({
+const exchange = () => ({
     exchange: {
         XLM: 0.3936,
         BTC: 0.0000147,
@@ -26,7 +26,7 @@ const coins = () => ({
 describe('Send', () => {
     test('renders correctly', () => {
         renderer.create(
-            <Provider store={mockStore({wollo, coins, settings})}>
+            <Provider store={mockStore({wollo, exchange, settings})}>
                 <Send />
             </Provider>
         );

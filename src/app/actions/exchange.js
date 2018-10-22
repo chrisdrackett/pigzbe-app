@@ -1,7 +1,21 @@
-import {CURRENCIES} from '../constants';
+import Storage from '../utils/storage';
+import {CURRENCIES, STORAGE_KEY_EXCHANGE} from '../constants';
 import {apiURL} from '../selectors';
 
 export const EXCHANGE_LOAD = 'EXCHANGE_LOAD';
+
+export const loadCachedExchange = () => async (dispatch) => {
+    try {
+        const data = await Storage.load(STORAGE_KEY_EXCHANGE);
+        if (data && Object.keys(data).length > 0) {
+            dispatch({type: EXCHANGE_LOAD, payload: {
+                exchange: data,
+            }});
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 export const loadExchange = () => async (dispatch, getState) => {
     try {
@@ -11,13 +25,13 @@ export const loadExchange = () => async (dispatch, getState) => {
 
         dispatch({type: EXCHANGE_LOAD, payload: {
             exchange: values,
-            error: null
         }});
 
+        await Storage.save(STORAGE_KEY_EXCHANGE, values);
+
+        return true;
     } catch (error) {
-        dispatch({type: EXCHANGE_LOAD, payload: {
-            exchange: null,
-            error: new Error('Could not load exchange')
-        }});
+        return false;
     }
 };
+

@@ -6,7 +6,7 @@ import wollo from '../../reducers/wollo';
 import keys from '../../reducers/keys';
 import kids from '../../reducers/kids';
 import settings from '../../reducers/settings';
-import coins from '../../reducers/coins';
+import exchange from '../../reducers/exchange';
 import {mockStore} from '../../../setupTests';
 
 const props = {
@@ -52,7 +52,7 @@ const props = {
 describe('Game', () => {
     test('renders correctly', () => {
         renderer.create(
-            <Provider store={mockStore({wollo, keys, kids, settings, coins})}>
+            <Provider store={mockStore({wollo, keys, kids, settings, exchange})}>
                 <Game {...props} />
             </Provider>
         );

@@ -34,7 +34,7 @@ export class Send extends Component {
     onHideAddress = () => this.setState({showViewAdressModal: false})
 
     render() {
-        const {dispatch, balance, exchange, sending, sendComplete, sendStatus, error} = this.props;
+        const {dispatch, balance, exchange, sending, sendComplete, sendStatus, error, publicKey} = this.props;
 
         console.log(this.props);
 
@@ -57,6 +57,7 @@ export class Send extends Component {
                             exchange={exchange}
                             balance={balance}
                             onReview={this.onReview}
+                            publicKey={publicKey}
                         />
                         <Button
                             theme="outline"
@@ -95,7 +96,7 @@ export default connect(
     state => ({
         error: state.wollo.error,
         balance: state.wollo.balance,
-        exchange: state.coins.exchange,
+        exchange: state.exchange.exchange,
         sending: state.wollo.sending,
         sendStatus: state.wollo.sendStatus,
         sendComplete: state.wollo.sendComplete,

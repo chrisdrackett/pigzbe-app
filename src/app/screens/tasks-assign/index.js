@@ -7,7 +7,7 @@ import StepModule from '../../components/step-module';
 import WolloInput from '../../components/wollo-input';
 import Paragraph from '../../components/paragraph';
 import styles from './styles';
-import {deleteTask, assignTask} from '../../actions';
+import {deleteTask, assignTask, appAddWarningAlert} from '../../actions';
 import FundingMessage from '../../components/funding-message';
 
 export class TasksAssign extends Component {
@@ -31,7 +31,12 @@ export class TasksAssign extends Component {
         }
 
         if (this.props.taskToEdit) {
-            await this.props.dispatch(deleteTask(this.props.kid.name, this.props.taskToEdit.task));
+            const success = await this.props.dispatch(deleteTask(this.props.kid.name, this.props.taskToEdit.task));
+            if (!success) {
+                this.props.dispatch(appAddWarningAlert('Failed to update task'));
+                this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid: this.props.kid});
+                return;
+            }
         }
 
         await this.props.dispatch(assignTask(this.props.kid, this.props.task, this.state.wollos));

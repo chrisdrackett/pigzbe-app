@@ -21,5 +21,5 @@ const exchangedDisplay = ({amount, currency, exchange, baseCurrency, style}) => 
 
 export default connect(state => ({
     baseCurrency: state.settings.baseCurrency,
-    exchange: state.coins.exchange,
+    exchange: state.exchange.exchange,
 }))(exchangedDisplay);

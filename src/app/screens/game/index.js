@@ -302,7 +302,7 @@ export class Game extends Component {
 
         const totalWollo = kid.goals.reduce((n, g) => {
             return balances[g.address] ? n.plus(balances[g.address]) : n;
-        }, new BigNumber(balances[kid.home])).toString(10);
+        }, new BigNumber(balances[kid.home] || 0)).toString(10);
 
         const numGoals = this.props.kid.goals && this.props.kid.goals.length || 0;
 
@@ -422,7 +422,7 @@ export class Game extends Component {
 export default connect(state => ({
     kid: state.kids.kids.find(k => k.address === state.auth.kid),
     parentNickname: state.kids.parentNickname,
-    exchange: state.coins.exchange,
+    exchange: state.exchange.exchange,
     wolloCollected: state.game.wolloCollected,
     overlayOpen: state.game.overlayOpen,
     balances: state.kids.balances,
