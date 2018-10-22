@@ -15,7 +15,8 @@ import {
     loadKids,
     loadCustomTasks,
     loadKidsBalances,
-    loadKidActions
+    loadKidActions,
+    loadCachedExchange,
 } from './';
 
 export const LOADER_INITIALIZING = 'LOADER_INITIALIZING';
@@ -125,6 +126,7 @@ export const initialize = () => async (dispatch, getState) => {
     if (!getState().kids.kids.length) {
         dispatch(tryTouchIdLogin());
     }
+    await dispatch(loadCachedExchange());
     dispatch(initializing(false));
     return true;
 };

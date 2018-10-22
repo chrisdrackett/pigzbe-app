@@ -325,8 +325,8 @@ export class KidDashboard extends Component {
 export default connect(
     (state, props) => ({
         kid: kidsWithBalances(state).find(k => k.address === props.navigation.state.params.kid.address),
-        error: state.coins.error,
-        exchange: state.coins.exchange,
+        error: state.exchange.error,
+        exchange: state.exchange.exchange,
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.settings.baseCurrency,

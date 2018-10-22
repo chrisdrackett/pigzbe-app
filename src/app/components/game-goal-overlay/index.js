@@ -180,7 +180,7 @@ export default connect(
     state => ({
         loading: state.kids.goalLoading,
         balances: state.kids.balances,
-        exchange: state.coins.exchange,
+        exchange: state.exchange.exchange,
         baseCurrency: state.settings.baseCurrency,
     })
 )(GameGoalOverlay);

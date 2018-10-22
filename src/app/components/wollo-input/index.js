@@ -99,5 +99,5 @@ export class WolloInput extends Component {
 
 export default connect(state => ({
     baseCurrency: state.settings.baseCurrency,
-    exchange: state.coins.exchange,
+    exchange: state.exchange.exchange,
 }))(WolloInput);

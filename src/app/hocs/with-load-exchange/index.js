@@ -1,28 +1,37 @@
 
 import React, { Component } from 'react'
 import {View, Text} from 'react-native';
+import {connect} from 'react-redux';
 import {loadExchange} from 'app/actions';
 import Loader from 'app/components/loader';
 import Button from 'app/components/button';
 import styles from './styles';
 
 const withLoadExchange = (WrappedComponent) => {
-    return class extends Component {
+    class WithLoadExchange extends Component {
         state = {
             loaded: null,
         }
         componentDidMount() {
-            this.handleLoad(); 
+            const inBackground = this.props.exchange !== null;
+            this.handleLoad(inBackground);
         }
 
-        handleLoad = async () => {
-            this.setState({
-                loaded: null,
-            });
-            const loaded = await this.props.dispatch(loadExchange());
-            this.setState({
-                loaded,
-            });
+        handleLoad = async (inBackground = false) => {
+            if (inBackground) {
+                this.setState({
+                    loaded: true,
+                });
+                this.props.dispatch(loadExchange());
+            } else {
+                this.setState({
+                    loaded: null,
+                });
+                const loaded = await this.props.dispatch(loadExchange());
+                this.setState({
+                    loaded,
+                });
+            }
         }
     
         render() {
@@ -39,9 +48,7 @@ const withLoadExchange = (WrappedComponent) => {
             }
             return (
                 <View style={styles.container}>
-                    
                         <Text style={styles.text}>Failed to load exchange rates. Please check your internet connection.</Text>
-
                         <Button
                             label="Try again"
                             theme="light"
@@ -51,6 +58,12 @@ const withLoadExchange = (WrappedComponent) => {
             );
         }
     }
+
+    return connect(
+        (state) => ({
+            exchange: state.exchange.exchange,
+        })
+    )(WithLoadExchange);
 }
 
 export default withLoadExchange;

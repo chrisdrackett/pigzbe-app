@@ -215,8 +215,8 @@ export class Dashboard extends Component {
 export default connect(
     state => ({
         isConnected: state.app.isConnected,
-        error: state.coins.error,
-        exchange: state.coins.exchange,
+        error: state.exchange.error,
+        exchange: state.exchange.exchange,
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.settings.baseCurrency,

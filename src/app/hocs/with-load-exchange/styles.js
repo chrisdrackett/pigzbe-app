@@ -7,6 +7,7 @@ import {
 
 export default StyleSheet.create({
     container: {
+        backgroundColor: color.blue,
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -15,7 +16,7 @@ export default StyleSheet.create({
     },
     text: {
         fontFamily,
-        color: color.blue,
+        color: color.white,
         fontSize: 14,
         fontWeight: 'bold',
         textAlign: 'center',

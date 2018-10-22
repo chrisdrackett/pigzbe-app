@@ -422,7 +422,7 @@ export class Game extends Component {
 export default connect(state => ({
     kid: state.kids.kids.find(k => k.address === state.auth.kid),
     parentNickname: state.kids.parentNickname,
-    exchange: state.coins.exchange,
+    exchange: state.exchange.exchange,
     wolloCollected: state.game.wolloCollected,
     overlayOpen: state.game.overlayOpen,
     balances: state.kids.balances,
