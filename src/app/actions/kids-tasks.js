@@ -11,7 +11,8 @@ import {
     getServer,
     Memo,
     Keypair,
-    loadTransaction
+    loadTransaction,
+    ensureValidAmount
 } from '@pigzbe/stellar-utils';
 import {wolloAsset} from '../selectors';
 import Keychain from '../utils/keychain';
@@ -117,7 +118,7 @@ export const deleteTask = (kid, task) => async (dispatch, getState) => {
             .addOperation(Operation.payment({
                 destination: from,
                 asset,
-                amount
+                amount: ensureValidAmount(amount)
             }))
             .addMemo(Memo.text(`Delete ${task.task}`))
             .build();

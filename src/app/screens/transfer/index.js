@@ -34,14 +34,14 @@ export class Transfer extends Component {
     }
 
     render() {
-        const {error, balance, hasGas} = this.props;
+        const {balance, hasGas} = this.props;
 
         return (
             <Fragment>
                 <StepModule
                     title="Transfer"
                     icon="transfer"
-                    error={error}
+                    // error={error}
                     scroll={false}
                     settingsIcon="qrCode"
                     onSettings={this.onViewAddress}
@@ -77,7 +77,6 @@ export class Transfer extends Component {
 
 export default connect(
     state => ({
-        error: state.wollo.error,
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
         minXLM: state.wollo.minXLM,

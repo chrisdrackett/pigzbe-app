@@ -6,7 +6,7 @@ import styles from './styles';
 import images from './images';
 import moneyFormat from '../../utils/money-format';
 import {gameOverlayOpen} from '../../actions';
-import {strings, COIN_DPS} from '../../constants';
+import {strings, CURRENCIES} from '../../constants';
 
 const conversions = {
     carrot: {
@@ -41,7 +41,7 @@ export default class Learn extends Component {
         const {coin, label, labelOne} = conversions[conversionKey];
 
         const conversion = exchange && exchange[coin] || 1;
-        const dps = COIN_DPS[coin] || 0;
+        const dps = CURRENCIES[coin].dps || 0;
         const compareValue = moneyFormat(String(wolloCollected * conversion), dps);
 
         if (overlayOpen) {

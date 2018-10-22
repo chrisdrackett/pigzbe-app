@@ -7,6 +7,6 @@ export default StyleSheet.create({
         fontSize: 14,
         marginTop: 5,
         textAlign: 'left',
-        fontStyle: 'italic',
+        fontWeight: 'bold',
     },
 });

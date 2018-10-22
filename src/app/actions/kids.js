@@ -1,5 +1,5 @@
 import Storage from '../utils/storage';
-import {loadAccount, sendPayment, getServer, Keypair, TransactionBuilder, Operation, Memo} from '@pigzbe/stellar-utils';
+import {loadAccount, sendPayment, getServer, Keypair, TransactionBuilder, Operation, Memo, ensureValidAmount} from '@pigzbe/stellar-utils';
 import {createKidAccount, getAccountBalance, fundKidAccount, getWolloBalance, updateBalance, refreshBalance} from './';
 import {wolloAsset} from '../selectors';
 import wait from '../utils/wait';
@@ -355,7 +355,7 @@ export const claimWollo = (address, transfers) => async (dispatch, getState) => 
             txb.addOperation(Operation.payment({
                 destination,
                 asset,
-                amount
+                amount: ensureValidAmount(amount)
             }));
             txb.addMemo(Memo.hash(hash));
             const tx = txb.build();
@@ -367,7 +367,7 @@ export const claimWollo = (address, transfers) => async (dispatch, getState) => 
         await dispatch(loadKidActions(address));
 
         // refresh just the goals that have been changed
-        for (let transfer of sanitisedTransfers) {
+        for (const transfer of sanitisedTransfers) {
             await dispatch(updateBalance(transfer.destination));
         }
 

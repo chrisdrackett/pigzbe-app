@@ -24,7 +24,7 @@ import {
 } from '../constants';
 import Keychain from '../utils/keychain';
 import {wolloAsset} from '../selectors';
-import {createKeypair} from './';
+import {createKeypair, appError} from './';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
@@ -36,15 +36,17 @@ export const WOLLO_UPDATE_PAYMENTS = 'WOLLO_UPDATE_PAYMENTS';
 export const WOLLO_SENDING = 'WOLLO_SENDING';
 export const WOLLO_SEND_COMPLETE = 'WOLLO_SEND_COMPLETE';
 export const WOLLO_SEND_STATUS = 'WOLLO_SEND_STATUS';
+export const WOLLO_SEND_RESET = 'WOLLO_SEND_RESET';
 export const WOLLO_KEYPAIR = 'WOLLO_KEYPAIR';
 export const WOLLO_KEYPAIR_SAVED = 'WOLLO_KEYPAIR_SAVED';
 
 export const getWolloBalance = account => getBalance(account, ASSET_CODE);
 
-const wolloLoading = loading => ({type: WOLLO_LOADING, loading});
-const wolloSending = sending => ({type: WOLLO_SENDING, sending});
-const wolloSendComplete = sendComplete => ({type: WOLLO_SEND_COMPLETE, sendComplete});
-const wolloSendStatus = sendStatus => ({type: WOLLO_SEND_STATUS, sendStatus});
+export const wolloLoading = loading => ({type: WOLLO_LOADING, loading});
+export const wolloSending = sending => ({type: WOLLO_SENDING, sending});
+export const wolloSendComplete = sendComplete => ({type: WOLLO_SEND_COMPLETE, sendComplete});
+export const wolloSendStatus = sendStatus => ({type: WOLLO_SEND_STATUS, sendStatus});
+export const wolloSendReset = () => ({type: WOLLO_SEND_RESET});
 
 export const wolloError = error => ({type: WOLLO_ERROR, error});
 
@@ -121,12 +123,14 @@ export const loadPayments = address => async (dispatch, getState) => {
 export const sendWollo = (destination, amount, memo) => async (dispatch, getState) => {
     console.log('sendWollo', destination, amount, memo);
     if (!isValidPublicKey(destination)) {
-        dispatch(wolloError(new Error(strings.transferErrorInvalidKey)));
+        dispatch(wolloError(strings.transferErrorInvalidKey));
+        dispatch(appError(strings.transferErrorInvalidKey));
         return;
     }
 
     if (!amount || isNaN(amount) || Number(amount) === 0) {
-        dispatch(wolloError(new Error(strings.transferErrorInvalidAmount)));
+        dispatch(wolloError(strings.transferErrorInvalidAmount));
+        dispatch(appError(strings.transferErrorInvalidAmount));
         return;
     }
 
@@ -143,7 +147,8 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     if (!isTrusted) {
         dispatch(wolloSending(false));
         dispatch(wolloSendStatus(null));
-        dispatch(wolloError(new Error(strings.transferErrorTrust)));
+        dispatch(wolloError(strings.transferErrorTrust));
+        dispatch(appError(strings.transferErrorTrust));
         return;
     }
 
@@ -160,7 +165,8 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     if (!result) {
         dispatch(wolloSending(false));
         dispatch(wolloSendStatus(null));
-        dispatch(wolloError(new Error(strings.transferStatusFailed)));
+        dispatch(wolloError(strings.transferStatusFailed));
+        dispatch(appError(strings.transferStatusFailed));
         return;
     }
 

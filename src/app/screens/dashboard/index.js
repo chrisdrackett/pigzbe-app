@@ -8,7 +8,7 @@ import {
     SCREEN_KID_DASHBOARD,
     SCREEN_KIDS_ENTER_PROFILE,
     COINS,
-    COIN_DPS,
+    CURRENCIES,
     FUNDING_URL,
     MIN_BALANCE,
     MIN_BALANCE_XLM_ADD_KID
@@ -121,7 +121,11 @@ export class Dashboard extends Component {
 
         const loading = (!exchange && !error) || this.state.funding;
 
-        const coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
+        let coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
+
+        if (coins.length > 6) {
+            coins = coins.filter(c => c !== 'GBP');
+        }
 
         console.log('balance', balance);
         console.log('balanceXLM', balanceXLM);
@@ -168,7 +172,7 @@ export class Dashboard extends Component {
                                 onAddKids={this.onAddKids}
                                 onDashboard={this.onDashboard}
                             />
-                            <ConvertBalance coins={coins} exchange={exchange} balance={balance} dps={COIN_DPS}/>
+                            <ConvertBalance coins={coins} exchange={exchange} balance={balance} />
                         </View>
                     )}
                 </StepModule>
@@ -222,10 +226,6 @@ export default connect(
         baseCurrency: state.settings.baseCurrency,
         firstTime: state.settings.firstTime,
         kids: kidsWithBalances(state),
-        sendError: state.wollo.error,
-        sending: state.wollo.sending,
-        sendStatus: state.wollo.sendStatus,
-        sendComplete: state.wollo.sendComplete,
         publicKey: state.keys.publicKey,
     })
 )(Dashboard);

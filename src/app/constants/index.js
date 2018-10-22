@@ -2,14 +2,40 @@ export const strings = require('./strings.json');
 
 export * from './screens';
 
+export const CURRENCIES = {
+    USD: {name: 'United States dollar', symbol: '$', dps: 2},
+    EUR: {name: 'Euro', symbol: '€', dps: 2},
+    JPY: {name: 'Japanese yen', symbol: '¥', dps: 0},
+    GBP: {name: 'Pound sterling', symbol: '£', dps: 2},
+    AUD: {name: 'Australian dollar', symbol: '$', dps: 2},
+    CAD: {name: 'Canadian dollar', symbol: '$', dps: 2},
+    CHF: {name: 'Swiss franc', symbol: 'CHF', dps: 2, icon: 'swissFranc'},
+    CNY: {name: 'Renminbi', symbol: '¥', dps: 2},
+    SEK: {name: 'Swedish krona', symbol: 'kr', dps: 2, icon: 'krona'},
+    NZD: {name: 'New Zealand dollar', symbol: '$', dps: 2},
+    MXN: {name: 'Mexican peso', symbol: '$', dps: 2},
+    SGD: {name: 'Singapore dollar', symbol: '$', dps: 2},
+    HKD: {name: 'Hong Kong dollar', symbol: '$', dps: 2},
+    NOK: {name: 'Norwegian krone', symbol: 'kr', dps: 2, icon: 'nok'},
+    KRW: {name: 'South Korean won', symbol: '₩', dps: 2},
+    TRY: {name: 'Turkish lira', symbol: '₺ ', dps: 2},
+    RUB: {name: 'Russian ruble', symbol: '₽', dps: 2},
+    INR: {name: 'Indian rupee', symbol: '₹ ', dps: 2},
+    BRL: {name: 'Brazilian real', symbol: 'R$', dps: 2},
+    ZAR: {name: 'South African rand', symbol: 'R', dps: 2},
+    GOLD: {name: 'Gold', symbol: 'Gold', dps: 5},
+    XLM: {name: 'Stellar Lumens', symbol: 'XLM ', dps: 5, icon: 'stellar'},
+    BTC: {name: 'Bitcoin', symbol: '₿', dps: 5},
+    ETH: {name: 'Etheruem', symbol: 'Ξ', dps: 5},
+    WLO: {name: 'Wollo', symbol: 'W', dps: 5},
+};
+
 export const BASE_CURRENCY = 'USD';
 export const COINS = ['XLM', 'BTC', 'ETH', 'EUR', 'USD', 'JPY', 'GBP', 'GOLD'];
-export const COIN_DPS = {XLM: 5, BTC: 5, ETH: 5, EUR: 2, USD: 2, JPY: 0, GBP: 2, GOLD: 5};
-export const COIN_SYMBOLS = {XLM: 'XLM: ', BTC: '₿', ETH: 'Ξ', EUR: '€', USD: '$', JPY: '¥', GBP: '£', GOLD: '', WLO: 'W'};
 
 export const ASSET_CODE = 'WLO';
 export const ASSET_NAME = 'Wollo';
-export const ASSET_DPS = COIN_DPS[ASSET_CODE];
+export const ASSET_DPS = CURRENCIES[ASSET_CODE].dps;
 
 export const PRIVACY_URL = 'https://pigzbe.com/pdf/pigzbe_privacy_notice.pdf';
 export const TERMS_URL = 'https://pigzbe.com/pdf/pigzbe_terms_of_website_use.pdf';
@@ -52,32 +78,3 @@ export const KID_HOME_MEMO_PREPEND = 'Home ';
 export const MIN_BALANCE = 2.52;
 export const MIN_BALANCE_XLM_ADD_KID = 8;
 export const MIN_BALANCE_XLM_ADD_GOAL = 2.52;
-
-// @todo make all areas of the site use this
-export const CURRENCIES = {
-    USD: {name: 'United States dollar', symbol: '$', dps: 2},
-    EUR: {name: 'Euro', symbol: '€', dps: 2},
-    JPY: {name: 'Japanese yen', symbol: '¥', dps: 0},
-    GBP: {name: 'Pound sterling', symbol: '£', dps: 2},
-    AUD: {name: 'Australian dollar', symbol: '$', dps: 2},
-    CAD: {name: 'Canadian dollar', symbol: '$', dps: 2},
-    CHF: {name: 'Swiss franc', symbol: 'CHF', dps: 2, icon: 'swissFranc'},
-    CNY: {name: 'Renminbi', symbol: '¥', dps: 2},
-    SEK: {name: 'Swedish krona', symbol: 'kr', dps: 2, icon: 'krona'},
-    NZD: {name: 'New Zealand dollar', symbol: '$', dps: 2},
-    MXN: {name: 'Mexican peso', symbol: '$', dps: 2},
-    SGD: {name: 'Singapore dollar', symbol: '$', dps: 2},
-    HKD: {name: 'Hong Kong dollar', symbol: '$', dps: 2},
-    NOK: {name: 'Norwegian krone', symbol: 'kr', dps: 2, icon: 'nok'},
-    KRW: {name: 'South Korean won', symbol: '₩', dps: 2},
-    TRY: {name: 'Turkish lira', symbol: '₺ ', dps: 2},
-    RUB: {name: 'Russian ruble', symbol: '₽', dps: 2},
-    INR: {name: 'Indian rupee', symbol: '₹ ', dps: 2},
-    BRL: {name: 'Brazilian real', symbol: 'R$', dps: 2},
-    ZAR: {name: 'South African rand', symbol: 'R', dps: 2},
-    GOLD: {name: 'Gold', symbol: 'Gold', dps: 5},
-    XLM: {name: 'Stellar Lumens', symbol: 'XLM ', dps: 5, icon: 'stellar'},
-    BTC: {name: 'Bitcoin', symbol: '₿', dps: 5},
-    ETH: {name: 'Etheruem', symbol: 'Ξ', dps: 5},
-    WLO: {name: 'Wollo', symbol: 'W', dps: 5},
-};
