@@ -94,17 +94,17 @@ export const loginAndLoadKid = (kid, passcode) => async dispatch => {
 };
 
 export const tryTouchIdLogin = () => async (dispatch, getState) => {
-    const {enableTouchId} = getState().settings;
-    if (!enableTouchId) {
-        return;
-    }
-
-    const passcode = await dispatch(authKeychain());
-    if (!passcode) {
-        return;
-    }
-
     try {
+        const {enableTouchId} = getState().settings;
+        if (!enableTouchId) {
+            return;
+        }
+
+        const passcode = await dispatch(authKeychain());
+        if (!passcode) {
+            return;
+        }
+
         await dispatch(authTouchId());
         dispatch(loginAndLoad(passcode));
     } catch (error) {
