@@ -58,6 +58,7 @@ class CloudFlowComponent extends Component {
                 changeStatus={this.changeStatus}
                 status={this.state.status}
                 value={10}
+                cloudData={{amount: '25', type: 'ALLOWANCE', memo: 'Allowance'}}
             />
         </View>);
     }

@@ -4,7 +4,7 @@ import {View, Dimensions} from 'react-native';
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
-
+import {kids} from './dashboard';
 import {
     TRANSFER_TYPE_ALLOWANCE,
     TRANSFER_TYPE_TASK,
@@ -25,7 +25,7 @@ const store = createStore(combineReducers({
     settings: () => ({
         baseCurrency: 'GBP'
     }),
-    coins: () => ({
+    exchange: () => ({
         exchange: {
             XLM: 0.3936,
             BTC: 0.0000147,
@@ -72,6 +72,7 @@ class GoalOverlayTest extends Component {
                 <Button label="Open goal overlay" style={{marginBottom: 200}} onPress={() => this.setState({isOpen: true})} />
                 <Provider store={store}>
                     <GameGoalOverlay
+                        kid={kids.slice(0, 1).pop()}
                         isOpen={this.state.isOpen}
                         onClose={() => this.setState({isOpen: false})}
                         {...this.props}

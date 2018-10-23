@@ -3,17 +3,13 @@ import React, {Component} from 'react';
 import {storiesOf} from '@storybook/react-native';
 import Claim from '../../src/app/screens/claim';
 import {ClaimICO} from '../../src/app/screens/claim-ico';
-import Step1 from '../../src/app/screens/claim-ico/steps/step1';
-import Step2 from '../../src/app/screens/claim-ico/steps/step2';
-import Step3 from '../../src/app/screens/claim-ico/steps/step3';
-import Step4 from '../../src/app/screens/claim-ico/steps/step4';
-import Step5 from '../../src/app/screens/claim-ico/steps/step5';
-import ClaimAirdrop from '../../src/app/screens/claim-airdrop';
+import {ClaimAirdrop} from '../../src/app/screens/claim-airdrop';
 
 const props = {
     dispatch: () => {},
     navigation: {
         navigate: () => {},
+        isFocused: () => {},
         state: {
             key: 'SCREEN_CLAIM',
             routeName: 'SCREEN_CLAIM'
@@ -30,6 +26,7 @@ const propsICO = {
     burn: () => {},
     clearClaimData: () => {},
     loadWallet: () => {},
+    claimStart: () => {},
     loading: null,
     contract: {
         address: '0x7e37788454705F47a4B1d09D2a70d92847c52707',
@@ -914,7 +911,7 @@ const propsICO = {
         },
         network: 'ropsten'
     },
-    user: {
+    eth: {
         coinbase: null,
         balanceWei: null,
         balanceWollo: null,
@@ -935,15 +932,15 @@ const propsICO = {
         transactionHash: null,
         get: () => {}
     },
-    localStorage: null,
-    errorBurning: null
+    data: {loaded: true},
+    error: null
 };
 
 class ClaimICOWrapper extends Component {
-    state = {localStorage: null}
+    state = {data: {}}
 
     componentDidMount() {
-        setTimeout(() => this.setState({localStorage: {}}), 1000);
+        setTimeout(() => this.setState({data: {loaded: true}}), 1000);
     }
 
     render() {
@@ -966,46 +963,10 @@ const claim = storiesOf('Claim')
         <ClaimICOWrapper/>
     ));
 
-[Step1, Step2, Step3, Step4].map((Step, i) => {
-    claim.add(`claim ico step ${i + 1}`, () => (
-        <Step
-            onBack={() => {}}
-            onNext={() => {}}
-        />
-    ));
-});
-
-claim.add('claim ico step 5 start', () => (
-    <Step5
-        startApplication={true}
-        onBack={() => {}}
-        onNext={() => {}}
-        userBalance={'1000'}
-        buttonNextLabel={'Claim Wollo'}
-    />
-));
-
-claim.add('claim ico step 5 zero', () => (
-    <Step5
-        startApplication={true}
-        onBack={() => {}}
-        onNext={null}
-        userBalance={'0'}
-        buttonNextLabel={'Claim Wollo'}
-    />
-));
-
-claim.add('claim ico continue', () => (
-    <Step5
-        startApplication={false}
-        onBack={() => {}}
-        onNext={() => {}}
-        userBalance={'1000'}
-        buttonNextLabel={'Continue'}
-        tx={'0x58e5a0fc7fbc849eddc100d44e86276168a8c7baaa5604e44ba6f5eb8ba1b7eb'}
-    />
-));
 
 claim.add('claim airdrop', () => (
-    <ClaimAirdrop {...props} />
+    <ClaimAirdrop {...{
+        ...props,
+        ...propsICO
+    }} />
 ));

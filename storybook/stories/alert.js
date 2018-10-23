@@ -4,7 +4,9 @@ import Alert from '../../src/app/components/alert';
 import Button from '../../src/app/components/button';
 
 const props = {
-    error: new Error('Lorem ipsum dolor sit amet')
+    type: 'warning',
+    message: 'Lorem ipsum dolor sit amet',
+    onDismiss: () => {},
 };
 
 class Wrapper extends Component {
@@ -53,7 +55,7 @@ storiesOf('Alert')
     .add('long', () => (
         <Alert {...{
             ...props,
-            error: new Error('Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci')
+            message: 'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci'
         }}/>
     ))
     .add('trigger', () => (

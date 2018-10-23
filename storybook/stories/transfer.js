@@ -477,7 +477,7 @@ const store = createStore(combineReducers({
     settings: () => ({
         baseCurrency: 'GBP'
     }),
-    coins: () => ({
+    exchange: () => ({
         exchange: {
             XLM: 0.3936,
             BTC: 0.0000147,
@@ -492,6 +492,9 @@ const store = createStore(combineReducers({
     wollo: () => ({
         loading: false,
         payments,
+    }),
+    keys: () => ({
+        publicKey: 'GDF7DRJXKBDYXKNP4JOBUVGEIHLVEXZKKX7V7IYNMEXM7J5H3LLFW5TU',
     })
 }), applyMiddleware(thunk));
 

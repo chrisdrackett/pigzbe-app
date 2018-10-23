@@ -1,8 +1,6 @@
 import React from 'react';
-import {View} from 'react-native';
 import {storiesOf} from '@storybook/react-native';
 import {Game} from '../../src/app/screens/game';
-import Learn from '../../src/app/screens/learn';
 import GameBg from '../../src/app/components/game-bg';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers, applyMiddleware} from 'redux';
@@ -21,7 +19,7 @@ const store = createStore(combineReducers({
     settings: () => ({
         baseCurrency: 'USD',
     }),
-    coins: () => ({
+    exchange: () => ({
         exchange: {
             USD: 0.12,
             EUR: 0.103992,
@@ -263,12 +261,4 @@ storiesOf('Game')
                 }]
             },
         }}/>
-    ))
-    .add('learn', () => (
-        <View style={{flex: 1, backgroundColor: 'black'}}>
-            <Learn {...{
-                ...props,
-                overlayOpen: true,
-            }}/>
-        </View>
     ));

@@ -3,14 +3,7 @@ import {storiesOf} from '@storybook/react-native';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-import {
-    ClaimVIP,
-    STEP_DEVICE_AUTH,
-    STEP_TOKEN_CODE,
-    STEP_TEXT_CODE_REQUEST,
-    STEP_TEXT_CODE_ENTER,
-    STEP_FINISH
-} from '../../src/app/screens/claim-vip';
+import ClaimVIP from '../../src/app/screens/claim-vip';
 
 const props = {
     dispatch: () => {},
@@ -58,34 +51,4 @@ storiesOf('ClaimVIP')
     .addDecorator(story => <Provider store={store}>{story()}</Provider>)
     .add('intro', () => (
         <ClaimVIP {...props} />
-    ))
-    .add('device auth', () => (
-        <ClaimVIP {...{
-            ...props,
-            step: STEP_DEVICE_AUTH
-        }} />
-    ))
-    .add('token code', () => (
-        <ClaimVIP {...{
-            ...props,
-            step: STEP_TOKEN_CODE
-        }} />
-    ))
-    .add('code request', () => (
-        <ClaimVIP {...{
-            ...props,
-            step: STEP_TEXT_CODE_REQUEST
-        }} />
-    ))
-    .add('code enter', () => (
-        <ClaimVIP {...{
-            ...props,
-            step: STEP_TEXT_CODE_ENTER
-        }} />
-    ))
-    .add('finish', () => (
-        <ClaimVIP {...{
-            ...props,
-            step: STEP_FINISH
-        }} />
     ));

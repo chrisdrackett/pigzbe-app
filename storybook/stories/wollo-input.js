@@ -9,7 +9,7 @@ const store = createStore(combineReducers({
     settings: () => ({
         baseCurrency: 'GBP'
     }),
-    coins: () => ({
+    exchange: () => ({
         exchange: {
             XLM: 0.3936,
             BTC: 0.0000147,

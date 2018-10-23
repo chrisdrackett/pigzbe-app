@@ -22,6 +22,10 @@ export class Tree extends Component {
         treeHeight: 0,
     }
 
+    static defaultProps = {
+        onTreeHeight: () => {}
+    }
+
     componentDidMount() {
         this.getLeavesList();
     }
