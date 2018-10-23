@@ -31,6 +31,7 @@ export default ({
     hideButton,
     onButtonPress = null,
     closeCross,
+    onModalHide,
 }) => (
     <Modal
         isVisible={open}
@@ -38,6 +39,7 @@ export default ({
         backdropOpacity={0.35}
         backdropColor="rgb(0, 50, 120)"
         onBackButtonPress={onRequestClose}
+        onModalHide={onModalHide}
     >
         <View style={styles.overlay}>
             <View style={styles.outerContainer}>

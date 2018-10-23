@@ -39,7 +39,7 @@ export const ASSET_DPS = CURRENCIES[ASSET_CODE].dps;
 
 export const PRIVACY_URL = 'https://pigzbe.com/pdf/pigzbe_privacy_notice.pdf';
 export const TERMS_URL = 'https://pigzbe.com/pdf/pigzbe_terms_of_website_use.pdf';
-export const SUPPORT_URL = 'https://pigzbe.com/support';
+export const SUPPORT_EMAIL = 'mailto:support@pigzbe.com';
 export const FUNDING_URL = 'https://medium.com/@pigzbe';
 
 export const MAX_INNER_WIDTH = 440;

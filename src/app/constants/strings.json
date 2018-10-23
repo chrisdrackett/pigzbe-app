@@ -70,7 +70,7 @@
   "transferMessagePlaceholder": "Add a message to your Wollo transfer?",
   "transferProgressButtonLabel": "Next",
   "transferErrorNoGas": "Not enough gas for transaction",
-  "transferErrorInvalidKey": "Invalid destination key",
+  "transferErrorInvalidKey": "Invalid destination address",
   "transferErrorInvalidAmount": "Invalid amount",
   "transferErrorInvalidMessage": "Invalid message",
   "transferErrorTrust": "Destination account does not accept Wollo",

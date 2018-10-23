@@ -16,7 +16,7 @@ export default ({
         trackImage={require('./images/track.png')}
         disabled={disabled}
         style={[styles.slider, style]}
-        onChange={event => console.log(event)}
+        // onChange={event => console.log(event)}
         onValueChange={onValueChange}
         onSlidingComplete={onSlidingComplete}
         minimumTrackTintColor={color.blue}

@@ -34,5 +34,30 @@ export default StyleSheet.create({
     },
     error: {
         color: color.red,
-    }
+    },
+    safeArea: {
+        flex: 1,
+        backgroundColor: color.blue,
+    },
+    safeAreaBottom: {
+        backgroundColor: color.mediumBlue,
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        left: 0,
+        height: 100,
+        zIndex: -1000,
+    },
+    safeAreaBottomInner: {
+        backgroundColor: color.white,
+        width: '88.75%',
+        marginLeft: '5.625%',
+        marginRight: '5.625%',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        left: 0,
+        height: 100,
+        zIndex: -999,
+    },
 });

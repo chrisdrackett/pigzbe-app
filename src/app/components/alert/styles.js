@@ -1,8 +1,6 @@
 import {StyleSheet} from 'react-native';
-import {
-    color,
-    fontFamily
-} from '../../styles';
+import {color, fontFamily} from 'app/styles';
+import isIphoneX from 'app/utils/is-iphonex';
 
 export default StyleSheet.create({
     alert: {
@@ -15,7 +13,8 @@ export default StyleSheet.create({
         left: 0,
         top: 0,
         right: 0,
-        paddingTop: 10,
+        paddingTop: isIphoneX ? 25 : 10,
+        zIndex: 1,
     },
     alert__error: {
         backgroundColor: color.errorRedOpacity95,

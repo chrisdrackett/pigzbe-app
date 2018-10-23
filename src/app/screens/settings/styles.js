@@ -1,10 +1,9 @@
 import {StyleSheet} from 'react-native';
 import {
-    input,
     color,
     fontFamily,
     paddingH
-} from '../../styles';
+} from 'app/styles';
 
 export default StyleSheet.create({
     section: {
