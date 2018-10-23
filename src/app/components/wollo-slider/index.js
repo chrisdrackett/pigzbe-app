@@ -15,12 +15,23 @@ export class WolloSlider extends Component {
         actionLabel: 'Select an amount',
         onChange: () => {},
     }
+
     state = {
         sliderValue: 0,
         amount: 0,
     }
+
+    onValueChange = sliderValue => {
+        const amount = this.props.sliderValueToAmount(sliderValue);
+        this.setState({
+            sliderValue,
+            amount,
+        });
+        this.props.onChange(amount);
+    }
+
     render() {
-        const {exchange, baseCurrency, actionLabel, sliderValueToAmount, onChange} = this.props;
+        const {exchange, baseCurrency, actionLabel} = this.props;
         return (
             <View>
                 <View style={styles.valueWrapper}>
@@ -33,14 +44,7 @@ export class WolloSlider extends Component {
                     </View>
                 </View>
 
-                <Slider onValueChange={sliderValue => {
-                    const amount = sliderValueToAmount(sliderValue);
-                    this.setState({
-                        sliderValue,
-                        amount,
-                    });
-                    onChange(amount);
-                }} />
+                <Slider onValueChange={this.onValueChange} />
 
                 {this.state.sliderValue === 0 ? (
                     <Text style={styles.exchange}>{actionLabel}</Text>

@@ -7,18 +7,23 @@ import Button from '../button';
 import AmountExchange from '../amount-exchange';
 import ConfirmSend from 'app/components/confirm-send';
 import Progress from 'app/components/progress';
-import {sendWolloToKid} from '../../actions';
-import {KID_SEND_MAX_AMOUNT} from '../../constants';
+import {sendWolloToKid} from 'app/actions';
+import {KID_SEND_MAX_AMOUNT} from 'app/constants';
+import moneyFormat from 'app/utils/money-format';
 
 const getAmount = (value, balance) => {
     const max = Math.min(balance, KID_SEND_MAX_AMOUNT);
-    return Math.round(value * Math.floor(Number(max)));
+    if (max < 2) {
+        return value * max;
+    }
+    return Math.round(value * Math.floor(max));
 };
 
 export class WolloSendSlider extends Component {
     state = {
         value: 0,
         amount: 0,
+        displayAmount: 0,
         sendModalClosed: false,
         confirmSend: false,
     }
@@ -66,7 +71,7 @@ export class WolloSendSlider extends Component {
                         left: `${this.state.value * 100}%`,
                         opacity: this.state.amount ? 1 : 0,
                     }]}>
-                        <Text style={styles.valueText}>{this.state.amount}</Text>
+                        <Text style={styles.valueText}>{moneyFormat(this.state.amount, 2, 0)}</Text>
                         <View style={styles.valuePoint}/>
                     </View>
                 </View>
@@ -105,7 +110,7 @@ export class WolloSendSlider extends Component {
                     <Progress
                         open={sendError || sendComplete || sending === this.props.address}
                         complete={sendComplete}
-                        title={sendComplete === this.props.address ? 'Success!' : 'Transfer in progress'}
+                        title={sendComplete === this.props.address ? 'Success!' : 'In progress'}
                         error={sendError}
                         text={sendComplete === this.props.address ?
                             `${this.state.amount} Wollo has successfully been sent to ${this.props.name}`
