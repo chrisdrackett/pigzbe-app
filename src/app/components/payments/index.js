@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
+import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import Payment from './payment';
 import ScrollList from 'app/components/scroll-list';
@@ -8,13 +8,16 @@ import Loader from 'app/components/loader';
 import Toggle from 'app/components/toggle';
 import Button from 'app/components/button';
 import {loadPayments} from 'app/actions';
-import {strings} from 'app/constants';
+import {strings, FUNDING_URL} from 'app/constants';
 import styles from './styles';
+import WebPage from 'app/components/web-page';
 
 export class Payments extends Component {
     state = {
         filter: 'all',
+        helpOpen: false,
     }
+
     componentDidMount() {
         if (this.props.navigation) {
             this.focusListener = this.props.navigation.addListener('didFocus', this.update);
@@ -29,6 +32,10 @@ export class Payments extends Component {
     }
 
     update = () => this.props.loadPayments(this.props.address)
+
+    onHelp = () => this.setState({helpOpen: true})
+
+    onHelpClose = () => this.setState({helpOpen: false})
 
     render() {
         const {filter} = this.state;
@@ -67,7 +74,7 @@ export class Payments extends Component {
         });
 
         return (
-            <View style={{flex:1}}>
+            <View style={{flex: 1}}>
                 <View style={styles.buttons}>
                     {Object.keys(filters).map(key =>
                         (<Toggle
@@ -83,7 +90,7 @@ export class Payments extends Component {
                     )}
                 </View>
                 {!!filteredPayments.length && !showHelp && (
-                    <View style={{flex:1}}>
+                    <View style={{flex: 1}}>
                         <ScrollList
                             items={filteredPayments}
                             ItemComponent={Payment}
@@ -96,17 +103,21 @@ export class Payments extends Component {
                     </Paragraph>
                 )}
                 {showHelp && (
-                    <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={styles.help}>
                         <Text style={styles.helpText}>
                             Learn how to buy and fund your account with Wollo
                         </Text>
                         <Button
                             label="Learn more"
                             theme="outline"
-                            onPress={() => {
-                                alert("Send to medium post")
-                            }}
+                            onPress={this.onHelp}
                             style={styles.helpButton}
+                        />
+                        <WebPage
+                            open={this.state.helpOpen}
+                            url={FUNDING_URL}
+                            title="How to fund your account"
+                            onClose={this.onHelpClose}
                         />
                     </View>
                 )}

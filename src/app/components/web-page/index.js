@@ -13,6 +13,8 @@ export default class WebPage extends Component {
     onClose = () => this.props.onClose()
 
     render() {
+        const showLoader = this.props.url && this.props.url.slice(-4) !== '.pdf';
+
         return (
             <ReactModal
                 isVisible={this.props.open}
@@ -36,6 +38,7 @@ export default class WebPage extends Component {
                         mediaPlaybackRequiresUserAction={false}
                         scrollEnabled={true}
                         bounces={true}
+                        startInLoadingState={showLoader}
                         // onError={this.onError}
                     />
                 </StepModule>

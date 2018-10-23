@@ -35,6 +35,7 @@ export class Transfer extends Component {
 
     render() {
         const {balance, hasGas} = this.props;
+        const hasBalance = parseFloat(balance) > 0;
 
         return (
             <Fragment>
@@ -48,16 +49,18 @@ export class Transfer extends Component {
                 >
                     <Payments
                         navigation={this.props.navigation}
-                        showHelp={parseFloat(balance) === 0}
+                        showHelp={!hasBalance}
                     />
                 </StepModule>
-                <View style={styles.button}>
-                    <Button
-                        label={strings.transferButtonLabel}
-                        onPress={this.onTransfer}
-                        disabled={!hasGas || !Number(balance)}
-                    />
-                </View>
+                {hasBalance && (
+                    <View style={styles.button}>
+                        <Button
+                            label={strings.transferButtonLabel}
+                            onPress={this.onTransfer}
+                            disabled={!hasGas || !hasBalance}
+                        />
+                    </View>
+                )}
                 <ReactModal
                     isVisible={this.state.showViewAdressModal}
                     animationIn="slideInRight"

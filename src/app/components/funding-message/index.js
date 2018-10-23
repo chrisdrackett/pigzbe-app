@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import openURL from '../../utils/open-url';
+import React, {Component, Fragment} from 'react';
 import NotificationModal from 'app/components/notification-modal';
 import moneyFormat from '../../utils/money-format';
 import {
@@ -8,6 +7,7 @@ import {
     MIN_BALANCE_XLM_ADD_KID,
     MIN_BALANCE_XLM_ADD_GOAL
 } from '../../constants';
+import WebPage from 'app/components/web-page';
 
 const ADD_TASK = 'ADD_TASK';
 const ADD_GOAL = 'ADD_GOAL';
@@ -18,17 +18,22 @@ export default class FundingMessage extends Component {
     static ADD_GOAL = ADD_GOAL
     static ASSIGN_TASK = ASSIGN_TASK
 
-    onFundLink = () => openURL(FUNDING_URL)
+    state = {
+        helpOpen: false,
+        modalHidden: false,
+    }
 
-    onButtonPress = () => {
-        if (typeof this.props.onButtonPress === 'function') {
-            this.props.onButtonPress();
-        } else {
-            this.onFundLink();
+    componentDidUpdate(prevProps) {
+        if (!prevProps.open && this.props.open) {
+            this.setState({modalHidden: false});
         }
     }
 
-    onClose = () => this.props.onClose();
+    onModalHide = () => this.setState({modalHidden: true})
+
+    onHelp = () => this.setState({helpOpen: true})
+
+    onClose = () => this.setState({helpOpen: false, modalHidden: false}, this.props.onClose)
 
     getMessage = () => {
         const {
@@ -62,15 +67,24 @@ export default class FundingMessage extends Component {
         const message = this.getMessage();
 
         return (
-            <NotificationModal
-                open={this.props.open}
-                type={'warning'}
-                text={message}
-                onRequestClose={this.onClose}
-                buttonLabel={buttonLabel}
-                onButtonPress={this.onButtonPress}
-                closeCross
-            />
+            <Fragment>
+                <NotificationModal
+                    open={this.props.open && !this.state.helpOpen}
+                    type={'warning'}
+                    text={message}
+                    onRequestClose={this.onClose}
+                    buttonLabel={buttonLabel}
+                    onButtonPress={this.onHelp}
+                    onModalHide={this.onModalHide}
+                    closeCross
+                />
+                <WebPage
+                    open={this.state.helpOpen && this.state.modalHidden}
+                    url={FUNDING_URL}
+                    title="How to fund your account"
+                    onClose={this.onClose}
+                />
+            </Fragment>
         );
     }
 }

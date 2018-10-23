@@ -106,7 +106,9 @@ export default class StepModule extends Component {
                 container
                   }
               </Container>
-              <View style={styles.safeAreaBottom} />
+              <View style={styles.safeAreaBottom}>
+                  <View style={styles.safeAreaBottomInner} />
+              </View>
           </SafeAreaView>
       );
   }

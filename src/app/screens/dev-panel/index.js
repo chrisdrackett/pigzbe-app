@@ -27,6 +27,7 @@ import {
     KEYCHAIN_ID_ETH_KEY_AIRDROP,
     STORAGE_KEY_KIDS,
     STORAGE_KEY_TASKS,
+    STORAGE_KEY_EXCHANGE,
 } from '../../constants';
 import Icon from '../../components/icon';
 
@@ -114,6 +115,7 @@ class DevPanel extends Component {
                                 <Text style={styles.subtitle}>User data</Text>
                                 <Button style={styles.button} label="Clear user data" onPress={() => {
                                     console.log('clear');
+                                    Storage.clear(STORAGE_KEY_EXCHANGE);
                                     Storage.clear(STORAGE_KEY_SETTINGS);
                                     Storage.clear(STORAGE_KEY_KIDS);
                                     Keychain.clear(KEYCHAIN_ID_STELLAR_KEY);
@@ -131,6 +133,7 @@ class DevPanel extends Component {
                             <View style={styles.block}>
                                 <Button style={styles.button} label="Clear user data, keep keys" onPress={() => {
                                     console.log('clear');
+                                    Storage.clear(STORAGE_KEY_EXCHANGE);
                                     Storage.clear(STORAGE_KEY_SETTINGS);
                                     Storage.clear(STORAGE_KEY_KIDS);
                                     Storage.clear(STORAGE_KEY_BURNING);

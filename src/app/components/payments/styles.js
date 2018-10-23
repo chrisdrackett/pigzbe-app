@@ -74,6 +74,11 @@ export default StyleSheet.create({
     noHistory: {
         marginTop: 30,
     },
+    help: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     helpText: {
         fontFamily,
         color: color.lighterBlue,
