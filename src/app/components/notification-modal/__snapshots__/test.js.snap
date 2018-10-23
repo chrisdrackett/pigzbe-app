@@ -2,154 +2,218 @@
 
 exports[`NotificationModal renders correctly 1`] = `
 <Modal
+  animationType="none"
   hardwareAccelerated={false}
+  hideModalContentWhileAnimating={false}
+  onModalHide={[Function]}
   onRequestClose={[Function]}
+  scrollOffset={0}
+  scrollOffsetMax={0}
+  scrollTo={null}
+  supportedOrientations={
+    Array [
+      "portrait",
+      "landscape",
+    ]
+  }
+  swipeThreshold={100}
   transparent={true}
   visible={true}
 >
   <View
+    accessible={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "backgroundColor": "rgba(0, 50, 120, 0.8)",
-        "flex": 1,
-        "justifyContent": "center",
+        "backgroundColor": "rgb(0, 50, 120)",
+        "bottom": 0,
+        "height": 1334,
+        "left": 0,
+        "opacity": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "width": 750,
       }
     }
+  />
+  <View
+    hideModalContentWhileAnimating={false}
+    onModalHide={[Function]}
+    pointerEvents="box-none"
+    scrollOffset={0}
+    scrollOffsetMax={0}
+    scrollTo={null}
+    style={
+      Object {
+        "flex": 1,
+        "justifyContent": "center",
+        "margin": 0,
+        "transform": Array [
+          Object {
+            "translateY": 1334,
+          },
+        ],
+      }
+    }
+    supportedOrientations={
+      Array [
+        "portrait",
+        "landscape",
+      ]
+    }
+    swipeThreshold={100}
   >
     <View
       style={
         Object {
-          "paddingBottom": 33,
-          "paddingTop": 33,
+          "alignItems": "center",
+          "backgroundColor": "rgba(0, 50, 120, 0.8)",
+          "flex": 1,
+          "justifyContent": "center",
         }
       }
     >
       <View
         style={
           Object {
-            "alignItems": "center",
-            "backgroundColor": "rgb(255, 255, 255)",
-            "borderRadius": 4,
-            "display": "flex",
-            "marginLeft": 32,
-            "marginRight": 32,
-            "minWidth": 250,
-            "paddingBottom": 20,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 43,
+            "paddingBottom": 33,
+            "paddingTop": 33,
           }
         }
       >
-        <Text
-          style={
-            Object {
-              "color": "rgb(0, 50, 120)",
-              "fontFamily": "Poppins",
-              "fontSize": 22,
-              "fontWeight": "bold",
-              "marginBottom": 10,
-            }
-          }
-        >
-          Success!
-        </Text>
-        <Text
-          style={
-            Object {
-              "color": "rgb(0, 50, 120)",
-              "fontFamily": "Poppins",
-              "textAlign": "center",
-            }
-          }
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-        </Text>
         <View
           style={
             Object {
               "alignItems": "center",
-              "alignSelf": "stretch",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": 4,
+              "display": "flex",
+              "marginLeft": 32,
+              "marginRight": 32,
+              "minHeight": 200,
+              "paddingBottom": 20,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 43,
+              "width": 250,
             }
           }
         >
-          <View
-            accessible={true}
-            isTVSelectable={true}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
+          <Text
             style={
               Object {
-                "backgroundColor": "rgb(0, 50, 120)",
-                "borderColor": "rgb(0, 50, 120)",
-                "borderRadius": 22.5,
-                "borderWidth": 1,
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "fontSize": 22,
+                "fontWeight": "bold",
                 "marginBottom": 10,
-                "marginTop": 20,
-                "maxWidth": 400,
-                "opacity": 1,
-                "paddingLeft": 15,
-                "paddingRight": 15,
-                "width": "auto",
               }
             }
           >
-            <Text
+            Success!
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "textAlign": "center",
+              }
+            }
+          >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+          </Text>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "alignSelf": "stretch",
+              }
+            }
+          >
+            <View
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
               style={
-                Array [
-                  Object {
-                    "alignSelf": "stretch",
-                    "color": "rgb(255, 255, 255)",
-                    "fontFamily": "Poppins",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
-                    "height": 45,
-                    "paddingLeft": 20,
-                    "paddingRight": 20,
-                    "paddingTop": 12,
-                    "textAlign": "center",
-                  },
-                  undefined,
-                  null,
-                  undefined,
-                ]
+                Object {
+                  "backgroundColor": "rgb(0, 50, 120)",
+                  "borderColor": "rgb(0, 50, 120)",
+                  "borderRadius": 22.5,
+                  "borderWidth": 1,
+                  "marginBottom": 10,
+                  "marginTop": 20,
+                  "maxWidth": 400,
+                  "opacity": 1,
+                  "paddingLeft": 15,
+                  "paddingRight": 15,
+                  "width": "auto",
+                }
               }
             >
-              Got it!
-            </Text>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "alignSelf": "stretch",
+                      "color": "rgb(255, 255, 255)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "height": 45,
+                      "paddingLeft": 20,
+                      "paddingRight": 20,
+                      "paddingTop": 12,
+                      "textAlign": "center",
+                    },
+                    undefined,
+                    null,
+                    undefined,
+                  ]
+                }
+              >
+                Got it!
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "left": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-          }
-        }
-      >
-        <Image
-          source={
-            Object {
-              "testUri": "../../../src/app/components/notification-modal/images/success.png",
-            }
-          }
+        <View
           style={
             Object {
-              "height": 67,
-              "width": 67,
+              "alignItems": "center",
+              "display": "flex",
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
             }
           }
-        />
+        >
+          <Image
+            source={
+              Object {
+                "testUri": "../../../src/app/components/notification-modal/images/success.png",
+              }
+            }
+            style={
+              Object {
+                "height": 67,
+                "width": 67,
+              }
+            }
+          />
+        </View>
       </View>
     </View>
   </View>
@@ -158,154 +222,218 @@ exports[`NotificationModal renders correctly 1`] = `
 
 exports[`NotificationModal renders correctly with custom title and btn label 1`] = `
 <Modal
+  animationType="none"
   hardwareAccelerated={false}
+  hideModalContentWhileAnimating={false}
+  onModalHide={[Function]}
   onRequestClose={[Function]}
+  scrollOffset={0}
+  scrollOffsetMax={0}
+  scrollTo={null}
+  supportedOrientations={
+    Array [
+      "portrait",
+      "landscape",
+    ]
+  }
+  swipeThreshold={100}
   transparent={true}
   visible={true}
 >
   <View
+    accessible={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "backgroundColor": "rgba(0, 50, 120, 0.8)",
-        "flex": 1,
-        "justifyContent": "center",
+        "backgroundColor": "rgb(0, 50, 120)",
+        "bottom": 0,
+        "height": 1334,
+        "left": 0,
+        "opacity": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "width": 750,
       }
     }
+  />
+  <View
+    hideModalContentWhileAnimating={false}
+    onModalHide={[Function]}
+    pointerEvents="box-none"
+    scrollOffset={0}
+    scrollOffsetMax={0}
+    scrollTo={null}
+    style={
+      Object {
+        "flex": 1,
+        "justifyContent": "center",
+        "margin": 0,
+        "transform": Array [
+          Object {
+            "translateY": 1334,
+          },
+        ],
+      }
+    }
+    supportedOrientations={
+      Array [
+        "portrait",
+        "landscape",
+      ]
+    }
+    swipeThreshold={100}
   >
     <View
       style={
         Object {
-          "paddingBottom": 33,
-          "paddingTop": 33,
+          "alignItems": "center",
+          "backgroundColor": "rgba(0, 50, 120, 0.8)",
+          "flex": 1,
+          "justifyContent": "center",
         }
       }
     >
       <View
         style={
           Object {
-            "alignItems": "center",
-            "backgroundColor": "rgb(255, 255, 255)",
-            "borderRadius": 4,
-            "display": "flex",
-            "marginLeft": 32,
-            "marginRight": 32,
-            "minWidth": 250,
-            "paddingBottom": 20,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 43,
+            "paddingBottom": 33,
+            "paddingTop": 33,
           }
         }
       >
-        <Text
-          style={
-            Object {
-              "color": "rgb(0, 50, 120)",
-              "fontFamily": "Poppins",
-              "fontSize": 22,
-              "fontWeight": "bold",
-              "marginBottom": 10,
-            }
-          }
-        >
-          Chaos
-        </Text>
-        <Text
-          style={
-            Object {
-              "color": "rgb(0, 50, 120)",
-              "fontFamily": "Poppins",
-              "textAlign": "center",
-            }
-          }
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-        </Text>
         <View
           style={
             Object {
               "alignItems": "center",
-              "alignSelf": "stretch",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": 4,
+              "display": "flex",
+              "marginLeft": 32,
+              "marginRight": 32,
+              "minHeight": 200,
+              "paddingBottom": 20,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 43,
+              "width": 250,
             }
           }
         >
-          <View
-            accessible={true}
-            isTVSelectable={true}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
+          <Text
             style={
               Object {
-                "backgroundColor": "rgb(0, 50, 120)",
-                "borderColor": "rgb(0, 50, 120)",
-                "borderRadius": 22.5,
-                "borderWidth": 1,
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "fontSize": 22,
+                "fontWeight": "bold",
                 "marginBottom": 10,
-                "marginTop": 20,
-                "maxWidth": 400,
-                "opacity": 1,
-                "paddingLeft": 15,
-                "paddingRight": 15,
-                "width": "auto",
               }
             }
           >
-            <Text
+            Chaos
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "textAlign": "center",
+              }
+            }
+          >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+          </Text>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "alignSelf": "stretch",
+              }
+            }
+          >
+            <View
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
               style={
-                Array [
-                  Object {
-                    "alignSelf": "stretch",
-                    "color": "rgb(255, 255, 255)",
-                    "fontFamily": "Poppins",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
-                    "height": 45,
-                    "paddingLeft": 20,
-                    "paddingRight": 20,
-                    "paddingTop": 12,
-                    "textAlign": "center",
-                  },
-                  undefined,
-                  null,
-                  undefined,
-                ]
+                Object {
+                  "backgroundColor": "rgb(0, 50, 120)",
+                  "borderColor": "rgb(0, 50, 120)",
+                  "borderRadius": 22.5,
+                  "borderWidth": 1,
+                  "marginBottom": 10,
+                  "marginTop": 20,
+                  "maxWidth": 400,
+                  "opacity": 1,
+                  "paddingLeft": 15,
+                  "paddingRight": 15,
+                  "width": "auto",
+                }
               }
             >
-              Accept
-            </Text>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "alignSelf": "stretch",
+                      "color": "rgb(255, 255, 255)",
+                      "fontFamily": "Poppins",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "height": 45,
+                      "paddingLeft": 20,
+                      "paddingRight": 20,
+                      "paddingTop": 12,
+                      "textAlign": "center",
+                    },
+                    undefined,
+                    null,
+                    undefined,
+                  ]
+                }
+              >
+                Accept
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "left": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-          }
-        }
-      >
-        <Image
-          source={
-            Object {
-              "testUri": "../../../src/app/components/notification-modal/images/error.png",
-            }
-          }
+        <View
           style={
             Object {
-              "height": 67,
-              "width": 67,
+              "alignItems": "center",
+              "display": "flex",
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
             }
           }
-        />
+        >
+          <Image
+            source={
+              Object {
+                "testUri": "../../../src/app/components/notification-modal/images/error.png",
+              }
+            }
+            style={
+              Object {
+                "height": 67,
+                "width": 67,
+              }
+            }
+          />
+        </View>
       </View>
     </View>
   </View>
@@ -314,96 +442,160 @@ exports[`NotificationModal renders correctly with custom title and btn label 1`]
 
 exports[`NotificationModal renders correctly with no button 1`] = `
 <Modal
+  animationType="none"
   hardwareAccelerated={false}
+  hideModalContentWhileAnimating={false}
+  onModalHide={[Function]}
   onRequestClose={[Function]}
+  scrollOffset={0}
+  scrollOffsetMax={0}
+  scrollTo={null}
+  supportedOrientations={
+    Array [
+      "portrait",
+      "landscape",
+    ]
+  }
+  swipeThreshold={100}
   transparent={true}
   visible={true}
 >
   <View
+    accessible={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "backgroundColor": "rgba(0, 50, 120, 0.8)",
-        "flex": 1,
-        "justifyContent": "center",
+        "backgroundColor": "rgb(0, 50, 120)",
+        "bottom": 0,
+        "height": 1334,
+        "left": 0,
+        "opacity": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "width": 750,
       }
     }
+  />
+  <View
+    hideModalContentWhileAnimating={false}
+    onModalHide={[Function]}
+    pointerEvents="box-none"
+    scrollOffset={0}
+    scrollOffsetMax={0}
+    scrollTo={null}
+    style={
+      Object {
+        "flex": 1,
+        "justifyContent": "center",
+        "margin": 0,
+        "transform": Array [
+          Object {
+            "translateY": 1334,
+          },
+        ],
+      }
+    }
+    supportedOrientations={
+      Array [
+        "portrait",
+        "landscape",
+      ]
+    }
+    swipeThreshold={100}
   >
     <View
       style={
         Object {
-          "paddingBottom": 33,
-          "paddingTop": 33,
+          "alignItems": "center",
+          "backgroundColor": "rgba(0, 50, 120, 0.8)",
+          "flex": 1,
+          "justifyContent": "center",
         }
       }
     >
       <View
         style={
           Object {
-            "alignItems": "center",
-            "backgroundColor": "rgb(255, 255, 255)",
-            "borderRadius": 4,
-            "display": "flex",
-            "marginLeft": 32,
-            "marginRight": 32,
-            "minWidth": 250,
-            "paddingBottom": 20,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 43,
+            "paddingBottom": 33,
+            "paddingTop": 33,
           }
         }
       >
-        <Text
+        <View
           style={
             Object {
-              "color": "rgb(0, 50, 120)",
-              "fontFamily": "Poppins",
-              "fontSize": 22,
-              "fontWeight": "bold",
-              "marginBottom": 10,
+              "alignItems": "center",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": 4,
+              "display": "flex",
+              "marginLeft": 32,
+              "marginRight": 32,
+              "minHeight": 200,
+              "paddingBottom": 20,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 43,
+              "width": 250,
             }
           }
         >
-          Warning!
-        </Text>
-        <Text
+          <Text
+            style={
+              Object {
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "fontSize": 22,
+                "fontWeight": "bold",
+                "marginBottom": 10,
+              }
+            }
+          >
+            Warning!
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "rgb(0, 50, 120)",
+                "fontFamily": "Poppins",
+                "textAlign": "center",
+              }
+            }
+          >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+          </Text>
+        </View>
+        <View
           style={
             Object {
-              "color": "rgb(0, 50, 120)",
-              "fontFamily": "Poppins",
-              "textAlign": "center",
+              "alignItems": "center",
+              "display": "flex",
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
             }
           }
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "left": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-          }
-        }
-      >
-        <Image
-          source={
-            Object {
-              "testUri": "../../../src/app/components/notification-modal/images/warning.png",
+          <Image
+            source={
+              Object {
+                "testUri": "../../../src/app/components/notification-modal/images/warning.png",
+              }
             }
-          }
-          style={
-            Object {
-              "height": 67,
-              "width": 67,
+            style={
+              Object {
+                "height": 67,
+                "width": 67,
+              }
             }
-          }
-        />
+          />
+        </View>
       </View>
     </View>
   </View>

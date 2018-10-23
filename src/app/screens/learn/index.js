@@ -41,7 +41,7 @@ export default class Learn extends Component {
         const {coin, label, labelOne} = conversions[conversionKey];
 
         const conversion = exchange && exchange[coin] || 1;
-        const dps = CURRENCIES[coin].dps || 0;
+        const dps = (CURRENCIES[coin] && CURRENCIES[coin].dps) || 0;
         const compareValue = moneyFormat(String(wolloCollected * conversion), dps);
 
         if (overlayOpen) {

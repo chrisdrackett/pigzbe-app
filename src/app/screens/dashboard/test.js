@@ -4,8 +4,15 @@ import {Dashboard} from './';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 const store = createStore(combineReducers({
+    app: () => ({
+        isConnected: true,
+    }),
     settings: () => ({
         baseCurrency: 'GBP'
+    }),
+    wollo: () => ({
+        balance: '0',
+        balanceXLM: '0',
     }),
     exchange: () => ({
         exchange: {
@@ -43,7 +50,9 @@ const props = {
         GBP: 0.091956,
         GOLD: 0.0031452
     },
+    baseCurrency: 'GBP',
     balance: '0',
+    balanceXLM: '0',
     escrow: null,
     firstTime: true,
     kids: [],

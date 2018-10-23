@@ -19,6 +19,10 @@ const types = {
         title: 'Failure!',
         icon: require('./images/error.png'),
     },
+    progress: {
+        title: 'In progress',
+        icon: null,
+    },
 };
 
 export default ({
