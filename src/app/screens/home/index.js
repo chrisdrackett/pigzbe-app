@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Text, View, TouchableOpacity, BackHandler} from 'react-native';
-import {initialize, loadContent, authKeychainKid, tryTouchIdLogin} from '../../actions';
+import {initialize, loadContent, authKeychainKid, tryTouchIdLogin, authKeychain} from '../../actions';
 import styles from './styles';
 import Button from '../../components/button';
 import Loader from '../../components/loader';
@@ -31,7 +31,7 @@ class KidProfile extends Component {
     }
 }
 
-export const HomeView = ({showKidLogin, kids, onCreate, onLogin, onKidLogin, onOverride}) => (
+export const HomeView = ({showKidLogin, kids, onCreate, onLogin, onKidLogin, onOverride, accountExists}) => (
     <Fragment>
         {showKidLogin ? (
             <Fragment>
@@ -68,11 +68,11 @@ export const HomeView = ({showKidLogin, kids, onCreate, onLogin, onKidLogin, onO
                 <Container style={styles.containerBody} scroll={false}>
                     <View style={styles.containerText}>
                         <Text style={styles.title}>Welcome to Pigzbe</Text>
-                        <Text style={styles.subtitle}>New to Pigzbe? Create an account below.</Text>
+                        <Text style={styles.subtitle}>{accountExists ? 'Log into you account below.' : 'New to Pigzbe? Create an account below.'}</Text>
                     </View>
                     <View>
-                        <Button label="Let's get started" theme="light" onPress={onCreate} />
-                        <Button label="I already have an account" theme="plain_light" onPress={onLogin} />
+                        {!accountExists && <Button label="Let's get started" theme="light" onPress={onCreate} />}
+                        {accountExists && <Button label="Enter passcode and login" theme="light" onPress={onLogin} />}
                     </View>
                 </Container>
             </Fragment>
@@ -83,10 +83,16 @@ export const HomeView = ({showKidLogin, kids, onCreate, onLogin, onKidLogin, onO
 class Home extends Component {
     state = {
         parentOverride: false,
+        accountExists: null,
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+
+        const passcode = await this.props.dispatch(authKeychain());
+        this.setState({
+            accountExists: !!passcode,
+        })
     }
 
     componentWillUnmount() {
@@ -128,6 +134,7 @@ class Home extends Component {
                     onLogin={this.onLogin}
                     onKidLogin={this.onKidLogin}
                     onOverride={this.onOverride}
+                    accountExists={this.state.accountExists}
                 />
                 {kids.length > 0 && this.state.parentOverride &&
                     <View style={styles.header}>
