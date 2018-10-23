@@ -12,7 +12,7 @@ import {isValidPublicKey} from '@pigzbe/stellar-utils';
 import moneyFormat from '../../utils/money-format';
 import {ASSET_CODE, CURRENCIES} from '../../constants';
 import BigNumber from 'bignumber.js';
-import {sendWollo} from '../../actions';
+import {sendWollo, appError} from '../../actions';
 import QRScanner from '../../components/qr-scanner';
 
 const remainingBalance = (balance, amount) => new BigNumber(balance).minus(amount);
@@ -65,11 +65,23 @@ export default class Form extends Component {
         const review = keyValid && amountValid && memoValid;
         const notOwnKey = this.props.publicKey !== this.state.accountKey;
 
+        const keyError = keyValid && notOwnKey ? null : strings.transferErrorInvalidKey;
+        const amountError = amountValid ? null : strings.transferErrorInvalidAmount;
+        const memoError = memoValid ? null : strings.transferErrorInvalidMessage;
+
+        if (keyError) {
+            this.props.dispatch(appError(keyError));
+        } else if (amountError) {
+            this.props.dispatch(appError(amountError));
+        } else if (memoError) {
+            this.props.dispatch(appError(memoError));
+        }
+
         this.setState({
             review,
-            keyError: keyValid && notOwnKey ? null : new Error(strings.transferErrorInvalidKey),
-            amountError: amountValid ? null : new Error(strings.transferErrorInvalidAmount),
-            memoError: memoValid ? null : new Error(strings.transferErrorInvalidMessage)
+            keyError,
+            amountError,
+            memoError
         });
 
         this.props.onReview(review);
@@ -184,7 +196,7 @@ export default class Form extends Component {
         return (
             <View style={styles.containerForm}>
                 <TextInput
-                    error={!!keyError}
+                    error={keyError}
                     value={this.state.accountKey}
                     label={strings.transferSendTo}
                     placeholder={strings.transferSendKey}
@@ -197,12 +209,12 @@ export default class Form extends Component {
                 </TouchableOpacity>
                 <WolloInput
                     initialAmount={this.state.amount}
-                    error={!!amountError}
+                    error={amountError}
                     label={strings.transferAmount}
                     onChangeAmount={this.updateAmount}
                 />
                 <TextInput
-                    error={!!memoError}
+                    error={memoError}
                     value={this.state.memo}
                     label={strings.transferMessage}
                     placeholder={strings.transferMessagePlaceholder}
