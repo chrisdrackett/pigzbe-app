@@ -53,7 +53,7 @@ export const HomeView = ({showKidLogin, kids, onCreate, onLogin, onKidLogin, onO
                             />
                         ))}
                     </View>
-                    <View>
+                    <View style={styles.buttons}>
                         <Button label="Parental login" theme="plain_light" onPress={onOverride} />
                     </View>
                 </Container>
@@ -70,7 +70,7 @@ export const HomeView = ({showKidLogin, kids, onCreate, onLogin, onKidLogin, onO
                         <Text style={styles.title}>Welcome to Pigzbe</Text>
                         <Text style={styles.subtitle}>{accountExists ? 'Log into you account below.' : 'New to Pigzbe? Create an account below.'}</Text>
                     </View>
-                    <View>
+                    <View style={styles.buttons}>
                         {!accountExists && <Button label="Let's get started" theme="light" onPress={onCreate} />}
                         {accountExists && <Button label="Enter passcode and login" theme="light" onPress={onLogin} />}
                     </View>
@@ -92,7 +92,7 @@ class Home extends Component {
         const passcode = await this.props.dispatch(authKeychain());
         this.setState({
             accountExists: !!passcode,
-        })
+        });
     }
 
     componentWillUnmount() {

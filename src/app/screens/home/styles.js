@@ -1,10 +1,6 @@
 import {StyleSheet} from 'react-native';
-
-import {
-    color,
-    fontFamily,
-    paddingH
-} from '../../styles';
+import {color, fontFamily} from 'app/styles';
+import isIphoneX from 'app/utils/is-iphonex';
 
 export default StyleSheet.create({
     containerHeader: {
@@ -15,7 +11,7 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     containerHeaderKids: {
-        height: 204,
+        height: isIphoneX ? 234 : 204,
         flex: 0,
     },
     containerBody: {
@@ -101,5 +97,8 @@ export default StyleSheet.create({
         left: 0,
         top: 0,
         right: 0,
+    },
+    buttons: {
+        paddingBottom: isIphoneX ? 30 : 0
     },
 });
