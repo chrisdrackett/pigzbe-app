@@ -90,7 +90,7 @@ export class WolloInput extends Component {
                     </View>
                 </View>
                 <ExchangedDisplay
-                    amount={currencyAmount ? currencyAmount.replace(',', '') : null}
+                    amount={currencyAmount ? currencyAmount.replace(/,/g, '') : null}
                     currency={currentCurrency}
                 />
             </Fragment>
