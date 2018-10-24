@@ -8,12 +8,11 @@ export const configUpdate = config => ({type: CONFIG_UPDATE, config});
 
 export const initializeConfig = () => dispatch => {
     dispatch(configUpdate({
-        configURL: Config.CONFIG_URL,
         networkOverride: Config.NETWORK,
     }));
 };
 
-export const loadConfig = () => async (dispatch, getState) => {
+export const loadConfig = () => async dispatch => {
     try {
         dispatch(configUpdate(blockchainConfig));
         dispatch(setUseTestnet(blockchainConfig.network !== blockchainConfig.NETWORK_MAINNET));

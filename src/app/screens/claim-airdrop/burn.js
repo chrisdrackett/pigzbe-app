@@ -1,12 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import StepWrapper from 'app/components/step-wrapper';
-import TxInfo from './tx-info';
 import Paragraph from 'app/components/paragraph';
 import Progress from 'app/components/progress';
+import ClaimInfo from 'app/components/claim-info';
 import {
     ID_AIRDROP,
-    SCREEN_CLAIM_AIRDROP_ENTER_KEYS,
     SCREEN_DASHBOARD
 } from 'app/constants';
 import {
@@ -23,16 +22,14 @@ export class Burn extends Component {
     }
 
     async componentDidMount() {
-        // console.log('burn balanceWei', this.props.eth.balanceWei);
-        this.props.burn();
+        this.onContinue();
     }
 
     onBack = () => this.props.navigation.goBack()
 
-    onRestart = () => this.props.navigation.navigate(SCREEN_CLAIM_AIRDROP_ENTER_KEYS)
+    onContinue = () => this.props.burn()
 
     onCompleteClaim = () => {
-        console.log('onCompleteClaim');
         this.setState({progressClosed: true});
         this.props.clearClaimData();
         this.props.loadWallet();
@@ -42,30 +39,33 @@ export class Burn extends Component {
     closeProgress = () => this.setState({progressClosed: true})
 
     render() {
-        const {data, eth, transactionHash, error, loading} = this.props;
-        const startApplication = !data.complete && !data.started;
-        const hasBalance = eth.balanceWollo && Number(eth.balanceWollo) > 0;
-        // const userBalance = eth.balanceWollo;
-        const tx = data.transactionHash || transactionHash;
-        const buttonNextLabel = !hasBalance ? 'Back' : startApplication ? 'Estimate Gas fees' : 'Continue';
+        const {data, eth, events, error, loading, publicKey} = this.props;
+        const tx = data.transactionHash || events.transactionHash;
 
         console.log('loading', loading);
-        console.log('transactionHash', transactionHash);
+        console.log('transactionHash', tx);
 
         return (
             <Fragment>
                 <StepWrapper
                     icon="airdrop"
                     loading={!error}
-                    title={startApplication ? 'Claim your Wollo' : 'Continue your application'}
-                    // onNext={hasBalance ? this.onNext : this.onRestart}
+                    title="Claim your Wollo"
+                    onNext={this.onContinue}
                     onBack={this.onBack}
-                    buttonNextLabel={buttonNextLabel}>
-                    <Paragraph small>You didn't finish a previous Wollo claim process. Continue the process below.</Paragraph>
+                    buttonNextLabel="Continue">
+                    <Paragraph small style={{marginTop: 30}}>
+                        You didn't finish a previous Wollo claim process. Continue the process below.
+                    </Paragraph>
                     {tx && (
                         <Fragment>
-                            <Paragraph small>For help contact *support@pigzbe.com* quoting your Ethereum transaction hash.</Paragraph>
-                            <TxInfo />
+                            <Paragraph small>For help contact *support@pigzbe.com* quoting your claim details below.</Paragraph>
+                            <ClaimInfo
+                                data={data}
+                                events={events}
+                                eth={eth}
+                                publicKey={publicKey}
+                            />
                         </Fragment>
                     )}
                 </StepWrapper>
@@ -86,7 +86,7 @@ export default connect(
     ({keys, claim: {claims: {[ID_AIRDROP]: {eth, data, events}}}}) => ({
         eth,
         data,
-        transactionHash: events.transactionHash,
+        events,
         publicKey: keys.publicKey,
         loading: events.loading,
         error: events.error,

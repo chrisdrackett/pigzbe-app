@@ -2,9 +2,8 @@ import {CONFIG_UPDATE} from '../actions';
 
 export const initialState = {
     network: null,
-    ethereum: {abi: [], networks: {}},
-    stellar: {networks: {}},
-    configURL: null,
+    ethereum: {},
+    stellar: {},
     networkOverride: null,
 };
 

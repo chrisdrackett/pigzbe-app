@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import {utils} from 'web3';
 import {updateClaimData, loadClaimPrivateKey, saveClaimPrivateKey} from './claim-data';
 import {claimLoading, claimError} from './claim-api';
+import {getClaim} from '../selectors';
 
 export const CLAIM_ETH_COINBASE = 'CLAIM_ETH_COINBASE';
 export const CLAIM_ETH_BALANCE = 'CLAIM_ETH_BALANCE';
@@ -21,10 +22,10 @@ const getMaxNumBurnTokens = config => {
 
 export const getClaimBalance = () => async (dispatch, getState) => {
     try {
-        const {currentClaim, claims} = getState().claim;
-        const web3 = claims[currentClaim].web3.instance;
-        const contract = claims[currentClaim].contract.instance;
-        const eth = claims[currentClaim].eth;
+        const claim = getClaim(getState());
+        const web3 = claim.web3.instance;
+        const contract = claim.contract.instance;
+        const eth = claim.eth;
 
         const accountBalanceWei = await contract.methods.balanceOf(eth.coinbase).call();
         const maxAmount = eth.maxAmount || getMaxNumBurnTokens(getState().config);
@@ -79,8 +80,8 @@ export const removeHexPrefix = hexStr => {
 };
 
 export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => {
-    const {currentClaim, claims} = getState().claim;
-    const web3 = claims[currentClaim].web3.instance;
+    const claim = getClaim(getState());
+    const web3 = claim.web3.instance;
 
     dispatch(claimLoading(null));
 
@@ -119,9 +120,8 @@ export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => 
 };
 
 export const userLoginPrivateKey = (privateKey, publicKey) => async (dispatch, getState) => {
-
-    const {currentClaim, claims} = getState().claim;
-    const web3 = claims[currentClaim].web3.instance;
+    const claim = getClaim(getState());
+    const web3 = claim.web3.instance;
 
     dispatch(claimLoading(null));
 
@@ -158,9 +158,9 @@ export const userLoginPrivateKey = (privateKey, publicKey) => async (dispatch, g
 };
 
 export const getGasEstimate = () => async (disptach, getState) => {
-    const {currentClaim, claims} = getState().claim;
-    const contract = claims[currentClaim].contract.instance;
-    const eth = claims[currentClaim].eth;
+    const claim = getClaim(getState());
+    const contract = claim.contract.instance;
+    const eth = claim.eth;
 
     const amountBurn = eth.balanceWei;
 
@@ -186,8 +186,8 @@ export const getGasEstimate = () => async (disptach, getState) => {
 };
 
 export const getGasPrice = () => async (disptach, getState) => {
-    const {currentClaim, claims} = getState().claim;
-    const web3 = claims[currentClaim].web3.instance;
+    const claim = getClaim(getState());
+    const web3 = claim.web3.instance;
 
     let gasPrice = utils.toWei('20', 'gwei');
     let egsGasPrice = '0';
