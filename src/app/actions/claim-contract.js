@@ -72,10 +72,8 @@ export const initWeb3 = () => async (dispatch, getState) => {
 
     console.log('initWeb3', network, rpc);
 
-    dispatch({
-        type: CLAIM_INIT_WEB3,
-        payload: {network, rpc}
-    });
+    dispatch(claimError(null));
+    dispatch({type: CLAIM_INIT_WEB3, payload: {network, rpc}});
 
     await dispatch(getContract());
 };

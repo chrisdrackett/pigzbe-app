@@ -37,9 +37,11 @@ export const getClaimBalance = () => async (dispatch, getState) => {
             balanceWollo,
             maxAmount
         }});
+        return true;
     } catch (e) {
         console.log(e);
         dispatch(claimError('Could not get balance'));
+        return false;
     }
 };
 
@@ -84,6 +86,7 @@ export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => 
     const web3 = claim.web3.instance;
 
     dispatch(claimLoading(null));
+    dispatch(claimError(null));
 
     try {
         mnemonic = mnemonic.trim();
@@ -110,11 +113,12 @@ export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => 
         dispatch(setPrivateKey(address.privateKey));
         dispatch(setCoinbase(coinbase));
 
-        dispatch(getClaimBalance());
+        const success = await dispatch(getClaimBalance());
 
-        return {success: true};
+        return {success};
     } catch (e) {
         console.log(e);
+        dispatch(claimError(e));
         return {};
     }
 };
@@ -124,6 +128,7 @@ export const userLoginPrivateKey = (privateKey, publicKey) => async (dispatch, g
     const web3 = claim.web3.instance;
 
     dispatch(claimLoading(null));
+    dispatch(claimError(null));
 
     try {
         privateKey = removeHexPrefix(privateKey.trim());
@@ -148,25 +153,27 @@ export const userLoginPrivateKey = (privateKey, publicKey) => async (dispatch, g
         dispatch(setPrivateKey(privateKey));
         dispatch(setCoinbase(coinbase));
 
-        dispatch(getClaimBalance());
+        const success = await dispatch(getClaimBalance());
 
-        return {success: true};
+        return {success};
     } catch (e) {
         console.log(e);
+        dispatch(claimError(e));
         return {};
     }
 };
 
-export const getGasEstimate = () => async (disptach, getState) => {
+export const getGasEstimate = () => async (dispatch, getState) => {
     const claim = getClaim(getState());
     const contract = claim.contract.instance;
     const eth = claim.eth;
-
     const amountBurn = eth.balanceWei;
 
-    let estimatedCost = '';
+    dispatch(claimError(null));
+
+    let estimatedCost = null;
     try {
-        const gasPrice = await disptach(getGasPrice());
+        const gasPrice = await dispatch(getGasPrice());
         const estimatedGas = await contract.methods.burn(amountBurn).estimateGas({from: eth.coinbase});
         estimatedCost = utils.fromWei(String(estimatedGas * gasPrice), 'ether');
     } catch (e) {

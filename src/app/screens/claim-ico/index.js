@@ -20,8 +20,7 @@ export class ClaimICO extends Component {
   }
 
   componentWillMount() {
-      this.props.claimStart(ID_ICO);
-      this.props.initWeb3();
+      this.onInit();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,6 +54,11 @@ export class ClaimICO extends Component {
       }
   }
 
+  onInit = async () => {
+      this.props.claimStart(ID_ICO);
+      this.props.initWeb3();
+  }
+
   onBack = () => {
       this.props.claimStop();
       this.props.navigation.navigate(SCREEN_CLAIM);
@@ -68,14 +72,29 @@ export class ClaimICO extends Component {
           contract,
           web3,
           data,
+          error
       } = this.props;
 
+      console.log('====> error', error);
+
       const loading = !web3 || !contract || !data.loaded || this.state.starting;
+
+      if (error) {
+          return (
+              <StepWrapper
+                  title="Before we begin"
+                  onNext={this.onInit}
+                  onBack={this.onBack}
+                  buttonNextLabel="Try again"
+                  error={error}
+              />
+          );
+      }
 
       return (
           <StepWrapper
               loading={loading}
-              title={'Before we begin'}
+              title="Before we begin"
               onNext={this.onNext}
               onBack={this.onBack}
               content={(
