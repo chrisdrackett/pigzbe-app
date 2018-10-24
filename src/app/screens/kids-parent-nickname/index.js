@@ -28,6 +28,18 @@ export class KidsParentNickname extends Component {
         this.setState({custom: text});
     }
 
+    componentDidMount() {
+        if (this.props.navigation) {
+            this.focusListener = this.props.navigation.addListener('didFocus', () => this.setState({loading: false}));
+        }
+    }
+
+    componentWillUnMount() {
+        if (this.focusListener) {
+            this.focusListener.remove();
+        }
+    }
+
     render() {
         return (
             <StepModule

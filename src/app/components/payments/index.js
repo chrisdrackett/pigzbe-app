@@ -39,7 +39,7 @@ export class Payments extends Component {
 
     render() {
         const {filter} = this.state;
-        const {loading, payments, showHelp} = this.props;
+        const {loading, payments, showHelp, spacingBottom=false} = this.props;
 
         const filters = {
             all: 'ALL',
@@ -94,6 +94,7 @@ export class Payments extends Component {
                         <ScrollList
                             items={filteredPayments}
                             ItemComponent={Payment}
+                            ListFooterComponent={spacingBottom ? <View style={{height: 100}}/> : null}
                         />
                     </View>
                 )}

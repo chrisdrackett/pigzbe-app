@@ -23,6 +23,7 @@ export default class WebPage extends Component {
                 style={{
                     margin: 0,
                 }}
+                onBackButtonPress={this.onClose}
             >
                 <StepModule
                     onBack={this.onClose}

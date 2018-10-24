@@ -153,6 +153,7 @@ export class DeviceAuth extends Component {
                                 style={{
                                     margin: 0,
                                 }}
+                                onBackButtonPress={() => this.setState({showCountryModal: false})}
                             >
                                 <StepModule
                                     onBack={this.onCloseCountryModal}
