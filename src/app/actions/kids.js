@@ -82,13 +82,13 @@ export const addKid = (nickname, dob, photo) => async dispatch => {
     dispatch(kidsLoading(false));
 };
 
-export const restoreKid = (name, address, account) => async dispatch => {
+export const restoreKid = (name, address, home) => async dispatch => {
     dispatch(kidsLoading(true));
 
     dispatch(({type: KIDS_ADD_KID, kid: {
         name,
         address,
-        balance: getWolloBalance(account),
+        home
     }}));
     await dispatch(saveKids());
     dispatch(kidsLoading(false));

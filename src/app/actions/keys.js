@@ -1,5 +1,5 @@
 import {Keypair, paymentHistoryAll, loadAccount} from '@pigzbe/stellar-utils';
-import {KEYCHAIN_ID_MNEMONIC, KEYCHAIN_ID_STELLAR_KEY, KID_ADD_MEMO_PREPEND} from '../constants';
+import {KEYCHAIN_ID_MNEMONIC, KEYCHAIN_ID_STELLAR_KEY, KID_ADD_MEMO_PREPEND, KID_HOME_MEMO_PREPEND} from '../constants';
 import Keychain from '../utils/keychain';
 import {generateMnemonic, getSeedHex, getKeypair, isValidMnemonic} from '../utils/hd-wallet';
 import {appError, loadWallet, restoreKid, settingsUpdate} from './';
@@ -79,24 +79,82 @@ export const restoreKeys = mnemonic => async dispatch => {
 
         const accountsCreated = payments.filter(p => p.type === 'create_account' && p.funder === publicKey);
 
+        const accountsFound = [];
+        const kidsFound = [];
+
         for (const payment of accountsCreated) {
             const address = payment.account;
+            console.log('address', address);
             const transaction = await payment.transaction();
+            console.log('transaction', transaction);
             const memo = transaction.memo_type === 'text' ? transaction.memo : '';
-            const name = memo.slice(KID_ADD_MEMO_PREPEND.length);
+            console.log('memo', memo);
 
-            const kidAccount = await loadAccount(address);
+            const {secretKey, index} = findSecretKey(address, seedHex, 1);
 
-            const {secretKey} = findSecretKey(address, seedHex, 1);
-            await Keychain.save(`secret_${address}`, secretKey);
-            dispatch(restoreKid(name, address, kidAccount));
+            accountsFound.push({
+                address,
+                memo,
+                secretKey,
+                index,
+            });
+
+            // if (memo.indexOf(KID_ADD_MEMO_PREPEND) === 0) {
+            //     console.log('found kid address');
+            //     const name = memo.slice(KID_ADD_MEMO_PREPEND.length);
+            //     const account = await loadAccount(address);
+            //     const {secretKey} = findSecretKey(address, seedHex, 1);
+            //     await Keychain.save(`secret_${address}`, secretKey);
+            //
+            //     kidsFound.push({
+            //         name,
+            //         address,
+            //         account
+            //     });
+            // }
+
+            // if (memo.indexOf(KID_HOME_MEMO_PREPEND) === 0) {
+            //     console.log('found kid home');
+            //     const home = await loadAccount(address);
+            //     console.log('kidHome', home);
+            //     kidsFound[kidsFound.length - 1].home = home;
+            //     const {secretKey} = findSecretKey(address, seedHex, 1);
+            //     await Keychain.save(`secret_${address}`, secretKey);
+            // }
+        }
+
+        // for (const kid of kidsFound) {
+        // const {name, address, home, account} = kid;
+        // dispatch(restoreKid(name, address, home, account));
+        // }
+
+        const kidAccounts = accountsFound
+            .sort((a, b) => a.index - b.index)
+            .reduce((kids, {index, memo, address, secretKey}) => {
+                console.log('Found account', index, address, secretKey, memo);
+                if (memo.indexOf(KID_ADD_MEMO_PREPEND) === 0) {
+                    const name = memo.slice(KID_ADD_MEMO_PREPEND.length);
+                    return kids.concat({
+                        name,
+                        address
+                    });
+                }
+                if (memo.indexOf(KID_HOME_MEMO_PREPEND) === 0) {
+                    kids[kids.length - 1].home = address;
+                }
+                return kids;
+            }, []);
+
+        for (const k of kidAccounts) {
+            console.log('Found', k.name, k.address, k.home);
+            dispatch(restoreKid(k.name, k.address, k.home));
         }
 
         dispatch(setKeys(keypair, mnemonic, true));
         await dispatch(saveKeys());
     } catch (error) {
         console.log(error);
-        const err = new Error('Incorrect. Please try again.');
+        const err = new Error('Could not recover account. Please check your mnemonic and ensure you are trying to recover and account that was previously funded.');
         dispatch(restoreKeysError(err));
         dispatch(appError(err));
     }
@@ -125,6 +183,8 @@ export const getKeys = () => async (dispatch, getState) => {
     const mnemonic = await Keychain.load(KEYCHAIN_ID_MNEMONIC);
     const secretKey = await Keychain.load(KEYCHAIN_ID_STELLAR_KEY);
     const {testUserKey} = getState().keys;
+
+    console.log(mnemonic);
 
     if (testUserKey) {
         return Keypair.fromSecret(secretKey);
