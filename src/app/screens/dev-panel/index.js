@@ -237,7 +237,6 @@ export default connect(
     state => ({
         testUserKey: state.keys.testUserKey,
         useTestnet: state.wollo.useTestnet,
-        configURL: state.config.configURL,
         networkOverride: state.config.networkOverride,
     })
 )(DevPanel);

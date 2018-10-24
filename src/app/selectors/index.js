@@ -2,9 +2,12 @@ import {createSelector} from 'reselect';
 import Config from 'react-native-config';
 import BigNumber from 'bignumber.js';
 import {Asset} from '@pigzbe/stellar-utils';
+import {CLAIM_CONTRACT_NAME} from 'app/constants';
 
 const configSelector = state => state.config;
 const kidsSelector = state => state.kids;
+const currentClaimSelector = state => state.claim.currentClaim;
+const claimsSelector = state => state.claim.claims;
 
 export const apiURL = createSelector(
     configSelector,
@@ -44,4 +47,30 @@ export const kidsWithBalances = createSelector(
             }, new BigNumber(balances[kid.home] || 0)).toString(10)
         }));
     }
+);
+
+export const erc20Token = createSelector(
+    currentClaimSelector,
+    configSelector,
+    (currentClaim, config) => {
+        const contractName = CLAIM_CONTRACT_NAME[currentClaim];
+        const {network, ethereum} = config;
+        const {abi, networks} = ethereum[contractName];
+        const networkDetails = networks[network];
+        return {
+            ...networkDetails,
+            abi
+        };
+    }
+);
+
+export const getClaim = createSelector(
+    currentClaimSelector,
+    claimsSelector,
+    (currentClaim, claims) => claims[currentClaim]
+);
+
+export const claimToken = createSelector(
+    currentClaimSelector,
+    currentClaim => CLAIM_CONTRACT_NAME[currentClaim]
 );
