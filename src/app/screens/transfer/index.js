@@ -50,6 +50,7 @@ export class Transfer extends Component {
                     <Payments
                         navigation={this.props.navigation}
                         showHelp={!hasBalance}
+                        spacingBottom={true}
                     />
                 </StepModule>
                 {hasBalance && (
