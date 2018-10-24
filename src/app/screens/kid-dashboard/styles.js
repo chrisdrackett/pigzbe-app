@@ -44,6 +44,7 @@ export default StyleSheet.create({
         color: color.blue,
         fontSize: 14,
         fontWeight: 'bold',
+        flex: 1,
     },
     itemSubTitle: {
         fontWeight: 'normal',

@@ -23,6 +23,18 @@ export class KidsNumberToAdd extends Component {
         this.props.navigation.push(SCREEN_KIDS_ENTER_PROFILE);
     }
 
+    componentDidMount() {
+        if (this.props.navigation) {
+            this.focusListener = this.props.navigation.addListener('didFocus', () => this.setState({loading: false}));
+        }
+    }
+
+    componentWillUnMount() {
+        if (this.focusListener) {
+            this.focusListener.remove();
+        }
+    }
+
     render() {
 
         const numCanAdd = new BigNumber(this.props.balanceXLM)

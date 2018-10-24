@@ -44,6 +44,7 @@ export class Support extends Component {
                 style={{
                     margin: 0,
                 }}
+                onBackButtonPress={this.onClose}
             >
                 <Fragment>
                     <Alert

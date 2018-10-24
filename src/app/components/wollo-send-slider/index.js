@@ -24,7 +24,7 @@ export class WolloSendSlider extends Component {
         value: 0,
         amount: 0,
         displayAmount: 0,
-        sendModalClosed: false,
+        sendModalClosed: true,
         confirmSend: false,
     }
 

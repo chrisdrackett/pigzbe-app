@@ -10,7 +10,8 @@ import isDesktop from '../../utils/is-desktop';
 export default ({
     items,
     ItemComponent,
-    children
+    children,
+    ListFooterComponent = null,
 }) => (
     <View style={styles.container}>
         {children}
@@ -24,6 +25,7 @@ export default ({
             <FlatList
                 data={items.map((item, i) => ({...item, key: String(i)}))}
                 renderItem={({item}) => <ItemComponent {...item}/>}
+                ListFooterComponent={ListFooterComponent}
             />
         )}
     </View>
