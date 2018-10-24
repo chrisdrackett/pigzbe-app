@@ -92,7 +92,6 @@ export class Payments extends Component {
                 {!!filteredPayments.length && !showHelp && (
                     <View style={{flex: 1}}>
                         <ScrollList
-                            style={{paddingBottom: 30}}
                             items={filteredPayments}
                             ItemComponent={Payment}
                             ListFooterComponent={spacingBottom ? <View style={{height: 100}}/> : null}
