@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import StepWrapper from '../../components/step-wrapper';
-import TxInfo from './tx-info';
 import Paragraph from '../../components/paragraph';
 import {
     ID_ICO,
@@ -17,36 +16,24 @@ export class Balance extends Component {
     onNext = () => this.props.navigation.navigate(SCREEN_CLAIM_ICO_ESTIMATE_GAS)
 
     render() {
-        const {data, eth, transactionHash} = this.props;
-        const startApplication = !data.complete && !data.started;
+        const {eth} = this.props;
         const hasBalance = eth.balanceWollo && Number(eth.balanceWollo) > 0;
         const userBalance = eth.balanceWollo;
-        const tx = data.transactionHash || transactionHash;
-        const buttonNextLabel = !hasBalance ? 'Back' : startApplication ? 'Estimate Gas fees' : 'Continue';
+        const buttonNextLabel = !hasBalance ? 'Back' : 'Estimate Gas fees';
 
         return (
             <StepWrapper
-                title={startApplication ? 'Claim your Wollo' : 'Continue your application'}
+                title={'Claim your Wollo'}
                 onNext={hasBalance ? this.onNext : this.onRestart}
                 onBack={this.onBack}
                 buttonNextLabel={buttonNextLabel}
-                content={startApplication ? (
+                content={(
                     <Fragment>
                         <Paragraph>{`You have *${userBalance} ERC20 Wollo Tokens* in your Eidoo account.`}</Paragraph>
                         {hasBalance ? (
                             <Paragraph>{`Tap the button below to convert your tokens to ${userBalance} Wollo and create your Pigzbe wallet.`}</Paragraph>
                         ) : (
                             <Paragraph>Go back to check your login details and try again.</Paragraph>
-                        )}
-                    </Fragment>
-                ) : (
-                    <Fragment>
-                        <Paragraph small>You didn't finish a previous Wollo claim process. Continue the process below.</Paragraph>
-                        {tx && (
-                            <Fragment>
-                                <Paragraph small>For help contact *support@pigzbe.com* quoting your Ethereum transaction hash.</Paragraph>
-                                <TxInfo />
-                            </Fragment>
                         )}
                     </Fragment>
                 )}
@@ -56,10 +43,7 @@ export class Balance extends Component {
 }
 
 export default connect(
-    ({keys, claim: {claims: {[ID_ICO]: {eth, data, events}}}}) => ({
-        eth,
-        data,
-        transactionHash: events.transactionHash,
-        publicKey: keys.publicKey,
+    ({claim: {claims: {[ID_ICO]: {eth}}}}) => ({
+        eth
     })
 )(Balance);

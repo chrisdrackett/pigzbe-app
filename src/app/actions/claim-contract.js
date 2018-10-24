@@ -1,7 +1,7 @@
 import Tx from 'ethereumjs-tx';
 import {watchConfirmations} from '../utils/web3';
 import {NUM_VALIDATIONS} from '../constants';
-import {apiURL} from '../selectors';
+import {apiURL, erc20Token} from '../selectors';
 import {getClaimBalance, getGasPrice} from './claim-eth';
 import {loadClaimData, updateClaimData} from './claim-data';
 import {claimLoading, claimError, validateClaim} from './claim-api';
@@ -15,14 +15,9 @@ const getContract = () => async (dispatch, getState) => {
     console.log('getContract');
 
     try {
-        const {network, ethereum} = getState().config;
+        const {address, abi} = erc20Token(getState());
         const {currentClaim, claims} = getState().claim;
         const {web3: {instance: web3}, eth: {coinbase}} = claims[currentClaim];
-
-        console.log('network:', network);
-        console.log('ethereum:', ethereum);
-
-        const address = ethereum.networks[network].address.trim();
 
         console.log('address', address);
 
@@ -30,7 +25,7 @@ const getContract = () => async (dispatch, getState) => {
         const gasPrice = await dispatch(getGasPrice());
         console.log('contract gasPrice', gasPrice);
 
-        const deployedContract = new web3.eth.Contract(ethereum.abi, address, {
+        const deployedContract = new web3.eth.Contract(abi, address, {
             gasPrice,
             gas: 6721975,
         });
@@ -73,8 +68,9 @@ const getContract = () => async (dispatch, getState) => {
 };
 
 export const initWeb3 = () => async (dispatch, getState) => {
-    const {network, ethereum} = getState().config;
-    const {rpc} = ethereum.networks[network];
+    const {network, rpc} = erc20Token(getState());
+
+    console.log('initWeb3', network, rpc);
 
     dispatch({
         type: CLAIM_INIT_WEB3,
@@ -97,9 +93,8 @@ const sendSignedTransaction = (web3, serializedTx, error) => new Promise(async (
 
 export const burn = () => async (dispatch, getState) => {
     const api = apiURL(getState());
+    const {network} = erc20Token(getState());
     const {publicKey} = getState().keys;
-    const {network} = getState().config;
-
     const {currentClaim, claims} = getState().claim;
     const claim = claims[currentClaim];
     const {address, instance} = claim.contract;
@@ -108,8 +103,7 @@ export const burn = () => async (dispatch, getState) => {
     const web3 = claim.web3.instance;
 
     console.log('BURN', amount);
-
-    // return
+    console.log('network', network);
 
     dispatch(claimError(null));
     dispatch(claimLoading('Waiting for network confirmation'));

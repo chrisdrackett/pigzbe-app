@@ -49,6 +49,11 @@ export const NUM_VALIDATIONS = 7;
 export const ID_ICO = 'ico';
 export const ID_AIRDROP = 'airdrop';
 
+export const CLAIM_CONTRACT_NAME = {
+    [ID_ICO]: 'WLO',
+    [ID_AIRDROP]: 'WLOA',
+};
+
 export const KEYCHAIN_ID_MNEMONIC = 'com.pigzbe.PigzbeApp.mnemonic';
 export const KEYCHAIN_ID_PASSCODE = 'com.pigzbe.PigzbeApp.passcode';
 export const KEYCHAIN_ID_STELLAR_KEY = 'com.pigzbe.PigzbeApp.stellarKey';

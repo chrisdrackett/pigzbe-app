@@ -1,4 +1,4 @@
-import {apiURL, wolloAsset} from '../selectors';
+import {apiURL, wolloAsset, getClaim, claimToken} from '../selectors';
 import {trustAsset} from '@pigzbe/stellar-utils';
 import {getClaimBalance} from './claim-eth';
 import {updateClaimData, flagClaimDataForReload} from './claim-data';
@@ -7,7 +7,6 @@ export const CLAIM_START = 'CLAIM_START';
 export const CLAIM_LOADING = 'CLAIM_LOADING';
 export const CLAIM_ERROR = 'CLAIM_ERROR';
 export const CLAIM_TRANSFER = 'CLAIM_TRANSFER';
-// export const CLAIM_CLAIM = 'CLAIM_CLAIM';
 
 export const claimStart = currentClaim => ({type: CLAIM_START, currentClaim});
 
@@ -22,8 +21,8 @@ export const claimError = payload => async dispatch => {
 
 export const validateClaim = () => async (dispatch, getState) => {
     const {publicKey} = getState().keys;
-    const {currentClaim, claims} = getState().claim;
-    const {data, events} = claims[currentClaim];
+    const {data, events} = getClaim(getState());
+    const tokenName = claimToken(getState());
     const transactionHash = data.transactionHash || events.transactionHash;
     const api = apiURL(getState());
 
@@ -42,12 +41,14 @@ export const validateClaim = () => async (dispatch, getState) => {
                 cache: 'no-cache',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
+                    tk: tokenName,
                     tx: transactionHash,
                     pk: publicKey,
                 })
             })).json();
 
             if (payload.error) {
+                console.log('Claim error:');
                 console.log(payload);
                 dispatch(claimError('Invalid transaction'));
                 setTimeout(() => dispatch(claimLoading(null)), 5000);
@@ -68,7 +69,6 @@ export const validateClaim = () => async (dispatch, getState) => {
             };
         }
 
-        // dispatch({type: CLAIM_CLAIM, payload});
         dispatch(trustStellarAsset());
     } catch (e) {
         console.log(e);
@@ -79,9 +79,10 @@ export const validateClaim = () => async (dispatch, getState) => {
 export const claim = () => async (dispatch, getState) => {
     const api = apiURL(getState());
     const {publicKey} = getState().keys;
-    const {currentClaim, claims} = getState().claim;
-    const claimData = claims[currentClaim].data;
-    const events = claims[currentClaim].events;
+    const tokenName = claimToken(getState());
+    const currentClaim = getClaim(getState());
+    const claimData = currentClaim.data;
+    const events = currentClaim.events;
     const transactionHash = claimData.transactionHash || events.transactionHash;
 
     dispatch(claimLoading('Validating Transaction'));
@@ -98,6 +99,7 @@ export const claim = () => async (dispatch, getState) => {
                 cache: 'no-cache',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
+                    tk: tokenName,
                     tx: transactionHash,
                     pk: publicKey,
                 })
@@ -141,8 +143,8 @@ export const claim = () => async (dispatch, getState) => {
 
 export const trustStellarAsset = () => async (dispatch, getState) => {
     const {secretKey} = getState().keys;
-    const {currentClaim, claims} = getState().claim;
-    const claimData = claims[currentClaim].data;
+    const currentClaim = getClaim(getState());
+    const claimData = currentClaim.data;
 
     dispatch(claimLoading('Trusting WLO asset'));
 
