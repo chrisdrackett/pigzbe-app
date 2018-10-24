@@ -27,7 +27,10 @@ export class Burn extends Component {
 
     onBack = () => this.props.navigation.goBack()
 
-    onContinue = () => this.props.burn()
+    onContinue = () => {
+        this.setState({progressClosed: false});
+        this.props.burn();
+    }
 
     onCompleteClaim = () => {
         this.setState({progressClosed: true});
@@ -56,16 +59,15 @@ export class Burn extends Component {
                     <Paragraph small style={{marginTop: 30}}>
                         You didn't finish a previous Wollo claim process. Continue the process below.
                     </Paragraph>
-                    {tx && (
-                        <Fragment>
-                            <Paragraph small>For help contact *support@pigzbe.com* quoting your claim details below.</Paragraph>
-                            <ClaimInfo
-                                data={data}
-                                events={events}
-                                eth={eth}
-                                publicKey={publicKey}
-                            />
-                        </Fragment>
+                    <Fragment>
+                        <Paragraph small>For help contact *support@pigzbe.com* quoting your claim details below.</Paragraph>
+                        <ClaimInfo
+                            data={data}
+                            events={events}
+                            eth={eth}
+                            publicKey={publicKey}
+                        />
+                    </Fragment>
                     )}
                 </StepWrapper>
                 <Progress

@@ -58,7 +58,7 @@ export default class StepModule extends Component {
                           content
                       )}
                       {error && (
-                          <Paragraph style={styles.error}>{error.message}</Paragraph>
+                          <Paragraph style={styles.error}>{(error.message || error)}</Paragraph>
                       )}
                   </View>
               )}

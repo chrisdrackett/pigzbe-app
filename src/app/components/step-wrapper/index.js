@@ -12,7 +12,8 @@ const StepWrapper = ({
     onBack,
     buttonNextLabel,
     loading,
-    loaderMessage = 'Loading'
+    loaderMessage = 'Loading',
+    error
 }) => (
     <StepModule
         title={title}
@@ -20,6 +21,7 @@ const StepWrapper = ({
         icon={icon}
         onBack={onBack}
         loading={loading}
+        error={(error && error.message) || error}
         loaderMessage={loaderMessage}
         justify="space-between"
         pad

@@ -40,7 +40,7 @@ export class EnterKeys extends Component {
 
         const result = await this.props.dispatch(userLoginPrivateKey(privateKey, address));
 
-        console.log('result', result);
+        console.log('---------> result', result);
 
         if (result.success) {
             this.props.navigation.navigate(SCREEN_CLAIM_AIRDROP_BALANCE);

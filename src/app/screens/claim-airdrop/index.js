@@ -19,8 +19,7 @@ export class ClaimAirdrop extends Component {
   }
 
   componentWillMount() {
-      this.props.claimStart(ID_AIRDROP);
-      this.props.initWeb3();
+      this.onInit();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,6 +53,11 @@ export class ClaimAirdrop extends Component {
       }
   }
 
+  onInit = async () => {
+      this.props.claimStart(ID_AIRDROP);
+      this.props.initWeb3();
+  }
+
   onBack = () => {
       this.props.claimStop();
       this.props.navigation.navigate(SCREEN_CLAIM);
@@ -67,9 +71,25 @@ export class ClaimAirdrop extends Component {
           contract,
           web3,
           data,
+          error
       } = this.props;
 
+      console.log('====> error', error);
+
       const loading = !web3 || !contract || !data.loaded || this.state.starting;
+
+      if (error) {
+          return (
+              <StepWrapper
+                  title="Claim Your Wollo"
+                  icon="airdrop"
+                  onNext={this.onInit}
+                  onBack={this.onBack}
+                  buttonNextLabel="Try again"
+                  error={error}
+              />
+          );
+      }
 
       return (
           <StepWrapper
