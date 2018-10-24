@@ -28,7 +28,7 @@ export class EmailSet extends Component {
 
                         <TextInput
                             placeholder="Email address"
-                            onChangeText={email => this.setState({email})}
+                            onChangeText={text => this.setState({text})}
                             returnKeyType="done"
                             value={email}
                         />
@@ -36,6 +36,7 @@ export class EmailSet extends Component {
                 }
                 pad
                 onBack={onBack}
+                keyboardOffset={-200}
             >
                 <View>
                     <Button
