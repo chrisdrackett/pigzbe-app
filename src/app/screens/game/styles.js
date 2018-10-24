@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {color} from '../../styles';
+import isIphoneX from 'app/utils/is-iphonex';
 
 export default StyleSheet.create({
     full: {
@@ -9,7 +10,7 @@ export default StyleSheet.create({
     },
     counter: {
         position: 'absolute',
-        top: 30,
+        top: isIphoneX ? 60 : 30,
         left: 15,
     },
     tree: {

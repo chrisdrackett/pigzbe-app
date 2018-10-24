@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
-
 import {
     color,
     fontFamily
 } from '../../styles';
+import isIphoneX from 'app/utils/is-iphonex';
 
 export default StyleSheet.create({
     modal: {
@@ -35,8 +35,8 @@ export default StyleSheet.create({
     },
     backIcon: {
         position: 'absolute',
-        left: 10,
-        top: 40,
+        left: 15,
+        top: isIphoneX ? 60 : 30,
     },
     goalValueWrap: {
         width: 87,

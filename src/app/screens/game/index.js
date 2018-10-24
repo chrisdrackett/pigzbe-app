@@ -403,17 +403,19 @@ export class Game extends Component {
                         light
                     />
                 </View>}
-                <View style={{position: 'absolute', top: 30, right: 20, flexDirection: 'row', alignItems: 'center'}}>
-                    <Text style={{marginRight: 10}}>
-                        Snap
-                    </Text>
-                    <Switch
-                        value={this.state.snap}
-                        onValueChange={() => this.setState({
-                            snap: !this.state.snap
-                        })}
-                    />
-                </View>
+                {__DEV__ && (
+                    <View style={{position: 'absolute', top: 30, right: 20, flexDirection: 'row', alignItems: 'center'}}>
+                        <Text style={{marginRight: 10}}>
+                            Snap
+                        </Text>
+                        <Switch
+                            value={this.state.snap}
+                            onValueChange={() => this.setState({
+                                snap: !this.state.snap
+                            })}
+                        />
+                    </View>
+                )}
             </View>
         );
     }
