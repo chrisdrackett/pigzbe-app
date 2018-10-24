@@ -26,7 +26,7 @@ export class WolloInput extends Component {
 
     setExchangedValue = (amount, currentCurrency) => {
         const {exchange, baseCurrency, onChangeAmount} = this.props;
-        amount = amount.replace(',', '');
+        amount = amount ? amount.replace(',', '') : amount;
         const exchangedValue = currentCurrency === ASSET_CODE ? amount * exchange[baseCurrency] : amount / exchange[baseCurrency];
 
         this.setState({
@@ -90,7 +90,7 @@ export class WolloInput extends Component {
                     </View>
                 </View>
                 <ExchangedDisplay
-                    amount={currencyAmount.replace(',', '')}
+                    amount={currencyAmount ? currencyAmount.replace(',', '') : null}
                     currency={currentCurrency}
                 />
             </Fragment>
