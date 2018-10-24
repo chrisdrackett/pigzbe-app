@@ -24,7 +24,7 @@ export class KidsEnterProfile extends Component {
 
     onNext = async () => {
         this.setState({loading: true});
-        await this.props.dispatch(addKid(this.state.name, this.state.chosenDate, this.state.image));
+        await this.props.dispatch(addKid(this.state.name.trim(), this.state.chosenDate, this.state.image));
 
         if (this.props.numKidsToAdd > 0) {
             this.setState({
@@ -117,7 +117,7 @@ export class KidsEnterProfile extends Component {
                         {/* <Button onPress={this.getImage} label={'Get Image'} /> */}
                         <Button
                             label={`Create Profile${numberProfile}`}
-                            disabled={!this.state.datePickerHasChanged || this.state.name.length === 0}
+                            disabled={!this.state.datePickerHasChanged || this.state.name.trim().length === 0}
                             onPress={this.onNext}
                         />
                         <Text style={styles.smallText}>

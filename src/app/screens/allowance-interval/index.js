@@ -7,7 +7,7 @@ import SelectInput from '../../components/select-input';
 import {SCREEN_DASHBOARD, SCREEN_ALLOWANCE_AMOUNT, SCREEN_KID_DASHBOARD} from '../../constants';
 import StepModule from '../../components/step-module';
 import styles from './styles';
-import {addAllowance} from '../../actions';
+import {addAllowance, updateAllowance, appAddSuccessAlert} from '../../actions';
 import DeviceInfo from 'react-native-device-info';
 
 import {intervals, daysOfWeek, daysOfMonth, getFirstPaymentDate} from 'app/utils/allowances';
@@ -25,9 +25,22 @@ export class AllowanceInterval extends Component {
 
     next = async () => {
         const {day, interval, nextDate, timezone} = this.state;
-        const {kid, amount, numKidsAdded} = this.props;
+        const {kid, amount, numKidsAdded, allowanceToEdit} = this.props;
 
-        await this.props.dispatch(addAllowance(kid, amount, interval, day, nextDate.toISOString(), timezone, numKidsAdded));
+        if (allowanceToEdit) {
+            const updatedAllowance = {
+                ...allowanceToEdit,
+                amount,
+                interval,
+                day,
+                nextDate,
+            }
+            await this.props.dispatch(updateAllowance(kid, updatedAllowance));
+            this.props.dispatch(appAddSuccessAlert('Updated allowance'));
+        } else {
+
+            await this.props.dispatch(addAllowance(kid, amount, interval, day, nextDate.toISOString(), timezone, numKidsAdded));
+        }
 
         // todo navigate to kid screen instead
         if (kid) {
@@ -112,6 +125,7 @@ export default connect(
         loading: false, /*state.kids.loading,*/
         amount: props.navigation.state.params.amount,
         kid: props.navigation.state.params.kid,
+        allowanceToEdit: props.navigation.state.params.allowanceToEdit,
         numKidsAdded: state.kids.numKidsAdded,
     })
 )(AllowanceInterval);

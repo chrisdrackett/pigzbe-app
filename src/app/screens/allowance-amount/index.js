@@ -128,7 +128,11 @@ export class AllowanceAmount extends Component {
     next = async () => {
         const {custom, active} = this.state;
 
-        this.props.navigation.push(SCREEN_ALLOWANCE_INTERVAL, {kid: this.props.kid, amount: custom ? custom : active});
+        this.props.navigation.push(SCREEN_ALLOWANCE_INTERVAL, {
+            kid: this.props.kid,
+            amount: custom ? custom : active,
+            allowanceToEdit: this.props.allowanceToEdit || null,
+        });
     }
 
     skip = async () => {
