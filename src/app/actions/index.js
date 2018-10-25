@@ -9,6 +9,7 @@ export * from './keys';
 export * from './kids-allowances';
 export * from './kids-tasks';
 export * from './kids';
+export * from './kid-actions';
 export * from './loader';
 export * from './messages';
 export * from './settings';
