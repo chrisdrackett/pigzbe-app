@@ -9,24 +9,27 @@ import {
     TRANSFER_TYPE_ALLOWANCE,
     TRANSFER_TYPE_COMPLETION,
 } from 'app/constants/game';
+import {
+    MEMO_PREPEND_TASK,
+    MEMO_PREPEND_GIFT,
+    MEMO_PREPEND_ALLOWANCE
+} from 'app/constants';
 import {wolloAsset} from '../selectors';
 
 export const KIDS_UPDATE_ACTIONS = 'KIDS_UPDATE_ACTIONS';
 export const KIDS_COMPLETE_ACTION = 'KIDS_COMPLETE_ACTION';
 
 const getType = memo => {
-    const id = memo.slice(0, 4).toLowerCase();
-    switch (id) {
-        case 'allo':
-            return TRANSFER_TYPE_ALLOWANCE;
-        case 'from':
-            return TRANSFER_TYPE_GIFT;
-        case 'task':
-            return TRANSFER_TYPE_TASK;
-        default:
-            return null;
-
+    if (memo.indexOf(MEMO_PREPEND_ALLOWANCE) === 0) {
+        return TRANSFER_TYPE_ALLOWANCE;
     }
+    if (memo.indexOf(MEMO_PREPEND_GIFT) === 0) {
+        return TRANSFER_TYPE_GIFT;
+    }
+    if (memo.indexOf(MEMO_PREPEND_TASK) === 0) {
+        return MEMO_PREPEND_TASK;
+    }
+    return null;
 };
 
 const isCompletion = record => record.memo && record.memo_type === 'hash';
@@ -135,7 +138,7 @@ export const loadKidActions = address => async (dispatch, getState) => {
         console.log('num completions', completions.length);
 
         for (const entry of entries) {
-            // console.log('entry', entry);
+            console.log('entry', entry);
             // console.log('date', moment(entry.date).format('LLL'));
             const entryCompletions = completions.filter(c => c.memo === entry.hash);
             // console.log('entryCompletions', entryCompletions);
@@ -167,6 +170,14 @@ export const loadKidActions = address => async (dispatch, getState) => {
     }
 
     dispatch({type: KIDS_UPDATE_ACTIONS, address, actions});
+
+    const tasks = actions.filter(a => a.type === TRANSFER_TYPE_TASK);
+    const gifts = actions.filter(a => a.type === TRANSFER_TYPE_GIFT);
+    const allowances = actions.filter(a => a.type === TRANSFER_TYPE_ALLOWANCE);
+
+    console.log('tasks', tasks);
+    console.log('gifts', gifts);
+    console.log('allowances', allowances);
 
     return actions;
 };

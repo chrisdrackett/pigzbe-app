@@ -22,7 +22,7 @@ import {
     ASSET_CODE,
     KID_GOAL_BALANCE_XLM,
     KID_HOME_BALANCE_XLM,
-    KID_GOAL_MEMO_PREPEND
+    MEMO_PREPEND_GOAL
 } from '../constants';
 import Keychain from '../utils/keychain';
 import {wolloAsset} from '../selectors';
@@ -302,7 +302,7 @@ export const createGoalAccount = (kid, goalName) => async (dispatch, getState) =
         console.log('createGoalAccount destination', destination);
         await Keychain.save(`secret_${destination}`, keypair.secret());
 
-        const memo = `${KID_GOAL_MEMO_PREPEND}${goalName.trim()}`.slice(0, 28);
+        const memo = `${MEMO_PREPEND_GOAL}${goalName.trim()}`.slice(0, 28);
         console.log('memo', memo);
         console.log('secretKey', secretKey);
         let account;

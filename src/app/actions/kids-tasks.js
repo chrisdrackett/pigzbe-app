@@ -16,8 +16,8 @@ import {
 } from '@pigzbe/stellar-utils';
 import {wolloAsset} from '../selectors';
 import Keychain from '../utils/keychain';
-import BigNumber from 'bignumber.js';
-import {saveKids, updateKidBalance} from './';
+import {saveKids} from './';
+import {MEMO_PREPEND_TASK} from 'app/constants';
 
 export const KIDS_LOADING_TASK = 'KIDS_LOADING_TASK';
 export const KIDS_ASSIGN_TASK = 'KIDS_ASSIGN_TASK';
@@ -34,17 +34,6 @@ export const assignTask = (kid, task, reward) => async (dispatch, getState) => {
         dispatch(taskLoading(true));
 
         console.log('assignTask', kid.address);
-        // const account = await loadAccount(kid.address);
-        // let destination = getData(account, 'tasks');
-        // if (!destination) {
-        //     console.log('create tasksAccount');
-        //     destination = await dispatch(createTasksAccount(kid));
-        //     console.log('destination', destination);
-        //     const kidSecretKey = await Keychain.load(`secret_${kid.address}`);
-        //     console.log('kidSecretKey', kidSecretKey);
-        //     await setData(kidSecretKey, 'tasks', destination);
-        // }
-
         const destination = kid.address;
 
         console.log('send money to tasks account', destination);
@@ -52,7 +41,7 @@ export const assignTask = (kid, task, reward) => async (dispatch, getState) => {
         const asset = wolloAsset(getState());
         // memo needs to be a unique ref to task
         // const memo = task.slice(0, 28);
-        const memo = `Task: ${task}`.slice(0, 28);
+        const memo = `${MEMO_PREPEND_TASK}${task}`.slice(0, 28);
         const result = await sendPayment(secretKey, destination, reward, memo, asset);
 
         console.log('result', result);

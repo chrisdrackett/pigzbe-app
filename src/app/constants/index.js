@@ -78,9 +78,13 @@ export const KID_SEND_MAX_AMOUNT = 100;
 export const KID_WALLET_BALANCE_XLM = '8';
 export const KID_HOME_BALANCE_XLM = '2.52';
 export const KID_GOAL_BALANCE_XLM = '2.52';
-export const KID_ADD_MEMO_PREPEND = 'Add ';
-export const KID_HOME_MEMO_PREPEND = 'Home ';
-export const KID_GOAL_MEMO_PREPEND = 'Goal: ';
+
+export const MEMO_PREPEND_ADD = 'Add ';
+export const MEMO_PREPEND_HOME = 'Home ';
+export const MEMO_PREPEND_GOAL = 'Goal: ';
+export const MEMO_PREPEND_TASK = 'Task: ';
+export const MEMO_PREPEND_GIFT = 'From ';
+export const MEMO_PREPEND_ALLOWANCE = 'Allowance ';
 
 export const MIN_BALANCE = 2.52;
 export const MIN_BALANCE_XLM_ADD_GOAL = 2.52;

@@ -7,8 +7,9 @@ import wait from '../utils/wait';
 import {
     STORAGE_KEY_KIDS,
     KID_WALLET_BALANCE_XLM,
-    KID_ADD_MEMO_PREPEND,
-    KID_HOME_MEMO_PREPEND
+    MEMO_PREPEND_ADD,
+    MEMO_PREPEND_HOME,
+    MEMO_PREPEND_GIFT
 } from '../constants';
 
 export const KIDS_LOAD = 'KIDS_LOAD';
@@ -21,7 +22,7 @@ export const KIDS_SEND_ERROR = 'KIDS_SEND_ERROR';
 export const KIDS_SEND_COMPLETE = 'KIDS_SEND_COMPLETE';
 export const KIDS_BALANCE_UPDATE = 'KIDS_BALANCE_UPDATE';
 
-const kidsLoading = value => ({type: KIDS_LOADING, value});
+export const kidsLoading = value => ({type: KIDS_LOADING, value});
 
 export const loadKids = () => async dispatch => {
     console.log('loadKids');
@@ -51,12 +52,12 @@ export const setNumKidsToAdd = numKidsToAdd => ({type: KIDS_NUM_TO_ADD, numKidsT
 export const addKid = (nickname, dob, photo) => async dispatch => {
     dispatch(kidsLoading(true));
     try {
-        const address = await dispatch(createKidAccount(KID_ADD_MEMO_PREPEND, nickname, KID_WALLET_BALANCE_XLM));
+        const address = await dispatch(createKidAccount(MEMO_PREPEND_ADD, nickname, KID_WALLET_BALANCE_XLM));
         if (!address) {
             throw new Error('Could not create kid account');
         }
 
-        const home = await dispatch(createHomeAccount(KID_HOME_MEMO_PREPEND, nickname, address));
+        const home = await dispatch(createHomeAccount(MEMO_PREPEND_HOME, nickname, address));
         if (!home) {
             throw new Error('Could not create kid home account');
         }
@@ -97,11 +98,11 @@ export const sendWolloToKid = (address, amount) => async (dispatch, getState) =>
     } catch (e) {
         console.log('Could not load account. Attemptiung to fund');
         const name = getState().kids.kids.find(k => k.address === address).name;
-        await dispatch(fundKidAccount(`${KID_ADD_MEMO_PREPEND}${name}`, address, KID_WALLET_BALANCE_XLM));
+        await dispatch(fundKidAccount(`${MEMO_PREPEND_ADD}${name}`, address, KID_WALLET_BALANCE_XLM));
     }
     try {
         const {parentNickname} = getState().kids;
-        const memo = `From ${parentNickname || 'Parent'}`;
+        const memo = `${MEMO_PREPEND_GIFT}${parentNickname || 'Parent'}`;
         const asset = wolloAsset(getState());
         const {secretKey} = getState().keys;
         await sendPayment(secretKey, address, amount, memo, asset);
