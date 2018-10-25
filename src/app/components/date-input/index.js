@@ -28,7 +28,7 @@ export default class DateInputComponent extends Component {
                     placeholder=" "
                     format="DD/MM/YYYY"
                     // minDate="01/01/2000"
-                    // maxDate="01/01/2011"
+                    maxDate={new Date()}
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     // this doesn't seem to work properly, need to find different solution in order to implement placeholder design:
