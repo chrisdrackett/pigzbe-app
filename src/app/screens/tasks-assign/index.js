@@ -31,7 +31,7 @@ export class TasksAssign extends Component {
         }
 
         if (this.props.taskToEdit) {
-            const success = await this.props.dispatch(deleteTask(this.props.kid.name, this.props.taskToEdit.task));
+            const success = await this.props.dispatch(deleteTask(this.props.kid, this.props.taskToEdit));
             if (!success) {
                 this.props.dispatch(appAddWarningAlert('Failed to update task'));
                 this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid: this.props.kid});
