@@ -1,22 +1,34 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import Button from '../../components/button';
-import Paragraph from '../../components/paragraph'
+import Paragraph from '../../components/paragraph';
 import TextInput from '../../components/text-input';
-import {settingsUpdate} from '../../actions';
 import StepModule from '../../components/step-module';
+import {settingsUpdate, appError} from '../../actions';
+import isEmail from '../../utils/is-email';
 
 export class EmailSet extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: props.previousEmail || '',
+        };
+    }
+
+    validateEmail = () => {
+        const {text} = this.state;
+        const {onSetEmail, onDispatchError} = this.props;
+
+        if (text && isEmail(text)) {
+            onSetEmail(this.state.text);
+        } else {
+            onDispatchError('Email address not valid');
         }
     }
 
     render() {
-        const {onBack, onSetEmail} = this.props;
+        const {onBack} = this.props;
         const {email} = this.state;
 
         return (
@@ -41,7 +53,7 @@ export class EmailSet extends Component {
                 <View>
                     <Button
                         label="Update"
-                        onPress={() => onSetEmail(this.state.email)}
+                        onPress={this.validateEmail}
                     />
                 </View>
             </StepModule>
@@ -55,9 +67,12 @@ export default connect(
     }),
     (dispatch, ownProps) => ({
         onSetEmail: email => {
-            dispatch(settingsUpdate({email}))
-            ownProps.navigation.goBack()
+            dispatch(settingsUpdate({email}));
+            ownProps.navigation.goBack();
         },
         onBack: () => ownProps.navigation.goBack(),
+        onDispatchError: error => {
+            dispatch(appError(error));
+        }
     }),
 )(EmailSet);
