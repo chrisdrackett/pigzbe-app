@@ -1,15 +1,13 @@
 import Storage from '../utils/storage';
 import {loadAccount, sendPayment, getServer, Keypair, TransactionBuilder, Operation, Memo, ensureValidAmount} from '@pigzbe/stellar-utils';
-import {createKidAccount, getAccountBalance, fundKidAccount, getWolloBalance, updateBalance, refreshBalance} from './';
+import {createKidAccount, createHomeAccount, fundKidAccount, getWolloBalance, updateBalance, refreshBalance} from './';
 import {wolloAsset} from '../selectors';
 import wait from '../utils/wait';
 import Keychain from '../utils/keychain';
 import BigNumber from 'bignumber.js';
-import moment from 'moment';
 import {
     STORAGE_KEY_KIDS,
     KID_WALLET_BALANCE_XLM,
-    KID_HOME_BALANCE_XLM,
     KID_ADD_MEMO_PREPEND,
     KID_HOME_MEMO_PREPEND
 } from '../constants';
@@ -68,7 +66,7 @@ export const addKid = (nickname, dob, photo) => async dispatch => {
             throw new Error('Could not create kid account');
         }
 
-        const home = await dispatch(createKidAccount(KID_HOME_MEMO_PREPEND, nickname, KID_HOME_BALANCE_XLM));
+        const home = await dispatch(createHomeAccount(KID_HOME_MEMO_PREPEND, nickname, address));
         if (!home) {
             throw new Error('Could not create kid home account');
         }
@@ -82,14 +80,16 @@ export const addKid = (nickname, dob, photo) => async dispatch => {
     dispatch(kidsLoading(false));
 };
 
-export const restoreKid = (name, address, home) => async dispatch => {
+export const restoreKid = (name, address, home, goals) => async dispatch => {
     dispatch(kidsLoading(true));
 
     dispatch(({type: KIDS_ADD_KID, kid: {
         name,
         address,
-        home
+        home,
+        goals
     }}));
+
     await dispatch(saveKids());
     dispatch(kidsLoading(false));
 };

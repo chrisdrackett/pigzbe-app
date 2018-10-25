@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Text, View} from 'react-native';
+import {Text, View, Keyboard} from 'react-native';
 import Button from '../../components/button';
 import {SCREEN_KID_DASHBOARD} from '../../constants';
 import StepModule from '../../components/step-module';
@@ -25,6 +25,8 @@ export class TasksAssign extends Component {
     onCloseFundingMessage = () => this.setState({showFundingMessage: false})
 
     next = async () => {
+        Keyboard.dismiss();
+
         if (Number(this.props.balance) < this.state.wollos) {
             this.showFundingMessage();
             return;
@@ -62,6 +64,8 @@ export class TasksAssign extends Component {
                     plain
                     //customTitle={'Tasks'}
                     icon="coins"
+                    keyboardAvoidPad
+                    keyboardOffset={40}
                 >
                     <View style={styles.flexStyle}>
                         <View>

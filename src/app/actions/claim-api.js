@@ -35,6 +35,8 @@ export const validateClaim = () => async (dispatch, getState) => {
         let payload;
 
         if (!(data.stellarAccount && data.receipt)) {
+            console.log('api', api);
+            console.log('tokenName', tokenName);
             payload = await (await fetch(`${api}/claim`, {
                 method: 'POST',
                 mode: 'cors',
@@ -50,7 +52,11 @@ export const validateClaim = () => async (dispatch, getState) => {
             if (payload.error) {
                 console.log('Claim error:');
                 console.log(payload);
-                dispatch(claimError('Invalid transaction'));
+                if (payload.message && payload.message.includes('createUserAccount')) {
+                    dispatch(claimError('Could not create user account'));
+                } else {
+                    dispatch(claimError('Invalid transaction'));
+                }
                 setTimeout(() => dispatch(claimLoading(null)), 5000);
                 return;
             }

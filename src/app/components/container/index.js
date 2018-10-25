@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, ScrollView, Dimensions} from 'react-native';
 import styles from './styles';
-import isAndroid from '../../utils/is-android';
 
 const getWidth = () => Dimensions.get('window').width;
 
@@ -24,6 +23,7 @@ export default class Container extends Component {
             <View style={[styles.container, {width: width}, style]} onLayout={this.onLayout}>
                 {scroll ? (
                     <ScrollView
+                        keyboardShouldPersistTaps="handled"
                         bounces={false}
                         style={styles.scroll}
                         contentContainerStyle={styles.scrollContainer}>
