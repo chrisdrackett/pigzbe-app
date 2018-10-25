@@ -68,7 +68,6 @@ export class Burn extends Component {
                             publicKey={publicKey}
                         />
                     </Fragment>
-                    )}
                 </StepWrapper>
                 <Progress
                     open={!this.state.progressClosed}

@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, Keyboard} from 'react-native';
 import {connect} from 'react-redux';
 import StepModule from 'app/components/step-module';
 import Paragraph from 'app/components/paragraph';
@@ -17,7 +17,7 @@ export class KidGoalAdd extends Component {
             step: 'name',
             name: goal ? goal.name : '',
             amount: goal ? goal.reward : 0,
-        }
+        };
     }
 
     onBack = () => {
@@ -29,6 +29,8 @@ export class KidGoalAdd extends Component {
     };
 
     onAddGoal = async () => {
+        Keyboard.dismiss();
+
         if (this.props.goal) {
             await this.props.dispatch(updateGoal(this.props.kid, this.state.name, this.state.amount, this.props.goal.address));
         } else {
@@ -37,7 +39,13 @@ export class KidGoalAdd extends Component {
         this.props.navigation.goBack();
     }
 
-    render() { 
+    onChangeName = name => this.setState({name})
+
+    onChangeAmount = amount => this.setState({amount})
+
+    onStepAmount = () => this.setState({step: 'amount'})
+
+    render() {
         const {step, name, amount} = this.state;
         const {kid, loading, goal} = this.props;
 
@@ -50,6 +58,8 @@ export class KidGoalAdd extends Component {
                 onBack={this.onBack}
                 justify="space-between"
                 icon="coins"
+                keyboardAvoidPad
+                keyboardOffset={40}
             >
                 <View style={styles.form}>
                     {step === 'name' &&
@@ -58,7 +68,7 @@ export class KidGoalAdd extends Component {
                             <TextInput
                                 value={name}
                                 placeholder={'Goal description'}
-                                onChangeText={name => this.setState({name})}
+                                onChangeText={this.onChangeName}
                             />
                         </Fragment>
                     }
@@ -67,7 +77,7 @@ export class KidGoalAdd extends Component {
                             <Paragraph>Set the goal value that <Text style={styles.name}>{kid.name}</Text> needs to save</Paragraph>
                             <WolloInput
                                 initialAmount={this.state.amount}
-                                onChangeAmount={amount => this.setState({amount})}
+                                onChangeAmount={this.onChangeAmount}
                             />
                         </Fragment>
                     }
@@ -77,12 +87,12 @@ export class KidGoalAdd extends Component {
                         <Button
                             disabled={name.length < 3}
                             label="Next"
-                            onPress={() => this.setState({step: 'amount'})}
+                            onPress={this.onStepAmount}
                         />
                     }
                     {step === 'amount' &&
                         <Button
-                            disabled={amount == 0}
+                            disabled={Number(amount) === 0}
                             label={goal ? 'Update Goal' : 'Set Goal'}
                             onPress={this.onAddGoal}
                         />

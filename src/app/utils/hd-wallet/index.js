@@ -48,4 +48,18 @@ export const getKeypair = (seedHex, index = 0) => {
     return Keypair.fromRawEd25519Seed(data.key);
 };
 
+export const findSecretKey = (publicKey, seedHex, index, limit = 100) => {
+    if (index > limit) {
+        return null;
+    }
+    const keypair = getKeypair(seedHex, index);
+    if (keypair.publicKey() === publicKey) {
+        return {
+            secretKey: keypair.secret(),
+            index
+        };
+    }
+    return findSecretKey(publicKey, seedHex, index + 1, limit);
+};
+
 export default module.exports;

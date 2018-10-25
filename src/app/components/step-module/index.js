@@ -39,6 +39,7 @@ export default class StepModule extends Component {
           hideLogo,
           justify,
           avoidKeyboard,
+          keyboardAvoidPad
       } = this.props;
 
       const {height} = Dimensions.get('window');
@@ -62,11 +63,12 @@ export default class StepModule extends Component {
                       )}
                   </View>
               )}
-              <View style={[
-                  styles.wrapper,
-                  justify ? {justifyContent: justify} : null,
-                  pad ? styles.pad : null, paddingTop ? {paddingTop} : null
-              ]}>
+              <View
+                  style={[
+                      styles.wrapper,
+                      justify ? {justifyContent: justify} : null,
+                      pad ? styles.pad : null, paddingTop ? {paddingTop} : null
+                  ]}>
                   {children}
               </View>
               <Loader
@@ -98,7 +100,7 @@ export default class StepModule extends Component {
                       title || icon || headerChildren ? <StepHeader title={title} icon={icon}>{headerChildren}</StepHeader> : null
                   }
                   {avoidKeyboard &&
-                <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}} offset={keyboardOffset}>
+                <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}} offset={keyboardOffset} pad={keyboardAvoidPad}>
                     {container}
                 </KeyboardAvoid>
                   }

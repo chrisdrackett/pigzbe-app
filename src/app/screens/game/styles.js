@@ -41,7 +41,7 @@ export default StyleSheet.create({
     },
     loading: {
         position: 'absolute',
-        top: 50,
+        top: isIphoneX ? 80 : 50,
         right: 30,
     }
 });

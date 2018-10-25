@@ -1,20 +1,15 @@
 import {createGoalAccount} from '.';
 import {
     loadAccount,
-    getData,
-    setData,
-    sendPayment,
     TransactionBuilder,
     Operation,
     getServer,
     Memo,
     Keypair,
-    loadTransaction,
     ensureValidAmount
 } from '@pigzbe/stellar-utils';
 import {wolloAsset} from '../selectors';
 import Keychain from '../utils/keychain';
-import BigNumber from 'bignumber.js';
 import {saveKids, getWolloBalance, appAddSuccessAlert, appAddWarningAlert} from '.';
 
 export const KIDS_LOADING_GOAL = 'KIDS_LOADING_GOAL';
@@ -25,14 +20,14 @@ export const KIDS_SET_BALANCE = 'KIDS_SET_BALANCE';
 
 const goalLoading = value => ({type: KIDS_LOADING_GOAL, value});
 
-export const assignGoal = (kid, goalName, reward) => async (dispatch, getState) => {
+export const assignGoal = (kid, goalName, reward) => async dispatch => {
     try {
         dispatch(goalLoading(true));
 
         const destination = await dispatch(createGoalAccount(kid, goalName));
 
         if (!destination) {
-            throw new Error('Could not create goal');
+            throw new Error('Could not create goal account');
         }
 
         console.log('assignGoal destination', destination);
@@ -59,7 +54,7 @@ export const assignGoal = (kid, goalName, reward) => async (dispatch, getState) 
     }
 };
 
-export const updateGoal = (kid, goalName, reward, goalAddress) => async (dispatch, getState) => {
+export const updateGoal = (kid, goalName, reward, goalAddress) => async dispatch => {
     try {
         dispatch(goalLoading(true));
 
