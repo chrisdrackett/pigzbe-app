@@ -1,3 +1,4 @@
+import Storage from '../utils/storage';
 import Keychain from '../utils/keychain';
 import BigNumber from 'bignumber.js';
 import {loadAccount, getServer, Keypair, TransactionBuilder, Operation, Memo, ensureValidAmount} from '@pigzbe/stellar-utils';
@@ -36,81 +37,102 @@ const toHex = memo => new Buffer(memo, 'base64').toString('hex');
 
 const getMemo = record => (record.memo_type === 'hash' ? toHex(record.memo) : record.memo);
 
-const getPayment = async transaction => {
-    const operations = await transaction.operations();
-    return operations.records.find(o => o.type === 'payment');
-};
+// const getPayment = async transaction => {
+//     const operations = await transaction.operations();
+//     return operations.records.find(o => o.type === 'payment');
+// };
 
-const loadRecords = async (address, pagingToken) => {
-    const txs = await getServer().transactions()
+const getPagingToken = (records, pagingToken) => records.length ? records[records.length - 1].paging_token : pagingToken;
+
+const loadPayments = async address => {
+    const payments = await Storage.load(`payments_${address}`);
+    const {pagingToken = '0', records = []} = payments;
+
+    console.log('loadPayments', pagingToken);
+
+    const result = await getServer().payments()
         .forAccount(address)
         .cursor(pagingToken)
         .order('asc')
         .limit(100)
         .call();
 
-    const records = txs.records;
+    const newPagingToken = getPagingToken(result.records, pagingToken);
 
-    const newPagingToken = records.length ? records[records.length - 1].paging_token : pagingToken;
+    const newRecords = result.records.map(r => ({
+        hash: r.transaction_hash,
+        amount: r.amount,
+        to: r.to
+    }));
 
-    const relevantRecords = records.filter(r => isCompletion(r) || isEntry(r));
+    const allRecords = records.concat(newRecords);
 
-    const newRecords = [];
-    for (const record of relevantRecords) {
-        const payment = await getPayment(record);
-        const {amount, to} = payment;
-        // console.log('new record:', amount, getMemo(record));
-        // console.log('  record', record);
-        // console.log('  payment', payment);
-        newRecords.push({
-            amount,
-            to,
-            memo: getMemo(record),
-            type: isCompletion(record) ? TRANSFER_TYPE_COMPLETION : getType(record.memo),
-            hash: record.hash,
-            date: record.created_at,
+    await Storage.save(`payments_${address}`, {
+        pagingToken: newPagingToken,
+        records: allRecords
+    });
+
+    return allRecords;
+};
+
+const loadRecords = async address => {
+    const payments = await loadPayments(address);
+
+    const transactions = await Storage.load(`transactions_${address}`);
+    const {pagingToken = '0', records = []} = transactions;
+
+    console.log('loadRecords', pagingToken);
+
+    const result = await getServer().transactions()
+        .forAccount(address)
+        .cursor(pagingToken)
+        .order('asc')
+        .limit(100)
+        .call();
+
+    const newPagingToken = getPagingToken(result.records, pagingToken);
+
+    const newRecords = result.records
+        .filter(r => isCompletion(r) || isEntry(r))
+        .map(r => {
+            const payment = payments.find(p => p.hash === r.hash);
+            const {amount, to} = payment;
+            return {
+                amount,
+                to,
+                memo: getMemo(r),
+                type: isCompletion(r) ? TRANSFER_TYPE_COMPLETION : getType(r.memo),
+                hash: r.hash,
+                date: r.created_at,
+            };
         });
-    }
 
-    return {newRecords, newPagingToken};
+    const allRecords = records.concat(newRecords);
+
+    await Storage.save(`transactions_${address}`, {
+        pagingToken: newPagingToken,
+        records: allRecords
+    });
+
+    return allRecords;
 };
 
 export const loadKidActions = address => async (dispatch, getState) => {
     console.log('loadKidActions', address);
-    // await Storage.clear(`records_${address}`);
+    // await Storage.clear(`payments_${address}`);
+    // await Storage.clear(`transactions_${address}`);
     const actions = [];
     try {
         const account = await loadAccount(address);
         console.log('unclaimed balance = ', getWolloBalance(account));
 
-        const data = await Storage.load(`records_${address}`);
-        const {pagingToken = '0', records = []} = data;
-
-        // console.log('SAVED DATA:');
-        // console.log('  pagingToken', pagingToken);
-        // console.log('  records', records);
-
-        const newData = await loadRecords(address, pagingToken);
-
-        const {newRecords, newPagingToken} = newData;
-
-        // console.log('newPagingToken', newPagingToken);
-        // console.log('newRecords', newRecords);
-
-        const allRecords = records.concat(newRecords);
-
-        // console.log('allRecords', allRecords);
-
-        await Storage.save(`records_${address}`, {
-            pagingToken: newPagingToken,
-            records: allRecords
-        });
+        const allRecords = await loadRecords(address);
 
         const entries = allRecords.filter(r => r.type !== TRANSFER_TYPE_COMPLETION);
         const completions = allRecords.filter(r => r.type === TRANSFER_TYPE_COMPLETION);
 
-        // console.log('num entries', entries.length);
-        // console.log('num completions', completions.length);
+        console.log('num entries', entries.length);
+        console.log('num completions', completions.length);
 
         for (const entry of entries) {
             // console.log('entry', entry);
