@@ -55,6 +55,7 @@ export class GameGoalOverlay extends Component {
             ...kid.goals,
         ].filter(goal => goal.address !== goalAddress);
         const currentGoal = kid.goals.filter(goal => goal.address === goalAddress)[0];
+        const hasGoals = kid.goals.length !== 0;
 
         return (
             <Fragment>
@@ -104,11 +105,11 @@ export class GameGoalOverlay extends Component {
                                     <Text style={styles.goalValue}>Goal {currentGoal.reward}</Text>
                                 </View>}
                                 <View style={styles.dots}>
-                                    <Dots length={3} index={this.state.currentIndex} light />
+                                    <Dots length={hasGoals ? 3 : 2} index={this.state.currentIndex} light />
                                 </View>
                                 <SideSwipe
                                     index={this.state.currentIndex}
-                                    data={[1, 2, 3]}
+                                    data={hasGoals ? [1, 2, 3] : [1, 2]}
                                     contentOffset={contentOffset}
                                     onIndexChange={currentIndex => this.setState({currentIndex})}
                                     renderItem={({itemIndex, currentIndex, item, animatedValue}) => (
@@ -117,7 +118,7 @@ export class GameGoalOverlay extends Component {
                                                 width: width,
                                                 flex: 1,
                                             }}>
-                                                {itemIndex === 0 &&
+                                                {hasGoals && itemIndex === 0 &&
                                                     <Fragment>
                                                         <View>
                                                             <Text style={styles.title}>Move to another tree</Text>
@@ -131,7 +132,7 @@ export class GameGoalOverlay extends Component {
                                                         />
                                                     </Fragment>
                                                 }
-                                                {itemIndex === 1 &&
+                                                {((hasGoals && itemIndex === 1) || (!hasGoals && itemIndex === 0)) &&
                                                     <Fragment>
                                                         <View>
                                                             <Text style={styles.title}>Send Wollo to {parentName}</Text>
@@ -143,7 +144,7 @@ export class GameGoalOverlay extends Component {
                                                         />
                                                     </Fragment>
                                                 }
-                                                {itemIndex === 2 &&
+                                                {((hasGoals && itemIndex === 2) || (!hasGoals && itemIndex === 1)) &&
                                                     <View style={{flex: 1}}>
                                                         <View>
                                                             <Text style={styles.title}>Deposits / withdrawls</Text>
