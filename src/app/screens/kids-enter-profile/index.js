@@ -8,7 +8,7 @@ import DateInput from '../../components/date-input';
 import StepModule from '../../components/step-module';
 import Button from '../../components/button';
 import styles from './styles';
-import {addKid} from '../../actions';
+import {addKid, appAddWarningAlert} from '../../actions';
 import images from './images';
 
 export class KidsEnterProfile extends Component {
@@ -21,6 +21,18 @@ export class KidsEnterProfile extends Component {
     }
 
     onBack = () => this.props.navigation.goBack();
+
+    onValidate = async () => {
+        const dateEls = this.state.chosenDate.split('/');
+        const dateToCheck = Date.parse(`${dateEls[1]}/${dateEls[0]}/${dateEls[2]}`);
+
+        if (dateToCheck >= new Date()) {
+            await this.props.dispatch(appAddWarningAlert('birth date can not be in the future'));
+            this.setState({datePickerHasChanged: false});
+        } else {
+            this.onNext();
+        }
+    }
 
     onNext = async () => {
         this.setState({loading: true});
@@ -118,7 +130,7 @@ export class KidsEnterProfile extends Component {
                         <Button
                             label={`Create Profile${numberProfile}`}
                             disabled={!this.state.datePickerHasChanged || this.state.name.trim().length === 0}
-                            onPress={this.onNext}
+                            onPress={this.onValidate}
                         />
                         <Text style={styles.smallText}>
                             Your child's data will always be kept secure and never shared!
