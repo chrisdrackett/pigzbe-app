@@ -3,10 +3,6 @@
 buildscript {
     repositories {
         jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
         google()
     }
     dependencies {
@@ -25,15 +21,14 @@ allprojects {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
-        maven { url "https://jitpack.io" }
-        maven {
-            url "$rootDir/../node_modules/react-native-background-fetch/android/libs"
-        }
+        google()
     }
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4'
+    distributionUrl = distributionUrl.replace("bin", "all")
 }
 
 subprojects {
@@ -41,8 +36,8 @@ subprojects {
       afterEvaluate {project ->
         if (project.hasProperty("android")) {
             android {
-                compileSdkVersion 26
-                buildToolsVersion '26.0.3'
+                compileSdkVersion 27
+                buildToolsVersion '27.0.3'
             }
         }
     }
@@ -50,9 +45,9 @@ subprojects {
 }
 
 ext {
-    buildToolsVersion = "26.0.3"
+    buildToolsVersion = "27.0.3"
     minSdkVersion = 16
-    compileSdkVersion = 26
+    compileSdkVersion = 27
     targetSdkVersion = 26
-    supportLibVersion = "26.1.0"
+    supportLibVersion = "27.1.1"
 }
