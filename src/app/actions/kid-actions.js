@@ -116,7 +116,7 @@ const loadRecords = async address => {
             return {
                 amount,
                 to,
-                name: getName(r.memo),
+                name: isCompletion(r) ? TRANSFER_TYPE_COMPLETION : getName(r.memo),
                 memo: getMemo(r),
                 type: isCompletion(r) ? TRANSFER_TYPE_COMPLETION : getTransferType(r.memo),
                 hash: r.hash,
