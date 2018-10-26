@@ -4,13 +4,13 @@ import {loadAccount, getServer} from '@pigzbe/stellar-utils';
 import {getWolloBalance} from './';
 import {
     TRANSFER_TYPE_TASK,
-    TRANSFER_TYPE_GIFT,
+    TRANSFER_TYPE_PRESENT,
     TRANSFER_TYPE_ALLOWANCE,
     TRANSFER_TYPE_COMPLETION,
 } from 'app/constants/game';
 import {
     MEMO_PREPEND_TASK,
-    MEMO_PREPEND_GIFT,
+    MEMO_PREPEND_PRESENT,
     MEMO_PREPEND_ALLOWANCE
 } from 'app/constants';
 
@@ -20,8 +20,8 @@ export const getTransferType = memo => {
     if (memo.indexOf(MEMO_PREPEND_ALLOWANCE) === 0) {
         return TRANSFER_TYPE_ALLOWANCE;
     }
-    if (memo.indexOf(MEMO_PREPEND_GIFT) === 0) {
-        return TRANSFER_TYPE_GIFT;
+    if (memo.indexOf(MEMO_PREPEND_PRESENT) === 0) {
+        return TRANSFER_TYPE_PRESENT;
     }
     if (memo.indexOf(MEMO_PREPEND_TASK) === 0) {
         return TRANSFER_TYPE_TASK;
@@ -33,8 +33,8 @@ export const getName = memo => {
     if (memo.indexOf(MEMO_PREPEND_ALLOWANCE) === 0) {
         return memo.slice(MEMO_PREPEND_ALLOWANCE.length);
     }
-    if (memo.indexOf(MEMO_PREPEND_GIFT) === 0) {
-        return memo.slice(MEMO_PREPEND_GIFT.length);
+    if (memo.indexOf(MEMO_PREPEND_PRESENT) === 0) {
+        return memo.slice(MEMO_PREPEND_PRESENT.length);
     }
     if (memo.indexOf(MEMO_PREPEND_TASK) === 0) {
         return memo.slice(MEMO_PREPEND_TASK.length);
@@ -205,7 +205,7 @@ export const loadKidActions = address => async (dispatch, getState) => {
 
 
     const tasks = actions.filter(a => a.type === TRANSFER_TYPE_TASK);
-    const gifts = actions.filter(a => a.type === TRANSFER_TYPE_GIFT);
+    const gifts = actions.filter(a => a.type === TRANSFER_TYPE_PRESENT);
     const allowances = actions.filter(a => a.type === TRANSFER_TYPE_ALLOWANCE);
 
     dispatch({type: KIDS_UPDATE_ACTIONS, address, actions, tasks});

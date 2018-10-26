@@ -79,13 +79,15 @@ export const KID_WALLET_BALANCE_XLM = '8';
 export const KID_HOME_BALANCE_XLM = '2.52';
 export const KID_GOAL_BALANCE_XLM = '2.52';
 
-export const MEMO_PREPEND_ADD = 'Add ';
-export const MEMO_PREPEND_HOME = 'Home ';
-export const MEMO_PREPEND_GOAL = 'Goal: ';
-export const MEMO_PREPEND_TASK = 'Task: ';
-export const MEMO_PREPEND_GIFT = 'From ';
-export const MEMO_PREPEND_ALLOWANCE = 'Allowance ';
+export const MEMO_PREPEND_CREATE = 'C:';
+export const MEMO_PREPEND_HOME = 'H:';
+export const MEMO_PREPEND_GOAL = 'G:';
+export const MEMO_PREPEND_TASK = 'T:';
+export const MEMO_PREPEND_PRESENT = 'P:';
+export const MEMO_PREPEND_ALLOWANCE = 'A:';
 
 export const MIN_BALANCE = 2.52;
 export const MIN_BALANCE_XLM_ADD_GOAL = 2.52;
 export const MIN_BALANCE_XLM_ADD_KID = 8 + 2.52;
+
+export const MEMO_MAX_LEN = 28;
