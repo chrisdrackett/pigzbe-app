@@ -14,6 +14,7 @@ import {wolloAsset} from '../selectors';
 import Keychain from '../utils/keychain';
 import {saveKids} from './';
 import {MEMO_PREPEND_TASK} from 'app/constants';
+import formatMemo from 'app/utils/format-memo';
 
 export const KIDS_LOADING_TASK = 'KIDS_LOADING_TASK';
 export const KIDS_ASSIGN_TASK = 'KIDS_ASSIGN_TASK';
@@ -36,7 +37,7 @@ export const assignTask = (kid, task, reward) => async (dispatch, getState) => {
 
         const asset = wolloAsset(getState());
         const amount = ensureValidAmount(reward);
-        const memo = `${MEMO_PREPEND_TASK}${task}`.slice(0, 28);
+        const memo = formatMemo(`${MEMO_PREPEND_TASK}${task}`);
         const result = await sendPayment(secretKey, destination, amount, memo, asset);
 
         console.log('assignTask result', result.hash);

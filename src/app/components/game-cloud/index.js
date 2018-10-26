@@ -4,7 +4,7 @@ import GameWollo from '../game-wollo';
 import styles from './styles';
 import {
     TRANSFER_TYPE_TASK,
-    TRANSFER_TYPE_GIFT,
+    TRANSFER_TYPE_PRESENT,
 } from 'app/constants/game';
 import isIphoneX from 'app/utils/is-iphonex';
 
@@ -60,7 +60,7 @@ export class Cloud extends Component {
     render() {
         const {value, type, callback, name, happy, raining} = this.props;
         const {rainBottomPosition, rainTopPosition, rainOpacity} = this.state;
-        const text = type === TRANSFER_TYPE_TASK ? name : (type === TRANSFER_TYPE_GIFT ? 'Gift' : 'Allowance');
+        const text = type === TRANSFER_TYPE_TASK ? name : (type === TRANSFER_TYPE_PRESENT ? 'Gift' : 'Allowance');
         const cloudImage = happy ? require('./images/happy_cloud.png') :
             (raining ? require('./images/sad_cloud.png') : require('./images/cloud.png'));
 

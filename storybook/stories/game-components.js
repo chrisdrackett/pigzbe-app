@@ -8,7 +8,7 @@ import {kids} from './dashboard';
 import {
     TRANSFER_TYPE_ALLOWANCE,
     TRANSFER_TYPE_TASK,
-    TRANSFER_TYPE_GIFT,
+    TRANSFER_TYPE_PRESENT,
 } from 'app/constants/game';
 
 
@@ -178,7 +178,7 @@ storiesOf('Game Components')
                         },
                         {
                             memo: 'From dad',
-                            type: TRANSFER_TYPE_GIFT,
+                            type: TRANSFER_TYPE_PRESENT,
                             amount: '14',
                             totalAmount: '14',
                             hash: '8dc2a1571d8e781398d67e26b6520dcd23f40eef259e126476441f02160333e6',

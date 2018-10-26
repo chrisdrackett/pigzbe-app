@@ -2,13 +2,13 @@
 import moment from 'moment';
 import {
     sendPayment,
-    getServer,
     paymentHistory,
     paymentInfo,
 } from '@pigzbe/stellar-utils';
 import {getKeys, loadConfig, updateAllowance} from 'app/actions';
 import {wolloAsset} from 'app/selectors';
 import {MEMO_PREPEND_ALLOWANCE} from 'app/constants';
+import formatMemo from 'app/utils/format-memo';
 
 export const intervals = ['Daily', 'Weekly', 'Fortnightly', 'Monthly'];
 export const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -59,7 +59,7 @@ export const getNextPaymentDate = ({lastPaymentDate, interval, day = null}) => {
 };
 
 const getMemo = (kid, allowance, payment) => {
-    return `${MEMO_PREPEND_ALLOWANCE}#${allowance.id}.${payment.id} to ${kid.name}`.slice(0, 28);
+    return formatMemo(`${MEMO_PREPEND_ALLOWANCE}#${allowance.id}.${payment.id} to ${kid.name}`);
 };
 
 export const handleAllowances = async ({dispatch, getState}) => {

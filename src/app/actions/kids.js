@@ -10,13 +10,13 @@ import {
 } from './';
 import {wolloAsset} from '../selectors';
 import wait from '../utils/wait';
-
+import formatMemo from 'app/utils/format-memo';
 import {
     STORAGE_KEY_KIDS,
     KID_WALLET_BALANCE_XLM,
-    MEMO_PREPEND_ADD,
+    MEMO_PREPEND_CREATE,
     MEMO_PREPEND_HOME,
-    MEMO_PREPEND_GIFT
+    MEMO_PREPEND_PRESENT
 } from '../constants';
 
 export const KIDS_LOAD = 'KIDS_LOAD';
@@ -59,7 +59,7 @@ export const setNumKidsToAdd = numKidsToAdd => ({type: KIDS_NUM_TO_ADD, numKidsT
 export const addKid = (nickname, dob, photo) => async dispatch => {
     dispatch(kidsLoading(true));
     try {
-        const address = await dispatch(createKidAccount(MEMO_PREPEND_ADD, nickname, KID_WALLET_BALANCE_XLM));
+        const address = await dispatch(createKidAccount(MEMO_PREPEND_CREATE, nickname, KID_WALLET_BALANCE_XLM));
         if (!address) {
             throw new Error('Could not create kid account');
         }
@@ -105,11 +105,11 @@ export const sendWolloToKid = (address, amount) => async (dispatch, getState) =>
     } catch (e) {
         console.log('Could not load account. Attemptiung to fund');
         const name = getState().kids.kids.find(k => k.address === address).name;
-        await dispatch(fundKidAccount(`${MEMO_PREPEND_ADD}${name}`, address, KID_WALLET_BALANCE_XLM));
+        await dispatch(fundKidAccount(`${MEMO_PREPEND_CREATE}${name}`, address, KID_WALLET_BALANCE_XLM));
     }
     try {
         const {parentNickname} = getState().kids;
-        const memo = `${MEMO_PREPEND_GIFT}${parentNickname || 'Parent'}`;
+        const memo = formatMemo(`${MEMO_PREPEND_PRESENT}${parentNickname || 'Parent'}`);
         const asset = wolloAsset(getState());
         const {secretKey} = getState().keys;
         await sendPayment(secretKey, address, amount, memo, asset);

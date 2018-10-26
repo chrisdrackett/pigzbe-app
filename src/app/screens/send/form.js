@@ -10,7 +10,7 @@ import Icon from '../../components/icon';
 import ExchangedDisplay from '../../components/exchanged-display';
 import {isValidPublicKey} from '@pigzbe/stellar-utils';
 import moneyFormat from '../../utils/money-format';
-import {ASSET_CODE, CURRENCIES} from '../../constants';
+import {ASSET_CODE, CURRENCIES, MEMO_MAX_LEN} from '../../constants';
 import BigNumber from 'bignumber.js';
 import {sendWollo, appError} from '../../actions';
 import QRScanner from '../../components/qr-scanner';
@@ -55,7 +55,7 @@ export default class Form extends Component {
     })
 
     updateMemo = memo => {
-        const memoValid = !memo || memo.length < 29;
+        const memoValid = !memo || memo.length <= MEMO_MAX_LEN;
 
         this.setState({memo, memoValid});
     }
