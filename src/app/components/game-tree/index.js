@@ -10,6 +10,8 @@ const HEIGHT = 270;
 
 // console.log('Tree.WIDTH', WIDTH);
 
+const getValueFontSize = val => val.length > 6 ? (2 + Math.max(6, 20 - val.length)) : 20;
+
 export class Tree extends Component {
     static WIDTH = WIDTH
     static SPACING = SPACING
@@ -115,7 +117,7 @@ export class Tree extends Component {
                     <Text style={[
                         styles.value,
                         newValue ? styles.valueNew : {
-                            fontSize: String(value).length > 6 ? 16 : 20,
+                            fontSize: getValueFontSize(String(value)),
                         }
                     ]}>{value}</Text>
                 </View>
