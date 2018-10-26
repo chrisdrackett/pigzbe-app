@@ -109,6 +109,7 @@ export class KidsEnterProfile extends Component {
                                 onChangeText={this.onChangeName}
                                 returnKeyType="done"
                                 value={this.state.name}
+                                maxLength={20}
                             />
                             <DateInput
                                 placeholder="Date of birth"

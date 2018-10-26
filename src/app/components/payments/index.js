@@ -8,9 +8,40 @@ import Loader from 'app/components/loader';
 import Toggle from 'app/components/toggle';
 import Button from 'app/components/button';
 import {loadPayments} from 'app/actions';
-import {strings, FUNDING_URL} from 'app/constants';
 import styles from './styles';
 import WebPage from 'app/components/web-page';
+import {
+    strings,
+    FUNDING_URL,
+    MEMO_PREPEND_TASK,
+    MEMO_PREPEND_PRESENT,
+    MEMO_PREPEND_ALLOWANCE,
+    MEMO_PREPEND_GOAL,
+    MEMO_PREPEND_CREATE,
+    MEMO_PREPEND_HOME,
+} from 'app/constants';
+
+const trimMemo = memo => {
+    if (memo.indexOf(MEMO_PREPEND_ALLOWANCE) === 0) {
+        return memo.slice(MEMO_PREPEND_ALLOWANCE.length);
+    }
+    if (memo.indexOf(MEMO_PREPEND_PRESENT) === 0) {
+        return memo.slice(MEMO_PREPEND_PRESENT.length);
+    }
+    if (memo.indexOf(MEMO_PREPEND_TASK) === 0) {
+        return memo.slice(MEMO_PREPEND_TASK.length);
+    }
+    if (memo.indexOf(MEMO_PREPEND_GOAL) === 0) {
+        return memo.slice(MEMO_PREPEND_GOAL.length);
+    }
+    if (memo.indexOf(MEMO_PREPEND_CREATE) === 0) {
+        return memo.slice(MEMO_PREPEND_CREATE.length);
+    }
+    if (memo.indexOf(MEMO_PREPEND_HOME) === 0) {
+        return memo.slice(MEMO_PREPEND_HOME.length);
+    }
+    return memo;
+};
 
 export class Payments extends Component {
     state = {
@@ -95,6 +126,7 @@ export class Payments extends Component {
                     payment.sender = sender.name;
                 }
             }
+            payment.memo = trimMemo(payment.memo);
         });
 
         return (

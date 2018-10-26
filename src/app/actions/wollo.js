@@ -27,6 +27,7 @@ import {
 import Keychain from '../utils/keychain';
 import {wolloAsset} from '../selectors';
 import {createKeypair, appError} from './';
+import formatMemo from 'app/utils/format-memo';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
@@ -172,6 +173,7 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
         return;
     }
 
+    dispatch(refreshBalance());
     dispatch(wolloSending(false));
     dispatch(wolloSendComplete(true));
     dispatch(wolloSendStatus(strings.transferStatusComplete));
@@ -243,7 +245,7 @@ export const createHomeAccount = (memo, nickname, address) => async (dispatch, g
 
         // await dispatch(fundKidAccount(`${memo}${nickname}`, destination, startingBalance));
 
-        const memoStr = `${memo}${nickname}`;
+        const memoStr = formatMemo(`${memo}${nickname}`);
 
         console.log('memoStr', memoStr);
 
@@ -302,7 +304,7 @@ export const createGoalAccount = (kid, goalName) => async (dispatch, getState) =
         console.log('createGoalAccount destination', destination);
         await Keychain.save(`secret_${destination}`, keypair.secret());
 
-        const memo = `${MEMO_PREPEND_GOAL}${goalName.trim()}`.slice(0, 28);
+        const memo = formatMemo(`${MEMO_PREPEND_GOAL}${goalName.trim()}`);
         console.log('memo', memo);
         console.log('secretKey', secretKey);
         let account;

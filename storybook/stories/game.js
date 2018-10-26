@@ -185,7 +185,7 @@ const props = {
             },
             {
                 memo: 'From dad',
-                type: 'TRANSFER_TYPE_GIFT',
+                type: 'TRANSFER_TYPE_PRESENT',
                 amount: '8',
                 totalAmount: '8',
                 hash: 'f8ae3b2fae64b68c4248c0c2171b8f2e9db244d56f0ed862a2ec29db084d653c',

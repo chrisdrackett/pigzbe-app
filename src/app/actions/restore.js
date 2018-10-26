@@ -1,5 +1,5 @@
 import {paymentHistoryAll, loadAccount} from '@pigzbe/stellar-utils';
-import {MEMO_PREPEND_ADD, MEMO_PREPEND_HOME, MEMO_PREPEND_GOAL} from '../constants';
+import {MEMO_PREPEND_CREATE, MEMO_PREPEND_HOME, MEMO_PREPEND_GOAL} from '../constants';
 import {getSeedHex, getKeypair, isValidMnemonic, findSecretKey} from '../utils/hd-wallet';
 import {appError, restoreKid, loadKidsBalances, setKeys, saveKeys, settingsFirstTime, settingsUpdate} from './';
 
@@ -45,7 +45,7 @@ export const restoreKeys = mnemonic => async dispatch => {
 
         const sortedAccounts = accountsFound.sort((a, b) => a.index - b.index);
 
-        const mainAccounts = sortedAccounts.filter(a => a.memo.indexOf(MEMO_PREPEND_ADD) === 0);
+        const mainAccounts = sortedAccounts.filter(a => a.memo.indexOf(MEMO_PREPEND_CREATE) === 0);
 
         const homeAccounts = sortedAccounts.filter(a => a.memo.indexOf(MEMO_PREPEND_HOME) === 0);
         const goalAccounts = sortedAccounts.filter(a => a.memo.indexOf(MEMO_PREPEND_GOAL) === 0);
@@ -88,7 +88,7 @@ export const restoreKeys = mnemonic => async dispatch => {
             // console.log('====> goals: ', goals);
             if (home) {
                 kidAccounts.push({
-                    name: memo.slice(MEMO_PREPEND_ADD.length),
+                    name: memo.slice(MEMO_PREPEND_CREATE.length),
                     address,
                     home: home.address,
                     goals
