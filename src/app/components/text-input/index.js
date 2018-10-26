@@ -50,6 +50,7 @@ export default class TextInputComponent extends Component {
                     marginTop: 12,
                     paddingLeft: 0,
                     paddingRight: 0,
+                    paddingBottom: 10,
                 })
             } else {
                 s = s.concat({
@@ -118,6 +119,7 @@ export default class TextInputComponent extends Component {
                     blurOnSubmit={true}
                     onFocus={() => this.setState({focused: true})}
                     onBlur={() => this.setState({focused: false})}
+                    allowFontScaling={false}
                 />
             </BaseInputField>
         );
