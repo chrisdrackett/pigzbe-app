@@ -41,7 +41,7 @@
     "video": "xcrun simctl io booted recordVideo appvideo.mov"
   },
   "dependencies": {
-    "@pigzbe/stellar-utils": "1.1.4",
+    "@pigzbe/stellar-utils": "1.1.5",
     "babel-polyfill": "6.26.0",
     "bignumber.js": "^7.2.1",
     "bip39": "2.5.0",

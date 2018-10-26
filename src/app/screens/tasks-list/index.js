@@ -14,7 +14,6 @@ export class TasksList extends Component {
         newTask: '',
         loading: false,
         showingInput: false,
-        tasks: ['wash dishes', 'clean room', 'do your homework'],
         active: this.props.taskToEdit ? this.props.taskToEdit.task : null,
     }
 

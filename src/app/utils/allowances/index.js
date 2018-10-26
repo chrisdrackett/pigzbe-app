@@ -8,6 +8,7 @@ import {
 } from '@pigzbe/stellar-utils';
 import {getKeys, loadConfig, updateAllowance} from 'app/actions';
 import {wolloAsset} from 'app/selectors';
+import {MEMO_PREPEND_ALLOWANCE} from 'app/constants';
 
 export const intervals = ['Daily', 'Weekly', 'Fortnightly', 'Monthly'];
 export const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -40,7 +41,7 @@ export const getFirstPaymentDate = ({timeNow = moment(), interval, day = null}) 
             return timeNow.clone().add(1, 'month').date(15);
         }
     }
-}
+};
 
 export const getNextPaymentDate = ({lastPaymentDate, interval, day = null}) => {
     if (interval === 'Daily') {
@@ -55,16 +56,16 @@ export const getNextPaymentDate = ({lastPaymentDate, interval, day = null}) => {
         const dayNeeded = day === '1st' ? 1 : 15;
         return lastPaymentDate.clone().add(1, 'month').date(dayNeeded);
     }
-}
+};
 
 const getMemo = (kid, allowance, payment) => {
-    return `Allowance #${allowance.id}.${payment.id} to ${kid.name}`.slice(0, 28);
-}
+    return `${MEMO_PREPEND_ALLOWANCE}#${allowance.id}.${payment.id} to ${kid.name}`.slice(0, 28);
+};
 
 export const handleAllowances = async ({dispatch, getState}) => {
     try {
         // configure which server to use etc
-        await loadConfig()(dispatch, getState)
+        await loadConfig()(dispatch, getState);
 
         const keypair = await getKeys()(dispatch, getState);
         if (!keypair) {
@@ -78,7 +79,7 @@ export const handleAllowances = async ({dispatch, getState}) => {
         const kids = getState().kids.kids;
 
         let cachedPayments = null;
-        const getPayments = async (publicKey, toAddress=null) => {
+        const getPayments = async (publicKey, toAddress = null) => {
             if (!cachedPayments) {
                 const rawData = await paymentHistory(publicKey);
                 const filteredData = rawData.filter(p => p.type !== 'account_merge');
@@ -86,7 +87,7 @@ export const handleAllowances = async ({dispatch, getState}) => {
                 cachedPayments = cachedPayments.filter(payment => payment.assetCode === 'WLO');
             }
             return cachedPayments.filter(payment => !toAddress || toAddress === payment.to);
-        }
+        };
 
         for (const kid of kids) {
             for (const allowance of (kid.allowances || [])) {
@@ -94,7 +95,7 @@ export const handleAllowances = async ({dispatch, getState}) => {
 
                 // Firsly, loop back through payments to see if any are pending. If so we will
                 // want to check if the transaction exists or not, to update the status
-                for (let i=payments.length-1; i>=0; i--) {
+                for (let i = payments.length - 1; i >= 0; i--) {
                     const payment = payments[i];
                     if (payment.status !== 'pending') {
                         break;
@@ -104,7 +105,7 @@ export const handleAllowances = async ({dispatch, getState}) => {
                     const transactions = await getPayments(publicKey, kid.address);
 
                     let found = false;
-                    for (let j=transactions.length-1; j>=0; j--) {
+                    for (let j = transactions.length - 1; j >= 0; j--) {
                         const transaction = transactions[j];
                         if (transaction.memo === memo) {
                             found = true;
@@ -123,17 +124,17 @@ export const handleAllowances = async ({dispatch, getState}) => {
                 if (nextPaymentDate.format('L') === dateNow.format('L')) {
                     // Do a payment!
                     const payment = {
-                        id: payments.length === 0 ? 1 : (payments[payments.length-1].id + 1),
+                        id: payments.length === 0 ? 1 : (payments[payments.length - 1].id + 1),
                         status: 'pending',
                     };
 
                     const memo = getMemo(kid, allowance, payment);
                     const asset = wolloAsset(getState());
-                    
+
                     try {
                         const result = await sendPayment(secretKey, kid.address, allowance.amount, memo, asset);
                     } catch (err) {
-                        console.log("failed", err);
+                        console.log('failed', err);
                         payment.status = 'failed';
                         payment.reason = 'Transaction failed with: ' + err.message;
                     }
@@ -151,8 +152,8 @@ export const handleAllowances = async ({dispatch, getState}) => {
             }
         }
     } catch (err) {
-        console.log("err")
+        console.log('err');
         console.log(err);
     }
 
-}
+};

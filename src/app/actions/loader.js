@@ -15,6 +15,7 @@ import {
     loadKids,
     loadCustomTasks,
     loadKidsBalances,
+    loadKidsActions,
     loadKidActions,
     loadCachedExchange,
 } from './';
@@ -59,6 +60,7 @@ export const loginAndLoad = passcode => async dispatch => {
             await dispatch(loadKeys());
             await dispatch(loadWallet());
             await dispatch(loadKidsBalances());
+            await dispatch(loadKidsActions());
             await dispatch(loadCustomTasks());
             dispatch(loadMessages());
         }

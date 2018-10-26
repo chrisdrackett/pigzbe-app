@@ -19,25 +19,32 @@ import ActionPanel from '../../components/action-panel';
 import ActionSheet from '../../components/action-sheet';
 import WolloSendSlider from 'app/components/wollo-send-slider';
 import styles from './styles';
-import {deleteAllowance, deleteTask, deleteGoal} from '../../actions';
+import {deleteAllowance, deleteTask, deleteGoal, appAddWarningAlert} from 'app/actions';
 import FundingMessage from '../../components/funding-message';
 import {kidsWithBalances} from 'app/selectors';
 
-const Item = ({first, title, subtitle, amount, onPress}) => (
-    <TouchableOpacity onPress={onPress}>
-        <View style={[styles.item, first ? null : styles.itemBorder]}>
-            <Text style={styles.itemTitle}>{title}
-                {
-                    subtitle && <Text style={styles.itemSubTitle}> ({subtitle})</Text>
-                }
-            </Text>
-            <View style={styles.itemAmount}>
-                <Wollo dark balance={amount} style={styles.itemWollo} />
-                <Image source={require('./images/iconOverflow.png')} />
-            </View>
-        </View>
-    </TouchableOpacity>
-);
+class Item extends Component {
+    onPress = () => this.props.onPress(this.props.data)
+    render() {
+        const {first, title, subtitle, amount} = this.props;
+
+        return (
+            <TouchableOpacity onPress={this.onPress}>
+                <View style={[styles.item, first ? null : styles.itemBorder]}>
+                    <Text style={styles.itemTitle}>{title}
+                        {
+                            subtitle && <Text style={styles.itemSubTitle}> ({subtitle})</Text>
+                        }
+                    </Text>
+                    <View style={styles.itemAmount}>
+                        <Wollo dark balance={amount} style={styles.itemWollo} />
+                        <Image source={require('./images/iconOverflow.png')} />
+                    </View>
+                </View>
+            </TouchableOpacity>
+        );
+    }
+}
 
 export class KidDashboard extends Component {
     state = {
@@ -80,9 +87,14 @@ export class KidDashboard extends Component {
 
     onAddAllowance = () => this.addItem(SCREEN_ALLOWANCE_AMOUNT)
 
-    onTaskAlertOptionSelected = async (option) => {
-        console.log('++ onTaskAlertOptionSelected option', option);
-        switch (option.selectedOption) {
+    onTaskAlertOptionSelected = async selectedOption => {
+        console.log('++ onTaskAlertOptionSelected option', selectedOption);
+        if (this.state.taskToEdit.partialClaim) {
+            this.props.dispatch(appAddWarningAlert('Task has been partially claimed'));
+            this.onCloseTasksPanel();
+            return;
+        }
+        switch (selectedOption) {
             case 0:
                 // todo navigate to task screen with active tasks
                 this.props.navigation.push(SCREEN_TASKS_LIST, {kid: this.props.kid, taskToEdit: this.state.taskToEdit});
@@ -94,14 +106,14 @@ export class KidDashboard extends Component {
                 // do nothing
         }
 
-        this.setState({
-            tasksPanelOpen: false,
-        });
+        this.onCloseTasksPanel();
     }
 
-    onAllowanceAlertOptionSelected = async (option) => {
-        console.log('+++ onAllowanceAlertOptionSelected option', option, this.props.kid, this.state.allowanceToEdit);
-        switch (option.selectedOption) {
+    onCloseTasksPanel = () => this.setState({tasksPanelOpen: false})
+
+    onAllowanceAlertOptionSelected = async selectedOption => {
+        console.log('+++ onAllowanceAlertOptionSelected option', selectedOption, this.props.kid, this.state.allowanceToEdit);
+        switch (selectedOption) {
             case 0:
                 // todo navigate to task screen with active tasks
                 this.props.navigation.push(SCREEN_ALLOWANCE_AMOUNT, {kid: this.props.kid, allowanceToEdit: this.state.allowanceToEdit});
@@ -113,17 +125,15 @@ export class KidDashboard extends Component {
                 // do nothing
         }
 
-        this.setState({
-            allowancePanelOpen: false,
-        });
+        this.onCloseAllowancePanel();
     }
 
-    onGoalAlertOptionSelected = async (option) => {
-        this.setState({
-            goalPanelOpen: false,
-        });
+    onCloseAllowancePanel = () => this.setState({allowancePanelOpen: false})
 
-        switch (option.selectedOption) {
+    onGoalAlertOptionSelected = async selectedOption => {
+        this.onCloseGoalPanel();
+
+        switch (selectedOption) {
             case 0:
                 this.props.navigation.push(SCREEN_KID_GOAL_ADD, {kid: this.props.kid, goal: this.state.goalToEdit});
                 break;
@@ -134,6 +144,8 @@ export class KidDashboard extends Component {
                 // do nothing
         }
     }
+
+    onCloseGoalPanel = () => this.setState({goalPanelOpen: false})
 
     onDisplayAllowanceModal = allowance => this.setState({
         allowancePanelOpen: true,
@@ -217,9 +229,8 @@ export class KidDashboard extends Component {
                                                 title={allowance.interval}
                                                 subtitle={allowance.day}
                                                 amount={allowance.amount}
-                                                onPress={() => {
-                                                    this.onDisplayAllowanceModal(allowance);
-                                                }}
+                                                data={allowance}
+                                                onPress={this.onDisplayAllowanceModal}
                                             />
                                         ))}
                                     </View>
@@ -238,11 +249,10 @@ export class KidDashboard extends Component {
                                             <Item
                                                 key={i}
                                                 first={i === 0}
-                                                title={task.task}
-                                                amount={task.reward}
-                                                onPress={() => {
-                                                    this.onDisplayTasksModal(task);
-                                                }}
+                                                title={task.name}
+                                                amount={task.amount}
+                                                data={task}
+                                                onPress={this.onDisplayTasksModal}
                                             />
                                         ))}
                                     </View>
@@ -263,9 +273,8 @@ export class KidDashboard extends Component {
                                                 first={i === 0}
                                                 title={goal.name}
                                                 amount={goal.reward}
-                                                onPress={() => {
-                                                    this.onDisplayGoalModal(goal);
-                                                }}
+                                                data={goal}
+                                                onPress={this.onDisplayGoalModal}
                                             />
                                         ))}
                                     </View>
@@ -291,22 +300,22 @@ export class KidDashboard extends Component {
                     open={this.state.tasksPanelOpen}
                     options={['Edit', 'Delete']}
                     title="All changes will also update child wallet"
-                    onRequestClose={() => this.setState({tasksPanelOpen: false})}
-                    onSelect={index => this.onTaskAlertOptionSelected({selectedOption: index})}
+                    onRequestClose={this.onCloseTasksPanel}
+                    onSelect={this.onTaskAlertOptionSelected}
                 />
                 <ActionSheet
                     open={this.state.allowancePanelOpen}
                     options={['Edit', 'Delete']}
                     title="All changes will also update child wallet"
-                    onRequestClose={() => this.setState({allowancePanelOpen: false})}
-                    onSelect={index => this.onAllowanceAlertOptionSelected({selectedOption: index})}
+                    onRequestClose={this.onCloseAllowancePanel}
+                    onSelect={this.onAllowanceAlertOptionSelected}
                 />
                 <ActionSheet
                     open={this.state.goalPanelOpen}
                     options={['Edit', 'Delete']}
                     title="All changes will also update child wallet"
-                    onRequestClose={() => this.setState({goalPanelOpen: false})}
-                    onSelect={index => this.onGoalAlertOptionSelected({selectedOption: index})}
+                    onRequestClose={this.onCloseGoalPanel}
+                    onSelect={this.onGoalAlertOptionSelected}
                 />
                 <FundingMessage
                     open={this.state.showFundingMessage}
