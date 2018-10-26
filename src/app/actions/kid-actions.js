@@ -138,10 +138,10 @@ const loadRecords = async address => {
 
 export const loadKidActions = address => async (dispatch, getState) => {
     console.log('loadKidActions', address);
-    if (__DEV__) {
-        await Storage.clear(`payments_${address}`);
-        await Storage.clear(`transactions_${address}`);
-    }
+    // if (__DEV__) {
+    //     await Storage.clear(`payments_${address}`);
+    //     await Storage.clear(`transactions_${address}`);
+    // }
     const actions = [];
     try {
         const account = await loadAccount(address);
