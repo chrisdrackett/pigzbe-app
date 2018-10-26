@@ -1,10 +1,6 @@
-import {
-    // createTasksAccount,
-    appAddSuccessAlert, appAddWarningAlert} from './';
+import {appAddSuccessAlert, appAddWarningAlert} from './';
 import {
     loadAccount,
-    getData,
-    // setData,
     sendPayment,
     TransactionBuilder,
     Operation,
@@ -39,23 +35,22 @@ export const assignTask = (kid, task, reward) => async (dispatch, getState) => {
         console.log('send money to tasks account', destination);
 
         const asset = wolloAsset(getState());
-        // memo needs to be a unique ref to task
-        // const memo = task.slice(0, 28);
+        const amount = ensureValidAmount(reward);
         const memo = `${MEMO_PREPEND_TASK}${task}`.slice(0, 28);
-        const result = await sendPayment(secretKey, destination, reward, memo, asset);
+        const result = await sendPayment(secretKey, destination, amount, memo, asset);
 
-        console.log('result', result);
+        console.log('assignTask result', result.hash);
 
         await dispatch(({type: KIDS_ASSIGN_TASK, data: {
             kid,
-            task,
-            reward,
-            transaction: result.hash
+            name: memo.slice(MEMO_PREPEND_TASK.length),
+            amount,
+            hash: result.hash,
+            partialClaim: false,
         }}));
 
         await dispatch(saveKids());
 
-        // dispatch(kidsLoading(false));
         dispatch(taskLoading(false));
         dispatch(appAddSuccessAlert('Added task'));
     } catch (error) {
@@ -65,38 +60,15 @@ export const assignTask = (kid, task, reward) => async (dispatch, getState) => {
     }
 };
 
-export const completeTask = (kidAddress, hash) => async (dispatch, getState) => {
-    console.log('COMPLETE TASK', kidAddress, hash);
-    const {kids} = getState().kids;
-
-    const kid = kids.find(k => k.address === kidAddress);
-    const task = kid.tasks.find(t => t.transaction === hash);
-
-    if (!task) {
-        console.log('Not a task!');
-        return;
-    }
-
-    try {
-        await dispatch(({type: KIDS_COMPLETE_TASK, data: {
-            kid,
-            task,
-        }}));
-
-        await dispatch(saveKids());
-
-        // dispatch(appAddSuccessAlert('Completed task'));
-
-        // setTimeout(() => dispatch(loadKidsBalances(kid.address)), 1000);
-    } catch (error) {
-        console.log(error);
-        // dispatch(appAddWarningAlert('Completing task failed'));
-    }
-};
-
 export const deleteTask = (kid, task) => async (dispatch, getState) => {
     try {
         dispatch(taskLoading(true));
+
+        if (task.partialClaim) {
+            dispatch(taskLoading(false));
+            dispatch(appAddWarningAlert('Task has been partially claimed'));
+            return false;
+        }
 
         const transaction = await loadTransaction(task.transaction);
         const operations = await transaction.operations();
@@ -110,7 +82,7 @@ export const deleteTask = (kid, task) => async (dispatch, getState) => {
                 asset,
                 amount: ensureValidAmount(amount)
             }))
-            .addMemo(Memo.text(`Delete ${task.task}`))
+            .addMemo(Memo.hash(task.transaction))
             .build();
 
         const secretKey = await Keychain.load(`secret_${kid.address}`);
@@ -120,7 +92,7 @@ export const deleteTask = (kid, task) => async (dispatch, getState) => {
         const result = getServer().submitTransaction(tx);
         console.log('result', result);
 
-        dispatch(({type: KIDS_DELETE_TASK, data: {kid, task}}));
+        dispatch(({type: KIDS_DELETE_TASK, address: kid.address, hash: task.hash}));
 
         await dispatch(saveKids());
         dispatch(taskLoading(false));

@@ -316,7 +316,7 @@ export const createGoalAccount = (kid, goalName) => async (dispatch, getState) =
         console.log('account', account);
 
         if (!account) {
-            return;
+            return null;
         }
 
         const signers = [{

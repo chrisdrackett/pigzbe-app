@@ -1,8 +1,7 @@
 import Storage from '../utils/storage';
-import Keychain from '../utils/keychain';
 import BigNumber from 'bignumber.js';
-import {loadAccount, getServer, Keypair, TransactionBuilder, Operation, Memo, ensureValidAmount} from '@pigzbe/stellar-utils';
-import {getWolloBalance, updateBalance, kidsLoading, completeTask} from './';
+import {loadAccount, getServer} from '@pigzbe/stellar-utils';
+import {getWolloBalance} from './';
 import {
     TRANSFER_TYPE_TASK,
     TRANSFER_TYPE_GIFT,
@@ -14,12 +13,10 @@ import {
     MEMO_PREPEND_GIFT,
     MEMO_PREPEND_ALLOWANCE
 } from 'app/constants';
-import {wolloAsset} from '../selectors';
 
 export const KIDS_UPDATE_ACTIONS = 'KIDS_UPDATE_ACTIONS';
-export const KIDS_COMPLETE_ACTION = 'KIDS_COMPLETE_ACTION';
 
-const getType = memo => {
+export const getTransferType = memo => {
     if (memo.indexOf(MEMO_PREPEND_ALLOWANCE) === 0) {
         return TRANSFER_TYPE_ALLOWANCE;
     }
@@ -27,14 +24,27 @@ const getType = memo => {
         return TRANSFER_TYPE_GIFT;
     }
     if (memo.indexOf(MEMO_PREPEND_TASK) === 0) {
-        return MEMO_PREPEND_TASK;
+        return TRANSFER_TYPE_TASK;
     }
     return null;
 };
 
+export const getName = memo => {
+    if (memo.indexOf(MEMO_PREPEND_ALLOWANCE) === 0) {
+        return memo.slice(MEMO_PREPEND_ALLOWANCE.length);
+    }
+    if (memo.indexOf(MEMO_PREPEND_GIFT) === 0) {
+        return memo.slice(MEMO_PREPEND_GIFT.length);
+    }
+    if (memo.indexOf(MEMO_PREPEND_TASK) === 0) {
+        return memo.slice(MEMO_PREPEND_TASK.length);
+    }
+    return memo;
+};
+
 const isCompletion = record => record.memo && record.memo_type === 'hash';
 
-const isEntry = record => record.memo && record.memo_type === 'text' && getType(record.memo);
+const isEntry = record => record.memo && record.memo_type === 'text' && getTransferType(record.memo);
 
 const toHex = memo => new Buffer(memo, 'base64').toString('hex');
 
@@ -51,7 +61,7 @@ const loadPayments = async address => {
     const payments = await Storage.load(`payments_${address}`);
     const {pagingToken = '0', records = []} = payments;
 
-    console.log('loadPayments', pagingToken);
+    console.log('loadPayments ( pagingToken =', pagingToken, ')');
 
     const result = await getServer().payments()
         .forAccount(address)
@@ -67,6 +77,8 @@ const loadPayments = async address => {
         amount: r.amount,
         to: r.to
     }));
+
+    console.log('new payments', newRecords.length);
 
     const allRecords = records.concat(newRecords);
 
@@ -84,7 +96,7 @@ const loadRecords = async address => {
     const transactions = await Storage.load(`transactions_${address}`);
     const {pagingToken = '0', records = []} = transactions;
 
-    console.log('loadRecords', pagingToken);
+    console.log('loadTransactions ( pagingToken =', pagingToken, ')');
 
     const result = await getServer().transactions()
         .forAccount(address)
@@ -97,18 +109,22 @@ const loadRecords = async address => {
 
     const newRecords = result.records
         .filter(r => isCompletion(r) || isEntry(r))
+        // .filter(r => payments.find(p => p.hash === r.hash))
         .map(r => {
             const payment = payments.find(p => p.hash === r.hash);
             const {amount, to} = payment;
             return {
                 amount,
                 to,
+                name: getName(r.memo),
                 memo: getMemo(r),
-                type: isCompletion(r) ? TRANSFER_TYPE_COMPLETION : getType(r.memo),
+                type: isCompletion(r) ? TRANSFER_TYPE_COMPLETION : getTransferType(r.memo),
                 hash: r.hash,
                 date: r.created_at,
             };
         });
+
+    console.log('new records', newRecords.length);
 
     const allRecords = records.concat(newRecords);
 
@@ -122,11 +138,14 @@ const loadRecords = async address => {
 
 export const loadKidActions = address => async (dispatch, getState) => {
     console.log('loadKidActions', address);
-    // await Storage.clear(`payments_${address}`);
-    // await Storage.clear(`transactions_${address}`);
+    if (__DEV__) {
+        await Storage.clear(`payments_${address}`);
+        await Storage.clear(`transactions_${address}`);
+    }
     const actions = [];
     try {
         const account = await loadAccount(address);
+        console.log('');
         console.log('unclaimed balance = ', getWolloBalance(account));
 
         const allRecords = await loadRecords(address);
@@ -138,7 +157,7 @@ export const loadKidActions = address => async (dispatch, getState) => {
         console.log('num completions', completions.length);
 
         for (const entry of entries) {
-            console.log('entry', entry);
+            // console.log('entry', entry);
             // console.log('date', moment(entry.date).format('LLL'));
             const entryCompletions = completions.filter(c => c.memo === entry.hash);
             // console.log('entryCompletions', entryCompletions);
@@ -148,19 +167,34 @@ export const loadKidActions = address => async (dispatch, getState) => {
             if (entryClaimed) {
                 for (const completion of entryCompletions) {
                     amountClaimed = amountClaimed.plus(completion.amount);
+
+                    let dest = 'unknown';
                     const kid = getState().kids.kids.find(k => k.address === address);
-                    const dest = completion.to === kid.home ? 'Home tree' : kid.goals.find(g => g.address === completion.to).name;
-                    console.log('    ', completion.amount, 'WLO set to', dest);
+                    const goal = kid.goals.find(g => g.address === completion.to);
+                    if (goal) {
+                        dest = goal.name;
+                    } else if (completion.to === kid.home) {
+                        dest = 'Home tree';
+                    } else if (completion.to === getState().keys.publicKey) {
+                        dest = `${getState().kids.parentNickname || 'parent'} (task deleted)`;
+                    }
+                    console.log('    ', completion.amount, 'WLO sent to', dest);
                 }
             }
             const amountLeftToClaim = new BigNumber(entry.amount).minus(amountClaimed);
+            console.log('     amount claimed =', amountClaimed.toString(10));
             console.log('     amount left =', amountLeftToClaim.toString(10));
+            const incomplete = amountLeftToClaim.isGreaterThan(0);
+            const partialClaim = incomplete && amountLeftToClaim.isLessThan(entry.amount);
+            console.log('     partialClaim =', partialClaim ? 'true' : 'false');
+            console.log('    ', incomplete ? '✘' : '✔', 'complete =', incomplete ? 'false' : 'true');
 
-            if (amountLeftToClaim.isGreaterThan(0)) {
+            if (incomplete) {
                 actions.push({
                     ...entry,
                     amount: amountLeftToClaim.toString(10),
                     totalAmount: entry.amount,
+                    partialClaim
                 });
             }
         }
@@ -169,115 +203,25 @@ export const loadKidActions = address => async (dispatch, getState) => {
         console.log(e);
     }
 
-    dispatch({type: KIDS_UPDATE_ACTIONS, address, actions});
 
     const tasks = actions.filter(a => a.type === TRANSFER_TYPE_TASK);
     const gifts = actions.filter(a => a.type === TRANSFER_TYPE_GIFT);
     const allowances = actions.filter(a => a.type === TRANSFER_TYPE_ALLOWANCE);
 
+    dispatch({type: KIDS_UPDATE_ACTIONS, address, actions, tasks});
+
     console.log('tasks', tasks);
     console.log('gifts', gifts);
     console.log('allowances', allowances);
+    console.log('');
 
     return actions;
 };
 
-export const claimWollo = (address, transfers) => async (dispatch, getState) => {
-    console.log('claimWollo');
-
-    // TODO: before send check if already claimed!
-
-    try {
-        dispatch(kidsLoading(true));
-
-        const {actions} = getState().kids.kids.find(k => k.address === address);
-
-        const mergedTransfers = Object.values(transfers.reduce((ob, t) => {
-            const {destination, hash, amount} = t;
-            const key = `${destination}${hash}`;
-            if (ob[key]) {
-                ob[key].amount = new BigNumber(ob[key].amount).plus(new BigNumber(amount)).toString(10);
-            } else {
-                ob[key] = {...t};
-            }
-
-            return ob;
-        }, {}));
-
-        const sanitisedTransfers = mergedTransfers.map(transfer => {
-            const action = actions.find(a => a.hash === transfer.hash);
-            return {
-                ...transfer,
-                amount: BigNumber.min(action.amount, transfer.amount).toString(10)
-            };
-        });
-
-        const actionsComplete = actions.reduce((arr, action) => {
-            const actionTransfers = sanitisedTransfers.filter(t => t.hash === action.hash);
-            if (actionTransfers.length) {
-                const totalAmount = actionTransfers.reduce((sum, transfer) => sum.plus(transfer.amount), new BigNumber(0));
-                console.log('totalAmount', totalAmount.toString(10));
-                const complete = totalAmount.isEqualTo(action.amount);
-                console.log('complete', complete);
-                if (complete) {
-                    console.log('-->', action.memo, 'is complete');
-                    return arr.concat({...action});
-                }
-            }
-            return arr;
-        }, []);
-
-        console.log('transfers', transfers);
-        console.log('mergedTransfers', mergedTransfers);
-        console.log('sanitisedTransfers', sanitisedTransfers);
-        console.log('actionsComplete', actionsComplete);
-
-        for (const action of actionsComplete) {
-            const {hash, memo} = action;
-
-            dispatch({type: KIDS_COMPLETE_ACTION, address, hash});
-
-            if (getType(memo) === TRANSFER_TYPE_TASK) {
-                dispatch(completeTask(address, hash));
-            }
-        }
-
-        const kidSecretKey = await Keychain.load(`secret_${address}`);
-        console.log('kidSecretKey', kidSecretKey);
-        const keypair = Keypair.fromSecret(kidSecretKey);
-
-        const account = await loadAccount(address);
-        console.log('account', account);
-        console.log('available balance', getWolloBalance(account));
-        const asset = wolloAsset(getState());
-
-        for (const transfer of sanitisedTransfers) {
-            const {destination, amount, hash} = transfer;
-            console.log('destination, amount', destination, amount);
-            const txb = new TransactionBuilder(account);
-            txb.addOperation(Operation.payment({
-                destination,
-                asset,
-                amount: ensureValidAmount(amount)
-            }));
-            txb.addMemo(Memo.hash(hash));
-            const tx = txb.build();
-            tx.sign(keypair);
-            const result = await getServer().submitTransaction(tx);
-            console.log('result', result);
-        }
-
-        await dispatch(loadKidActions(address));
-
-        // refresh just the goals that have been changed
-        for (const transfer of sanitisedTransfers) {
-            await dispatch(updateBalance(transfer.destination));
-        }
-
-
-    } catch (e) {
-        console.log(e);
-    }
-
-    dispatch(kidsLoading(false));
-};
+// export const loadSingleRecord = hash => async (dispatch, getState) => {
+//     const transaction = await getServer().transactions().transaction(hash).call();
+//     console.log('transaction', transaction);
+//     const operations = await transaction.operations();
+//     const payment = operations.records.find(o => o.type === 'payment');
+//     console.log('payment', payment);
+// };

@@ -23,21 +23,28 @@ import {deleteAllowance, deleteTask, deleteGoal} from '../../actions';
 import FundingMessage from '../../components/funding-message';
 import {kidsWithBalances} from 'app/selectors';
 
-const Item = ({first, title, subtitle, amount, onPress}) => (
-    <TouchableOpacity onPress={onPress}>
-        <View style={[styles.item, first ? null : styles.itemBorder]}>
-            <Text style={styles.itemTitle}>{title}
-                {
-                    subtitle && <Text style={styles.itemSubTitle}> ({subtitle})</Text>
-                }
-            </Text>
-            <View style={styles.itemAmount}>
-                <Wollo dark balance={amount} style={styles.itemWollo} />
-                <Image source={require('./images/iconOverflow.png')} />
-            </View>
-        </View>
-    </TouchableOpacity>
-);
+class Item extends Component {
+    onPress = () => this.props.onPress(this.props.data)
+    render() {
+        const {first, title, subtitle, amount} = this.props;
+
+        return (
+            <TouchableOpacity onPress={this.onPress}>
+                <View style={[styles.item, first ? null : styles.itemBorder]}>
+                    <Text style={styles.itemTitle}>{title}
+                        {
+                            subtitle && <Text style={styles.itemSubTitle}> ({subtitle})</Text>
+                        }
+                    </Text>
+                    <View style={styles.itemAmount}>
+                        <Wollo dark balance={amount} style={styles.itemWollo} />
+                        <Image source={require('./images/iconOverflow.png')} />
+                    </View>
+                </View>
+            </TouchableOpacity>
+        );
+    }
+}
 
 export class KidDashboard extends Component {
     state = {
@@ -217,9 +224,8 @@ export class KidDashboard extends Component {
                                                 title={allowance.interval}
                                                 subtitle={allowance.day}
                                                 amount={allowance.amount}
-                                                onPress={() => {
-                                                    this.onDisplayAllowanceModal(allowance);
-                                                }}
+                                                data={allowance}
+                                                onPress={this.onDisplayAllowanceModal}
                                             />
                                         ))}
                                     </View>
@@ -238,11 +244,10 @@ export class KidDashboard extends Component {
                                             <Item
                                                 key={i}
                                                 first={i === 0}
-                                                title={task.task}
-                                                amount={task.reward}
-                                                onPress={() => {
-                                                    this.onDisplayTasksModal(task);
-                                                }}
+                                                title={task.name}
+                                                amount={task.amount}
+                                                data={task}
+                                                onPress={this.onDisplayTasksModal}
                                             />
                                         ))}
                                     </View>
@@ -263,9 +268,8 @@ export class KidDashboard extends Component {
                                                 first={i === 0}
                                                 title={goal.name}
                                                 amount={goal.reward}
-                                                onPress={() => {
-                                                    this.onDisplayGoalModal(goal);
-                                                }}
+                                                data={goal}
+                                                onPress={this.onDisplayGoalModal}
                                             />
                                         ))}
                                     </View>

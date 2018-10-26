@@ -1,6 +1,13 @@
 import Storage from '../utils/storage';
 import {loadAccount, sendPayment} from '@pigzbe/stellar-utils';
-import {createKidAccount, createHomeAccount, fundKidAccount, updateBalance, refreshBalance} from './';
+import {
+    createKidAccount,
+    createHomeAccount,
+    fundKidAccount,
+    updateBalance,
+    refreshBalance,
+    loadKidActions
+} from './';
 import {wolloAsset} from '../selectors';
 import wait from '../utils/wait';
 
@@ -128,6 +135,18 @@ export const loadKidsBalances = (address, waitSeconds = 0) => async (dispatch, g
                 dispatch(updateBalance(goal.address));
             }
             dispatch(updateBalance(kid.home));
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const loadKidsActions = () => async (dispatch, getState) => {
+    console.log('loadKidsActions');
+    try {
+        const kids = getState().kids.kids;
+        for (const kid of kids) {
+            await dispatch(loadKidActions(kid.address));
         }
     } catch (error) {
         console.log(error);

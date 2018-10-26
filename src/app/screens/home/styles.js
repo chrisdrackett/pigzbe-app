@@ -95,7 +95,7 @@ export default StyleSheet.create({
     header: {
         position: 'absolute',
         left: 0,
-        top: 0,
+        top: isIphoneX ? 40 : 10,
         right: 0,
     },
     buttons: {

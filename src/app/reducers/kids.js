@@ -216,20 +216,13 @@ export default (state = initialState, action) => {
                 }),
             };
         case KIDS_DELETE_TASK:
-            console.log('REDUCER KIDS_DELETE_TASK', action.data);
             return {
                 ...state,
                 kids: state.kids.map(k => {
-                    if (k.address === action.data.kid.address) {
-                        console.log('task.task', k.tasks, 'action.data.task', action.data.task);
-                        console.log('filtered tasks:', k.tasks.filter(task => {
-                            return task.transaction !== action.data.task.transaction;
-                        }));
+                    if (k.address === action.address) {
                         return {
                             ...k,
-                            tasks: k.tasks.filter(task => {
-                                return task.transaction !== action.data.task.transaction;
-                            }),
+                            tasks: k.tasks.filter(t => t.hash !== action.hash),
                         };
                     }
                     return k;
@@ -245,8 +238,8 @@ export default (state = initialState, action) => {
 
             const kidsToAddAllowanceTo = (
                 action.kid ?
-                state.kids.filter(kid => kid.address === action.kid.address) :
-                state.kids.slice(-(action.numKidsAdded || 1))
+                    state.kids.filter(kid => kid.address === action.kid.address) :
+                    state.kids.slice(-(action.numKidsAdded || 1))
             ).map(kid => kid.address);
 
             return {
@@ -307,6 +300,7 @@ export default (state = initialState, action) => {
                         return {
                             ...k,
                             actions: action.actions,
+                            tasks: action.tasks,
                         };
                     }
                     return k;
