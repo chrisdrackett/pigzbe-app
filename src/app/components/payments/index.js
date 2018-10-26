@@ -37,9 +37,27 @@ export class Payments extends Component {
 
     onHelpClose = () => this.setState({helpOpen: false})
 
+    findKidByGoalAdress = goalAddress => {
+        let kidWithGoal = null;
+
+        this.props.kids.forEach(k => {
+            if (k.home === goalAddress) {
+                kidWithGoal = k;
+            }
+
+            k.goals.forEach(g => {
+                if (g.address === goalAddress) {
+                    kidWithGoal = k;
+                }
+            });
+        });
+
+        return kidWithGoal;
+    }
+
     render() {
         const {filter} = this.state;
-        const {loading, payments, showHelp, spacingBottom=false} = this.props;
+        const {loading, payments, showHelp, spacingBottom = false} = this.props;
 
         const filters = {
             all: 'ALL',
@@ -71,6 +89,12 @@ export class Payments extends Component {
 
         filteredPayments.forEach(payment => {
             payment.direction = payment.to === address ? 'in' : 'out';
+            if (payment.direction === 'in') {
+                const sender = this.findKidByGoalAdress(payment.from);
+                if (sender) {
+                    payment.sender = sender.name;
+                }
+            }
         });
 
         return (
@@ -132,6 +156,7 @@ export default connect(
         loading: state.wollo.loading,
         payments: state.wollo.payments,
         publicKey: state.keys.publicKey,
+        kids: state.kids.kids,
     }),
     (dispatch) => ({
         loadPayments: (address) => dispatch(loadPayments(address))
