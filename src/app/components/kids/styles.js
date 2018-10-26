@@ -59,6 +59,8 @@ export default StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginLeft: 10,
+        paddingRight: 90,
+        flex: 1,
     },
     balance: {
         position: 'absolute',
