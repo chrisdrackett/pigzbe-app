@@ -10,7 +10,7 @@ import {daysAgo} from '../../utils/date';
 import {ASSET_DPS} from '../../constants';
 import images from './images';
 
-export default ({date, amount, direction, assetCode, memo, address}) => (
+export default ({date, amount, direction, assetCode, memo, address, sender}) => (
     <View style={styles.payment} onStartShouldSetResponder={() => true}>
         <Text style={styles.date}>
             {daysAgo(date)}
@@ -18,7 +18,7 @@ export default ({date, amount, direction, assetCode, memo, address}) => (
         <View style={styles.detail}>
             {memo ? (
                 <Text style={styles.memo}>
-                    {memo}
+                    {sender && `From ${sender}:`} {memo}
                 </Text>
             ) : null}
             <View style={styles.info}>
@@ -29,7 +29,7 @@ export default ({date, amount, direction, assetCode, memo, address}) => (
                     </Text>
                 </View>
             </View>
-            
+
         </View>
         <Text numberOfLines={2} style={styles.address}>
             {address}
