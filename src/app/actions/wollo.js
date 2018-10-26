@@ -172,6 +172,7 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
         return;
     }
 
+    dispatch(refreshBalance());
     dispatch(wolloSending(false));
     dispatch(wolloSendComplete(true));
     dispatch(wolloSendStatus(strings.transferStatusComplete));
