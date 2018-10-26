@@ -103,8 +103,8 @@ android {
         applicationId "com.pigzbeapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 35
-        versionName "1.5.0"
+        versionCode 36
+        versionName "1.5.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
