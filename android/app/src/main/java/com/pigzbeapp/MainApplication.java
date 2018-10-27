@@ -3,6 +3,14 @@ package com.pigzbeapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rnfingerprint.FingerprintAuthPackage;
+import com.oblador.keychain.KeychainPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
+import org.reactnative.camera.RNCameraPackage;
+import com.jamesisaac.rnbackgroundtask.BackgroundTaskPackage;
+import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
 import com.jamesisaac.rnbackgroundtask.BackgroundTaskPackage;
@@ -32,6 +40,14 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FingerprintAuthPackage(),
+            new KeychainPackage(),
+            new ImagePickerPackage(),
+            new RNDeviceInfo(),
+            new ReactNativeConfigPackage(),
+            new RNCameraPackage(),
+            new BackgroundTaskPackage(),
+            new RNBackgroundFetchPackage(),
           new RNDeviceInfo(),
           new RNBackgroundFetchPackage(),
           new BackgroundTaskPackage(),
