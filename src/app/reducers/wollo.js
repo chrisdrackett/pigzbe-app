@@ -1,7 +1,6 @@
 import {
     WOLLO_LOADING,
     WOLLO_ERROR,
-    WOLLO_USE_TESTNET,
     WOLLO_UPDATE_ACCOUNT,
     WOLLO_UPDATE_BALANCE,
     WOLLO_UPDATE_PAYMENTS,
@@ -13,7 +12,6 @@ import {
 } from '../actions';
 
 export const initialState = {
-    useTestnet: false,
     balance: '0',
     balanceXLM: '0',
     minXLM: '0',
@@ -28,11 +26,6 @@ export const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case WOLLO_USE_TESTNET:
-            return {
-                ...state,
-                useTestnet: action.useTestnet
-            };
         case WOLLO_UPDATE_ACCOUNT:
             return {
                 ...state,

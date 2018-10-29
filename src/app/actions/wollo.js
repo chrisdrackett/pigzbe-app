@@ -26,7 +26,6 @@ import {createKeypair, appError} from './';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
-export const WOLLO_USE_TESTNET = 'WOLLO_USE_TESTNET';
 export const WOLLO_UPDATE_ACCOUNT = 'WOLLO_UPDATE_ACCOUNT';
 export const WOLLO_UPDATE_BALANCE = 'WOLLO_UPDATE_BALANCE';
 export const WOLLO_UPDATE_XLM = 'WOLLO_UPDATE_XLM';
@@ -48,9 +47,9 @@ export const wolloSendReset = () => ({type: WOLLO_SEND_RESET});
 
 export const wolloError = error => ({type: WOLLO_ERROR, error});
 
-export const setUseTestnet = useTestnet => dispatch => {
-    setServer(useTestnet);
-    dispatch({type: WOLLO_USE_TESTNET, useTestnet});
+export const setHorizonURI = uri => () => {
+    console.log('setHorizonURI:', uri);
+    setServer(uri);
 };
 
 const updateBalance = balance => ({type: WOLLO_UPDATE_BALANCE, balance});

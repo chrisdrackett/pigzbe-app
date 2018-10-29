@@ -65,10 +65,6 @@ describe('Actions', () => {
         it('should create an action to load account', () => {
             expect(actions.loadWallet()).toEqual(expect.any(Function));
         });
-
-        it('should create an action to setUseTestnet', () => {
-            expect(actions.setUseTestnet(true)).toEqual(expect.any(Function));
-        });
     });
 
     describe('Game', () => {

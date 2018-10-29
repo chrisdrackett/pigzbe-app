@@ -5,21 +5,25 @@
             "local": {
                 "code": "WLO",
                 "address": "GASIP5FKCZ7J3MUG7UHUW4Z4M5GYHLNER7TSFVMSRQ33LBWICFBG2FNX",
+                "horizon": "https://horizon-testnet.stellar.org/",
                 "maxClaimTokens": 1000
             },
             "ropsten": {
                 "code": "WLO",
                 "address": "GASIP5FKCZ7J3MUG7UHUW4Z4M5GYHLNER7TSFVMSRQ33LBWICFBG2FNX",
+                "horizon": "https://horizon-testnet.stellar.org/",
                 "maxClaimTokens": 1000
             },
             "eidoo": {
                 "code": "WLO",
                 "address": "GASIP5FKCZ7J3MUG7UHUW4Z4M5GYHLNER7TSFVMSRQ33LBWICFBG2FNX",
+                "horizon": "https://horizon-testnet.stellar.org/",
                 "maxClaimTokens": 1000
             },
             "mainnet": {
                 "code": "WLO",
                 "address": "GBIL5TOVTZFNV3XS3E2LWTKU5SYOJ3UBCVBSKAMP4EE4MV2VSZQK7NRZ",
+                "horizon": "https://horizon.pigzbe.com",
                 "maxClaimTokens": 13500000
             }
         }

@@ -1,5 +1,5 @@
 import Config from 'react-native-config';
-import {setUseTestnet} from './';
+import {setHorizonURI} from './';
 import blockchainConfig from 'app/data/blockchain';
 
 export const CONFIG_UPDATE = 'CONFIG_UPDATE';
@@ -15,7 +15,7 @@ export const initializeConfig = () => dispatch => {
 export const loadConfig = () => async dispatch => {
     try {
         dispatch(configUpdate(blockchainConfig));
-        dispatch(setUseTestnet(blockchainConfig.network !== blockchainConfig.NETWORK_MAINNET));
+        dispatch(setHorizonURI(blockchainConfig.stellar.networks[blockchainConfig.network].horizon));
     } catch (error) {
         console.log(error);
     }

@@ -13,7 +13,7 @@ import container from '../../styles';
 import Button from '../../components/button';
 import Storage from '../../utils/storage';
 import Keychain from '../../utils/keychain';
-import {setUseTestnet, keysTestUser, configUpdate} from '../../actions';
+import {keysTestUser, configUpdate} from '../../actions';
 import {
     KEYCHAIN_ID_STELLAR_KEY,
     KEYCHAIN_ID_ETH_KEY,
@@ -85,7 +85,6 @@ class DevPanel extends Component {
     render() {
         const {
             dispatch,
-            useTestnet,
             testUserKey,
             networkOverride
         } = this.props;
@@ -106,11 +105,6 @@ class DevPanel extends Component {
                             <Text style={styles.subtitle}>
                                 networkOverride: {networkOverride ? networkOverride : 'none'}
                             </Text>
-                            <SwitchControl
-                                label={'Use Testnet?'}
-                                value={useTestnet}
-                                onValueChange={value => dispatch(setUseTestnet(value))}
-                            />
                             <View style={styles.block}>
                                 <Text style={styles.subtitle}>User data</Text>
                                 <Button style={styles.button} label="Clear user data" onPress={() => {
@@ -236,7 +230,6 @@ export const DevPanelComponent = DevPanel;
 export default connect(
     state => ({
         testUserKey: state.keys.testUserKey,
-        useTestnet: state.wollo.useTestnet,
         networkOverride: state.config.networkOverride,
     })
 )(DevPanel);
