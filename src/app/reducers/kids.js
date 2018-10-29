@@ -22,9 +22,9 @@ import {
     KIDS_SEND_ERROR,
     KIDS_SEND_COMPLETE,
     KIDS_UPDATE_ACTIONS,
-    KIDS_COMPLETE_ACTION,
     KIDS_SET_BALANCE,
     KIDS_GOAL_WOLLO_TRANSACTION,
+    KIDS_UPDATE_GOAL_HISTORY,
 } from '../actions';
 
 const kidDefaults = {
@@ -36,11 +36,12 @@ const kidDefaults = {
     dob: null,
     tasks: [],
     goals: [
-        {id: 1, name: 'Hometree', balance: "0", reward: null},
+        {id: 1, name: 'Hometree', balance: '0', reward: null},
     ],
     allowances: [],
     actions: [],
     goalTransactions: [],
+    entries: [],
 };
 
 const saveExclude = [
@@ -304,19 +305,7 @@ export default (state = initialState, action) => {
                             ...k,
                             actions: action.actions,
                             tasks: action.tasks,
-                        };
-                    }
-                    return k;
-                }),
-            };
-        case KIDS_COMPLETE_ACTION:
-            return {
-                ...state,
-                kids: state.kids.map(k => {
-                    if (k.address === action.address) {
-                        return {
-                            ...k,
-                            actions: k.actions.filter(a => a.hash !== action.hash),
+                            entries: action.entries,
                         };
                     }
                     return k;
@@ -338,15 +327,39 @@ export default (state = initialState, action) => {
                         return {
                             ...kid,
                             goalTransactions: kid.goalTransactions.concat({
+                                date: new Date().toISOString(),
                                 cloudHash: action.cloudHash,
                                 amount: action.amount,
                                 goalId: action.goalId,
+                                fromGoalId: action.fromGoalId,
+                                toParent: action.toParent,
                             })
                         };
                     }
-                    return k;
+                    return kid;
                 }),
-            }
+            };
+        case KIDS_UPDATE_GOAL_HISTORY:
+            return {
+                ...state,
+                kids: state.kids.map(kid => {
+                    if (kid.address === action.kid.address) {
+                        return {
+                            ...kid,
+                            goals: kid.goals.map(goal => {
+                                if (goal.id === action.goal.id) {
+                                    return {
+                                        ...goal,
+                                        history: action.history,
+                                    };
+                                }
+                                return goal;
+                            })
+                        };
+                    }
+                    return kid;
+                }),
+            };
         default:
             return state;
     }

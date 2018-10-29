@@ -31,8 +31,10 @@ export default ({date, amount, direction, assetCode, memo, address, sender}) => 
             </View>
 
         </View>
-        <Text numberOfLines={2} style={styles.address}>
-            {address}
-        </Text>
+        {address && (
+            <Text numberOfLines={2} style={styles.address}>
+                {address}
+            </Text>
+        )}
     </View>
 );

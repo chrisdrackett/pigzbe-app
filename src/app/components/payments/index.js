@@ -62,7 +62,7 @@ export class Payments extends Component {
         }
     }
 
-    update = () => this.props.loadPayments(this.props.address)
+    update = () => this.props.address && this.props.loadPayments(this.props.address)
 
     onHelp = () => this.setState({helpOpen: true})
 
@@ -70,6 +70,9 @@ export class Payments extends Component {
 
     findKidByGoalAdress = goalAddress => {
         let kidWithGoal = null;
+        if (!this.props.kids) {
+            return null;
+        }
 
         this.props.kids.forEach(k => {
             k.goals.forEach(g => {
@@ -84,7 +87,7 @@ export class Payments extends Component {
 
     render() {
         const {filter} = this.state;
-        const {loading, payments, showHelp, spacingBottom = false} = this.props;
+        const {loading, payments = [], showHelp, spacingBottom = false} = this.props;
 
         const filters = {
             all: 'ALL',
@@ -108,22 +111,34 @@ export class Payments extends Component {
         let filteredPayments = payments;
 
         // show a specific address's transactions
-        filteredPayments = payments.filter(payment => (
-            (filter === 'all' && (payment.from === address || payment.to === address)) ||
-            (filter === 'sent' && payment.from === address) ||
-            (filter === 'received' && payment.to === address)
-        ));
+        if (address) {
+            filteredPayments = payments.filter(payment => (
+                (filter === 'all' && (payment.from === address || payment.to === address)) ||
+                (filter === 'sent' && payment.from === address) ||
+                (filter === 'received' && payment.to === address)
+            ));
 
-        filteredPayments.forEach(payment => {
-            payment.direction = payment.to === address ? 'in' : 'out';
-            if (payment.direction === 'in') {
-                const sender = this.findKidByGoalAdress(payment.from);
-                if (sender) {
-                    payment.sender = sender.name;
+            filteredPayments.forEach(payment => {
+                payment.direction = payment.to === address ? 'in' : 'out';
+                if (payment.direction === 'in') {
+                    const sender = this.findKidByGoalAdress(payment.from);
+                    if (sender) {
+                        payment.sender = sender.name;
+                    }
                 }
-            }
-            payment.memo = trimMemo(payment.memo);
-        });
+                payment.memo = trimMemo(payment.memo);
+            });
+        } else {
+            filteredPayments = payments.filter(payment => (
+                (filter === 'all') ||
+                (filter === 'sent' && payment.direction === 'out') ||
+                (filter === 'received' && payment.direction === 'in')
+            ));
+
+            // filteredPayments.forEach(payment => {
+            //     payment.memo = trimMemo(payment.memo);
+            // });
+        }
 
         return (
             <View style={{flex: 1}}>

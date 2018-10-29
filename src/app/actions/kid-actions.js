@@ -6,16 +6,18 @@ import {
     TRANSFER_TYPE_TASK,
     TRANSFER_TYPE_PRESENT,
     TRANSFER_TYPE_ALLOWANCE,
-    TRANSFER_TYPE_COMPLETION,
+    // TRANSFER_TYPE_COMPLETION,
 } from 'app/constants/game';
 import {
     MEMO_PREPEND_TASK,
     MEMO_PREPEND_PRESENT,
     MEMO_PREPEND_ALLOWANCE,
 } from 'app/constants';
+import moment from 'moment';
 
 export const KIDS_UPDATE_ACTIONS = 'KIDS_UPDATE_ACTIONS';
 export const KIDS_GOAL_WOLLO_TRANSACTION = 'KIDS_GOAL_WOLLO_TRANSACTION';
+export const KIDS_UPDATE_GOAL_HISTORY = 'KIDS_UPDATE_GOAL_HISTORY';
 
 export const getTransferType = memo => {
     if (memo.indexOf(MEMO_PREPEND_ALLOWANCE) === 0) {
@@ -50,11 +52,6 @@ const isEntry = record => record.memo && record.memo_type === 'text' && getTrans
 const toHex = memo => new Buffer(memo, 'base64').toString('hex');
 
 const getMemo = record => (record.memo_type === 'hash' ? toHex(record.memo) : record.memo);
-
-// const getPayment = async transaction => {
-//     const operations = await transaction.operations();
-//     return operations.records.find(o => o.type === 'payment');
-// };
 
 const getPagingToken = (records, pagingToken) => records.length ? records[records.length - 1].paging_token : pagingToken;
 
@@ -117,9 +114,11 @@ const loadRecords = async address => {
             return {
                 amount,
                 to,
-                name: isCompletion(r) ? TRANSFER_TYPE_COMPLETION : getName(r.memo),
+                // name: isCompletion(r) ? TRANSFER_TYPE_COMPLETION : getName(r.memo),
+                name: getName(r.memo),
                 memo: getMemo(r),
-                type: isCompletion(r) ? TRANSFER_TYPE_COMPLETION : getTransferType(r.memo),
+                // type: isCompletion(r) ? TRANSFER_TYPE_COMPLETION : getTransferType(r.memo),
+                type: getTransferType(r.memo),
                 hash: r.hash,
                 date: r.created_at,
             };
@@ -137,9 +136,9 @@ const loadRecords = async address => {
     return allRecords;
 };
 
-export const assignWolloToTree = (kid, goalId, cloudHash, amount) => async (dispatch, getState) => {
+export const assignWolloToTree = (kid, goalId, cloudHash, amount) => async dispatch => {
     try {
-        const goal = kid.goals.find(goal => goal.id === goalId);
+        const goal = kid.goals.find(g => g.id === goalId);
 
         // Update the balance on the goal
         dispatch({
@@ -158,30 +157,30 @@ export const assignWolloToTree = (kid, goalId, cloudHash, amount) => async (disp
             cloudHash,
             amount,
             goalId,
-        })
+        });
 
         await dispatch(saveKids());
     } catch (e) {
         console.log(e);
     }
-}
+};
 
-export const removeKidAction = (kid, cloudHash) => async (dispatch, getState) => {
+export const removeKidAction = (kid, cloudHash) => async dispatch => {
     try {
         const {actions, tasks} = kid;
-        const remainingActions = actions.filter(action => action.hash !== cloudHash)
+        const remainingActions = actions.filter(action => action.hash !== cloudHash);
         dispatch({
-            type: KIDS_UPDATE_ACTIONS, 
-            address: kid.address, 
+            type: KIDS_UPDATE_ACTIONS,
+            address: kid.address,
             actions: remainingActions,
             tasks,
         });
     } catch (e) {
         console.log(e);
     }
-}
+};
 
-export const loadKidActions = kid => async (dispatch, getState) => {
+export const loadKidActions = kid => async dispatch => {
     const address = kid.address;
     console.log('loadKidActions', address);
     // if (__DEV__) {
@@ -189,6 +188,8 @@ export const loadKidActions = kid => async (dispatch, getState) => {
     //     await Storage.clear(`transactions_${address}`);
     // }
     const actions = [];
+    let entries = [];
+
     try {
         const account = await loadAccount(address);
         console.log('');
@@ -196,7 +197,8 @@ export const loadKidActions = kid => async (dispatch, getState) => {
 
         const allRecords = await loadRecords(address);
 
-        const entries = allRecords.filter(r => r.type !== TRANSFER_TYPE_COMPLETION);
+        // const entries = allRecords.filter(r => r.type !== TRANSFER_TYPE_COMPLETION);
+        entries = allRecords;
         //const completions = allRecords.filter(r => r.type === TRANSFER_TYPE_COMPLETION);
 
         console.log('num entries', entries.length);
@@ -208,7 +210,7 @@ export const loadKidActions = kid => async (dispatch, getState) => {
             // Find all goal transactions for this cloud hash
             const entryCompletions = kid.goalTransactions.filter(transaction => transaction.cloudHash === entry.hash);
             console.log('entryCompletions', entryCompletions);
-            console.log('===>', entry.memo, '(', entry.amount, ')');
+            console.log('===>', entry.memo, '(', entry.amount, entry.date, ')');
             const entryClaimed = !!entryCompletions.length;
             let amountClaimed = new BigNumber(0);
             if (entryClaimed) {
@@ -216,8 +218,7 @@ export const loadKidActions = kid => async (dispatch, getState) => {
                     amountClaimed = amountClaimed.plus(completion.amount);
 
                     let dest = 'unknown';
-                    const kid = getState().kids.kids.find(k => k.address === address);
-                    const goal = kid.goals.find(g => g.address === completion.goalId);
+                    const goal = kid.goals.find(g => g.id === completion.goalId);
                     if (goal) {
                         dest = goal.name;
                     }
@@ -246,25 +247,104 @@ export const loadKidActions = kid => async (dispatch, getState) => {
         console.log(e);
     }
 
-
     const tasks = actions.filter(a => a.type === TRANSFER_TYPE_TASK);
     const gifts = actions.filter(a => a.type === TRANSFER_TYPE_PRESENT);
     const allowances = actions.filter(a => a.type === TRANSFER_TYPE_ALLOWANCE);
 
-    dispatch({type: KIDS_UPDATE_ACTIONS, address, actions, tasks});
+    dispatch({type: KIDS_UPDATE_ACTIONS, address, actions, tasks, entries});
 
     console.log('tasks', tasks);
     console.log('gifts', gifts);
     console.log('allowances', allowances);
     console.log('');
 
+    dispatch(getTreeHistory(kid.address));
+
     return actions;
 };
 
-// export const loadSingleRecord = hash => async (dispatch, getState) => {
-//     const transaction = await getServer().transactions().transaction(hash).call();
-//     console.log('transaction', transaction);
-//     const operations = await transaction.operations();
-//     const payment = operations.records.find(o => o.type === 'payment');
-//     console.log('payment', payment);
-// };
+const getDateDiff = (a, b) => {
+    const prevDate = moment(a);
+    const itemDate = moment(b);
+    return prevDate.diff(itemDate, 'days');
+};
+
+export const getTreeHistory = address => async (dispatch, getState) => {
+    console.log('getTreeHistory');
+    const kid = getState().kids.kids.find(k => k.address === address);
+    // const goal = kid.goals.find(g => g.id === goalId);
+    const {entries, goals} = kid;
+
+    // console.log('kid.goalTransactions', kid.goalTransactions);
+    const parent = getState().kids.parentNickname || 'parent';
+
+    for (const goal of goals) {
+        console.log('goal', goal.name);
+        const history = kid.goalTransactions
+            .filter(t => t.goalId === goal.id || t.fromGoalId === goal.id)
+            .map(t => {
+                if (t.toParent) {
+                    // console.log('t', t);
+                    // const fromGoal = goals.find(g => g.id === t.fromGoalId);
+                    return {
+                        hash: null,
+                        memo: `Sent to ${parent}`,
+                        amount: t.amount,
+                        date: t.date,
+                        direction: 'out',
+                    };
+                }
+                if (t.fromGoalId && goal.id !== t.fromGoalId) {
+                    // console.log('t', t);
+                    const fromGoal = goals.find(g => g.id === t.fromGoalId);
+                    return {
+                        hash: null,
+                        memo: `Moved from ${(fromGoal && fromGoal.name) || 'another goal'}`,
+                        amount: t.amount,
+                        date: t.date,
+                        direction: 'in',
+                    };
+                }
+                if (t.fromGoalId && goal.id === t.fromGoalId) {
+                    // console.log('t', t);
+                    const toGoal = goals.find(g => g.id === t.goalId);
+                    return {
+                        hash: null,
+                        memo: `Moved to ${(toGoal && toGoal.name) || 'another goal'}`,
+                        amount: t.amount,
+                        date: t.date,
+                        direction: 'out',
+                    };
+                }
+                const entry = entries.find(e => e.hash === t.cloudHash);
+                if (!entry) {
+                    console.log('COULD NOT FIND ENTRY!!!', t);
+                }
+                // console.log('t', t);
+                return {
+                    hash: entry.hash,
+                    memo: entry.memo,
+                    amount: t.amount,
+                    date: t.date,
+                    direction: 'in',
+                };
+            })
+            .reduce((arr, item) => {
+                const prev = arr[arr.length - 1];
+                if (prev && item.hash && item.hash === prev.hash && getDateDiff(prev.date, item.date) < 1) {
+                    prev.amount = new BigNumber(prev.amount).plus(item.amount).toString(10);
+                    return arr;
+                }
+                return arr.concat(item);
+            }, []);
+
+        dispatch({type: KIDS_UPDATE_GOAL_HISTORY, kid, goal, history});
+
+        console.log('history', history);
+
+        for (const item of history) {
+            console.log('===>', item.memo, '(', item.amount, item.date, ')');
+            // const duration = moment.duration(end.diff(startTime));
+        }
+    }
+};

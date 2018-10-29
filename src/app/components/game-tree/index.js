@@ -81,7 +81,7 @@ export class Tree extends Component {
 
         const treeHeight = 90 + Math.max(...leavesList.map(l => l.position[0]));
 
-        console.log(this.props.name, 'treeHeight', treeHeight);
+        // console.log(this.props.name, 'treeHeight', treeHeight);
 
         this.setState({leavesList, treeHeight});
 

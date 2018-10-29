@@ -135,7 +135,7 @@ export class GameGoalOverlay extends Component {
                                                             <Text style={styles.title}>Deposits / withdrawls</Text>
                                                         </View>
                                                         <GameGoalTransactions
-                                                            goalId={goalId}
+                                                            goal={goal}
                                                         />
                                                     </View>
                                                 }

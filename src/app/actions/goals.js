@@ -11,6 +11,7 @@ import {
 import {wolloAsset} from '../selectors';
 import Keychain from '../utils/keychain';
 import {saveKids, getWolloBalance, appAddSuccessAlert, appAddWarningAlert} from '.';
+import {KIDS_GOAL_WOLLO_TRANSACTION} from './';
 
 export const KIDS_LOADING_GOAL = 'KIDS_LOADING_GOAL';
 export const KIDS_ASSIGN_GOAL = 'KIDS_ASSIGN_GOAL';
@@ -112,6 +113,14 @@ export const moveGoalWollo = (kid, fromId, toId, amount) => async dispatch => {
             goal: {...toGoal},
         });
 
+        dispatch({
+            type: KIDS_GOAL_WOLLO_TRANSACTION,
+            kid,
+            amount: String(amount),
+            goalId: toGoal.id,
+            fromGoalId: fromGoal.id,
+        });
+
         await dispatch(saveKids());
 
         dispatch(appAddSuccessAlert('Sucessfully sent wollo'));
@@ -156,6 +165,14 @@ export const sendGoalWolloToParent = (kid, goal, amount) => async (dispatch, get
             type: KIDS_UPDATE_GOAL,
             kid,
             goal: {...goal},
+        });
+
+        dispatch({
+            type: KIDS_GOAL_WOLLO_TRANSACTION,
+            kid,
+            amount: String(amount),
+            fromGoalId: goal.id,
+            toParent: true,
         });
 
         await dispatch(saveKids());

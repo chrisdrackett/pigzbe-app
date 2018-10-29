@@ -20,7 +20,7 @@ import GameCarousel from 'app/components/game-carousel';
 import GameCloudFlow from 'app/components/game-cloud-flow';
 import GoalOverlay from 'app/components/game-goal-overlay';
 import Loader from 'app/components/loader';
-import {claimWollo, assignWolloToTree, loadKidActions, removeKidAction} from '../../actions';
+import {assignWolloToTree, loadKidActions, removeKidAction} from '../../actions';
 import BigNumber from 'bignumber.js';
 import Tour from './tour';
 import Trees from './trees';
@@ -114,7 +114,7 @@ export class Game extends Component {
     }
 
     onNewTreeClicked = () => {
-        const index = this.props.kid.goals.length ;
+        const index = this.props.kid.goals.length;
         this.setState({targetX: Tree.SPACING * index});
         this.openGoalOverlay();
     }
