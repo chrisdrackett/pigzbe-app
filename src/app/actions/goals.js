@@ -64,7 +64,16 @@ export const updateGoal = (kid, goalName, reward, goalId) => async dispatch => {
 export const deleteGoal = (kid, goal) => async (dispatch, getState) => {
     dispatch(goalLoading(true));
     try {
-        // @todo re-distribute any wollo in this goal (goal.balance) to other trees.
+        // If there's any wollo assigned to this goal, move to the home tree
+        if (goal.balance > 0) {
+            const homeGoal = kid.goals[0];
+            homeGoal.balance = new BigNumber(homeGoal.balance).plus(goal.balance).toString(10);
+            dispatch({
+                type: KIDS_UPDATE_GOAL,
+                kid,
+                goal: {...homeGoal},
+            });
+        }
 
         dispatch({type: KIDS_DELETE_GOAL, kid, goal});
         await dispatch(saveKids());
