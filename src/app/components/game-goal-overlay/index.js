@@ -123,8 +123,8 @@ export class GameGoalOverlay extends Component {
                                                             <Text style={styles.title}>Send Wollo to {parentName}</Text>
                                                         </View>
                                                         <GameGoalParentSend
-                                                            goalId={goalId}
-                                                            goalBalance={goal.balance}
+                                                            kid={kid}
+                                                            goal={goal}
                                                             onWolloMoved={onClose}
                                                         />
                                                     </Fragment>

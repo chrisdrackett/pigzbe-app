@@ -117,24 +117,22 @@ export const moveGoalWollo = (kid, fromId, toId, amount) => async (dispatch, get
     dispatch(goalLoading(false));
 };
 
-export const sendGoalWolloToParent = (goalAddress, amount) => async (dispatch, getState) => {
+export const sendGoalWolloToParent = (kid, goal, amount) => async (dispatch, getState) => {
+    dispatch(goalLoading(true));
     try {
-        dispatch(goalLoading(true));
-
         const asset = wolloAsset(getState());
         const {publicKey} = getState().keys;
 
-        // Load the GOAL (or home tree) secret key
-        const secretKey = await Keychain.load(`secret_${goalAddress}`);
+        // Load kids secret key
+        const secretKey = await Keychain.load(`secret_${kid.address}`);
         const keypair = Keypair.fromSecret(secretKey);
+        const account = await loadAccount(kid.address);
 
-        const goalAccount = await loadAccount(goalAddress);
-        const wolloBalance = getWolloBalance(goalAccount);
-        if (wolloBalance < amount) {
+        if (goal.balance < amount) {
             throw new Error('Not enough wollo to move to different goal');
         }
 
-        const txb = new TransactionBuilder(goalAccount);
+        const txb = new TransactionBuilder(account);
         txb.addOperation(Operation.payment({
             destination: publicKey,
             asset,
@@ -147,17 +145,22 @@ export const sendGoalWolloToParent = (goalAddress, amount) => async (dispatch, g
 
         await getServer().submitTransaction(tx);
 
-        dispatch(goalLoading(false));
+        goal.balance = new BigNumber(goal.balance).minus(amount).toString(10);
+        dispatch({
+            type: KIDS_UPDATE_GOAL,
+            kid,
+            goal: {...goal},
+        });
 
-        dispatch(updateBalance(goalAddress));
+        await dispatch(saveKids());
 
         dispatch(appAddSuccessAlert('Sucessfully sent wollo'));
 
     } catch (err) {
         console.log(err);
         dispatch(appAddWarningAlert('Send wollo failed'));
-        dispatch(goalLoading(false));
     }
+    dispatch(goalLoading(false));
 };
 
 export const updateBalance = address => async dispatch => {
