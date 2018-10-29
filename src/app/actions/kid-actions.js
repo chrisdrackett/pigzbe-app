@@ -1,7 +1,7 @@
 import Storage from '../utils/storage';
 import BigNumber from 'bignumber.js';
 import {loadAccount, getServer} from '@pigzbe/stellar-utils';
-import {getWolloBalance} from './';
+import {getWolloBalance, KIDS_UPDATE_GOAL, saveKids} from './';
 import {
     TRANSFER_TYPE_TASK,
     TRANSFER_TYPE_PRESENT,
@@ -11,10 +11,11 @@ import {
 import {
     MEMO_PREPEND_TASK,
     MEMO_PREPEND_PRESENT,
-    MEMO_PREPEND_ALLOWANCE
+    MEMO_PREPEND_ALLOWANCE,
 } from 'app/constants';
 
 export const KIDS_UPDATE_ACTIONS = 'KIDS_UPDATE_ACTIONS';
+export const KIDS_GOAL_WOLLO_TRANSACTION = 'KIDS_GOAL_WOLLO_TRANSACTION';
 
 export const getTransferType = memo => {
     if (memo.indexOf(MEMO_PREPEND_ALLOWANCE) === 0) {
@@ -136,7 +137,52 @@ const loadRecords = async address => {
     return allRecords;
 };
 
-export const loadKidActions = address => async (dispatch, getState) => {
+export const assignWolloToTree = (kid, goalId, cloudHash, amount) => async (dispatch, getState) => {
+    try {
+        const goal = kid.goals.find(goal => goal.id === goalId);
+
+        // Update the balance on the goal
+        dispatch({
+            type: KIDS_UPDATE_GOAL,
+            kid,
+            goal: {
+                ...goal,
+                balance: new BigNumber(goal.balance).plus(new BigNumber(amount)).toString(10),
+            }
+        });
+
+        // Add a new transaction for the assignment of wollo to the goal
+        dispatch({
+            type: KIDS_GOAL_WOLLO_TRANSACTION,
+            kid,
+            cloudHash,
+            amount,
+            goalId,
+        })
+
+        await dispatch(saveKids());
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const removeKidAction = (kid, cloudHash) => async (dispatch, getState) => {
+    try {
+        const {actions, tasks} = kid;
+        const remainingActions = actions.filter(action => action.hash !== cloudHash)
+        dispatch({
+            type: KIDS_UPDATE_ACTIONS, 
+            address: kid.address, 
+            actions: remainingActions,
+            tasks,
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const loadKidActions = kid => async (dispatch, getState) => {
+    const address = kid.address;
     console.log('loadKidActions', address);
     // if (__DEV__) {
     //     await Storage.clear(`payments_${address}`);
@@ -151,16 +197,17 @@ export const loadKidActions = address => async (dispatch, getState) => {
         const allRecords = await loadRecords(address);
 
         const entries = allRecords.filter(r => r.type !== TRANSFER_TYPE_COMPLETION);
-        const completions = allRecords.filter(r => r.type === TRANSFER_TYPE_COMPLETION);
+        //const completions = allRecords.filter(r => r.type === TRANSFER_TYPE_COMPLETION);
 
         console.log('num entries', entries.length);
-        console.log('num completions', completions.length);
 
         for (const entry of entries) {
             // console.log('entry', entry);
             // console.log('date', moment(entry.date).format('LLL'));
-            const entryCompletions = completions.filter(c => c.memo === entry.hash);
-            // console.log('entryCompletions', entryCompletions);
+
+            // Find all goal transactions for this cloud hash
+            const entryCompletions = kid.goalTransactions.filter(transaction => transaction.cloudHash === entry.hash);
+            console.log('entryCompletions', entryCompletions);
             console.log('===>', entry.memo, '(', entry.amount, ')');
             const entryClaimed = !!entryCompletions.length;
             let amountClaimed = new BigNumber(0);
@@ -170,13 +217,9 @@ export const loadKidActions = address => async (dispatch, getState) => {
 
                     let dest = 'unknown';
                     const kid = getState().kids.kids.find(k => k.address === address);
-                    const goal = kid.goals.find(g => g.address === completion.to);
+                    const goal = kid.goals.find(g => g.address === completion.goalId);
                     if (goal) {
                         dest = goal.name;
-                    } else if (completion.to === kid.home) {
-                        dest = 'Home tree';
-                    } else if (completion.to === getState().keys.publicKey) {
-                        dest = `${getState().kids.parentNickname || 'parent'} (task deleted)`;
                     }
                     console.log('    ', completion.amount, 'WLO sent to', dest);
                 }

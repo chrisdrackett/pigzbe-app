@@ -1,7 +1,7 @@
 import {paymentHistoryAll, loadAccount} from '@pigzbe/stellar-utils';
 import {MEMO_PREPEND_CREATE, MEMO_PREPEND_HOME, MEMO_PREPEND_GOAL} from '../constants';
 import {getSeedHex, getKeypair, isValidMnemonic, findSecretKey} from '../utils/hd-wallet';
-import {appError, restoreKid, loadKidsBalances, setKeys, saveKeys, settingsFirstTime, settingsUpdate} from './';
+import {appError, restoreKid, setKeys, saveKeys, settingsFirstTime, settingsUpdate} from './';
 
 export const KEYS_RESTORE_LOADING = 'KEYS_RESTORE_LOADING';
 export const KEYS_RESTORE_ERROR = 'KEYS_RESTORE_ERROR';
@@ -106,7 +106,6 @@ export const restoreKeys = mnemonic => async dispatch => {
         await dispatch(settingsUpdate({keyIndex}));
         await dispatch(saveKeys());
         dispatch(settingsFirstTime());
-        dispatch(loadKidsBalances());
     } catch (error) {
         console.log(error);
         const err = new Error('Could not recover account. Please check your mnemonic and ensure you are trying to recover and account that was previously funded.');

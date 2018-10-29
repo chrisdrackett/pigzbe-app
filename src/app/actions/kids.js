@@ -64,12 +64,7 @@ export const addKid = (nickname, dob, photo) => async dispatch => {
             throw new Error('Could not create kid account');
         }
 
-        const home = await dispatch(createHomeAccount(MEMO_PREPEND_HOME, nickname, address));
-        if (!home) {
-            throw new Error('Could not create kid home account');
-        }
-
-        dispatch(({type: KIDS_ADD_KID, kid: {name: nickname, dob, photo, address, home, balance: '0'}}));
+        dispatch(({type: KIDS_ADD_KID, kid: {name: nickname, dob, photo, address, balance: '0'}}));
         await dispatch(saveKids());
 
     } catch (error) {
@@ -119,34 +114,18 @@ export const sendWolloToKid = (address, amount) => async (dispatch, getState) =>
         dispatch(sendError(new Error('Failed to send Wollo')));
     }
 
-    dispatch(loadKidsBalances(address, 1));
     dispatch(sendingWolloToKid(null));
     dispatch(refreshBalance());
 };
 
 export const updateKidBalance = (address, balance) => ({type: KIDS_BALANCE_UPDATE, address, balance});
 
-export const loadKidsBalances = (address, waitSeconds = 0) => async (dispatch, getState) => {
-    try {
-        await wait(waitSeconds);
-        const kids = getState().kids.kids.filter(k => !address || k.address === address);
-        for (const kid of kids) {
-            for (const goal of kid.goals) {
-                dispatch(updateBalance(goal.address));
-            }
-            dispatch(updateBalance(kid.home));
-        }
-    } catch (error) {
-        console.log(error);
-    }
-};
-
 export const loadKidsActions = () => async (dispatch, getState) => {
     console.log('loadKidsActions');
     try {
         const kids = getState().kids.kids;
         for (const kid of kids) {
-            await dispatch(loadKidActions(kid.address));
+            await dispatch(loadKidActions(kid));
         }
     } catch (error) {
         console.log(error);

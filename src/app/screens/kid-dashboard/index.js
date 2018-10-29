@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
+import BigNumber from 'bignumber.js';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {color} from '../../styles';
 import {
@@ -21,7 +22,6 @@ import WolloSendSlider from 'app/components/wollo-send-slider';
 import styles from './styles';
 import {deleteAllowance, deleteTask, deleteGoal, appAddWarningAlert} from 'app/actions';
 import FundingMessage from '../../components/funding-message';
-import {kidsWithBalances} from 'app/selectors';
 
 class Item extends Component {
     onPress = () => this.props.onPress(this.props.data)
@@ -184,10 +184,13 @@ export class KidDashboard extends Component {
             balanceXLM,
             balance,
         } = this.props;
-
         const loading = (!exchange) || goalLoading || taskLoading || allowanceLoading;
 
         console.log('showFundingMessage', this.state.showFundingMessage);
+
+        const kidBalance = kid.goals.reduce((n, g) => {
+            return n.plus(g.balance);
+        }, new BigNumber(0)).toString(10);
 
         return (
             <Fragment>
@@ -203,7 +206,7 @@ export class KidDashboard extends Component {
                         <Text style={styles.name}>{kid.name}</Text>
                         <TouchableOpacity onPress={this.onTransactions}>
                             <Wollo
-                                balance={kid.balance}
+                                balance={kidBalance}
                                 exchange={exchange}
                                 baseCurrency={baseCurrency}
                                 link
@@ -265,9 +268,9 @@ export class KidDashboard extends Component {
                                 style={styles.panel}
                                 boxButton
                             >
-                                {(kid.goals && kid.goals.length) &&
+                                {(kid.goals && kid.goals.length > 1) &&
                                     <View style={styles.box}>
-                                        {kid.goals.map((goal, i) => (
+                                        {kid.goals.slice(1).map((goal, i) => (
                                             <Item
                                                 key={i}
                                                 first={i === 0}
@@ -331,7 +334,7 @@ export class KidDashboard extends Component {
 
 export default connect(
     (state, props) => ({
-        kid: kidsWithBalances(state).find(k => k.address === props.navigation.state.params.kid.address),
+        kid: state.kids.kids.find(k => k.address === props.navigation.state.params.kid.address),
         exchange: state.exchange.exchange,
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,

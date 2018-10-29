@@ -14,7 +14,6 @@ import {
     loadExchange,
     loadKids,
     loadCustomTasks,
-    loadKidsBalances,
     loadKidsActions,
     loadKidActions,
     loadCachedExchange,
@@ -59,7 +58,6 @@ export const loginAndLoad = passcode => async dispatch => {
             await dispatch(loaderMessage('Loading'));
             await dispatch(loadKeys());
             await dispatch(loadWallet());
-            await dispatch(loadKidsBalances());
             await dispatch(loadKidsActions());
             await dispatch(loadCustomTasks());
             dispatch(loadMessages());
@@ -83,9 +81,8 @@ export const loginAndLoadKid = (kid, passcode) => async dispatch => {
         if (success) {
             await dispatch(loaderMessage('Loading'));
             await dispatch(loadKeys());
-            await dispatch(loadKidsBalances(kid.address));
             await dispatch(loadCustomTasks());
-            await dispatch(loadKidActions(kid.address));
+            await dispatch(loadKidActions(kid));
         }
     } catch (error) {
         console.log(error);

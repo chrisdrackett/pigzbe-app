@@ -12,7 +12,6 @@ import {Dots} from 'app/components/game-carousel';
 import Icon from 'app/components/icon';
 import Loader from 'app/components/loader';
 import Wollo from 'app/components/wollo';
-import {updateBalance} from 'app/actions';
 import styles from './styles';
 import {MAX_INNER_WIDTH} from 'app/constants';
 import isAndroid from 'app/utils/is-android';
@@ -21,24 +20,13 @@ export class GameGoalOverlay extends Component {
     state = {
         currentIndex: 0,
     }
-    componentDidMount() {
-        if (this.props.goalAddress) {
-            this.props.dispatch(updateBalance(this.props.goalAddress));
-        }
-    }
-    componentDidUpdate(prevProps) {
-        if (this.props.goalAddress && prevProps.goalAddress !== this.props.goalAddress) {
-            this.props.dispatch(updateBalance(this.props.goalAddress));
-        }
-    }
     render() {
         const {
             kid,
             isOpen,
-            goalAddress,
+            goalId,
             onClose,
             parentName,
-            balances,
             exchange,
             baseCurrency,
         } = this.props;
@@ -48,14 +36,9 @@ export class GameGoalOverlay extends Component {
 
         const contentOffset = (width - itemWidth) / 2;
 
-        const goalBalance = (balances && balances[goalAddress]) ? balances[goalAddress] : 0;
-        const homeTree = {address: kid.home, name: 'Hometree'};
-        const goals = [
-            homeTree,
-            ...kid.goals,
-        ].filter(goal => goal.address !== goalAddress);
-        const currentGoal = kid.goals.filter(goal => goal.address === goalAddress)[0];
-        const hasGoals = kid.goals.length !== 0;
+        const goal = goalId ? kid.goals.find(goal => goal.id === goalId) : null;
+        const otherGoals = kid.goals.filter(goal => goal.id !== goalId);
+        const hasGoals = otherGoals.length > 0;
 
         return (
             <Fragment>
@@ -76,18 +59,18 @@ export class GameGoalOverlay extends Component {
                             style={styles.spacer}
                             onPress={onClose}
                         >
-                            {!!goalAddress &&
+                            {goal &&
                                 <View style={styles.balance}>
-                                    <Text style={styles.balanceText}>{currentGoal ? currentGoal.name : homeTree.name}</Text>
+                                    <Text style={styles.balanceText}>{goal.name}</Text>
                                     <Wollo
-                                        balance={goalBalance}
+                                        balance={goal.balance}
                                         exchange={exchange}
                                         baseCurrency={baseCurrency}
                                     />
                                 </View>
                             }
                         </View>
-                        {!goalAddress &&
+                        {!goal &&
                             <View style={[styles.newGoal, {width: width, alignSelf: 'center'}]}>
                                 <View>
                                     <Text style={styles.title}>New Goal</Text>
@@ -98,12 +81,14 @@ export class GameGoalOverlay extends Component {
                                 />
                             </View>
                         }
-                        {!!goalAddress &&
+                        {goal &&
                             <View style={{flex: 1, alignSelf: 'center'}}>
-                                {currentGoal && <View style={styles.goalValueWrap}>
-                                    <Image style={styles.goalBackground} source={require('./images/goal.png')} />
-                                    <Text style={styles.goalValue}>Goal {currentGoal.reward}</Text>
-                                </View>}
+                                {goal.reward !== null &&
+                                    <View style={styles.goalValueWrap}>
+                                        <Image style={styles.goalBackground} source={require('./images/goal.png')} />
+                                        <Text style={styles.goalValue}>Goal {goal.reward}</Text>
+                                    </View>
+                                }
                                 <View style={styles.dots}>
                                     <Dots length={hasGoals ? 3 : 2} index={this.state.currentIndex} light />
                                 </View>
@@ -125,9 +110,9 @@ export class GameGoalOverlay extends Component {
                                                         </View>
                                                         <GameGoalWolloMove
                                                             kid={kid}
-                                                            goalAddress={goalAddress}
-                                                            goals={goals}
-                                                            goalBalance={goalBalance}
+                                                            goalId={goalId}
+                                                            goals={otherGoals}
+                                                            goalBalance={goal.balance}
                                                             onWolloMoved={onClose}
                                                         />
                                                     </Fragment>
@@ -138,8 +123,8 @@ export class GameGoalOverlay extends Component {
                                                             <Text style={styles.title}>Send Wollo to {parentName}</Text>
                                                         </View>
                                                         <GameGoalParentSend
-                                                            goalAddress={goalAddress}
-                                                            goalBalance={goalBalance}
+                                                            goalId={goalId}
+                                                            goalBalance={goal.balance}
                                                             onWolloMoved={onClose}
                                                         />
                                                     </Fragment>
@@ -150,7 +135,7 @@ export class GameGoalOverlay extends Component {
                                                             <Text style={styles.title}>Deposits / withdrawls</Text>
                                                         </View>
                                                         <GameGoalTransactions
-                                                            goalAddress={goalAddress}
+                                                            goalId={goalId}
                                                         />
                                                     </View>
                                                 }
@@ -186,7 +171,6 @@ export class GameGoalOverlay extends Component {
 export default connect(
     state => ({
         loading: state.kids.goalLoading,
-        balances: state.kids.balances,
         exchange: state.exchange.exchange,
         baseCurrency: state.settings.baseCurrency,
     })

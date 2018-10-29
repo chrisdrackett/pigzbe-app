@@ -99,11 +99,6 @@ export const claimWollo = (address, transfers) => async (dispatch, getState) => 
             console.log('result', result);
         }
 
-        // refresh just the goals that have been changed
-        for (const transfer of sanitisedTransfers) {
-            await dispatch(updateBalance(transfer.destination));
-        }
-
         setTimeout(() => dispatch(loadKidActions(address)), 1000);
 
     } catch (e) {

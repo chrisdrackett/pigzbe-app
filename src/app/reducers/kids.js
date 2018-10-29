@@ -24,6 +24,7 @@ import {
     KIDS_UPDATE_ACTIONS,
     KIDS_COMPLETE_ACTION,
     KIDS_SET_BALANCE,
+    KIDS_GOAL_WOLLO_TRANSACTION,
 } from '../actions';
 
 const kidDefaults = {
@@ -34,9 +35,12 @@ const kidDefaults = {
     balance: null,
     dob: null,
     tasks: [],
-    goals: [],
+    goals: [
+        {id: 1, name: 'Hometree', balance: "0", reward: null},
+    ],
     allowances: [],
     actions: [],
+    goalTransactions: [],
 };
 
 const saveExclude = [
@@ -173,11 +177,10 @@ export default (state = initialState, action) => {
                         return {
                             ...k,
                             goals: k.goals.map(goal => {
-                                if (goal.address === action.goal.address) {
+                                if (goal.id === action.goal.id) {
                                     return {
                                         ...goal,
-                                        name: action.goal.name,
-                                        reward: action.goal.reward,
+                                        ...action.goal,
                                     };
                                 }
                                 return goal;
@@ -195,7 +198,7 @@ export default (state = initialState, action) => {
                         return {
                             ...k,
                             goals: k.goals.filter(goal => {
-                                return goal.address !== action.goal.address;
+                                return goal.id !== action.goal.id;
                             }),
                         };
                     }
@@ -327,6 +330,23 @@ export default (state = initialState, action) => {
                     [action.address]: action.balance,
                 },
             };
+        case KIDS_GOAL_WOLLO_TRANSACTION:
+            return {
+                ...state,
+                kids: state.kids.map(kid => {
+                    if (kid.address === action.kid.address) {
+                        return {
+                            ...kid,
+                            goalTransactions: kid.goalTransactions.concat({
+                                cloudHash: action.cloudHash,
+                                amount: action.amount,
+                                goalId: action.goalId,
+                            })
+                        };
+                    }
+                    return k;
+                }),
+            }
         default:
             return state;
     }
