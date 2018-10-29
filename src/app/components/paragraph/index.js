@@ -21,8 +21,13 @@ const format = children => {
     return children;
 };
 
-export default ({small, children, style}) => (
-    <Text style={[styles.paragraph, small ? styles.small : null, style]}>
+export default ({small, children, style, error}) => (
+    <Text style={[
+        styles.paragraph,
+        small ? styles.small : null,
+        error ? styles.error : null,
+        style
+    ]}>
         {format(children)}
     </Text>
 );

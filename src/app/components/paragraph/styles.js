@@ -15,4 +15,7 @@ export default StyleSheet.create({
     small: {
         fontSize: 14,
     },
+    error: {
+        color: color.red,
+    },
 });
