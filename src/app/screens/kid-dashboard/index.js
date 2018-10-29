@@ -8,9 +8,7 @@ import {
     SCREEN_ALLOWANCE_AMOUNT,
     SCREEN_KID_TRANSACTIONS,
     SCREEN_KID_GOAL_ADD,
-    SCREEN_SETTINGS,
-    MIN_BALANCE,
-    MIN_BALANCE_XLM_ADD_GOAL,
+    SCREEN_SETTINGS
 } from '../../constants';
 import BalanceGraph from '../../components/balance-graph';
 import Wollo from '../../components/wollo';
@@ -67,11 +65,6 @@ export class KidDashboard extends Component {
     addItem = screen => {
         const balanceXLM = parseFloat(this.props.balanceXLM);
         const balanceWLO = parseFloat(this.props.balance);
-
-        if (screen === SCREEN_KID_GOAL_ADD && balanceXLM < MIN_BALANCE + MIN_BALANCE_XLM_ADD_GOAL) {
-            this.showFundingMessage(FundingMessage.ADD_GOAL);
-            return;
-        }
 
         if (screen === SCREEN_TASKS_LIST && (balanceWLO === 0 || balanceXLM === 0)) {
             this.showFundingMessage(FundingMessage.ADD_TASK);

@@ -2,20 +2,16 @@ import Storage from '../utils/storage';
 import {loadAccount, sendPayment} from '@pigzbe/stellar-utils';
 import {
     createKidAccount,
-    createHomeAccount,
     fundKidAccount,
-    updateBalance,
     refreshBalance,
     loadKidActions
 } from './';
 import {wolloAsset} from '../selectors';
-import wait from '../utils/wait';
 import formatMemo from 'app/utils/format-memo';
 import {
     STORAGE_KEY_KIDS,
     KID_WALLET_BALANCE_XLM,
     MEMO_PREPEND_CREATE,
-    MEMO_PREPEND_HOME,
     MEMO_PREPEND_PRESENT
 } from '../constants';
 

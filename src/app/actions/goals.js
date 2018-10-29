@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import {createGoalAccount} from '.';
 import {
     loadAccount,
     TransactionBuilder,
@@ -28,7 +27,7 @@ export const assignGoal = (kid, goalName, reward) => async dispatch => {
         await dispatch(({type: KIDS_ASSIGN_GOAL, kid, goal: {
             id,
             name: goalName,
-            balance: "0",
+            balance: '0',
             reward,
         }}));
 
@@ -61,7 +60,7 @@ export const updateGoal = (kid, goalName, reward, goalId) => async dispatch => {
     dispatch(goalLoading(false));
 };
 
-export const deleteGoal = (kid, goal) => async (dispatch, getState) => {
+export const deleteGoal = (kid, goal) => async dispatch => {
     dispatch(goalLoading(true));
     try {
         // If there's any wollo assigned to this goal, move to the home tree
@@ -87,19 +86,17 @@ export const deleteGoal = (kid, goal) => async (dispatch, getState) => {
     dispatch(goalLoading(false));
 };
 
-export const moveGoalWollo = (kid, fromId, toId, amount) => async (dispatch, getState) => {
+export const moveGoalWollo = (kid, fromId, toId, amount) => async dispatch => {
     dispatch(goalLoading(true));
     try {
 
-        const asset = wolloAsset(getState());
-
-        const fromGoal = kid.goals.find(goal => goal.id === parseInt(fromId));
-        const toGoal = kid.goals.find(goal => goal.id === parseInt(toId));
+        const fromGoal = kid.goals.find(goal => goal.id === parseInt(fromId, 10));
+        const toGoal = kid.goals.find(goal => goal.id === parseInt(toId, 10));
 
         if (fromGoal.balance < amount) {
             throw new Error('Not enough wollo to move to different goal');
         }
- 
+
         fromGoal.balance = new BigNumber(fromGoal.balance).minus(amount).toString(10);
         toGoal.balance = new BigNumber(toGoal.balance).plus(amount).toString(10);
 

@@ -75,10 +75,6 @@ export const KID_PASSCODE_LENGTH = 3;
 
 export const KID_SEND_MAX_AMOUNT = 100;
 
-export const KID_WALLET_BALANCE_XLM = '8';
-export const KID_HOME_BALANCE_XLM = '2.52';
-export const KID_GOAL_BALANCE_XLM = '2.52';
-
 export const MEMO_PREPEND_CREATE = 'C:';
 export const MEMO_PREPEND_HOME = 'H:';
 export const MEMO_PREPEND_GOAL = 'G:';
@@ -87,7 +83,8 @@ export const MEMO_PREPEND_PRESENT = 'P:';
 export const MEMO_PREPEND_ALLOWANCE = 'A:';
 
 export const MIN_BALANCE = 2.52;
-export const MIN_BALANCE_XLM_ADD_GOAL = 2.52;
-export const MIN_BALANCE_XLM_ADD_KID = 8 + 2.52;
+export const MIN_BALANCE_XLM_ADD_KID = 2.52;
+
+export const KID_WALLET_BALANCE_XLM = String(MIN_BALANCE_XLM_ADD_KID);
 
 export const MEMO_MAX_LEN = 28;
