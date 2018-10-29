@@ -1,5 +1,5 @@
 {
-    "network": "ropsten",
+    "network": "mainnet",
     "stellar": {
         "networks": {
             "local": {
@@ -19,8 +19,8 @@
             },
             "mainnet": {
                 "code": "WLO",
-                "address": "GASIP5FKCZ7J3MUG7UHUW4Z4M5GYHLNER7TSFVMSRQ33LBWICFBG2FNX",
-                "maxClaimTokens": 675000000
+                "address": "GBIL5TOVTZFNV3XS3E2LWTKU5SYOJ3UBCVBSKAMP4EE4MV2VSZQK7NRZ",
+                "maxClaimTokens": 13500000
             }
         }
     },
@@ -333,9 +333,15 @@
             "networks": {
                 "ropsten": {
                     "network": "ropsten",
-                    "rpc": "https://ropsten.infura.io/Oan138HoQpDarYosPryu",
+                    "rpc": "https://ropsten.infura.io/v3/725c03f73c7a45f3b7b54378148e9523",
                     "address": "0xe7e90EDb6881a50344B3702EEA0B3931eD96Fe7a",
                     "name": "ropsten"
+                },
+                "mainnet": {
+                    "network": "mainnet",
+                    "rpc": "https://mainnet.infura.io/v3/725c03f73c7a45f3b7b54378148e9523",
+                    "address": "0x498B8A550291Ac9529c8cCAFa0f7E73b5e2232CF",
+                    "name": "mainnet"
                 }
             }
         },
