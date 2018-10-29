@@ -16,9 +16,7 @@ import {
     MEMO_PREPEND_TASK,
     MEMO_PREPEND_PRESENT,
     MEMO_PREPEND_ALLOWANCE,
-    MEMO_PREPEND_GOAL,
     MEMO_PREPEND_CREATE,
-    MEMO_PREPEND_HOME,
 } from 'app/constants';
 
 const trimMemo = memo => {
@@ -31,14 +29,8 @@ const trimMemo = memo => {
     if (memo.indexOf(MEMO_PREPEND_TASK) === 0) {
         return memo.slice(MEMO_PREPEND_TASK.length);
     }
-    if (memo.indexOf(MEMO_PREPEND_GOAL) === 0) {
-        return memo.slice(MEMO_PREPEND_GOAL.length);
-    }
     if (memo.indexOf(MEMO_PREPEND_CREATE) === 0) {
         return memo.slice(MEMO_PREPEND_CREATE.length);
-    }
-    if (memo.indexOf(MEMO_PREPEND_HOME) === 0) {
-        return memo.slice(MEMO_PREPEND_HOME.length);
     }
     return memo;
 };
@@ -135,9 +127,9 @@ export class Payments extends Component {
                 (filter === 'received' && payment.direction === 'in')
             ));
 
-            // filteredPayments.forEach(payment => {
-            //     payment.memo = trimMemo(payment.memo);
-            // });
+            filteredPayments.forEach(payment => {
+                payment.memo = trimMemo(payment.memo);
+            });
         }
 
         return (

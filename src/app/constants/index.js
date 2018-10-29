@@ -76,8 +76,6 @@ export const KID_PASSCODE_LENGTH = 3;
 export const KID_SEND_MAX_AMOUNT = 100;
 
 export const MEMO_PREPEND_CREATE = 'C:';
-export const MEMO_PREPEND_HOME = 'H:';
-export const MEMO_PREPEND_GOAL = 'G:';
 export const MEMO_PREPEND_TASK = 'T:';
 export const MEMO_PREPEND_PRESENT = 'P:';
 export const MEMO_PREPEND_ALLOWANCE = 'A:';

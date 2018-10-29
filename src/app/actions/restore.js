@@ -1,5 +1,5 @@
-import {paymentHistoryAll, loadAccount} from '@pigzbe/stellar-utils';
-import {MEMO_PREPEND_CREATE, MEMO_PREPEND_HOME, MEMO_PREPEND_GOAL} from '../constants';
+import {paymentHistoryAll} from '@pigzbe/stellar-utils';
+import {MEMO_PREPEND_CREATE} from '../constants';
 import {getSeedHex, getKeypair, isValidMnemonic, findSecretKey} from '../utils/hd-wallet';
 import {appError, restoreKid, setKeys, saveKeys, settingsFirstTime, settingsUpdate} from './';
 
@@ -45,61 +45,18 @@ export const restoreKeys = mnemonic => async dispatch => {
 
         const sortedAccounts = accountsFound.sort((a, b) => a.index - b.index);
 
-        const mainAccounts = sortedAccounts.filter(a => a.memo.indexOf(MEMO_PREPEND_CREATE) === 0);
-
-        const homeAccounts = sortedAccounts.filter(a => a.memo.indexOf(MEMO_PREPEND_HOME) === 0);
-        const goalAccounts = sortedAccounts.filter(a => a.memo.indexOf(MEMO_PREPEND_GOAL) === 0);
-
-        const kidHomeAccounts = [];
-
-        for (const homeAccount of homeAccounts) {
-            const account = await loadAccount(homeAccount.address);
-            // console.log('home account', account);
-            kidHomeAccounts.push({
-                ...homeAccount,
-                account
-            });
-        }
-
-        const kidGoalAccounts = [];
-
-        for (const goalAccount of goalAccounts) {
-            const account = await loadAccount(goalAccount.address);
-            // console.log('goal account', account);
-            kidGoalAccounts.push({
-                ...goalAccount,
-                account
-            });
-        }
-
-        const kidAccounts = [];
-
-        for (const mainAccount of mainAccounts) {
-            const {address, memo} = mainAccount;
-            const home = kidHomeAccounts.find(h => h.account.signers.find(s => s.key === address));
-            // console.log('====> home', home);
-            const goals = kidGoalAccounts
-                .filter(g => g.account.signers.find(s => s.key === address))
-                .map(g => ({
-                    name: g.memo.slice(MEMO_PREPEND_GOAL.length),
-                    address: g.address,
-                    reward: '100'
-                }));
-            // console.log('====> goals: ', goals);
-            if (home) {
-                kidAccounts.push({
-                    name: memo.slice(MEMO_PREPEND_CREATE.length),
-                    address,
-                    home: home.address,
-                    goals
-                });
-            }
-        }
+        const kidAccounts = sortedAccounts
+            .filter(a => a.memo.indexOf(MEMO_PREPEND_CREATE) === 0)
+            .map(a => ({
+                name: a.memo.slice(MEMO_PREPEND_CREATE.length),
+                address: a.address
+            }));
 
         for (const k of kidAccounts) {
             console.log('Found', k.name, k.address, k.home, k.goals);
-            dispatch(restoreKid(k.name, k.address, k.home, k.goals));
+            dispatch(restoreKid(k.name, k.address));
         }
+
         const keyIndex = accountsFound.slice(-1).pop().index;
         console.log('keyIndex', keyIndex);
         dispatch(setKeys(keypair, mnemonic, true));
