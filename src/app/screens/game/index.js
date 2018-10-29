@@ -20,7 +20,7 @@ import GameCarousel from 'app/components/game-carousel';
 import GameCloudFlow from 'app/components/game-cloud-flow';
 import GoalOverlay from 'app/components/game-goal-overlay';
 import Loader from 'app/components/loader';
-import {claimWollo} from '../../actions';
+import {assignWolloToTree, loadKidActions, removeKidAction} from '../../actions';
 import BigNumber from 'bignumber.js';
 import Tour from './tour';
 import Trees from './trees';
@@ -31,7 +31,7 @@ export class Game extends Component {
         targetX: 0,
         cloudStatus: null,
         isGoalOverlayOpen: false,
-        goalOverlayAddress: null,
+        goalOverlayId: null,
         raining: false,
         y: new Animated.Value(0),
         transfers: [],
@@ -114,33 +114,31 @@ export class Game extends Component {
     }
 
     onNewTreeClicked = () => {
-        const goals = this.props.kid.goals || [];
-        const index = goals.length + 1;
+        const index = this.props.kid.goals.length;
         this.setState({targetX: Tree.SPACING * index});
         this.openGoalOverlay();
     }
 
-    countUpBalance = (goalAddress) => {
+    countUpBalance = (goalId) => {
         console.log('this.state.currentCloud.amount', this.state.currentCloud.amount);
         console.log('new BigNumber(this.state.currentCloud.amount).isGreaterThan(0)', new BigNumber(this.state.currentCloud.amount).isGreaterThan(0));
         if (this.state.currentCloud && new BigNumber(this.state.currentCloud.amount).isGreaterThan(0)) {
             console.log('clearTimeout');
             clearTimeout(this.timeoutHandle);
+
             // if there's one wollo left on the current cloud
             // let's just optimistically count down + hide cloud
-
-            // TODO: convert to bignumber.js
 
             const amountToAdd = BigNumber.min(this.state.currentCloud.amount, 1);
 
             console.log('amountToAdd', amountToAdd.toString(10));
 
-            const transfer = {
-                id: moment().valueOf(),
-                amount: amountToAdd.toString(10),
-                hash: this.state.currentCloud.hash,
-                destination: goalAddress,
-            };
+            this.props.dispatch(assignWolloToTree(
+                this.props.kid,
+                goalId,
+                this.state.currentCloud.hash,
+                amountToAdd.toString(10),
+            ));
 
             const amountAfterUpdate = new BigNumber(this.state.currentCloud.amount).minus(amountToAdd);
             console.log('amountAfterUpdate', amountAfterUpdate.toString(10));
@@ -151,27 +149,26 @@ export class Game extends Component {
                     amount: amountAfterUpdate.toString(10)
                 },
                 raining: true,
-                transfers: this.state.transfers.concat(transfer)
             });
         }
     }
 
-    centerCurrentTree = index => this.setState({targetX: Tree.SPACING * index});
+    centerCurrentTree = index => this.setState({targetX: Tree.SPACING * (index - 1)});
 
-    onTouchStart = (goalAddress, index) => {
-        console.log('onTouchStart', goalAddress, index, this.state.cloudStatus);
+    onTouchStart = (goalId, index) => {
+        console.log('onTouchStart', goalId, index, this.state.cloudStatus);
 
         if (this.state.cloudStatus === NOTIFICATION_STAGE_TASK_GREAT || this.state.cloudStatus === NOTIFICATION_STAGE_ALLOWANCE_CLOUD) {
             this.centerCurrentTree(index);
-            this.countUpBalance(goalAddress);
+            this.countUpBalance(goalId);
 
             this.touchTimer = setInterval(() => {
-                this.countUpBalance(goalAddress);
+                this.countUpBalance(goalId);
             }, 300);
         }
     }
 
-    onTouchEnd = (goalAddress, index, outside) => {
+    onTouchEnd = (goalId, index, outside) => {
         console.log('onTouchEnd outside =', outside);
         clearInterval(this.touchTimer);
 
@@ -182,6 +179,7 @@ export class Game extends Component {
             console.log('this.state.currentCloud.amount', this.state.currentCloud.amount);
             console.log('this.state.currentCloud && Number(this.state.currentCloud.amount) === 0', this.state.currentCloud && Number(this.state.currentCloud.amount) === 0);
             if (this.state.currentCloud && Number(this.state.currentCloud.amount) === 0) {
+                this.props.dispatch(removeKidAction(this.props.kid, this.state.currentCloud.hash));
                 this.setState({
                     cloudStatus: null,
                     showCloud: false,
@@ -196,7 +194,7 @@ export class Game extends Component {
         } else if (!this.state.raining && !outside) {
             // if we are not dropping wollos on tree let's treat as normal tree click:
             this.centerCurrentTree(index);
-            this.openGoalOverlay(goalAddress);
+            this.openGoalOverlay(goalId);
             this.setState({
                 cloudStatus: null,
                 showCloud: false
@@ -208,23 +206,7 @@ export class Game extends Component {
         this.setState({
             raining: false
         });
-
-        const transferIds = this.state.transfers
-            .filter(transfer => !this.state.pendingTransferIds.includes(transfer.id))
-            .map(transfer => transfer.id);
-
-        this.setState({
-            pendingTransferIds: this.state.pendingTransferIds.concat(transferIds),
-        });
-
-        await this.props.dispatch(claimWollo(this.props.kid.address, this.state.transfers.filter(transfer => transferIds.includes(transfer.id))));
-
-        // Clean up by removing these transfers and the pending ids
-        // Important to use latest this.state here
-        this.setState({
-            transfers: this.state.transfers.filter(transfer => !transferIds.includes(transfer.id)),
-            pendingTransferIds: this.state.pendingTransferIds.filter(id => !transferIds.includes(id)),
-        });
+        this.props.dispatch(loadKidActions(this.props.kid));
     }
 
     onActivateCloud = (currentCloud) => this.setState({
@@ -242,9 +224,9 @@ export class Game extends Component {
         showCloud: !!status,
     });
 
-    openGoalOverlay = (address = null) => this.setState({
+    openGoalOverlay = (id = null) => this.setState({
         isGoalOverlayOpen: true,
-        goalOverlayAddress: address,
+        goalOverlayId: id,
         // Close any message bubbles asking the user to click a tree
         showTapFirstCloud: false,
         showAskParent: false,
@@ -253,7 +235,7 @@ export class Game extends Component {
 
     closeGoalOverlay = () => this.setState({
         isGoalOverlayOpen: false,
-        goalOverlayAddress: null,
+        goalOverlayId: null,
     }, this.animateBg);
 
     animateBg = () => {
@@ -301,8 +283,8 @@ export class Game extends Component {
         }, {});
 
         const totalWollo = kid.goals.reduce((n, g) => {
-            return balances[g.address] ? n.plus(balances[g.address]) : n;
-        }, new BigNumber(balances[kid.home] || 0)).toString(10);
+            return n.plus(g.balance);
+        }, new BigNumber(0)).toString(10);
 
         const numGoals = this.props.kid.goals && this.props.kid.goals.length || 0;
 
@@ -356,7 +338,7 @@ export class Game extends Component {
                     top: this.state.y
                 }}>
                     <GameBg
-                        maxX={(1 + numGoals) * Tree.SPACING}
+                        maxX={numGoals * Tree.SPACING}
                         targetX={this.state.targetX}
                         onMoveComplete={this.onMoveComplete}>
                         <Trees
@@ -376,7 +358,7 @@ export class Game extends Component {
                     kid={kid}
                     isOpen={this.state.isGoalOverlayOpen}
                     onClose={this.closeGoalOverlay}
-                    goalAddress={this.state.goalOverlayAddress}
+                    goalId={this.state.goalOverlayId}
                     parentName={parentNickname}
                 />
                 <Messages

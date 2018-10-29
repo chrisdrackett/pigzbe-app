@@ -62,6 +62,7 @@ const props = {
         balance: '20',
         tasks: [],
         allowances: [],
+        goals: [],
     }
 };
 

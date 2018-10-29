@@ -36,19 +36,6 @@ export const wolloAsset = createSelector(
     }
 );
 
-
-export const kidsWithBalances = createSelector(
-    kidsSelector,
-    ({kids, balances}) => {
-        return kids.map(kid => ({
-            ...kid,
-            balance: kid.goals.reduce((n, g) => {
-                return n.plus(balances[g.address] || 0);
-            }, new BigNumber(balances[kid.home] || 0)).toString(10)
-        }));
-    }
-);
-
 export const erc20Token = createSelector(
     currentClaimSelector,
     configSelector,

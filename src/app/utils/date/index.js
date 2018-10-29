@@ -7,6 +7,4 @@ export const daysAgo = date => {
 
 export const dateFormat = date => moment(date).format('LL');
 
-//export const currentTimestamp
-
 export const currentTimeIso = () => moment().toISOString();

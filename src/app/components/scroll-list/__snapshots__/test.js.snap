@@ -11,6 +11,7 @@ exports[`Scroll List renders correctly 1`] = `
   }
 >
   <RCTScrollView
+    ListFooterComponent={null}
     data={Array []}
     disableVirtualization={false}
     getItem={[Function]}

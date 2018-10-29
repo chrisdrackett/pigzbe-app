@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 import Payments from './';
 import wollo from '../../reducers/wollo';
 import keys from '../../reducers/keys';
+import kids from '../../reducers/kids';
 import {mockStore} from '../../../setupTests';
 
 const props = {
@@ -14,7 +15,7 @@ const props = {
 describe('Payments', () => {
     test('renders correctly', () => {
         renderer.create((
-            <Provider store={mockStore({wollo, keys})}>
+            <Provider store={mockStore({wollo, keys, kids})}>
                 <Payments {...props}/>
             </Provider>
         ));

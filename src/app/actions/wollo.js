@@ -12,22 +12,17 @@ import {
     trustAsset,
     createAccount,
     TransactionBuilder,
-    multiSigTransaction,
     trustAssetTransaction,
     submitTransaction,
     Keypair
 } from '@pigzbe/stellar-utils';
 import {
     strings,
-    ASSET_CODE,
-    KID_GOAL_BALANCE_XLM,
-    KID_HOME_BALANCE_XLM,
-    MEMO_PREPEND_GOAL
+    ASSET_CODE
 } from '../constants';
 import Keychain from '../utils/keychain';
 import {wolloAsset} from '../selectors';
 import {createKeypair, appError} from './';
-import formatMemo from 'app/utils/format-memo';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
@@ -227,138 +222,6 @@ export const createKidAccount = (memo, nickname, startingBalance) => async dispa
         console.log(error);
     }
 
-    return null;
-};
-
-export const createHomeAccount = (memo, nickname, address) => async (dispatch, getState) => {
-    console.log('createHomeAccount', nickname);
-    try {
-        const {publicKey, secretKey} = getState().keys;
-        console.log('publicKey, secretKey', publicKey, secretKey);
-        const keypair = await dispatch(createKeypair());
-        const destination = keypair.publicKey();
-        console.log('createHomeAccount destination', destination);
-
-        await Keychain.save(`secret_${destination}`, keypair.secret());
-
-        console.log('createHomeAccount startingBalance', KID_HOME_BALANCE_XLM);
-
-        // await dispatch(fundKidAccount(`${memo}${nickname}`, destination, startingBalance));
-
-        const memoStr = formatMemo(`${memo}${nickname}`);
-
-        console.log('memoStr', memoStr);
-
-        const account = await createAccount(secretKey, destination, KID_HOME_BALANCE_XLM, memoStr);
-
-        console.log('account', account);
-
-        const signers = [{
-            publicKey,
-            weight: 1
-        }, {
-            publicKey: address,
-            weight: 1
-        }];
-
-        const weights = {
-            masterWeight: 1,
-            lowThreshold: 1,
-            medThreshold: 1,
-            highThreshold: 1
-        };
-
-        const txb = new TransactionBuilder(account);
-        multiSigTransaction(txb, signers, weights);
-
-        const asset = wolloAsset(getState());
-        trustAssetTransaction(txb, asset);
-
-        const transaction = txb.build();
-        transaction.sign(keypair);
-        const result = await submitTransaction(transaction);
-
-        console.log('result', result);
-
-        try {
-            const homeAcc = await loadAccount(destination);
-            console.log('getMinBalance HOME', getMinBalance(homeAcc, 1000));
-        } catch (e) {
-            console.log(e);
-        }
-
-        return destination;
-
-    } catch (error) {
-        console.log(error);
-    }
-
-    return null;
-};
-
-export const createGoalAccount = (kid, goalName) => async (dispatch, getState) => {
-    try {
-        const {publicKey, secretKey} = getState().keys;
-        const keypair = await dispatch(createKeypair());
-        const destination = keypair.publicKey();
-        console.log('createGoalAccount destination', destination);
-        await Keychain.save(`secret_${destination}`, keypair.secret());
-
-        const memo = formatMemo(`${MEMO_PREPEND_GOAL}${goalName.trim()}`);
-        console.log('memo', memo);
-        console.log('secretKey', secretKey);
-        let account;
-        try {
-            account = await createAccount(secretKey, destination, KID_GOAL_BALANCE_XLM, memo);
-
-        } catch (e) {
-            console.log(e);
-        }
-
-        console.log('account', account);
-
-        if (!account) {
-            return null;
-        }
-
-        const signers = [{
-            publicKey,
-            weight: 1
-        }, {
-            publicKey: kid.address,
-            weight: 1
-        }];
-
-        const weights = {
-            masterWeight: 1,
-            lowThreshold: 1,
-            medThreshold: 1,
-            highThreshold: 1
-        };
-
-        const txb = new TransactionBuilder(account);
-        multiSigTransaction(txb, signers, weights);
-
-        const asset = wolloAsset(getState());
-        trustAssetTransaction(txb, asset);
-
-        const transaction = txb.build();
-        transaction.sign(keypair);
-        const result = await submitTransaction(transaction);
-
-        console.log('result', result);
-
-        try {
-            const goalAcc = await loadAccount(destination);
-            console.log('getMinBalance GOAL', getMinBalance(goalAcc, 1000));
-        } catch (e) {
-            console.log(e);
-        }
-
-        return keypair.publicKey();
-    } catch (error) {
-        console.log(error);
-    }
     return null;
 };
 

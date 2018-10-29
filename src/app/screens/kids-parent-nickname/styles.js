@@ -8,7 +8,7 @@ export default StyleSheet.create({
         paddingTop: 10,
         lineHeight: 40,
         marginBottom: 20,
-        width: Dimensions.get('window').width * 0.35,
+        width: '45%',
         textAlign: 'center',
     },
     innerStyle: {
@@ -16,7 +16,7 @@ export default StyleSheet.create({
         display: 'flex',
         alignContent: 'center',
         justifyContent: 'center',
-        height: 45,
+        height: Dimensions.get('window').width > 450 ? 45 : Dimensions.get('window').width * 0.35,
     },
     flexStyle: {
         display: 'flex',

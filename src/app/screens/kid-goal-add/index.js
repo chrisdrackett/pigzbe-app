@@ -32,7 +32,7 @@ export class KidGoalAdd extends Component {
         Keyboard.dismiss();
 
         if (this.props.goal) {
-            await this.props.dispatch(updateGoal(this.props.kid, this.state.name, this.state.amount, this.props.goal.address));
+            await this.props.dispatch(updateGoal(this.props.kid, this.state.name, this.state.amount, this.props.goal.id));
         } else {
             await this.props.dispatch(assignGoal(this.props.kid, this.state.name, this.state.amount));
         }
