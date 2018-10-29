@@ -4,9 +4,9 @@ import {color} from '../../styles';
 export default StyleSheet.create({
     buttonStyle: {
         borderColor: color.blue,
-        width: Dimensions.get('window').width * 0.15,
+        width: Dimensions.get('window').width > 450 ? 80 : Dimensions.get('window').width * 0.15,
         height: 0,
-        paddingBottom: Dimensions.get('window').width * 0.15,
+        paddingBottom: Dimensions.get('window').width > 450 ? 80 : Dimensions.get('window').width * 0.15,
         marginBottom: Dimensions.get('window').width * 0.15,
         position: 'relative',
     },
@@ -16,11 +16,11 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         marginBottom: 0,
-        borderRadius: Dimensions.get('window').width * 0.075,
+        borderRadius: Dimensions.get('window').width > 450 ? 40 : Dimensions.get('window').width * 0.075,
         display: 'flex',
         alignContent: 'center',
         justifyContent: 'center',
-        height: Dimensions.get('window').width * 0.15,
+        height: Dimensions.get('window').width > 450 ? 80 : Dimensions.get('window').width * 0.15,
     },
     flexStyle: {
         display: 'flex',
