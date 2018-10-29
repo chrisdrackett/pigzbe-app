@@ -71,17 +71,19 @@ export class Payments extends Component {
     findKidByGoalAdress = goalAddress => {
         let kidWithGoal = null;
 
-        this.props.kids.forEach(k => {
+        for (const k of this.props.kids) {
             if (k.home === goalAddress) {
                 kidWithGoal = k;
+                break;
             }
 
-            k.goals.forEach(g => {
+            for (const g of k.goals) {
                 if (g.address === goalAddress) {
                     kidWithGoal = k;
+                    break;
                 }
-            });
-        });
+            }
+        }
 
         return kidWithGoal;
     }
