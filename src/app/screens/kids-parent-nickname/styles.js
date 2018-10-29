@@ -8,7 +8,7 @@ export default StyleSheet.create({
         paddingTop: 10,
         lineHeight: 40,
         marginBottom: 20,
-        width: Dimensions.get('window').width * 0.35,
+        width: '45%',
         textAlign: 'center',
     },
     innerStyle: {
