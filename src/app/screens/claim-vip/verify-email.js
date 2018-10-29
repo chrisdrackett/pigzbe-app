@@ -1,8 +1,10 @@
 import React, {Component, Fragment} from 'react';
+import {View} from 'react-native';
 import {connect} from 'react-redux';
 import StepModule from 'app/components/step-module';
 import Button from 'app/components/button';
 import TextInput from 'app/components/text-input';
+import Paragraph from 'app/components/paragraph';
 import {vipRequestEmail, vipVerifyEmail} from 'app/actions';
 import {SCREEN_CLAIM, SCREEN_CLAIM_VIP_REQUEST_CODE} from 'app/constants';
 
@@ -38,7 +40,7 @@ export class VerifyEmail extends Component {
     onCancel = () => this.props.navigation.navigate(SCREEN_CLAIM)
 
     render() {
-        const {email} = this.props;
+        const {email, error} = this.props;
 
         if (this.state.notFound) {
             return (
@@ -46,13 +48,24 @@ export class VerifyEmail extends Component {
                     title="Not found"
                     content="We could not find a registered VIP user with the email address and phone number provided."
                     icon="vip"
-                    justify="flex-end"
+                    justify={error ? 'space-between' : 'flex-end'}
                     pad
                 >
-                    <Button
-                        label="Ok"
-                        onPress={this.onCancel}
-                    />
+                    <Fragment>
+                        {error && (
+                            <Paragraph error>{error.message || error}</Paragraph>
+                        )}
+                        <View>
+                            <Button
+                                label="Try again"
+                                onPress={this.onBack}
+                            />
+                            <Button
+                                label="Ok"
+                                onPress={this.onCancel}
+                            />
+                        </View>
+                    </Fragment>
                 </StepModule>
             );
         }

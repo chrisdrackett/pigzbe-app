@@ -25,17 +25,18 @@ export const vipRequestEmail = () => async (dispatch, getState) => {
         const email = getState().deviceAuth.email || getState().settings.email;
         const phone = getState().deviceAuth.phone || getState().settings.phone;
         const country = getState().deviceAuth.country || getState().settings.country;
-        console.log('vipRequestEmail', email);
+        console.log('vipRequestEmail', email, phone, country);
         const result = await (await fetch(`${api}/vip/send-email?email=${email}&phone=${phone}&country=${country}`)).json();
         console.log(result);
         if (result.error) {
             dispatch(appError(result.message));
+            dispatch(vipError(result.message));
             return false;
         }
     } catch (error) {
         console.log('error', error);
         dispatch(appError('Could not request email'));
-        dispatch(vipError(error));
+        dispatch(vipError('Could not request email'));
         return false;
     }
     dispatch(vipLoading(false));
