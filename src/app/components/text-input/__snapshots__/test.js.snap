@@ -42,7 +42,7 @@ exports[`TextInput renders correctly 1`] = `
     }
   >
     <TextInput
-      allowFontScaling={true}
+      allowFontScaling={false}
       autoCapitalize="sentences"
       autoCorrect={true}
       blurOnSubmit={true}

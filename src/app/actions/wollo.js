@@ -12,7 +12,6 @@ import {
     trustAsset,
     createAccount,
     TransactionBuilder,
-    multiSigTransaction,
     trustAssetTransaction,
     submitTransaction,
     Keypair
