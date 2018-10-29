@@ -66,13 +66,19 @@ export class Payments extends Component {
             return null;
         }
 
-        this.props.kids.forEach(k => {
-            k.goals.forEach(g => {
+        for (const k of this.props.kids) {
+            if (k.home === goalAddress) {
+                kidWithGoal = k;
+                break;
+            }
+
+            for (const g of k.goals) {
                 if (g.address === goalAddress) {
                     kidWithGoal = k;
+                    break;
                 }
-            });
-        });
+            }
+        }
 
         return kidWithGoal;
     }
