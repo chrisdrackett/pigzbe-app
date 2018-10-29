@@ -338,7 +338,7 @@ export class Game extends Component {
                     top: this.state.y
                 }}>
                     <GameBg
-                        maxX={(1 + numGoals) * Tree.SPACING}
+                        maxX={numGoals * Tree.SPACING}
                         targetX={this.state.targetX}
                         onMoveComplete={this.onMoveComplete}>
                         <Trees

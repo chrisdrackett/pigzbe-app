@@ -53,7 +53,7 @@ export const restoreKeys = mnemonic => async dispatch => {
             }));
 
         for (const k of kidAccounts) {
-            console.log('Found', k.name, k.address, k.home, k.goals);
+            console.log('Found', k.name, k.address);
             dispatch(restoreKid(k.name, k.address));
         }
 
