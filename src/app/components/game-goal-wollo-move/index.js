@@ -14,7 +14,7 @@ export class GameGoalWolloMove extends Component {
         onWolloMoved: () => {},
     }
     state = {
-        goalAddress: null,
+        goalId: null,
         amount: 0,
     }
     render() {
@@ -22,11 +22,11 @@ export class GameGoalWolloMove extends Component {
         return (
             <View style={styles.box}>
                 <SelectInput
-                    value={this.state.goalAddress}
+                    value={this.state.goalId}
                     placeholder={'Move to tree'}
-                    onChangeSelection={goalAddress => this.setState({goalAddress})}
+                    onChangeSelection={goalId => this.setState({goalId})}
                     options={goals.reduce((obj, goal) => {
-                        obj[goal.address] = goal.name;
+                        obj[goal.id] = goal.name;
                         return obj;
                     }, {})}
                 />
@@ -41,9 +41,9 @@ export class GameGoalWolloMove extends Component {
                 />
                 <Button
                     label="Move Wollo"
-                    disabled={this.state.amount === 0 || !this.state.goalAddress}
+                    disabled={this.state.amount === 0 || !this.state.goalId}
                     onPress={async () => {
-                        await this.props.moveWollo(this.state.goalAddress, this.state.amount);
+                        await this.props.moveWollo(this.state.goalId, this.state.amount);
                         this.props.onWolloMoved();
                     }}
                 />
@@ -55,6 +55,6 @@ export class GameGoalWolloMove extends Component {
 export default connect(
     state => ({}),
     (dispatch, ownProps) => ({
-        moveWollo: async (destinationGoalAddress, amount) => dispatch(moveGoalWollo(ownProps.goalAddress, destinationGoalAddress, amount))
+        moveWollo: async (destinationGoalId, amount) => dispatch(moveGoalWollo(ownProps.kid, ownProps.goalId, destinationGoalId, amount))
     })
 )(GameGoalWolloMove);

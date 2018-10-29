@@ -13,14 +13,14 @@ export class GameGoalParentSend extends Component {
         onWolloMoved: () => {},
     }
     render() {
-        const {goalBalance} = this.props;
+        const {goal} = this.props;
         return (
             <View style={styles.box}>
                 <WolloSlider
                     actionLabel="Select amount to send"
                     sliderValueToAmount={value => {
                         // between 0 and goalBalance
-                        return Math.round(goalBalance * value);
+                        return Math.round(goal.balance * value);
                     }}
                     onChange={amount => this.setState({amount})}
                 />
@@ -40,6 +40,6 @@ export class GameGoalParentSend extends Component {
 export default connect(
     state => ({}),
     (dispatch, ownProps) => ({
-        sendToParent: async (amount) => dispatch(sendGoalWolloToParent(ownProps.goalAddress, amount))
+        sendToParent: async (amount) => dispatch(sendGoalWolloToParent(ownProps.kid, ownProps.goal, amount))
     })
 )(GameGoalParentSend);

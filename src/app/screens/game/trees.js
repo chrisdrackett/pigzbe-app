@@ -11,12 +11,12 @@ class TouchableTree extends Component {
     }
 
     onTouchStart = () => {
-        this.props.onTouchStart(this.props.address, this.props.index);
+        this.props.onTouchStart(this.props.id, this.props.index);
         this.setState({touching: true});
     }
 
     onTouchEnd = e => {
-        this.props.onTouchEnd(this.props.address, this.props.index, this.isOutside(e));
+        this.props.onTouchEnd(this.props.id, this.props.index, this.isOutside(e));
         this.setState({touching: false});
     }
 
@@ -37,7 +37,7 @@ class TouchableTree extends Component {
     })
 
     render() {
-        const {label, balances, address, isGoalOverlayOpen} = this.props;
+        const {label, balance, id, isGoalOverlayOpen} = this.props;
 
         return (
             <View
@@ -50,7 +50,7 @@ class TouchableTree extends Component {
                 style={[styles.tree, {left: this.props.left}]}>
                 <Tree
                     name={label}
-                    value={(balances && balances[address] !== undefined) ? parseFloat(balances[address]) : 0}
+                    value={parseFloat(balance)}
                     overlayOpen={isGoalOverlayOpen}
                     highlight={this.state.touching}
                     onTreeHeight={this.onTreeHeight}
@@ -62,7 +62,6 @@ class TouchableTree extends Component {
 
 export default ({
     kid,
-    balances,
     onTouchStart,
     onTouchEnd,
     onNewTreeClicked,
@@ -72,33 +71,22 @@ export default ({
 
     return (
         <Fragment>
-            <TouchableTree
-                label="HOMETREE"
-                address={kid.home}
-                index={0}
-                balances={balances}
-                isGoalOverlayOpen={isGoalOverlayOpen}
-                onTouchStart={onTouchStart}
-                onTouchEnd={onTouchEnd}
-                left={startX}
-            />
-
             {kid.goals && kid.goals.map((goal, i) => (
                 <TouchableTree
                     key={i}
                     label={goal.name}
-                    address={goal.address}
+                    id={goal.id}
                     index={i + 1}
-                    balances={balances}
+                    balance={goal.balance}
                     isGoalOverlayOpen={isGoalOverlayOpen}
                     onTouchStart={onTouchStart}
                     onTouchEnd={onTouchEnd}
-                    left={startX + Tree.SPACING * (i + 1)}
+                    left={startX + Tree.SPACING * (i)}
                 />
             ))}
 
             <TouchableOpacity onPress={onNewTreeClicked} style={[styles.tree, {
-                left: startX + Tree.SPACING * ((kid.goals && kid.goals.length || 0) + 1)
+                left: startX + Tree.SPACING * kid.goals.length
             }]}>
                 <Tree
                     name="NEW GOAL?"
