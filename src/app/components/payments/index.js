@@ -54,7 +54,11 @@ export class Payments extends Component {
         }
     }
 
-    update = () => this.props.address && this.props.loadPayments(this.props.address)
+    update = () => {
+        if (typeof this.props.loadPayments === 'function') {
+            this.props.loadPayments(this.props.address);
+        }
+    }
 
     onHelp = () => this.setState({helpOpen: true})
 
@@ -87,6 +91,8 @@ export class Payments extends Component {
         const {filter} = this.state;
         const {loading, payments = [], showHelp, spacingBottom = false} = this.props;
 
+        console.log('payments', payments);
+
         const filters = {
             all: 'ALL',
             sent: 'SENT',
@@ -105,6 +111,8 @@ export class Payments extends Component {
         }
 
         const address = this.props.address || this.props.publicKey;
+
+        console.log('address', address);
 
         let filteredPayments = payments;
 
