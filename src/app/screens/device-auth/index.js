@@ -1,10 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Keyboard, View, Text} from 'react-native';
+import {Keyboard, View, Text, TouchableOpacity} from 'react-native';
 import Button from 'app/components/button';
 import TextInput from 'app/components/text-input';
 import Checkbox from 'app/components/checkbox';
-import {SCREEN_TOUCH_ID, SCREEN_SET_PASSCODE} from 'app/constants';
+import WebPage from 'app/components/web-page';
+import {SCREEN_TOUCH_ID, SCREEN_SET_PASSCODE, TERMS_URL} from 'app/constants';
 import {
     color
 } from '../../styles';
@@ -69,6 +70,16 @@ export class DeviceAuth extends Component {
         this.setState({termsAccepted: !this.state.termsAccepted});
     }
 
+    openWebPage = (webPageTitle, webPageURL) => this.setState({
+        webPageOpen: true,
+        webPageTitle,
+        webPageURL,
+    })
+
+    onWebPageClose = () => this.setState({webPageOpen: false})
+
+    onTermsLink = () => this.openWebPage('Terms & Conditions', TERMS_URL)
+
     // onChangeCountry = option => this.setState({countryName: option.label, country: option.value})
     onChangeCountry = country => {
         this.setState({
@@ -121,7 +132,7 @@ export class DeviceAuth extends Component {
         } = this.props;
 
         const {termsAccepted} = this.state;
-        const {onChangeTermsAcceptance} = this;
+        const {onChangeTermsAcceptance, onTermsLink} = this;
 
         if (!id || !requestLogin) {
             return (
@@ -153,6 +164,12 @@ export class DeviceAuth extends Component {
                                 placeholder={'Your mobile number'}
                                 onChangeText={this.onChangePhone}
                             />
+                            <Button
+                                theme="plain"
+                                label={this.state.countryName}
+                                onPress={this.onOpenCountryModal}
+                                error={!!error}
+                            />
                             <View style={{
                                 display: 'flex',
                                 alignContent: 'center',
@@ -161,19 +178,33 @@ export class DeviceAuth extends Component {
                                 <Checkbox
                                     value={termsAccepted}
                                     onValueChange={onChangeTermsAcceptance}
-                                    style={{float: 'left'}}
-                                />
-                                <Text style={{
-                                    color: color.blue,
-                                    float: 'left',
-                                }}>Accept Terms</Text>
+                                >
+                                    <View style={{
+                                        display: 'flex',
+                                        justifyContent: 'flex-start',
+                                        flexDirection: 'row',
+                                        marginLeft: 10
+                                    }}>
+                                        <Text style={{
+                                            color: color.blue,
+                                            fontSize: 10
+                                        }}>
+                                            I agree to Pigzbe&nbsp;
+                                        </Text>
+                                        <TouchableOpacity onPress={onTermsLink}>
+                                            <Text style={{
+                                                textDecorationLine: 'underline',
+                                                textDecorationStyle: 'solid',
+                                                textDecorationColor: color.blue,
+                                                color: color.blue,
+                                                fontSize: 10
+                                            }}>
+                                                Terms & Conditions
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </Checkbox>
                             </View>
-                            <Button
-                                theme="plain"
-                                label={this.state.countryName}
-                                onPress={this.onOpenCountryModal}
-                                error={!!error}
-                            />
                             <ReactModal
                                 isVisible={this.state.showCountryModal}
                                 animationIn="slideInRight"
@@ -207,9 +238,16 @@ export class DeviceAuth extends Component {
                                     theme="outline"
                                     label={'Skip'}
                                     onPress={this.onSkip}
+                                    disabled={!this.state.termsAccepted}
                                 />
                             )}
                         </View>
+                        <WebPage
+                            open={this.state.webPageOpen}
+                            url={this.state.webPageURL}
+                            title={this.state.webPageTitle}
+                            onClose={this.onWebPageClose}
+                        />
                     </Fragment>
                 </StepModule>
             );

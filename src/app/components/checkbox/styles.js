@@ -10,8 +10,7 @@ export default StyleSheet.create({
         marginTop: 10,
         marginBottom: 20,
         alignItems: 'center',
-        justifyContent: 'space-between',
-        alignSelf: 'stretch',
+        justifyContent: 'flex-start',
     },
     text: {
         fontFamily,
