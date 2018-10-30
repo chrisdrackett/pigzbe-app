@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
 import StepModule from 'app/components/step-module';
 import Button from 'app/components/button';
 import {SCREEN_DASHBOARD} from 'app/constants';
@@ -13,17 +12,15 @@ export default class Finish extends Component {
         return (
             <StepModule
                 title="Congratulations"
-                content="Pigzbe has registered your public key"
+                content="Thank you for submitting your Wollo Claim.\n\nPigzbe will review your claim and contact you to notify of when you will receive you Wollo allocation."
                 icon="tick"
                 justify="flex-end"
                 pad
             >
-                <View>
-                    <Button
-                        label="Done"
-                        onPress={this.onNext}
-                    />
-                </View>
+                <Button
+                    label="Done"
+                    onPress={this.onNext}
+                />
             </StepModule>
         );
     }
