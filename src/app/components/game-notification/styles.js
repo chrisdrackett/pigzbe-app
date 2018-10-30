@@ -7,11 +7,9 @@ export default StyleSheet.create({
         justifyContent: 'center',
         position: 'relative',
         width: 156,
-        height: 66,
     },
     cloud: {
         width: 156,
-        height: 66,
         position: 'absolute',
         top: 0,
         left: 0,
