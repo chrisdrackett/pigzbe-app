@@ -1,4 +1,5 @@
-// import wait from '../utils/wait';
+import {STORAGE_KEY_SETTINGS} from 'app/constants';
+import Storage from 'app/utils/storage';
 import {
     authCheckTouchId,
     authTouchId,
@@ -128,4 +129,13 @@ export const initialize = () => async (dispatch, getState) => {
     await dispatch(loadCachedExchange());
     dispatch(initializing(false));
     return true;
+};
+
+export const checkAccountExists = () => async dispatch => {
+    const hasPasscode = !!await dispatch(authKeychain());
+    const hasStorage = await Storage.hasItem(STORAGE_KEY_SETTINGS);
+    console.log('checkAccountExists');
+    console.log('  hasPasscode', hasPasscode);
+    console.log('  hasStorage', hasStorage);
+    return hasPasscode && hasStorage;
 };

@@ -1,10 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Text, View, TouchableOpacity, BackHandler} from 'react-native';
-import {initialize, loadContent, authKeychainKid, tryTouchIdLogin, authKeychain} from '../../actions';
+import {loadContent, authKeychainKid, tryTouchIdLogin, checkAccountExists} from '../../actions';
 import styles from './styles';
 import Button from '../../components/button';
-import Loader from '../../components/loader';
 import Header from '../../components/header';
 import Pig from '../../components/pig';
 import {strings} from '../../constants';
@@ -89,9 +88,9 @@ class Home extends Component {
     async componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
 
-        const passcode = await this.props.dispatch(authKeychain());
+        const accountExists = await this.props.dispatch(checkAccountExists());
         this.setState({
-            accountExists: !!passcode,
+            accountExists,
         });
     }
 

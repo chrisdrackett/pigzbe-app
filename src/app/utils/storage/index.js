@@ -37,4 +37,13 @@ export const clear = async key => {
     await AsyncStorage.removeItem(getKey(key));
 };
 
+export const hasItem = async key => {
+    let value = null;
+    try {
+        value = await AsyncStorage.getItem(getKey(key));
+    } catch (error) {
+    }
+    return !!value;
+};
+
 export default module.exports;
