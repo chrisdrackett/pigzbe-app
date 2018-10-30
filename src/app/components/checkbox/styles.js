@@ -26,25 +26,34 @@ export default StyleSheet.create({
     outer: {
         width: 30,
         height: 30,
-        borderWidth: 1,
-        borderColor: color.blue,
-        borderStyle: 'solid',
-        borderRadius: 15,
+        borderRadius: 4,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    outerInactive: {
+        backgroundColor: color.white,
+        borderColor: color.lighterBlue,
+        borderWidth: 1,
+        borderStyle: 'solid',
+    },
+    outerActive: {
+        backgroundColor: color.turquoise,
+        borderColor: color.turquoise,
+        borderWidth: 1,
+        borderStyle: 'solid',
     },
     innerInactive: {
         width: 16,
         height: 16,
-        backgroundColor: color.blue,
         opacity: 0.3,
-        borderRadius: 8
     },
     innerActive: {
         width: 16,
         height: 16,
-        backgroundColor: color.blue,
         opacity: 1,
-        borderRadius: 8
     },
+    inner: {
+        width: 16,
+        height: 16,
+    }
 });
