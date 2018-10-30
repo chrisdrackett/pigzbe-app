@@ -13,6 +13,7 @@ export default ({
     theme = '',
     style,
     textStyle,
+    error,
 }) => (
     <View style={styles.container}>
         <TouchableOpacity
@@ -22,7 +23,8 @@ export default ({
                 styles.hit,
                 styles[`hit__${theme}`],
                 disabled ? [styles.hit__disabled, styles[`hit__disabled__${theme}`]] : null,
-                style
+                style,
+                error ? styles.error : null
             ]}
         >
             <Text
@@ -30,7 +32,8 @@ export default ({
                     styles.text,
                     styles[`text__${theme}`],
                     disabled ? [styles.text__disabled, styles[`text__disabled__${theme}`]] : null,
-                    textStyle
+                    textStyle,
+                    error ? styles.error : null
                 ]}
             >
                 {label}
