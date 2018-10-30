@@ -44,6 +44,7 @@ export const color = {
     skyBlueBottom: 'rgb(174, 236, 251)',
     violet: 'rgb(171, 170, 211)',
     earth: 'rgb(129, 71, 40)',
+    turquoise: 'rgb(74, 207, 186)',
 };
 
 // export const paddingH = '9.375%';

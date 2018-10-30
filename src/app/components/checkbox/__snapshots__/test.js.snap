@@ -13,26 +13,14 @@ exports[`Checkbox renders correctly 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "alignSelf": "stretch",
       "flexDirection": "row",
-      "justifyContent": "space-between",
+      "justifyContent": "flex-start",
       "marginBottom": 20,
       "marginTop": 10,
       "opacity": 1,
     }
   }
 >
-  <Text
-    style={
-      Object {
-        "color": "rgb(0, 50, 120)",
-        "fontFamily": "Poppins",
-        "fontSize": 14,
-        "fontWeight": "bold",
-        "marginRight": 10,
-      }
-    }
-  />
   <View
     style={
       Object {
@@ -43,23 +31,26 @@ exports[`Checkbox renders correctly 1`] = `
   >
     <View
       style={
-        Object {
-          "alignItems": "center",
-          "borderColor": "rgb(0, 50, 120)",
-          "borderRadius": 15,
-          "borderStyle": "solid",
-          "borderWidth": 1,
-          "height": 30,
-          "justifyContent": "center",
-          "width": 30,
-        }
+        Array [
+          Object {
+            "alignItems": "center",
+            "borderRadius": 4,
+            "height": 30,
+            "justifyContent": "center",
+            "width": 30,
+          },
+          Object {
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderColor": "rgb(127, 153, 188)",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+          },
+        ]
       }
     >
       <View
         style={
           Object {
-            "backgroundColor": "rgb(0, 50, 120)",
-            "borderRadius": 8,
             "height": 16,
             "opacity": 0.3,
             "width": 16,
@@ -68,5 +59,16 @@ exports[`Checkbox renders correctly 1`] = `
       />
     </View>
   </View>
+  <View
+    style={
+      Object {
+        "color": "rgb(0, 50, 120)",
+        "fontFamily": "Poppins",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "marginRight": 10,
+      }
+    }
+  />
 </View>
 `;
