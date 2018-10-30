@@ -372,7 +372,7 @@ export class Game extends Component {
                         light
                     />
                 </View>}
-                {__DEV__ && (
+                {__DEV__ && false && (
                     <View style={{position: 'absolute', top: 30, right: 20, flexDirection: 'row', alignItems: 'center'}}>
                         <Text style={{marginRight: 10}}>
                             Snap
