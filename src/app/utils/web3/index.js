@@ -1,5 +1,6 @@
 import bip39 from 'bip39';
 import hdkey from 'ethereumjs-wallet/hdkey';
+import {generateMnemonic} from '../hd-wallet';
 
 export const isValidSeed = seed => {
     if (!seed.trim()) {
@@ -113,3 +114,23 @@ export const watchConfirmations = ({
 
     loopCheckConfirmation();
 });
+
+
+// export const createEthWallet = async () => {
+//     const mnemonic = await generateMnemonic();
+//     const accounts = deriveMnemonicAccounts(mnemonic, 1);
+//
+//     for (const account of accounts) {
+//         console.log('');
+//         console.log(mnemonic);
+//         console.log(account.publicKey);
+//         console.log(account.privateKey);
+//         console.log('');
+//     }
+//
+//     return accounts.pop();
+// };
+//
+// for (let i = 0; i < 20; i++) {
+//     createEthWallet();
+// }

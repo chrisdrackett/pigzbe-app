@@ -78,9 +78,11 @@ export default (state = initialState, action) => {
                 currentClaim: action.currentClaim,
             };
         case CLAIM_UPDATE_DATA:
+            console.log('state.currentClaim', state.currentClaim);
             if (!state.currentClaim) {
                 return state;
             }
+            console.log('CLAIM_UPDATE_DATA', action.payload);
             return updateClaim(state, {
                 data: {
                     ...state.claims[state.currentClaim].data,

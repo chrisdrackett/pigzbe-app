@@ -70,9 +70,10 @@ const getContract = () => async (dispatch, getState) => {
 export const initWeb3 = () => async (dispatch, getState) => {
     const {network, rpc} = erc20Token(getState());
 
-    console.log('initWeb3', network, rpc);
+    if (__DEV__) {
+        console.log('initWeb3', network, rpc);
+    }
 
-    dispatch(claimError(null));
     dispatch({type: CLAIM_INIT_WEB3, payload: {network, rpc}});
 
     await dispatch(getContract());
@@ -144,12 +145,18 @@ export const burn = () => async (dispatch, getState) => {
             const data = instance.methods.burn(amount).encodeABI();
 
             const gasPrice = await dispatch(getGasPrice());
-            console.log('burn gasPrice', gasPrice);
+
+            console.log('burn gasPrice', gasPrice, web3.utils.toHex(gasPrice));
+
+            const chainId = network === 'mainnet' ? 1 : 3;
+
+            console.log('chainId', chainId);
 
             const rawTx = {
+                chainId,
                 nonce: web3.utils.toHex(await web3.eth.getTransactionCount(coinbase)),
                 gasPrice: web3.utils.toHex(gasPrice),
-                gasLimit: web3.utils.toHex(4700000),
+                gasLimit: web3.utils.toHex(47000),
                 value: web3.utils.toHex(0),
                 to: address,
                 from: coinbase,
