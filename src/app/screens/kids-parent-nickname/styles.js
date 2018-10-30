@@ -16,7 +16,7 @@ export default StyleSheet.create({
         display: 'flex',
         alignContent: 'center',
         justifyContent: 'center',
-        height: Dimensions.get('window').width > 450 ? 45 : Dimensions.get('window').width * 0.35,
+        height: 45,
     },
     flexStyle: {
         display: 'flex',
