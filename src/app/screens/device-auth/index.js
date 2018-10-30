@@ -1,9 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Keyboard, View} from 'react-native';
+import {Keyboard, View, Text} from 'react-native';
 import Button from 'app/components/button';
 import TextInput from 'app/components/text-input';
+import Checkbox from 'app/components/checkbox';
 import {SCREEN_TOUCH_ID, SCREEN_SET_PASSCODE} from 'app/constants';
+import {
+    color
+} from '../../styles';
 import {
     deviceAuthOnline,
     deviceAuthRegister,
@@ -31,6 +35,7 @@ export class DeviceAuth extends Component {
         countryCode: countryCodes[0].code,
         countryName: countryCodes[0].country,
         showCountryModal: false,
+        termsAccepted: false,
     }
 
     static defaultProps = {
@@ -59,6 +64,10 @@ export class DeviceAuth extends Component {
     onChangeEmail = email => this.setState({email})
 
     onChangePhone = phone => this.setState({phone})
+
+    onChangeTermsAcceptance = () => {
+        this.setState({termsAccepted: !this.state.termsAccepted});
+    }
 
     // onChangeCountry = option => this.setState({countryName: option.label, country: option.value})
     onChangeCountry = country => {
@@ -111,6 +120,9 @@ export class DeviceAuth extends Component {
             requestLogin,
         } = this.props;
 
+        const {termsAccepted} = this.state;
+        const {onChangeTermsAcceptance} = this;
+
         if (!id || !requestLogin) {
             return (
                 <StepModule
@@ -141,6 +153,21 @@ export class DeviceAuth extends Component {
                                 placeholder={'Your mobile number'}
                                 onChangeText={this.onChangePhone}
                             />
+                            <View style={{
+                                display: 'flex',
+                                alignContent: 'center',
+                                justifyContent: 'center',
+                            }}>
+                                <Checkbox
+                                    value={termsAccepted}
+                                    onValueChange={onChangeTermsAcceptance}
+                                    style={{float: 'left'}}
+                                />
+                                <Text style={{
+                                    color: color.blue,
+                                    float: 'left',
+                                }}>Accept Terms</Text>
+                            </View>
                             <Button
                                 theme="plain"
                                 label={this.state.countryName}
@@ -172,7 +199,7 @@ export class DeviceAuth extends Component {
                             <Button
                                 label={this.props.buttonLabel}
                                 onPress={this.onSend}
-                                disabled={!(this.state.email && this.state.phone && this.state.countryCode)}
+                                disabled={!(this.state.email && this.state.phone && this.state.countryCode && this.state.termsAccepted)}
                             />
                             {this.props.skippable && (
                                 <Button
