@@ -22,7 +22,7 @@ import {
 } from '../constants';
 import Keychain from '../utils/keychain';
 import {wolloAsset} from '../selectors';
-import {createKeypair, appError} from './';
+import {createKeypair, appError, updateKidBalance} from './';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
@@ -56,7 +56,8 @@ const updateBalance = balance => ({type: WOLLO_UPDATE_BALANCE, balance});
 
 const updateXLM = account => dispatch => {
     const balanceXLM = getBalance(account);
-    const minXLM = getMinBalance(account);
+    const minXLM = getMinBalance(account, 10000);
+    console.log('minXLM', minXLM);
     const hasGas = checkHasGas(account);
     dispatch({type: WOLLO_UPDATE_XLM, balanceXLM, minXLM, hasGas});
 };
@@ -83,7 +84,7 @@ export const loadWallet = publicKey => async (dispatch, getState) => {
     }
 };
 
-export const refreshBalance = () => async (dispatch, getState) => {
+export const refreshBalance = kidAddress => async (dispatch, getState) => {
     const key = getState().keys.publicKey;
     try {
         if (key) {
@@ -91,6 +92,10 @@ export const refreshBalance = () => async (dispatch, getState) => {
             dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
             dispatch(updateBalance(getWolloBalance(account)));
             dispatch(updateXLM(account));
+        }
+        if (kidAddress) {
+            const account = await loadAccount(kidAddress);
+            dispatch(updateKidBalance(kidAddress, getWolloBalance(account)));
         }
     } catch (error) {
         console.log('Could not load wallet with publicKey', key);
@@ -222,17 +227,6 @@ export const createKidAccount = (memo, nickname, startingBalance) => async dispa
     }
 
     return null;
-};
-
-export const getAccountBalance = publicKey => async () => {
-    console.log('getAccountBalance', publicKey);
-    try {
-        const account = await loadAccount(publicKey);
-        return getWolloBalance(account);
-    } catch (error) {
-        console.log(error);
-    }
-    return '0';
 };
 
 export const fundAccount = (xlm = '100', wollo = '500') => async (dispatch, getState) => {

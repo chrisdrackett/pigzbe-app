@@ -32,7 +32,7 @@ const kidDefaults = {
     address: null,
     home: null,
     photo: null,
-    balance: null,
+    balance: '0',
     dob: null,
     tasks: [],
     goals: [
@@ -41,7 +41,7 @@ const kidDefaults = {
     allowances: [],
     actions: [],
     goalTransactions: [],
-    entries: [],
+    records: [],
 };
 
 const saveExclude = [
@@ -66,8 +66,6 @@ export const initialState = {
     numKidsToAdd: 0,
     numKidsAdded: 0,
     kids: [],
-    balances: {},
-    balancesXLM: {},
 };
 
 export default (state = initialState, action) => {
@@ -305,7 +303,7 @@ export default (state = initialState, action) => {
                             ...k,
                             actions: action.actions,
                             tasks: action.tasks,
-                            entries: action.entries,
+                            records: action.records,
                         };
                     }
                     return k;
@@ -314,10 +312,15 @@ export default (state = initialState, action) => {
         case KIDS_SET_BALANCE:
             return {
                 ...state,
-                balances: {
-                    ...state.balances,
-                    [action.address]: action.balance,
-                },
+                kids: state.kids.map(k => {
+                    if (k.address === action.address) {
+                        return {
+                            ...k,
+                            balance: action.balance,
+                        };
+                    }
+                    return k;
+                }),
             };
         case KIDS_GOAL_WOLLO_TRANSACTION:
             return {

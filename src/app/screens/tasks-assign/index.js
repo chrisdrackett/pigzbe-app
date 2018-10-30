@@ -12,7 +12,7 @@ import FundingMessage from '../../components/funding-message';
 
 export class TasksAssign extends Component {
     state = {
-        wollos: this.props.taskToEdit ? this.props.taskToEdit.reward : 0,
+        wollos: this.props.taskToEdit ? this.props.taskToEdit.amount : 0,
         showFundingMessage: false,
     }
 

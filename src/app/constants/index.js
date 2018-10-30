@@ -40,7 +40,8 @@ export const ASSET_DPS = CURRENCIES[ASSET_CODE].dps;
 export const PRIVACY_URL = 'https://pigzbe.com/pdf/pigzbe_privacy_notice.pdf';
 export const TERMS_URL = 'https://pigzbe.com/pdf/pigzbe_terms_of_website_use.pdf';
 export const SUPPORT_EMAIL = 'mailto:support@pigzbe.com';
-export const FUNDING_URL = 'https://medium.com/@pigzbe';
+// export const FUNDING_URL = 'https://medium.com/@pigzbe';
+export const FUNDING_URL = 'https://rebrand.ly/pigzb28b53';
 
 export const MAX_INNER_WIDTH = 440;
 
@@ -80,8 +81,8 @@ export const MEMO_PREPEND_TASK = 'T:';
 export const MEMO_PREPEND_PRESENT = 'P:';
 export const MEMO_PREPEND_ALLOWANCE = 'A:';
 
-export const MIN_BALANCE = 2.52;
-export const MIN_BALANCE_XLM_ADD_KID = 2.52;
+export const MIN_BALANCE = 1.6;
+export const MIN_BALANCE_XLM_ADD_KID = 1.6;
 
 export const KID_WALLET_BALANCE_XLM = String(MIN_BALANCE_XLM_ADD_KID);
 

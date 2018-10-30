@@ -181,10 +181,6 @@ export class KidDashboard extends Component {
 
         console.log('showFundingMessage', this.state.showFundingMessage);
 
-        const kidBalance = kid.goals.reduce((n, g) => {
-            return n.plus(g.balance);
-        }, new BigNumber(0)).toString(10);
-
         return (
             <Fragment>
                 <StepModule
@@ -199,7 +195,7 @@ export class KidDashboard extends Component {
                         <Text style={styles.name}>{kid.name}</Text>
                         <TouchableOpacity onPress={this.onTransactions}>
                             <Wollo
-                                balance={kidBalance}
+                                balance={kid.balance}
                                 exchange={exchange}
                                 baseCurrency={baseCurrency}
                                 link

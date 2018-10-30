@@ -14,7 +14,7 @@ export class TasksList extends Component {
         newTask: '',
         loading: false,
         showingInput: false,
-        active: this.props.taskToEdit ? this.props.taskToEdit.task : null,
+        active: this.props.taskToEdit ? this.props.taskToEdit.name : null,
     }
 
     componentWillMount() {

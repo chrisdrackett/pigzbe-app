@@ -268,19 +268,7 @@ export class Game extends Component {
             showTapFirstCloud,
             showAskParent,
             showTapCloudOrTree,
-            transfers,
         } = this.state;
-
-        // TODO: convert to bignumber.js
-        const balances = Object.keys(this.props.balances || {}).reduce((obj, key) => {
-            // See if we have any this.state.transfers
-            const transferAmount = transfers.reduce((total, transfer) => {
-                return total + (transfer.destination === key ? parseFloat(transfer.amount) : 0);
-            }, 0);
-
-            obj[key] = parseFloat(this.props.balances[key]) + transferAmount;
-            return obj;
-        }, {});
 
         const totalWollo = kid.goals.reduce((n, g) => {
             return n.plus(g.balance);
@@ -343,7 +331,6 @@ export class Game extends Component {
                         onMoveComplete={this.onMoveComplete}>
                         <Trees
                             kid={kid}
-                            balances={balances}
                             onTouchStart={this.onTouchStart}
                             onTouchEnd={this.onTouchEnd}
                             onNewTreeClicked={this.onNewTreeClicked}
@@ -409,6 +396,5 @@ export default connect(state => ({
     exchange: state.exchange.exchange,
     wolloCollected: state.game.wolloCollected,
     overlayOpen: state.game.overlayOpen,
-    balances: state.kids.balances,
     loading: state.kids.loading
 }))(Game);

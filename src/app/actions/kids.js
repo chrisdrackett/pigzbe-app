@@ -109,7 +109,7 @@ export const sendWolloToKid = (address, amount) => async (dispatch, getState) =>
     }
 
     dispatch(sendingWolloToKid(null));
-    dispatch(refreshBalance());
+    dispatch(refreshBalance(address));
 };
 
 export const updateKidBalance = (address, balance) => ({type: KIDS_BALANCE_UPDATE, address, balance});
