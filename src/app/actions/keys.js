@@ -86,6 +86,9 @@ export const getKeys = () => async (dispatch, getState) => {
 export const loadKeys = () => async dispatch => {
     try {
         const keypair = await dispatch(getKeys());
+        if (keypair && __DEV__) {
+            console.log('secretKey:', keypair.secret());
+        }
         dispatch(setKeys(keypair, null, true));
     } catch (error) {
         console.log(error);
