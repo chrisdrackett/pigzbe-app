@@ -19,7 +19,7 @@ export default StyleSheet.create({
     },
     clouds: {
         position: 'absolute',
-        top: isIphoneX ? 105 : 75,
+        top: isIphoneX ? 55 : 25,
         left: 0,
         right: 0,
     },

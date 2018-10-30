@@ -33,22 +33,22 @@ import Icon from '../../components/icon';
 
 import {color} from 'app/styles';
 
-const SwitchControl = ({
-    label,
-    value,
-    onValueChange
-}) => (
-    <View style={styles.switch}>
-        <Text style={styles.subtitle}>
-            {label}
-        </Text>
-        <Switch
-            value={value}
-            onValueChange={val => onValueChange(val)}
-            onTintColor={color.pink}
-        />
-    </View>
-);
+// const SwitchControl = ({
+//     label,
+//     value,
+//     onValueChange
+// }) => (
+//     <View style={styles.switch}>
+//         <Text style={styles.subtitle}>
+//             {label}
+//         </Text>
+//         <Switch
+//             value={value}
+//             onValueChange={val => onValueChange(val)}
+//             onTintColor={color.pink}
+//         />
+//     </View>
+// );
 
 // testnet issuing:
 // Public key: GASIP5FKCZ7J3MUG7UHUW4Z4M5GYHLNER7TSFVMSRQ33LBWICFBG2FNX

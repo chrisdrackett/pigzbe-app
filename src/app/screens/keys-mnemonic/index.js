@@ -30,7 +30,7 @@ export class KeysMnemonic extends Component {
     }
 
     static defaultProps = {
-        warningOpen: false,
+        warningOpen: true,
         confirm: false,
         loading: true,
     }
@@ -58,10 +58,9 @@ export class KeysMnemonic extends Component {
         this.props.dispatch(setKeys(keypair, mnemonic, false));
     }
 
-    onConfirm = () => this.setState({warningOpen: true})
+    dismissWarning = () => this.setState({warningOpen: false});
 
-    dismissWarning = () => this.setState({
-        warningOpen: false,
+    onConfirm = () => this.setState({
         confirm: true,
         words: getWords(this.state.mnemonic)
     })

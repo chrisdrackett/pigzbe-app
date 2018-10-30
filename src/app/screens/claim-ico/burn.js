@@ -33,6 +33,7 @@ export class Burn extends Component {
     }
 
     onCompleteClaim = () => {
+        console.log('onCompleteClaim');
         this.setState({progressClosed: true});
         this.props.clearClaimData();
         this.props.loadWallet();

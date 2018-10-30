@@ -208,9 +208,9 @@ export const getGasPrice = () => async (disptach, getState) => {
         gasPrice = await web3.eth.getGasPrice();
     } catch (error) {}
 
-    // console.log('web3 gasPrice', gasPrice);
-    // console.log('ethgasstation gasPrice', egsGasPrice);
-    // console.log('max gasPrice', BigNumber.max(gasPrice, egsGasPrice).toString(10));
+    console.log('web3 gasPrice', gasPrice);
+    console.log('ethgasstation gasPrice', egsGasPrice);
+    console.log('max gasPrice', BigNumber.max(gasPrice, egsGasPrice).toString(10));
 
     return BigNumber.max(gasPrice, egsGasPrice).toString(10);
 };

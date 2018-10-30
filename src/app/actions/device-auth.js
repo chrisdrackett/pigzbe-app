@@ -63,11 +63,11 @@ export const deviceAuthRegister = (email, phone, country, requestLogin = true) =
             const err = new Error(result.message.message || result.message);
             dispatch(appError(err));
             dispatch(deviceAuthError(err));
+            dispatch(deviceAuthLoading(false));
             return false;
         }
         dispatch(deviceAuthLoading(false));
     } catch (error) {
-        console.log('error', error);
         dispatch(deviceAuthError(error));
         dispatch(appError(error));
         dispatch(deviceAuthLoading(false));

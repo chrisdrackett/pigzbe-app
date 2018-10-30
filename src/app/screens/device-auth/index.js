@@ -172,6 +172,7 @@ export class DeviceAuth extends Component {
                                 theme="plain"
                                 label={this.state.countryName}
                                 onPress={this.onOpenCountryModal}
+                                error={!!error}
                             />
                             <ReactModal
                                 isVisible={this.state.showCountryModal}
@@ -228,7 +229,6 @@ export class DeviceAuth extends Component {
                     qrCode={qrCode}
                     onVerify={this.onVerify}
                     onResend={this.onResend}
-                    error={error}
                 />
             </StepModule>
         );

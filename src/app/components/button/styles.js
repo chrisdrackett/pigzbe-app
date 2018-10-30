@@ -116,4 +116,7 @@ export default StyleSheet.create({
         color: color.whiteOpacity60,
         textDecorationColor: color.whiteOpacity60,
     },
+    error: {
+        textDecorationColor: color.errorRed,
+    }
 });

@@ -8,7 +8,7 @@ import {
 } from 'app/constants/game';
 import isIphoneX from 'app/utils/is-iphonex';
 
-const TOP = 66;
+const TOP = 116;
 const RAIN_OFFSET = isIphoneX ? 308 : 278;
 
 export class Cloud extends Component {
@@ -68,13 +68,13 @@ export class Cloud extends Component {
             <View style={styles.outer}>
                 <TouchableOpacity onPress={callback} style={styles.touchable}>
                     <Image style={styles.cloud} source={cloudImage} />
-                    {!happy && <View style={styles.content}>
-                        <View style={[raining ? styles.raining : {}]}>
-                            <GameWollo value={value} small />
-                        </View>
-                        {!raining && <Text style={styles.type}>{text}</Text>}
-                    </View>}
                 </TouchableOpacity>
+                {!happy &&
+                    <TouchableOpacity onPress={callback} style={[styles.content, raining ? styles.raining : {}]}>
+                        <GameWollo value={value} small />
+                        {!raining && <Text style={styles.type}>{text}</Text>}
+                    </TouchableOpacity>
+                }
                 <Animated.View style={[styles.rain, {bottom: rainBottomPosition, top: rainTopPosition, opacity: rainOpacity}]} pointerEvents="none" />
             </View>
         );

@@ -3,8 +3,8 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
     outer: {
         position: 'relative',
+        paddingTop: 50,
         width: 157,
-        height: 66,
     },
     touchable: {
         position: 'relative',
@@ -34,14 +34,13 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 15,
     },
-    raining: {
+    content: {
         position: 'absolute',
-        top: -60,
-        left: 0,
-        right: 0,
-        display: 'flex',
-        justifyContent: 'center',
-        alignContent: 'center',
+        bottom: 10,
+        width: '100%',
+    },
+    raining: {
+        bottom: 70,
     },
     rain: {
         position: 'absolute',
