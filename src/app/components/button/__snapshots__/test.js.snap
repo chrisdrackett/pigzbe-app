@@ -49,6 +49,7 @@ exports[`Button renders correctly 1`] = `
           undefined,
           null,
           undefined,
+          null,
         ]
       }
     >
@@ -107,6 +108,7 @@ exports[`Button renders correctly in plain mode 1`] = `
           undefined,
           null,
           undefined,
+          null,
         ]
       }
     >
