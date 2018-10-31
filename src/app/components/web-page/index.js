@@ -15,7 +15,7 @@ export default class WebPage extends Component {
 
     render() {
         const {url, open, title} = this.props;
-        const isPDF = url ? url.slice(-4) === '.pdf' : false;
+        const isPDF = url ? url.slice(-4).toLowerCase() === '.pdf' : false;
 
         return (
             <ReactModal
