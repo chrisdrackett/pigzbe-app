@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {WebView} from 'react-native';
+import Pdf from 'react-native-pdf';
 import StepModule from 'app/components/step-module';
 import ReactModal from 'react-native-modal';
 
@@ -13,11 +14,12 @@ export default class WebPage extends Component {
     onClose = () => this.props.onClose()
 
     render() {
-        const showLoader = this.props.url && this.props.url.slice(-4) !== '.pdf';
+        const {url, open, title} = this.props;
+        const isPDF = url ? url.slice(-4) === '.pdf' : false;
 
         return (
             <ReactModal
-                isVisible={this.props.open}
+                isVisible={open}
                 animationIn="slideInRight"
                 animationOut="slideOutRight"
                 style={{
@@ -27,21 +29,29 @@ export default class WebPage extends Component {
             >
                 <StepModule
                     onBack={this.onClose}
-                    customTitle={this.props.title}
+                    customTitle={title}
                     avoidKeyboard={false}
                 >
-                    <WebView
-                        style={{flex: 1}}
-                        source={{uri: this.props.url}}
-                        originWhitelist={['*']}
-                        javaScriptEnabled={true}
-                        domStorageEnabled={true}
-                        mediaPlaybackRequiresUserAction={false}
-                        scrollEnabled={true}
-                        bounces={true}
-                        startInLoadingState={showLoader}
-                        // onError={this.onError}
-                    />
+                    {!isPDF &&
+                        <WebView
+                            style={{flex: 1}}
+                            source={{uri: url}}
+                            originWhitelist={['*']}
+                            javaScriptEnabled={true}
+                            domStorageEnabled={true}
+                            mediaPlaybackRequiresUserAction={false}
+                            scrollEnabled={true}
+                            bounces={true}
+                            startInLoadingState={true}
+                            // onError={this.onError}
+                        />
+                    }
+                    {isPDF &&
+                        <Pdf
+                            style={{flex: 1}}
+                            source={{uri: url, cache:true}}
+                        />
+                    }
                 </StepModule>
             </ReactModal>
         );
