@@ -35,6 +35,9 @@ export class GameGoalWolloMove extends Component {
                     actionLabel="Select amount to move"
                     sliderValueToAmount={value => {
                         // between 0 and goalBalance
+                        if (Number(goalBalance) < 2) {
+                            return Math.round(goalBalance * value * 10) / 10;
+                        }
                         return Math.round(goalBalance * value);
                     }}
                     onChange={amount => this.setState({amount})}
@@ -48,7 +51,7 @@ export class GameGoalWolloMove extends Component {
                     }}
                 />
             </View>
-        )
+        );
     }
 }
 

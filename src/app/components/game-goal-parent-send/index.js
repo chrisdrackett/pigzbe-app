@@ -20,6 +20,9 @@ export class GameGoalParentSend extends Component {
                     actionLabel="Select amount to send"
                     sliderValueToAmount={value => {
                         // between 0 and goalBalance
+                        if (Number(goal.balance) < 2) {
+                            return Math.round(goal.balance * value * 10) / 10;
+                        }
                         return Math.round(goal.balance * value);
                     }}
                     onChange={amount => this.setState({amount})}
@@ -33,7 +36,7 @@ export class GameGoalParentSend extends Component {
                     }}
                 />
             </View>
-        )
+        );
     }
 }
 

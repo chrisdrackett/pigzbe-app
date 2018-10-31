@@ -10,7 +10,7 @@ import {
 } from '@pigzbe/stellar-utils';
 import {wolloAsset} from '../selectors';
 import Keychain from '../utils/keychain';
-import {saveKids, getWolloBalance, appAddSuccessAlert, appAddWarningAlert} from '.';
+import {saveKids, getWolloBalance, appAddSuccessAlert, appAddWarningAlert, getTreeHistory} from '.';
 import {KIDS_GOAL_WOLLO_TRANSACTION} from './';
 
 export const KIDS_LOADING_GOAL = 'KIDS_LOADING_GOAL';
@@ -123,6 +123,8 @@ export const moveGoalWollo = (kid, fromId, toId, amount) => async dispatch => {
 
         await dispatch(saveKids());
 
+        dispatch(getTreeHistory(kid.address));
+
         dispatch(appAddSuccessAlert('Sucessfully sent wollo'));
 
     } catch (err) {
@@ -176,6 +178,8 @@ export const sendGoalWolloToParent = (kid, goal, amount) => async (dispatch, get
         });
 
         await dispatch(saveKids());
+
+        dispatch(getTreeHistory(kid.address));
 
         dispatch(appAddSuccessAlert('Sucessfully sent wollo'));
 

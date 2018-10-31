@@ -162,6 +162,8 @@ export const assignWolloToTree = (kid, goalId, cloudHash, amount) => async dispa
         });
 
         await dispatch(saveKids());
+
+        dispatch(getTreeHistory(kid.address));
     } catch (e) {
         console.log(e);
     }
