@@ -12,7 +12,7 @@ export default class Finish extends Component {
         return (
             <StepModule
                 title="Congratulations"
-                content="Thank you for submitting your Wollo Claim.\n\nPigzbe will review your claim and contact you to notify of when you will receive you Wollo allocation."
+                content="Thank you for submitting your Wollo Claim. Pigzbe will review your claim and contact you to notify of when you will receive you Wollo allocation."
                 icon="tick"
                 justify="flex-end"
                 pad
