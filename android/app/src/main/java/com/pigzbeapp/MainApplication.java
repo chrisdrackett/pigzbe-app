@@ -3,6 +3,8 @@ package com.pigzbeapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.wonday.pdf.RCTPdfView;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
 import com.jamesisaac.rnbackgroundtask.BackgroundTaskPackage;
@@ -32,6 +34,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          new RCTPdfView(),
+          new RNFetchBlobPackage(),
           new RNDeviceInfo(),
           new RNBackgroundFetchPackage(),
           new BackgroundTaskPackage(),
