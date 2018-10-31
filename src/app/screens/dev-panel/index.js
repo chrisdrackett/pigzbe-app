@@ -5,15 +5,16 @@ import {
     View,
     TouchableOpacity,
     ScrollView,
-    Switch,
-    Picker
+    // Switch,
+    // Picker
 } from 'react-native';
 import styles from './styles';
-import container from '../../styles';
-import Button from '../../components/button';
-import Storage from '../../utils/storage';
-import Keychain from '../../utils/keychain';
-import {keysTestUser, configUpdate} from '../../actions';
+import container from 'app/styles';
+import Button from 'app/components/button';
+import Storage from 'app/utils/storage';
+import Keychain from 'app/utils/keychain';
+// import {keysTestUser, configUpdate} from 'app/actions';
+import {mergeAccounts} from 'app/actions';
 import {
     KEYCHAIN_ID_STELLAR_KEY,
     KEYCHAIN_ID_ETH_KEY,
@@ -28,10 +29,10 @@ import {
     STORAGE_KEY_KIDS,
     STORAGE_KEY_TASKS,
     STORAGE_KEY_EXCHANGE,
-} from '../../constants';
-import Icon from '../../components/icon';
+} from 'app/constants';
+import Icon from 'app/components/icon';
 
-import {color} from 'app/styles';
+// import {color} from 'app/styles';
 
 // const SwitchControl = ({
 //     label,
@@ -58,23 +59,23 @@ import {color} from 'app/styles';
 // Public key: GC2ZXF5Q27LU62PC73KTF55WKM3LKZEUA3SHFBYHCT6ECJQS4432DIGC
 // Secret key: SBJZSBTMIKWYZ3NLK7ZM5OWGLFE33YWLWZBMKI6GXRLHVQ2VTLS2NGPH
 
-const testUsers = [{
-    label: 'None',
-    publicKey: '',
-    secretKey: ''
-}, {
-    label: 'User 1',
-    publicKey: 'GBD5SFA553VO6UC4NUQVCODUJ5PYDKUKQ5PLVZRJIM22FQIQ7TQJY3FN',
-    secretKey: 'SDYD2JGCGH7UWWMYPGLH6N55PMM2VT7VIFHPY2C5U442E5DOMURQE6DQ'
-}, {
-    label: 'User 2',
-    publicKey: 'GDF7DRJXKBDYXKNP4JOBUVGEIHLVEXZKKX7V7IYNMEXM7J5H3LLFW5TU',
-    secretKey: 'SCDPMD5OYVCG355WCTAMMI7JH3UUBL6U7KH27VXO7BYJC7YWBMHHSWXE'
-}, {
-    label: 'User with no Wollo trust',
-    publicKey: 'GCBX4QT2ZI7GLGUBIP255OT4KVRMNIBOQRJXN53ZRSM2NEWUSVJBHY5Q',
-    secretKey: 'SDODHHHHL5LO3SH53N22TLZLL77NNKKZW4IKPUZCPSF4B54OQFIEYQSQ'
-}];
+// const testUsers = [{
+//     label: 'None',
+//     publicKey: '',
+//     secretKey: ''
+// }, {
+//     label: 'User 1',
+//     publicKey: 'GBD5SFA553VO6UC4NUQVCODUJ5PYDKUKQ5PLVZRJIM22FQIQ7TQJY3FN',
+//     secretKey: 'SDYD2JGCGH7UWWMYPGLH6N55PMM2VT7VIFHPY2C5U442E5DOMURQE6DQ'
+// }, {
+//     label: 'User 2',
+//     publicKey: 'GDF7DRJXKBDYXKNP4JOBUVGEIHLVEXZKKX7V7IYNMEXM7J5H3LLFW5TU',
+//     secretKey: 'SCDPMD5OYVCG355WCTAMMI7JH3UUBL6U7KH27VXO7BYJC7YWBMHHSWXE'
+// }, {
+//     label: 'User with no Wollo trust',
+//     publicKey: 'GCBX4QT2ZI7GLGUBIP255OT4KVRMNIBOQRJXN53ZRSM2NEWUSVJBHY5Q',
+//     secretKey: 'SDODHHHHL5LO3SH53N22TLZLL77NNKKZW4IKPUZCPSF4B54OQFIEYQSQ'
+// }];
 
 class DevPanel extends Component {
     state = {
@@ -82,12 +83,17 @@ class DevPanel extends Component {
         isHidden: false
     }
 
+    mergeAccounts = async () => {
+        await this.props.dispatch(mergeAccounts());
+        console.log('DONE');
+    }
+
     render() {
-        const {
-            dispatch,
-            testUserKey,
-            networkOverride
-        } = this.props;
+        // const {
+        //     dispatch,
+        //     testUserKey,
+        //     // networkOverride
+        // } = this.props;
 
         if (!__DEV__ || this.state.isHidden) {
             return null;
@@ -102,9 +108,9 @@ class DevPanel extends Component {
                             <Text style={styles.subtitle}>
                                 Env dev: {__DEV__ ? 'true' : 'false'}
                             </Text>
-                            <Text style={styles.subtitle}>
+                            {/* <Text style={styles.subtitle}>
                                 networkOverride: {networkOverride ? networkOverride : 'none'}
-                            </Text>
+                            </Text> */}
                             <View style={styles.block}>
                                 <Text style={styles.subtitle}>User data</Text>
                                 <Button style={styles.button} label="Clear user data" onPress={() => {
@@ -151,7 +157,7 @@ class DevPanel extends Component {
                             </View>
                             <View style={styles.block}>
                                 <Text style={styles.subtitle}>Claim tool</Text>
-                                <Button style={styles.button} label="Clear cache burning" onPress={() => {
+                                <Button style={styles.button} label="Clear claim data" onPress={() => {
                                     Storage.clear(STORAGE_KEY_BURNING);
                                     Storage.clear(STORAGE_KEY_BURNING_ICO);
                                     Storage.clear(STORAGE_KEY_BURNING_AIRDROP);
@@ -160,7 +166,7 @@ class DevPanel extends Component {
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY_AIRDROP);
                                 }} />
                             </View>
-                            <Text style={styles.subtitle}>
+                            {/* <Text style={styles.subtitle}>
                                 Select test user
                             </Text>
                             <View style={styles.picker}>
@@ -175,8 +181,8 @@ class DevPanel extends Component {
                                         />
                                     ))}
                                 </Picker>
-                            </View>
-                            <Text style={styles.subtitle}>
+                            </View> */}
+                            {/* <Text style={styles.subtitle}>
                                 Network override
                             </Text>
                             <View style={styles.picker}>
@@ -191,6 +197,10 @@ class DevPanel extends Component {
                                         />
                                     ))}
                                 </Picker>
+                            </View> */}
+                            <View style={styles.block}>
+                                <Text style={styles.subtitle}>Accounts</Text>
+                                <Button style={styles.button} label="Merge accounts" onPress={this.mergeAccounts} />
                             </View>
                             <View style={styles.block}>
                                 <Button style={styles.button} label="Hide panel" onPress={() => {
@@ -210,10 +220,10 @@ class DevPanel extends Component {
         }
         return (
             <View style={styles.topBar}>
-                <Text
+                {/* <Text
                     style={networkOverride ? [styles.net, styles.netLive] : styles.net}>
                     {networkOverride ? networkOverride : 'NO NETWORK OVERRIDE'}
-                </Text>
+                </Text> */}
                 <TouchableOpacity
                     style={styles.settings}
                     onPress={() => this.setState({isOpen: true})}>
@@ -227,9 +237,4 @@ class DevPanel extends Component {
 // export for test
 export const DevPanelComponent = DevPanel;
 
-export default connect(
-    state => ({
-        testUserKey: state.keys.testUserKey,
-        networkOverride: state.config.networkOverride,
-    })
-)(DevPanel);
+export default connect()(DevPanel);

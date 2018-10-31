@@ -228,26 +228,3 @@ export const createKidAccount = (memo, nickname, startingBalance) => async dispa
 
     return null;
 };
-
-export const fundAccount = (xlm = '100', wollo = '500') => async (dispatch, getState) => {
-    const {publicKey, secretKey} = getState().keys;
-    const asset = wolloAsset(getState());
-    const funderSecretKey = 'SBJZSBTMIKWYZ3NLK7ZM5OWGLFE33YWLWZBMKI6GXRLHVQ2VTLS2NGPH';
-    try {
-        console.log('Trying to send XLM', publicKey);
-        await sendPayment(funderSecretKey, publicKey, xlm, 'Fund XLM');
-    } catch (error) {
-        console.log('Creating account with XLM', publicKey);
-        try {
-            await createAccount(funderSecretKey, publicKey, xlm, 'Fund XLM');
-        } catch (err) {
-            console.log(err);
-        }
-    }
-    try {
-        await trustAsset(secretKey, asset);
-        await sendPayment(funderSecretKey, publicKey, wollo, 'Fund WLO', asset);
-    } catch (error) {
-        console.log(error);
-    }
-};

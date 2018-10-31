@@ -23,3 +23,4 @@ export * from './claim-contract';
 export * from './claim-data';
 export * from './claim-eth';
 export * from './restore';
+export * from './dev';
