@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {View, FlatList, TouchableOpacity, Text, Image, TextInput} from 'react-native';
 import Button from '../../components/button';
 import {SCREEN_DASHBOARD, SCREEN_ALLOWANCE_INTERVAL} from '../../constants';
+import {appAddWarningAlert} from '../../actions';
 import StepModule from '../../components/step-module';
 import Toggle from '../../components/toggle';
 import {CURRENCIES} from '../../constants';
@@ -127,10 +128,16 @@ export class AllowanceAmount extends Component {
 
     next = async () => {
         const {custom, active} = this.state;
+        const {balance} = this.props;
+        const amount = custom ? custom : active;
+
+        if (balance < amount) {
+            this.props.dispatch(appAddWarningAlert('You don\'t have enough funds. Allowance payments will fail until there are enough funds'));
+        }
 
         this.props.navigation.push(SCREEN_ALLOWANCE_INTERVAL, {
             kid: this.props.kid,
-            amount: custom ? custom : active,
+            amount,
             allowanceToEdit: this.props.allowanceToEdit || null,
         });
     }
@@ -190,5 +197,6 @@ export default connect(
         baseCurrency: state.settings.baseCurrency,
         exchange: state.exchange.exchange,
         allowanceToEdit: props.navigation.state.params.allowanceToEdit,
+        balance: state.wollo.balance,
     })
 )(AllowanceAmount);

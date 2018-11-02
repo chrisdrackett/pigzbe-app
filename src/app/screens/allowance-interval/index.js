@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View, Text} from 'react-native';
-import moment from 'moment';
+// import moment from 'moment';
 import Button from '../../components/button';
 import SelectInput from '../../components/select-input';
-import {SCREEN_DASHBOARD, SCREEN_ALLOWANCE_AMOUNT, SCREEN_KID_DASHBOARD} from '../../constants';
+import {SCREEN_DASHBOARD, SCREEN_KID_DASHBOARD} from '../../constants';
 import StepModule from '../../components/step-module';
 import styles from './styles';
 import {addAllowance, updateAllowance, appAddSuccessAlert} from '../../actions';
@@ -25,7 +25,7 @@ export class AllowanceInterval extends Component {
 
     next = async () => {
         const {day, interval, nextDate, timezone} = this.state;
-        const {kid, amount, numKidsAdded, allowanceToEdit} = this.props;
+        const {kid, amount, numKidsAdded, allowanceToEdit, balance} = this.props;
 
         if (allowanceToEdit) {
             const updatedAllowance = {
@@ -34,11 +34,10 @@ export class AllowanceInterval extends Component {
                 interval,
                 day,
                 nextDate,
-            }
+            };
             await this.props.dispatch(updateAllowance(kid, updatedAllowance));
             this.props.dispatch(appAddSuccessAlert('Updated allowance'));
         } else {
-
             await this.props.dispatch(addAllowance(kid, amount, interval, day, nextDate.toISOString(), timezone, numKidsAdded));
         }
 
