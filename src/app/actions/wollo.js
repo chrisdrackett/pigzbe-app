@@ -142,8 +142,25 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
     dispatch(wolloSendStatus(strings.transferStatusChecking));
 
     const {secretKey, publicKey} = getState().keys;
-    const destAccount = await loadAccount(destination);
+
+    let destAccount;
+
+    try {
+        destAccount = await loadAccount(destination);
+    } catch (e) {
+        console.log(e);
+    }
+
+    if (!destAccount) {
+        dispatch(wolloSending(false));
+        dispatch(wolloSendStatus(null));
+        dispatch(wolloError(strings.transferStatusInvalidDestination));
+        dispatch(appError(strings.transferStatusInvalidDestination));
+        return;
+    }
+
     const asset = wolloAsset(getState());
+
     const isTrusted = checkAssetTrusted(destAccount, asset);
 
     if (!isTrusted) {

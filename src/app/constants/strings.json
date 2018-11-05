@@ -76,6 +76,7 @@
   "transferErrorTrust": "Destination account does not accept Wollo",
   "transferStatusChecking": "Checking destination account",
   "transferStatusSending": "Sending Wollo",
+  "transferStatusInvalidDestination": "Invalid destination",
   "transferStatusFailed": "Transfer failed",
   "transferStatusComplete": "Transfer complete"
 }
