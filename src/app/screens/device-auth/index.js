@@ -261,6 +261,7 @@ export class DeviceAuth extends Component {
                 onBack={this.onClear}
                 loading={loading}
                 justify="space-between"
+                keyboardOffset={-250}
                 pad
             >
                 <VerifyCode
