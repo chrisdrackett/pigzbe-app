@@ -100,45 +100,43 @@ export class KidsEnterProfile extends Component {
                 loading={this.state.loading}
                 onBack={this.onBack}
             >
-                {!this.state.loading &&
-                    <Fragment>
-                        <View>
-                            <TextInput
-                                numberOfLines={1}
-                                placeholder="Nickname"
-                                onChangeText={this.onChangeName}
-                                returnKeyType="done"
-                                value={this.state.name}
-                                maxLength={20}
-                            />
-                            <DateInput
-                                placeholder="Date of birth"
-                                value={this.state.chosenDate}
-                                onChangeSelection={value => this.onChangeDOB(value)}
-                            />
-                            <Text style={styles.smallText}>
-                                This helps us serve appropriate content
-                            </Text>
-                        </View>
-                        <TouchableOpacity onPress={this.getImage}>
-                            <Text style={styles.subTitle}>Add image</Text>
-                            <Image
-                                style={styles.imageStyle}
-                                source={this.state.image ? {uri: this.state.image} : images.icon.smiley}
-                            />
-                        </TouchableOpacity>
-                        {/* <Button onPress={this.getImage} label={'Get Image'} /> */}
-                        <Button
-                            label={`Create Profile${numberProfile}`}
-                            disabled={!this.state.datePickerHasChanged || this.state.name.trim().length === 0}
-                            onPress={this.onValidate}
+                <Fragment>
+                    <View>
+                        <TextInput
+                            numberOfLines={1}
+                            placeholder="Nickname"
+                            onChangeText={this.onChangeName}
+                            returnKeyType="done"
+                            value={this.state.name}
+                            maxLength={20}
+                        />
+                        <DateInput
+                            placeholder="Date of birth"
+                            value={this.state.chosenDate}
+                            onChangeSelection={value => this.onChangeDOB(value)}
                         />
                         <Text style={styles.smallText}>
-                            Your child's data will always be kept secure and never shared!
-                            Check our Privacy Policy for more details
+                            This helps us serve appropriate content
                         </Text>
-                    </Fragment>
-                }
+                    </View>
+                    <TouchableOpacity onPress={this.getImage}>
+                        <Text style={styles.subTitle}>Add image</Text>
+                        <Image
+                            style={styles.imageStyle}
+                            source={this.state.image ? {uri: this.state.image} : images.icon.smiley}
+                        />
+                    </TouchableOpacity>
+                    {/* <Button onPress={this.getImage} label={'Get Image'} /> */}
+                    <Button
+                        label={`Create Profile${numberProfile}`}
+                        disabled={!this.state.datePickerHasChanged || this.state.name.trim().length === 0}
+                        onPress={this.onValidate}
+                    />
+                    <Text style={styles.smallText}>
+                        Your child's data will always be kept secure and never shared!
+                        Check our Privacy Policy for more details
+                    </Text>
+                </Fragment>
             </StepModule>
         );
     }

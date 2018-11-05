@@ -144,6 +144,7 @@ export class DeviceAuth extends Component {
                     loading={loading}
                     justify="space-between"
                     pad
+                    showLogo
                 >
                     <Fragment>
                         <View>
@@ -218,6 +219,7 @@ export class DeviceAuth extends Component {
                                     onBack={this.onCloseCountryModal}
                                     customTitle="Countries"
                                     avoidKeyboard={false}
+                                    scroll={false}
                                 >
                                     <SearchableList
                                         selectedKey={this.state.countryName}
@@ -263,6 +265,7 @@ export class DeviceAuth extends Component {
                 justify="space-between"
                 keyboardOffset={-250}
                 pad
+                showLogo
             >
                 <VerifyCode
                     qrCode={qrCode}

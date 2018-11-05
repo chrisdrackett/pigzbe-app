@@ -67,7 +67,7 @@ export class Dashboard extends Component {
     onSettings = () => {
         this.onCloseKidAddFundingMessage();
         this.onCloseFirstTime();
-        this.props.navigation.navigate(SCREEN_SETTINGS);
+        this.props.navigation.push(SCREEN_SETTINGS);
     }
 
     onFundingInfo = () => {
@@ -84,7 +84,7 @@ export class Dashboard extends Component {
 
         if (this.props.kids.length) {
             this.props.dispatch(setNumKidsToAdd(1));
-            this.props.navigation.navigate(SCREEN_KIDS_ENTER_PROFILE);
+            this.props.navigation.push(SCREEN_KIDS_ENTER_PROFILE);
             return;
         }
         this.props.navigation.push(SCREEN_KIDS_INTRO);
@@ -113,7 +113,7 @@ export class Dashboard extends Component {
             baseCurrency,
             firstTime,
             kids,
-            publicKey
+            publicKey,
         } = this.props;
 
         const loading = (!exchange) || this.state.funding;
@@ -130,7 +130,6 @@ export class Dashboard extends Component {
         return (
             <Fragment>
                 <StepModule
-                    scroll
                     icon="piggy"
                     headerChildren={(
                         <Wollo
@@ -139,39 +138,37 @@ export class Dashboard extends Component {
                             baseCurrency={baseCurrency}
                         />
                     )}
+                    extraHeaderChildrenSpace={18}
                     backgroundColor={color.transparent}
                     onSettings={this.onSettings}
                     loading={loading}
                     loaderMessage={this.state.funding ? 'Funding account' : null}
+                    customTitle="Your dashboard"
                 >
-                    {!loading && (
+                    <View>
+                        <BalanceGraph balance={balance} balanceXLM={null} exchange={exchange} baseCurrency={baseCurrency}/>
                         <View>
-                            <BalanceGraph balance={balance} balanceXLM={balanceXLM} exchange={exchange} baseCurrency={baseCurrency}/>
-                            {__DEV__ && (
-                                <View>
-                                    <Button
-                                        label={publicKey}
-                                        theme="light"
-                                        onPress={() => openURL(`https://horizon-testnet.stellar.org/accounts/${publicKey}`)}
-                                        style={{marginTop: 20}}
-                                    />
-                                    <Button
-                                        label="Fund account"
-                                        theme="light"
-                                        onPress={this.onFund}
-                                    />
-                                </View>
-                            )}
-                            <Kids
-                                kids={kids}
-                                exchange={exchange}
-                                baseCurrency={baseCurrency}
-                                onAddKids={this.onAddKids}
-                                onDashboard={this.onDashboard}
+                            <Button
+                                label={publicKey}
+                                theme="light"
+                                onPress={() => openURL(`https://horizon-testnet.stellar.org/accounts/${publicKey}`)}
+                                style={{marginTop: 20}}
                             />
-                            <ConvertBalance coins={coins} exchange={exchange} balance={balance} />
+                            <Button
+                                label="Fund account"
+                                theme="light"
+                                onPress={this.onFund}
+                            />
                         </View>
-                    )}
+                        <Kids
+                            kids={kids}
+                            exchange={exchange}
+                            baseCurrency={baseCurrency}
+                            onAddKids={this.onAddKids}
+                            onDashboard={this.onDashboard}
+                        />
+                        <ConvertBalance coins={coins} exchange={exchange} balance={balance} />
+                    </View>
                 </StepModule>
 
                 <ReactModal

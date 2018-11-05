@@ -19,6 +19,7 @@ export class KeysCreate extends Component {
                 content={'We will now create your Public and Private wallet keys. Your *Private Key must remain confidential*.'}
                 pad
                 justify="space-between"
+                showLogo
             >
                 <Paragraph small>
                     Pigzbe will not be able to access accounts, recover keys, reset passwords, nor reverse transactions. *You are responsible for the security of your Wallet/assets*.

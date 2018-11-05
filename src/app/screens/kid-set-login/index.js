@@ -67,20 +67,23 @@ export class KidSetLogin extends Component {
         }
     }
 
+    onBack = () => this.props.navigation.goBack();
+
     render() {
         return (
             <StepModule
                 title="First time here"
-                icon="keys"
+                //icon="keys"
                 content={this.state.prevCode ? 'Confirm your *Secret Code* by picking the same 3 images again' : 'Set your *Secret Code* by picking 3 images'}
                 pad
                 loading={this.props.loading}
                 justify="center"
                 headerChildren={(
-                    <View style={{marginTop: 30}}>
+                    <View style={{marginTop: 0}}>
                         <Dots length={KID_PASSCODE_LENGTH} progress={this.state.input.size}/>
                     </View>
                 )}
+                onBack={this.onBack}
             >
                 <View style={styles.centered}>
                     <IconPad

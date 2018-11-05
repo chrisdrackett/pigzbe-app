@@ -47,8 +47,8 @@ export class Send extends Component {
                     pad
                     paddingTop={10}
                     keyboardOffset={-50}
-                    settingsIcon="qrCode"
-                    onSettings={this.onViewAddress}
+                    rightIcon="qrCode"
+                    onRightIcon={this.onViewAddress}
                     onBack={this.onBack}
                 >
                     <Fragment>

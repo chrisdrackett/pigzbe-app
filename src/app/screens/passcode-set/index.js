@@ -88,7 +88,6 @@ export class PasscodeSet extends Component {
 
         return (
             <StepModule
-                scroll={false}
                 title={getTitle(this.state.code, loggedIn)}
                 content={getText(this.state.code, enableTouchId, touchIdSupport)}
                 headerChildren={(
@@ -97,6 +96,7 @@ export class PasscodeSet extends Component {
                 loading={loading || this.state.loading}
                 onBack={this.state.code ? this.onReset : () => this.props.navigation.goBack()}
                 justify="center"
+                showLogo
             >
                 <NumPad
                     error={this.state.error}

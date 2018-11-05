@@ -139,7 +139,6 @@ class Home extends Component {
                     <View style={styles.header}>
                         <Header
                             onBack={() => this.setState({parentOverride: false})}
-                            hideLogo={true}
                         />
                     </View>
                 }

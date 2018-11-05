@@ -11,12 +11,13 @@ export default class Container extends Component {
 
     static defaultProps = {
         scroll: true,
+        onScroll: () => {},
     }
 
     onLayout = () => this.setState({width: getWidth()})
 
     render() {
-        const {children, style, scroll} = this.props;
+        const {children, style, scroll, onScroll} = this.props;
         const {width} = this.state;
 
         return (
@@ -26,6 +27,8 @@ export default class Container extends Component {
                         keyboardShouldPersistTaps="handled"
                         bounces={false}
                         style={styles.scroll}
+                        onScroll={onScroll}
+                        scrollEventThrottle={16}
                         contentContainerStyle={styles.scrollContainer}>
                         {children}
                     </ScrollView>

@@ -25,7 +25,7 @@ export class PasscodeLogin extends Component {
 
         return (
             <StepModule
-                scroll={false}
+                scroll={true}
                 title={'Enter your Passcode'}
                 content={`Login with your ${PASSCODE_LENGTH}-digit passcode`}
                 headerChildren={(
@@ -35,6 +35,7 @@ export class PasscodeLogin extends Component {
                 loading={loading}
                 loaderMessage={message}
                 justify="center"
+                showLogo
             >
                 <NumPad
                     error={error}

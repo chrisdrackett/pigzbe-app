@@ -30,6 +30,7 @@ export class KeysRestore extends Component {
                 justify="space-between"
                 pad
                 keyboardOffset={-70}
+                showLogo
                 // keyboardAvoidPad
             >
                 <TextInput

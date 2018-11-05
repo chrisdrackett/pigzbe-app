@@ -31,6 +31,7 @@ export default class WebPage extends Component {
                     onBack={this.onClose}
                     customTitle={title}
                     avoidKeyboard={false}
+                    scroll={false}
                 >
                     {!isPDF &&
                         <WebView

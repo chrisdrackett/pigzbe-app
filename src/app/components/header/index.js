@@ -11,6 +11,8 @@ export default ({
     hideLogo,
     customTitle,
     loading,
+    onRightIcon,
+    rightIcon,
 }) => (
     <View style={styles.container}>
         <View style={styles.iconContainer}>
@@ -38,6 +40,15 @@ export default ({
                 customTitle ? <Text style={styles.customTitle}>{customTitle}</Text> : null
             }
         </View>
-        <View style={styles.iconContainer} />
+        <View style={styles.iconContainer}>
+            {!!rightIcon &&
+                <IconButton
+                    icon={rightIcon}
+                    size={18}
+                    padding={12}
+                    onPress={onRightIcon}
+                />
+            }
+        </View>
     </View>
 );
