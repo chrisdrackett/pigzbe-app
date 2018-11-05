@@ -54,6 +54,13 @@ export const setHorizonURI = uri => () => {
 
 const updateBalance = balance => ({type: WOLLO_UPDATE_BALANCE, balance});
 
+const handleTransferError = errorMessage => dispatch => {
+    dispatch(wolloSending(false));
+    dispatch(wolloSendStatus(null));
+    dispatch(wolloError(errorMessage));
+    dispatch(appError(errorMessage));
+};
+
 const updateXLM = account => dispatch => {
     const balanceXLM = getBalance(account);
     const minXLM = getMinBalance(account, 10000);
@@ -124,77 +131,76 @@ export const loadPayments = address => async (dispatch, getState) => {
 
 export const sendWollo = (destination, amount, memo) => async (dispatch, getState) => {
     console.log('sendWollo', destination, amount, memo);
-    if (!isValidPublicKey(destination)) {
-        dispatch(wolloError(strings.transferErrorInvalidKey));
-        dispatch(appError(strings.transferErrorInvalidKey));
-        return;
-    }
-
-    if (!amount || isNaN(amount) || Number(amount) === 0) {
-        dispatch(wolloError(strings.transferErrorInvalidAmount));
-        dispatch(appError(strings.transferErrorInvalidAmount));
-        return;
-    }
-
-    dispatch(wolloError(null));
-    dispatch(wolloSendComplete(false));
-    dispatch(wolloSending(true));
-    dispatch(wolloSendStatus(strings.transferStatusChecking));
-
-    const {secretKey, publicKey} = getState().keys;
-
-    let destAccount;
-
     try {
-        destAccount = await loadAccount(destination);
-    } catch (e) {
-        console.log(e);
-    }
+        if (!isValidPublicKey(destination)) {
+            dispatch(wolloError(strings.transferErrorInvalidKey));
+            dispatch(appError(strings.transferErrorInvalidKey));
+            return;
+        }
 
-    if (!destAccount) {
+        if (!amount || isNaN(amount) || Number(amount) === 0) {
+            dispatch(wolloError(strings.transferErrorInvalidAmount));
+            dispatch(appError(strings.transferErrorInvalidAmount));
+            return;
+        }
+
+        dispatch(wolloError(null));
+        dispatch(wolloSendComplete(false));
+        dispatch(wolloSending(true));
+        dispatch(wolloSendStatus(strings.transferStatusChecking));
+
+        const {secretKey, publicKey} = getState().keys;
+
+        let destAccount;
+
+        try {
+            destAccount = await loadAccount(destination);
+        } catch (e) {
+            console.log(e);
+        }
+
+        console.log('--- destAccount ---', destAccount);
+
+        if (!destAccount) {
+            console.log('--- !destAccount ---', destAccount);
+            dispatch(handleTransferError(strings.transferStatusInvalidDestination));
+            return;
+        }
+
+        const asset = wolloAsset(getState());
+
+        const isTrusted = checkAssetTrusted(destAccount, asset);
+
+        if (!isTrusted) {
+            dispatch(handleTransferError(strings.transferErrorTrust));
+            return;
+        }
+
+        dispatch(wolloSendStatus(strings.transferStatusSending));
+
+        let result;
+
+        try {
+            result = await sendPayment(secretKey, destination, amount, memo, asset);
+        } catch (e) {
+            console.error(e);
+        }
+
+        if (!result) {
+            dispatch(handleTransferError(strings.transferStatusFailed));
+            return;
+        }
+
+        dispatch(refreshBalance());
         dispatch(wolloSending(false));
-        dispatch(wolloSendStatus(null));
-        dispatch(wolloError(strings.transferStatusInvalidDestination));
-        dispatch(appError(strings.transferStatusInvalidDestination));
-        return;
-    }
-
-    const asset = wolloAsset(getState());
-
-    const isTrusted = checkAssetTrusted(destAccount, asset);
-
-    if (!isTrusted) {
-        dispatch(wolloSending(false));
-        dispatch(wolloSendStatus(null));
-        dispatch(wolloError(strings.transferErrorTrust));
-        dispatch(appError(strings.transferErrorTrust));
-        return;
-    }
-
-    dispatch(wolloSendStatus(strings.transferStatusSending));
-
-    let result;
-
-    try {
-        result = await sendPayment(secretKey, destination, amount, memo, asset);
+        dispatch(wolloSendComplete(true));
+        dispatch(wolloSendStatus(strings.transferStatusComplete));
+        dispatch(wolloError(null));
+        dispatch(loadWallet(publicKey));
     } catch (e) {
         console.error(e);
+        dispatch(handleTransferError(strings.transferStatusFailed));
     }
-
-    if (!result) {
-        dispatch(wolloSending(false));
-        dispatch(wolloSendStatus(null));
-        dispatch(wolloError(strings.transferStatusFailed));
-        dispatch(appError(strings.transferStatusFailed));
-        return;
-    }
-
-    dispatch(refreshBalance());
-    dispatch(wolloSending(false));
-    dispatch(wolloSendComplete(true));
-    dispatch(wolloSendStatus(strings.transferStatusComplete));
-    dispatch(wolloError(null));
-    dispatch(loadWallet(publicKey));
 };
 
 export const fundKidAccount = (memo, address, startingBalance) => async (dispatch, getState) => {
