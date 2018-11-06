@@ -27,7 +27,7 @@ export const CURRENCIES = {
     XLM: {name: 'Stellar Lumens', symbol: 'XLM ', dps: 5, icon: 'stellar'},
     BTC: {name: 'Bitcoin', symbol: '₿', dps: 5},
     ETH: {name: 'Etheruem', symbol: 'Ξ', dps: 5},
-    WLO: {name: 'Wollo', symbol: 'W', dps: 5},
+    WLO: {name: 'Wollo', symbol: 'WLO', dps: 5},
 };
 
 export const BASE_CURRENCY = 'USD';

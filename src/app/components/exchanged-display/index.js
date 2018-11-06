@@ -10,7 +10,7 @@ const exchangedDisplay = ({amount, currency, exchange, baseCurrency, style}) => 
     const value = currency === ASSET_CODE ? amount * exchange[baseCurrency] : ensureValidAmount(amount / exchange[baseCurrency]);
     const symbol = currency === ASSET_CODE ? CURRENCIES[baseCurrency].symbol : CURRENCIES[ASSET_CODE].symbol;
     const dps = currency === ASSET_CODE ? CURRENCIES[baseCurrency].dps : CURRENCIES[ASSET_CODE].dps;
-    const display = `${symbol}${moneyFormat(value, dps)}`;
+    const display = currency === ASSET_CODE ? `${symbol}${moneyFormat(value, dps)}` : `${moneyFormat(value, dps)} ${symbol}`;
 
     return (
         <Text style={[styles.text, style]}>
