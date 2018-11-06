@@ -193,6 +193,7 @@ exports[`ActionSheet renders correctly 1`] = `
                 },
                 null,
                 undefined,
+                null,
               ]
             }
           >

@@ -180,6 +180,7 @@ exports[`NotificationModal renders correctly 1`] = `
                     undefined,
                     null,
                     undefined,
+                    null,
                   ]
                 }
               >
@@ -400,6 +401,7 @@ exports[`NotificationModal renders correctly with custom title and btn label 1`]
                     undefined,
                     null,
                     undefined,
+                    null,
                   ]
                 }
               >

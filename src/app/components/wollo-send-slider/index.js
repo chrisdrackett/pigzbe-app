@@ -13,8 +13,9 @@ import moneyFormat from 'app/utils/money-format';
 
 const getAmount = (value, balance) => {
     const max = Math.min(balance, KID_SEND_MAX_AMOUNT);
+
     if (max < 2) {
-        return value * max;
+        return Math.round(max * value * 10) / 10;
     }
     return Math.round(value * Math.floor(max));
 };
@@ -61,7 +62,7 @@ export class WolloSendSlider extends Component {
             sending,
             sendComplete,
             balance,
-            balanceXLM,
+            hasGas,
         } = this.props;
 
         return (
@@ -79,7 +80,7 @@ export class WolloSendSlider extends Component {
                 <Slider
                     value={this.state.value}
                     onValueChange={this.onSliderChange}
-                    disabled={Number(balance) === 0 || Number(balanceXLM) === 0}
+                    disabled={Number(balance) === 0 || !hasGas}
                 />
                 {this.state.value === 0 ? (
                     <Text style={styles.exchange}>Send Wollo</Text>
@@ -130,6 +131,7 @@ export default connect(
     (state) => ({
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
+        hasGas: state.wollo.hasGas,
         baseCurrency: state.settings.baseCurrency,
         exchange: state.exchange.exchange,
         sendError: state.kids.sendError,

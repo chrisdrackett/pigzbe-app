@@ -2,7 +2,6 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import styles from './styles';
-import {color} from 'app/styles';
 import {
     strings,
     SCREEN_SEND
@@ -13,10 +12,12 @@ import {wolloError} from '../../actions';
 import StepModule from '../../components/step-module';
 import {ViewAddress} from '../view-address';
 import ReactModal from 'react-native-modal';
+import FundingMessage from 'app/components/funding-message'
 
 export class Transfer extends Component {
     state = {
         showViewAdressModal: false,
+        showFundingMessage: false,
     }
 
     onViewAddress = () => this.setState({showViewAdressModal: true})
@@ -27,15 +28,18 @@ export class Transfer extends Component {
         const {hasGas, balanceXLM, minXLM} = this.props;
 
         if (!hasGas) {
-            const errMsg = `${strings.transferErrorNoGas} (Balance ${balanceXLM}XLM. Required ${minXLM}XLM)`;
-            this.props.dispatch(wolloError(new Error(errMsg)));
+            this.setState({showFundingMessage: true})
+            // const errMsg = `${strings.transferErrorNoGas} (Balance ${balanceXLM}XLM. Required ${minXLM}XLM)`;
+            // this.props.dispatch(wolloError(new Error(errMsg)));
             return;
         }
         this.props.navigation.push(SCREEN_SEND);
     }
 
+    onCloseFundingMessage = () => this.setState({showFundingMessage: false})
+
     render() {
-        const {balance, hasGas} = this.props;
+        const {balance, balanceXLM, hasGas} = this.props;
         const hasBalance = parseFloat(balance) > 0;
 
         return (
@@ -58,7 +62,8 @@ export class Transfer extends Component {
                         <Button
                             label={strings.transferButtonLabel}
                             onPress={this.onTransfer}
-                            disabled={!hasGas || !hasBalance}
+                            // disabled={!hasGas || !hasBalance}
+                            disabled={!hasBalance}
                         />
                     </View>
                 )}
@@ -74,6 +79,12 @@ export class Transfer extends Component {
                         onBack={this.onHideAddress}
                     />
                 </ReactModal>
+                <FundingMessage
+                    fundingType={FundingMessage.TRANSFER}
+                    open={this.state.showFundingMessage}
+                    balanceXLM={balanceXLM}
+                    onClose={this.onCloseFundingMessage}
+                />
             </Fragment>
         );
     }
