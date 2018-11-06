@@ -46,7 +46,7 @@ export class AllowanceAmount extends Component {
         return deconstructedAllowances;
     }
 
-    onBack = () => this.props.navigation.push(SCREEN_DASHBOARD);
+    onBack = () => this.props.navigation.goBack();
 
     onChangeText = (amount) => {
         this.setState({custom: amount});

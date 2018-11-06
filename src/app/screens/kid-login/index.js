@@ -37,6 +37,7 @@ export class KidLogin extends Component {
                 loaderMessage={message}
                 justify="center"
                 onBack={() => this.props.navigation.goBack()}
+                showLogo
             >
                 <View style={styles.centered}>
                     <IconPad

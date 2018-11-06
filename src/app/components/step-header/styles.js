@@ -10,7 +10,6 @@ export default StyleSheet.create({
         marginBottom: 8,
     },
     image: {
-        marginBottom: -30,
         width: 200,
         height: 100,
     },

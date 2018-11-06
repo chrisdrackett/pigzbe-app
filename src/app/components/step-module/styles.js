@@ -9,6 +9,7 @@ export default StyleSheet.create({
         borderTopRightRadius: 5,
         borderTopLeftRadius: 5,
         maxWidth: MAX_INNER_WIDTH,
+        flex: 1,
     },
     containerText: {
         paddingLeft: paddingH,

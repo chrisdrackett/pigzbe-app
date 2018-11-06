@@ -66,6 +66,7 @@ export class TasksAssign extends Component {
                     icon="coins"
                     keyboardAvoidPad
                     keyboardOffset={40}
+                    title="Task reward"
                 >
                     <View style={styles.flexStyle}>
                         <View>

@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import styles from './styles';
+import {color} from 'app/styles';
 import {
     strings,
     SCREEN_SEND
@@ -43,9 +44,8 @@ export class Transfer extends Component {
                     title="Transfer"
                     icon="transfer"
                     // error={error}
-                    scroll={false}
-                    settingsIcon="qrCode"
-                    onSettings={this.onViewAddress}
+                    rightIcon="qrCode"
+                    onRightIcon={this.onViewAddress}
                 >
                     <Payments
                         navigation={this.props.navigation}

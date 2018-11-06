@@ -96,15 +96,12 @@ export class Settings extends Component {
             kids,
         } = this.props;
 
-        console.log('kids', kids);
-
         return (
             <Fragment>
                 <StepModule
                     title={'Settings'}
                     icon="settings"
                     onBack={this.onBack}
-                    paddingTop={20}
                     backgroundColor="transparent"
                 >
                     {escrow && (

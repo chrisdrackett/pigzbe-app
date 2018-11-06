@@ -98,6 +98,7 @@ export class KeysMnemonic extends Component {
                         'Below is your 12 word Pigzbe wallet, Private Key. *Please write this down* and keep it in a safe place.'
                     }
                     justify="space-between"
+                    showLogo
                 >
                     <Mnemonic
                         mnemonic={this.state.mnemonic}

@@ -52,6 +52,7 @@ export class KidGoalAdd extends Component {
         return (
             <StepModule
                 //customTitle="Goal"
+                title="Create goal"
                 loading={loading}
                 loaderMessage="Adding goal..."
                 pad

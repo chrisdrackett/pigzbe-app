@@ -188,7 +188,8 @@ export class KidDashboard extends Component {
                     backgroundColor={loading ? color.white : color.transparent}
                     loading={loading}
                     onBack={this.onBack}
-                    hideLogo
+                    customTitle={kid.name}
+                    hideCustomTitleUntilScrolled={true}
                 >
                     <View style={styles.header}>
                         <KidAvatar photo={kid.photo} size={54}/>
