@@ -22,14 +22,15 @@ export class PasscodeLogin extends Component {
 
     render() {
         const {loading, error, message} = this.props;
-
+        const {params: {touchId} = {}} = this.props.navigation.state;
+        const touchIdLogin = touchId && loading;
         return (
             <StepModule
                 scroll={true}
-                title={'Enter your Passcode'}
+                title={touchIdLogin ? 'Logging in' : 'Enter your Passcode'}
                 content={`Login with your ${PASSCODE_LENGTH}-digit passcode`}
                 headerChildren={(
-                    <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
+                    touchIdLogin ? null : <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                 )}
                 onBack={this.onBack}
                 loading={loading}
