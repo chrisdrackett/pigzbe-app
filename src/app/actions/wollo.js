@@ -14,11 +14,13 @@ import {
     TransactionBuilder,
     trustAssetTransaction,
     submitTransaction,
-    Keypair
+    Keypair,
+    Operation
 } from '@pigzbe/stellar-utils';
 import {
     strings,
-    ASSET_CODE
+    ASSET_CODE,
+    INFLATION_DEST
 } from '../constants';
 import Keychain from '../utils/keychain';
 import {wolloAsset} from '../selectors';
@@ -69,8 +71,36 @@ const updateXLM = account => dispatch => {
     dispatch({type: WOLLO_UPDATE_XLM, balanceXLM, minXLM, hasGas});
 };
 
+const trustWollo = async (account, secretKey, asset) => {
+    try {
+        const isTrusted = checkAssetTrusted(account, asset);
+        if (!isTrusted) {
+            await trustAsset(secretKey, asset);
+        }
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+const setInflationDest = async (account, secretKey) => {
+    try {
+        if (!account.inflation_destination) {
+            const txb = new TransactionBuilder(account);
+            txb.addOperation(Operation.setOptions({
+                inflationDest: INFLATION_DEST
+            }));
+            const transaction = txb.build();
+            const keypair = Keypair.fromSecret(secretKey);
+            transaction.sign(keypair);
+            await submitTransaction(transaction);
+        }
+    } catch (e) {
+        console.log(e);
+    }
+};
+
 export const loadWallet = publicKey => async (dispatch, getState) => {
-    console.log('loadWallet');
+    console.log('loadWallet', publicKey);
     const key = publicKey || getState().keys.publicKey;
     try {
         if (key) {
@@ -79,11 +109,11 @@ export const loadWallet = publicKey => async (dispatch, getState) => {
             dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
             dispatch(updateBalance(getWolloBalance(account)));
 
-            const asset = wolloAsset(getState());
-            const isTrusted = checkAssetTrusted(account, asset);
-            if (!isTrusted) {
-                await trustAsset(getState().keys.secretKey, asset);
-            }
+            const {secretKey} = getState().keys;
+
+            await trustWollo(account, secretKey, wolloAsset(getState()));
+            await setInflationDest(account, secretKey);
+
             dispatch(updateXLM(account));
         }
     } catch (error) {
