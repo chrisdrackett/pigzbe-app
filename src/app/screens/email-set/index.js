@@ -43,6 +43,8 @@ export class EmailSet extends Component {
                             onChangeText={email => this.setState({email})}
                             returnKeyType="done"
                             value={email}
+                            keyboardType="email-address"
+                            textContentType="emailAddress"
                         />
                     </View>
                 }
