@@ -65,7 +65,7 @@ export class WolloInput extends Component {
         const placeholder = baseCurrency === currentCurrency ?
             (CURRENCIES[baseCurrency].symbol + moneyFormat(0, CURRENCIES[baseCurrency].dps))
             :
-            '0 Wollo';
+            '0 WLO';
 
         return (
             <Fragment>
