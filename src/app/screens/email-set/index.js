@@ -17,11 +17,11 @@ export class EmailSet extends Component {
     }
 
     validateEmail = () => {
-        const {text} = this.state;
+        const {email} = this.state;
         const {onSetEmail, onDispatchError} = this.props;
 
-        if (!text || isEmail(text)) {
-            onSetEmail(this.state.text);
+        if (!email || isEmail(email)) {
+            onSetEmail(this.state.email);
         } else {
             onDispatchError('Email address not valid');
         }
@@ -40,7 +40,7 @@ export class EmailSet extends Component {
 
                         <TextInput
                             placeholder="Email address"
-                            onChangeText={text => this.setState({text})}
+                            onChangeText={email => this.setState({email})}
                             returnKeyType="done"
                             value={email}
                         />
