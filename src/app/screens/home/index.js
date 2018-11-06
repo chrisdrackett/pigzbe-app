@@ -67,7 +67,7 @@ export const HomeView = ({showKidLogin, kids, onCreate, onLogin, onKidLogin, onO
                 <Container style={styles.containerBody} scroll={false}>
                     <View style={styles.containerText}>
                         <Text style={styles.title}>Welcome to Pigzbe</Text>
-                        <Text style={styles.subtitle}>{accountExists ? 'Log into you account below.' : 'New to Pigzbe? Create an account below.'}</Text>
+                        <Text style={styles.subtitle}>{accountExists ? 'Log into your account below.' : 'New to Pigzbe? Create an account below.'}</Text>
                     </View>
                     <View style={styles.buttons}>
                         {!accountExists && <Button label="Let's get started" theme="light" onPress={onCreate} />}
@@ -92,6 +92,13 @@ class Home extends Component {
         this.setState({
             accountExists,
         });
+
+        if (this.props.kids.length === 0) {
+            const success = await this.props.dispatch(tryTouchIdLogin());
+            if (success) {
+                this.props.navigation.push(SCREEN_LOGIN, {touchId: true});
+            }
+        }
     }
 
     componentWillUnmount() {
@@ -116,9 +123,12 @@ class Home extends Component {
         this.props.navigation.navigate(nextScreenId, {kid});
     }
 
-    onOverride = () => {
-        this.props.dispatch(tryTouchIdLogin());
+    onOverride = async () => {
         this.setState({parentOverride: true});
+        const success = await this.props.dispatch(tryTouchIdLogin());
+        if (success) {
+            this.props.navigation.push(SCREEN_LOGIN, {touchId: true});
+        }
     }
 
     render() {

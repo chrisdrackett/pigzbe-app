@@ -107,8 +107,10 @@ export const tryTouchIdLogin = () => async (dispatch, getState) => {
 
         await dispatch(authTouchId());
         dispatch(loginAndLoad(passcode));
+        return true;
     } catch (error) {
         console.log(error);
+        return false;
     }
 };
 
@@ -123,9 +125,6 @@ export const initialize = () => async (dispatch, getState) => {
     await dispatch(loadSettings());
     await dispatch(loadKids());
     await dispatch(authCheckTouchId());
-    if (!getState().kids.kids.length) {
-        dispatch(tryTouchIdLogin());
-    }
     await dispatch(loadCachedExchange());
     dispatch(initializing(false));
     return true;
