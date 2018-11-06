@@ -10,10 +10,12 @@ import WebPage from 'app/components/web-page';
 
 const ADD_TASK = 'ADD_TASK';
 const ASSIGN_TASK = 'ASSIGN_TASK';
+const TRANSFER = 'TRANSFER';
 
 export default class FundingMessage extends Component {
     static ADD_TASK = ADD_TASK
     static ASSIGN_TASK = ASSIGN_TASK
+    static TRANSFER = TRANSFER
 
     state = {
         helpOpen: false,
@@ -48,6 +50,8 @@ export default class FundingMessage extends Component {
                 return `${msgXLM} To add a task fund your account with XLM.`;
             case ASSIGN_TASK:
                 return `${msgWLO} To add the task you need ${moneyFormat(requiredBalance)} WLO.`;
+            case TRANSFER:
+                return `${msgXLM} To transfer Wollo you need to add XLM to your wallet.`;
             default:
                 return `${msgXLM} Children can only be added once you have funded your account with at least ${moneyFormat(MIN_BALANCE)} XLM + ${moneyFormat(MIN_BALANCE_XLM_ADD_KID)} XLM per child.`;
 

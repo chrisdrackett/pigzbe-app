@@ -1,6 +1,5 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import BigNumber from 'bignumber.js';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {color} from '../../styles';
 import {
@@ -63,10 +62,9 @@ export class KidDashboard extends Component {
     onBack = () => this.props.navigation.goBack()
 
     addItem = screen => {
-        const balanceXLM = parseFloat(this.props.balanceXLM);
         const balanceWLO = parseFloat(this.props.balance);
 
-        if (screen === SCREEN_TASKS_LIST && (balanceWLO === 0 || balanceXLM === 0)) {
+        if (screen === SCREEN_TASKS_LIST && (balanceWLO === 0 || !this.props.hasGas)) {
             this.showFundingMessage(FundingMessage.ADD_TASK);
             return;
         }
@@ -177,9 +175,8 @@ export class KidDashboard extends Component {
             balanceXLM,
             balance,
         } = this.props;
-        const loading = (!exchange) || goalLoading || taskLoading || allowanceLoading;
 
-        console.log('showFundingMessage', this.state.showFundingMessage);
+        const loading = (!exchange) || goalLoading || taskLoading || allowanceLoading;
 
         return (
             <Fragment>
@@ -327,6 +324,7 @@ export default connect(
         kid: state.kids.kids.find(k => k.address === props.navigation.state.params.kid.address),
         exchange: state.exchange.exchange,
         balance: state.wollo.balance,
+        hasGas: state.wollo.hasGas,
         balanceXLM: state.wollo.balanceXLM,
         baseCurrency: state.settings.baseCurrency,
         goalLoading: state.kids.goalLoading,

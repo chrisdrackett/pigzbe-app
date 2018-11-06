@@ -32,6 +32,8 @@ NM.CameraManager = {
     TorchMode: {},
 };
 
+NM.RNFetchBlob = {};
+
 // mock webview
 
 jest.mock('./game/game.html', () => 'html', {virtual: true});
