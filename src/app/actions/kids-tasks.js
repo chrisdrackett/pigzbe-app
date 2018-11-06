@@ -95,8 +95,7 @@ export const deleteTask = (kid, task) => async (dispatch, getState) => {
         const keypair = Keypair.fromSecret(secretKey);
         tx.sign(keypair);
 
-        const result = getServer().submitTransaction(tx);
-        console.log('result', result);
+        const result = await getServer().submitTransaction(tx);
 
         dispatch(({type: KIDS_DELETE_TASK, address: kid.address, hash: task.hash}));
 
