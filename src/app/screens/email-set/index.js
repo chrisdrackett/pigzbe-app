@@ -5,7 +5,7 @@ import Button from '../../components/button';
 import Paragraph from '../../components/paragraph';
 import TextInput from '../../components/text-input';
 import StepModule from '../../components/step-module';
-import {settingsUpdate, appError} from '../../actions';
+import {settingsUpdate, appError, appAddSuccessAlert} from '../../actions';
 import isEmail from '../../utils/is-email';
 
 export class EmailSet extends Component {
@@ -20,7 +20,7 @@ export class EmailSet extends Component {
         const {text} = this.state;
         const {onSetEmail, onDispatchError} = this.props;
 
-        if (text && isEmail(text)) {
+        if (!text || isEmail(text)) {
             onSetEmail(this.state.text);
         } else {
             onDispatchError('Email address not valid');
@@ -68,6 +68,7 @@ export default connect(
     (dispatch, ownProps) => ({
         onSetEmail: email => {
             dispatch(settingsUpdate({email}));
+            dispatch(appAddSuccessAlert('Email updated'));
             ownProps.navigation.goBack();
         },
         onBack: () => ownProps.navigation.goBack(),
