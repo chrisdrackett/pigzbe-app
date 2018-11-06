@@ -104,7 +104,7 @@ class DevPanel extends Component {
                 <View style={styles.overlay}>
                     <ScrollView>
                         <View style={[container, styles.inner]}>
-                            <Text style={styles.title}>Dev panel</Text>
+                            <Text style={styles.title}>Network: {this.props.network}</Text>
                             <Text style={styles.subtitle}>
                                 Env dev: {__DEV__ ? 'true' : 'false'}
                             </Text>
@@ -237,4 +237,8 @@ class DevPanel extends Component {
 // export for test
 export const DevPanelComponent = DevPanel;
 
-export default connect()(DevPanel);
+export default connect(
+    state => ({
+        network: state.config.network
+    })
+)(DevPanel);
