@@ -44,7 +44,7 @@ export class DeviceAuth extends Component {
         requestLogin: true,
         onRegister: null,
         buttonLabel: 'Send Code',
-        introText: 'Before we begin, enter your mobile number to verify your mobile device.',
+        introText: 'Before we begin, enter your email address, mobile number (without country code), and country code to verify your mobile device.',
     }
 
     componentDidMount() {
