@@ -52,10 +52,11 @@ export const setParentNickname = parentNickname => ({type: KIDS_PARENT_NICKNAME,
 
 export const setNumKidsToAdd = numKidsToAdd => ({type: KIDS_NUM_TO_ADD, numKidsToAdd});
 
-export const addKid = (nickname, dob, photo) => async dispatch => {
+export const addKid = (nickname, dob, photo) => async (dispatch, getState) => {
     dispatch(kidsLoading(true));
     try {
-        const address = await dispatch(createKidAccount(MEMO_PREPEND_CREATE, nickname, KID_WALLET_BALANCE_XLM));
+        const {parentNickname} = getState().kids;
+        const address = await dispatch(createKidAccount(nickname, parentNickname));
         if (!address) {
             throw new Error('Could not create kid account');
         }

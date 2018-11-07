@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 import {pickImage} from '../../utils/image-picker';
-import {SCREEN_ALLOWANCE_AMOUNT} from '../../constants';
+import {SCREEN_ALLOWANCE_AMOUNT, KID_NICKNAME_MAX_LEN} from '../../constants';
 import TextInput from '../../components/text-input';
 import DateInput from '../../components/date-input';
 import StepModule from '../../components/step-module';
@@ -10,6 +10,8 @@ import Button from '../../components/button';
 import styles from './styles';
 import {addKid, appAddWarningAlert} from '../../actions';
 import images from './images';
+
+const stripText = str => str.trim().replace(/[~]/g, '');
 
 export class KidsEnterProfile extends Component {
     state = {
@@ -53,7 +55,7 @@ export class KidsEnterProfile extends Component {
     }
 
     onChangeName = (name) => {
-        this.setState({name});
+        this.setState({name: stripText(name)});
     }
 
     onChangeDOB = (dob) => {
@@ -108,7 +110,7 @@ export class KidsEnterProfile extends Component {
                             onChangeText={this.onChangeName}
                             returnKeyType="done"
                             value={this.state.name}
-                            maxLength={20}
+                            maxLength={KID_NICKNAME_MAX_LEN}
                         />
                         <DateInput
                             placeholder="Date of birth"

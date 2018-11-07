@@ -1,7 +1,18 @@
 import {paymentHistoryAll, loadAccount} from '@pigzbe/stellar-utils';
 import {MEMO_PREPEND_CREATE} from '../constants';
 import {getSeedHex, getKeypair, isValidMnemonic, findSecretKey} from '../utils/hd-wallet';
-import {appError, restoreKid, setKeys, saveKeys, settingsFirstTime, settingsUpdate, saveSecretKey, getWolloBalance, loadKidsActions} from './';
+import {
+    appError,
+    restoreKid,
+    setKeys,
+    saveKeys,
+    settingsFirstTime,
+    settingsUpdate,
+    saveSecretKey,
+    getWolloBalance,
+    loadKidsActions,
+    setParentNickname
+} from './';
 
 export const KEYS_RESTORE_LOADING = 'KEYS_RESTORE_LOADING';
 export const KEYS_RESTORE_ERROR = 'KEYS_RESTORE_ERROR';
@@ -47,10 +58,16 @@ export const restoreKeys = mnemonic => async dispatch => {
 
         const kidAccounts = sortedAccounts
             .filter(a => a.memo.indexOf(MEMO_PREPEND_CREATE) === 0)
-            .map(a => ({
-                ...a,
-                name: a.memo.slice(MEMO_PREPEND_CREATE.length)
-            }));
+            .map(a => {
+                const trimmedMemo = a.memo.slice(MEMO_PREPEND_CREATE.length);
+                const [name, parentNickname] = trimmedMemo.split('~');
+                console.log('name, parentNickname', name, parentNickname);
+                return {
+                    ...a,
+                    name,
+                    parentNickname
+                };
+            });
 
         for (const k of kidAccounts) {
             try {
@@ -59,6 +76,9 @@ export const restoreKeys = mnemonic => async dispatch => {
                 if (account) {
                     const balance = getWolloBalance(account);
                     await dispatch(saveSecretKey(k.address, k.secretKey));
+                    if (k.parentNickname) {
+                        dispatch(setParentNickname(k.parentNickname));
+                    }
                     dispatch(restoreKid(k.name, k.address, balance));
                 }
             } catch (e) {

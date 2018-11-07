@@ -20,10 +20,13 @@ import {
 import {
     strings,
     ASSET_CODE,
-    INFLATION_DEST
+    INFLATION_DEST,
+    MEMO_PREPEND_CREATE,
+    KID_WALLET_BALANCE_XLM
 } from '../constants';
 import {wolloAsset} from '../selectors';
 import {createKeypair, appError, updateKidBalance, loadSecretKey, saveSecretKey} from './';
+import formatMemo from 'app/utils/format-memo';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
@@ -258,7 +261,7 @@ export const fundKidAccount = (memo, address, startingBalance) => async (dispatc
     }
 };
 
-export const createKidAccount = (memo, nickname, startingBalance) => async dispatch => {
+export const createKidAccount = (nickname, parentNickname) => async dispatch => {
     console.log('createKidAccount', nickname);
 
     try {
@@ -268,9 +271,11 @@ export const createKidAccount = (memo, nickname, startingBalance) => async dispa
 
         await dispatch(saveSecretKey(destination, keypair.secret()));
 
-        console.log('createKidAccount startingBalance', startingBalance);
+        console.log('createKidAccount startingBalance', KID_WALLET_BALANCE_XLM);
 
-        await dispatch(fundKidAccount(`${memo}${nickname}`, destination, startingBalance));
+        const memo = formatMemo(`${MEMO_PREPEND_CREATE}${nickname}~${parentNickname}`);
+
+        await dispatch(fundKidAccount(memo, destination, KID_WALLET_BALANCE_XLM));
 
         return destination;
 
