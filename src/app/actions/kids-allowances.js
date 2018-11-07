@@ -40,7 +40,21 @@ export const deleteAllowance = (kid, allowance) => async dispatch => {
     }
 };
 
-export const updateAllowance = (kid, allowance) => async dispatch => {
+/**
+ * Need two seperate actions:
+ * - updateAllowance is called when updating the config from the UI
+ * - setAllowance is called from the background code to update payments
+ */
+export const updateAllowance = (kid, allowance) => async (dispatch,getState) => {
+    dispatch(allowanceLoading(true));
+    dispatch(({type: KIDS_UPDATE_ALLOWANCE, data: {kid, allowance}}));
+    await dispatch(saveKids());
+    // Fire and forget the logic to handle allowances
+    handleAllowances({dispatch, getState});
+    dispatch(allowanceLoading(false));
+};
+
+export const setAllowance = (kid, allowance) => async dispatch => {
     dispatch(allowanceLoading(true));
     dispatch(({type: KIDS_UPDATE_ALLOWANCE, data: {kid, allowance}}));
     await dispatch(saveKids());

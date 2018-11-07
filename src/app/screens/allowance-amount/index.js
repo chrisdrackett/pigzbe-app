@@ -131,7 +131,7 @@ export class AllowanceAmount extends Component {
         const {balance} = this.props;
         const amount = custom ? custom : active;
 
-        if (balance < amount) {
+        if (parseFloat(balance) < parseFloat(amount)) {
             this.props.dispatch(appAddWarningAlert('You don\'t have enough funds. Allowance payments will fail until there are enough funds'));
         }
 
