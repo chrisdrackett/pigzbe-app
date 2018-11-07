@@ -69,12 +69,13 @@ export const addKid = (nickname, dob, photo) => async dispatch => {
     dispatch(kidsLoading(false));
 };
 
-export const restoreKid = (name, address) => async dispatch => {
+export const restoreKid = (name, address, balance) => async dispatch => {
     dispatch(kidsLoading(true));
 
     dispatch(({type: KIDS_ADD_KID, kid: {
         name,
-        address
+        address,
+        balance
     }}));
 
     await dispatch(saveKids());

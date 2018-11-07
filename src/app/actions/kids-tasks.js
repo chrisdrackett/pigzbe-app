@@ -11,8 +11,7 @@ import {
     ensureValidAmount
 } from '@pigzbe/stellar-utils';
 import {wolloAsset} from '../selectors';
-import Keychain from '../utils/keychain';
-import {saveKids, refreshBalance} from './';
+import {saveKids, refreshBalance, loadSecretKey} from './';
 import {MEMO_PREPEND_TASK} from 'app/constants';
 import formatMemo from 'app/utils/format-memo';
 
@@ -91,7 +90,7 @@ export const deleteTask = (kid, task) => async (dispatch, getState) => {
             .addMemo(Memo.hash(task.hash))
             .build();
 
-        const secretKey = await Keychain.load(`secret_${kid.address}`);
+        const secretKey = await dispatch(loadSecretKey(kid.address));
         const keypair = Keypair.fromSecret(secretKey);
         tx.sign(keypair);
 

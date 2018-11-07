@@ -9,8 +9,7 @@ import {
     ensureValidAmount
 } from '@pigzbe/stellar-utils';
 import {wolloAsset} from '../selectors';
-import Keychain from '../utils/keychain';
-import {saveKids, getWolloBalance, appAddSuccessAlert, appAddWarningAlert, getTreeHistory} from '.';
+import {saveKids, getWolloBalance, appAddSuccessAlert, appAddWarningAlert, getTreeHistory, loadSecretKey} from '.';
 import {KIDS_GOAL_WOLLO_TRANSACTION} from './';
 
 export const KIDS_LOADING_GOAL = 'KIDS_LOADING_GOAL';
@@ -141,7 +140,7 @@ export const sendGoalWolloToParent = (kid, goal, amount) => async (dispatch, get
         const {publicKey} = getState().keys;
 
         // Load kids secret key
-        const secretKey = await Keychain.load(`secret_${kid.address}`);
+        const secretKey = await dispatch(loadSecretKey(kid.address));
         const keypair = Keypair.fromSecret(secretKey);
         const account = await loadAccount(kid.address);
 

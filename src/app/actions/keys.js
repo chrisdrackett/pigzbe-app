@@ -102,3 +102,7 @@ export const clearKeys = () => async dispatch => {
 };
 
 export const keysTestUser = testUserKey => ({type: KEYS_TEST_USER, testUserKey});
+
+export const saveSecretKey = (address, secretKey) => () => Keychain.save(`secret_${address}`, secretKey);
+
+export const loadSecretKey = address => () => Keychain.load(`secret_${address}`);

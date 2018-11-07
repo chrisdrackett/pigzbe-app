@@ -22,9 +22,8 @@ import {
     ASSET_CODE,
     INFLATION_DEST
 } from '../constants';
-import Keychain from '../utils/keychain';
 import {wolloAsset} from '../selectors';
-import {createKeypair, appError, updateKidBalance} from './';
+import {createKeypair, appError, updateKidBalance, loadSecretKey, saveSecretKey} from './';
 
 export const WOLLO_LOADING = 'WOLLO_LOADING';
 export const WOLLO_ERROR = 'WOLLO_ERROR';
@@ -237,7 +236,7 @@ export const fundKidAccount = (memo, address, startingBalance) => async (dispatc
     console.log('fundKidAccount', memo, address, startingBalance);
     // const {publicKey, secretKey} = getState().keys;
     const {secretKey} = getState().keys;
-    const kidSecretKey = await Keychain.load(`secret_${address}`);
+    const kidSecretKey = await dispatch(loadSecretKey(address));
     try {
         const keypair = Keypair.fromSecret(kidSecretKey);
         const destination = keypair.publicKey();
@@ -267,7 +266,7 @@ export const createKidAccount = (memo, nickname, startingBalance) => async dispa
         const destination = keypair.publicKey();
         console.log('createKidAccount destination', destination);
 
-        await Keychain.save(`secret_${destination}`, keypair.secret());
+        await dispatch(saveSecretKey(destination, keypair.secret()));
 
         console.log('createKidAccount startingBalance', startingBalance);
 
