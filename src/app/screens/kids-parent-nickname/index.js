@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Toggle from '../../components/toggle';
-import {SCREEN_KIDS_NUMBER_TO_ADD} from '../../constants';
+import {SCREEN_KIDS_NUMBER_TO_ADD, PARENT_NICKNAME_MAX_LEN} from '../../constants';
 import StepModule from '../../components/step-module';
 import TextInput from '../../components/text-input';
 import Button from '../../components/button';
 import {setParentNickname} from '../../actions';
 import styles from './styles';
+
+const stripText = str => str.trim().replace(/[~]/g, '');
 
 export class KidsParentNickname extends Component {
     state = {
@@ -23,10 +25,10 @@ export class KidsParentNickname extends Component {
         this.props.navigation.push(SCREEN_KIDS_NUMBER_TO_ADD);
     }
 
-    onChangeText = (text) => {
-        this.setState({type: text.length > 0 ? 'custom' : null});
-        this.setState({custom: text});
-    }
+    onChangeText = (text) => this.setState({
+        type: text.length > 0 ? 'custom' : null,
+        custom: stripText(text)
+    })
 
     componentDidMount() {
         if (this.props.navigation) {
@@ -41,6 +43,7 @@ export class KidsParentNickname extends Component {
     }
 
     render() {
+        console.log('this.state.custom', this.state.custom);
         return (
             <StepModule
                 title="Describe yourself"
@@ -73,7 +76,7 @@ export class KidsParentNickname extends Component {
                     />
                 </View>
                 <TextInput
-                    // error={badAddress}
+                    maxLength={PARENT_NICKNAME_MAX_LEN}
                     value={this.state.custom}
                     numberOfLines={1}
                     placeholder="Other"

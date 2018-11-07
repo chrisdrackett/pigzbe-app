@@ -1,7 +1,18 @@
-import {paymentHistoryAll} from '@pigzbe/stellar-utils';
+import {paymentHistoryAll, loadAccount} from '@pigzbe/stellar-utils';
 import {MEMO_PREPEND_CREATE} from '../constants';
 import {getSeedHex, getKeypair, isValidMnemonic, findSecretKey} from '../utils/hd-wallet';
-import {appError, restoreKid, setKeys, saveKeys, settingsFirstTime, settingsUpdate} from './';
+import {
+    appError,
+    restoreKid,
+    setKeys,
+    saveKeys,
+    settingsFirstTime,
+    settingsUpdate,
+    saveSecretKey,
+    getWolloBalance,
+    loadKidsActions,
+    setParentNickname
+} from './';
 
 export const KEYS_RESTORE_LOADING = 'KEYS_RESTORE_LOADING';
 export const KEYS_RESTORE_ERROR = 'KEYS_RESTORE_ERROR';
@@ -47,25 +58,44 @@ export const restoreKeys = mnemonic => async dispatch => {
 
         const kidAccounts = sortedAccounts
             .filter(a => a.memo.indexOf(MEMO_PREPEND_CREATE) === 0)
-            .map(a => ({
-                name: a.memo.slice(MEMO_PREPEND_CREATE.length),
-                address: a.address
-            }));
+            .map(a => {
+                const trimmedMemo = a.memo.slice(MEMO_PREPEND_CREATE.length);
+                const [name, parentNickname] = trimmedMemo.split('~');
+                console.log('name, parentNickname', name, parentNickname);
+                return {
+                    ...a,
+                    name,
+                    parentNickname
+                };
+            });
 
         for (const k of kidAccounts) {
-            console.log('Found', k.name, k.address);
-            dispatch(restoreKid(k.name, k.address));
+            try {
+                console.log('Found', k.name, k.address, k.secretKey);
+                const account = await loadAccount(k.address);
+                if (account) {
+                    const balance = getWolloBalance(account);
+                    await dispatch(saveSecretKey(k.address, k.secretKey));
+                    if (k.parentNickname) {
+                        dispatch(setParentNickname(k.parentNickname));
+                    }
+                    dispatch(restoreKid(k.name, k.address, balance));
+                }
+            } catch (e) {
+                console.log('Could not restore', k.name);
+            }
         }
 
         const keyIndex = accountsFound.slice(-1).pop().index;
         console.log('keyIndex', keyIndex);
-        dispatch(setKeys(keypair, mnemonic, true));
+        dispatch(setKeys(keypair, mnemonic, false));
         await dispatch(settingsUpdate({keyIndex}));
-        await dispatch(saveKeys());
+        await dispatch(loadKidsActions());
         dispatch(settingsFirstTime());
+        await dispatch(saveKeys());
     } catch (error) {
         console.log(error);
-        const err = new Error('Could not recover account. Please check your mnemonic and ensure you are trying to recover and account that was previously funded.');
+        const err = 'Could not recover account. Please check your mnemonic and ensure you are trying to recover an account that was previously funded.';
         dispatch(restoreKeysError(err));
         dispatch(appError(err));
     }

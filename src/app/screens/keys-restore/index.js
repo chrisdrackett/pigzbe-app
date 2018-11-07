@@ -34,7 +34,7 @@ export class KeysRestore extends Component {
                 // keyboardAvoidPad
             >
                 <TextInput
-                    error={!!error}
+                    error={error}
                     value={this.state.inputText}
                     placeholder={'Your 12 word mnemonic'}
                     onChangeText={this.onChangeText}
