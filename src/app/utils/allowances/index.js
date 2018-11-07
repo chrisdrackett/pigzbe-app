@@ -5,7 +5,7 @@ import {
     paymentHistory,
     paymentInfo,
 } from '@pigzbe/stellar-utils';
-import {getKeys, loadConfig, updateAllowance} from 'app/actions';
+import {getKeys, loadConfig, setAllowance} from 'app/actions';
 import {wolloAsset} from 'app/selectors';
 import {MEMO_PREPEND_ALLOWANCE} from 'app/constants';
 import formatMemo from 'app/utils/format-memo';
@@ -148,7 +148,7 @@ export const handleAllowances = async ({dispatch, getState}) => {
                     }).toISOString();
                 }
 
-                dispatch(updateAllowance(allowance));
+                dispatch(setAllowance(allowance));
             }
         }
     } catch (err) {
