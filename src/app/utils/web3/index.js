@@ -17,7 +17,10 @@ export const isValidSeed = seed => {
 
 export const generateAddressFromSeed = (seed, publicAddress) => {
     const hdwallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed(seed));
-    const wallet_hdpath = 'm/44\'/60\'/0\'/0/';
+    // standard:
+    // const wallet_hdpath = 'm/44\'/60\'/0\'/0/';
+    // eidoo:
+    const wallet_hdpath = 'm/44\'/60\'/0/';
 
     let account = {address: ''};
     let counter = 0;
