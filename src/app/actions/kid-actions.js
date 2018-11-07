@@ -196,9 +196,12 @@ export const loadKidActions = kid => async dispatch => {
 
     try {
         const account = await loadAccount(address);
+        const balance = getWolloBalance(account);
         console.log('');
-        console.log(kid.name, 'balance = ', getWolloBalance(account));
-        dispatch(updateKidBalance(address, getWolloBalance(account)));
+        console.log(kid.name, 'balance = ', balance);
+        dispatch(updateKidBalance(address, balance));
+
+        let balanceLeft = new BigNumber(balance);
 
         const minXLM = getMinBalance(account, 10000);
         console.log(kid.name, 'minXLM', minXLM);
@@ -236,17 +239,24 @@ export const loadKidActions = kid => async dispatch => {
                 }
             }
             const amountLeftToClaim = new BigNumber(entry.amount).minus(amountClaimed);
+            const availableLeftToClaim = BigNumber.min(amountLeftToClaim, balanceLeft);
+
             console.log('     amount claimed =', amountClaimed.toString(10));
             console.log('     amount left =', amountLeftToClaim.toString(10));
-            const incomplete = amountLeftToClaim.isGreaterThan(0);
+            console.log('     actual amount available in wallet =', availableLeftToClaim.toString(10));
+
+            const incomplete = availableLeftToClaim.isGreaterThan(0);
             const partialClaim = incomplete && amountLeftToClaim.isLessThan(entry.amount);
             console.log('     partialClaim =', partialClaim ? 'true' : 'false');
             console.log('    ', incomplete ? '✘' : '✔', 'complete =', incomplete ? 'false' : 'true');
 
+            balanceLeft = balanceLeft.minus(amountLeftToClaim);
+            console.log('balanceLeft after added', balanceLeft.toString(10));
+
             if (incomplete) {
                 actions.push({
                     ...entry,
-                    amount: amountLeftToClaim.toString(10),
+                    amount: availableLeftToClaim.toString(10),
                     totalAmount: entry.amount,
                     partialClaim
                 });
