@@ -95,7 +95,7 @@ export const restoreKeys = mnemonic => async dispatch => {
         await dispatch(saveKeys());
     } catch (error) {
         console.log(error);
-        const err = new Error('Could not recover account. Please check your mnemonic and ensure you are trying to recover and account that was previously funded.');
+        const err = 'Could not recover account. Please check your mnemonic and ensure you are trying to recover an account that was previously funded.';
         dispatch(restoreKeysError(err));
         dispatch(appError(err));
     }
