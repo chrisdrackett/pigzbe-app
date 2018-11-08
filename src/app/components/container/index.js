@@ -29,6 +29,8 @@ export default class Container extends Component {
                         style={styles.scroll}
                         onScroll={onScroll}
                         scrollEventThrottle={16}
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
                         contentContainerStyle={styles.scrollContainer}>
                         {children}
                     </ScrollView>
