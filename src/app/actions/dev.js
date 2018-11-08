@@ -33,22 +33,38 @@ export const mergeAccount = (publicKey, secretKey) => async (dispatch, getState)
         const wloAmount = getWolloBalance(account);
         const asset = wolloAsset(getState());
 
-        if (Number(wloAmount) > 0) {
-            await sendPayment(secretKey, distributionKey, wloAmount, null, asset);
+        try {
+            if (Number(wloAmount) > 0) {
+                await sendPayment(secretKey, distributionKey, wloAmount, null, asset);
+                account = await loadAccount(publicKey);
+            }
+        } catch (e) {
+            console.log(e);
         }
 
+        const keypair = Keypair.fromSecret(secretKey);
+
+        try {
+            const txbT = new TransactionBuilder(account);
+            txbT.addOperation(Operation.changeTrust({
+                asset,
+                limit: '0'
+            }));
+            const txT = txbT.build();
+            txT.sign(keypair);
+            await getServer().submitTransaction(txT);
+        } catch (e) {
+            console.log(e);
+        }
+
+        account = await loadAccount(publicKey);
+
         const txb = new TransactionBuilder(account);
-        txb.addOperation(Operation.changeTrust({
-            asset,
-            limit: '0'
-        }));
         txb.addOperation(Operation.accountMerge({
             destination: distributionKey
         }));
         const tx = txb.build();
-        const keypair = Keypair.fromSecret(secretKey);
         tx.sign(keypair);
-
         await getServer().submitTransaction(tx);
     } catch (e) {
         console.log(e);
