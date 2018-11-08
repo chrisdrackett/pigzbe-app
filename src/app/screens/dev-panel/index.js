@@ -89,11 +89,16 @@ class DevPanel extends Component {
     }
 
     render() {
-        // const {
-        //     dispatch,
-        //     testUserKey,
-        //     // networkOverride
-        // } = this.props;
+
+        const isTestnet = this.props.network !== 'mainnet';
+
+        if (!__DEV__ && isTestnet) {
+            return (
+                <View style={styles.topBar}>
+                    <Text style={[styles.net, styles.netLive]}>TESTNET</Text>
+                </View>
+            );
+        }
 
         if (!__DEV__ || this.state.isHidden) {
             return null;
@@ -220,10 +225,9 @@ class DevPanel extends Component {
         }
         return (
             <View style={styles.topBar}>
-                {/* <Text
-                    style={networkOverride ? [styles.net, styles.netLive] : styles.net}>
-                    {networkOverride ? networkOverride : 'NO NETWORK OVERRIDE'}
-                </Text> */}
+                {isTestnet && (
+                    <Text style={[styles.net, styles.netLive]}>TESTNET</Text>
+                )}
                 <TouchableOpacity
                     style={styles.settings}
                     onPress={() => this.setState({isOpen: true})}>

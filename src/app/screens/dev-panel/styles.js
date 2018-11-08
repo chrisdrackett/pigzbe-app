@@ -8,7 +8,7 @@ import {
 export default StyleSheet.create({
     topBar: {
         position: 'absolute',
-        top: 25,
+        top: 40,
         width: '70%',
         right: 0,
         flex: 1,
