@@ -18,7 +18,7 @@ export class Register extends Component {
                 onBack={this.onBack}
                 onRegister={this.onNext}
                 buttonLabel="Register"
-                introText="Enter the email address and mobile number registered with Pigzbe."
+                introText="Enter the email address, mobile number (without country code), and country code registered with Pigzbe."
             />
         );
     }
