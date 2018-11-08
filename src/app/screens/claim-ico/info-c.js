@@ -21,8 +21,9 @@ export default class InfoC extends Component {
                         <OrderedList
                             items={[
                                 'Go to *Your Assets*',
-                                'Tap the QR code button top on the right',
-                                'Write down or tap the share button to copy your wallet address. (you will paste in the next step)'
+                                'Select the *Wollo* asset from the list',
+                                'Tap the *Address* button below the balance at the top of the screen',
+                                'Tap the *COPY TO CLIPBOARD* button to copy your wallet address. (you will paste in the next step)'
                             ]}
                         />
                     </Fragment>

@@ -20,7 +20,7 @@ export default class InfoB extends Component {
                         <Paragraph>*Firstly*, open the Eidoo App.</Paragraph>
                         <OrderedList
                             items={[
-                                'Go to *Preferences*',
+                                'Go to *Settings*',
                                 'Tap *Backup Wallet* and *Backup Now*',
                                 'Enter your password to unlock your wallet',
                                 'Now write down on paper your *seed words*'
