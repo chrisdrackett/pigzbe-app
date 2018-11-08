@@ -147,6 +147,16 @@ export class Dashboard extends Component {
                 >
                     <View>
                         <BalanceGraph balance={balance} balanceXLM={null} exchange={exchange} baseCurrency={baseCurrency}/>
+                        <Kids
+                            kids={kids}
+                            exchange={exchange}
+                            baseCurrency={baseCurrency}
+                            onAddKids={this.onAddKids}
+                            onDashboard={this.onDashboard}
+                        />
+                        <ConvertBalance coins={coins} exchange={exchange} balance={balance} />
+                    </View>
+                    {this.props.network !== 'mainnet' && (
                         <View>
                             <Button
                                 label={publicKey}
@@ -160,17 +170,8 @@ export class Dashboard extends Component {
                                 onPress={this.onFund}
                             />
                         </View>
-                        <Kids
-                            kids={kids}
-                            exchange={exchange}
-                            baseCurrency={baseCurrency}
-                            onAddKids={this.onAddKids}
-                            onDashboard={this.onDashboard}
-                        />
-                        <ConvertBalance coins={coins} exchange={exchange} balance={balance} />
-                    </View>
+                    )}
                 </StepModule>
-
                 <ReactModal
                     isVisible={firstTime}
                     animationIn="slideInUp"
@@ -212,6 +213,7 @@ export class Dashboard extends Component {
 
 export default connect(
     state => ({
+        network: state.config.network,
         isConnected: state.app.isConnected,
         exchange: state.exchange.exchange,
         balance: state.wollo.balance,
