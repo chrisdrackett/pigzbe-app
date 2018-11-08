@@ -1,5 +1,10 @@
 import {Platform, Dimensions} from 'react-native';
 
-const H = 812;
+const heights = [812, 896];
 
-export default Platform.OS === 'ios' && (Dimensions.get('window').height === H || Dimensions.get('window').width === H);
+const matchesHeight = heights.some(height =>
+    Dimensions.get('window').height === height ||
+    Dimensions.get('window').width === height
+);
+
+export default Platform.OS === 'ios' && matchesHeight;

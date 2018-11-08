@@ -1,4 +1,5 @@
 import {StyleSheet, Platform, Dimensions} from 'react-native';
+import isIphoneX from 'app/utils/is-iphonex';
 import {color} from '../../styles';
 
 export default StyleSheet.create({
@@ -11,7 +12,7 @@ export default StyleSheet.create({
         // backgroundColor: 'red',
         height: 5,
         position: 'absolute',
-        bottom: (Platform.OS === 'ios' && Dimensions.get('window').height === 812) ? 84 : 50,
+        bottom: isIphoneX ? 84 : 50,
         left: 0,
         right: 0,
         zIndex: 1
