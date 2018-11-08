@@ -50,7 +50,14 @@ export class EnterKeys extends Component {
                 badAddress: !result.validAddress,
                 badSeed: !result.validSeed
             });
-            this.props.dispatch(appError('Check your wallet address and 12 word seed'));
+
+            let error = 'Check your wallet address and 12 word seed';
+            if (result.validAddress && !result.validSeed) {
+                error = 'Check your 12 word seed';
+            } else if (!result.validAddress && result.validSeed) {
+                error = 'Check your wallet address';
+            }
+            this.props.dispatch(appError(error));
         }
     }
 
