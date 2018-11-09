@@ -33,7 +33,7 @@ export class AllowanceInterval extends Component {
                 amount,
                 interval,
                 day,
-                nextDate,
+                nextDate: nextDate.toISOString(),
             };
             await this.props.dispatch(updateAllowance(kid, updatedAllowance));
             this.props.dispatch(appAddSuccessAlert('Updated allowance'));
