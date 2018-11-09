@@ -106,8 +106,11 @@ class Home extends Component {
     }
 
     handleBackPress = () => {
-        this.setState({parentOverride: false});
-        return true;
+        if (this.state.parentOverride) {
+            this.setState({parentOverride: false});
+            return true;
+        }
+        return false;
     }
 
     onLogin = () => this.props.navigation.push(SCREEN_LOGIN)
