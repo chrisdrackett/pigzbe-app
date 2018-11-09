@@ -163,14 +163,11 @@ export class AllowanceAmount extends Component {
                 <View style={styles.flex}>
                     <View>
                         <View style={styles.toggleList}>
-                            <FlatList
-                                style={{marginBottom: 10}}
-                                data={
-                                    this.getAllowancesList()
-                                }
-                                contentContainerStyle={styles.toggleList}
-                                renderItem={({item}) => this.renderElement(item)}
-                            />
+                            {this.getAllowancesList().map((item, index) =>
+                                <View key={index}>
+                                    {this.renderElement(item)}
+                                </View>
+                            )}
                         </View>
                     </View>
                     <View style={{marginTop: 20}}>
