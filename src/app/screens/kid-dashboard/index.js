@@ -85,6 +85,7 @@ export class KidDashboard extends Component {
             this.onCloseTasksPanel();
             return;
         }
+        this.onCloseTasksPanel();
         switch (selectedOption) {
             case 0:
                 // todo navigate to task screen with active tasks
@@ -96,8 +97,6 @@ export class KidDashboard extends Component {
             default:
                 // do nothing
         }
-
-        this.onCloseTasksPanel();
     }
 
     onCloseTasksPanel = () => this.setState({tasksPanelOpen: false})
@@ -177,6 +176,7 @@ export class KidDashboard extends Component {
         } = this.props;
 
         const loading = (!exchange) || goalLoading || taskLoading || allowanceLoading;
+        const loaderMessage = taskLoading ? 'Deleting task' : null;
 
         return (
             <Fragment>
@@ -184,6 +184,7 @@ export class KidDashboard extends Component {
                     scroll
                     backgroundColor={loading ? color.white : color.transparent}
                     loading={loading}
+                    loaderMessage={loaderMessage}
                     onBack={this.onBack}
                     customTitle={kid.name}
                     hideCustomTitleUntilScrolled={true}
