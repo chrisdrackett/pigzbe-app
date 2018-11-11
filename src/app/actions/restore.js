@@ -86,8 +86,7 @@ export const restoreKeys = mnemonic => async dispatch => {
             }
         }
 
-        const keyIndex = accountsFound.slice(-1).pop().index;
-        console.log('keyIndex', keyIndex);
+        const keyIndex = accountsFound.length ? accountsFound.slice(-1).pop().index : 1;
         dispatch(setKeys(keypair, mnemonic, false));
         await dispatch(settingsUpdate({keyIndex}));
         await dispatch(loadKidsActions());
