@@ -77,7 +77,6 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         flexWrap: 'wrap',
-        width: '100%',
     },
     conversion: {
         color: color.blue,

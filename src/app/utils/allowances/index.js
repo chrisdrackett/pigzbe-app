@@ -126,6 +126,7 @@ export const handleAllowances = async ({dispatch, getState}) => {
                     const payment = {
                         id: payments.length === 0 ? 1 : (payments[payments.length - 1].id + 1),
                         status: 'pending',
+                        date: dateNow.toISOString(),
                     };
 
                     const memo = getMemo(kid, allowance, payment);

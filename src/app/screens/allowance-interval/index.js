@@ -15,10 +15,14 @@ import {intervals, daysOfWeek, daysOfMonth, getFirstPaymentDate} from 'app/utils
 
 export class AllowanceInterval extends Component {
     state = {
-        day: null,
-        interval: null,
+        day: this.props.allowanceToEdit ? this.props.allowanceToEdit.day : null,
+        interval: this.props.allowanceToEdit ? this.props.allowanceToEdit.interval : null,
         nextDate: null,
         timezone: DeviceInfo.getTimezone(),
+    }
+
+    componentDidMount() {
+        this.setNextPaymentDate();
     }
 
     onBack = () => this.props.navigation.goBack();
@@ -33,7 +37,7 @@ export class AllowanceInterval extends Component {
                 amount,
                 interval,
                 day,
-                nextDate,
+                nextDate: nextDate.toISOString(),
             };
             await this.props.dispatch(updateAllowance(kid, updatedAllowance));
             this.props.dispatch(appAddSuccessAlert('Updated allowance'));

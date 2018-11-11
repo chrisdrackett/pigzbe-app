@@ -1,5 +1,6 @@
 import {saveKids, appAddSuccessAlert, appAddWarningAlert} from './';
-import {handleAllowances} from 'app/utils/allowances';
+import {handleAllowances, getNextPaymentDate} from 'app/utils/allowances';
+import moment from 'moment';
 
 export const KIDS_ADD_ALLOWANCE = 'KIDS_ADD_ALLOWANCE';
 export const KIDS_DELETE_ALLOWANCE = 'KIDS_DELETE_ALLOWANCE';
@@ -46,6 +47,28 @@ export const deleteAllowance = (kid, allowance) => async dispatch => {
  * - setAllowance is called from the background code to update payments
  */
 export const updateAllowance = (kid, allowance) => async (dispatch,getState) => {
+
+    /**
+     * If our updated allowance config has a payment date of today AND this
+     * allowance has already paid out for today, then we need to bump the
+     * date up to the next occurance to avoid multiple payments in the same day
+     */
+    const dateToday = moment();
+    const nextPaymentDate = moment(allowance.nextDate);
+
+    if (nextPaymentDate.format('L') === dateToday.format('L')) {
+        const existingPaymentToday = allowance.payments.some(payment =>
+            payment.date && moment(payment.date).format('L') === dateToday.format('L')
+        );
+        if (existingPaymentToday) {
+            allowance.nextDate = getNextPaymentDate({
+                lastPaymentDate: nextPaymentDate,
+                interval: allowance.interval,
+                day: allowance.day,
+            }).toISOString();
+        }
+    }
+
     dispatch(allowanceLoading(true));
     dispatch(({type: KIDS_UPDATE_ALLOWANCE, data: {kid, allowance}}));
     await dispatch(saveKids());
