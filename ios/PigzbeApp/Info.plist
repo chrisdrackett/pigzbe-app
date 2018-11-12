@@ -39,6 +39,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow Pigzbe to use your camera</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Allow Pigzbe to login using FaceID</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Give Pigzbe permission to access your photos</string>
 	<key>NSCalendarsUsageDescription</key>
