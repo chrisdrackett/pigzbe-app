@@ -52,10 +52,10 @@ export const HomeView = ({showKidLogin, kids, onCreate, onLogin, onKidLogin, onO
                             />
                         ))}
                     </View>
-                    <View style={styles.buttons}>
-                        <Button label="Parental login" theme="plain_light" onPress={onOverride} />
-                    </View>
                 </Container>
+                <View style={styles.buttons}>
+                    <Button label="Parental login" theme="plain_light" onPress={onOverride} />
+                </View>
             </Fragment>
         ) : (
             <Fragment>
