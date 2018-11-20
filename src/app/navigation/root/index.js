@@ -1,6 +1,6 @@
-import React, {Fragment, Component} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {NetInfo, AppState} from 'react-native';
+import {NetInfo, AppState, PanResponder, View} from 'react-native';
 import BackgroundTask from 'react-native-background-task';
 import Auth from '../auth';
 import Alert from 'app/components/alert';
@@ -8,6 +8,17 @@ import {connectionState, appDeleteAlert, authLogout} from 'app/actions';
 import {strings} from 'app/constants';
 
 class Root extends Component {
+
+    panResponder = null
+    timeout = null
+
+    componentWillMount() {
+        this.panResponder = PanResponder.create({
+            onMoveShouldSetPanResponderCapture: this.onShouldSetPanResponderCapture,
+            onPanResponderTerminationRequest: this.onShouldSetPanResponderCapture,
+            onStartShouldSetPanResponderCapture: this.onShouldSetPanResponderCapture,
+        });
+    }
 
     async componentDidMount() {
         NetInfo.isConnected.fetch(this.onConnectionChange);
@@ -47,23 +58,31 @@ class Root extends Component {
 
     onAppStateChange = (nextAppState) => {
         if (nextAppState === 'background') {
-            this.props.dispatch(authLogout());
+            this.onLogout();
         }
     }
 
     onDismiss = () => this.props.dispatch(appDeleteAlert())
 
+    onLogout = () => this.props.dispatch(authLogout())
+
+    onShouldSetPanResponderCapture = () => {
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(this.onLogout, this.props.inactivityTimeout);
+        return false;
+    }
+
     render() {
         const {alertType, alertMessage, isConnected} = this.props;
         return (
-            <Fragment>
+            <View style={{flex: 1}} {...this.panResponder.panHandlers}>
                 <Auth/>
                 <Alert
                     type={alertType || (!isConnected ? 'error' : null)}
                     message={alertMessage || (!isConnected ? strings.errorConnection : null)}
                     onDismiss={alertMessage ? this.onDismiss : null}
                 />
-            </Fragment>
+            </View>
         );
     }
 }
@@ -73,5 +92,6 @@ export default connect(
         isConnected: state.app.isConnected,
         alertType: state.app.alertType,
         alertMessage: state.app.alertMessage,
+        inactivityTimeout: state.settings.inactivityTimeout,
     })
 )(Root);
