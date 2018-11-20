@@ -79,8 +79,8 @@ export default StyleSheet.create({
     },
     profile: {
         width: 90,
-        marginLeft: 16,
-        marginRight: 16,
+        marginLeft: 15,
+        marginRight: 15,
         marginTop: 10,
         marginBottom: 10,
     },
@@ -99,6 +99,7 @@ export default StyleSheet.create({
         right: 0,
     },
     buttons: {
+        backgroundColor: color.mediumBlue,
         paddingBottom: isIphoneX ? 30 : 0
     },
 });
