@@ -21,7 +21,7 @@ export default class Review extends Component {
     state = {
         showPasscodeModal: false,
         passcodeComplete: false,
-        passcodeValid: true,
+        passcodeValid: false,
         passcodeAlertMessage: null,
     }
 

@@ -33,7 +33,13 @@ export default class Form extends Component {
         memo: '',
     }
 
-    updateKey = destination => {
+    componentDidMount() {
+        this.updateDestination(this.props.destination);
+        this.updateAmount(this.props.amount);
+        this.updateMemo(this.props.memo);
+    }
+
+    updateDestination = destination => {
         const notOwnKey = this.props.publicKey !== destination;
         const keyValid = isValidPublicKey(destination) && notOwnKey;
 
@@ -115,7 +121,7 @@ export default class Form extends Component {
                     value={this.state.destination}
                     label={strings.transferSendTo}
                     placeholder={strings.transferSendKey}
-                    onChangeText={this.updateKey}
+                    onChangeText={this.updateDestination}
                     numberOfLines={3}
                     style={{paddingRight: 20}}
                 />

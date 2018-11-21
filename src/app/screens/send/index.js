@@ -80,6 +80,9 @@ export class Send extends Component {
                                 exchange={exchange}
                                 balance={balance}
                                 publicKey={publicKey}
+                                destination={this.state.destination}
+                                amount={this.state.amount}
+                                memo={this.state.memo}
                                 onReview={this.onReview}
                             />
                         )}

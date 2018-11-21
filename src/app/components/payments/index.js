@@ -30,7 +30,7 @@ const trimMemo = memo => {
         return memo.slice(MEMO_PREPEND_TASK.length).trim();
     }
     if (memo.indexOf(MEMO_PREPEND_CREATE) === 0) {
-        return memo.slice(MEMO_PREPEND_CREATE.length).trim();
+        return memo.slice(MEMO_PREPEND_CREATE.length).trim().replace(/\~/g, ' ');
     }
     return memo.trim();
 };
@@ -43,7 +43,7 @@ export class Payments extends Component {
 
     componentDidMount() {
         if (this.props.navigation) {
-            this.focusListener = this.props.navigation.addListener('didFocus', this.update);
+            this.focusListener = this.props.navigation.addListener('willFocus', this.update);
         }
         this.update();
     }
@@ -99,7 +99,7 @@ export class Payments extends Component {
             received: 'RECEIVED',
         };
 
-        if (!showHelp && loading) {
+        if (!showHelp && loading && !payments.length) {
             return (
                 <Loader
                     loading={true}
