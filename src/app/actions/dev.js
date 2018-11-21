@@ -94,9 +94,10 @@ export const mergeAccounts = () => async dispatch => {
 };
 
 // test net
-export const fundAccount = (xlm = '100', wollo = '500') => async (dispatch, getState) => {
+export const fundAccount = (xlm = '10', wollo = '50') => async (dispatch, getState) => {
     const {publicKey, secretKey} = getState().keys;
     const asset = wolloAsset(getState());
+    // const funderPublicKey = 'GC2ZXF5Q27LU62PC73KTF55WKM3LKZEUA3SHFBYHCT6ECJQS4432DIGC';
     const funderSecretKey = 'SBJZSBTMIKWYZ3NLK7ZM5OWGLFE33YWLWZBMKI6GXRLHVQ2VTLS2NGPH';
     try {
         console.log('Trying to send XLM', publicKey);
@@ -106,7 +107,7 @@ export const fundAccount = (xlm = '100', wollo = '500') => async (dispatch, getS
         try {
             await createAccount(funderSecretKey, publicKey, xlm, 'Fund XLM');
         } catch (err) {
-            console.log(err);
+            console.log(err.response);
         }
     }
     try {

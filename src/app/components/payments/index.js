@@ -21,18 +21,18 @@ import {
 
 const trimMemo = memo => {
     if (memo.indexOf(MEMO_PREPEND_ALLOWANCE) === 0) {
-        return memo.slice(MEMO_PREPEND_ALLOWANCE.length);
+        return memo.slice(MEMO_PREPEND_ALLOWANCE.length).trim();
     }
     if (memo.indexOf(MEMO_PREPEND_PRESENT) === 0) {
-        return memo.slice(MEMO_PREPEND_PRESENT.length);
+        return memo.slice(MEMO_PREPEND_PRESENT.length).trim();
     }
     if (memo.indexOf(MEMO_PREPEND_TASK) === 0) {
-        return memo.slice(MEMO_PREPEND_TASK.length);
+        return memo.slice(MEMO_PREPEND_TASK.length).trim();
     }
     if (memo.indexOf(MEMO_PREPEND_CREATE) === 0) {
-        return memo.slice(MEMO_PREPEND_CREATE.length);
+        return memo.slice(MEMO_PREPEND_CREATE.length).trim();
     }
-    return memo;
+    return memo.trim();
 };
 
 export class Payments extends Component {

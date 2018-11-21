@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import {storiesOf} from '@storybook/react-native';
 import {Transfer} from '../../src/app/screens/transfer';
 import {Send} from '../../src/app/screens/send';
-import Form from '../../src/app/screens/send/form';
+import Review from '../../src/app/screens/send/review';
 import Payments from '../../src/app/components/payments';
 import StepModule from '../../src/app/components/step-module';
 import Button from '../../src/app/components/button';
@@ -495,6 +495,9 @@ const store = createStore(combineReducers({
     }),
     keys: () => ({
         publicKey: 'GDF7DRJXKBDYXKNP4JOBUVGEIHLVEXZKKX7V7IYNMEXM7J5H3LLFW5TU',
+    }),
+    kids: () => ({
+        kids: [],
     })
 }), applyMiddleware(thunk));
 
@@ -546,12 +549,11 @@ storiesOf('Transfer')
             keyboardOffset={-50}
         >
             <Fragment>
-                <Form {...{
+                <Review {...{
                     ...props,
-                    review: true,
                     amount: '1',
                     memo: 'Happy Birthday',
-                    accountKey: 'GDPCWCCJDXJHSA3GA62PFMZNP6A7NZSEGNEH3F3LSSUQZZ3NDCFVB6GB',
+                    destination: 'GDPCWCCJDXJHSA3GA62PFMZNP6A7NZSEGNEH3F3LSSUQZZ3NDCFVB6GB',
                     onReview: () => {}
                 }} />
                 <Button
@@ -572,11 +574,10 @@ storiesOf('Transfer')
             keyboardOffset={-50}
         >
             <Fragment>
-                <Form {...{
+                <Review {...{
                     ...props,
-                    review: true,
                     amount: '1',
-                    accountKey: 'GDPCWCCJDXJHSA3GA62PFMZNP6A7NZSEGNEH3F3LSSUQZZ3NDCFVB6GB',
+                    destination: 'GDPCWCCJDXJHSA3GA62PFMZNP6A7NZSEGNEH3F3LSSUQZZ3NDCFVB6GB',
                     onReview: () => {}
                 }} />
                 <Button

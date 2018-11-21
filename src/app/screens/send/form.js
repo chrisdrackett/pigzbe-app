@@ -1,28 +1,20 @@
-import React, {Component, Fragment} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, {Component} from 'react';
+import {View, TouchableOpacity} from 'react-native';
 import styles from './styles';
-import {strings} from '../../constants';
-import Button from '../../components/button';
-import TextInput from '../../components/text-input';
-import WolloInput from '../../components/wollo-input';
-import Wollo from '../../components/wollo';
-import Icon from '../../components/icon';
-import ExchangedDisplay from '../../components/exchanged-display';
+import {strings} from 'app/constants';
+import Button from 'app/components/button';
+import TextInput from 'app/components/text-input';
+import WolloInput from 'app/components/wollo-input';
+import Icon from 'app/components/icon';
 import {isValidPublicKey} from '@pigzbe/stellar-utils';
-import moneyFormat from '../../utils/money-format';
-import {ASSET_CODE, CURRENCIES, MEMO_MAX_LEN} from '../../constants';
+import {MEMO_MAX_LEN} from 'app/constants';
 import BigNumber from 'bignumber.js';
-import {sendWollo, appError} from '../../actions';
-import QRScanner from '../../components/qr-scanner';
-
-const remainingBalance = (balance, amount) => new BigNumber(balance).minus(amount);
-
-const getBalanceAfter = (balance, amount) => moneyFormat(remainingBalance(balance, amount), CURRENCIES[ASSET_CODE].dps);
+import {appError} from 'app/actions';
+import QRScanner from 'app/components/qr-scanner';
 
 export default class Form extends Component {
     state = {
-        review: this.props.review,
-        accountKey: this.props.accountKey,
+        destination: this.props.destination,
         amount: this.props.amount,
         memo: this.props.memo,
         keyValid: false,
@@ -36,17 +28,16 @@ export default class Form extends Component {
     }
 
     static defaultProps = {
-        review: false,
-        accountKey: '',
+        destination: '',
         amount: '',
         memo: '',
     }
 
-    updateKey = accountKey => {
-        const notOwnKey = this.props.publicKey !== accountKey;
-        const keyValid = isValidPublicKey(accountKey) && notOwnKey;
+    updateKey = destination => {
+        const notOwnKey = this.props.publicKey !== destination;
+        const keyValid = isValidPublicKey(destination) && notOwnKey;
 
-        this.setState({accountKey, keyValid});
+        this.setState({destination, keyValid});
     }
 
     updateAmount = value => this.setState({
@@ -60,10 +51,9 @@ export default class Form extends Component {
         this.setState({memo, memoValid});
     }
 
-    submit = () => {
+    onReview = () => {
         const {keyValid, amountValid, memoValid} = this.state;
-        const review = keyValid && amountValid && memoValid;
-        const notOwnKey = this.props.publicKey !== this.state.accountKey;
+        const notOwnKey = this.props.publicKey !== this.state.destination;
 
         const keyError = keyValid && notOwnKey ? null : strings.transferErrorInvalidKey;
         const amountError = amountValid ? null : strings.transferErrorInvalidAmount;
@@ -78,24 +68,17 @@ export default class Form extends Component {
         }
 
         this.setState({
-            review,
             keyError,
             amountError,
             memoError
         });
 
-        this.props.onReview(review);
-    }
+        const isValid = keyValid && amountValid && memoValid;
 
-    send = () => {
-        const {accountKey, amount, memo} = this.state;
-
-        this.props.dispatch(sendWollo(accountKey, amount, memo));
-    }
-
-    edit = () => {
-        this.setState({review: false});
-        this.props.onReview(false);
+        if (isValid) {
+            const {destination, amount, memo} = this.state;
+            this.props.onReview({destination, amount, memo});
+        }
     }
 
     onScanQrCode = () => this.setState({showScanner: true})
@@ -105,14 +88,14 @@ export default class Form extends Component {
     onScanResult = event => {
         console.log('onscan', event.data);
 
-        const accountKey = event.data;
-        const notOwnKey = this.props.publicKey !== this.state.accountKey;
+        const destination = event.data;
+        const notOwnKey = this.props.publicKey !== this.state.destination;
 
-        const keyValid = isValidPublicKey(accountKey) && notOwnKey;
+        const keyValid = isValidPublicKey(destination) && notOwnKey;
 
         this.setState({
             showScanner: false,
-            accountKey,
+            destination,
             keyValid,
             keyError: keyValid ? null : new Error(strings.transferErrorInvalidKey),
         });
@@ -122,82 +105,14 @@ export default class Form extends Component {
         const {
             keyError,
             amountError,
-            memoError,
-            review
+            memoError
         } = this.state;
-
-        console.log('amount', this.state.amount);
-
-        if (review) {
-            return (
-                <View style={styles.containerForm}>
-                    <Text style={styles.label}>{strings.transferSendTo}</Text>
-                    <Text style={styles.value}>{this.state.accountKey}</Text>
-                    <Text style={styles.label}>{strings.transferAmount}</Text>
-                    <View style={styles.amount}>
-                        <Wollo
-                            dark
-                            small
-                            balance={this.state.amount}
-                            style={styles.wollo}
-                        />
-                        <Text style={styles.wolloLabel}>Wollo</Text>
-                    </View>
-                    <ExchangedDisplay
-                        amount={this.state.amount}
-                        currency={ASSET_CODE}
-                        style={styles.exchange}
-                    />
-                    {this.state.memo ? (
-                        <Fragment>
-                            <Text style={styles.label}>{strings.transferMessage}</Text>
-                            <Text style={styles.value}>{this.state.memo}</Text>
-                        </Fragment>
-                    ) : null}
-                    <Fragment>
-                        <Text style={styles.label}>{strings.transferBalanceAfter}</Text>
-                        <View style={styles.amount}>
-                            <Wollo
-                                dark
-                                small
-                                balance={getBalanceAfter(this.props.balance, this.state.amount)}
-                                style={styles.wollo}
-                            />
-                            <Text style={styles.wolloLabel}>Wollo</Text>
-                        </View>
-                    </Fragment>
-                    <View style={styles.edit}>
-                        <Button
-                            theme="plain"
-                            style={styles.editBtn}
-                            textStyle={styles.editText}
-                            label={strings.transferEditButtonLabel}
-                            onPress={this.edit}
-                        />
-                    </View>
-                    <View style={styles.buttonWrapper}>
-                        {review ? (
-                            <Button
-                                label={'Transfer'}
-                                onPress={this.send}
-                            />
-                        ) : (
-                            <Button
-                                label={strings.transferConfirmButtonLabel}
-                                disabled={!(this.state.accountKey && this.state.amount)}
-                                onPress={this.submit}
-                            />
-                        )}
-                    </View>
-                </View>
-            );
-        }
 
         return (
             <View style={styles.containerForm}>
                 <TextInput
                     error={keyError}
-                    value={this.state.accountKey}
+                    value={this.state.destination}
                     label={strings.transferSendTo}
                     placeholder={strings.transferSendKey}
                     onChangeText={this.updateKey}
@@ -225,8 +140,8 @@ export default class Form extends Component {
                 <View style={styles.buttonWrapper}>
                     <Button
                         label={strings.transferConfirmButtonLabel}
-                        disabled={!(this.state.accountKey && this.state.amount)}
-                        onPress={this.submit}
+                        disabled={!(this.state.destination && this.state.amount)}
+                        onPress={this.onReview}
                     />
                 </View>
                 <QRScanner

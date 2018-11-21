@@ -8,11 +8,10 @@ import {
 } from '../../constants';
 import Button from '../../components/button';
 import Payments from '../../components/payments';
-import {wolloError} from '../../actions';
 import StepModule from '../../components/step-module';
 import {ViewAddress} from '../view-address';
 import ReactModal from 'react-native-modal';
-import FundingMessage from 'app/components/funding-message'
+import FundingMessage from 'app/components/funding-message';
 
 export class Transfer extends Component {
     state = {
@@ -25,12 +24,10 @@ export class Transfer extends Component {
     onHideAddress = () => this.setState({showViewAdressModal: false})
 
     onTransfer = () => {
-        const {hasGas, balanceXLM, minXLM} = this.props;
+        const {hasGas} = this.props;
 
         if (!hasGas) {
-            this.setState({showFundingMessage: true})
-            // const errMsg = `${strings.transferErrorNoGas} (Balance ${balanceXLM}XLM. Required ${minXLM}XLM)`;
-            // this.props.dispatch(wolloError(new Error(errMsg)));
+            this.setState({showFundingMessage: true});
             return;
         }
         this.props.navigation.push(SCREEN_SEND);
@@ -39,7 +36,7 @@ export class Transfer extends Component {
     onCloseFundingMessage = () => this.setState({showFundingMessage: false})
 
     render() {
-        const {balance, balanceXLM, hasGas} = this.props;
+        const {balance, balanceXLM} = this.props;
         const hasBalance = parseFloat(balance) > 0;
 
         return (
