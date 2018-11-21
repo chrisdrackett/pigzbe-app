@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Dimensions, Animated, Text, Switch} from 'react-native';
+import {View, Dimensions, Animated} from 'react-native';
 import {
     TRANSFER_TYPE_TASK,
     NOTIFICATION_STAGE_TASK_QUESTION,
@@ -20,11 +20,13 @@ import GameCarousel from 'app/components/game-carousel';
 import GameCloudFlow from 'app/components/game-cloud-flow';
 import GoalOverlay from 'app/components/game-goal-overlay';
 import Loader from 'app/components/loader';
-import {assignWolloToTree, loadKidActions, removeKidAction} from '../../actions';
+import {assignWolloToTree, loadKidActions, removeKidAction, authLogoutKid} from 'app/actions';
 import BigNumber from 'bignumber.js';
 import Tour from './tour';
 import Trees from './trees';
 import Messages from './messages';
+import IconButton from 'app/components/icon-button';
+import Logout from 'app/components/game-logout';
 
 export class Game extends Component {
     state = {
@@ -36,6 +38,7 @@ export class Game extends Component {
         y: new Animated.Value(0),
         transfers: [],
         pendingTransferIds: [],
+        logout: false,
 
         // Tour state
         tourType: null,
@@ -44,8 +47,6 @@ export class Game extends Component {
         showTapFirstCloud: false,
         showAskParent: false,
         showTapCloudOrTree: false,
-
-        snap: true,
     }
 
     async componentDidMount() {
@@ -101,15 +102,9 @@ export class Game extends Component {
     hideAskParent = () => this.setState({showAskParent: false})
 
     onMoveComplete = x => {
-        if (this.state.snap) {
-            const roundingFn = x > this.state.targetX ? Math.ceil : Math.floor;
-            this.setState({
-                targetX: roundingFn(x / Tree.SPACING) * Tree.SPACING
-            });
-            return;
-        }
+        const roundingFn = x > this.state.targetX ? Math.ceil : Math.floor;
         this.setState({
-            targetX: x
+            targetX: roundingFn(x / Tree.SPACING) * Tree.SPACING
         });
     }
 
@@ -247,6 +242,12 @@ export class Game extends Component {
         }).start();
     }
 
+    onLogout = () => this.setState({logout: true})
+
+    onLogoutConfirm = () => this.setState({logout: false}, () => this.props.dispatch(authLogoutKid()));
+
+    onLogoutCancel = () => this.setState({logout: false})
+
     componentWillUnmount() {
         clearTimeout(this.timeoutHandle);
         clearInterval(this.touchTimer);
@@ -290,6 +291,15 @@ export class Game extends Component {
             <View style={styles.counter}>
                 <GameCounter
                     value={totalWollo}
+                />
+            </View>
+        );
+        const logOut = (
+            <View style={styles.logout}>
+                <IconButton
+                    icon="logout"
+                    size={32}
+                    onPress={this.onLogout}
                 />
             </View>
         );
@@ -341,6 +351,7 @@ export class Game extends Component {
                 </Animated.View>
                 {!this.state.isGoalOverlayOpen && clouds}
                 {!this.state.isGoalOverlayOpen && wolloCounter}
+                {!this.state.isGoalOverlayOpen && logOut}
                 <GoalOverlay
                     kid={kid}
                     isOpen={this.state.isGoalOverlayOpen}
@@ -372,19 +383,11 @@ export class Game extends Component {
                         light
                     />
                 </View>}
-                {__DEV__ && false && (
-                    <View style={{position: 'absolute', top: 30, right: 20, flexDirection: 'row', alignItems: 'center'}}>
-                        <Text style={{marginRight: 10}}>
-                            Snap
-                        </Text>
-                        <Switch
-                            value={this.state.snap}
-                            onValueChange={() => this.setState({
-                                snap: !this.state.snap
-                            })}
-                        />
-                    </View>
-                )}
+                <Logout
+                    open={this.state.logout}
+                    onConfirm={this.onLogoutConfirm}
+                    onCancel={this.onLogoutCancel}
+                />
             </View>
         );
     }

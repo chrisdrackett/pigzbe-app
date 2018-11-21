@@ -10,6 +10,7 @@ export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
 export const AUTH_LOGIN = 'AUTH_LOGIN';
 export const AUTH_LOGIN_KID = 'AUTH_LOGIN_KID';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+export const AUTH_LOGOUT_KID = 'AUTH_LOGOUT_KID';
 export const AUTH_TOUCH_ID_SUPPORT = 'AUTH_TOUCH_ID_SUPPORT';
 
 export const authCheckTouchId = () => async dispatch => {
@@ -94,6 +95,10 @@ export const authLoginKid = (kid, passcode) => async dispatch => {
 
     dispatch({type: AUTH_LOGIN_KID, kid: kid.address});
     return true;
+};
+
+export const authLogoutKid = () => async dispatch => {
+    dispatch({type: AUTH_LOGOUT_KID});
 };
 
 export const authLogout = () => async dispatch => {
