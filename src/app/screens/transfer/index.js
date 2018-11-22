@@ -36,7 +36,7 @@ export class Transfer extends Component {
     onCloseFundingMessage = () => this.setState({showFundingMessage: false})
 
     render() {
-        const {balance, balanceXLM} = this.props;
+        const {balance, balanceXLM, hasGas} = this.props;
         const hasBalance = parseFloat(balance) > 0;
 
         return (
@@ -50,7 +50,7 @@ export class Transfer extends Component {
                 >
                     <Payments
                         navigation={this.props.navigation}
-                        showHelp={!hasBalance}
+                        showHelp={!hasGas}
                         spacingBottom={true}
                     />
                 </StepModule>

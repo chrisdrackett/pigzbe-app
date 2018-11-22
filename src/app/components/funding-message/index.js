@@ -80,7 +80,7 @@ export default class FundingMessage extends Component {
                 <WebPage
                     open={this.state.helpOpen && this.state.modalHidden}
                     url={FUNDING_URL}
-                    title="How to fund your account"
+                    title="How to activate your wallet"
                     onClose={this.onClose}
                 />
             </Fragment>

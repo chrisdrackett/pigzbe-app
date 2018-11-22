@@ -87,6 +87,11 @@ export default StyleSheet.create({
         maxWidth: '60%',
         textAlign: 'center',
     },
+    helpTextHighlight: {
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'solid',
+        textDecorationColor: color.lighterBlue,
+    },
     helpButton: {
         marginTop: 20,
         maxWidth: 180,

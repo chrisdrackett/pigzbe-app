@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
-import {WebView} from 'react-native';
+import {WebView, View} from 'react-native';
 import Pdf from 'react-native-pdf';
 import StepModule from 'app/components/step-module';
 import ReactModal from 'react-native-modal';
+import isAndroid from 'app/utils/is-android';
+import Button from 'app/components/button';
+import openURL from '../../utils/open-url';
 
 export default class WebPage extends Component {
     static defaultProps = {
@@ -12,6 +15,8 @@ export default class WebPage extends Component {
     }
 
     onClose = () => this.props.onClose()
+
+    onOpenInBrowser = () => openURL(this.props.url)
 
     render() {
         const {url, open, title} = this.props;
@@ -50,9 +55,18 @@ export default class WebPage extends Component {
                     {isPDF &&
                         <Pdf
                             style={{flex: 1}}
-                            source={{uri: url, cache:true}}
+                            source={{uri: url, cache: true}}
                         />
                     }
+                    {!isAndroid && (
+                        <View style={{padding: 20, paddingBottom: 10}}>
+                            <Button
+                                theme="outline"
+                                label="Open in Safari"
+                                onPress={this.onOpenInBrowser}
+                            />
+                        </View>
+                    )}
                 </StepModule>
             </ReactModal>
         );

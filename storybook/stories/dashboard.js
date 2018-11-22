@@ -34,6 +34,7 @@ const props = {
         push: () => {},
         navigate: () => {},
         addListener: () => {},
+        isFocused: () => {},
         state: {
             key: 'SCREEN_DASHBOARD',
             routeName: 'SCREEN_DASHBOARD'
@@ -53,6 +54,7 @@ const props = {
     },
     balance: '100',
     balanceXLM: '50',
+    hasGas: true,
     baseCurrency: 'USD',
     escrow: null,
     firstTime: false,
@@ -102,6 +104,15 @@ storiesOf('Dashboard')
             balance: '1000',
         }}/>
     ))
+    .add('inactive', () => (
+        <Dashboard {...{
+            ...props,
+            balance: '0',
+            balanceXLM: '0',
+            hasGas: false,
+            firstTime: false,
+        }}/>
+    ))
     .add('with kid not funded message', () => (
         <Dashboard {...{
             ...props,
@@ -111,6 +122,7 @@ storiesOf('Dashboard')
             }],
             balance: '0',
             balanceXLM: '0',
+            hasGas: false,
             firstTime: false,
             showFundingMessage: true,
         }}/>

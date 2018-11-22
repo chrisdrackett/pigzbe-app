@@ -65,11 +65,14 @@ const handleTransferError = errorMessage => dispatch => {
     dispatch(appError(errorMessage));
 };
 
-const updateXLM = account => dispatch => {
+const updateXLM = account => (dispatch, getState) => {
     const balanceXLM = getBalance(account);
-    const minXLM = getMinBalance(account, 10000);
+    const minXLM = getMinBalance(account, 1);
     console.log('minXLM', minXLM);
     const hasGas = checkHasGas(account);
+
+    const isTrusted = checkAssetTrusted(account, wolloAsset(getState()));
+
     dispatch({type: WOLLO_UPDATE_XLM, balanceXLM, minXLM, hasGas});
 };
 

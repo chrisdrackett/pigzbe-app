@@ -6,7 +6,7 @@ import styles from './styles';
 const tail = require('./images/tail.png');
 const tailTop = require('./images/tail-blue.png');
 
-export default ({content, top = false, style = {}, textStyle = {}}) => (
+export default ({content, top = false, style = {}, textStyle = {}, tailStyle = {}}) => (
     <View>
         <View style={[styles.boxOuter, style]}>
             <View style={[styles.boxInner, top ? styles.boxInnerTop : null]}>
@@ -22,7 +22,7 @@ export default ({content, top = false, style = {}, textStyle = {}}) => (
         </View>
         {!top &&
             <Image
-                style={styles.tail}
+                style={[styles.tail, tailStyle]}
                 source={tail}
                 resizeMode="contain"
             />

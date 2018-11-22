@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
-import {color} from '../../styles';
+import {View, TouchableWithoutFeedback} from 'react-native';
+import {color} from 'app/styles';
 import {
     SCREEN_SETTINGS,
     SCREEN_KIDS_INTRO,
@@ -11,32 +11,35 @@ import {
     FUNDING_URL,
     MIN_BALANCE,
     MIN_BALANCE_XLM_ADD_KID
-} from '../../constants';
-import ConvertBalance from '../../components/convert-balance';
-import BalanceGraph from '../../components/balance-graph';
-import Kids from '../../components/kids';
-import Button from '../../components/button';
-import Wollo from '../../components/wollo';
-import Modal from '../../components/modal';
-import Title from '../../components/title';
-import Paragraph from '../../components/paragraph';
-import StepModule from '../../components/step-module';
+} from 'app/constants';
+import ConvertBalance from 'app/components/convert-balance';
+import BalanceGraph from 'app/components/balance-graph';
+import Kids from 'app/components/kids';
+import Button from 'app/components/button';
+import Wollo from 'app/components/wollo';
+import Modal from 'app/components/modal';
+import Title from 'app/components/title';
+import Paragraph from 'app/components/paragraph';
+import StepModule from 'app/components/step-module';
 import {
     loadExchange,
     settingsFirstTime,
     fundAccount,
     loadWallet,
     setNumKidsToAdd
-} from '../../actions';
-import openURL from '../../utils/open-url';
+} from 'app/actions';
+import openURL from 'app/utils/open-url';
 import ReactModal from 'react-native-modal';
-import FundingMessage from '../../components/funding-message';
+import FundingMessage from 'app/components/funding-message';
 import IconButton from 'app/components/icon-button';
+import GameMessageBubble from 'app/components/game-message-bubble';
 
 export class Dashboard extends Component {
     state = {
         funding: false,
         showKidAddFundingMessage: this.props.showKidAddFundingMessage,
+        opacity: 1,
+        pressed: false,
     }
 
     static defaultProps = {
@@ -105,11 +108,19 @@ export class Dashboard extends Component {
         this.setState({funding: false});
     }
 
+    onFade = opacity => this.setState({opacity})
+
+    onPressIn = () => this.setState({pressed: true})
+
+    onPressOut = () => this.setState({pressed: false})
+
     render () {
         const {
             exchange,
             balance,
             balanceXLM,
+            minXLM,
+            hasGas,
             baseCurrency,
             firstTime,
             kids,
@@ -126,24 +137,37 @@ export class Dashboard extends Component {
 
         console.log('balance', balance);
         console.log('balanceXLM', balanceXLM);
+        console.log('minXLM', minXLM);
+        console.log('hasGas', hasGas);
+
+        const inactive = !hasGas && Number(balance) === 0;
 
         return (
             <Fragment>
                 <StepModule
                     icon="piggy"
-                    headerChildren={(
+                    headerChildren={inactive ? (
+                        <View style={{marginBottom: -22, opacity: this.state.pressed ? 0.3 : 1}}>
+                            <GameMessageBubble
+                                content="Hi there. Your wallet needs XLM to activate it. Read more"
+                                style={{maxWidth: 300, width: 300, marginTop: 0}}
+                                tailStyle={{left: 145}}
+                            />
+                        </View>
+                    ) : (
                         <Wollo
                             balance={balance}
                             exchange={exchange}
                             baseCurrency={baseCurrency}
                         />
                     )}
-                    extraHeaderChildrenSpace={18}
+                    extraHeaderChildrenSpace={inactive ? 24 : 18}
                     backgroundColor={color.transparent}
                     onSettings={this.onSettings}
                     loading={loading}
                     loaderMessage={this.state.funding ? 'Funding account' : null}
                     customTitle="Your dashboard"
+                    onFade={this.onFade}
                 >
                     <View>
                         <BalanceGraph balance={balance} balanceXLM={null} exchange={exchange} baseCurrency={baseCurrency}/>
@@ -172,6 +196,16 @@ export class Dashboard extends Component {
                         </View>
                     )}
                 </StepModule>
+                {inactive && this.state.opacity > 0.98 && (
+                    <View style={{position: 'absolute', top: 88, left: 0, width: '100%', alignItems: 'center'}}>
+                        <TouchableWithoutFeedback
+                            onPress={this.onFundingInfo}
+                            onPressIn={this.onPressIn}
+                            onPressOut={this.onPressOut}>
+                            <View style={{backgroundColor: 'rgba(0, 0, 0, 0)', width: 300, height: 80}}/>
+                        </TouchableWithoutFeedback>
+                    </View>
+                )}
                 <ReactModal
                     isVisible={firstTime}
                     animationIn="slideInUp"
@@ -180,11 +214,11 @@ export class Dashboard extends Component {
                     onBackButtonPress={this.onCloseFirstTime}
                 >
                     <Modal>
-                        <Title dark>Howdy!</Title>
-                        <Paragraph>Welcome to your Pigzbe wallet. To fully activate your wallet you need to transfer funds into it.</Paragraph>
-                        <Paragraph style={{marginBottom: 40}}>If you’re an *ICO*, *Airdrop*, *Bounty* or *VIP* you can do this via settings.</Paragraph>
+                        <Title dark>Wallet Inactive</Title>
+                        <Paragraph>To activate your wallet please fund it by sending 1.6 XLM to your *public address*</Paragraph>
+                        <Paragraph style={{marginBottom: 40}}>Alternitively, If you’re an *ICO*, *Airdrop* or *VIP* participant, claim your Wollo via settings.</Paragraph>
                         <Button
-                            label={'Learn how to transfer funds'}
+                            label="Learn how to activate wallet"
                             onPress={this.onFundingInfo}
                         />
                         <Button
@@ -218,6 +252,8 @@ export default connect(
         exchange: state.exchange.exchange,
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
+        minXLM: state.wollo.minXLM,
+        hasGas: state.wollo.hasGas,
         baseCurrency: state.settings.baseCurrency,
         firstTime: state.settings.firstTime,
         kids: state.kids.kids,
