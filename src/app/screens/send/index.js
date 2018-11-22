@@ -2,17 +2,21 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {strings} from 'app/constants';
 import Button from 'app/components/button';
-import Form from './form';
 import Progress from 'app/components/progress';
 import StepModule from 'app/components/step-module';
 import {ViewAddress} from 'app/screens/view-address';
 import ReactModal from 'react-native-modal';
-import {wolloSendReset} from 'app/actions';
+import {wolloSendReset, sendWollo} from 'app/actions';
+import Form from './form';
+import Review from './review';
 
 export class Send extends Component {
     state = {
         review: false,
         showViewAdressModal: false,
+        destination: '',
+        amount: '',
+        memo: '',
     }
 
     onBack = () => this.props.navigation.goBack()
@@ -22,12 +26,20 @@ export class Send extends Component {
         this.props.dispatch(wolloSendReset());
     }
 
+    onSend = () => {
+        const {destination, amount, memo} = this.state;
+
+        this.props.dispatch(sendWollo(destination, amount, memo));
+    }
+
     onFinish = () => {
         this.onReset();
         this.props.navigation.goBack();
     }
 
-    onReview = review => this.setState({review})
+    onReview = props => this.setState({review: true, ...props})
+
+    onEdit = () => this.setState({review: false})
 
     onViewAddress = () => this.setState({showViewAdressModal: true})
 
@@ -35,8 +47,6 @@ export class Send extends Component {
 
     render() {
         const {dispatch, balance, exchange, sending, sendComplete, sendStatus, error, publicKey} = this.props;
-
-        console.log(this.props);
 
         return (
             <Fragment>
@@ -52,13 +62,30 @@ export class Send extends Component {
                     onBack={this.onBack}
                 >
                     <Fragment>
-                        <Form
-                            dispatch={dispatch}
-                            exchange={exchange}
-                            balance={balance}
-                            onReview={this.onReview}
-                            publicKey={publicKey}
-                        />
+                        {this.state.review ? (
+                            <Review
+                                dispatch={dispatch}
+                                exchange={exchange}
+                                balance={balance}
+                                publicKey={publicKey}
+                                destination={this.state.destination}
+                                amount={this.state.amount}
+                                memo={this.state.memo}
+                                onEdit={this.onEdit}
+                                onSend={this.onSend}
+                            />
+                        ) : (
+                            <Form
+                                dispatch={dispatch}
+                                exchange={exchange}
+                                balance={balance}
+                                publicKey={publicKey}
+                                destination={this.state.destination}
+                                amount={this.state.amount}
+                                memo={this.state.memo}
+                                onReview={this.onReview}
+                            />
+                        )}
                         <Button
                             theme="outline"
                             label={strings.transferCancelButtonLabel}

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {loginAndLoad} from '../../actions';
-import {SCREEN_HOME, PASSCODE_LENGTH} from '../../constants';
+import {PASSCODE_LENGTH} from '../../constants';
 import NumPad from '../../components/num-pad';
 import Dots from '../../components/dots';
 import StepModule from '../../components/step-module';
@@ -14,21 +14,45 @@ export class PasscodeLogin extends Component {
         error: false,
     }
 
-    onBack = () => this.props.navigation.goBack()
+    static defaultProps = {
+        title: 'Enter your Passcode',
+        content: `Login with your ${PASSCODE_LENGTH}-digit passcode`,
+        navigation: {state: {}},
+    }
 
-    onInput = input => this.setState({input})
+    onBack = () => {
+        if (typeof this.props.onBack === 'function') {
+            this.props.onBack();
+            return;
+        }
+        this.props.navigation.goBack();
+    }
 
-    onCodeEntered = code => this.props.dispatch(loginAndLoad(code))
+    onInput = input => {
+        this.setState({input});
+
+        if (typeof this.props.onInput === 'function') {
+            this.props.onInput();
+        }
+    }
+
+    onCodeEntered = code => {
+        if (typeof this.props.onCodeEntered === 'function') {
+            this.props.onCodeEntered(code);
+            return;
+        }
+        this.props.dispatch(loginAndLoad(code));
+    }
 
     render() {
-        const {loading, error, message} = this.props;
+        const {title, content, loading, error, message} = this.props;
         const {params: {touchId} = {}} = this.props.navigation.state;
         const touchIdLogin = touchId && loading;
         return (
             <StepModule
                 scroll={true}
-                title={touchIdLogin ? 'Logging in' : 'Enter your Passcode'}
-                content={`Login with your ${PASSCODE_LENGTH}-digit passcode`}
+                title={touchIdLogin ? 'Logging in' : title}
+                content={content}
                 headerChildren={(
                     touchIdLogin ? null : <Dots length={PASSCODE_LENGTH} progress={this.state.input.length}/>
                 )}

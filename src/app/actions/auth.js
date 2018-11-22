@@ -109,3 +109,29 @@ export const authClear = () => async dispatch => {
     await Keychain.clear(KEYCHAIN_ID_PASSCODE);
     dispatch(authLogout());
 };
+
+export const authConfirm = () => async (dispatch, getState) => {
+    try {
+        const {enableTouchId} = getState().settings;
+        if (!enableTouchId) {
+            return 'fallback';
+        }
+        await dispatch(authTouchId());
+        return 'success';
+    } catch (error) {
+        console.log(error.name);
+        if (error.name.toLowerCase().includes('cancel')) {
+            return 'cancel';
+        }
+        return 'fallback';
+    }
+};
+
+export const authConfirmPasscode = code => async dispatch => {
+    try {
+        const passcode = await dispatch(authKeychain());
+        return code === passcode;
+    } catch (error) {
+        return false;
+    }
+};

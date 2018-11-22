@@ -56,7 +56,7 @@
   "transferCancelButtonLabel": "Cancel",
   "transferSendTo": "Send Wollo to",
   "transferAmount": "How much to send",
-  "transferMessage": "Add a message?",
+  "transferMessage": "Add a message/memo?",
   "transferConfirmButtonLabel": "Next",
   "transferBalanceAfter": "Balance after transfer",
   "transferSendButtonLabel": "Send",
