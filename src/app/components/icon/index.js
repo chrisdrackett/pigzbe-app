@@ -16,6 +16,7 @@ const icons = {
     back: require('./images/back.png'),
     gameBack: require('./images/gameBack.png'),
     crossBlue: require('./images/cross_blue.png'),
+    logout: require('./images/logout.png'),
 };
 
 export default ({name, style = {}}) => (

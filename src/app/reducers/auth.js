@@ -5,6 +5,7 @@ import {
     AUTH_LOGIN,
     AUTH_LOGIN_KID,
     AUTH_LOGOUT,
+    AUTH_LOGOUT_KID,
     AUTH_TOUCH_ID_SUPPORT
 } from '../actions';
 
@@ -53,6 +54,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loggedIn: false
+            };
+        case AUTH_LOGOUT_KID:
+            return {
+                ...state,
+                loggedIn: false,
+                kid: null,
             };
         case AUTH_TOUCH_ID_SUPPORT:
             return {
