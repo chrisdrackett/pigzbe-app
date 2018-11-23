@@ -75,7 +75,7 @@ export class KidGoalAdd extends Component {
                     }
                     {step === 'amount' &&
                         <Fragment>
-                            <Paragraph>Set the goal value that <Text style={styles.name}>{kid.name}</Text> needs to save</Paragraph>
+                            <Paragraph>Set the goal value that <Text style={styles.name}>{kid.name}</Text> is saving towards</Paragraph>
                             <WolloInput
                                 initialAmount={this.state.amount}
                                 onChangeAmount={this.onChangeAmount}
