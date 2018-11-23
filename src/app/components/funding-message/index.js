@@ -28,7 +28,12 @@ export default class FundingMessage extends Component {
         }
     }
 
-    onModalHide = () => this.setState({modalHidden: true})
+    onModalHide = () => {
+        this.setState({modalHidden: true});
+        if (typeof this.props.onModalHide === 'function') {
+            this.props.onModalHide();
+        }
+    }
 
     onHelp = () => this.setState({helpOpen: true})
 
@@ -80,7 +85,7 @@ export default class FundingMessage extends Component {
                 <WebPage
                     open={this.state.helpOpen && this.state.modalHidden}
                     url={FUNDING_URL}
-                    title="How to fund your account"
+                    title="How to activate your wallet"
                     onClose={this.onClose}
                 />
             </Fragment>

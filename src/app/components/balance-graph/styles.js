@@ -7,10 +7,10 @@ import {
 export default StyleSheet.create({
     container: {
         backgroundColor: color.lightBlue,
-        minHeight: 130,
+        // minHeight: 130,
         alignSelf: 'stretch',
         paddingTop: 10,
-        paddingBottom: 20,
+        paddingBottom: 28,
         borderRadius: 8,
     },
     containerBalance: {

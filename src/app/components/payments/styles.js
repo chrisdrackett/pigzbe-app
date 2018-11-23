@@ -82,10 +82,15 @@ export default StyleSheet.create({
     helpText: {
         fontFamily,
         color: color.lighterBlue,
-        fontWeight: 'bold',
-        fontSize: 14,
-        maxWidth: '60%',
+        fontSize: 12,
+        maxWidth: 250,
         textAlign: 'center',
+    },
+    helpTextHighlight: {
+        fontWeight: 'bold',
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'solid',
+        textDecorationColor: color.lighterBlue,
     },
     helpButton: {
         marginTop: 20,

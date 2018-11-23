@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Dimensions, SafeAreaView, Text, Animated} from 'react-native';
+import {View, Dimensions, SafeAreaView, Animated} from 'react-native';
 import Header from '../../components/header';
 import StepHeader from '../../components/step-header';
 import Container from '../../components/container';
@@ -37,11 +37,26 @@ export default class StepModule extends Component {
         this._isVisible = new Animated.Value(this.isHeaderTitleVisible() ? 1 : 0);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate() {
         Animated.timing(this._isVisible, {
             toValue: this.isHeaderTitleVisible() ? 1 : 0,
             duration: 100,
         }).start();
+    }
+
+    onScroll = event => {
+        const limit = headerChildrenHeight + this.props.extraHeaderChildrenSpace;
+        const offset = Math.min(limit, event.nativeEvent.contentOffset.y);
+        const newOpacity = offset / limit;
+        if (newOpacity !== this.state.opacity) {
+            this.setState({
+                opacity: 1 - newOpacity,
+            });
+
+            if (typeof this.props.onFade === 'function') {
+                this.props.onFade(1 - newOpacity);
+            }
+        }
     }
 
     render() {
@@ -78,16 +93,7 @@ export default class StepModule extends Component {
             <Container
                 scroll={scroll}
                 style={[styles.container, {backgroundColor: 'transparent'}]}
-                onScroll={(event) => {
-                    const limit = headerChildrenHeight + extraHeaderChildrenSpace;
-                    const offset = Math.min(limit, event.nativeEvent.contentOffset.y);
-                    const newOpacity = offset / limit;
-                    if (newOpacity !== this.state.opacity) {
-                        this.setState({
-                            opacity: 1 - newOpacity,
-                        });
-                    }
-                }}
+                onScroll={this.onScroll}
             >
                 {(title || icon || headerChildren) &&
                     <View style={{
@@ -95,22 +101,20 @@ export default class StepModule extends Component {
                     }} />
                 }
 
-                <View style={[
-                    {
-                        flex: 1,
-                        borderTopRightRadius: 5,
-                        borderTopLeftRadius: 5,
-                        backgroundColor: (!error && backgroundColor) || color.white,
-                    }
-                ]}>
+                <View style={{
+                    flex: 1,
+                    borderTopRightRadius: 5,
+                    borderTopLeftRadius: 5,
+                    backgroundColor: (!error && backgroundColor) || color.white,
+                }}>
 
                     {(content || error) && (
-                        <View style={[styles.containerText, { paddingTop: height > 568 ? 32 : 25 }]}>
+                        <View style={[styles.containerText, {paddingTop: height > 568 ? 32 : 25}]}>
                             {typeof content === 'string' ? (
                                 <Paragraph>{content}</Paragraph>
                             ) : (
-                                    content
-                                )}
+                                content
+                            )}
                             {error && (
                                 <Paragraph style={styles.error}>{(error.message || error)}</Paragraph>
                             )}
@@ -121,8 +125,8 @@ export default class StepModule extends Component {
                         style={[
                             {flex: 1},
                             styles.wrapper,
-                            justify ? { justifyContent: justify } : null,
-                            pad ? styles.pad : null, paddingTop ? { paddingTop } : null,
+                            justify ? {justifyContent: justify} : null,
+                            pad ? styles.pad : null, paddingTop ? {paddingTop} : null,
                         ]}>
                         {children}
                     </View>
@@ -166,7 +170,7 @@ export default class StepModule extends Component {
                         loading={loading}
                     />
                     <View style={{
-                        //backgroundColor: 'red',
+                        // backgroundColor: 'red',
                         position: 'absolute',
                         top: 60, // same height as header
                         left: 0,
@@ -178,7 +182,7 @@ export default class StepModule extends Component {
                         }
                     </View>
                     {avoidKeyboard &&
-                        <KeyboardAvoid style={{ flex: 1 }} containerStyle={{ flexGrow: 1 }} offset={keyboardOffset} pad={keyboardAvoidPad}>
+                        <KeyboardAvoid style={{flex: 1}} containerStyle={{flexGrow: 1}} offset={keyboardOffset} pad={keyboardAvoidPad}>
                             {container}
                         </KeyboardAvoid>
                     }
