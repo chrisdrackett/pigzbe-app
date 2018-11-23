@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Text, View, TouchableOpacity, BackHandler} from 'react-native';
-import {loadContent, authKeychainKid, tryTouchIdLogin, checkAccountExists} from '../../actions';
+import {loadContent, authKeychainKid, tryTouchIdLogin} from '../../actions';
 import styles from './styles';
 import Button from '../../components/button';
 import Header from '../../components/header';
@@ -82,16 +82,10 @@ export const HomeView = ({showKidLogin, kids, onCreate, onLogin, onKidLogin, onO
 class Home extends Component {
     state = {
         parentOverride: false,
-        accountExists: null,
     }
 
     async componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
-
-        const accountExists = await this.props.dispatch(checkAccountExists());
-        this.setState({
-            accountExists,
-        });
 
         if (this.props.kids.length === 0) {
             const success = await this.props.dispatch(tryTouchIdLogin());
@@ -134,8 +128,10 @@ class Home extends Component {
         }
     }
 
+    onBack = () => this.setState({parentOverride: false})
+
     render() {
-        const {kids} = this.props;
+        const {kids, accountExists} = this.props;
 
         return (
             <Fragment>
@@ -146,12 +142,12 @@ class Home extends Component {
                     onLogin={this.onLogin}
                     onKidLogin={this.onKidLogin}
                     onOverride={this.onOverride}
-                    accountExists={this.state.accountExists}
+                    accountExists={accountExists}
                 />
                 {kids.length > 0 && this.state.parentOverride &&
                     <View style={styles.header}>
                         <Header
-                            onBack={() => this.setState({parentOverride: false})}
+                            onBack={this.onBack}
                         />
                     </View>
                 }
@@ -163,9 +159,7 @@ class Home extends Component {
 
 export default connect(
     state => ({
-        initializing: state.loader.initializing,
-        loading: state.loader.loading,
-        message: state.loader.message,
         kids: state.kids.kids,
+        accountExists: state.loader.accountExists,
     })
 )(withInitialize(withLoadExchange(Home)));

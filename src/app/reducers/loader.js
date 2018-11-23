@@ -2,12 +2,14 @@ import {
     LOADER_INITIALIZING,
     LOADER_LOADING,
     LOADER_ERROR,
-    LOADER_MESSAGE
+    LOADER_MESSAGE,
+    LOADER_ACCOUNT_EXISTS
 } from '../actions';
 
 export const initialState = {
     initializing: true,
     loading: false,
+    accountExists: false,
     error: null,
     message: null
 };
@@ -33,6 +35,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 message: action.message
+            };
+        case LOADER_ACCOUNT_EXISTS:
+            return {
+                ...state,
+                accountExists: action.value
             };
         default:
             return state;
