@@ -1,86 +1,100 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
-import styles from './styles';
-import {
-    strings,
-    SCREEN_SEND
-} from '../../constants';
-import Button from '../../components/button';
-import Payments from '../../components/payments';
-import StepModule from '../../components/step-module';
-import {ViewAddress} from '../view-address';
-import ReactModal from 'react-native-modal';
-import FundingMessage from 'app/components/funding-message';
+import {strings, SCREEN_DASHBOARD} from 'app/constants';
+import Button from 'app/components/button';
+import Progress from 'app/components/progress';
+import StepModule from 'app/components/step-module';
+import {wolloSendReset, sendWollo} from 'app/actions';
+import Form from './form';
+import Review from './review';
 
 export class Transfer extends Component {
     state = {
-        showViewAdressModal: false,
-        showFundingMessage: false,
+        review: false,
+        destination: '',
+        amount: '',
+        memo: '',
     }
 
-    onViewAddress = () => this.setState({showViewAdressModal: true})
-
-    onHideAddress = () => this.setState({showViewAdressModal: false})
-
-    onTransfer = () => {
-        const {hasGas} = this.props;
-
-        if (!hasGas) {
-            this.setState({showFundingMessage: true});
-            return;
-        }
-        this.props.navigation.push(SCREEN_SEND);
+    onReset = () => {
+        this.setState({
+            review: false,
+            destination: '',
+            amount: '',
+            memo: '',
+        });
+        this.props.dispatch(wolloSendReset());
     }
 
-    onCloseFundingMessage = () => this.setState({showFundingMessage: false})
+    onSend = () => {
+        const {destination, amount, memo} = this.state;
+
+        this.props.dispatch(sendWollo(destination, amount, memo));
+    }
+
+    onFinish = () => {
+        this.onReset();
+        this.props.navigation.navigate(SCREEN_DASHBOARD);
+    }
+
+    onReview = props => this.setState({review: true, ...props})
+
+    onEdit = () => this.setState({review: false})
 
     render() {
-        const {balance, balanceXLM, hasGas} = this.props;
-        const hasBalance = parseFloat(balance) > 0;
+        const {dispatch, balance, exchange, sending, sendComplete, sendStatus, error, publicKey} = this.props;
 
         return (
             <Fragment>
                 <StepModule
-                    title="Transfer"
+                    title={this.state.review ? 'Review Transfer' : 'Transfer Wollo'}
                     icon="transfer"
-                    // error={error}
-                    rightIcon="qrCode"
-                    onRightIcon={this.onViewAddress}
+                    error={error}
+                    pad
+                    paddingTop={10}
+                    keyboardOffset={-50}
+                    customTitle="Transfer"
                 >
-                    <Payments
-                        navigation={this.props.navigation}
-                        showHelp={!hasGas}
-                        spacingBottom={true}
-                    />
-                </StepModule>
-                {hasBalance && (
-                    <View style={styles.button}>
-                        <Button
-                            label={strings.transferButtonLabel}
-                            onPress={this.onTransfer}
-                            // disabled={!hasGas || !hasBalance}
-                            disabled={!hasBalance}
+                    {this.state.review ? (
+                        <Fragment>
+                            <Review
+                                dispatch={dispatch}
+                                exchange={exchange}
+                                balance={balance}
+                                publicKey={publicKey}
+                                destination={this.state.destination}
+                                amount={this.state.amount}
+                                memo={this.state.memo}
+                                onEdit={this.onEdit}
+                                onSend={this.onSend}
+                            />
+                            <Button
+                                theme="outline"
+                                label={strings.transferCancelButtonLabel}
+                                onPress={this.onReset}
+                            />
+                        </Fragment>
+                    ) : (
+                        <Form
+                            dispatch={dispatch}
+                            exchange={exchange}
+                            balance={balance}
+                            publicKey={publicKey}
+                            destination={this.state.destination}
+                            amount={this.state.amount}
+                            memo={this.state.memo}
+                            onReview={this.onReview}
                         />
-                    </View>
-                )}
-                <ReactModal
-                    isVisible={this.state.showViewAdressModal}
-                    animationIn="slideInRight"
-                    animationOut="slideOutRight"
-                    style={{margin: 0}}
-                    onBackButtonPress={this.onHideAddress}
-                >
-                    <ViewAddress
-                        publicKey={this.props.publicKey}
-                        onBack={this.onHideAddress}
-                    />
-                </ReactModal>
-                <FundingMessage
-                    fundingType={FundingMessage.TRANSFER}
-                    open={this.state.showFundingMessage}
-                    balanceXLM={balanceXLM}
-                    onClose={this.onCloseFundingMessage}
+                    )}
+                </StepModule>
+                <Progress
+                    open={sending || sendComplete || error}
+                    complete={sendComplete}
+                    title={(error || sendComplete) ? null : 'In progress'}
+                    error={error}
+                    text={sendStatus}
+                    buttonLabel={strings.transferProgressButtonLabel}
+                    onPress={error ? this.onReset : this.onFinish}
                 />
             </Fragment>
         );
@@ -89,10 +103,12 @@ export class Transfer extends Component {
 
 export default connect(
     state => ({
+        error: state.wollo.error,
         balance: state.wollo.balance,
-        balanceXLM: state.wollo.balanceXLM,
-        minXLM: state.wollo.minXLM,
-        hasGas: state.wollo.hasGas,
+        exchange: state.exchange.exchange,
+        sending: state.wollo.sending,
+        sendStatus: state.wollo.sendStatus,
+        sendComplete: state.wollo.sendComplete,
         publicKey: state.keys.publicKey,
     })
 )(Transfer);

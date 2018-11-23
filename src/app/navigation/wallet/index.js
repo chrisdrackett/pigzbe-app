@@ -1,5 +1,6 @@
 import {createStackNavigator} from 'react-navigation';
 import Dashboard from 'app/screens/dashboard';
+import Transactions from 'app/screens/transactions';
 import Settings from 'app/screens/settings';
 import Escrow from 'app/screens/escrow';
 import Claim from 'app/screens/claim';
@@ -22,6 +23,7 @@ import EmailSet from 'app/screens/email-set';
 import CurrencySet from 'app/screens/currency-set';
 import {
     SCREEN_DASHBOARD,
+    SCREEN_TRANSACTIONS,
     SCREEN_SETTINGS,
     SCREEN_ESCROW,
     SCREEN_CLAIM,
@@ -47,6 +49,9 @@ import {
 const nav = {
     [SCREEN_DASHBOARD]: {
         screen: Dashboard
+    },
+    [SCREEN_TRANSACTIONS]: {
+        screen: Transactions
     },
     [SCREEN_SETTINGS]: {
         screen: Settings

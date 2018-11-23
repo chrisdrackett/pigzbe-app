@@ -14,7 +14,9 @@ const Graph = ({balance, balanceXLM, exchange, baseCurrency}) => (
                 <CoinIcon coin={ASSET_CODE} style={styles.coin}/>
                 <View>
                     <Text style={styles.coinName}>{ASSET_NAME}</Text>
-                    <Text style={styles.value}>{moneyFormat(balance, CURRENCIES[ASSET_CODE].dps)}</Text>
+                    <Text style={styles.value}>
+                        {CURRENCIES[baseCurrency].symbol}{moneyFormat((exchange && exchange[baseCurrency]) || 0, CURRENCIES[baseCurrency].dps)}
+                    </Text>
                 </View>
             </View>
             <View style={styles.balanceTotal}>

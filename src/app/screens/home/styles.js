@@ -72,6 +72,7 @@ export default StyleSheet.create({
         fontSize: 18
     },
     profileWrapper: {
+        flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'center',

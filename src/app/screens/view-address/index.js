@@ -1,15 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import {View, Text, Share, Clipboard} from 'react-native';
-import {connect} from 'react-redux';
 import Button from '../../components/button';
 import StepModule from '../../components/step-module';
 import Title from '../../components/title';
-import Paragraph from '../../components/paragraph';
 import QRCode from 'react-native-qrcode';
 import styles from './styles';
 import Alert from 'app/components/alert';
 
-export class ViewAddress extends Component {
+export default class ViewAddress extends Component {
     state = {
         alertMessage: null,
     }
@@ -98,7 +96,3 @@ export class ViewAddress extends Component {
         );
     }
 }
-
-export default connect(state => ({
-    publicKey: state.keys.publicKey
-}))(ViewAddress);

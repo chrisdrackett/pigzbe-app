@@ -1,6 +1,11 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
+    header: {
+        alignItems: 'center',
+        marginTop: 20,
+        height: 130,
+    },
     bubbleWrapper: {
         marginBottom: -22,
     },

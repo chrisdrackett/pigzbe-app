@@ -25,7 +25,13 @@ const store = createStore(combineReducers({
     }),
     kids: () => ({
         sendError: null
-    })
+    }),
+    keys: () => ({
+        publicKey: ''
+    }),
+    config: () => ({
+        network: 'mainnet'
+    }),
 }));
 
 const props = {
@@ -97,11 +103,11 @@ storiesOf('Dashboard')
             balance: '17',
         }}/>
     ))
-    .add('with kids 1000 balance', () => (
+    .add('with big balance', () => (
         <Dashboard {...{
             ...props,
             kids,
-            balance: '1000',
+            balance: '10000000',
         }}/>
     ))
     .add('inactive', () => (

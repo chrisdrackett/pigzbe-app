@@ -52,10 +52,6 @@ export default class StepModule extends Component {
             this.setState({
                 opacity: 1 - newOpacity,
             });
-
-            if (typeof this.props.onFade === 'function') {
-                this.props.onFade(1 - newOpacity);
-            }
         }
     }
 
