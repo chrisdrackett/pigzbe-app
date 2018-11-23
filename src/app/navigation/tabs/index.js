@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import {createBottomTabNavigator} from 'react-navigation';
 import {View, Image} from 'react-native';
 import Wallet from '../wallet';
-import Messages from '../../screens/messages';
-import Transfer from '../transfer';
+import Messages from 'app/screens/messages';
+import Transfer from 'app/screens/transfer';
 import {
     strings,
     SCREEN_WALLET,

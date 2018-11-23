@@ -36,6 +36,12 @@ const trimMemo = memo => {
     return memo.trim();
 };
 
+const filters = {
+    all: 'ALL',
+    sent: 'SENT',
+    received: 'RECEIVED',
+};
+
 export class Payments extends Component {
     state = {
         filter: 'all',
@@ -93,12 +99,6 @@ export class Payments extends Component {
         const {loading, payments = [], showHelp, spacingBottom = false} = this.props;
 
         console.log('payments', payments);
-
-        const filters = {
-            all: 'ALL',
-            sent: 'SENT',
-            received: 'RECEIVED',
-        };
 
         if (!showHelp && loading && !payments.length) {
             return (

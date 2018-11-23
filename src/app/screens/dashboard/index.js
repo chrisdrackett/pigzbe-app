@@ -1,12 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {View, TouchableWithoutFeedback} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import {color} from 'app/styles';
 import {
     SCREEN_SETTINGS,
     SCREEN_KIDS_INTRO,
     SCREEN_KID_DASHBOARD,
     SCREEN_KIDS_ENTER_PROFILE,
+    SCREEN_TRANSACTIONS,
     COINS,
     FUNDING_URL,
     MIN_BALANCE,
@@ -28,17 +29,19 @@ import FundingMessage from 'app/components/funding-message';
 import GameMessageBubble from 'app/components/game-message-bubble';
 import WebPage from 'app/components/web-page';
 import WelcomeModal from 'app/components/welcome-modal';
+import Pig from 'app/components/pig';
 import styles from './styles';
 import Dev from './dev';
+import ViewAddress from '../view-address';
+import ReactModal from 'react-native-modal';
 
 export class Dashboard extends Component {
     state = {
         funding: false,
         showKidAddFundingMessage: this.props.showKidAddFundingMessage,
         modalOpen: this.props.firstTime,
-        headerOpacity: 1,
-        bubblePressed: false,
         showActivationGuide: false,
+        showViewAdressModal: false,
     }
 
     static defaultProps = {
@@ -94,6 +97,8 @@ export class Dashboard extends Component {
 
     onCloseKidAddFundingMessage = () => this.setState({showKidAddFundingMessage: false})
 
+    onTransactions = () => this.props.navigation.push(SCREEN_TRANSACTIONS);
+
     onDashboard = address => {
         const kid = this.props.kids.find(k => k.address === address);
         this.props.navigation.push(SCREEN_KID_DASHBOARD, {kid});
@@ -101,17 +106,15 @@ export class Dashboard extends Component {
 
     onFunding = funding => this.setState({funding})
 
-    onHeaderFade = headerOpacity => this.setState({headerOpacity})
-
-    onBubblePressIn = () => this.setState({bubblePressed: true})
-
-    onBubblePressOut = () => this.setState({bubblePressed: false})
-
     onActivationGuideOpen = () => this.setState({showActivationGuide: true})
 
     onActivationGuideClose = () => this.setState({showActivationGuide: false})
 
     onModalHide = () => this.setState({modalOpen: false})
+
+    onViewAddress = () => this.setState({showViewAdressModal: true})
+
+    onHideAddress = () => this.setState({showViewAdressModal: false})
 
     render () {
         const {
@@ -135,37 +138,45 @@ export class Dashboard extends Component {
         // console.log('balance', balance);
         // console.log('balanceXLM', balanceXLM);
         // console.log('hasGas', hasGas);
+        console.log('exchange', exchange);
 
         const inactive = !hasGas && Number(balance) === 0;
 
         return (
             <Fragment>
                 <StepModule
-                    icon="piggy"
-                    headerChildren={inactive ? (
-                        <View style={[styles.bubbleWrapper, {opacity: this.state.bubblePressed ? 0.3 : 1}]}>
-                            <GameMessageBubble
-                                content="Hi there. Your wallet needs XLM to activate it. Read more"
-                                style={styles.bubble}
-                                tailStyle={{left: 145}}
-                            />
-                        </View>
-                    ) : (
-                        <Wollo
-                            balance={balance}
-                            exchange={exchange}
-                            baseCurrency={baseCurrency}
-                        />
-                    )}
-                    extraHeaderChildrenSpace={inactive ? 24 : 18}
                     backgroundColor={color.transparent}
                     onSettings={this.onSettings}
                     loading={loading}
                     loaderMessage={this.state.funding ? 'Funding account' : null}
                     customTitle="Your dashboard"
-                    onFade={this.onHeaderFade}
+                    rightIcon="qrCode"
+                    onRightIcon={this.onViewAddress}
                 >
                     <View>
+                        <View style={styles.header}>
+                            {inactive ? (
+                                <TouchableOpacity onPress={this.onFundingInfo}>
+                                    <View style={styles.bubbleWrapper}>
+                                        <GameMessageBubble
+                                            content="Hi there. Your wallet needs XLM to activate it. Read more"
+                                            style={styles.bubble}
+                                            tailStyle={{left: 145}}
+                                        />
+                                    </View>
+                                </TouchableOpacity>
+                            ) : (
+                                <TouchableOpacity onPress={this.onTransactions}>
+                                    <Wollo
+                                        balance={balance}
+                                        exchange={exchange}
+                                        baseCurrency={baseCurrency}
+                                        link
+                                    />
+                                </TouchableOpacity>
+                            )}
+                            <Pig />
+                        </View>
                         <BalanceGraph balance={balance} balanceXLM={null} exchange={exchange} baseCurrency={baseCurrency}/>
                         <Kids
                             kids={kids}
@@ -180,16 +191,6 @@ export class Dashboard extends Component {
                         onFunding={this.onFunding}
                     />
                 </StepModule>
-                {inactive && this.state.headerOpacity > 0.7 && (
-                    <View style={styles.bubbleButton}>
-                        <TouchableWithoutFeedback
-                            onPress={this.onFundingInfo}
-                            onPressIn={this.onBubblePressIn}
-                            onPressOut={this.onBubblePressOut}>
-                            <View style={styles.bubbleButtonHit}/>
-                        </TouchableWithoutFeedback>
-                    </View>
-                )}
                 <WelcomeModal
                     isVisible={firstTime}
                     onClose={this.onCloseFirstTime}
@@ -209,6 +210,18 @@ export class Dashboard extends Component {
                     title="How to activate your wallet"
                     onClose={this.onActivationGuideClose}
                 />
+                <ReactModal
+                    isVisible={this.state.showViewAdressModal}
+                    animationIn="slideInRight"
+                    animationOut="slideOutRight"
+                    style={{margin: 0}}
+                    onBackButtonPress={this.onHideAddress}
+                >
+                    <ViewAddress
+                        publicKey={this.props.publicKey}
+                        onBack={this.onHideAddress}
+                    />
+                </ReactModal>
             </Fragment>
         );
     }
@@ -224,5 +237,6 @@ export default connect(
         baseCurrency: state.settings.baseCurrency,
         firstTime: state.settings.firstTime,
         kids: state.kids.kids,
+        publicKey: state.keys.publicKey,
     })
 )(Dashboard);

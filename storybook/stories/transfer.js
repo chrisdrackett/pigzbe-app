@@ -1,8 +1,7 @@
 import React, {Fragment} from 'react';
 import {storiesOf} from '@storybook/react-native';
 import {Transfer} from '../../src/app/screens/transfer';
-import {Send} from '../../src/app/screens/send';
-import Review from '../../src/app/screens/send/review';
+import Review from '../../src/app/screens/transfer/review';
 import Payments from '../../src/app/components/payments';
 import StepModule from '../../src/app/components/step-module';
 import Button from '../../src/app/components/button';
@@ -536,8 +535,8 @@ const props = {
 
 storiesOf('Transfer')
     .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-    .add('send', () => (
-        <Send {...props}/>
+    .add('transfer', () => (
+        <Transfer {...props}/>
     ))
     .add('review transfer', () => (
         <StepModule
@@ -589,14 +588,14 @@ storiesOf('Transfer')
         </StepModule>
     ))
     .add('transfer progress', () => (
-        <Send {...{
+        <Transfer {...{
             ...props,
             sending: true,
             sendComplete: false,
         }}/>
     ))
     .add('transfer complete', () => (
-        <Send {...{
+        <Transfer {...{
             ...props,
             sending: true,
             sendComplete: true,
@@ -604,9 +603,6 @@ storiesOf('Transfer')
     ))
     .add('payments', () => (
         <Payments {...props}/>
-    ))
-    .add('transfer', () => (
-        <Transfer {...props}/>
     ))
     .add('transfer loading', () => (
         <Transfer {...{
