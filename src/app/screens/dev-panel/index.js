@@ -14,7 +14,7 @@ import Button from 'app/components/button';
 import Storage from 'app/utils/storage';
 import Keychain from 'app/utils/keychain';
 // import {keysTestUser, configUpdate} from 'app/actions';
-import {mergeAccounts} from 'app/actions';
+import {mergeAccounts, settingsUpdate} from 'app/actions';
 import {
     KEYCHAIN_ID_STELLAR_KEY,
     KEYCHAIN_ID_ETH_KEY,
@@ -88,6 +88,10 @@ class DevPanel extends Component {
         console.log('DONE');
     }
 
+    clearFirstTimeFlag = async () => {
+        await this.props.dispatch(settingsUpdate({firstTime: true}));
+    }
+
     render() {
 
         const isTestnet = this.props.network !== 'mainnet';
@@ -118,7 +122,7 @@ class DevPanel extends Component {
                             </Text> */}
                             <View style={styles.block}>
                                 <Text style={styles.subtitle}>User data</Text>
-                                <Button style={styles.button} label="Clear user data" onPress={() => {
+                                <Button theme="light" style={styles.button} label="Clear user data" onPress={() => {
                                     console.log('clear');
                                     Storage.clear(STORAGE_KEY_EXCHANGE);
                                     Storage.clear(STORAGE_KEY_SETTINGS);
@@ -136,7 +140,7 @@ class DevPanel extends Component {
                                 }} />
                             </View>
                             <View style={styles.block}>
-                                <Button style={styles.button} label="Clear user data, keep keys" onPress={() => {
+                                <Button theme="light" style={styles.button} label="Clear user data, keep keys" onPress={() => {
                                     console.log('clear');
                                     Storage.clear(STORAGE_KEY_EXCHANGE);
                                     Storage.clear(STORAGE_KEY_SETTINGS);
@@ -151,18 +155,18 @@ class DevPanel extends Component {
                             </View>
                             <View style={styles.block}>
                                 <Text style={styles.subtitle}>Family data</Text>
-                                <Button style={styles.button} label="Clear family data" onPress={() => {
+                                <Button theme="light" style={styles.button} label="Clear family data" onPress={() => {
                                     console.log('clear');
                                     Storage.clear(STORAGE_KEY_KIDS);
                                 }} />
-                                <Button style={styles.button} label="Clear tasks data" onPress={() => {
+                                <Button theme="light" style={styles.button} label="Clear tasks data" onPress={() => {
                                     console.log('clear');
                                     Storage.clear(STORAGE_KEY_TASKS);
                                 }} />
                             </View>
                             <View style={styles.block}>
                                 <Text style={styles.subtitle}>Claim tool</Text>
-                                <Button style={styles.button} label="Clear claim data" onPress={() => {
+                                <Button theme="light" style={styles.button} label="Clear claim data" onPress={() => {
                                     Storage.clear(STORAGE_KEY_BURNING);
                                     Storage.clear(STORAGE_KEY_BURNING_ICO);
                                     Storage.clear(STORAGE_KEY_BURNING_AIRDROP);
@@ -170,6 +174,15 @@ class DevPanel extends Component {
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY_ICO);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY_AIRDROP);
                                 }} />
+                            </View>
+                            <View style={styles.block}>
+                                <Text style={styles.subtitle}>Settings</Text>
+                                <Button
+                                    theme="light"
+                                    style={styles.button}
+                                    label="Clear first time flag"
+                                    onPress={this.clearFirstTimeFlag}
+                                />
                             </View>
                             {/* <Text style={styles.subtitle}>
                                 Select test user
@@ -205,10 +218,10 @@ class DevPanel extends Component {
                             </View> */}
                             <View style={styles.block}>
                                 <Text style={styles.subtitle}>Accounts</Text>
-                                <Button style={styles.button} label="Merge accounts" onPress={this.mergeAccounts} />
+                                <Button theme="light" style={styles.button} label="Merge accounts" onPress={this.mergeAccounts} />
                             </View>
                             <View style={styles.block}>
-                                <Button style={styles.button} label="Hide panel" onPress={() => {
+                                <Button theme="light" style={styles.button} label="Hide panel" onPress={() => {
                                     this.setState({isHidden: true});
                                 }} />
                             </View>

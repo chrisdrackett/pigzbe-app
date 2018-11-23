@@ -15,31 +15,30 @@ import {
 import ConvertBalance from 'app/components/convert-balance';
 import BalanceGraph from 'app/components/balance-graph';
 import Kids from 'app/components/kids';
-import Button from 'app/components/button';
 import Wollo from 'app/components/wollo';
-import Modal from 'app/components/modal';
-import Title from 'app/components/title';
-import Paragraph from 'app/components/paragraph';
+
 import StepModule from 'app/components/step-module';
 import {
     loadExchange,
     settingsFirstTime,
-    fundAccount,
     loadWallet,
     setNumKidsToAdd
 } from 'app/actions';
-import openURL from 'app/utils/open-url';
-import ReactModal from 'react-native-modal';
 import FundingMessage from 'app/components/funding-message';
-import IconButton from 'app/components/icon-button';
 import GameMessageBubble from 'app/components/game-message-bubble';
+import WebPage from 'app/components/web-page';
+import WelcomeModal from 'app/components/welcome-modal';
+import styles from './styles';
+import Dev from './dev';
 
 export class Dashboard extends Component {
     state = {
         funding: false,
         showKidAddFundingMessage: this.props.showKidAddFundingMessage,
-        opacity: 1,
-        pressed: false,
+        modalOpen: this.props.firstTime,
+        headerOpacity: 1,
+        bubblePressed: false,
+        showActivationGuide: false,
     }
 
     static defaultProps = {
@@ -76,7 +75,7 @@ export class Dashboard extends Component {
     onFundingInfo = () => {
         this.onCloseKidAddFundingMessage();
         this.onCloseFirstTime();
-        openURL(FUNDING_URL);
+        this.onActivationGuideOpen();
     }
 
     onAddKids = () => {
@@ -100,31 +99,29 @@ export class Dashboard extends Component {
         this.props.navigation.push(SCREEN_KID_DASHBOARD, {kid});
     }
 
-    onFund = async () => {
-        this.setState({funding: true});
-        // await this.props.dispatch(fundAccount('13', '5'));
-        await this.props.dispatch(fundAccount('100', '500'));
-        await this.props.dispatch(loadWallet());
-        this.setState({funding: false});
-    }
+    onFunding = funding => this.setState({funding})
 
-    onFade = opacity => this.setState({opacity})
+    onHeaderFade = headerOpacity => this.setState({headerOpacity})
 
-    onPressIn = () => this.setState({pressed: true})
+    onBubblePressIn = () => this.setState({bubblePressed: true})
 
-    onPressOut = () => this.setState({pressed: false})
+    onBubblePressOut = () => this.setState({bubblePressed: false})
+
+    onActivationGuideOpen = () => this.setState({showActivationGuide: true})
+
+    onActivationGuideClose = () => this.setState({showActivationGuide: false})
+
+    onModalHide = () => this.setState({modalOpen: false})
 
     render () {
         const {
             exchange,
             balance,
             balanceXLM,
-            minXLM,
             hasGas,
             baseCurrency,
             firstTime,
             kids,
-            publicKey,
         } = this.props;
 
         const loading = (!exchange) || this.state.funding;
@@ -135,10 +132,9 @@ export class Dashboard extends Component {
             coins = coins.filter(c => c !== 'GBP');
         }
 
-        console.log('balance', balance);
-        console.log('balanceXLM', balanceXLM);
-        console.log('minXLM', minXLM);
-        console.log('hasGas', hasGas);
+        // console.log('balance', balance);
+        // console.log('balanceXLM', balanceXLM);
+        // console.log('hasGas', hasGas);
 
         const inactive = !hasGas && Number(balance) === 0;
 
@@ -147,10 +143,10 @@ export class Dashboard extends Component {
                 <StepModule
                     icon="piggy"
                     headerChildren={inactive ? (
-                        <View style={{marginBottom: -22, opacity: this.state.pressed ? 0.3 : 1}}>
+                        <View style={[styles.bubbleWrapper, {opacity: this.state.bubblePressed ? 0.3 : 1}]}>
                             <GameMessageBubble
                                 content="Hi there. Your wallet needs XLM to activate it. Read more"
-                                style={{maxWidth: 300, width: 300, marginTop: 0}}
+                                style={styles.bubble}
                                 tailStyle={{left: 145}}
                             />
                         </View>
@@ -167,7 +163,7 @@ export class Dashboard extends Component {
                     loading={loading}
                     loaderMessage={this.state.funding ? 'Funding account' : null}
                     customTitle="Your dashboard"
-                    onFade={this.onFade}
+                    onFade={this.onHeaderFade}
                 >
                     <View>
                         <BalanceGraph balance={balance} balanceXLM={null} exchange={exchange} baseCurrency={baseCurrency}/>
@@ -180,65 +176,38 @@ export class Dashboard extends Component {
                         />
                         <ConvertBalance coins={coins} exchange={exchange} balance={balance} />
                     </View>
-                    {this.props.network !== 'mainnet' && (
-                        <View>
-                            <Button
-                                label={publicKey}
-                                theme="light"
-                                onPress={() => openURL(`https://horizon-testnet.stellar.org/accounts/${publicKey}`)}
-                                style={{marginTop: 20}}
-                            />
-                            <Button
-                                label="Fund account"
-                                theme="light"
-                                onPress={this.onFund}
-                            />
-                        </View>
-                    )}
+                    <Dev
+                        onFunding={this.onFunding}
+                    />
                 </StepModule>
-                {inactive && this.state.opacity > 0.98 && (
-                    <View style={{position: 'absolute', top: 88, left: 0, width: '100%', alignItems: 'center'}}>
+                {inactive && this.state.headerOpacity > 0.7 && (
+                    <View style={styles.bubbleButton}>
                         <TouchableWithoutFeedback
                             onPress={this.onFundingInfo}
-                            onPressIn={this.onPressIn}
-                            onPressOut={this.onPressOut}>
-                            <View style={{backgroundColor: 'rgba(0, 0, 0, 0)', width: 300, height: 80}}/>
+                            onPressIn={this.onBubblePressIn}
+                            onPressOut={this.onBubblePressOut}>
+                            <View style={styles.bubbleButtonHit}/>
                         </TouchableWithoutFeedback>
                     </View>
                 )}
-                <ReactModal
+                <WelcomeModal
                     isVisible={firstTime}
-                    animationIn="slideInUp"
-                    animationOut="slideOutDown"
-                    style={{margin: 0}}
-                    onBackButtonPress={this.onCloseFirstTime}
-                >
-                    <Modal>
-                        <Title dark>Wallet Inactive</Title>
-                        <Paragraph>To activate your wallet please fund it by sending 1.6 XLM to your *public address*</Paragraph>
-                        <Paragraph style={{marginBottom: 40}}>Alternitively, If you’re an *ICO*, *Airdrop* or *VIP* participant, claim your Wollo via settings.</Paragraph>
-                        <Button
-                            label="Learn how to activate wallet"
-                            onPress={this.onFundingInfo}
-                        />
-                        <Button
-                            theme="outline"
-                            label={'Go to settings'}
-                            onPress={this.onSettings}
-                        />
-                        <IconButton
-                            style={{position: 'absolute', top: 0, right: 0}}
-                            icon="crossBlue"
-                            size={20}
-                            padding={16}
-                            onPress={this.onCloseFirstTime}
-                        />
-                    </Modal>
-                </ReactModal>
+                    onClose={this.onCloseFirstTime}
+                    onFundingInfo={this.onFundingInfo}
+                    onSettings={this.onSettings}
+                    onModalHide={this.onModalHide}
+                />
                 <FundingMessage
                     open={this.state.showKidAddFundingMessage}
                     balanceXLM={balanceXLM}
                     onClose={this.onCloseKidAddFundingMessage}
+                    onModalHide={this.onModalHide}
+                />
+                <WebPage
+                    open={!this.state.modalOpen && this.state.showActivationGuide}
+                    url={FUNDING_URL}
+                    title="How to activate your wallet"
+                    onClose={this.onActivationGuideClose}
                 />
             </Fragment>
         );
@@ -247,16 +216,13 @@ export class Dashboard extends Component {
 
 export default connect(
     state => ({
-        network: state.config.network,
         isConnected: state.app.isConnected,
         exchange: state.exchange.exchange,
         balance: state.wollo.balance,
         balanceXLM: state.wollo.balanceXLM,
-        minXLM: state.wollo.minXLM,
         hasGas: state.wollo.hasGas,
         baseCurrency: state.settings.baseCurrency,
         firstTime: state.settings.firstTime,
         kids: state.kids.kids,
-        publicKey: state.keys.publicKey,
     })
 )(Dashboard);

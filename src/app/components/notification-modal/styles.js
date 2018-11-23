@@ -18,8 +18,8 @@ export default StyleSheet.create({
         marginRight: 32,
         backgroundColor: color.white,
         paddingTop: 43,
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: 22,
+        paddingRight: 22,
         paddingBottom: 20,
         borderRadius: 4,
         display: 'flex',
@@ -55,6 +55,7 @@ export default StyleSheet.create({
     text: {
         fontFamily,
         color: color.blue,
+        fontSize: 12,
         textAlign: 'center',
     },
     progress: {

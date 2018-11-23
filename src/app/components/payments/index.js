@@ -10,6 +10,7 @@ import Button from 'app/components/button';
 import {loadPayments} from 'app/actions';
 import styles from './styles';
 import WebPage from 'app/components/web-page';
+import Title from 'app/components/title';
 import {
     strings,
     FUNDING_URL,
@@ -178,6 +179,7 @@ export class Payments extends Component {
                 )}
                 {showHelp && (
                     <View style={styles.help}>
+                        <Title dark>Wallet inactive</Title>
                         <Text style={styles.helpText}>
                             To activate your wallet please fund it by sending at least 1.6 XLM to your <Text style={styles.helpTextHighlight}>public address</Text> (we recommend 8.5 XLM).
                         </Text>

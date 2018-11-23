@@ -28,7 +28,12 @@ export default class FundingMessage extends Component {
         }
     }
 
-    onModalHide = () => this.setState({modalHidden: true})
+    onModalHide = () => {
+        this.setState({modalHidden: true});
+        if (typeof this.props.onModalHide === 'function') {
+            this.props.onModalHide();
+        }
+    }
 
     onHelp = () => this.setState({helpOpen: true})
 
