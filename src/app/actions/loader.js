@@ -24,6 +24,7 @@ export const LOADER_INITIALIZING = 'LOADER_INITIALIZING';
 export const LOADER_LOADING = 'LOADER_LOADING';
 export const LOADER_ERROR = 'LOADER_ERROR';
 export const LOADER_MESSAGE = 'LOADER_MESSAGE';
+export const LOADER_ACCOUNT_EXISTS = 'LOADER_ACCOUNT_EXISTS';
 
 const initializing = value => ({type: LOADER_INITIALIZING, value});
 
@@ -97,12 +98,12 @@ export const tryTouchIdLogin = () => async (dispatch, getState) => {
     try {
         const {enableTouchId} = getState().settings;
         if (!enableTouchId) {
-            return;
+            return false;
         }
 
         const passcode = await dispatch(authKeychain());
         if (!passcode) {
-            return;
+            return false;
         }
 
         await dispatch(authTouchId());
@@ -112,6 +113,16 @@ export const tryTouchIdLogin = () => async (dispatch, getState) => {
         console.log(error);
         return false;
     }
+};
+
+export const checkAccountExists = () => async dispatch => {
+    const hasPasscode = !!await dispatch(authKeychain());
+    const hasStorage = await Storage.hasItem(STORAGE_KEY_SETTINGS);
+    console.log('checkAccountExists');
+    console.log('  hasPasscode', hasPasscode);
+    console.log('  hasStorage', hasStorage);
+    const value = hasPasscode && hasStorage;
+    dispatch({type: LOADER_ACCOUNT_EXISTS, value});
 };
 
 export const initialize = () => async (dispatch, getState) => {
@@ -126,15 +137,7 @@ export const initialize = () => async (dispatch, getState) => {
     await dispatch(loadKids());
     await dispatch(authCheckTouchId());
     await dispatch(loadCachedExchange());
+    await dispatch(checkAccountExists());
     dispatch(initializing(false));
     return true;
-};
-
-export const checkAccountExists = () => async dispatch => {
-    const hasPasscode = !!await dispatch(authKeychain());
-    const hasStorage = await Storage.hasItem(STORAGE_KEY_SETTINGS);
-    console.log('checkAccountExists');
-    console.log('  hasPasscode', hasPasscode);
-    console.log('  hasStorage', hasStorage);
-    return hasPasscode && hasStorage;
 };
