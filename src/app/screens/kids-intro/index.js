@@ -25,7 +25,7 @@ export class KidsIntro extends Component {
             <StepModule
                 title="Your Family"
                 icon="family"
-                content={'Create secure sub accounts off your own wallet so you can set your children *tasks, goals, rewards* and *recurring allowances*. This all helps to teach them about money in the 21st century.'}
+                content="Set up secure accounts for each of your children so you can set them tasks, goals, rewards and recuring allowances. Their Pigzbe experience starts here"
                 pad
                 onBack={this.onBack}
                 justify="flex-end"

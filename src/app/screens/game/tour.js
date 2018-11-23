@@ -61,7 +61,7 @@ export default ({
                         {wolloCounter}
                         <View style={styles.bubble}>
                             <GameMessageBubble
-                                content="This shows you the total of how much Wollo you have saved in the app."
+                                content="Your trees show you how much you have saved."
                             />
                         </View>
                     </Fragment>

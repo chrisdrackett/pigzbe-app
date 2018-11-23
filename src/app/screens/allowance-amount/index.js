@@ -154,7 +154,7 @@ export class AllowanceAmount extends Component {
             <StepModule
                 title="Regular Allowance"
                 icon="allowance"
-                content={'Would you like to set up a regular Wollo allowance?'}
+                content="Tell us the value of this regular Wollo allowance"
                 pad
                 loading={loading}
                 onBack={this.onBack}
@@ -164,9 +164,9 @@ export class AllowanceAmount extends Component {
                     <View>
                         <View style={styles.toggleList}>
                             {this.getAllowancesList().map((item, index) =>
-                                <View key={index}>
+                                (<View key={index}>
                                     {this.renderElement(item)}
-                                </View>
+                                </View>)
                             )}
                         </View>
                     </View>

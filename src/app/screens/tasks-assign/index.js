@@ -71,7 +71,7 @@ export class TasksAssign extends Component {
                     <View style={styles.flexStyle}>
                         <View>
                             <Paragraph style={styles.textStyle}>
-                            Set the reward that <Text style={{fontWeight: 'bold'}}>{kid.name}</Text> will get when completed
+                                Set <Text style={{fontWeight: 'bold'}}>{kid.name}'s</Text> reward for this task
                             </Paragraph>
                             <WolloInput
                                 initialAmount={wollos}
