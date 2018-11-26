@@ -5,9 +5,11 @@ import styles from './styles';
 import ReactModal from 'react-native-modal';
 
 const tokens = [{
-    name: 'Stellar (XLM)',
-}, {
     name: 'Wollo (WLO)',
+    icon: require('./images/wlo.png'),
+}, {
+    name: 'Stellar (XLM)',
+    icon: require('./images/xlm.png'),
 }];
 
 class Toggle extends Component {
@@ -37,6 +39,7 @@ class TokenButton extends Component {
         return (
             <TouchableOpacity key={this.props.token.name} onPress={this.onSelect}>
                 <View style={styles.button}>
+                    <Image style={styles.buttonIcon} source={this.props.token.icon} />
                     <Text style={styles.buttonText}>{this.props.token.name}</Text>
                 </View>
             </TouchableOpacity>
@@ -95,7 +98,11 @@ export default class TokenSelector extends Component {
                         <Text style={styles.title}>SELECT YOUR WALLET</Text>
                         <View>
                             {tokens.map(t => (
-                                <TokenButton key={t.name} token={t} onSelect={this.onSelect} />
+                                <TokenButton
+                                    key={t.name}
+                                    token={t}
+                                    onSelect={this.onSelect}
+                                />
                             ))}
                         </View>
                     </View>

@@ -22,11 +22,17 @@ export default StyleSheet.create({
         color: color.white,
         fontSize: 16,
     },
+    buttonIcon: {
+        width: 23,
+        height: 23,
+        marginRight: 12,
+    },
     title: {
         fontFamily,
         color: color.white,
         fontSize: 10,
         marginTop: 40,
+        marginBottom: 10,
     },
     chevron: {
         width: 11,
