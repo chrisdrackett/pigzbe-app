@@ -3,20 +3,13 @@ import {color, fontFamily} from 'app/styles';
 
 export default StyleSheet.create({
     toggleContainer: {
-        backgroundColor: color.blue,
-        paddingTop: 30,
-        paddingBottom: 10,
-        alignItems: 'center',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
+        paddingTop: 3,
     },
     container: {
         backgroundColor: color.blue,
         flex: 1,
         padding: 30,
-        paddingTop: 100,
+        paddingTop: 46,
         alignItems: 'center',
     },
     toggleButton: {

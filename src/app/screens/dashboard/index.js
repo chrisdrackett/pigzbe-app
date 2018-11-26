@@ -152,6 +152,7 @@ export class Dashboard extends Component {
                     customTitle="Your dashboard"
                     rightIcon="qrCode"
                     onRightIcon={this.onViewAddress}
+                    tokenSelector={true}
                 >
                     <View>
                         <View style={styles.header}>

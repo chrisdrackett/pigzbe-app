@@ -81,6 +81,7 @@ export default class StepModule extends Component {
             keyboardAvoidPad,
             extraHeaderChildrenSpace,
             scroll,
+            tokenSelector
         } = this.props;
 
         const {height} = Dimensions.get('window');
@@ -164,6 +165,7 @@ export default class StepModule extends Component {
                             </Animated.Text>) : null
                         )}
                         loading={loading}
+                        tokenSelector={tokenSelector}
                     />
                     <View style={{
                         // backgroundColor: 'red',
