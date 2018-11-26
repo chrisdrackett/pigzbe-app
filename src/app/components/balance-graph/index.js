@@ -3,19 +3,18 @@ import {View, Text} from 'react-native';
 import styles from './styles';
 import CoinIcon from '../coin-icon';
 import AmountExchange from '../amount-exchange';
-import moneyFormat from '../../utils/money-format';
-import {ASSET_CODE, ASSET_NAME, CURRENCIES} from '../../constants';
+import {ASSET_CODE, CURRENCIES} from '../../constants';
+import getPrice from 'app/utils/get-price';
 
-const Graph = ({balance, balanceXLM, exchange, baseCurrency}) => (
+const Graph = ({balance, exchange, baseCurrency, selectedToken = ASSET_CODE}) => (
     <View style={styles.container}>
-        {/* <Image style={styles.graph} source={require('./images/graph.png')} /> */}
         <View style={styles.wrapperBalance}>
             <View style={styles.containerBalance}>
-                <CoinIcon coin={ASSET_CODE} style={styles.coin}/>
+                <CoinIcon coin={selectedToken} style={styles.coin}/>
                 <View>
-                    <Text style={styles.coinName}>{ASSET_NAME}</Text>
+                    <Text style={styles.coinName}>{CURRENCIES[selectedToken].name}</Text>
                     <Text style={styles.value}>
-                        {CURRENCIES[baseCurrency].symbol}{moneyFormat((exchange && exchange[baseCurrency]) || 0, CURRENCIES[baseCurrency].dps)}
+                        {getPrice(selectedToken, baseCurrency, exchange)}
                     </Text>
                 </View>
             </View>
@@ -26,21 +25,11 @@ const Graph = ({balance, balanceXLM, exchange, baseCurrency}) => (
                         amount={balance}
                         exchange={exchange}
                         baseCurrency={baseCurrency}
+                        selectedToken={selectedToken}
                     />
                 ) : null}
             </View>
         </View>
-        {balanceXLM && (
-            <View style={styles.wrapperBalance}>
-                <View style={styles.containerBalance}>
-                    <CoinIcon coin={'XLM'} style={styles.coin}/>
-                    <View>
-                        <Text style={styles.coinName}>{'XLM'}</Text>
-                        <Text style={styles.value}>{moneyFormat(balanceXLM, CURRENCIES.XLM.dps)}</Text>
-                    </View>
-                </View>
-            </View>
-        )}
     </View>
 );
 

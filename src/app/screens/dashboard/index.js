@@ -34,6 +34,7 @@ import styles from './styles';
 import Dev from './dev';
 import ViewAddress from '../view-address';
 import ReactModal from 'react-native-modal';
+import {getBalance} from 'app/selectors';
 
 export class Dashboard extends Component {
     state = {
@@ -119,6 +120,7 @@ export class Dashboard extends Component {
     render () {
         const {
             exchange,
+            selectedToken,
             balance,
             balanceXLM,
             hasGas,
@@ -129,13 +131,14 @@ export class Dashboard extends Component {
 
         const loading = (!exchange) || this.state.funding;
 
-        let coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
+        let coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD' && c !== selectedToken);
 
         if (coins.length > 6) {
             coins = coins.filter(c => c !== 'GBP');
         }
 
-        // console.log('balance', balance);
+        console.log('selectedToken', selectedToken);
+        console.log('balance', balance);
         // console.log('balanceXLM', balanceXLM);
         // console.log('hasGas', hasGas);
         console.log('exchange', exchange);
@@ -172,13 +175,19 @@ export class Dashboard extends Component {
                                         balance={balance}
                                         exchange={exchange}
                                         baseCurrency={baseCurrency}
+                                        selectedToken={selectedToken}
                                         link
                                     />
                                 </TouchableOpacity>
                             )}
                             <Pig />
                         </View>
-                        <BalanceGraph balance={balance} balanceXLM={null} exchange={exchange} baseCurrency={baseCurrency}/>
+                        <BalanceGraph
+                            balance={balance}
+                            exchange={exchange}
+                            baseCurrency={baseCurrency}
+                            selectedToken={selectedToken}
+                        />
                         <Kids
                             kids={kids}
                             exchange={exchange}
@@ -186,7 +195,12 @@ export class Dashboard extends Component {
                             onAddKids={this.onAddKids}
                             onDashboard={this.onDashboard}
                         />
-                        <ConvertBalance coins={coins} exchange={exchange} balance={balance} />
+                        <ConvertBalance
+                            coins={coins}
+                            exchange={exchange}
+                            balance={balance}
+                            selectedToken={selectedToken}
+                        />
                     </View>
                     <Dev
                         onFunding={this.onFunding}
@@ -232,12 +246,13 @@ export default connect(
     state => ({
         isConnected: state.app.isConnected,
         exchange: state.exchange.exchange,
-        balance: state.wollo.balance,
+        selectedToken: state.wollo.selectedToken,
         balanceXLM: state.wollo.balanceXLM,
         hasGas: state.wollo.hasGas,
         baseCurrency: state.settings.baseCurrency,
         firstTime: state.settings.firstTime,
         kids: state.kids.kids,
         publicKey: state.keys.publicKey,
+        balance: getBalance(state),
     })
 )(Dashboard);

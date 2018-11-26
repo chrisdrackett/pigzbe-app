@@ -8,10 +8,14 @@ import {
     WOLLO_SEND_COMPLETE,
     WOLLO_SEND_STATUS,
     WOLLO_UPDATE_XLM,
-    WOLLO_SEND_RESET
+    WOLLO_SEND_RESET,
+    WOLLO_SET_SELECTED_TOKEN
 } from '../actions';
 
+import {ASSET_CODE} from 'app/constants';
+
 export const initialState = {
+    selectedToken: ASSET_CODE,
     balance: '0',
     balanceXLM: '0',
     minXLM: '0',
@@ -34,7 +38,11 @@ export default (state = initialState, action) => {
         case WOLLO_UPDATE_BALANCE:
             return {
                 ...state,
-                balance: action.balance
+                balance: action.balance,
+                balances: {
+                    ...state.balances,
+                    WLO: action.balance,
+                }
             };
         case WOLLO_UPDATE_PAYMENTS:
             return {
@@ -84,7 +92,16 @@ export default (state = initialState, action) => {
                 ...state,
                 balanceXLM: action.balanceXLM,
                 minXLM: action.minXLM,
-                hasGas: action.hasGas
+                hasGas: action.hasGas,
+                balances: {
+                    ...state.balances,
+                    XLM: action.balanceXLM,
+                }
+            };
+        case WOLLO_SET_SELECTED_TOKEN:
+            return {
+                ...state,
+                selectedToken: action.code
             };
         default:
             return state;

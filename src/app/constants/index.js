@@ -31,10 +31,9 @@ export const CURRENCIES = {
 };
 
 export const BASE_CURRENCY = 'USD';
-export const COINS = ['XLM', 'BTC', 'ETH', 'EUR', 'USD', 'JPY', 'GBP', 'GOLD'];
+export const COINS = ['WLO', 'XLM', 'BTC', 'ETH', 'EUR', 'USD', 'JPY', 'GBP', 'GOLD'];
 
 export const ASSET_CODE = 'WLO';
-export const ASSET_NAME = 'Wollo';
 export const ASSET_DPS = CURRENCIES[ASSET_CODE].dps;
 
 export const PRIVACY_URL = 'https://pigzbe.com/pdf/pigzbe_privacy_notice.pdf';

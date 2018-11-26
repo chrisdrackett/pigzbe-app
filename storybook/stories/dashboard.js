@@ -4,7 +4,7 @@ import {Dashboard} from '../../src/app/screens/dashboard';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 
-const store = createStore(combineReducers({
+const getStore = (token = 'WLO') => createStore(combineReducers({
     settings: () => ({
         baseCurrency: 'GBP'
     }),
@@ -21,7 +21,13 @@ const store = createStore(combineReducers({
         }
     }),
     wollo: () => ({
-        balance: '0'
+        balances: {
+            WLO: '10',
+            XLM: '20',
+        },
+        balance: '0',
+        balanceXLM: '0',
+        selectedToken: token,
     }),
     kids: () => ({
         sendError: null
@@ -58,13 +64,17 @@ const props = {
         GBP: 0.091956,
         GOLD: 0.0031452
     },
-    balance: '100',
+    // balance: '100',
     balanceXLM: '50',
     hasGas: true,
     baseCurrency: 'USD',
     escrow: null,
     firstTime: false,
     kids: [],
+    balances: {
+        WLO: '10',
+        XLM: '20',
+    },
 };
 
 export const kids = [{
@@ -86,7 +96,7 @@ export const kids = [{
 }];
 
 storiesOf('Dashboard')
-    .addDecorator(story => <Provider store={store}>{story()}</Provider>)
+    .addDecorator(story => <Provider store={getStore()}>{story()}</Provider>)
     .add('default view', () => (
         <Dashboard {...props}/>
     ))
@@ -148,4 +158,21 @@ storiesOf('Dashboard')
     ))
     .add('error', () => (
         <Dashboard {...{...props, exchange: null, error: new Error('Network error')}}/>
+    ));
+
+storiesOf('Dashboard')
+    .addDecorator(story => <Provider store={getStore('XLM')}>{story()}</Provider>)
+    .add('xlm view', () => (
+        <Dashboard {...{
+            ...props,
+            selectedToken: 'XLM',
+            balance: '50',
+        }}/>
+    ))
+    .add('xlm view (0 balance)', () => (
+        <Dashboard {...{
+            ...props,
+            selectedToken: 'XLM',
+            balance: '0',
+        }}/>
     ));

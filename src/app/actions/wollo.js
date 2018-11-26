@@ -40,6 +40,7 @@ export const WOLLO_SEND_STATUS = 'WOLLO_SEND_STATUS';
 export const WOLLO_SEND_RESET = 'WOLLO_SEND_RESET';
 export const WOLLO_KEYPAIR = 'WOLLO_KEYPAIR';
 export const WOLLO_KEYPAIR_SAVED = 'WOLLO_KEYPAIR_SAVED';
+export const WOLLO_SET_SELECTED_TOKEN = 'WOLLO_SET_SELECTED_TOKEN';
 
 export const getWolloBalance = account => getBalance(account, ASSET_CODE);
 
@@ -65,13 +66,10 @@ const handleTransferError = errorMessage => dispatch => {
     dispatch(appError(errorMessage));
 };
 
-const updateXLM = account => (dispatch, getState) => {
+const updateXLM = account => dispatch => {
     const balanceXLM = getBalance(account);
     const minXLM = getMinBalance(account, 1);
-    console.log('minXLM', minXLM);
     const hasGas = checkHasGas(account);
-
-    const isTrusted = checkAssetTrusted(account, wolloAsset(getState()));
 
     dispatch({type: WOLLO_UPDATE_XLM, balanceXLM, minXLM, hasGas});
 };
@@ -288,3 +286,5 @@ export const createKidAccount = (nickname, parentNickname) => async dispatch => 
 
     return null;
 };
+
+export const setSelectedToken = code => ({type: WOLLO_SET_SELECTED_TOKEN, code});
