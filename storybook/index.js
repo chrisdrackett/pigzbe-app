@@ -50,6 +50,7 @@ function loadStories() {
     require('./stories/tree-with-leaf-added.js');
     require('./stories/cloud.js');
     require('./stories/cloud-flow.js');
+    require('./stories/token-selector.js');
 }
 
 configure(loadStories, module);
