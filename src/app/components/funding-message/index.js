@@ -51,7 +51,7 @@ export default class FundingMessage extends Component {
 
         switch (fundingType) {
             case ADD_TASK:
-                return `${msgXLM} To add a task fund your account with XLM.`;
+                return `${msgWLO} To add a task fund your account with Wollo.`;
             case ASSIGN_TASK:
                 return `${msgWLO} To add the task you need ${moneyFormat(requiredBalance)} WLO.`;
             case TRANSFER:

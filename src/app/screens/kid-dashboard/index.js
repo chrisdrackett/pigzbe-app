@@ -62,9 +62,8 @@ export class KidDashboard extends Component {
     onBack = () => this.props.navigation.goBack()
 
     addItem = screen => {
-        const balanceWLO = parseFloat(this.props.balance);
-
-        if (screen === SCREEN_TASKS_LIST && (balanceWLO === 0 || !this.props.hasGas)) {
+        const lowBalance = Number(this.props.balances.WLO) === 0;
+        if (screen === SCREEN_TASKS_LIST && (lowBalance || !this.props.hasGas)) {
             this.showFundingMessage(FundingMessage.ADD_TASK);
             return;
         }
