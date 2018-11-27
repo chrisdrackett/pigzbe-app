@@ -171,7 +171,7 @@ export class Dashboard extends Component {
                                 </TouchableOpacity>
                             ) : (
                                 <TouchableOpacity onPress={this.onTransactions}>
-                                    <Wollo
+                                    <Balance
                                         balance={balance}
                                         exchange={exchange}
                                         baseCurrency={baseCurrency}

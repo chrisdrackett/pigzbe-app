@@ -1,29 +1,16 @@
 import React from 'react';
-import {
-    Text,
-    View,
-    Image
-} from 'react-native';
+import {Text, View} from 'react-native';
 import styles from './styles';
-import {CURRENCIES, ASSET_CODE} from '../../constants';
-import moneyFormat from '../../utils/money-format';
+import {CURRENCIES, ASSET_CODE} from 'app/constants';
+import moneyFormat from 'app/utils/money-format';
 import AmountExchange from '../amount-exchange';
 import Icon from '../icon';
+import CoinIcon from '../coin-icon';
 
 export default ({balance, exchange, baseCurrency, dark, style, label, small, link, selectedToken = ASSET_CODE}) => (
     <View style={[styles.wolloContainer, style]}>
         <View style={styles.balanceContainer}>
-            {selectedToken === ASSET_CODE ? (
-                <Image
-                    style={styles.currencyLogo}
-                    source={dark ? require('./images/wollo_dark.png') : require('./images/wollo.png')}
-                />
-            ) : (
-                <Image
-                    style={styles.currencyLogo}
-                    source={require('../token-selector/images/xlm.png')}
-                />
-            )}
+            <CoinIcon coin={selectedToken} style={styles.currencyLogo} small light={!dark} />
             <Text style={[
                 styles.balance,
                 dark ? styles.balance__dark : null,

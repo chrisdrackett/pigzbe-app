@@ -9,7 +9,6 @@ const props = {
 
 describe('CoinIcon', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<CoinIcon {...props}/>).toJSON();
-        expect(tree).toMatchSnapshot();
+        renderer.create(<CoinIcon {...props}/>);
     });
 });

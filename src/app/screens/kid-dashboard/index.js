@@ -192,7 +192,7 @@ export class KidDashboard extends Component {
                         <KidAvatar photo={kid.photo} size={54}/>
                         <Text style={styles.name}>{kid.name}</Text>
                         <TouchableOpacity onPress={this.onTransactions}>
-                            <Wollo
+                            <Balance
                                 balance={kid.balance}
                                 exchange={exchange}
                                 baseCurrency={baseCurrency}
