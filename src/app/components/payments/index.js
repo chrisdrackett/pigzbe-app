@@ -204,8 +204,8 @@ export class Payments extends Component {
 
 export default connect(
     state => ({
-        loading: state.wollo.loading,
-        payments: state.wollo.payments,
+        loading: state.wallet.loading,
+        payments: state.wallet.payments,
         publicKey: state.keys.publicKey,
         kids: state.kids.kids,
     }),

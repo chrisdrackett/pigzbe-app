@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import styles from './styles';
 import {strings} from 'app/constants';
 import Button from 'app/components/button';
-import Wollo from 'app/components/wollo';
+import Balance from 'app/components/balance';
 import ExchangedDisplay from 'app/components/exchanged-display';
 import moneyFormat from 'app/utils/money-format';
 import {ASSET_CODE, CURRENCIES} from 'app/constants';
@@ -15,7 +15,11 @@ import Alert from 'app/components/alert';
 
 const remainingBalance = (balance, amount) => new BigNumber(balance).minus(amount);
 
-const getBalanceAfter = (balance, amount) => moneyFormat(remainingBalance(balance, amount), CURRENCIES[ASSET_CODE].dps);
+const getBalanceAfter = (balance, amount) => {
+    const remaining = remainingBalance(balance, amount);
+    console.log('remaining', remaining);
+    return moneyFormat(remaining, CURRENCIES[ASSET_CODE].dps);
+};
 
 export default class Review extends Component {
     state = {
@@ -87,13 +91,15 @@ export default class Review extends Component {
 
         const {balance, destination, amount, memo} = this.props;
 
+        console.log('balance, amount', balance, amount);
+
         return (
             <View style={styles.containerForm}>
                 <Text style={styles.label}>{strings.transferSendTo}</Text>
                 <Text style={styles.value}>{destination}</Text>
                 <Text style={styles.label}>{strings.transferAmount}</Text>
                 <View style={styles.amount}>
-                    <Wollo
+                    <Balance
                         dark
                         small
                         balance={amount}
@@ -115,7 +121,7 @@ export default class Review extends Component {
                 <Fragment>
                     <Text style={styles.label}>{strings.transferBalanceAfter}</Text>
                     <View style={styles.amount}>
-                        <Wollo
+                        <Balance
                             dark
                             small
                             balance={getBalanceAfter(balance, amount)}

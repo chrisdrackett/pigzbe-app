@@ -16,7 +16,7 @@ export * from './settings';
 export * from './tasks';
 export * from './vip';
 export * from './kyc';
-export * from './wollo';
+export * from './wallet';
 export * from './goals';
 export * from './claim-api';
 export * from './claim-contract';

@@ -20,13 +20,11 @@ const getStore = (token = 'WLO') => createStore(combineReducers({
             GOLD: 0.0031452
         }
     }),
-    wollo: () => ({
+    wallet: () => ({
         balances: {
             WLO: '10',
             XLM: '20',
         },
-        balance: '0',
-        balanceXLM: '0',
         selectedToken: token,
     }),
     kids: () => ({
@@ -64,8 +62,7 @@ const props = {
         GBP: 0.091956,
         GOLD: 0.0031452
     },
-    // balance: '100',
-    balanceXLM: '50',
+    balance: '100',
     hasGas: true,
     baseCurrency: 'USD',
     escrow: null,
@@ -124,7 +121,6 @@ storiesOf('Dashboard')
         <Dashboard {...{
             ...props,
             balance: '0',
-            balanceXLM: '0',
             hasGas: false,
             firstTime: false,
         }}/>
@@ -137,7 +133,6 @@ storiesOf('Dashboard')
                 balance: 0,
             }],
             balance: '0',
-            balanceXLM: '0',
             hasGas: false,
             firstTime: false,
             showFundingMessage: true,
@@ -150,7 +145,6 @@ storiesOf('Dashboard')
         <Dashboard {...{...props,
             showKidAddFundingMessage: true,
             balance: '0',
-            balanceXLM: '0',
         }}/>
     ))
     .add('loading', () => (

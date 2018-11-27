@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './styles';
-import Wollo from '../wollo';
+import Balance from '../balance';
 import KidAvatar from '../kid-avatar';
 import WolloSendSlider from '../wollo-send-slider';
 
@@ -18,7 +18,7 @@ export default class Kid extends Component {
                     <KidAvatar photo={photo}/>
                     <Text style={styles.name}>{name}</Text>
                     <View style={styles.balance}>
-                        <Wollo
+                        <Balance
                             dark
                             balance={balance}
                             exchange={exchange}

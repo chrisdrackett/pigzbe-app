@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {storiesOf} from '@storybook/react-native';
-import Wollo from '../../src/app/components/wollo';
+import Balance from '../../src/app/components/balance';
 
 const style = {
     flex: 1,
@@ -30,15 +30,15 @@ const props = {
     },
 };
 
-storiesOf('Wollo')
+storiesOf('Balance')
     .add('default', () => (
         <View style={[style, grey]}>
-            <Wollo {...props}/>
+            <Balance {...props}/>
         </View>
     ))
     .add('dark', () => (
         <View style={[style, grey]}>
-            <Wollo {...{
+            <Balance {...{
                 ...props,
                 dark: true,
             }}/>
@@ -46,7 +46,7 @@ storiesOf('Wollo')
     ))
     .add('no exchange', () => (
         <View style={[style, grey]}>
-            <Wollo {...{
+            <Balance {...{
                 ...props,
                 exchange: null,
             }}/>
@@ -54,7 +54,7 @@ storiesOf('Wollo')
     ))
     .add('dark no exchange', () => (
         <View style={[style, grey]}>
-            <Wollo {...{
+            <Balance {...{
                 ...props,
                 dark: true,
                 exchange: null,
@@ -63,7 +63,7 @@ storiesOf('Wollo')
     ))
     .add('label', () => (
         <View style={[style, grey]}>
-            <Wollo {...{
+            <Balance {...{
                 ...props,
                 dark: true,
                 exchange: null,

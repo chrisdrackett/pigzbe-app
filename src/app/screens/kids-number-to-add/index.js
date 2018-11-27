@@ -37,7 +37,7 @@ export class KidsNumberToAdd extends Component {
 
     render() {
 
-        const numCanAdd = new BigNumber(this.props.balanceXLM)
+        const numCanAdd = new BigNumber(this.props.balances.XLM)
             .minus(MIN_BALANCE)
             .dividedToIntegerBy(MIN_BALANCE_XLM_ADD_KID);
 
@@ -107,6 +107,6 @@ export class KidsNumberToAdd extends Component {
 
 export default connect(
     state => ({
-        balanceXLM: state.wollo.balanceXLM,
+        balances: state.wallet.balances,
     })
 )(KidsNumberToAdd);

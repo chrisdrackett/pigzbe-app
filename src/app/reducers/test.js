@@ -1,7 +1,7 @@
 /*eslint no-undefined: 0*/
 import authReducer, {initialState as authState} from './auth';
 import messagesReducer, {initialState as messagesState} from './messages';
-import wolloReducer, {initialState as wolloState} from './wollo';
+import walletReducer, {initialState as walletState} from './wallet';
 import gameReducer, {initialState as gameState} from './game';
 import * as actions from '../actions';
 
@@ -88,9 +88,9 @@ describe('Reducers', () => {
         });
     });
 
-    describe('Wollo', () => {
+    describe('Wallet', () => {
         it('should return the initial state', () => {
-            expect(wolloReducer(undefined, {})).toEqual(wolloState);
+            expect(walletReducer(undefined, {})).toEqual(walletState);
         });
 
         it('should handle account update', () => {
@@ -98,11 +98,11 @@ describe('Reducers', () => {
                 id: '1234'
             };
 
-            expect(wolloReducer(undefined, {
+            expect(walletReducer(undefined, {
                 type: actions.WOLLO_UPDATE_ACCOUNT,
                 account
             }))
-                .toEqual(Object.assign({}, wolloState, {
+                .toEqual(Object.assign({}, walletState, {
                     account
                 }));
         });
@@ -110,11 +110,11 @@ describe('Reducers', () => {
         it('should handle balance update', () => {
             const balance = '123';
 
-            expect(wolloReducer(undefined, {
+            expect(walletReducer(undefined, {
                 type: actions.WOLLO_UPDATE_BALANCE,
                 balance
             }))
-                .toEqual(Object.assign({}, wolloState, {
+                .toEqual(Object.assign({}, walletState, {
                     balance
                 }));
         });

@@ -16,7 +16,7 @@ import {
 import ConvertBalance from 'app/components/convert-balance';
 import BalanceGraph from 'app/components/balance-graph';
 import Kids from 'app/components/kids';
-import Wollo from 'app/components/wollo';
+import Balance from 'app/components/balance';
 
 import StepModule from 'app/components/step-module';
 import {
@@ -83,7 +83,7 @@ export class Dashboard extends Component {
     }
 
     onAddKids = () => {
-        if (parseFloat(this.props.balanceXLM) < MIN_BALANCE + MIN_BALANCE_XLM_ADD_KID) {
+        if (parseFloat(this.props.balances.XLM) < MIN_BALANCE + MIN_BALANCE_XLM_ADD_KID) {
             this.setState({showKidAddFundingMessage: true});
             return;
         }
@@ -122,7 +122,7 @@ export class Dashboard extends Component {
             exchange,
             selectedToken,
             balance,
-            balanceXLM,
+            balances,
             hasGas,
             baseCurrency,
             firstTime,
@@ -139,11 +139,11 @@ export class Dashboard extends Component {
 
         console.log('selectedToken', selectedToken);
         console.log('balance', balance);
-        // console.log('balanceXLM', balanceXLM);
+        console.log('balances', balances);
         // console.log('hasGas', hasGas);
         console.log('exchange', exchange);
 
-        const inactive = !hasGas && Number(balance) === 0;
+        const inactive = !hasGas && Number(balances.WLO) === 0;
 
         return (
             <Fragment>
@@ -215,7 +215,7 @@ export class Dashboard extends Component {
                 />
                 <FundingMessage
                     open={this.state.showKidAddFundingMessage}
-                    balanceXLM={balanceXLM}
+                    balances={balances}
                     onClose={this.onCloseKidAddFundingMessage}
                     onModalHide={this.onModalHide}
                 />
@@ -246,13 +246,13 @@ export default connect(
     state => ({
         isConnected: state.app.isConnected,
         exchange: state.exchange.exchange,
-        selectedToken: state.wollo.selectedToken,
-        balanceXLM: state.wollo.balanceXLM,
-        hasGas: state.wollo.hasGas,
+        selectedToken: state.wallet.selectedToken,
+        hasGas: state.wallet.hasGas,
         baseCurrency: state.settings.baseCurrency,
         firstTime: state.settings.firstTime,
         kids: state.kids.kids,
         publicKey: state.keys.publicKey,
+        balances: state.wallet.balances,
         balance: getBalance(state),
     })
 )(Dashboard);

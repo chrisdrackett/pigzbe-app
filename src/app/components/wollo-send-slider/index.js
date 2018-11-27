@@ -31,7 +31,7 @@ export class WolloSendSlider extends Component {
 
     onSliderChange = value => this.setState({
         value,
-        amount: getAmount(value, this.props.balance)
+        amount: getAmount(value, this.props.balances.WLO)
     })
 
     onSend = () => this.setState({
@@ -61,7 +61,7 @@ export class WolloSendSlider extends Component {
             sendError,
             sending,
             sendComplete,
-            balance,
+            balances,
             hasGas,
         } = this.props;
 
@@ -80,7 +80,7 @@ export class WolloSendSlider extends Component {
                 <Slider
                     value={this.state.value}
                     onValueChange={this.onSliderChange}
-                    disabled={Number(balance) === 0 || !hasGas}
+                    disabled={Number(balances.WLO) === 0 || !hasGas}
                 />
                 {this.state.value === 0 ? (
                     <Text style={styles.exchange}>Send Wollo</Text>
@@ -129,9 +129,8 @@ export class WolloSendSlider extends Component {
 
 export default connect(
     (state) => ({
-        balance: state.wollo.balance,
-        balanceXLM: state.wollo.balanceXLM,
-        hasGas: state.wollo.hasGas,
+        balances: state.wallet.balances,
+        hasGas: state.wallet.hasGas,
         baseCurrency: state.settings.baseCurrency,
         exchange: state.exchange.exchange,
         sendError: state.kids.sendError,

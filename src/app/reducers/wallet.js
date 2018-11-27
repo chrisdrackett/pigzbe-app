@@ -1,23 +1,22 @@
 import {
-    WOLLO_LOADING,
-    WOLLO_ERROR,
-    WOLLO_UPDATE_ACCOUNT,
-    WOLLO_UPDATE_BALANCE,
-    WOLLO_UPDATE_PAYMENTS,
-    WOLLO_SENDING,
-    WOLLO_SEND_COMPLETE,
-    WOLLO_SEND_STATUS,
-    WOLLO_UPDATE_XLM,
-    WOLLO_SEND_RESET,
-    WOLLO_SET_SELECTED_TOKEN
+    WALLET_LOADING,
+    WALLET_ERROR,
+    WALLET_UPDATE_ACCOUNT,
+    WALLET_UPDATE_BALANCE,
+    WALLET_UPDATE_PAYMENTS,
+    WALLET_SENDING,
+    WALLET_SEND_COMPLETE,
+    WALLET_SEND_STATUS,
+    WALLET_UPDATE_XLM,
+    WALLET_SEND_RESET,
+    WALLET_SET_SELECTED_TOKEN
 } from '../actions';
 
 import {ASSET_CODE} from 'app/constants';
 
 export const initialState = {
+    balances: {XLM: '0', WLO: '0'},
     selectedToken: ASSET_CODE,
-    balance: '0',
-    balanceXLM: '0',
     minXLM: '0',
     hasGas: false,
     payments: [],
@@ -30,56 +29,55 @@ export const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case WOLLO_UPDATE_ACCOUNT:
+        case WALLET_UPDATE_ACCOUNT:
             return {
                 ...state,
                 account: action.account
             };
-        case WOLLO_UPDATE_BALANCE:
+        case WALLET_UPDATE_BALANCE:
             return {
                 ...state,
-                balance: action.balance,
                 balances: {
                     ...state.balances,
                     WLO: action.balance,
                 }
             };
-        case WOLLO_UPDATE_PAYMENTS:
+        case WALLET_UPDATE_PAYMENTS:
             return {
                 ...state,
                 payments: action.payments
             };
-        case WOLLO_LOADING:
+        case WALLET_LOADING:
             return {
                 ...state,
                 loading: action.loading
             };
-        case WOLLO_ERROR:
+        case WALLET_ERROR:
             return {
                 ...state,
                 error: action.error
             };
-        case WOLLO_SENDING:
+        case WALLET_SENDING:
             return {
                 ...state,
                 sending: action.sending
             };
-        case WOLLO_SEND_STATUS:
+        case WALLET_SEND_STATUS:
             return {
                 ...state,
                 sendStatus: action.sendStatus
             };
-        case WOLLO_SEND_COMPLETE:
+        case WALLET_SEND_COMPLETE:
             return {
                 ...state,
                 sendComplete: action.sendComplete
             };
-        case WOLLO_SENDING:
+        case WALLET_SENDING:
             return {
                 ...state,
                 sending: action.sending
             };
-        case WOLLO_SEND_RESET:
+        case WALLET_SEND_RESET:
             return {
                 ...state,
                 sending: false,
@@ -87,18 +85,17 @@ export default (state = initialState, action) => {
                 sendComplete: false,
                 sendStatus: null,
             };
-        case WOLLO_UPDATE_XLM:
+        case WALLET_UPDATE_XLM:
             return {
                 ...state,
-                balanceXLM: action.balanceXLM,
-                minXLM: action.minXLM,
+                minXLM: action.minBalance,
                 hasGas: action.hasGas,
                 balances: {
                     ...state.balances,
-                    XLM: action.balanceXLM,
+                    XLM: action.balance,
                 }
             };
-        case WOLLO_SET_SELECTED_TOKEN:
+        case WALLET_SET_SELECTED_TOKEN:
             return {
                 ...state,
                 selectedToken: action.code

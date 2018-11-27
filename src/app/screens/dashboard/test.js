@@ -11,8 +11,10 @@ const store = createStore(combineReducers({
         baseCurrency: 'GBP'
     }),
     wollo: () => ({
-        balance: '0',
-        balanceXLM: '0',
+        balances: {
+            WLO: '0',
+            XLM: '0',
+        }
     }),
     exchange: () => ({
         exchange: {
@@ -51,8 +53,7 @@ const props = {
         GOLD: 0.0031452
     },
     baseCurrency: 'GBP',
-    balance: '0',
-    balanceXLM: '0',
+    balances: {XLM: '0', WLO: '0'},
     escrow: null,
     firstTime: true,
     kids: [],

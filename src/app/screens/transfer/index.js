@@ -4,9 +4,10 @@ import {strings, SCREEN_DASHBOARD} from 'app/constants';
 import Button from 'app/components/button';
 import Progress from 'app/components/progress';
 import StepModule from 'app/components/step-module';
-import {wolloSendReset, sendWollo} from 'app/actions';
+import {walletSendReset, sendWollo} from 'app/actions';
 import Form from './form';
 import Review from './review';
+import {getBalance} from 'app/selectors';
 
 export class Transfer extends Component {
     state = {
@@ -23,7 +24,7 @@ export class Transfer extends Component {
             amount: '',
             memo: '',
         });
-        this.props.dispatch(wolloSendReset());
+        this.props.dispatch(walletSendReset());
     }
 
     onSend = () => {
@@ -103,12 +104,12 @@ export class Transfer extends Component {
 
 export default connect(
     state => ({
-        error: state.wollo.error,
-        balance: state.wollo.balance,
+        error: state.wallet.error,
+        balance: getBalance(state),
         exchange: state.exchange.exchange,
-        sending: state.wollo.sending,
-        sendStatus: state.wollo.sendStatus,
-        sendComplete: state.wollo.sendComplete,
+        sending: state.wallet.sending,
+        sendStatus: state.wallet.sendStatus,
+        sendComplete: state.wallet.sendComplete,
         publicKey: state.keys.publicKey,
     })
 )(Transfer);

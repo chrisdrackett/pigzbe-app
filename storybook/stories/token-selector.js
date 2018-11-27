@@ -6,9 +6,11 @@ import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 
 const store = createStore(combineReducers({
-    wollo: () => ({
-        balance: '0',
-        balanceXLM: '0',
+    wallet: () => ({
+        balances: {
+            WLO: '10',
+            XLM: '20',
+        },
         selectedToken: 'WLO',
     }),
 }));

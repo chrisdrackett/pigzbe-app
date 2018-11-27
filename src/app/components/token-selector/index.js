@@ -120,6 +120,6 @@ export class TokenSelector extends Component {
 
 export default connect(
     state => ({
-        selectedToken: state.wollo.selectedToken
+        selectedToken: state.wallet.selectedToken
     })
 )(TokenSelector);

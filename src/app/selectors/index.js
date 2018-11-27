@@ -6,8 +6,8 @@ import {CLAIM_CONTRACT_NAME} from 'app/constants';
 const configSelector = state => state.config;
 const currentClaimSelector = state => state.claim.currentClaim;
 const claimsSelector = state => state.claim.claims;
-const selectedTokenSelector = state => state.wollo.selectedToken;
-const balancesSelector = state => state.wollo.balances;
+const selectedTokenSelector = state => state.wallet.selectedToken;
+const balancesSelector = state => state.wallet.balances;
 
 export const apiURL = createSelector(
     configSelector,

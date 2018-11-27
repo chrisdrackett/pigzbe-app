@@ -32,7 +32,7 @@ function loadStories() {
     require('./stories/kids.js');
     require('./stories/toggle.js');
     require('./stories/slider.js');
-    require('./stories/wollo.js');
+    require('./stories/balance.js');
     require('./stories/wollo-input.js');
     require('./stories/currency-toggle.js');
     require('./stories/kid-dashboard.js');

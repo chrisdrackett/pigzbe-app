@@ -488,9 +488,13 @@ const store = createStore(combineReducers({
             GOLD: 0.0031452
         }
     }),
-    wollo: () => ({
+    wallet: () => ({
         loading: false,
         payments,
+        balances: {
+            WLO: '10',
+            XLM: '20',
+        },
     }),
     keys: () => ({
         publicKey: 'GDF7DRJXKBDYXKNP4JOBUVGEIHLVEXZKKX7V7IYNMEXM7J5H3LLFW5TU',
@@ -512,8 +516,8 @@ const props = {
         actions: {}
     },
     error: null,
+    balances: {WLO: '801.4672469', XLM: '2'},
     balance: '801.4672469',
-    balanceXLM: '43.9999500',
     minXLM: '1.50001',
     hasGas: true,
     loading: false,

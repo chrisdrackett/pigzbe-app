@@ -47,7 +47,7 @@ const store = createStore(combineReducers({
             ETH: 0.00053592
         },
     }),
-    wollo: () => ({
+    wallet: () => ({
         loading: false,
         payments: [],
     }),

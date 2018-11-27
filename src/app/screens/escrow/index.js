@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-// import {View} from 'react-native';
 import Transaction from './transaction';
-// import Wollo from '../../components/wollo';
 import {strings, SCREEN_DASHBOARD} from '../../constants';
 import {loadEscrowAccount, validateTx} from '../../actions';
 import ScrollList from '../../components/scroll-list';
-// import Footer from '../../components/footer';
 import StepModule from '../../components/step-module';
 
 export class Escrow extends Component {
@@ -25,7 +22,6 @@ export class Escrow extends Component {
     render() {
         const {
             dispatch,
-            // balance,
             transactions,
             submitting,
             loading
@@ -41,11 +37,6 @@ export class Escrow extends Component {
                 scroll={false}
                 loading={loading || submitting}
                 loaderMessage={submitting ? strings.escrowSubmitting : null}
-                // headerChildren={(
-                //     <View style={{marginBottom: -20}}>
-                //         <Wollo balance={balance}/>
-                //     </View>
-                // )}
             >
                 <ScrollList
                     items={transactions.map(t => ({...t, dispatch}))}
