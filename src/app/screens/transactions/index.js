@@ -14,7 +14,7 @@ export class Transfer extends Component {
     onCloseFundingMessage = () => this.setState({showFundingMessage: false})
 
     render() {
-        const {balances, hasGas} = this.props;
+        const {balances, hasGas, selectedToken} = this.props;
 
         return (
             <Fragment>
@@ -22,9 +22,10 @@ export class Transfer extends Component {
                     title="Transactions"
                     icon="transfer"
                     onBack={this.onBack}
-                    customTitle="Transactions"
+                    tokenSelector={true}
                 >
                     <Payments
+                        selectedToken={selectedToken}
                         navigation={this.props.navigation}
                         showHelp={!hasGas}
                     />
@@ -42,6 +43,7 @@ export class Transfer extends Component {
 
 export default connect(
     state => ({
+        selectedToken: state.wallet.selectedToken,
         balances: state.wallet.balances,
         minXLM: state.wallet.minXLM,
         hasGas: state.wallet.hasGas,

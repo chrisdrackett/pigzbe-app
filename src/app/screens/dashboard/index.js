@@ -11,7 +11,8 @@ import {
     COINS,
     FUNDING_URL,
     MIN_BALANCE,
-    MIN_BALANCE_XLM_ADD_KID
+    MIN_BALANCE_XLM_ADD_KID,
+    ASSET_CODE
 } from 'app/constants';
 import ConvertBalance from 'app/components/convert-balance';
 import BalanceGraph from 'app/components/balance-graph';
@@ -188,13 +189,15 @@ export class Dashboard extends Component {
                             baseCurrency={baseCurrency}
                             selectedToken={selectedToken}
                         />
-                        <Kids
-                            kids={kids}
-                            exchange={exchange}
-                            baseCurrency={baseCurrency}
-                            onAddKids={this.onAddKids}
-                            onDashboard={this.onDashboard}
-                        />
+                        {selectedToken === ASSET_CODE ? (
+                            <Kids
+                                kids={kids}
+                                exchange={exchange}
+                                baseCurrency={baseCurrency}
+                                onAddKids={this.onAddKids}
+                                onDashboard={this.onDashboard}
+                            />
+                        ) : <View style={{height: 25}} />}
                         <ConvertBalance
                             coins={coins}
                             exchange={exchange}

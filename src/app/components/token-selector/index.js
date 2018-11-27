@@ -5,18 +5,10 @@ import styles from './styles';
 // import * as Animatable from 'react-native-animatable';
 import ReactModal from 'react-native-modal';
 import {setSelectedToken} from 'app/actions';
+import CoinIcon from 'app/components/coin-icon';
+import {CURRENCIES} from 'app/constants';
 
-const tokens = {
-    WLO: {
-        name: 'Wollo (WLO)',
-        code: 'WLO',
-        icon: require('./images/wlo.png'),
-    },
-    XLM: {
-        name: 'Stellar (XLM)',
-        code: 'XLM',
-        icon: require('./images/xlm.png'),
-    }};
+const tokens = ['WLO', 'XLM'];
 
 class Toggle extends Component {
     onToggle = () => this.props.onToggle()
@@ -26,7 +18,9 @@ class Toggle extends Component {
             <View style={styles.toggleContainer}>
                 <TouchableOpacity onPress={this.onToggle}>
                     <View style={styles.toggleButton}>
-                        <Text style={styles.buttonText}>{tokens[this.props.selectedToken].name}</Text>
+                        <Text style={styles.buttonText}>
+                            {CURRENCIES[this.props.token].name} ({this.props.token})
+                        </Text>
                         <Image
                             style={[styles.chevron, this.props.open ? styles.chevronUp : null]}
                             source={require('./images/chevron.png')}
@@ -39,14 +33,16 @@ class Toggle extends Component {
 }
 
 class TokenButton extends Component {
-    onSelect = () => this.props.onSelect(this.props.token.code)
+    onSelect = () => this.props.onSelect(this.props.token)
 
     render() {
         return (
-            <TouchableOpacity key={this.props.token.name} onPress={this.onSelect}>
+            <TouchableOpacity onPress={this.onSelect}>
                 <View style={styles.button}>
-                    <Image style={styles.buttonIcon} source={this.props.token.icon} />
-                    <Text style={styles.buttonText}>{this.props.token.name}</Text>
+                    <CoinIcon coin={this.props.token} style={styles.buttonIcon} small light />
+                    <Text style={styles.buttonText}>
+                        {CURRENCIES[this.props.token].name} ({this.props.token})
+                    </Text>
                 </View>
             </TouchableOpacity>
         );
@@ -93,15 +89,15 @@ export class TokenSelector extends Component {
                     <View style={styles.container}>
                         <Toggle
                             onToggle={this.onToggle}
-                            selectedToken={this.props.selectedToken}
+                            token={this.props.selectedToken}
                             open={this.state.open}
                         />
                         <Text style={styles.title}>SELECT YOUR WALLET</Text>
                         <View>
-                            {Object.keys(tokens).map(key => (
+                            {tokens.map(token => (
                                 <TokenButton
-                                    key={tokens[key].name}
-                                    token={tokens[key]}
+                                    key={token}
+                                    token={token}
                                     onSelect={this.onSelect}
                                 />
                             ))}
@@ -110,7 +106,7 @@ export class TokenSelector extends Component {
                 </ReactModal>
                 <Toggle
                     onToggle={this.onToggle}
-                    selectedToken={this.props.selectedToken}
+                    token={this.props.selectedToken}
                     open={this.state.open}
                 />
             </Fragment>

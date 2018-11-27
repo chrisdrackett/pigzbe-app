@@ -14,7 +14,7 @@ const Graph = ({balance, exchange, baseCurrency, selectedToken = ASSET_CODE}) =>
                 <View>
                     <Text style={styles.coinName}>{CURRENCIES[selectedToken].name}</Text>
                     <Text style={styles.value}>
-                        {getPrice(selectedToken, baseCurrency, exchange)}
+                        {getPrice(selectedToken, baseCurrency, exchange, 1, true, 1)}
                     </Text>
                 </View>
             </View>
