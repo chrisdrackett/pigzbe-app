@@ -3,23 +3,25 @@ import {Text, TouchableOpacity, View, Animated} from 'react-native';
 import styles from './styles';
 import {ASSET_CODE, CURRENCIES} from '../../constants';
 import Icon from 'app/components/icon';
-// import isAndroid from '../../utils/is-android';
-
 
 export default class CurrencyToggle extends Component {
     state = {
-        currentCurrency: ASSET_CODE,
+        currentCurrency: this.props.coin,
         left: new Animated.Value(2),
+    }
+
+    static defaultProps = {
+        coin: ASSET_CODE,
     }
 
     onClicked = () => {
         const {currentCurrency, left} = this.state;
-        const {currency} = this.props;
+        const {coin, currency} = this.props;
 
-        const newLeftPosition = currentCurrency === ASSET_CODE ? 36 : 2;
+        const newLeftPosition = currentCurrency === coin ? 36 : 2;
 
         this.setState({
-            currentCurrency: currentCurrency === ASSET_CODE ? currency : ASSET_CODE,
+            currentCurrency: currentCurrency === coin ? currency : coin,
         }, () => {
             this.props.onCurrencyChange(this.state.currentCurrency);
         });
@@ -37,7 +39,7 @@ export default class CurrencyToggle extends Component {
             <TouchableOpacity style={styles.container} onPress={this.onClicked}>
                 <Animated.View style={[styles.handle, {left: this.state.left}]} />
                 <View style={styles.iconContainer}>
-                    <Icon style={styles.icon} name="wollo" />
+                    <Icon style={styles.icon} name={this.props.coin} />
                 </View>
                 <View style={styles.iconContainer}>
                     {!CURRENCIES[currency].icon &&

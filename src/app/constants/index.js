@@ -24,10 +24,10 @@ export const CURRENCIES = {
     BRL: {name: 'Brazilian real', symbol: 'R$', dps: 2},
     ZAR: {name: 'South African rand', symbol: 'R', dps: 2},
     GOLD: {name: 'Gold', symbol: 'Gold', dps: 5},
-    XLM: {name: 'Stellar Lumens', symbol: 'XLM ', dps: 5, icon: 'stellar'},
+    XLM: {name: 'Stellar Lumens', symbol: 'XLM ', dps: 5, icon: 'stellar', appendSymbol: true},
     BTC: {name: 'Bitcoin', symbol: '₿', dps: 5},
     ETH: {name: 'Etheruem', symbol: 'Ξ', dps: 5},
-    WLO: {name: 'Wollo', symbol: 'WLO', dps: 5},
+    WLO: {name: 'Wollo', symbol: 'WLO', dps: 5, appendSymbol: true},
 };
 
 export const BASE_CURRENCY = 'USD';

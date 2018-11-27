@@ -5,7 +5,7 @@ import StepModule from 'app/components/step-module';
 import Paragraph from 'app/components/paragraph';
 import TextInput from 'app/components/text-input';
 import Button from 'app/components/button';
-import WolloInput from 'app/components/wollo-input';
+import PaymentInput from 'app/components/payment-input';
 import styles from './styles';
 import {assignGoal, updateGoal} from 'app/actions';
 
@@ -76,7 +76,7 @@ export class KidGoalAdd extends Component {
                     {step === 'amount' &&
                         <Fragment>
                             <Paragraph>Set the goal value that <Text style={styles.name}>{kid.name}</Text> is saving towards</Paragraph>
-                            <WolloInput
+                            <PaymentInput
                                 initialAmount={this.state.amount}
                                 onChangeAmount={this.onChangeAmount}
                             />

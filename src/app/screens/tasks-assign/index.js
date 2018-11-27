@@ -4,7 +4,7 @@ import {Text, View, Keyboard} from 'react-native';
 import Button from '../../components/button';
 import {SCREEN_KID_DASHBOARD} from '../../constants';
 import StepModule from '../../components/step-module';
-import WolloInput from '../../components/wollo-input';
+import PaymentInput from '../../components/payment-input';
 import Paragraph from '../../components/paragraph';
 import styles from './styles';
 import {deleteTask, assignTask, appAddWarningAlert} from '../../actions';
@@ -72,7 +72,7 @@ export class TasksAssign extends Component {
                             <Paragraph style={styles.textStyle}>
                                 Set <Text style={{fontWeight: 'bold'}}>{kid.name}'s</Text> reward for this task
                             </Paragraph>
-                            <WolloInput
+                            <PaymentInput
                                 initialAmount={amount}
                                 onChangeAmount={this.onChangeAmount}
                             />

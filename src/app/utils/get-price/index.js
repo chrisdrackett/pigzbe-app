@@ -1,5 +1,6 @@
 import moneyFormat from 'app/utils/money-format';
 import {CURRENCIES, ASSET_CODE} from 'app/constants';
+import {ensureValidAmount} from '@pigzbe/stellar-utils';
 
 export default (convertFrom = ASSET_CODE, convertTo, exchange, balance = 1, showSymbol = true) => {
     if (!exchange) {
@@ -8,7 +9,7 @@ export default (convertFrom = ASSET_CODE, convertTo, exchange, balance = 1, show
 
     const currency = CURRENCIES[convertTo];
 
-    let amount = exchange[convertTo] || 0;
+    let amount = ensureValidAmount(exchange[convertTo] || 0);
 
     if (convertFrom !== ASSET_CODE) {
         amount = amount * 1 / exchange[convertFrom];
@@ -23,5 +24,5 @@ export default (convertFrom = ASSET_CODE, convertTo, exchange, balance = 1, show
 
     const value = moneyFormat(amount * Number(balance), currency.dps);
 
-    return showSymbol ? `${currency.symbol}${value}` : value;
+    return showSymbol ? currency.appendSymbol ? `${value} ${currency.symbol}` : `${currency.symbol}${value}` : value;
 };

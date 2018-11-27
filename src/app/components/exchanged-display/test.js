@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import WolloInput from './';
+import PaymentInput from './';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 const store = createStore(combineReducers({
@@ -25,11 +25,11 @@ const props = {
     onChangeAmount: () => {}
 };
 
-describe('WolloInput', () => {
+describe('PaymentInput', () => {
     test('renders correctly', () => {
         renderer.create(
             <Provider store={store}>
-                <WolloInput {...props}/>
+                <PaymentInput {...props}/>
             </Provider>
         );
     });

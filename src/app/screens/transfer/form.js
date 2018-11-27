@@ -4,7 +4,7 @@ import styles from './styles';
 import {strings} from 'app/constants';
 import Button from 'app/components/button';
 import TextInput from 'app/components/text-input';
-import WolloInput from 'app/components/wollo-input';
+import PaymentInput from 'app/components/payment-input';
 import Icon from 'app/components/icon';
 import {isValidPublicKey} from '@pigzbe/stellar-utils';
 import {MEMO_MAX_LEN} from 'app/constants';
@@ -128,7 +128,7 @@ export default class Form extends Component {
                 <TouchableOpacity style={styles.scanButton} onPress={this.onScanQrCode}>
                     <Icon style={styles.scanIcon} name="qrCodeScan" />
                 </TouchableOpacity>
-                <WolloInput
+                <PaymentInput
                     initialAmount={this.state.amount}
                     error={amountError}
                     label={strings.transferAmount}

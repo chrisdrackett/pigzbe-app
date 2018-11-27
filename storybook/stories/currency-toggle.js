@@ -17,9 +17,14 @@ const props = {
     }
 };
 
-storiesOf('Wollo Input')
+storiesOf('Currency Toggle')
     .add('currency toggle', () => (
         <View style={style}>
             <CurrencyToggle {...props}/>
+        </View>
+    ))
+    .add('currency toggle XLM', () => (
+        <View style={style}>
+            <CurrencyToggle {...props} coin={'XLM'} />
         </View>
     ));

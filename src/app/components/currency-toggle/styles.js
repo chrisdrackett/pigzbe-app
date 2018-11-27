@@ -26,7 +26,7 @@ export default StyleSheet.create({
         width: '42%'
     },
     icon: {
-        height: 16,
+        height: 20,
     },
     handle: {
         position: 'absolute',

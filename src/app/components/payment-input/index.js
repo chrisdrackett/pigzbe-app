@@ -8,15 +8,15 @@ import moneyFormat from '../../utils/money-format';
 import {ASSET_CODE, CURRENCIES} from '../../constants';
 import ExchangedDisplay from '../exchanged-display';
 
-export class WolloInput extends Component {
+export class PaymentInput extends Component {
     state = {
-        currentCurrency: this.props.initialCurrency,
+        currentCurrency: this.props.selectedToken,
         currencyAmount: this.props.initialAmount,
         exchangedValue: 0,
     }
 
     static defaultProps = {
-        initialCurrency: ASSET_CODE,
+        selectedToken: ASSET_CODE,
         initialAmount: 0,
     }
 
@@ -61,11 +61,14 @@ export class WolloInput extends Component {
 
     render() {
         const {currencyAmount, currentCurrency} = this.state;
-        const {baseCurrency, ...restOfProps} = this.props;
+        const {selectedToken, baseCurrency, ...restOfProps} = this.props;
+
         const placeholder = baseCurrency === currentCurrency ?
             (CURRENCIES[baseCurrency].symbol + moneyFormat(0, CURRENCIES[baseCurrency].dps))
             :
-            '0 WLO';
+            `0 ${CURRENCIES[currentCurrency].name}`;
+
+        console.log('currentCurrency', currentCurrency);
 
         return (
             <Fragment>
@@ -84,6 +87,7 @@ export class WolloInput extends Component {
                     </View>
                     <View style={styles.toggle}>
                         <CurrencyToggle
+                            coin={selectedToken}
                             currency={baseCurrency}
                             onCurrencyChange={this.onCurrencyChange}
                         />
@@ -92,6 +96,7 @@ export class WolloInput extends Component {
                 <ExchangedDisplay
                     amount={currencyAmount ? String(currencyAmount).replace(/,/g, '') : null}
                     currency={currentCurrency}
+                    selectedToken={selectedToken}
                 />
             </Fragment>
         );
@@ -101,4 +106,4 @@ export class WolloInput extends Component {
 export default connect(state => ({
     baseCurrency: state.settings.baseCurrency,
     exchange: state.exchange.exchange,
-}))(WolloInput);
+}))(PaymentInput);
