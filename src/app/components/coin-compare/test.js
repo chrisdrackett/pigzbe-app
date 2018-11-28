@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import Coin from './';
 
 const props = {
-    coin: 'btc',
+    coin: 'BTC',
     value: '1231.12312'
 };
 

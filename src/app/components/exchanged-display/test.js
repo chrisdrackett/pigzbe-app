@@ -22,6 +22,8 @@ const store = createStore(combineReducers({
 }));
 
 const props = {
+    currencyFrom: 'WLO',
+    currencyTo: 'USD',
     onChangeAmount: () => {}
 };
 

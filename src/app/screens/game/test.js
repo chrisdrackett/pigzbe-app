@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {Game} from './';
 import {Provider} from 'react-redux';
-import wollo from '../../reducers/wollo';
+import wallet from '../../reducers/wallet';
 import keys from '../../reducers/keys';
 import kids from '../../reducers/kids';
 import settings from '../../reducers/settings';
@@ -52,7 +52,7 @@ const props = {
 describe('Game', () => {
     test('renders correctly', () => {
         renderer.create(
-            <Provider store={mockStore({wollo, keys, kids, settings, exchange})}>
+            <Provider store={mockStore({wallet, keys, kids, settings, exchange})}>
                 <Game {...props} />
             </Provider>
         );
