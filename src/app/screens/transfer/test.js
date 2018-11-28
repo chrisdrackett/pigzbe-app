@@ -1,9 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
-import {Send} from './';
-import wollo from '../../reducers/wollo';
-// import coins from '../../reducers/coins';
+import {Transfer} from './';
+import wallet from '../../reducers/wallet';
+import keys from '../../reducers/keys';
 import settings from '../../reducers/settings';
 import {mockStore} from '../../../setupTests';
 
@@ -23,11 +23,15 @@ const exchange = () => ({
     publicKey: 'GD5Q7KRFQC3Q7YQPYAZ4G65B65EBCJOVSHPE65MIYQMCLUQULQDKBLUX',
 });
 
-describe('Send', () => {
+const props = {
+    selectedToken: 'WLO',
+};
+
+describe('Transfer', () => {
     test('renders correctly', () => {
         renderer.create(
-            <Provider store={mockStore({wollo, exchange, settings})}>
-                <Send />
+            <Provider store={mockStore({wallet, exchange, settings, keys})}>
+                <Transfer {...props} />
             </Provider>
         );
     });

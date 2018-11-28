@@ -7,10 +7,17 @@ const store = createStore(combineReducers({
     app: () => ({
         isConnected: true,
     }),
+    config: () => ({
+        network: 'mainnet'
+    }),
+    keys: () => ({
+        publicKey: ''
+    }),
     settings: () => ({
         baseCurrency: 'GBP'
     }),
-    wollo: () => ({
+    wallet: () => ({
+        selectedToken: 'WLO',
         balances: {
             WLO: '0',
             XLM: '0',

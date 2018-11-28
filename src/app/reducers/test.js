@@ -92,33 +92,6 @@ describe('Reducers', () => {
         it('should return the initial state', () => {
             expect(walletReducer(undefined, {})).toEqual(walletState);
         });
-
-        it('should handle account update', () => {
-            const account = {
-                id: '1234'
-            };
-
-            expect(walletReducer(undefined, {
-                type: actions.WOLLO_UPDATE_ACCOUNT,
-                account
-            }))
-                .toEqual(Object.assign({}, walletState, {
-                    account
-                }));
-        });
-
-        it('should handle balance update', () => {
-            const balance = '123';
-
-            expect(walletReducer(undefined, {
-                type: actions.WOLLO_UPDATE_BALANCE,
-                balance
-            }))
-                .toEqual(Object.assign({}, walletState, {
-                    balance
-                }));
-        });
-
     });
 
     describe('Game', () => {

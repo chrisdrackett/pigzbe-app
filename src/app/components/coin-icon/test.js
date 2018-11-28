@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import CoinIcon from './';
 
 const props = {
-    coin: 'btc',
+    coin: 'BTC',
     style: null
 };
 

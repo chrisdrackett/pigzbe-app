@@ -98,8 +98,8 @@ exports[`NotificationModal renders correctly 1`] = `
               "marginRight": 32,
               "minHeight": 200,
               "paddingBottom": 20,
-              "paddingLeft": 20,
-              "paddingRight": 20,
+              "paddingLeft": 22,
+              "paddingRight": 22,
               "paddingTop": 43,
               "width": 250,
             }
@@ -123,6 +123,7 @@ exports[`NotificationModal renders correctly 1`] = `
               Object {
                 "color": "rgb(0, 50, 120)",
                 "fontFamily": "Poppins",
+                "fontSize": 12,
                 "textAlign": "center",
               }
             }
@@ -319,8 +320,8 @@ exports[`NotificationModal renders correctly with custom title and btn label 1`]
               "marginRight": 32,
               "minHeight": 200,
               "paddingBottom": 20,
-              "paddingLeft": 20,
-              "paddingRight": 20,
+              "paddingLeft": 22,
+              "paddingRight": 22,
               "paddingTop": 43,
               "width": 250,
             }
@@ -344,6 +345,7 @@ exports[`NotificationModal renders correctly with custom title and btn label 1`]
               Object {
                 "color": "rgb(0, 50, 120)",
                 "fontFamily": "Poppins",
+                "fontSize": 12,
                 "textAlign": "center",
               }
             }
@@ -540,8 +542,8 @@ exports[`NotificationModal renders correctly with no button 1`] = `
               "marginRight": 32,
               "minHeight": 200,
               "paddingBottom": 20,
-              "paddingLeft": 20,
-              "paddingRight": 20,
+              "paddingLeft": 22,
+              "paddingRight": 22,
               "paddingTop": 43,
               "width": 250,
             }
@@ -565,6 +567,7 @@ exports[`NotificationModal renders correctly with no button 1`] = `
               Object {
                 "color": "rgb(0, 50, 120)",
                 "fontFamily": "Poppins",
+                "fontSize": 12,
                 "textAlign": "center",
               }
             }
