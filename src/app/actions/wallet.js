@@ -22,9 +22,10 @@ import {
     ASSET_CODE,
     INFLATION_DEST,
     MEMO_PREPEND_CREATE,
-    KID_WALLET_BALANCE_XLM
-} from '../constants';
-import {wolloAsset} from '../selectors';
+    KID_WALLET_BALANCE_XLM,
+    CURRENCIES
+} from 'app/constants';
+import {wolloAsset} from 'app/selectors';
 import {createKeypair, appError, updateKidBalance, loadSecretKey, saveSecretKey} from './';
 import formatMemo from 'app/utils/format-memo';
 
@@ -162,8 +163,8 @@ export const loadPayments = address => async (dispatch, getState) => {
 };
 
 
-export const sendWollo = (destination, amount, memo) => async (dispatch, getState) => {
-    console.log('sendWollo', destination, amount, memo);
+export const sendTokens = (tokenCode, destination, amount, memo) => async (dispatch, getState) => {
+    console.log('sendTokens', tokenCode, destination, amount, memo);
     try {
         if (!isValidPublicKey(destination)) {
             dispatch(walletError(strings.transferErrorInvalidKey));
@@ -200,23 +201,27 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
             return;
         }
 
-        const asset = wolloAsset(getState());
+        let asset;
 
-        const isTrusted = checkAssetTrusted(destAccount, asset);
+        if (tokenCode === ASSET_CODE) {
+            asset = wolloAsset(getState());
 
-        if (!isTrusted) {
-            dispatch(handleTransferError(strings.transferErrorTrust));
-            return;
+            const isTrusted = checkAssetTrusted(destAccount, asset);
+
+            if (!isTrusted) {
+                dispatch(handleTransferError(strings.transferErrorTrust));
+                return;
+            }
         }
 
-        dispatch(walletSendStatus(strings.transferStatusSending));
+        dispatch(walletSendStatus(`Sending ${CURRENCIES[tokenCode].name}`));
 
         let result;
 
         try {
             result = await sendPayment(secretKey, destination, amount, memo, asset);
         } catch (e) {
-            console.error(e);
+            console.log(e.response);
         }
 
         if (!result) {
@@ -231,7 +236,7 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
         dispatch(walletError(null));
         dispatch(loadWallet(publicKey));
     } catch (e) {
-        console.error(e);
+        console.log(e.response);
         dispatch(handleTransferError(strings.transferStatusFailed));
     }
 };

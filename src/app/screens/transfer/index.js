@@ -1,13 +1,12 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {strings, SCREEN_DASHBOARD} from 'app/constants';
+import {strings, SCREEN_DASHBOARD, CURRENCIES} from 'app/constants';
 import Button from 'app/components/button';
 import Progress from 'app/components/progress';
 import StepModule from 'app/components/step-module';
-import {walletSendReset, sendWollo} from 'app/actions';
+import {walletSendReset, sendTokens} from 'app/actions';
 import Form from './form';
 import Review from './review';
-import {getBalance} from 'app/selectors';
 
 export class Transfer extends Component {
     state = {
@@ -29,8 +28,9 @@ export class Transfer extends Component {
 
     onSend = () => {
         const {destination, amount, memo} = this.state;
+        const {selectedToken} = this.props;
 
-        this.props.dispatch(sendWollo(destination, amount, memo));
+        this.props.dispatch(sendTokens(selectedToken, destination, amount, memo));
     }
 
     onFinish = () => {
@@ -43,26 +43,24 @@ export class Transfer extends Component {
     onEdit = () => this.setState({review: false})
 
     render() {
-        const {dispatch, balance, exchange, sending, sendComplete, sendStatus, error, publicKey} = this.props;
+        const {sending, sendComplete, sendStatus, error, selectedToken} = this.props;
+
+        const token = CURRENCIES[selectedToken];
 
         return (
             <Fragment>
                 <StepModule
-                    title={this.state.review ? 'Review Transfer' : 'Transfer Wollo'}
+                    title={this.state.review ? 'Review Transfer' : `Transfer ${token.name}`}
                     icon="transfer"
                     error={error}
                     pad
                     paddingTop={10}
                     keyboardOffset={-50}
-                    customTitle="Transfer"
+                    tokenSelector={true}
                 >
                     {this.state.review ? (
                         <Fragment>
                             <Review
-                                dispatch={dispatch}
-                                exchange={exchange}
-                                balance={balance}
-                                publicKey={publicKey}
                                 destination={this.state.destination}
                                 amount={this.state.amount}
                                 memo={this.state.memo}
@@ -77,10 +75,6 @@ export class Transfer extends Component {
                         </Fragment>
                     ) : (
                         <Form
-                            dispatch={dispatch}
-                            exchange={exchange}
-                            balance={balance}
-                            publicKey={publicKey}
                             destination={this.state.destination}
                             amount={this.state.amount}
                             memo={this.state.memo}
@@ -104,12 +98,10 @@ export class Transfer extends Component {
 
 export default connect(
     state => ({
+        selectedToken: state.wallet.selectedToken,
         error: state.wallet.error,
-        balance: getBalance(state),
-        exchange: state.exchange.exchange,
         sending: state.wallet.sending,
         sendStatus: state.wallet.sendStatus,
         sendComplete: state.wallet.sendComplete,
-        publicKey: state.keys.publicKey,
     })
 )(Transfer);

@@ -22,10 +22,11 @@ const getStore = (token = 'WLO') => createStore(combineReducers({
     }),
     wallet: () => ({
         balances: {
-            WLO: '10',
+            WLO: '10000',
             XLM: '20',
         },
         selectedToken: token,
+        hasGas: true,
     }),
     kids: () => ({
         sendError: null
@@ -72,6 +73,7 @@ const props = {
         WLO: '10',
         XLM: '20',
     },
+    selectedToken: 'WLO',
 };
 
 export const kids = [{

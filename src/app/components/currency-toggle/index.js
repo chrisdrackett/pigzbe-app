@@ -14,6 +14,12 @@ export default class CurrencyToggle extends Component {
         coin: ASSET_CODE,
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.coin !== this.props.coin && this.state.currentCurrency === prevProps.coin) {
+            this.setState({currentCurrency: this.props.coin});
+        }
+    }
+
     onClicked = () => {
         const {currentCurrency, left} = this.state;
         const {coin, currency} = this.props;
@@ -34,6 +40,7 @@ export default class CurrencyToggle extends Component {
 
     render() {
         const {currency} = this.props;
+        const coin = CURRENCIES[currency];
 
         return (
             <TouchableOpacity style={styles.container} onPress={this.onClicked}>
@@ -42,11 +49,11 @@ export default class CurrencyToggle extends Component {
                     <Icon style={styles.icon} name={this.props.coin} />
                 </View>
                 <View style={styles.iconContainer}>
-                    {!CURRENCIES[currency].icon &&
-                        <Text style={styles.text}>{CURRENCIES[currency].symbol}</Text>
+                    {!coin.icon &&
+                        <Text style={styles.text}>{coin.symbol}</Text>
                     }
-                    {!!CURRENCIES[currency].icon &&
-                        <Icon style={styles.icon} aspectRatio={1} name={CURRENCIES[currency].icon} />
+                    {!!coin.icon &&
+                        <Icon style={styles.icon} aspectRatio={1} name={coin.icon} />
                     }
                 </View>
             </TouchableOpacity>

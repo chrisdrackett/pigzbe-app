@@ -2,7 +2,6 @@ import React, {Fragment} from 'react';
 import {storiesOf} from '@storybook/react-native';
 import {Transfer} from '../../src/app/screens/transfer';
 import Review from '../../src/app/screens/transfer/review';
-import Payments from '../../src/app/components/payments';
 import StepModule from '../../src/app/components/step-module';
 import Button from '../../src/app/components/button';
 import {Provider} from 'react-redux';
@@ -472,7 +471,7 @@ const payments = [
     }
 ];
 
-const store = createStore(combineReducers({
+const getStore = (token = 'WLO') => createStore(combineReducers({
     settings: () => ({
         baseCurrency: 'GBP'
     }),
@@ -485,10 +484,12 @@ const store = createStore(combineReducers({
             USD: 0.12,
             JPY: 13.8984,
             GBP: 0.091956,
-            GOLD: 0.0031452
+            GOLD: 0.0031452,
+            WLO: 1,
         }
     }),
     wallet: () => ({
+        selectedToken: token,
         loading: false,
         payments,
         balances: {
@@ -529,16 +530,18 @@ const props = {
         USD: 0.12,
         JPY: 13.8984,
         GBP: 0.091956,
-        GOLD: 0.0031452
+        GOLD: 0.0031452,
+        WLO: 1,
     },
     sending: false,
     sendStatus: null,
     sendComplete: false,
-    payments
+    payments,
+    selectedToken: 'WLO'
 };
 
 storiesOf('Transfer')
-    .addDecorator(story => <Provider store={store}>{story()}</Provider>)
+    .addDecorator(story => <Provider store={getStore()}>{story()}</Provider>)
     .add('transfer', () => (
         <Transfer {...props}/>
     ))
@@ -550,6 +553,7 @@ storiesOf('Transfer')
             pad
             paddingTop={10}
             keyboardOffset={-50}
+            tokenSelector={true}
         >
             <Fragment>
                 <Review {...{
@@ -605,9 +609,6 @@ storiesOf('Transfer')
             sendComplete: true,
         }}/>
     ))
-    .add('payments', () => (
-        <Payments {...props}/>
-    ))
     .add('transfer loading', () => (
         <Transfer {...{
             ...props,
@@ -621,4 +622,40 @@ storiesOf('Transfer')
             payments: [],
             error: new Error('Network error')
         }}/>
+    ));
+
+storiesOf('Transfer')
+    .addDecorator(story => <Provider store={getStore('XLM')}>{story()}</Provider>)
+    .add('transfer XLM', () => (
+        <Transfer {...{
+            ...props,
+            selectedToken: 'XLM'
+        }} />
+    ))
+    .add('review transfer XLM', () => (
+        <StepModule
+            title={'Review Transfer'}
+            icon="transfer"
+            error={null}
+            pad
+            paddingTop={10}
+            keyboardOffset={-50}
+            tokenSelector={true}
+        >
+            <Fragment>
+                <Review {...{
+                    ...props,
+                    amount: '1',
+                    memo: 'Happy Birthday',
+                    destination: 'GDPCWCCJDXJHSA3GA62PFMZNP6A7NZSEGNEH3F3LSSUQZZ3NDCFVB6GB',
+                    onReview: () => {},
+                    selectedToken: 'XLM'
+                }} />
+                <Button
+                    theme="outline"
+                    label={'Cancel'}
+                    onPress={() => {}}
+                />
+            </Fragment>
+        </StepModule>
     ));

@@ -2,24 +2,23 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Text} from 'react-native';
 import styles from './styles';
-import {ASSET_CODE} from '../../constants';
 import getPrice from 'app/utils/get-price';
 
 const ExchangedDisplay = ({
     amount,
-    currency,
     exchange,
-    baseCurrency,
-    style,
-    selectedToken = ASSET_CODE
+    label = 'Estimate:',
+    currencyFrom = null,
+    currencyTo = null,
+    extraDps = 0,
+    style
 }) => {
 
-    const convertTo = currency === baseCurrency ? selectedToken : baseCurrency;
-    const price = getPrice(currency, convertTo, exchange, amount);
+    const price = getPrice(currencyFrom, currencyTo, exchange, amount, true, extraDps);
 
     return (
         <Text style={[styles.text, style]}>
-            Estimate: {price}
+            {label} {price}
         </Text>
     );
 };

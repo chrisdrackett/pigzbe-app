@@ -7,7 +7,17 @@ import AmountExchange from '../amount-exchange';
 import Icon from '../icon';
 import CoinIcon from '../coin-icon';
 
-export default ({balance, exchange, baseCurrency, dark, style, label, small, link, selectedToken = ASSET_CODE}) => (
+export default ({
+    balance,
+    exchange,
+    baseCurrency,
+    dark,
+    style,
+    label,
+    small,
+    link,
+    selectedToken = ASSET_CODE
+}) => (
     <View style={[styles.wolloContainer, style]}>
         <View style={styles.balanceContainer}>
             <CoinIcon coin={selectedToken} style={styles.currencyLogo} small light={!dark} />
