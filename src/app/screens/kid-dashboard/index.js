@@ -17,9 +17,17 @@ import ActionPanel from 'app/components/action-panel';
 import ActionSheet from 'app/components/action-sheet';
 import WolloSendSlider from 'app/components/wollo-send-slider';
 import styles from './styles';
-import {deleteAllowance, deleteTask, deleteGoal, appAddWarningAlert} from 'app/actions';
 import FundingMessage from 'app/components/funding-message';
 import ConfirmModal from 'app/components/confirm-modal';
+import {
+    deleteAllowance,
+    deleteTask,
+    deleteGoal,
+    appAddWarningAlert,
+    appError,
+    appAddSuccessAlert,
+    deleteKid
+} from 'app/actions';
 
 class Item extends Component {
     onPress = () => this.props.onPress(this.props.data)
@@ -55,6 +63,7 @@ export class KidDashboard extends Component {
         showFundingMessage: this.props.showFundingMessage,
         fundingType: null,
         requestDelete: false,
+        deletingKid: false,
     }
 
     static defaultProps = {
@@ -168,8 +177,22 @@ export class KidDashboard extends Component {
 
     onDeleteCancel = () => this.setState({requestDelete: false})
 
-    onDeleteConfirm = () => {
-        this.setState({requestDelete: false});
+    onDeleteConfirm = async () => {
+        this.setState({requestDelete: false, deletingKid: true});
+
+        const result = await this.props.dispatch(deleteKid(this.props.kid));
+
+        console.log('result', result);
+
+        this.setState({deletingKid: false});
+        // appAddSuccessAlert
+        // appError
+        if (result.success) {
+            this.props.dispatch(appAddSuccessAlert('Child profile deleted'));
+            this.onBack();
+        } else {
+            this.props.dispatch(appError(result.error));
+        }
     }
 
     render () {
@@ -183,8 +206,12 @@ export class KidDashboard extends Component {
             balances,
         } = this.props;
 
-        const loading = (!exchange) || goalLoading || taskLoading || allowanceLoading;
-        const loaderMessage = taskLoading ? 'Deleting task' : null;
+        if (!kid) {
+            return null;
+        }
+
+        const loading = (!exchange) || goalLoading || taskLoading || allowanceLoading || this.state.deletingKid;
+        const loaderMessage = taskLoading ? 'Deleting task' : this.state.deletingKid ? 'Deleting child profile' : null;
 
         return (
             <Fragment>

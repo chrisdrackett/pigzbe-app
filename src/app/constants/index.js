@@ -79,6 +79,7 @@ export const MEMO_PREPEND_CREATE = 'C:';
 export const MEMO_PREPEND_TASK = 'T:';
 export const MEMO_PREPEND_PRESENT = 'P:';
 export const MEMO_PREPEND_ALLOWANCE = 'A:';
+export const MEMO_PREPEND_DELETE = 'D:';
 
 export const MIN_BALANCE = 1.6;
 export const MIN_BALANCE_XLM_ADD_KID = 1.6;

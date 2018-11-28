@@ -15,13 +15,15 @@ import {
     trustAssetTransaction,
     submitTransaction,
     Keypair,
-    Operation
+    Operation,
+    Memo
 } from '@pigzbe/stellar-utils';
 import {
     strings,
     ASSET_CODE,
     INFLATION_DEST,
     MEMO_PREPEND_CREATE,
+    MEMO_PREPEND_DELETE,
     KID_WALLET_BALANCE_XLM,
     CURRENCIES
 } from 'app/constants';
@@ -293,3 +295,71 @@ export const createKidAccount = (nickname, parentNickname) => async dispatch => 
 };
 
 export const setSelectedToken = code => ({type: WALLET_SET_SELECTED_TOKEN, code});
+
+export const mergeKidWallet = kid => async (dispatch, getState) => {
+    console.log('mergeKidWallet', kid);
+
+    const {name, address} = kid;
+    const {publicKey} = getState().keys;
+
+    try {
+        let account = null;
+
+        try {
+            account = await loadAccount(address);
+        } catch (e) {
+            return {success: false, error: 'Account not found'};
+        }
+
+        const secretKey = await dispatch(loadSecretKey(address));
+        const keypair = Keypair.fromSecret(secretKey);
+
+        const memo = formatMemo(`${MEMO_PREPEND_DELETE}${name}`);
+
+        const wloAmount = getWolloBalance(account);
+        const asset = wolloAsset(getState());
+
+        try {
+            if (Number(wloAmount) > 0) {
+                await sendPayment(secretKey, publicKey, wloAmount, memo, asset);
+                account = await loadAccount(address);
+            }
+        } catch (e) {
+            console.log(e.response || e);
+            return {success: false, error: 'Failed to send Wollo'};
+        }
+
+        try {
+            const txbT = new TransactionBuilder(account);
+            txbT.addOperation(Operation.changeTrust({
+                asset,
+                limit: '0'
+            }));
+            const txT = txbT.build();
+            txT.sign(keypair);
+            await submitTransaction(txT);
+            account = await loadAccount(address);
+        } catch (e) {
+            console.log(e.response || e);
+            return {success: false, error: 'Failed to remove trustline'};
+        }
+
+        try {
+            const txb = new TransactionBuilder(account);
+            txb.addOperation(Operation.accountMerge({
+                destination: publicKey
+            }));
+            txb.addMemo(Memo.text(memo));
+            const tx = txb.build();
+            tx.sign(keypair);
+            await submitTransaction(tx);
+        } catch (e) {
+            console.log(e.response || e);
+            return {success: false, error: 'Failed to merge account'};
+        }
+    } catch (e) {
+        console.log(e);
+        return {success: false, error: 'Failed to delete account'};
+    }
+    return {success: true};
+};
