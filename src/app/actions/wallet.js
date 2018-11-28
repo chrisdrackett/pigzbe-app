@@ -189,23 +189,23 @@ export const sendTokens = (tokenCode, destination, amount, memo) => async (dispa
 
         let destAccount;
 
-        try {
-            destAccount = await loadAccount(destination);
-        } catch (e) {
-            console.log(e);
-        }
-
-        console.log('--- destAccount ---', destAccount);
-
-        if (!destAccount) {
-            console.log('--- !destAccount ---', destAccount);
-            dispatch(handleTransferError(strings.transferStatusInvalidDestination));
-            return;
-        }
-
         let asset;
 
         if (tokenCode === ASSET_CODE) {
+            try {
+                destAccount = await loadAccount(destination);
+            } catch (e) {
+                console.log(e);
+            }
+
+            console.log('--- destAccount ---', destAccount);
+
+            if (!destAccount) {
+                console.log('--- !destAccount ---', destAccount);
+                dispatch(handleTransferError(strings.transferStatusInvalidDestination));
+                return;
+            }
+
             asset = wolloAsset(getState());
 
             const isTrusted = checkAssetTrusted(destAccount, asset);
@@ -224,6 +224,9 @@ export const sendTokens = (tokenCode, destination, amount, memo) => async (dispa
             result = await sendPayment(secretKey, destination, amount, memo, asset);
         } catch (e) {
             console.log(e.response);
+            if (tokenCode !== ASSET_CODE && Number(amount) >= 1) {
+                result = await createAccount(secretKey, destination, amount, memo);
+            }
         }
 
         if (!result) {
