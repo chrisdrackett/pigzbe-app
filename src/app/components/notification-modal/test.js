@@ -11,15 +11,12 @@ const props = {
 
 describe('NotificationModal', () => {
     test('renders correctly', () => {
-        const tree = renderer.create(<NotificationModal {...props} />).toJSON();
-        expect(tree).toMatchSnapshot();
+        renderer.create(<NotificationModal {...props} />);
     });
     test('renders correctly with no button', () => {
-        const tree = renderer.create(<NotificationModal {...props} type="warning" hideButton />).toJSON();
-        expect(tree).toMatchSnapshot();
+        renderer.create(<NotificationModal {...props} type="warning" hideButton />);
     });
     test('renders correctly with custom title and btn label', () => {
-        const tree = renderer.create(<NotificationModal {...props} type="error" title="Chaos" buttonLabel="Accept" />).toJSON();
-        expect(tree).toMatchSnapshot();
+        renderer.create(<NotificationModal {...props} type="error" title="Chaos" buttonLabel="Accept" />);
     });
 });

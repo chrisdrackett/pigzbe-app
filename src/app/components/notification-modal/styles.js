@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
-
-import {fontFamily, color} from '../../styles';
+import {color} from '../../styles';
 
 export default StyleSheet.create({
     overlay: {
@@ -39,24 +38,33 @@ export default StyleSheet.create({
         width: 67,
         height: 67,
     },
+    text: {
+        fontSize: 12,
+    },
+    buttons: {
+        alignSelf: 'stretch',
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
     button: {
         marginTop: 20,
         width: 'auto',
         paddingLeft: 15,
         paddingRight: 15,
     },
-    title: {
-        fontFamily,
-        color: color.blue,
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginBottom: 10,
+    buttonB: {
+        marginLeft: 10,
     },
-    text: {
-        fontFamily,
-        color: color.blue,
+    buttonSmall: {
+        marginTop: 5,
+        marginBottom: 0,
+    },
+    buttonSmallText: {
         fontSize: 12,
-        textAlign: 'center',
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 10,
+        height: 36,
     },
     progress: {
         marginTop: 20,

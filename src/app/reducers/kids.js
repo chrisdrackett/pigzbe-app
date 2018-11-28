@@ -25,6 +25,7 @@ import {
     KIDS_SET_BALANCE,
     KIDS_GOAL_WOLLO_TRANSACTION,
     KIDS_UPDATE_GOAL_HISTORY,
+    KIDS_REMOVE_KID
 } from '../actions';
 
 const kidDefaults = {
@@ -362,6 +363,11 @@ export default (state = initialState, action) => {
                     }
                     return kid;
                 }),
+            };
+        case KIDS_REMOVE_KID:
+            return {
+                ...state,
+                kids: state.kids.filter(kid => kid.address !== action.address),
             };
         default:
             return state;

@@ -20,6 +20,7 @@ class NotificationModalTest extends React.Component {
                     onPress={() => this.setState({open: true})}
                 />
                 <NotificationModal
+                    {...this.props}
                     open={this.state.open}
                     type={this.props.type || 'success'}
                     text={this.props.text || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.'}
@@ -46,4 +47,12 @@ storiesOf('NotificationModal')
     .add('with no button', () => (
         <NotificationModalTest type="success" hideButton />
     ))
-    
+    .add('with two buttons', () => (
+        <NotificationModalTest
+            type="warning"
+            buttonLabel="Cancel"
+            onButtonPress={() => {}}
+            buttonLabelB="Confirm"
+            onButtonPressB={() => {}}
+        />
+    ));

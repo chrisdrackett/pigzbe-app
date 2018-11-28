@@ -26,7 +26,7 @@ import Tour from './tour';
 import Trees from './trees';
 import Messages from './messages';
 import IconButton from 'app/components/icon-button';
-import Logout from 'app/components/game-logout';
+import ConfirmModal from 'app/components/confirm-modal';
 
 export class Game extends Component {
     state = {
@@ -383,7 +383,11 @@ export class Game extends Component {
                         light
                     />
                 </View>}
-                <Logout
+                <ConfirmModal
+                    title="Logout?"
+                    text="Please confirm you would like to logout"
+                    cancel="Cancel"
+                    confirm="Logout"
                     open={this.state.logout}
                     onConfirm={this.onLogoutConfirm}
                     onCancel={this.onLogoutCancel}

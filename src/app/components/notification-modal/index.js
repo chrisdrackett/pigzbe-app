@@ -1,9 +1,11 @@
 import React from 'react';
-import {View, Image, Text, ActivityIndicator} from 'react-native';
+import {View, Image, ActivityIndicator} from 'react-native';
 import styles from './styles';
 import Button from '../button';
 import IconButton from '../icon-button';
-import {color} from '../../styles';
+import Title from '../title';
+import Paragraph from '../paragraph';
+import {color} from 'app/styles';
 import Modal from 'react-native-modal';
 
 const types = {
@@ -36,6 +38,8 @@ export default ({
     onButtonPress = null,
     closeCross,
     onModalHide,
+    buttonLabelB = null,
+    onButtonPressB = null,
 }) => (
     <Modal
         isVisible={open}
@@ -48,19 +52,36 @@ export default ({
         <View style={styles.overlay}>
             <View style={styles.outerContainer}>
                 <View style={styles.container}>
-                    <Text style={styles.title}>{title || types[type].title}</Text>
-                    <Text style={styles.text}>{text}</Text>
+                    <Title dark>{title || types[type].title}</Title>
+                    {typeof text === 'string' && (
+                        <Paragraph style={styles.text}>{text}</Paragraph>
+                    )}
+                    {Array.isArray(text) && (
+                        text.map(t => (<Paragraph key={t} style={styles.text}>{t}</Paragraph>))
+                    )}
                     {type === 'progress' && (
                         <View style={styles.progress}>
                             <ActivityIndicator size="large" color={color.pink} />
                         </View>
                     )}
                     {!hideButton &&
-                        <Button
-                            label={buttonLabel}
-                            onPress={onButtonPress ? onButtonPress : onRequestClose}
-                            style={styles.button}
-                        />
+                        <View style={styles.buttons}>
+                            <Button
+                                theme={buttonLabelB && onButtonPressB ? 'outline' : null}
+                                label={buttonLabel}
+                                onPress={onButtonPress ? onButtonPress : onRequestClose}
+                                style={[styles.button, buttonLabelB && onButtonPressB ? styles.buttonSmall : null]}
+                                textStyle={buttonLabelB && onButtonPressB ? styles.buttonSmallText : null}
+                            />
+                            {buttonLabelB && onButtonPressB && (
+                                <Button
+                                    label={buttonLabelB}
+                                    onPress={onButtonPressB}
+                                    style={[styles.button, styles.buttonSmall, styles.buttonB]}
+                                    textStyle={styles.buttonSmallText}
+                                />
+                            )}
+                        </View>
                     }
                 </View>
                 {types[type] && (

@@ -4,6 +4,7 @@ import {Image} from 'react-native';
 export default class SpritePlayer extends Component {
     lastTime = 0
     elapsed = 0
+    raf = null
 
     state = {
         currentFrame: 0,
@@ -15,6 +16,10 @@ export default class SpritePlayer extends Component {
 
     componentDidMount() {
         this.update();
+    }
+
+    componentWillUnmount() {
+        cancelAnimationFrame(this.raf);
     }
 
     update = (time = 0) => {
@@ -38,7 +43,7 @@ export default class SpritePlayer extends Component {
             this.setState({currentFrame});
         }
 
-        requestAnimationFrame(this.update);
+        this.raf = requestAnimationFrame(this.update);
     }
 
     render() {

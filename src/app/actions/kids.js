@@ -4,7 +4,8 @@ import {
     createKidAccount,
     fundKidAccount,
     refreshBalance,
-    loadKidActions
+    loadKidActions,
+    mergeKidWallet
 } from './';
 import {wolloAsset} from '../selectors';
 import formatMemo from 'app/utils/format-memo';
@@ -24,6 +25,7 @@ export const KIDS_SENDING_WOLLO = 'KIDS_SENDING_WOLLO';
 export const KIDS_SEND_ERROR = 'KIDS_SEND_ERROR';
 export const KIDS_SEND_COMPLETE = 'KIDS_SEND_COMPLETE';
 export const KIDS_BALANCE_UPDATE = 'KIDS_BALANCE_UPDATE';
+export const KIDS_REMOVE_KID = 'KIDS_REMOVE_KID';
 
 export const kidsLoading = value => ({type: KIDS_LOADING, value});
 
@@ -125,5 +127,20 @@ export const loadKidsActions = () => async (dispatch, getState) => {
         }
     } catch (error) {
         console.log(error);
+    }
+};
+
+export const deleteKid = kid => async dispatch => {
+    try {
+        console.log('deleteKid', kid);
+
+        const result = await dispatch(mergeKidWallet(kid));
+        if (result.success) {
+            dispatch(({type: KIDS_REMOVE_KID, address: kid.address}));
+        }
+        return result;
+    } catch (e) {
+        console.log(e);
+        return {success: false, error: 'Failed to delete kid'};
     }
 };

@@ -31,6 +31,8 @@ const startX = Dimensions.get('window').width + 100;
 const startY = 100;
 
 export default class Birds extends Component {
+    raf = null
+
     state = {
         x: startX,
         y: startY,
@@ -44,6 +46,10 @@ export default class Birds extends Component {
         this.update();
     }
 
+    componentWillUnmount() {
+        cancelAnimationFrame(this.raf);
+    }
+
     update = () => {
         let x = this.state.x - 2;
         let y = this.state.y;
@@ -55,7 +61,7 @@ export default class Birds extends Component {
 
         this.setState({x, y});
 
-        requestAnimationFrame(this.update);
+        this.raf = requestAnimationFrame(this.update);
     }
 
     render() {
