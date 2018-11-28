@@ -19,6 +19,7 @@ const icons = {
     gameBack: require('./images/gameBack.png'),
     crossBlue: require('./images/cross_blue.png'),
     logout: require('./images/logout.png'),
+    trash: require('./images/trash.png'),
 };
 
 export default ({name, style = {}}) => (

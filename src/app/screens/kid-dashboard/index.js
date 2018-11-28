@@ -9,16 +9,17 @@ import {
     SCREEN_KID_GOAL_ADD,
     SCREEN_SETTINGS
 } from '../../constants';
-import BalanceGraph from '../../components/balance-graph';
-import Balance from '../../components/balance';
-import StepModule from '../../components/step-module';
-import KidAvatar from '../../components/kid-avatar';
-import ActionPanel from '../../components/action-panel';
-import ActionSheet from '../../components/action-sheet';
+import BalanceGraph from 'app/components/balance-graph';
+import Balance from 'app/components/balance';
+import StepModule from 'app/components/step-module';
+import KidAvatar from 'app/components/kid-avatar';
+import ActionPanel from 'app/components/action-panel';
+import ActionSheet from 'app/components/action-sheet';
 import WolloSendSlider from 'app/components/wollo-send-slider';
 import styles from './styles';
 import {deleteAllowance, deleteTask, deleteGoal, appAddWarningAlert} from 'app/actions';
-import FundingMessage from '../../components/funding-message';
+import FundingMessage from 'app/components/funding-message';
+import ConfirmModal from 'app/components/confirm-modal';
 
 class Item extends Component {
     onPress = () => this.props.onPress(this.props.data)
@@ -53,6 +54,7 @@ export class KidDashboard extends Component {
         goalToEdit: null,
         showFundingMessage: this.props.showFundingMessage,
         fundingType: null,
+        requestDelete: false,
     }
 
     static defaultProps = {
@@ -162,6 +164,14 @@ export class KidDashboard extends Component {
         this.props.navigation.push(SCREEN_SETTINGS);
     }
 
+    onDelete = () => this.setState({requestDelete: true})
+
+    onDeleteCancel = () => this.setState({requestDelete: false})
+
+    onDeleteConfirm = () => {
+        this.setState({requestDelete: false});
+    }
+
     render () {
         const {
             kid,
@@ -186,6 +196,8 @@ export class KidDashboard extends Component {
                     onBack={this.onBack}
                     customTitle={kid.name}
                     hideCustomTitleUntilScrolled={true}
+                    rightIcon="trash"
+                    onRightIcon={this.onDelete}
                 >
                     <View style={styles.header}>
                         <KidAvatar photo={kid.photo} size={54}/>
@@ -311,6 +323,19 @@ export class KidDashboard extends Component {
                     balances={balances}
                     onClose={this.onCloseFundingMessage}
                     fundingType={this.state.fundingType}
+                />
+                <ConfirmModal
+                    type="warning"
+                    title="Warning!"
+                    text={[
+                        'By proceeding your childs account will be closed and all their Wollo will be deposited back into your account.',
+                        'This process cannot be undone and all details will be lost!'
+                    ]}
+                    cancel="Cancel"
+                    confirm="Delete"
+                    open={this.state.requestDelete}
+                    onConfirm={this.onDeleteConfirm}
+                    onCancel={this.onDeleteCancel}
                 />
             </Fragment>
         );
