@@ -1,8 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Text, TouchableOpacity, View, Image} from 'react-native';
 import styles from './styles';
-import openURL from '../../utils/open-url';
-// import {daysAgo, dateFormat} from '../../utils/date';
 import {daysAgo} from '../../utils/date';
 
 const Inner = ({date, text}) => (
@@ -17,15 +15,21 @@ const Inner = ({date, text}) => (
     </View>
 );
 
-export default props => (
-    <View style={styles.message}>
-        {props.link ? (
-            <TouchableOpacity onPress={() => openURL(props.link)}>
-                <Inner {...props}/>
-                <Image style={styles.chevron} source={require('./images/chevron.png')}/>
-            </TouchableOpacity>
-        ) : (
-            <Inner {...props}/>
-        )}
-    </View>
-);
+export default class Message extends Component {
+    onOpenLink = () => this.props.onOpenLink(this.props.link)
+
+    render() {
+        return (
+            <View style={styles.message}>
+                {this.props.link ? (
+                    <TouchableOpacity onPress={this.onOpenLink}>
+                        <Inner {...this.props}/>
+                        <Image style={styles.chevron} source={require('./images/chevron.png')}/>
+                    </TouchableOpacity>
+                ) : (
+                    <Inner {...this.props}/>
+                )}
+            </View>
+        );
+    }
+}
