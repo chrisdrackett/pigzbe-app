@@ -18,20 +18,24 @@ import {
     MEMO_PREPEND_PRESENT,
     MEMO_PREPEND_ALLOWANCE,
     MEMO_PREPEND_CREATE,
+    MEMO_PREPEND_DELETE
 } from 'app/constants';
 
 const trimMemo = memo => {
     if (memo.indexOf(MEMO_PREPEND_ALLOWANCE) === 0) {
-        return memo.slice(MEMO_PREPEND_ALLOWANCE.length).trim();
+        return `Allowance ${memo.slice(MEMO_PREPEND_ALLOWANCE.length).trim()}`;
     }
     if (memo.indexOf(MEMO_PREPEND_PRESENT) === 0) {
-        return memo.slice(MEMO_PREPEND_PRESENT.length).trim();
+        return `Gift from ${memo.slice(MEMO_PREPEND_PRESENT.length).trim()}`;
     }
     if (memo.indexOf(MEMO_PREPEND_TASK) === 0) {
         return memo.slice(MEMO_PREPEND_TASK.length).trim();
     }
     if (memo.indexOf(MEMO_PREPEND_CREATE) === 0) {
-        return memo.slice(MEMO_PREPEND_CREATE.length).trim().replace(/\~/g, ' ');
+        return `Create profile ${memo.slice(MEMO_PREPEND_CREATE.length).trim().replace(/\~/g, ' ')}`;
+    }
+    if (memo.indexOf(MEMO_PREPEND_DELETE) === 0) {
+        return `Delete profile ${memo.slice(MEMO_PREPEND_DELETE.length).trim()}`;
     }
     return memo.trim();
 };
