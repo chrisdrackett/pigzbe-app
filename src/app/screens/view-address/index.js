@@ -34,12 +34,12 @@ export default class ViewAddress extends Component {
             // Android only:
             dialogTitle: title,
             // iOS only:
-            // excludedActivityTypes: [
-            //     'com.apple.UIKit.activity.PostToTwitter',
-            //     'com.apple.UIKit.activity.PostToFacebook',
-            //     'com.apple.UIKit.activity.PostToTencentWeibo',
-            //     'com.apple.UIKit.activity.PostToWeibo',
-            // ]
+            excludedActivityTypes: [
+                // 'com.apple.UIKit.activity.PostToTwitter',
+                'com.apple.UIKit.activity.PostToFacebook',
+                // 'com.apple.UIKit.activity.PostToTencentWeibo',
+                // 'com.apple.UIKit.activity.PostToWeibo',
+            ]
         });
 
         if (result.action !== 'dismissedAction') {
@@ -66,11 +66,8 @@ export default class ViewAddress extends Component {
                 >
                     <View>
                         <Title dark style={styles.title}>
-                            This is your Wollo (WLO) wallet address
+                            This is your public wallet address
                         </Title>
-                        {/* <Paragraph small>
-                            Sending any other digital asset will result in permanent loss.
-                        </Paragraph> */}
                     </View>
                     <View style={styles.qrCode}>
                         <QRCode
