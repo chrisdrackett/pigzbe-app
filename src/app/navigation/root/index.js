@@ -57,7 +57,7 @@ class Root extends Component {
     }
 
     onAppStateChange = (nextAppState) => {
-        if (nextAppState === 'background') {
+        if (nextAppState === 'background' && !this.props.stayLoggedIn) {
             this.onLogout();
         }
     }
@@ -90,6 +90,7 @@ class Root extends Component {
 export default connect(
     state => ({
         isConnected: state.app.isConnected,
+        stayLoggedIn: state.app.stayLoggedIn,
         alertType: state.app.alertType,
         alertMessage: state.app.alertMessage,
         inactivityTimeout: state.settings.inactivityTimeout,

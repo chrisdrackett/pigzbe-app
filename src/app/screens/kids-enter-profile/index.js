@@ -8,7 +8,7 @@ import DateInput from '../../components/date-input';
 import StepModule from '../../components/step-module';
 import Button from '../../components/button';
 import styles from './styles';
-import {addKid, appAddWarningAlert} from '../../actions';
+import {addKid, appAddWarningAlert, stayLoggedIn} from 'app/actions';
 import images from './images';
 
 const stripText = str => str.trim().replace(/[~]/g, '');
@@ -63,7 +63,11 @@ export class KidsEnterProfile extends Component {
     }
 
     getImage = async () => {
+        this.props.dispatch(stayLoggedIn(true));
+
         const result = await pickImage();
+
+        this.props.dispatch(stayLoggedIn(false));
 
         this.setState({
             image: result.uri,
