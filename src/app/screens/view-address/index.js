@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
 import {View, Text, Share, Clipboard} from 'react-native';
 import Button from '../../components/button';
 import StepModule from '../../components/step-module';
@@ -6,8 +7,9 @@ import Title from '../../components/title';
 import QRCode from 'react-native-qrcode';
 import styles from './styles';
 import Alert from 'app/components/alert';
+import {stayLoggedIn} from 'app/actions';
 
-export default class ViewAddress extends Component {
+export class ViewAddress extends Component {
     state = {
         alertMessage: null,
     }
@@ -24,6 +26,8 @@ export default class ViewAddress extends Component {
     }
 
     onShare = async () => {
+        this.props.dispatch(stayLoggedIn(true));
+
         const title = 'Address';
         const message = this.props.publicKey;
 
@@ -45,6 +49,8 @@ export default class ViewAddress extends Component {
         if (result.action !== 'dismissedAction') {
             this.showAlert('Address shared');
         }
+
+        this.props.dispatch(stayLoggedIn(false));
     }
 
     render() {
@@ -93,3 +99,5 @@ export default class ViewAddress extends Component {
         );
     }
 }
+
+export default connect()(ViewAddress);
