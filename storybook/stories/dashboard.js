@@ -4,7 +4,7 @@ import {Dashboard} from '../../src/app/screens/dashboard';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 
-const getStore = (token = 'WLO') => createStore(combineReducers({
+const getStore = (token = 'WLO', inactive = false) => createStore(combineReducers({
     settings: () => ({
         baseCurrency: 'GBP'
     }),
@@ -22,11 +22,11 @@ const getStore = (token = 'WLO') => createStore(combineReducers({
     }),
     wallet: () => ({
         balances: {
-            WLO: '10000',
-            XLM: '20',
+            WLO: inactive ? '0' : '10',
+            XLM: inactive ? '0' : '10',
         },
         selectedToken: token,
-        hasGas: true,
+        hasGas: !inactive,
     }),
     kids: () => ({
         sendError: null
@@ -119,14 +119,6 @@ storiesOf('Dashboard')
             balance: '10000000',
         }}/>
     ))
-    .add('inactive', () => (
-        <Dashboard {...{
-            ...props,
-            balance: '0',
-            hasGas: false,
-            firstTime: false,
-        }}/>
-    ))
     .add('with kid not funded message', () => (
         <Dashboard {...{
             ...props,
@@ -154,6 +146,21 @@ storiesOf('Dashboard')
     ))
     .add('error', () => (
         <Dashboard {...{...props, exchange: null, error: new Error('Network error')}}/>
+    ));
+
+storiesOf('Dashboard')
+    .addDecorator(story => <Provider store={getStore('WLO', true)}>{story()}</Provider>)
+    .add('inactive', () => (
+        <Dashboard {...{
+            ...props,
+            balance: '0',
+            hasGas: false,
+            firstTime: false,
+            balances: {
+                WLO: '0',
+                XLM: '0',
+            },
+        }}/>
     ));
 
 storiesOf('Dashboard')

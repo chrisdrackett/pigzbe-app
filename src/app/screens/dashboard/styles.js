@@ -7,7 +7,7 @@ export default StyleSheet.create({
         height: 130,
     },
     bubbleWrapper: {
-        marginBottom: -22,
+        marginBottom: 0,
     },
     bubble: {
         maxWidth: 300,

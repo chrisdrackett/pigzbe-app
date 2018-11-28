@@ -12,6 +12,7 @@ export default StyleSheet.create({
         maxWidth: 230,
         marginBottom: 12,
         marginTop: 12,
+        paddingTop: 2,
     },
     boxInner: {
         backgroundColor: 'white',
