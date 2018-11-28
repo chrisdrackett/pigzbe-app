@@ -115,6 +115,8 @@ export const tryTouchIdLogin = () => async (dispatch, getState) => {
     }
 };
 
+export const setAccountExists = value => ({type: LOADER_ACCOUNT_EXISTS, value});
+
 export const checkAccountExists = () => async dispatch => {
     const hasPasscode = !!await dispatch(authKeychain());
     const hasStorage = await Storage.hasItem(STORAGE_KEY_SETTINGS);
@@ -122,7 +124,7 @@ export const checkAccountExists = () => async dispatch => {
     console.log('  hasPasscode', hasPasscode);
     console.log('  hasStorage', hasStorage);
     const value = hasPasscode && hasStorage;
-    dispatch({type: LOADER_ACCOUNT_EXISTS, value});
+    dispatch(setAccountExists(value));
 };
 
 export const initialize = () => async (dispatch, getState) => {
