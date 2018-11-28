@@ -2,19 +2,23 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Text} from 'react-native';
 import styles from './styles';
-import moneyFormat from '../../utils/money-format';
-import {ASSET_CODE, CURRENCIES} from '../../constants';
-import {ensureValidAmount} from '@pigzbe/stellar-utils';
+import getPrice from 'app/utils/get-price';
 
-const exchangedDisplay = ({amount, currency, exchange, baseCurrency, style}) => {
-    const value = currency === ASSET_CODE ? amount * exchange[baseCurrency] : ensureValidAmount(amount / exchange[baseCurrency]);
-    const symbol = currency === ASSET_CODE ? CURRENCIES[baseCurrency].symbol : CURRENCIES[ASSET_CODE].symbol;
-    const dps = currency === ASSET_CODE ? CURRENCIES[baseCurrency].dps : CURRENCIES[ASSET_CODE].dps;
-    const display = currency === ASSET_CODE ? `${symbol}${moneyFormat(value, dps)}` : `${moneyFormat(value, dps)} ${symbol}`;
+const ExchangedDisplay = ({
+    amount,
+    exchange,
+    label = 'Estimate:',
+    currencyFrom = null,
+    currencyTo = null,
+    extraDps = 0,
+    style
+}) => {
+
+    const price = getPrice(currencyFrom, currencyTo, exchange, amount, true, extraDps);
 
     return (
         <Text style={[styles.text, style]}>
-            Estimate: {display}
+            {label} {price}
         </Text>
     );
 };
@@ -22,4 +26,4 @@ const exchangedDisplay = ({amount, currency, exchange, baseCurrency, style}) => 
 export default connect(state => ({
     baseCurrency: state.settings.baseCurrency,
     exchange: state.exchange.exchange,
-}))(exchangedDisplay);
+}))(ExchangedDisplay);

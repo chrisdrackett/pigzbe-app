@@ -20,8 +20,11 @@ const store = createStore(combineReducers({
             GOLD: 0.0031452
         }
     }),
-    wollo: () => ({
-        balance: '0'
+    wallet: () => ({
+        balances: {
+            WLO: '0',
+            XLM: '0',
+        },
     }),
     kids: () => ({
         sendError: null
@@ -65,7 +68,6 @@ const props = {
         GOLD: 0.0031452
     },
     balance: '100',
-    balanceXLM: '50',
     baseCurrency: 'USD',
     escrow: null,
     firstTime: false,
@@ -83,7 +85,6 @@ storiesOf('Kid Dashboard')
         <KidDashboard {...{
             ...props,
             balance: '0',
-            balanceXLM: '0',
             kid: {
                 ...kid,
                 balance: '0',

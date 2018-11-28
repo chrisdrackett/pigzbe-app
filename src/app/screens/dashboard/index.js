@@ -11,12 +11,13 @@ import {
     COINS,
     FUNDING_URL,
     MIN_BALANCE,
-    MIN_BALANCE_XLM_ADD_KID
+    MIN_BALANCE_XLM_ADD_KID,
+    ASSET_CODE
 } from 'app/constants';
 import ConvertBalance from 'app/components/convert-balance';
 import BalanceGraph from 'app/components/balance-graph';
 import Kids from 'app/components/kids';
-import Wollo from 'app/components/wollo';
+import Balance from 'app/components/balance';
 
 import StepModule from 'app/components/step-module';
 import {
@@ -34,6 +35,7 @@ import styles from './styles';
 import Dev from './dev';
 import ViewAddress from '../view-address';
 import ReactModal from 'react-native-modal';
+import {getBalance} from 'app/selectors';
 
 export class Dashboard extends Component {
     state = {
@@ -82,7 +84,7 @@ export class Dashboard extends Component {
     }
 
     onAddKids = () => {
-        if (parseFloat(this.props.balanceXLM) < MIN_BALANCE + MIN_BALANCE_XLM_ADD_KID) {
+        if (parseFloat(this.props.balances.XLM) < MIN_BALANCE + MIN_BALANCE_XLM_ADD_KID) {
             this.setState({showKidAddFundingMessage: true});
             return;
         }
@@ -119,8 +121,9 @@ export class Dashboard extends Component {
     render () {
         const {
             exchange,
+            selectedToken,
             balance,
-            balanceXLM,
+            balances,
             hasGas,
             baseCurrency,
             firstTime,
@@ -129,18 +132,19 @@ export class Dashboard extends Component {
 
         const loading = (!exchange) || this.state.funding;
 
-        let coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD');
+        let coins = COINS.filter(c => c !== baseCurrency && c !== 'GOLD' && c !== selectedToken);
 
         if (coins.length > 6) {
             coins = coins.filter(c => c !== 'GBP');
         }
 
-        // console.log('balance', balance);
-        // console.log('balanceXLM', balanceXLM);
+        console.log('selectedToken', selectedToken);
+        console.log('balance', balance);
+        console.log('balances', balances);
         // console.log('hasGas', hasGas);
         console.log('exchange', exchange);
 
-        const inactive = !hasGas && Number(balance) === 0;
+        const inactive = !hasGas && Number(balances.WLO) === 0;
 
         return (
             <Fragment>
@@ -152,6 +156,7 @@ export class Dashboard extends Component {
                     customTitle="Your dashboard"
                     rightIcon="qrCode"
                     onRightIcon={this.onViewAddress}
+                    tokenSelector={true}
                 >
                     <View>
                         <View style={styles.header}>
@@ -167,25 +172,38 @@ export class Dashboard extends Component {
                                 </TouchableOpacity>
                             ) : (
                                 <TouchableOpacity onPress={this.onTransactions}>
-                                    <Wollo
+                                    <Balance
                                         balance={balance}
                                         exchange={exchange}
                                         baseCurrency={baseCurrency}
+                                        selectedToken={selectedToken}
                                         link
                                     />
                                 </TouchableOpacity>
                             )}
                             <Pig />
                         </View>
-                        <BalanceGraph balance={balance} balanceXLM={null} exchange={exchange} baseCurrency={baseCurrency}/>
-                        <Kids
-                            kids={kids}
+                        <BalanceGraph
+                            balance={balance}
                             exchange={exchange}
                             baseCurrency={baseCurrency}
-                            onAddKids={this.onAddKids}
-                            onDashboard={this.onDashboard}
+                            selectedToken={selectedToken}
                         />
-                        <ConvertBalance coins={coins} exchange={exchange} balance={balance} />
+                        {selectedToken === ASSET_CODE ? (
+                            <Kids
+                                kids={kids}
+                                exchange={exchange}
+                                baseCurrency={baseCurrency}
+                                onAddKids={this.onAddKids}
+                                onDashboard={this.onDashboard}
+                            />
+                        ) : <View style={{height: 25}} />}
+                        <ConvertBalance
+                            coins={coins}
+                            exchange={exchange}
+                            balance={balance}
+                            selectedToken={selectedToken}
+                        />
                     </View>
                     <Dev
                         onFunding={this.onFunding}
@@ -200,7 +218,7 @@ export class Dashboard extends Component {
                 />
                 <FundingMessage
                     open={this.state.showKidAddFundingMessage}
-                    balanceXLM={balanceXLM}
+                    balances={balances}
                     onClose={this.onCloseKidAddFundingMessage}
                     onModalHide={this.onModalHide}
                 />
@@ -231,12 +249,13 @@ export default connect(
     state => ({
         isConnected: state.app.isConnected,
         exchange: state.exchange.exchange,
-        balance: state.wollo.balance,
-        balanceXLM: state.wollo.balanceXLM,
-        hasGas: state.wollo.hasGas,
+        selectedToken: state.wallet.selectedToken,
+        hasGas: state.wallet.hasGas,
         baseCurrency: state.settings.baseCurrency,
         firstTime: state.settings.firstTime,
         kids: state.kids.kids,
         publicKey: state.keys.publicKey,
+        balances: state.wallet.balances,
+        balance: getBalance(state),
     })
 )(Dashboard);

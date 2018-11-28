@@ -1,18 +1,20 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {View, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {strings} from 'app/constants';
 import Button from 'app/components/button';
 import TextInput from 'app/components/text-input';
-import WolloInput from 'app/components/wollo-input';
+import PaymentInput from 'app/components/payment-input';
 import Icon from 'app/components/icon';
 import {isValidPublicKey} from '@pigzbe/stellar-utils';
-import {MEMO_MAX_LEN} from 'app/constants';
+import {MEMO_MAX_LEN, ASSET_CODE, CURRENCIES} from 'app/constants';
 import BigNumber from 'bignumber.js';
 import {appError} from 'app/actions';
 import QRScanner from 'app/components/qr-scanner';
+import {getBalance} from 'app/selectors';
 
-export default class Form extends Component {
+export class Form extends Component {
     state = {
         destination: this.props.destination,
         amount: this.props.amount,
@@ -31,6 +33,7 @@ export default class Form extends Component {
         destination: '',
         amount: '',
         memo: '',
+        selectedToken: ASSET_CODE,
     }
 
     componentDidMount() {
@@ -46,10 +49,13 @@ export default class Form extends Component {
         this.setState({destination, keyValid});
     }
 
-    updateAmount = value => this.setState({
-        amount: value,
-        amountValid: new BigNumber(value).isLessThanOrEqualTo(this.props.balance),
-    })
+    updateAmount = value => {
+        console.log('updateAmount', value, this.props.balance);
+        this.setState({
+            amount: value,
+            amountValid: new BigNumber(value).isLessThanOrEqualTo(this.props.balance),
+        });
+    }
 
     updateMemo = memo => {
         const memoValid = !memo || memo.length <= MEMO_MAX_LEN;
@@ -114,12 +120,14 @@ export default class Form extends Component {
             memoError
         } = this.state;
 
+        const token = CURRENCIES[this.props.selectedToken];
+
         return (
             <View style={styles.containerForm}>
                 <TextInput
                     error={keyError}
                     value={this.state.destination}
-                    label={strings.transferSendTo}
+                    label={`Send ${token.name} to`}
                     placeholder={strings.transferSendKey}
                     onChangeText={this.updateDestination}
                     numberOfLines={3}
@@ -128,17 +136,20 @@ export default class Form extends Component {
                 <TouchableOpacity style={styles.scanButton} onPress={this.onScanQrCode}>
                     <Icon style={styles.scanIcon} name="qrCodeScan" />
                 </TouchableOpacity>
-                <WolloInput
+                <PaymentInput
+                    selectedToken={this.props.selectedToken}
+                    balance={this.props.balance}
                     initialAmount={this.state.amount}
                     error={amountError}
                     label={strings.transferAmount}
                     onChangeAmount={this.updateAmount}
+                    showEstimate={false}
                 />
                 <TextInput
                     error={memoError}
                     value={this.state.memo}
                     label={strings.transferMessage}
-                    placeholder={strings.transferMessagePlaceholder}
+                    placeholder={`Add a message to your ${token.name} transfer?`}
                     onChangeText={this.updateMemo}
                     maxLength={28}
                     numberOfLines={2}
@@ -159,3 +170,11 @@ export default class Form extends Component {
         );
     }
 }
+
+export default connect(state => ({
+    baseCurrency: state.settings.baseCurrency,
+    exchange: state.exchange.exchange,
+    selectedToken: state.wallet.selectedToken,
+    balance: getBalance(state),
+    publicKey: state.keys.publicKey,
+}))(Form);

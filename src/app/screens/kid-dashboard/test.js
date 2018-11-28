@@ -49,8 +49,7 @@ const props = {
         GBP: 0.091956,
         GOLD: 0.0031452
     },
-    balance: '0',
-    balanceXLM: '0',
+    balances: {XLM: '0', WLO: '0'},
     baseCurrency: 'USD',
     escrow: null,
     firstTime: true,

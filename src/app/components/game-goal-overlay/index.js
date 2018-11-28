@@ -11,7 +11,7 @@ import GameGoalTransactions from 'app/components/game-goal-transactions';
 import {Dots} from 'app/components/game-carousel';
 import Icon from 'app/components/icon';
 import Loader from 'app/components/loader';
-import Wollo from 'app/components/wollo';
+import Balance from 'app/components/balance';
 import styles from './styles';
 import {MAX_INNER_WIDTH} from 'app/constants';
 import isAndroid from 'app/utils/is-android';
@@ -62,7 +62,7 @@ export class GameGoalOverlay extends Component {
                             {goal &&
                                 <View style={styles.balance}>
                                     <Text style={styles.balanceText}>{goal.name}</Text>
-                                    <Wollo
+                                    <Balance
                                         balance={goal.balance}
                                         exchange={exchange}
                                         baseCurrency={baseCurrency}

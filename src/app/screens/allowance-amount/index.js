@@ -128,10 +128,10 @@ export class AllowanceAmount extends Component {
 
     next = async () => {
         const {custom, active} = this.state;
-        const {balance} = this.props;
+        const {balances} = this.props;
         const amount = custom ? custom : active;
 
-        if (parseFloat(balance) < parseFloat(amount)) {
+        if (parseFloat(balances.WLO) < parseFloat(amount)) {
             this.props.dispatch(appAddWarningAlert('You don\'t have enough funds. Allowance payments will fail until there are enough funds'));
         }
 
@@ -194,6 +194,6 @@ export default connect(
         baseCurrency: state.settings.baseCurrency,
         exchange: state.exchange.exchange,
         allowanceToEdit: props.navigation.state.params.allowanceToEdit,
-        balance: state.wollo.balance,
+        balances: state.wallet.balances,
     })
 )(AllowanceAmount);

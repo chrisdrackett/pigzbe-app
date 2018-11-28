@@ -96,8 +96,9 @@ export class Payments extends Component {
 
     render() {
         const {filter} = this.state;
-        const {loading, payments = [], showHelp, spacingBottom = false} = this.props;
+        const {loading, payments = [], showHelp, spacingBottom = false, selectedToken} = this.props;
 
+        console.log('selectedToken', selectedToken);
         console.log('payments', payments);
 
         if (!showHelp && loading && !payments.length) {
@@ -115,11 +116,13 @@ export class Payments extends Component {
 
         console.log('address', address);
 
-        let filteredPayments = payments;
+        const assetPayments = payments.filter(payment => !selectedToken || payment.assetCode === selectedToken);
+
+        let filteredPayments;
 
         // show a specific address's transactions
         if (address) {
-            filteredPayments = payments.filter(payment => (
+            filteredPayments = assetPayments.filter(payment => (
                 (filter === 'all' && (payment.from === address || payment.to === address)) ||
                 (filter === 'sent' && payment.from === address) ||
                 (filter === 'received' && payment.to === address)
@@ -136,7 +139,7 @@ export class Payments extends Component {
                 payment.memo = trimMemo(payment.memo);
             });
         } else {
-            filteredPayments = payments.filter(payment => (
+            filteredPayments = assetPayments.filter(payment => (
                 (filter === 'all') ||
                 (filter === 'sent' && payment.direction === 'out') ||
                 (filter === 'received' && payment.direction === 'in')
@@ -204,8 +207,8 @@ export class Payments extends Component {
 
 export default connect(
     state => ({
-        loading: state.wollo.loading,
-        payments: state.wollo.payments,
+        loading: state.wallet.loading,
+        payments: state.wallet.payments,
         publicKey: state.keys.publicKey,
         kids: state.kids.kids,
     }),

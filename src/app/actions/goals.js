@@ -94,7 +94,7 @@ export const moveGoalWollo = (kid, fromId, toId, amount) => async dispatch => {
         const toGoal = kid.goals.find(goal => goal.id === parseInt(toId, 10));
 
         if (fromGoal.balance < amount) {
-            throw new Error('Not enough wollo to move to different goal');
+            throw new Error('Not enough Wollo to move to different goal');
         }
 
         fromGoal.balance = new BigNumber(fromGoal.balance).minus(amount).toString(10);
@@ -124,11 +124,11 @@ export const moveGoalWollo = (kid, fromId, toId, amount) => async dispatch => {
 
         dispatch(getTreeHistory(kid.address));
 
-        dispatch(appAddSuccessAlert('Sucessfully sent wollo'));
+        dispatch(appAddSuccessAlert('Sucessfully sent Wollo'));
 
     } catch (err) {
         console.log(err);
-        dispatch(appAddWarningAlert('Move wollo failed'));
+        dispatch(appAddWarningAlert('Move Wollo failed'));
     }
     dispatch(goalLoading(false));
 };
@@ -145,7 +145,7 @@ export const sendGoalWolloToParent = (kid, goal, amount) => async (dispatch, get
         const account = await loadAccount(kid.address);
 
         if (goal.balance < amount) {
-            throw new Error('Not enough wollo to move to different goal');
+            throw new Error('Not enough Wollo to move to different goal');
         }
 
         const txb = new TransactionBuilder(account);
@@ -154,7 +154,7 @@ export const sendGoalWolloToParent = (kid, goal, amount) => async (dispatch, get
             asset,
             amount: ensureValidAmount(amount),
         }));
-        txb.addMemo(Memo.text('Sent wollo to parent'));
+        txb.addMemo(Memo.text('Sent Wollo to parent'));
 
         const tx = txb.build();
         tx.sign(keypair);
@@ -180,11 +180,11 @@ export const sendGoalWolloToParent = (kid, goal, amount) => async (dispatch, get
 
         dispatch(getTreeHistory(kid.address));
 
-        dispatch(appAddSuccessAlert('Sucessfully sent wollo'));
+        dispatch(appAddSuccessAlert('Sucessfully sent Wollo'));
 
     } catch (err) {
         console.log(err);
-        dispatch(appAddWarningAlert('Send wollo failed'));
+        dispatch(appAddWarningAlert('Send Wollo failed'));
     }
     dispatch(goalLoading(false));
 };

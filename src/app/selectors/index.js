@@ -1,13 +1,13 @@
 import {createSelector} from 'reselect';
 import Config from 'react-native-config';
-import BigNumber from 'bignumber.js';
 import {Asset} from '@pigzbe/stellar-utils';
 import {CLAIM_CONTRACT_NAME} from 'app/constants';
 
 const configSelector = state => state.config;
-const kidsSelector = state => state.kids;
 const currentClaimSelector = state => state.claim.currentClaim;
 const claimsSelector = state => state.claim.claims;
+const selectedTokenSelector = state => state.wallet.selectedToken;
+const balancesSelector = state => state.wallet.balances;
 
 export const apiURL = createSelector(
     configSelector,
@@ -60,4 +60,13 @@ export const getClaim = createSelector(
 export const claimToken = createSelector(
     currentClaimSelector,
     currentClaim => CLAIM_CONTRACT_NAME[currentClaim]
+);
+
+export const getBalance = createSelector(
+    selectedTokenSelector,
+    balancesSelector,
+    (code, balances) => {
+        console.log('getBalance', code, balances);
+        return balances[code];
+    }
 );

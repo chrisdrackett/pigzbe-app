@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Wollo from './';
+import Balance from './';
 
 const props = {
     balance: '100.0000'
@@ -8,6 +8,6 @@ const props = {
 
 describe('Wollo', () => {
     test('renders correctly', () => {
-        renderer.create(<Wollo {...props}/>);
+        renderer.create(<Balance {...props}/>);
     });
 });

@@ -22,58 +22,57 @@ import {
     ASSET_CODE,
     INFLATION_DEST,
     MEMO_PREPEND_CREATE,
-    KID_WALLET_BALANCE_XLM
-} from '../constants';
-import {wolloAsset} from '../selectors';
+    KID_WALLET_BALANCE_XLM,
+    CURRENCIES
+} from 'app/constants';
+import {wolloAsset} from 'app/selectors';
 import {createKeypair, appError, updateKidBalance, loadSecretKey, saveSecretKey} from './';
 import formatMemo from 'app/utils/format-memo';
 
-export const WOLLO_LOADING = 'WOLLO_LOADING';
-export const WOLLO_ERROR = 'WOLLO_ERROR';
-export const WOLLO_UPDATE_ACCOUNT = 'WOLLO_UPDATE_ACCOUNT';
-export const WOLLO_UPDATE_BALANCE = 'WOLLO_UPDATE_BALANCE';
-export const WOLLO_UPDATE_XLM = 'WOLLO_UPDATE_XLM';
-export const WOLLO_UPDATE_PAYMENTS = 'WOLLO_UPDATE_PAYMENTS';
-export const WOLLO_SENDING = 'WOLLO_SENDING';
-export const WOLLO_SEND_COMPLETE = 'WOLLO_SEND_COMPLETE';
-export const WOLLO_SEND_STATUS = 'WOLLO_SEND_STATUS';
-export const WOLLO_SEND_RESET = 'WOLLO_SEND_RESET';
-export const WOLLO_KEYPAIR = 'WOLLO_KEYPAIR';
-export const WOLLO_KEYPAIR_SAVED = 'WOLLO_KEYPAIR_SAVED';
+export const WALLET_LOADING = 'WALLET_LOADING';
+export const WALLET_ERROR = 'WALLET_ERROR';
+export const WALLET_UPDATE_ACCOUNT = 'WALLET_UPDATE_ACCOUNT';
+export const WALLET_UPDATE_BALANCE = 'WALLET_UPDATE_BALANCE';
+export const WALLET_UPDATE_XLM = 'WALLET_UPDATE_XLM';
+export const WALLET_UPDATE_PAYMENTS = 'WALLET_UPDATE_PAYMENTS';
+export const WALLET_SENDING = 'WALLET_SENDING';
+export const WALLET_SEND_COMPLETE = 'WALLET_SEND_COMPLETE';
+export const WALLET_SEND_STATUS = 'WALLET_SEND_STATUS';
+export const WALLET_SEND_RESET = 'WALLET_SEND_RESET';
+export const WALLET_KEYPAIR = 'WALLET_KEYPAIR';
+export const WALLET_KEYPAIR_SAVED = 'WALLET_KEYPAIR_SAVED';
+export const WALLET_SET_SELECTED_TOKEN = 'WALLET_SET_SELECTED_TOKEN';
 
 export const getWolloBalance = account => getBalance(account, ASSET_CODE);
 
-export const wolloLoading = loading => ({type: WOLLO_LOADING, loading});
-export const wolloSending = sending => ({type: WOLLO_SENDING, sending});
-export const wolloSendComplete = sendComplete => ({type: WOLLO_SEND_COMPLETE, sendComplete});
-export const wolloSendStatus = sendStatus => ({type: WOLLO_SEND_STATUS, sendStatus});
-export const wolloSendReset = () => ({type: WOLLO_SEND_RESET});
+export const walletLoading = loading => ({type: WALLET_LOADING, loading});
+export const walletSending = sending => ({type: WALLET_SENDING, sending});
+export const walletSendComplete = sendComplete => ({type: WALLET_SEND_COMPLETE, sendComplete});
+export const walletSendStatus = sendStatus => ({type: WALLET_SEND_STATUS, sendStatus});
+export const walletSendReset = () => ({type: WALLET_SEND_RESET});
 
-export const wolloError = error => ({type: WOLLO_ERROR, error});
+export const walletError = error => ({type: WALLET_ERROR, error});
 
 export const setHorizonURI = uri => () => {
     console.log('setHorizonURI:', uri);
     setServer(uri);
 };
 
-const updateBalance = balance => ({type: WOLLO_UPDATE_BALANCE, balance});
+const updateBalance = balance => ({type: WALLET_UPDATE_BALANCE, balance});
 
 const handleTransferError = errorMessage => dispatch => {
-    dispatch(wolloSending(false));
-    dispatch(wolloSendStatus(null));
-    dispatch(wolloError(errorMessage));
+    dispatch(walletSending(false));
+    dispatch(walletSendStatus(null));
+    dispatch(walletError(errorMessage));
     dispatch(appError(errorMessage));
 };
 
-const updateXLM = account => (dispatch, getState) => {
-    const balanceXLM = getBalance(account);
-    const minXLM = getMinBalance(account, 1);
-    console.log('minXLM', minXLM);
+const updateXLM = account => dispatch => {
+    const balance = getBalance(account);
+    const minBalance = getMinBalance(account, 1);
     const hasGas = checkHasGas(account);
 
-    const isTrusted = checkAssetTrusted(account, wolloAsset(getState()));
-
-    dispatch({type: WOLLO_UPDATE_XLM, balanceXLM, minXLM, hasGas});
+    dispatch({type: WALLET_UPDATE_XLM, balance, minBalance, hasGas});
 };
 
 const trustWollo = async (account, secretKey, asset) => {
@@ -111,7 +110,7 @@ export const loadWallet = publicKey => async (dispatch, getState) => {
         if (key) {
             const account = await loadAccount(key);
             console.log('account', account);
-            dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
+            dispatch({type: WALLET_UPDATE_ACCOUNT, account});
             dispatch(updateBalance(getWolloBalance(account)));
 
             const {secretKey} = getState().keys;
@@ -131,7 +130,7 @@ export const refreshBalance = kidAddress => async (dispatch, getState) => {
     try {
         if (key) {
             const account = await loadAccount(key);
-            dispatch({type: WOLLO_UPDATE_ACCOUNT, account});
+            dispatch({type: WALLET_UPDATE_ACCOUNT, account});
             dispatch(updateBalance(getWolloBalance(account)));
             dispatch(updateXLM(account));
         }
@@ -148,41 +147,41 @@ export const loadPayments = address => async (dispatch, getState) => {
     const {publicKey} = getState().keys;
     const key = address || publicKey;
 
-    dispatch(wolloLoading(true));
-    dispatch(wolloError(null));
+    dispatch(walletLoading(true));
+    dispatch(walletError(null));
 
     try {
         const rawData = await paymentHistory(key);
         const filteredData = rawData.filter(p => p.type !== 'account_merge');
         const payments = await Promise.all(filteredData.map(p => paymentInfo(p, key)));
-        dispatch({type: WOLLO_UPDATE_PAYMENTS, payments});
+        dispatch({type: WALLET_UPDATE_PAYMENTS, payments});
     } catch (error) {
         console.log(error);
     }
 
-    dispatch(wolloLoading(false));
+    dispatch(walletLoading(false));
 };
 
 
-export const sendWollo = (destination, amount, memo) => async (dispatch, getState) => {
-    console.log('sendWollo', destination, amount, memo);
+export const sendTokens = (tokenCode, destination, amount, memo) => async (dispatch, getState) => {
+    console.log('sendTokens', tokenCode, destination, amount, memo);
     try {
         if (!isValidPublicKey(destination)) {
-            dispatch(wolloError(strings.transferErrorInvalidKey));
+            dispatch(walletError(strings.transferErrorInvalidKey));
             dispatch(appError(strings.transferErrorInvalidKey));
             return;
         }
 
         if (!amount || isNaN(amount) || Number(amount) === 0) {
-            dispatch(wolloError(strings.transferErrorInvalidAmount));
+            dispatch(walletError(strings.transferErrorInvalidAmount));
             dispatch(appError(strings.transferErrorInvalidAmount));
             return;
         }
 
-        dispatch(wolloError(null));
-        dispatch(wolloSendComplete(false));
-        dispatch(wolloSending(true));
-        dispatch(wolloSendStatus(strings.transferStatusChecking));
+        dispatch(walletError(null));
+        dispatch(walletSendComplete(false));
+        dispatch(walletSending(true));
+        dispatch(walletSendStatus(strings.transferStatusChecking));
 
         const {secretKey, publicKey} = getState().keys;
 
@@ -202,23 +201,27 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
             return;
         }
 
-        const asset = wolloAsset(getState());
+        let asset;
 
-        const isTrusted = checkAssetTrusted(destAccount, asset);
+        if (tokenCode === ASSET_CODE) {
+            asset = wolloAsset(getState());
 
-        if (!isTrusted) {
-            dispatch(handleTransferError(strings.transferErrorTrust));
-            return;
+            const isTrusted = checkAssetTrusted(destAccount, asset);
+
+            if (!isTrusted) {
+                dispatch(handleTransferError(strings.transferErrorTrust));
+                return;
+            }
         }
 
-        dispatch(wolloSendStatus(strings.transferStatusSending));
+        dispatch(walletSendStatus(`Sending ${CURRENCIES[tokenCode].name}`));
 
         let result;
 
         try {
             result = await sendPayment(secretKey, destination, amount, memo, asset);
         } catch (e) {
-            console.error(e);
+            console.log(e.response);
         }
 
         if (!result) {
@@ -227,13 +230,13 @@ export const sendWollo = (destination, amount, memo) => async (dispatch, getStat
         }
 
         dispatch(refreshBalance());
-        dispatch(wolloSending(false));
-        dispatch(wolloSendComplete(true));
-        dispatch(wolloSendStatus(strings.transferStatusComplete));
-        dispatch(wolloError(null));
+        dispatch(walletSending(false));
+        dispatch(walletSendComplete(true));
+        dispatch(walletSendStatus(strings.transferStatusComplete));
+        dispatch(walletError(null));
         dispatch(loadWallet(publicKey));
     } catch (e) {
-        console.error(e);
+        console.log(e.response);
         dispatch(handleTransferError(strings.transferStatusFailed));
     }
 };
@@ -288,3 +291,5 @@ export const createKidAccount = (nickname, parentNickname) => async dispatch => 
 
     return null;
 };
+
+export const setSelectedToken = code => ({type: WALLET_SET_SELECTED_TOKEN, code});

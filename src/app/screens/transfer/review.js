@@ -1,9 +1,10 @@
 import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
 import {View, Text} from 'react-native';
 import styles from './styles';
 import {strings} from 'app/constants';
 import Button from 'app/components/button';
-import Wollo from 'app/components/wollo';
+import Balance from 'app/components/balance';
 import ExchangedDisplay from 'app/components/exchanged-display';
 import moneyFormat from 'app/utils/money-format';
 import {ASSET_CODE, CURRENCIES} from 'app/constants';
@@ -12,12 +13,34 @@ import {authConfirm, authConfirmPasscode} from 'app/actions';
 import ReactModal from 'react-native-modal';
 import {PasscodeLogin} from '../passcode-login';
 import Alert from 'app/components/alert';
+import {getBalance} from 'app/selectors';
 
 const remainingBalance = (balance, amount) => new BigNumber(balance).minus(amount);
 
-const getBalanceAfter = (balance, amount) => moneyFormat(remainingBalance(balance, amount), CURRENCIES[ASSET_CODE].dps);
+const getBalanceAfter = (balance, amount) => {
+    const remaining = remainingBalance(balance, amount);
+    console.log('remaining', remaining);
+    return moneyFormat(remaining, CURRENCIES[ASSET_CODE].dps);
+};
 
-export default class Review extends Component {
+const Amount = ({label, amount, selectedToken, extraDps}) => (
+    <Fragment>
+        <Text style={styles.label}>{label}</Text>
+        <View style={styles.amount}>
+            <Balance
+                dark
+                small
+                balance={amount}
+                style={styles.wollo}
+                selectedToken={selectedToken}
+                extraDps={extraDps}
+            />
+            <Text style={styles.wolloLabel}>{CURRENCIES[selectedToken].name}</Text>
+        </View>
+    </Fragment>
+);
+
+export class Review extends Component {
     state = {
         showPasscodeModal: false,
         passcodeComplete: false,
@@ -85,26 +108,25 @@ export default class Review extends Component {
 
     render() {
 
-        const {balance, destination, amount, memo} = this.props;
+        const {balance, destination, amount, memo, selectedToken, baseCurrency} = this.props;
+
+        const token = CURRENCIES[selectedToken];
 
         return (
             <View style={styles.containerForm}>
-                <Text style={styles.label}>{strings.transferSendTo}</Text>
+                <Text style={styles.label}>{`Send ${token.name} to`}</Text>
                 <Text style={styles.value}>{destination}</Text>
-                <Text style={styles.label}>{strings.transferAmount}</Text>
-                <View style={styles.amount}>
-                    <Wollo
-                        dark
-                        small
-                        balance={amount}
-                        style={styles.wollo}
-                    />
-                    <Text style={styles.wolloLabel}>Wollo</Text>
-                </View>
+                <Amount
+                    label={strings.transferAmount}
+                    amount={amount}
+                    selectedToken={selectedToken}
+                />
                 <ExchangedDisplay
                     amount={amount}
-                    currency={ASSET_CODE}
+                    currencyFrom={selectedToken}
+                    currencyTo={baseCurrency}
                     style={styles.exchange}
+                    extraDps={1}
                 />
                 {memo ? (
                     <Fragment>
@@ -112,18 +134,11 @@ export default class Review extends Component {
                         <Text style={styles.value}>{memo}</Text>
                     </Fragment>
                 ) : null}
-                <Fragment>
-                    <Text style={styles.label}>{strings.transferBalanceAfter}</Text>
-                    <View style={styles.amount}>
-                        <Wollo
-                            dark
-                            small
-                            balance={getBalanceAfter(balance, amount)}
-                            style={styles.wollo}
-                        />
-                        <Text style={styles.wolloLabel}>Wollo</Text>
-                    </View>
-                </Fragment>
+                <Amount
+                    label={strings.transferBalanceAfter}
+                    amount={getBalanceAfter(balance, amount)}
+                    selectedToken={selectedToken}
+                />
                 <View style={styles.edit}>
                     <Button
                         theme="plain"
@@ -167,3 +182,11 @@ export default class Review extends Component {
         );
     }
 }
+
+export default connect(state => ({
+    baseCurrency: state.settings.baseCurrency,
+    exchange: state.exchange.exchange,
+    selectedToken: state.wallet.selectedToken,
+    balance: getBalance(state),
+    publicKey: state.keys.publicKey,
+}))(Review);

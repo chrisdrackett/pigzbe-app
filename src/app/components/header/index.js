@@ -3,6 +3,7 @@ import {View, Text} from 'react-native';
 import Logo from '../logo';
 import IconButton from '../icon-button';
 import styles from './styles';
+import TokenSelector from 'app/components/token-selector';
 
 export default ({
     onBack,
@@ -13,6 +14,7 @@ export default ({
     loading,
     onRightIcon,
     rightIcon,
+    tokenSelector,
 }) => (
     <View style={styles.container}>
         <View style={styles.iconContainer}>
@@ -35,10 +37,9 @@ export default ({
             )}
         </View>
         <View style={styles.titleContainer}>
-            {!hideLogo && !customTitle && <Logo />}
-            {
-                customTitle ? <Text style={styles.customTitle}>{customTitle}</Text> : null
-            }
+            {tokenSelector && <TokenSelector />}
+            {!hideLogo && !customTitle && !tokenSelector && <Logo />}
+            {!tokenSelector && customTitle ? <Text style={styles.customTitle}>{customTitle}</Text> : null}
         </View>
         <View style={styles.iconContainer}>
             {!!rightIcon &&

@@ -12,9 +12,23 @@ import {KID_SEND_MAX_AMOUNT} from 'app/constants';
 import moneyFormat from 'app/utils/money-format';
 
 const getAmount = (value, balance) => {
+    if (value === 0) {
+        return 0;
+    }
     const max = Math.min(balance, KID_SEND_MAX_AMOUNT);
 
-    if (max < 2) {
+    // const minp = 0;
+    // const maxp = 1;
+    // const minv = Math.log(0.001);
+    // const maxv = Math.log(1);
+    // const scale = (maxv - minv) / (maxp - minp);
+    // const amt = Math.exp(minv + scale * (value - minp));
+    // const val = Math.round(amt * max * 10) / 10;
+    // return val;
+
+    // const unit = 0.5;
+    // return Math.round((value * max) / unit) * unit;
+    if (max <= 2) {
         return Math.round(max * value * 10) / 10;
     }
     return Math.round(value * Math.floor(max));
@@ -31,7 +45,7 @@ export class WolloSendSlider extends Component {
 
     onSliderChange = value => this.setState({
         value,
-        amount: getAmount(value, this.props.balance)
+        amount: getAmount(value, this.props.balances.WLO)
     })
 
     onSend = () => this.setState({
@@ -61,7 +75,7 @@ export class WolloSendSlider extends Component {
             sendError,
             sending,
             sendComplete,
-            balance,
+            balances,
             hasGas,
         } = this.props;
 
@@ -80,7 +94,7 @@ export class WolloSendSlider extends Component {
                 <Slider
                     value={this.state.value}
                     onValueChange={this.onSliderChange}
-                    disabled={Number(balance) === 0 || !hasGas}
+                    disabled={Number(balances.WLO) === 0 || !hasGas}
                 />
                 {this.state.value === 0 ? (
                     <Text style={styles.exchange}>Send Wollo</Text>
@@ -129,9 +143,8 @@ export class WolloSendSlider extends Component {
 
 export default connect(
     (state) => ({
-        balance: state.wollo.balance,
-        balanceXLM: state.wollo.balanceXLM,
-        hasGas: state.wollo.hasGas,
+        balances: state.wallet.balances,
+        hasGas: state.wallet.hasGas,
         baseCurrency: state.settings.baseCurrency,
         exchange: state.exchange.exchange,
         sendError: state.kids.sendError,

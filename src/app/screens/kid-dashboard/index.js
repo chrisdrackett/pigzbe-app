@@ -10,7 +10,7 @@ import {
     SCREEN_SETTINGS
 } from '../../constants';
 import BalanceGraph from '../../components/balance-graph';
-import Wollo from '../../components/wollo';
+import Balance from '../../components/balance';
 import StepModule from '../../components/step-module';
 import KidAvatar from '../../components/kid-avatar';
 import ActionPanel from '../../components/action-panel';
@@ -34,7 +34,7 @@ class Item extends Component {
                         }
                     </Text>
                     <View style={styles.itemAmount}>
-                        <Wollo dark balance={amount} style={styles.itemWollo} />
+                        <Balance dark balance={amount} style={styles.itemWollo} />
                         <Image source={require('./images/iconOverflow.png')} />
                     </View>
                 </View>
@@ -62,9 +62,8 @@ export class KidDashboard extends Component {
     onBack = () => this.props.navigation.goBack()
 
     addItem = screen => {
-        const balanceWLO = parseFloat(this.props.balance);
-
-        if (screen === SCREEN_TASKS_LIST && (balanceWLO === 0 || !this.props.hasGas)) {
+        const lowBalance = Number(this.props.balances.WLO) === 0;
+        if (screen === SCREEN_TASKS_LIST && (lowBalance || !this.props.hasGas)) {
             this.showFundingMessage(FundingMessage.ADD_TASK);
             return;
         }
@@ -171,8 +170,7 @@ export class KidDashboard extends Component {
             goalLoading,
             taskLoading,
             allowanceLoading,
-            balanceXLM,
-            balance,
+            balances,
         } = this.props;
 
         const loading = (!exchange) || goalLoading || taskLoading || allowanceLoading;
@@ -193,7 +191,7 @@ export class KidDashboard extends Component {
                         <KidAvatar photo={kid.photo} size={54}/>
                         <Text style={styles.name}>{kid.name}</Text>
                         <TouchableOpacity onPress={this.onTransactions}>
-                            <Wollo
+                            <Balance
                                 balance={kid.balance}
                                 exchange={exchange}
                                 baseCurrency={baseCurrency}
@@ -310,8 +308,7 @@ export class KidDashboard extends Component {
                 />
                 <FundingMessage
                     open={this.state.showFundingMessage}
-                    balance={balance}
-                    balanceXLM={balanceXLM}
+                    balances={balances}
                     onClose={this.onCloseFundingMessage}
                     fundingType={this.state.fundingType}
                 />
@@ -324,9 +321,8 @@ export default connect(
     (state, props) => ({
         kid: state.kids.kids.find(k => k.address === props.navigation.state.params.kid.address),
         exchange: state.exchange.exchange,
-        balance: state.wollo.balance,
-        hasGas: state.wollo.hasGas,
-        balanceXLM: state.wollo.balanceXLM,
+        balances: state.wallet.balances,
+        hasGas: state.wallet.hasGas,
         baseCurrency: state.settings.baseCurrency,
         goalLoading: state.kids.goalLoading,
         taskLoading: state.kids.taskLoading,

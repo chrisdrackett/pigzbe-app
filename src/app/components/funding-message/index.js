@@ -41,18 +41,17 @@ export default class FundingMessage extends Component {
 
     getMessage = () => {
         const {
-            balance = '0',
-            balanceXLM = '0',
+            balances = {XLM: '0', WLO: '0'},
             requiredBalance = '0',
             fundingType,
         } = this.props;
 
-        const msgXLM = `You currently have ${moneyFormat(balanceXLM, 5)} XLM in your wallet. `;
-        const msgWLO = `You currently have ${moneyFormat(balance, 5)} WLO in your wallet. `;
+        const msgXLM = `You currently have ${moneyFormat(balances.XLM, 5)} XLM in your wallet. `;
+        const msgWLO = `You currently have ${moneyFormat(balances.WLO, 5)} WLO in your wallet. `;
 
         switch (fundingType) {
             case ADD_TASK:
-                return `${msgXLM} To add a task fund your account with XLM.`;
+                return `${msgWLO} To add a task fund your account with Wollo.`;
             case ASSIGN_TASK:
                 return `${msgWLO} To add the task you need ${moneyFormat(requiredBalance)} WLO.`;
             case TRANSFER:

@@ -14,7 +14,7 @@ export class Transfer extends Component {
     onCloseFundingMessage = () => this.setState({showFundingMessage: false})
 
     render() {
-        const {balanceXLM, hasGas} = this.props;
+        const {balances, hasGas, selectedToken} = this.props;
 
         return (
             <Fragment>
@@ -22,9 +22,10 @@ export class Transfer extends Component {
                     title="Transactions"
                     icon="transfer"
                     onBack={this.onBack}
-                    customTitle="Transactions"
+                    tokenSelector={true}
                 >
                     <Payments
+                        selectedToken={selectedToken}
                         navigation={this.props.navigation}
                         showHelp={!hasGas}
                     />
@@ -32,7 +33,7 @@ export class Transfer extends Component {
                 <FundingMessage
                     fundingType={FundingMessage.TRANSFER}
                     open={this.state.showFundingMessage}
-                    balanceXLM={balanceXLM}
+                    balances={balances}
                     onClose={this.onCloseFundingMessage}
                 />
             </Fragment>
@@ -42,10 +43,10 @@ export class Transfer extends Component {
 
 export default connect(
     state => ({
-        balance: state.wollo.balance,
-        balanceXLM: state.wollo.balanceXLM,
-        minXLM: state.wollo.minXLM,
-        hasGas: state.wollo.hasGas,
+        selectedToken: state.wallet.selectedToken,
+        balances: state.wallet.balances,
+        minXLM: state.wallet.minXLM,
+        hasGas: state.wallet.hasGas,
         publicKey: state.keys.publicKey,
     })
 )(Transfer);

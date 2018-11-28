@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import {storiesOf} from '@storybook/react-native';
-import WolloInput from '../../src/app/components/wollo-input';
+import PaymentInput from '../../src/app/components/payment-input';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 
@@ -18,7 +18,8 @@ const store = createStore(combineReducers({
             USD: 0.12,
             JPY: 13.8984,
             GBP: 0.091956,
-            GOLD: 0.0031452
+            GOLD: 0.0031452,
+            WLO: 1,
         }
     })
 }));
@@ -30,17 +31,18 @@ const style = {
     padding: 40,
 };
 
-class WolloInputComponent extends Component {
+class PaymentInputComponent extends Component {
     state = {
         input: ''
     }
 
-    onChangeAmount = amount => console.log('wollo amount set to: ', amount);
+    onChangeAmount = amount => console.log('Payment amount set to: ', amount);
 
     render() {
         return (
             <View style={style}>
-                <WolloInput
+                <PaymentInput
+                    selectedToken={this.props.selectedToken}
                     onChangeAmount={this.onChangeAmount}
                 />
             </View>
@@ -48,8 +50,11 @@ class WolloInputComponent extends Component {
     }
 }
 
-storiesOf('Wollo Input')
+storiesOf('Payment Input')
     .addDecorator(story => <Provider store={store}>{story()}</Provider>)
     .add('default', () => (
-        <WolloInputComponent />
+        <PaymentInputComponent />
+    ))
+    .add('xlm', () => (
+        <PaymentInputComponent selectedToken={'XLM'} />
     ));

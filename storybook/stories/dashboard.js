@@ -4,7 +4,7 @@ import {Dashboard} from '../../src/app/screens/dashboard';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 
-const store = createStore(combineReducers({
+const getStore = (token = 'WLO') => createStore(combineReducers({
     settings: () => ({
         baseCurrency: 'GBP'
     }),
@@ -20,8 +20,13 @@ const store = createStore(combineReducers({
             GOLD: 0.0031452
         }
     }),
-    wollo: () => ({
-        balance: '0'
+    wallet: () => ({
+        balances: {
+            WLO: '10000',
+            XLM: '20',
+        },
+        selectedToken: token,
+        hasGas: true,
     }),
     kids: () => ({
         sendError: null
@@ -59,12 +64,16 @@ const props = {
         GOLD: 0.0031452
     },
     balance: '100',
-    balanceXLM: '50',
     hasGas: true,
     baseCurrency: 'USD',
     escrow: null,
     firstTime: false,
     kids: [],
+    balances: {
+        WLO: '10',
+        XLM: '20',
+    },
+    selectedToken: 'WLO',
 };
 
 export const kids = [{
@@ -86,7 +95,7 @@ export const kids = [{
 }];
 
 storiesOf('Dashboard')
-    .addDecorator(story => <Provider store={store}>{story()}</Provider>)
+    .addDecorator(story => <Provider store={getStore()}>{story()}</Provider>)
     .add('default view', () => (
         <Dashboard {...props}/>
     ))
@@ -114,7 +123,6 @@ storiesOf('Dashboard')
         <Dashboard {...{
             ...props,
             balance: '0',
-            balanceXLM: '0',
             hasGas: false,
             firstTime: false,
         }}/>
@@ -127,7 +135,6 @@ storiesOf('Dashboard')
                 balance: 0,
             }],
             balance: '0',
-            balanceXLM: '0',
             hasGas: false,
             firstTime: false,
             showFundingMessage: true,
@@ -140,7 +147,6 @@ storiesOf('Dashboard')
         <Dashboard {...{...props,
             showKidAddFundingMessage: true,
             balance: '0',
-            balanceXLM: '0',
         }}/>
     ))
     .add('loading', () => (
@@ -148,4 +154,21 @@ storiesOf('Dashboard')
     ))
     .add('error', () => (
         <Dashboard {...{...props, exchange: null, error: new Error('Network error')}}/>
+    ));
+
+storiesOf('Dashboard')
+    .addDecorator(story => <Provider store={getStore('XLM')}>{story()}</Provider>)
+    .add('xlm view', () => (
+        <Dashboard {...{
+            ...props,
+            selectedToken: 'XLM',
+            balance: '50',
+        }}/>
+    ))
+    .add('xlm view (0 balance)', () => (
+        <Dashboard {...{
+            ...props,
+            selectedToken: 'XLM',
+            balance: '0',
+        }}/>
     ));

@@ -4,7 +4,7 @@ import {Text, View, Keyboard} from 'react-native';
 import Button from '../../components/button';
 import {SCREEN_KID_DASHBOARD} from '../../constants';
 import StepModule from '../../components/step-module';
-import WolloInput from '../../components/wollo-input';
+import PaymentInput from '../../components/payment-input';
 import Paragraph from '../../components/paragraph';
 import styles from './styles';
 import {deleteTask, assignTask, appAddWarningAlert} from '../../actions';
@@ -12,13 +12,13 @@ import FundingMessage from '../../components/funding-message';
 
 export class TasksAssign extends Component {
     state = {
-        wollos: this.props.taskToEdit ? this.props.taskToEdit.amount : 0,
+        amount: this.props.taskToEdit ? this.props.taskToEdit.amount : 0,
         showFundingMessage: false,
     }
 
     onBack = () => this.props.navigation.goBack()
 
-    onChangeAmount = wollos => this.setState({wollos})
+    onChangeAmount = amount => this.setState({amount})
 
     showFundingMessage = () => this.setState({showFundingMessage: true})
 
@@ -27,7 +27,7 @@ export class TasksAssign extends Component {
     next = async () => {
         Keyboard.dismiss();
 
-        if (Number(this.props.balance) < this.state.wollos) {
+        if (Number(this.props.balance) < this.state.amount) {
             this.showFundingMessage();
             return;
         }
@@ -41,18 +41,17 @@ export class TasksAssign extends Component {
             }
         }
 
-        await this.props.dispatch(assignTask(this.props.kid, this.props.task, this.state.wollos));
+        await this.props.dispatch(assignTask(this.props.kid, this.props.task, this.state.amount));
         this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid: this.props.kid});
     }
 
     render() {
-        const {wollos} = this.state;
+        const {amount} = this.state;
 
         const {
             loading,
             kid,
-            balance,
-            balanceXLM,
+            balances,
         } = this.props;
 
         return (
@@ -73,8 +72,8 @@ export class TasksAssign extends Component {
                             <Paragraph style={styles.textStyle}>
                                 Set <Text style={{fontWeight: 'bold'}}>{kid.name}'s</Text> reward for this task
                             </Paragraph>
-                            <WolloInput
-                                initialAmount={wollos}
+                            <PaymentInput
+                                initialAmount={amount}
                                 onChangeAmount={this.onChangeAmount}
                             />
                         </View>
@@ -82,17 +81,16 @@ export class TasksAssign extends Component {
                             style={styles.sendButton}
                             label={`Send to ${kid.name}`}
                             onPress={this.next}
-                            disabled={wollos === 0}
+                            disabled={amount === 0}
                         />
                     </View>
                 </StepModule>
                 <FundingMessage
                     open={this.state.showFundingMessage}
-                    balance={balance}
-                    balanceXLM={balanceXLM}
+                    balances={balances}
                     onClose={this.onCloseFundingMessage}
                     fundingType={FundingMessage.ASSIGN_TASK}
-                    requiredBalance={wollos}
+                    requiredBalance={amount}
                 />
             </Fragment>
         );
@@ -105,7 +103,6 @@ export default connect(
         kid: props.navigation.state.params.kid,
         task: props.navigation.state.params.task,
         taskToEdit: props.navigation.state.params.taskToEdit,
-        balance: state.wollo.balance,
-        balanceXLM: state.wollo.balanceXLM,
+        balances: state.wallet.balances,
     })
 )(TasksAssign);

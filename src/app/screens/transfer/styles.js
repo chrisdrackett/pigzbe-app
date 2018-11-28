@@ -107,4 +107,11 @@ export default StyleSheet.create({
         paddingBottom: 13,
         paddingLeft: 13,
     },
+    balance: {
+        color: color.lighterBlue,
+        fontSize: 14,
+        marginTop: 5,
+        textAlign: 'left',
+        fontWeight: 'bold',
+    },
 });

@@ -29,7 +29,7 @@ export class AllowanceInterval extends Component {
 
     next = async () => {
         const {day, interval, nextDate, timezone} = this.state;
-        const {kid, amount, numKidsAdded, allowanceToEdit, balance} = this.props;
+        const {kid, amount, numKidsAdded, allowanceToEdit} = this.props;
 
         if (allowanceToEdit) {
             const updatedAllowance = {

@@ -6,7 +6,7 @@ import escrow from './escrow';
 import loader from './loader';
 import keys from './keys';
 import messages from './messages';
-import wollo from './wollo';
+import wallet from './wallet';
 import exchange from './exchange';
 import game from './game';
 import deviceAuth from './device-auth';
@@ -25,7 +25,7 @@ export default combineReducers({
     loader,
     keys,
     messages,
-    wollo,
+    wallet,
     exchange,
     game,
     deviceAuth,

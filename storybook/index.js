@@ -32,8 +32,8 @@ function loadStories() {
     require('./stories/kids.js');
     require('./stories/toggle.js');
     require('./stories/slider.js');
-    require('./stories/wollo.js');
-    require('./stories/wollo-input.js');
+    require('./stories/balance.js');
+    require('./stories/payment-input.js');
     require('./stories/currency-toggle.js');
     require('./stories/kid-dashboard.js');
     require('./stories/searchable-list.js');
@@ -50,6 +50,7 @@ function loadStories() {
     require('./stories/tree-with-leaf-added.js');
     require('./stories/cloud.js');
     require('./stories/cloud-flow.js');
+    require('./stories/token-selector.js');
 }
 
 configure(loadStories, module);

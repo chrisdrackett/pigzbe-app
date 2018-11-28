@@ -21,7 +21,7 @@ const store = createStore(combineReducers({
             GOLD: 0.0031452
         }
     }),
-    wollo: () => ({
+    wallet: () => ({
         balance: '0'
     }),
     kids: () => ({

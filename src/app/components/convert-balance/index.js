@@ -10,20 +10,20 @@ import {
 import openURL from '../../utils/open-url';
 import CoinCompare from '../coin-compare';
 import moneyFormat from '../../utils/money-format';
-import {CURRENCIES, ASSET_CODE} from '../../constants';
+import {CURRENCIES, ASSET_CODE} from 'app/constants';
+import getPrice from 'app/utils/get-price';
 
-const ConvertBalance = ({exchange, balance, coins}) => (
+const ConvertBalance = ({exchange, balance, coins, selectedToken = ASSET_CODE}) => (
     <View style={styles.container}>
         <Text style={styles.title}>
-            <Text style={styles.bold}>{moneyFormat(balance, CURRENCIES[ASSET_CODE].dps)}</Text> Wollo Converted
+            <Text style={styles.bold}>{moneyFormat(balance, CURRENCIES[selectedToken].dps)}</Text> {CURRENCIES[selectedToken].name} Converted
         </Text>
         <View style={styles.containerCoins}>
-            {coins.map(c => (
+            {coins.map(code => (
                 <CoinCompare
-                    key={c}
-                    coin={c}
-                    value={exchange ? exchange[c] * balance : 0}
-                    dp={CURRENCIES[c].dps}
+                    key={code}
+                    coin={code}
+                    value={getPrice(selectedToken, code, exchange, balance, false)}
                 />
             ))}
         </View>

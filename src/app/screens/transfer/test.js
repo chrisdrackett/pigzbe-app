@@ -19,7 +19,7 @@ const exchange = () => ({
         GOLD: 0.0031452
     },
     error: null,
-    balance: '0',
+    balances: {WLO: '0', XLM: '0'},
     publicKey: 'GD5Q7KRFQC3Q7YQPYAZ4G65B65EBCJOVSHPE65MIYQMCLUQULQDKBLUX',
 });
 
