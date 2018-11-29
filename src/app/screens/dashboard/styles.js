@@ -1,4 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+import {color, fontFamily} from 'app/styles';
+
+const w = Math.min(300, Dimensions.get('window').width - 40);
 
 export default StyleSheet.create({
     header: {
@@ -10,20 +13,23 @@ export default StyleSheet.create({
         marginBottom: 0,
     },
     bubble: {
-        maxWidth: 300,
-        width: 300,
+        maxWidth: w,
+        width: w,
         marginTop: 0,
     },
-    bubbleButton: {
-        position: 'absolute',
-        top: 88,
-        left: 0,
-        width: '100%',
-        alignItems: 'center',
+    bubbleTailStyle: {
+        left: w / 2 - 5,
     },
-    bubbleButtonHit: {
-        backgroundColor: 'rgba(0, 0, 0, 0)',
-        width: 300,
-        height: 80,
+    bubbleTextStyle: {
+        fontFamily,
+        color: color.blue,
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    bubbleTextUnderline: {
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'solid',
+        textDecorationColor: color.blue,
     },
 });

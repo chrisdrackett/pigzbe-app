@@ -12,7 +12,9 @@ export default ({content, top = false, style = {}, textStyle = {}, tailStyle = {
             <View style={[styles.boxInner, top ? styles.boxInnerTop : null]}>
                 <View style={styles.textContainer}>
                     {typeof content === 'string' &&
-                        <Text style={[styles.text, top ? styles.textTop : null, textStyle]}>{content}</Text>
+                        <Text style={[styles.text, top ? styles.textTop : null, textStyle]}>
+                            {content}
+                        </Text>
                     }
                     {typeof content !== 'string' &&
                         content

@@ -6,7 +6,7 @@ const bold = text => {
     text = text.split('*');
     for (let i = 1; i < text.length; i += 2) {
         const word = text[i].replace(/[*]/g, '');
-        text[i] = <Text key={i} style={{fontWeight: 'bold'}}>{word}</Text>;
+        text[i] = <Text key={`b${i}`} style={styles.bold}>{word}</Text>;
     }
     return text;
 };

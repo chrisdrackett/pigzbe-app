@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, Text} from 'react-native';
 import {color} from 'app/styles';
 import {
     SCREEN_SETTINGS,
@@ -18,7 +18,6 @@ import ConvertBalance from 'app/components/convert-balance';
 import BalanceGraph from 'app/components/balance-graph';
 import Kids from 'app/components/kids';
 import Balance from 'app/components/balance';
-
 import StepModule from 'app/components/step-module';
 import {
     loadExchange,
@@ -30,6 +29,7 @@ import FundingMessage from 'app/components/funding-message';
 import GameMessageBubble from 'app/components/game-message-bubble';
 import WebPage from 'app/components/web-page';
 import WelcomeModal from 'app/components/welcome-modal';
+import Paragraph from 'app/components/paragraph';
 import Pig from 'app/components/pig';
 import styles from './styles';
 import Dev from './dev';
@@ -164,9 +164,13 @@ export class Dashboard extends Component {
                                 <TouchableOpacity onPress={this.onFundingInfo}>
                                     <View style={styles.bubbleWrapper}>
                                         <GameMessageBubble
-                                            content="Hi there. Your wallet needs XLM to activate it. Read more"
+                                            content={
+                                                <Text style={styles.bubbleTextStyle}>
+                                                    Hi there. Your wallet needs XLM to activate it. <Text style={styles.bubbleTextUnderline}>Read more</Text>
+                                                </Text>
+                                            }
                                             style={styles.bubble}
-                                            tailStyle={{left: 145}}
+                                            tailStyle={styles.bubbleTailStyle}
                                         />
                                     </View>
                                 </TouchableOpacity>
