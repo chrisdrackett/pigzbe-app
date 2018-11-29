@@ -82,8 +82,8 @@ export class TokenSelector extends Component {
             <Fragment>
                 <ReactModal
                     isVisible={this.state.open}
-                    animationIn="slideInRight"
-                    animationOut="slideOutRight"
+                    animationIn="slideInDown"
+                    animationOut="slideOutUp"
                     style={{margin: 0}}
                 >
                     <View style={styles.container}>
@@ -93,7 +93,7 @@ export class TokenSelector extends Component {
                             open={this.state.open}
                         />
                         <Text style={styles.title}>SELECT YOUR WALLET</Text>
-                        <View>
+                        <View style={styles.buttons}>
                             {tokens.map(token => (
                                 <TokenButton
                                     key={token}

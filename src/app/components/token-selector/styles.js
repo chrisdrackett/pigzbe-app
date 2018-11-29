@@ -43,6 +43,9 @@ export default StyleSheet.create({
     chevronUp: {
         transform: [{rotate: '0deg'}]
     },
+    buttons: {
+        alignItems: 'center',
+    },
     button: {
         alignItems: 'center',
         flexDirection: 'row',
