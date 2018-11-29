@@ -29,7 +29,6 @@ import FundingMessage from 'app/components/funding-message';
 import GameMessageBubble from 'app/components/game-message-bubble';
 import WebPage from 'app/components/web-page';
 import WelcomeModal from 'app/components/welcome-modal';
-import Paragraph from 'app/components/paragraph';
 import Pig from 'app/components/pig';
 import styles from './styles';
 import Dev from './dev';
@@ -154,8 +153,8 @@ export class Dashboard extends Component {
                     loading={loading}
                     loaderMessage={this.state.funding ? 'Funding account' : null}
                     customTitle="Your dashboard"
-                    rightIcon="qrCode"
-                    onRightIcon={this.onViewAddress}
+                    // rightIcon="qrCode"
+                    // onRightIcon={this.onViewAddress}
                     tokenSelector={true}
                 >
                     <View>

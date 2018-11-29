@@ -7,6 +7,8 @@ import StepModule from 'app/components/step-module';
 import {walletSendReset, sendTokens} from 'app/actions';
 import Form from './form';
 import Review from './review';
+import ViewAddress from '../view-address';
+import ReactModal from 'react-native-modal';
 
 export class Transfer extends Component {
     state = {
@@ -14,6 +16,7 @@ export class Transfer extends Component {
         destination: '',
         amount: '',
         memo: '',
+        showViewAdressModal: false,
     }
 
     onReset = () => {
@@ -42,6 +45,10 @@ export class Transfer extends Component {
 
     onEdit = () => this.setState({review: false})
 
+    onViewAddress = () => this.setState({showViewAdressModal: true})
+
+    onHideAddress = () => this.setState({showViewAdressModal: false})
+
     render() {
         const {sending, sendComplete, sendStatus, error, selectedToken} = this.props;
 
@@ -56,6 +63,8 @@ export class Transfer extends Component {
                     pad
                     paddingTop={10}
                     keyboardOffset={-50}
+                    rightIcon="qrCode"
+                    onRightIcon={this.onViewAddress}
                     tokenSelector={true}
                 >
                     {this.state.review ? (
@@ -91,6 +100,18 @@ export class Transfer extends Component {
                     buttonLabel={strings.transferProgressButtonLabel}
                     onPress={error ? this.onReset : this.onFinish}
                 />
+                <ReactModal
+                    isVisible={this.state.showViewAdressModal}
+                    animationIn="slideInRight"
+                    animationOut="slideOutRight"
+                    style={{margin: 0}}
+                    onBackButtonPress={this.onHideAddress}
+                >
+                    <ViewAddress
+                        publicKey={this.props.publicKey}
+                        onBack={this.onHideAddress}
+                    />
+                </ReactModal>
             </Fragment>
         );
     }
