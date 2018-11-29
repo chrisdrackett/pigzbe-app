@@ -46,6 +46,7 @@ export class Messages extends Component {
                     error={error}
                     loading={loading && !messages.length}
                     loaderMessage={strings.loadMessagesing}
+                    showLogo={true}
                 >
                     <ScrollList
                         items={messages}
