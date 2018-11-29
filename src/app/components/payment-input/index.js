@@ -80,7 +80,7 @@ export class PaymentInput extends Component {
         const placeholder = baseCurrency === currentCurrency ?
             (CURRENCIES[baseCurrency].symbol + moneyFormat(0, CURRENCIES[baseCurrency].dps))
             :
-            `0 ${CURRENCIES[currentCurrency].name}`;
+            `0 ${CURRENCIES[currentCurrency].symbol}`;
 
         console.log('currentCurrency', currentCurrency);
 
