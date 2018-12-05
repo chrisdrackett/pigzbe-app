@@ -21,7 +21,10 @@ export class Transfer extends Component {
 
     onFocus = () => this.props.dispatch(stayLoggedIn(true));
 
-    onBlur = () => this.props.dispatch(stayLoggedIn(false));
+    onBlur = () => {
+        console.log('Transfer.onBlur');
+        this.props.dispatch(stayLoggedIn(false));
+    }
 
     componentDidMount() {
         this.focusListener = this.props.navigation.addListener('willFocus', this.onFocus);
@@ -140,5 +143,6 @@ export default connect(
         sending: state.wallet.sending,
         sendStatus: state.wallet.sendStatus,
         sendComplete: state.wallet.sendComplete,
+        publicKey: state.keys.publicKey,
     })
 )(Transfer);

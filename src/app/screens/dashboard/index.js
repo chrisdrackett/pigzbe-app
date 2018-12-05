@@ -32,8 +32,8 @@ import WelcomeModal from 'app/components/welcome-modal';
 import Pig from 'app/components/pig';
 import styles from './styles';
 import Dev from './dev';
-import ViewAddress from '../view-address';
-import ReactModal from 'react-native-modal';
+// import ViewAddress from '../view-address';
+// import ReactModal from 'react-native-modal';
 import {getBalance} from 'app/selectors';
 
 export class Dashboard extends Component {
@@ -113,9 +113,9 @@ export class Dashboard extends Component {
 
     onModalHide = () => this.setState({modalOpen: false})
 
-    onViewAddress = () => this.setState({showViewAdressModal: true})
+    // onViewAddress = () => this.setState({showViewAdressModal: true})
 
-    onHideAddress = () => this.setState({showViewAdressModal: false})
+    // onHideAddress = () => this.setState({showViewAdressModal: false})
 
     render () {
         const {
@@ -231,7 +231,7 @@ export class Dashboard extends Component {
                     title="How to activate your wallet"
                     onClose={this.onActivationGuideClose}
                 />
-                <ReactModal
+                {/*<ReactModal
                     isVisible={this.state.showViewAdressModal}
                     animationIn="slideInRight"
                     animationOut="slideOutRight"
@@ -242,7 +242,7 @@ export class Dashboard extends Component {
                         publicKey={this.props.publicKey}
                         onBack={this.onHideAddress}
                     />
-                </ReactModal>
+                </ReactModal>*/}
             </Fragment>
         );
     }
