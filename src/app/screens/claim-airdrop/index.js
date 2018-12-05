@@ -5,12 +5,13 @@ import {
     ID_AIRDROP,
     SCREEN_CLAIM,
     SCREEN_CLAIM_AIRDROP_ENTER_KEYS,
-    SCREEN_CLAIM_AIRDROP_BURN,
+    SCREEN_CLAIM_AIRDROP_CLAIM,
 } from 'app/constants';
 import {
     claimStart,
     claimStop,
-    initWeb3,
+    // initWeb3,
+    loadClaimData,
 } from 'app/actions';
 
 export class ClaimAirdrop extends Component {
@@ -24,12 +25,12 @@ export class ClaimAirdrop extends Component {
 
   componentWillReceiveProps(nextProps) {
       console.log('ClaimAirdrop componentWillReceiveProps', this.props.navigation.isFocused());
-      console.log('  nextProps.eth.coinbase', nextProps.eth.coinbase);
-      console.log('  nextProps.eth.balanceWollo', nextProps.eth.balanceWollo);
-      console.log('  nextProps.eth.balanceWei', nextProps.eth.balanceWei);
-      console.log('  nextProps.data.coinbase', nextProps.data.coinbase);
-      console.log('  nextProps.data.ethAddress', nextProps.data.ethAddress);
-      console.log('  nextProps.data.transactionHash', nextProps.data.transactionHash);
+      // console.log('  nextProps.eth.coinbase', nextProps.eth.coinbase);
+      // console.log('  nextProps.eth.balanceWollo', nextProps.eth.balanceWollo);
+      // console.log('  nextProps.eth.balanceWei', nextProps.eth.balanceWei);
+      // console.log('  nextProps.data.coinbase', nextProps.data.coinbase);
+      // console.log('  nextProps.data.ethAddress', nextProps.data.ethAddress);
+      // console.log('  nextProps.data.transactionHash', nextProps.data.transactionHash);
       console.log('  nextProps.data.started', nextProps.data.started);
       console.log('  nextProps.data.burned', nextProps.data.burned);
       console.log('  nextProps.data.complete', nextProps.data.complete);
@@ -42,20 +43,21 @@ export class ClaimAirdrop extends Component {
       }
 
       // means the burn transaction has been successfully submitted:
-      const inProgress = !!(nextProps.data.started && nextProps.data.ethAddress && nextProps.data.transactionHash && nextProps.eth.coinbase && nextProps.eth.balanceWei);
+      // const inProgress = !!(nextProps.data.started && nextProps.data.ethAddress && nextProps.data.transactionHash && nextProps.eth.coinbase && nextProps.eth.balanceWei);
+      const inProgress = false;
 
       console.log('ClaimAirdrop LOADED inProgress =', inProgress);
 
       this.setState({starting: false});
 
       if (inProgress) {
-          this.props.navigation.navigate(SCREEN_CLAIM_AIRDROP_BURN);
+          this.props.navigation.navigate(SCREEN_CLAIM_AIRDROP_CLAIM);
       }
   }
 
   onInit = async () => {
       this.props.claimStart(ID_AIRDROP);
-      this.props.initWeb3();
+      this.props.loadClaimData();
   }
 
   onBack = () => {
@@ -68,28 +70,26 @@ export class ClaimAirdrop extends Component {
   render () {
 
       const {
-          contract,
-          web3,
           data,
-          error
+          // error
       } = this.props;
 
-      console.log('====> error', error);
+      // console.log('====> error', error);
 
-      const loading = !web3 || !contract || !data.loaded || this.state.starting;
+      const loading = !data.loaded || this.state.starting;
 
-      if (error) {
-          return (
-              <StepWrapper
-                  title="Claim Your Wollo"
-                  icon="airdrop"
-                  onNext={this.onInit}
-                  onBack={this.onBack}
-                  buttonNextLabel="Try again"
-                  error={error}
-              />
-          );
-      }
+      // if (error) {
+      //     return (
+      //         <StepWrapper
+      //             title="Claim Your Wollo"
+      //             icon="airdrop"
+      //             onNext={this.onInit}
+      //             onBack={this.onBack}
+      //             buttonNextLabel="Try again"
+      //             error={error}
+      //         />
+      //     );
+      // }
 
       return (
           <StepWrapper
@@ -105,16 +105,18 @@ export class ClaimAirdrop extends Component {
 }
 
 export default connect(
-    ({claim: {claims: {[ID_AIRDROP]: {eth, data, web3, events, contract}}}}) => ({
-        eth,
+    ({claim: {claims: {[ID_AIRDROP]: {
+        // eth,
         data,
-        contract: contract.instance,
-        transactionHash: events.transactionHash,
-        web3: web3.instance,
+        events,
+    }}}}) => ({
+        // eth,
+        data,
+        // transactionHash: events.transactionHash,
         loading: events.loading,
         error: events.error,
     }), {
-        initWeb3,
+        loadClaimData,
         claimStart,
         claimStop,
     },

@@ -20,23 +20,35 @@ const getMaxNumBurnTokens = config => {
         .toString(10);
 };
 
+export const updateClaimBalance = payload => ({type: CLAIM_ETH_BALANCE, payload});
+
 export const getClaimBalance = () => async (dispatch, getState) => {
     try {
         const claim = getClaim(getState());
+
+        if (!(claim.web3 && claim.contract)) {
+            return false;
+        }
+
         const web3 = claim.web3.instance;
         const contract = claim.contract.instance;
         const eth = claim.eth;
+
+        if (!eth.coinbase) {
+            return false;
+        }
 
         const accountBalanceWei = await contract.methods.balanceOf(eth.coinbase).call();
         const maxAmount = eth.maxAmount || getMaxNumBurnTokens(getState().config);
         const balanceWei = BigNumber.min(accountBalanceWei, maxAmount).toString(10);
         const balanceWollo = new BigNumber(web3.utils.fromWei(balanceWei, 'ether')).toFixed(7, BigNumber.ROUND_DOWN);
 
-        dispatch({type: CLAIM_ETH_BALANCE, payload: {
+        dispatch(updateClaimBalance({
             balanceWei,
             balanceWollo,
             maxAmount
-        }});
+        }));
+
         return true;
     } catch (e) {
         console.log(e);
@@ -63,8 +75,6 @@ export const checkUserCache = data => async dispatch => {
 
     dispatch(setCoinbase(coinbase));
     dispatch(setPrivateKey(privateKey));
-
-    await dispatch(getClaimBalance());
 };
 
 export const addHexPrefix = hexStr => {
@@ -79,6 +89,13 @@ export const removeHexPrefix = hexStr => {
         return hexStr.slice(2);
     }
     return hexStr;
+};
+
+export const storeLoginDetails = (privateKey, coinbase) => async dispatch => {
+    await dispatch(saveClaimPrivateKey(privateKey));
+    dispatch(updateClaimData({coinbase}));
+    dispatch(setPrivateKey(privateKey));
+    dispatch(setCoinbase(coinbase));
 };
 
 export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => {
@@ -107,11 +124,7 @@ export const userLogin = (mnemonic, publicKey) => async (dispatch, getState) => 
             return {};
         }
 
-        await dispatch(saveClaimPrivateKey(address.privateKey));
-
-        dispatch(updateClaimData({coinbase}));
-        dispatch(setPrivateKey(address.privateKey));
-        dispatch(setCoinbase(coinbase));
+        await dispatch(storeLoginDetails(address.privateKey, coinbase));
 
         const success = await dispatch(getClaimBalance());
 
@@ -147,11 +160,7 @@ export const userLoginPrivateKey = (privateKey, publicKey) => async (dispatch, g
             return {};
         }
 
-        await dispatch(saveClaimPrivateKey(privateKey));
-
-        dispatch(updateClaimData({coinbase}));
-        dispatch(setPrivateKey(privateKey));
-        dispatch(setCoinbase(coinbase));
+        await dispatch(storeLoginDetails(privateKey, coinbase));
 
         const success = await dispatch(getClaimBalance());
 

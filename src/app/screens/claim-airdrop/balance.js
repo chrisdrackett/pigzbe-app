@@ -5,7 +5,7 @@ import Paragraph from '../../components/paragraph';
 import {
     ID_AIRDROP,
     SCREEN_CLAIM_AIRDROP_ENTER_KEYS,
-    SCREEN_CLAIM_AIRDROP_ESTIMATE_GAS
+    SCREEN_CLAIM_AIRDROP_CLAIM
 } from '../../constants';
 
 export class Balance extends Component {
@@ -13,13 +13,13 @@ export class Balance extends Component {
 
     onRestart = () => this.props.navigation.navigate(SCREEN_CLAIM_AIRDROP_ENTER_KEYS)
 
-    onNext = () => this.props.navigation.navigate(SCREEN_CLAIM_AIRDROP_ESTIMATE_GAS)
+    onNext = () => this.props.navigation.navigate(SCREEN_CLAIM_AIRDROP_CLAIM)
 
     render() {
         const {eth} = this.props;
         const hasBalance = eth.balanceWollo && Number(eth.balanceWollo) > 0;
         const userBalance = eth.balanceWollo;
-        const buttonNextLabel = !hasBalance ? 'Back' : 'Estimate Gas fees';
+        const buttonNextLabel = !hasBalance ? 'Back' : 'Claim now';
 
         return (
             <StepWrapper
@@ -30,11 +30,11 @@ export class Balance extends Component {
                 buttonNextLabel={buttonNextLabel}
                 content={(
                     <Fragment>
-                        <Paragraph>{`You have *${userBalance} ERC20 Wollo Tokens* in your account.`}</Paragraph>
+                        <Paragraph>{`Congratulations! You can claim *${userBalance} Wollo* tokens.`}</Paragraph>
                         {hasBalance ? (
-                            <Paragraph>{`Tap the button below to convert your tokens to ${userBalance} Wollo and create your Pigzbe wallet.`}</Paragraph>
+                            <Paragraph>{`Tap the button below to create your Pigzbe wallet and claim your ${userBalance} Wollo.`}</Paragraph>
                         ) : (
-                            <Paragraph>Go back to check your login details and try again.</Paragraph>
+                            <Paragraph>Go back to check your claim details and try again.</Paragraph>
                         )}
                     </Fragment>
                 )}
