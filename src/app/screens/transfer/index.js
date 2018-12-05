@@ -4,7 +4,7 @@ import {strings, SCREEN_DASHBOARD, CURRENCIES} from 'app/constants';
 import Button from 'app/components/button';
 import Progress from 'app/components/progress';
 import StepModule from 'app/components/step-module';
-import {walletSendReset, sendTokens} from 'app/actions';
+import {walletSendReset, sendTokens, stayLoggedIn} from 'app/actions';
 import Form from './form';
 import Review from './review';
 import ViewAddress from '../view-address';
@@ -17,6 +17,22 @@ export class Transfer extends Component {
         amount: '',
         memo: '',
         showViewAdressModal: false,
+    }
+
+    onFocus = () => this.props.dispatch(stayLoggedIn(true));
+
+    onBlur = () => this.props.dispatch(stayLoggedIn(false));
+
+    componentDidMount() {
+        this.focusListener = this.props.navigation.addListener('willFocus', this.onFocus);
+        this.blurListener = this.props.navigation.addListener('willBlur', this.onBlur);
+        this.props.dispatch(stayLoggedIn(true));
+    }
+
+    componentWillUnMount() {
+        this.focusListener.remove();
+        this.blurListener.remove();
+        this.props.dispatch(stayLoggedIn(false));
     }
 
     onReset = () => {
