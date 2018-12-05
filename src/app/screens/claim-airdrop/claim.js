@@ -9,7 +9,7 @@ import {
     SCREEN_DASHBOARD
 } from 'app/constants';
 import {
-    burn,
+    claimAirdrop,
     clearClaimData,
     loadWallet,
     appAddWarningAlert,
@@ -29,7 +29,7 @@ export class Burn extends Component {
 
     onContinue = () => {
         this.setState({progressClosed: false});
-        this.props.burn();
+        this.props.claimAirdrop();
     }
 
     onCompleteClaim = () => {
@@ -92,7 +92,7 @@ export default connect(
         loading: events.loading,
         error: events.error,
     }), {
-        burn,
+        claimAirdrop,
         clearClaimData,
         loadWallet,
         appAddWarningAlert,

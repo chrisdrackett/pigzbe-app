@@ -1,7 +1,7 @@
 import Keychain from '../utils/keychain';
 import Storage from '../utils/storage';
 import {KEYCHAIN_ID_ETH_KEY, STORAGE_KEY_BURNING} from '../constants';
-import {checkUserCache} from './claim-eth';
+import {checkUserCache, getClaimBalance} from './claim-eth';
 
 export const CLAIM_UPDATE_DATA = 'CLAIM_UPDATE_DATA';
 export const CLAIM_CLEAR_DATA = 'CLAIM_CLEAR_DATA';
@@ -31,6 +31,7 @@ export const loadClaimData = () => async (dispatch, getState) => {
     const payload = await Storage.load(getClaimStorageKey(currentClaim));
     await dispatch(updateClaimData({...payload, loaded: false}));
     await dispatch(checkUserCache(payload));
+    await dispatch(getClaimBalance());
     await dispatch(updateClaimData({loaded: true}));
 };
 

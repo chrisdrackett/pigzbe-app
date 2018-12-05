@@ -1,6 +1,6 @@
 import {apiURL, wolloAsset, getClaim, claimToken} from '../selectors';
 import {trustAsset} from '@pigzbe/stellar-utils';
-import {getClaimBalance} from './claim-eth';
+import {getClaimBalance, updateClaimBalance, storeLoginDetails} from './claim-eth';
 import {updateClaimData, flagClaimDataForReload} from './claim-data';
 
 export const CLAIM_START = 'CLAIM_START';
@@ -75,7 +75,10 @@ export const validateClaim = () => async (dispatch, getState) => {
             };
         }
 
-        dispatch(trustStellarAsset());
+        const trustlineCreated = await dispatch(trustStellarAsset());
+        if (trustlineCreated) {
+            dispatch(claim());
+        }
     } catch (e) {
         console.log(e);
         dispatch(claimError(e));
@@ -165,11 +168,111 @@ export const trustStellarAsset = () => async (dispatch, getState) => {
                 wolloTrusted: true,
             }));
         }
-
-        dispatch(claim());
-
+        return true;
     } catch (e) {
         console.log(e);
         dispatch(claimError('Error trusting Stellar asset'));
+        return false;
+    }
+};
+
+export const getAirdropClaim = (address, code) => async (dispatch, getState) => {
+    try {
+        const api = apiURL(getState());
+        const result = await (await fetch(`${api}/airdrop/confirm?address=${address}&code=${code}`)).json();
+
+        if (!result.error) {
+            await dispatch(storeLoginDetails(code, address));
+            await dispatch(updateClaimBalance({balanceWollo: result.amount}));
+        }
+        return {success: !result.error, ...result};
+    } catch (e) {
+        return {success: false, error: e.message};
+    }
+};
+
+export const claimAirdrop = () => async (dispatch, getState) => {
+    const {publicKey} = getState().keys;
+    const {data, events, eth} = getClaim(getState());
+    const tokenName = claimToken(getState());
+    const transactionHash = data.transactionHash || events.transactionHash;
+    const api = apiURL(getState());
+
+    console.log('---> validateClaim');
+    console.log('  transactionHash', transactionHash);
+    console.log('  data.stellarAccount', data.stellarAccount);
+    console.log('  data.receipt', data.receipt);
+
+    dispatch(claimLoading('Validating claim'));
+
+    try {
+        if (!(data.stellarAccount && data.receipt)) {
+            console.log('api', api);
+            console.log('tokenName', tokenName);
+            const payload = await (await fetch(`${api}/airdrop/claim`, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    pk: publicKey,
+                    address: eth.coinbase,
+                    code: eth.privateKey,
+                })
+            })).json();
+
+            if (payload.error) {
+                if (payload.message && payload.message.includes('createStellarAccount')) {
+                    dispatch(claimError('Could not create account'));
+                } else {
+                    dispatch(claimError('Claim failed'));
+                }
+                setTimeout(() => dispatch(claimLoading(null)), 5000);
+                return;
+            }
+
+            console.log('claim payload:');
+            console.log(payload);
+
+            await dispatch(updateClaimData({
+                stellarAccount: payload.stellar.pk,
+                receipt: payload,
+                started: true,
+                ethAddress: eth.coinbase,
+            }));
+        }
+
+        const trustlineCreated = await dispatch(trustStellarAsset());
+        if (trustlineCreated) {
+            dispatch(claimLoading('Transferring Wollo'));
+
+            const payload = await (await fetch(`${api}/airdrop/transfer`, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    address: eth.coinbase,
+                    code: eth.privateKey,
+                })
+            })).json();
+
+            console.log('transfer payload', payload);
+
+            if (payload.error) {
+                throw new Error(payload.message);
+            }
+
+            dispatch(claimLoading('Transfer Wollo Complete'));
+
+            setTimeout(() => dispatch(claimLoading(null)), 2000);
+
+            dispatch(updateClaimData({
+                complete: true,
+            }));
+        }
+    } catch (e) {
+        console.log(e);
+        dispatch(claimError(e));
     }
 };

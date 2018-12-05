@@ -2,18 +2,18 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Config from 'react-native-config';
-import StepWrapper from '../../components/step-wrapper';
-import Paragraph from '../../components/paragraph';
-import TextInput from '../../components/text-input';
-import {userLoginPrivateKey, appError} from '../../actions';
-import {SCREEN_CLAIM_AIRDROP_BALANCE} from '../../constants';
+import StepWrapper from 'app/components/step-wrapper';
+import Paragraph from 'app/components/paragraph';
+import TextInput from 'app/components/text-input';
+import {appError, getAirdropClaim} from 'app/actions';
+import {SCREEN_CLAIM_AIRDROP_BALANCE} from 'app/constants';
 
 export class EnterKeys extends Component {
     state = {
-        privateKey: (__DEV__ && Config.PRIVATE_KEY) || '',
-        address: (__DEV__ && Config.PK) || '',
+        code: (__DEV__ && Config.AIRDROP_CODE) || '',
+        address: (__DEV__ && Config.AIRDROP_ADDRESS) || '',
         badAddress: false,
-        badPrivateKey: false,
+        badCode: false,
         loading: false,
     }
 
@@ -29,32 +29,42 @@ export class EnterKeys extends Component {
 
     onBack = () => this.props.navigation.goBack()
 
-    onImportKey = async () => {
-        const {privateKey, address} = this.state;
+    onNext = async () => {
+        const {code, address} = this.state;
 
         this.setState({
             loading: true,
             badAddress: false,
-            badPrivateKey: false,
+            badCode: false,
         });
 
-        const result = await this.props.dispatch(userLoginPrivateKey(privateKey, address));
+        const result = await this.props.dispatch(getAirdropClaim(address, code));
 
         console.log('---------> result', result);
+        const complete = result.confirmation === 'complete';
 
-        if (result.success) {
+        if (result.success && !complete) {
             this.props.navigation.navigate(SCREEN_CLAIM_AIRDROP_BALANCE);
+        } else if (result.success && complete) {
+            this.setState({
+                loading: false,
+                badAddress: true,
+                badCode: true,
+                errorMessage: 'Already claimed',
+            });
+            this.props.dispatch(appError('Already claimed'));
         } else {
             this.setState({
                 loading: false,
                 badAddress: true,
-                badPrivateKey: true
+                badCode: true,
+                errorMessage: 'Check your wallet address and unique code',
             });
-            this.props.dispatch(appError('Check your wallet address and private key'));
+            this.props.dispatch(appError('Check your wallet address and unique code'));
         }
     }
 
-    onChangePrivateKey = privateKey => this.setState({privateKey})
+    onChangeCode = code => this.setState({code})
 
     onChangeAddress = address => this.setState({address})
 
@@ -62,13 +72,13 @@ export class EnterKeys extends Component {
         return (
             <StepWrapper
                 loading={this.state.loading}
-                title={'Import your wallet'}
+                title={'Verify your details'}
                 icon="airdrop"
-                onNext={this.onImportKey}
+                onNext={this.onNext}
                 onBack={this.onBack}
                 content={(
                     <Fragment>
-                        <Paragraph small>We're almost there! Enter your wallet address and private key below and let's claim.</Paragraph>
+                        <Paragraph small>We're almost there! Enter your wallet address and unique code below and let's claim.</Paragraph>
                         <View>
                             <TextInput
                                 error={this.state.badAddress}
@@ -80,11 +90,11 @@ export class EnterKeys extends Component {
                                 autoCorrect={false}
                             />
                             <TextInput
-                                error={this.state.badPrivateKey}
-                                value={this.state.privateKey}
-                                numberOfLines={3}
-                                placeholder="Your private key"
-                                onChangeText={this.onChangePrivateKey}
+                                error={this.state.badCode && this.state.errorMessage}
+                                value={this.state.code}
+                                numberOfLines={2}
+                                placeholder="Your unique code"
+                                onChangeText={this.onChangeCode}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                             />
