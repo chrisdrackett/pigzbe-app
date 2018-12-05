@@ -7,6 +7,7 @@ import styles from './styles';
 import {SUPPORT_EMAIL} from 'app/constants';
 import {version} from '../../../../package.json';
 import Alert from 'app/components/alert';
+import {stayLoggedIn} from 'app/actions';
 
 export class Support extends Component {
     state = {
@@ -18,20 +19,31 @@ export class Support extends Component {
     }
 
     onEmail = async () => {
-        const isSupported = await Linking.canOpenURL(SUPPORT_EMAIL);
+        this.props.dispatch(stayLoggedIn(true));
+        try {
+            const isSupported = await Linking.canOpenURL(SUPPORT_EMAIL);
 
-        console.log('isSupported', isSupported);
+            console.log('isSupported', isSupported);
 
-        if (isSupported) {
-            Linking.openURL('mailto:support@pigzbe.com');
-        } else {
+            if (isSupported) {
+                Linking.openURL('mailto:support@pigzbe.com');
+            } else {
+                this.showAlert();
+            }
+        } catch (e) {
             this.showAlert();
         }
     }
 
-    onClose = () => this.props.onClose()
+    onClose = () => {
+        this.props.dispatch(stayLoggedIn(false));
+        this.props.onClose();
+    }
 
-    showAlert = () => this.setState({alertMessage: 'Cannot open email client'})
+    showAlert = () => {
+        this.props.dispatch(stayLoggedIn(false));
+        this.setState({alertMessage: 'Cannot open email client'});
+    }
 
     onDismissAlert = () => this.setState({alertMessage: null})
 
