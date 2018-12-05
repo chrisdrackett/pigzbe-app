@@ -170,7 +170,7 @@ class DevPanel extends Component {
                                     Storage.clear(STORAGE_KEY_BURNING);
                                     Storage.clear(STORAGE_KEY_BURNING_ICO);
                                     Storage.clear(STORAGE_KEY_BURNING_AIRDROP);
-                                    Keychain.clear(KEYCHAIN_ID_ETH_KEY);
+                                    // Keychain.clear(KEYCHAIN_ID_ETH_KEY);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY_ICO);
                                     Keychain.clear(KEYCHAIN_ID_ETH_KEY_AIRDROP);
                                 }} />

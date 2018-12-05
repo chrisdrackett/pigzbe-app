@@ -43,8 +43,9 @@ export class ClaimAirdrop extends Component {
       }
 
       // means the burn transaction has been successfully submitted:
+      const inProgress = !!(nextProps.data.started && nextProps.data.ethAddress && nextProps.eth && nextProps.eth.coinbase && nextProps.eth.balanceWollo);
       // const inProgress = !!(nextProps.data.started && nextProps.data.ethAddress && nextProps.data.transactionHash && nextProps.eth.coinbase && nextProps.eth.balanceWei);
-      const inProgress = false;
+      // const inProgress = false;
 
       console.log('ClaimAirdrop LOADED inProgress =', inProgress);
 

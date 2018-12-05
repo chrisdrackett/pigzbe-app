@@ -181,11 +181,10 @@ export const getAirdropClaim = (address, code) => async (dispatch, getState) => 
         const api = apiURL(getState());
         const result = await (await fetch(`${api}/airdrop/confirm?address=${address}&code=${code}`)).json();
 
-        await dispatch(storeLoginDetails(code, address));
-
-        dispatch(updateClaimBalance({
-            balanceWollo: result.amount
-        }));
+        if (!result.error) {
+            await dispatch(storeLoginDetails(code, address));
+            await dispatch(updateClaimBalance({balanceWollo: result.amount}));
+        }
         return {success: !result.error, ...result};
     } catch (e) {
         return {success: false, error: e.message};
@@ -199,18 +198,18 @@ export const claimAirdrop = () => async (dispatch, getState) => {
     const transactionHash = data.transactionHash || events.transactionHash;
     const api = apiURL(getState());
 
-    console.log('validateClaim');
-    console.log(transactionHash);
+    console.log('---> validateClaim');
+    console.log('  transactionHash', transactionHash);
+    console.log('  data.stellarAccount', data.stellarAccount);
+    console.log('  data.receipt', data.receipt);
 
     dispatch(claimLoading('Validating claim'));
 
     try {
-        let payload;
-
         if (!(data.stellarAccount && data.receipt)) {
             console.log('api', api);
             console.log('tokenName', tokenName);
-            payload = await (await fetch(`${api}/airdrop/claim`, {
+            const payload = await (await fetch(`${api}/airdrop/claim`, {
                 method: 'POST',
                 mode: 'cors',
                 cache: 'no-cache',
@@ -223,31 +222,31 @@ export const claimAirdrop = () => async (dispatch, getState) => {
             })).json();
 
             if (payload.error) {
-                console.log('Claim error:');
-                console.log(payload);
-                if (payload.message && payload.message.includes('createUserAccount')) {
-                    dispatch(claimError('Could not create user account'));
+                if (payload.message && payload.message.includes('createStellarAccount')) {
+                    dispatch(claimError('Could not create account'));
                 } else {
-                    dispatch(claimError('Invalid transaction'));
+                    dispatch(claimError('Claim failed'));
                 }
                 setTimeout(() => dispatch(claimLoading(null)), 5000);
                 return;
             }
 
-            console.log('payload:');
+            console.log('claim payload:');
             console.log(payload);
 
             await dispatch(updateClaimData({
-                // stellarAccount: payload.stellar.pk,
-                stellarAccount: publicKey,
+                stellarAccount: payload.stellar.pk,
                 receipt: payload,
+                started: true,
+                ethAddress: eth.coinbase,
             }));
-
         }
 
         const trustlineCreated = await dispatch(trustStellarAsset());
         if (trustlineCreated) {
-            payload = await (await fetch(`${api}/airdrop/transfer`, {
+            dispatch(claimLoading('Transferring Wollo'));
+
+            const payload = await (await fetch(`${api}/airdrop/transfer`, {
                 method: 'POST',
                 mode: 'cors',
                 cache: 'no-cache',
@@ -257,6 +256,8 @@ export const claimAirdrop = () => async (dispatch, getState) => {
                     code: eth.privateKey,
                 })
             })).json();
+
+            console.log('transfer payload', payload);
 
             if (payload.error) {
                 throw new Error(payload.message);

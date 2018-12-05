@@ -26,7 +26,7 @@ export const getClaimBalance = () => async (dispatch, getState) => {
     try {
         const claim = getClaim(getState());
 
-        if (!(claim.web3 && claim.contract)) {
+        if (!(claim.web3 && claim.web3.instance)) {
             return false;
         }
 

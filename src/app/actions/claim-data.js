@@ -29,7 +29,7 @@ export const saveClaimPrivateKey = privateKey => async (dispatch, getState) => {
 export const loadClaimData = () => async (dispatch, getState) => {
     const {currentClaim} = getState().claim;
     const payload = await Storage.load(getClaimStorageKey(currentClaim));
-    await dispatch(updateClaimData({...payload, loaded: false, error: null}));
+    await dispatch(updateClaimData({...payload, loaded: false}));
     await dispatch(checkUserCache(payload));
     await dispatch(getClaimBalance());
     await dispatch(updateClaimData({loaded: true}));
