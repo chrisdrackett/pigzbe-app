@@ -38,6 +38,7 @@ export default class Scanner extends Component {
                 animationIn="slideInRight"
                 animationOut="slideOutRight"
                 style={{margin: 0}}
+                onBackButtonPress={onCancel}
             >
                 <StepModule
                     onBack={onCancel}
