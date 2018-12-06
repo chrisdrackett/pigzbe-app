@@ -7,12 +7,10 @@ import {
 
 export default StyleSheet.create({
     container: {
-        // backgroundColor: 'red',
         alignSelf: 'stretch',
         alignItems: 'center',
     },
     hit: {
-        // alignSelf: 'stretch',
         width: '100%',
         backgroundColor: color.blue,
         borderColor: color.blue,
@@ -27,8 +25,8 @@ export default StyleSheet.create({
         alignSelf: 'stretch',
         color: color.white,
         fontSize: 14,
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: 5,
+        paddingRight: 5,
         paddingTop: 12,
         height: 45,
         textAlign: 'center'
