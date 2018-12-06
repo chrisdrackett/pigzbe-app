@@ -124,7 +124,7 @@ export class KeysMnemonic extends Component {
                     open={this.state.warningOpen}
                     type="warning"
                     title="Don’t screenshot"
-                    text="Anyone in posession of your Private Key will have access to your assets! Please only keep a hardcopy of your key and keep this safe."
+                    text="Anyone in possession of your Private Key will have access to your assets! Please only keep a hardcopy of your key and keep this safe."
                     onRequestClose={this.dismissWarning}
                 />
             </Fragment>
