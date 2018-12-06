@@ -3,11 +3,11 @@ import {
     APP_ADD_ALERT,
     APP_DELETE_ALERT,
     APP_STAY_LOGGED_IN,
-    APP_ACTIVE
+    APP_MINIMIZED
 } from '../actions';
 
 const initialState = {
-    isActive: true,
+    minimized: false,
     isConnected: true,
     stayLoggedIn: false,
     alertType: null,
@@ -38,10 +38,10 @@ export default (state = initialState, action) => {
                 ...state,
                 stayLoggedIn: action.value
             };
-        case APP_ACTIVE:
+        case APP_MINIMIZED:
             return {
                 ...state,
-                isActive: action.value
+                minimized: action.value
             };
         default:
             return state;

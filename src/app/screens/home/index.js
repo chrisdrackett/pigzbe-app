@@ -95,7 +95,7 @@ class Home extends Component {
 
     async componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
-        if (this.props.appActive) {
+        if (!this.props.minimized) {
             this.tryLogin();
         }
     }
@@ -105,7 +105,7 @@ class Home extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.appActive && !prevProps.appActive) {
+        if (!this.props.minimized && prevProps.minimized) {
             this.tryLogin();
         }
     }
@@ -170,7 +170,7 @@ class Home extends Component {
 
 export default connect(
     state => ({
-        appActive: state.app.isActive,
+        minimized: state.app.minimized,
         kids: state.kids.kids,
         accountExists: state.loader.accountExists,
     })

@@ -20,7 +20,7 @@ export const APP_CONNECTION_STATUS = 'APP_CONNECTION_STATUS';
 export const APP_ADD_ALERT = 'APP_ADD_ALERT';
 export const APP_DELETE_ALERT = 'APP_DELETE_ALERT';
 export const APP_STAY_LOGGED_IN = 'APP_STAY_LOGGED_IN';
-export const APP_ACTIVE = 'APP_ACTIVE';
+export const APP_MINIMIZED = 'APP_MINIMIZED';
 
 export const appError = error => {
     if (error === null) {
@@ -41,4 +41,4 @@ export const connectionState = isConnected => ({type: APP_CONNECTION_STATUS, isC
 
 export const stayLoggedIn = value => ({type: APP_STAY_LOGGED_IN, value});
 
-export const appActive = value => ({type: APP_ACTIVE, value});
+export const appMinimized = value => ({type: APP_MINIMIZED, value});
