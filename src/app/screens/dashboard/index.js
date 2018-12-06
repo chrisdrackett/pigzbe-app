@@ -10,6 +10,7 @@ import {
     SCREEN_TRANSACTIONS,
     COINS,
     FUNDING_URL,
+    CONVERSION_CREDIT_URL,
     MIN_BALANCE,
     MIN_BALANCE_XLM_ADD_KID,
     ASSET_CODE
@@ -42,6 +43,7 @@ export class Dashboard extends Component {
         showKidAddFundingMessage: this.props.showKidAddFundingMessage,
         modalOpen: this.props.firstTime,
         showActivationGuide: false,
+        showConversionCredit: false,
         showViewAdressModal: false,
     }
 
@@ -109,9 +111,14 @@ export class Dashboard extends Component {
 
     onActivationGuideOpen = () => this.setState({showActivationGuide: true})
 
-    onActivationGuideClose = () => this.setState({showActivationGuide: false})
+    onActivationGuideClose = () => this.setState({
+        showActivationGuide: false,
+        showConversionCredit: false,
+    })
 
     onModalHide = () => this.setState({modalOpen: false})
+
+    onOpenConvertURL = () => this.setState({showConversionCredit: true})
 
     // onViewAddress = () => this.setState({showViewAdressModal: true})
 
@@ -206,6 +213,7 @@ export class Dashboard extends Component {
                             exchange={exchange}
                             balance={balance}
                             selectedToken={selectedToken}
+                            onOpenURL={this.onOpenConvertURL}
                         />
                     </View>
                     <Dev
@@ -226,9 +234,9 @@ export class Dashboard extends Component {
                     onModalHide={this.onModalHide}
                 />
                 <WebPage
-                    open={!this.state.modalOpen && this.state.showActivationGuide}
-                    url={FUNDING_URL}
-                    title="How to activate your wallet"
+                    open={!this.state.modalOpen && (this.state.showActivationGuide || this.state.showConversionCredit)}
+                    url={this.state.showActivationGuide ? FUNDING_URL : CONVERSION_CREDIT_URL}
+                    title={this.state.showActivationGuide ? 'How to activate your wallet' : 'cryptocompare.com'}
                     onClose={this.onActivationGuideClose}
                 />
                 {/*<ReactModal

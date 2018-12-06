@@ -42,6 +42,8 @@ export const SUPPORT_EMAIL = 'mailto:support@pigzbe.com';
 // export const FUNDING_URL = 'https://medium.com/@pigzbe';
 export const FUNDING_URL = 'https://rebrand.ly/pigzb28b53';
 
+export const CONVERSION_CREDIT_URL = 'https://www.cryptocompare.com/';
+
 export const MAX_INNER_WIDTH = 440;
 
 export const NUM_VALIDATIONS = 7;
