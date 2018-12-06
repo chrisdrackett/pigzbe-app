@@ -4,7 +4,7 @@ import {NetInfo, AppState, PanResponder, View} from 'react-native';
 import BackgroundTask from 'react-native-background-task';
 import Auth from '../auth';
 import Alert from 'app/components/alert';
-import {connectionState, appDeleteAlert, authLogout} from 'app/actions';
+import {connectionState, appDeleteAlert, authLogout, appActive} from 'app/actions';
 import {strings} from 'app/constants';
 
 class Root extends Component {
@@ -57,6 +57,8 @@ class Root extends Component {
     }
 
     onAppStateChange = (nextAppState) => {
+        this.props.dispatch(appActive(nextAppState === 'active'));
+
         if (nextAppState === 'background' && !this.props.stayLoggedIn) {
             this.onLogout();
         }
@@ -89,6 +91,7 @@ class Root extends Component {
 
 export default connect(
     state => ({
+        isActive: state.app.isActive,
         isConnected: state.app.isConnected,
         stayLoggedIn: state.app.stayLoggedIn,
         alertType: state.app.alertType,

@@ -95,8 +95,10 @@ export const loginAndLoadKid = (kid, passcode) => async dispatch => {
 };
 
 export const tryTouchIdLogin = () => async (dispatch, getState) => {
+    console.log('tryTouchIdLogin');
     try {
         const {enableTouchId} = getState().settings;
+        console.log('enableTouchId', enableTouchId);
         if (!enableTouchId) {
             return false;
         }
