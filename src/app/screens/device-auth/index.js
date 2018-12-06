@@ -14,7 +14,8 @@ import {
     deviceAuthRegister,
     deviceAuthLogin,
     deviceAuthClear,
-    deviceAuthVerify
+    deviceAuthVerify,
+    deviceAuthSkip
 } from 'app/actions';
 import StepModule from 'app/components/step-module';
 import countryCodes from './country-codes';
@@ -106,6 +107,9 @@ export class DeviceAuth extends Component {
     }
 
     onSkip = () => {
+        const {email, phone, countryCode} = this.state;
+        this.props.dispatch(deviceAuthSkip(email, phone, countryCode));
+
         const screen = this.props.touchIdSupport ? SCREEN_TOUCH_ID : SCREEN_SET_PASSCODE;
         this.props.navigation.navigate(screen);
     }

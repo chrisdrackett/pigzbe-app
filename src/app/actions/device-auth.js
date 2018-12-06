@@ -128,3 +128,7 @@ export const deviceAuthVerify = code => async (dispatch, getState) => {
         dispatch(deviceAuthLoading(false));
     }
 };
+
+export const deviceAuthSkip = (email, phone, country) => async dispatch => {
+    dispatch(settingsUpdate({authyId: null, email, phone, country}));
+};
