@@ -13,9 +13,10 @@ export const initializeConfig = () => dispatch => {
 };
 
 export const loadConfig = () => async dispatch => {
+    console.log('loadConfig');
     try {
         dispatch(configUpdate(blockchainConfig));
-        dispatch(setHorizonURI(blockchainConfig.stellar.networks[blockchainConfig.network].horizon));
+        await dispatch(setHorizonURI(blockchainConfig.stellar.networks[blockchainConfig.network].horizon));
     } catch (error) {
         console.log(error);
     }

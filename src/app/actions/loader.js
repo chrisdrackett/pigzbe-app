@@ -1,5 +1,6 @@
 import {STORAGE_KEY_SETTINGS} from 'app/constants';
 import Storage from 'app/utils/storage';
+import {handleAllowances} from 'app/utils/allowances';
 import {
     authCheckTouchId,
     authTouchId,
@@ -143,5 +144,7 @@ export const initialize = () => async (dispatch, getState) => {
     await dispatch(loadCachedExchange());
     await dispatch(checkAccountExists());
     dispatch(initializing(false));
+    handleAllowances({dispatch, getState}, false);
+
     return true;
 };

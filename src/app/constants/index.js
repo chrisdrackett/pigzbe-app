@@ -94,3 +94,5 @@ export const INFLATION_DEST = 'GCCD6AJOYZCUAQLX32ZJF2MKFFAUJ53PVCFQI3RHWKL3V47QY
 
 export const KID_NICKNAME_MAX_LEN = 15;
 export const PARENT_NICKNAME_MAX_LEN = 10;
+
+export const HORIZON_FALLBACK = 'https://horizon.stellar.org';
