@@ -24,7 +24,7 @@ export class TasksAssign extends Component {
 
     onCloseFundingMessage = () => this.setState({showFundingMessage: false})
 
-    next = async () => {
+    onNext = async () => {
         Keyboard.dismiss();
 
         if (Number(this.props.balance) < this.state.amount) {
@@ -61,7 +61,6 @@ export class TasksAssign extends Component {
                     loading={loading}
                     onBack={this.onBack}
                     plain
-                    //customTitle={'Tasks'}
                     icon="coins"
                     keyboardAvoidPad
                     keyboardOffset={40}
@@ -80,7 +79,7 @@ export class TasksAssign extends Component {
                         <Button
                             style={styles.sendButton}
                             label={`Send to ${kid.name}`}
-                            onPress={this.next}
+                            onPress={this.onNext}
                             disabled={amount === 0}
                         />
                     </View>
