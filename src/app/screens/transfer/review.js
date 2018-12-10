@@ -17,9 +17,11 @@ import {getBalance} from 'app/selectors';
 
 const remainingBalance = (balance, amount) => new BigNumber(balance).minus(amount);
 
-const getBalanceAfter = (balance, amount) => {
-    const remaining = remainingBalance(balance, amount);
-    console.log('remaining', remaining);
+const getBalanceAfter = (balance, amount, selectedToken) => {
+    let remaining = remainingBalance(balance, amount);
+    if (selectedToken === 'XLM') {
+        remaining = remaining.minus('0.00001');
+    }
     return moneyFormat(remaining, CURRENCIES[ASSET_CODE].dps);
 };
 
@@ -136,7 +138,7 @@ export class Review extends Component {
                 ) : null}
                 <Amount
                     label={strings.transferBalanceAfter}
-                    amount={getBalanceAfter(balance, amount)}
+                    amount={getBalanceAfter(balance, amount, selectedToken)}
                     selectedToken={selectedToken}
                 />
                 <View style={styles.edit}>
