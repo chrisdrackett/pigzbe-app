@@ -354,7 +354,7 @@ export const mergeKidWallet = kid => async (dispatch, getState) => {
             account = await loadAccount(address);
         } catch (e) {
             console.log(e.response || e);
-            return {success: false, error: 'Failed to remove trustline'};
+            // return {success: false, error: 'Failed to remove trustline'};
         }
 
         try {
