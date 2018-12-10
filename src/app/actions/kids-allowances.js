@@ -9,14 +9,13 @@ export const KIDS_UPDATE_ALLOWANCE = 'KIDS_UPDATE_ALLOWANCE';
 
 const allowanceLoading = value => ({type: KIDS_LOADING_ALLOWANCE, value});
 
-export const addAllowance = (kid, amount, interval, day, nextDate, timezone, numKidsAdded) => async (dispatch,getState)  => {
+export const addAllowance = (kid, amount, interval, day, nextDate, timezone, numKidsAdded) => async (dispatch, getState) => {
     try {
         console.log('addAllowance amount =', amount);
         dispatch(allowanceLoading(true));
 
         dispatch(({type: KIDS_ADD_ALLOWANCE, kid, data: {amount, interval, day, nextDate, timezone, payments: []}, numKidsAdded}));
         await dispatch(saveKids());
-        dispatch(allowanceLoading(false));
         dispatch(appAddSuccessAlert('Added allowance'));
 
         // Fire and forget the logic to handle allowances
@@ -25,6 +24,7 @@ export const addAllowance = (kid, amount, interval, day, nextDate, timezone, num
         console.log(error);
         dispatch(appAddWarningAlert('Add allowance has failed'));
     }
+    dispatch(allowanceLoading(false));
 };
 
 export const deleteAllowance = (kid, allowance) => async dispatch => {
@@ -33,12 +33,12 @@ export const deleteAllowance = (kid, allowance) => async dispatch => {
         dispatch(({type: KIDS_DELETE_ALLOWANCE, data: {kid, allowance}}));
         // await dispatch(deleteAllowance());
         await dispatch(saveKids());
-        dispatch(allowanceLoading(false));
         dispatch(appAddSuccessAlert('Deleted allowance'));
     } catch (error) {
         console.log(error);
         dispatch(appAddWarningAlert('Delete allowance has failed'));
     }
+    dispatch(allowanceLoading(false));
 };
 
 /**
@@ -46,8 +46,8 @@ export const deleteAllowance = (kid, allowance) => async dispatch => {
  * - updateAllowance is called when updating the config from the UI
  * - setAllowance is called from the background code to update payments
  */
-export const updateAllowance = (kid, allowance) => async (dispatch,getState) => {
-
+export const updateAllowance = (kid, allowance) => async (dispatch, getState) => {
+    console.log('updateAllowance');
     /**
      * If our updated allowance config has a payment date of today AND this
      * allowance has already paid out for today, then we need to bump the
@@ -73,13 +73,13 @@ export const updateAllowance = (kid, allowance) => async (dispatch,getState) => 
     dispatch(({type: KIDS_UPDATE_ALLOWANCE, data: {kid, allowance}}));
     await dispatch(saveKids());
     // Fire and forget the logic to handle allowances
-    handleAllowances({dispatch, getState});
+    await handleAllowances({dispatch, getState}, false);
     dispatch(allowanceLoading(false));
 };
 
 export const setAllowance = (kid, allowance) => async dispatch => {
-    dispatch(allowanceLoading(true));
+    // dispatch(allowanceLoading(true));
     dispatch(({type: KIDS_UPDATE_ALLOWANCE, data: {kid, allowance}}));
     await dispatch(saveKids());
-    dispatch(allowanceLoading(false));
+    // dispatch(allowanceLoading(false));
 };

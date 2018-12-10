@@ -45,11 +45,10 @@ export class AllowanceInterval extends Component {
             await this.props.dispatch(addAllowance(kid, amount, interval, day, nextDate.toISOString(), timezone, numKidsAdded));
         }
 
-        // todo navigate to kid screen instead
         if (kid) {
             this.props.navigation.navigate(SCREEN_KID_DASHBOARD, {kid});
         } else {
-            this.props.navigation.navigate(SCREEN_DASHBOARD, {kid});
+            this.props.navigation.navigate(SCREEN_DASHBOARD);
         }
     }
 

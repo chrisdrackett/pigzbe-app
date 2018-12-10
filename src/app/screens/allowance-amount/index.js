@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, FlatList, TouchableOpacity, Text, Image, TextInput} from 'react-native';
+import {View, TouchableOpacity, Text, Image, TextInput} from 'react-native';
 import Button from '../../components/button';
 import {SCREEN_DASHBOARD, SCREEN_ALLOWANCE_INTERVAL} from '../../constants';
 import {appAddWarningAlert} from '../../actions';
@@ -48,17 +48,14 @@ export class AllowanceAmount extends Component {
 
     onBack = () => this.props.navigation.goBack();
 
-    onChangeText = (amount) => {
-        this.setState({custom: amount});
-    }
+    onChangeCustom = custom => this.setState({custom})
 
-    showInput = () => {
-        this.setState({showingInput: true, active: null}, () => this.inputBox.focus());
-    }
+    showInput = () => this.setState({
+        showingInput: true,
+        active: null
+    }, () => this.inputBox.focus())
 
-    deleteCustom = () => {
-        this.setState({showingInput: false, custom: null});
-    }
+    deleteCustom = () => this.setState({showingInput: false, custom: null})
 
     cancelInput = () => this.setState({showingInput: false, newTask: null});
 
@@ -93,7 +90,7 @@ export class AllowanceAmount extends Component {
                             maxLength={4}
                             keyboardType="numeric"
                             returnKeyType="done"
-                            onChangeText={this.onChangeText}
+                            onChangeText={this.onChangeCustom}
                         />
                         <TouchableOpacity style={styles.cancel} onPress={this.deleteCustom}>
                             <Image style={styles.cancelImage} source={require('./images/iconCrossBlue.png')}/>
@@ -112,12 +109,11 @@ export class AllowanceAmount extends Component {
                     style={styles.button}
                     innerStyle={styles.inner}
                     label={item.key}
-                    onPress={() => {
-                        this.setState({
-                            active: item.key,
-                            showingInput: false,
-                        });
-                    }}
+                    onPress={() => this.setState({
+                        active: item.key,
+                        custom: null,
+                        showingInput: false,
+                    })}
                     active={active === item.key}
                 />
                 <Text style={styles.conversion}>{`${currency.symbol}${moneyFormat(exchangedValue, currency.dps)}`}</Text>
