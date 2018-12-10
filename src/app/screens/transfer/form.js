@@ -12,7 +12,7 @@ import {MEMO_MAX_LEN, ASSET_CODE, CURRENCIES} from 'app/constants';
 import BigNumber from 'bignumber.js';
 import {appError} from 'app/actions';
 import QRScanner from 'app/components/qr-scanner';
-import {getBalance} from 'app/selectors';
+import {getBalance, getAvailableBalance} from 'app/selectors';
 
 export class Form extends Component {
     state = {
@@ -50,10 +50,11 @@ export class Form extends Component {
     }
 
     updateAmount = value => {
-        console.log('updateAmount', value, this.props.balance);
+        console.log('updateAmount', value, this.props.available);
+
         this.setState({
             amount: value,
-            amountValid: new BigNumber(value).isLessThanOrEqualTo(this.props.balance),
+            amountValid: new BigNumber(value).isLessThanOrEqualTo(this.props.available),
         });
     }
 
@@ -121,6 +122,7 @@ export class Form extends Component {
         } = this.state;
 
         const token = CURRENCIES[this.props.selectedToken];
+        const isXLM = this.props.selectedToken === 'XLM';
 
         return (
             <View style={styles.containerForm}>
@@ -138,7 +140,8 @@ export class Form extends Component {
                 </TouchableOpacity>
                 <PaymentInput
                     selectedToken={this.props.selectedToken}
-                    balance={this.props.balance}
+                    balance={isXLM ? null : this.props.balance}
+                    availableBalance={isXLM ? this.props.available : null}
                     initialAmount={this.state.amount}
                     error={amountError}
                     label={strings.transferAmount}
@@ -176,5 +179,6 @@ export default connect(state => ({
     exchange: state.exchange.exchange,
     selectedToken: state.wallet.selectedToken,
     balance: getBalance(state),
+    available: getAvailableBalance(state),
     publicKey: state.keys.publicKey,
 }))(Form);
