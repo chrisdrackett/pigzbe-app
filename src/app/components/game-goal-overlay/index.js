@@ -20,6 +20,11 @@ export class GameGoalOverlay extends Component {
     state = {
         currentIndex: 0,
     }
+
+    onIndexChange = currentIndex => this.setState({currentIndex})
+
+    onShouldCapture = ({dx}) => Math.abs(dx) > 10
+
     render() {
         const {
             kid,
@@ -36,8 +41,8 @@ export class GameGoalOverlay extends Component {
 
         const contentOffset = (width - itemWidth) / 2;
 
-        const goal = goalId ? kid.goals.find(goal => goal.id === goalId) : null;
-        const otherGoals = kid.goals.filter(goal => goal.id !== goalId);
+        const goal = goalId ? kid.goals.find(g => g.id === goalId) : null;
+        const otherGoals = kid.goals.filter(g => g.id !== goalId);
         const hasGoals = otherGoals.length > 0;
 
         return (
@@ -96,8 +101,14 @@ export class GameGoalOverlay extends Component {
                                     index={this.state.currentIndex}
                                     data={hasGoals ? [1, 2, 3] : [1, 2]}
                                     contentOffset={contentOffset}
-                                    onIndexChange={currentIndex => this.setState({currentIndex})}
-                                    renderItem={({itemIndex, currentIndex, item, animatedValue}) => (
+                                    onIndexChange={this.onIndexChange}
+                                    style={{
+                                        width: width,
+                                        flex: 1,
+                                    }}
+                                    itemWidth={itemWidth}
+                                    shouldCapture={this.onShouldCapture}
+                                    renderItem={({itemIndex}) => (
                                         <TouchableWithoutFeedback>
                                             <View style={{
                                                 width: width,
@@ -143,11 +154,6 @@ export class GameGoalOverlay extends Component {
                                             </View>
                                         </TouchableWithoutFeedback>
                                     )}
-                                    style={{
-                                        width: width,
-                                        flex: 1,
-                                    }}
-                                    itemWidth={itemWidth}
                                 />
                             </View>
                         }
