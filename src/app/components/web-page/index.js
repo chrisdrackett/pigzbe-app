@@ -16,7 +16,12 @@ export default class WebPage extends Component {
 
     onClose = () => this.props.onClose()
 
-    onOpenInBrowser = () => openURL(this.props.url)
+    onOpenInBrowser = () => {
+        try {
+            openURL(this.props.url);
+        } catch (e) {
+        }
+    }
 
     render() {
         const {url, open, title} = this.props;
@@ -37,6 +42,8 @@ export default class WebPage extends Component {
                     customTitle={title}
                     avoidKeyboard={false}
                     scroll={false}
+                    rightIcon={isAndroid ? null : 'link'}
+                    onRightIcon={this.onOpenInBrowser}
                 >
                     {!isPDF &&
                         <WebView
@@ -58,15 +65,6 @@ export default class WebPage extends Component {
                             source={{uri: url, cache: true}}
                         />
                     }
-                    {!isAndroid && (
-                        <View style={{padding: 20, paddingBottom: 10}}>
-                            <Button
-                                theme="outline"
-                                label="Open in Safari"
-                                onPress={this.onOpenInBrowser}
-                            />
-                        </View>
-                    )}
                 </StepModule>
             </ReactModal>
         );

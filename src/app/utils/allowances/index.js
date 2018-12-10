@@ -62,10 +62,14 @@ const getMemo = (kid, allowance, payment) => {
     return formatMemo(`${MEMO_PREPEND_ALLOWANCE}#${allowance.id}.${payment.id} to ${kid.name}`);
 };
 
-export const handleAllowances = async ({dispatch, getState}) => {
+export const handleAllowances = async ({dispatch, getState}, getConfig = true) => {
+    console.log('handleAllowances');
     try {
-        // configure which server to use etc
-        await loadConfig()(dispatch, getState);
+        if (getConfig) {
+            // configure which server to use etc
+            console.log('allowances loadConfig');
+            await loadConfig()(dispatch, getState);
+        }
 
         const keypair = await getKeys()(dispatch, getState);
         if (!keypair) {
@@ -79,11 +83,11 @@ export const handleAllowances = async ({dispatch, getState}) => {
         const kids = getState().kids.kids;
 
         let cachedPayments = null;
-        const getPayments = async (publicKey, toAddress = null) => {
+        const getPayments = async (fromAddress, toAddress = null) => {
             if (!cachedPayments) {
-                const rawData = await paymentHistory(publicKey);
+                const rawData = await paymentHistory(fromAddress);
                 const filteredData = rawData.filter(p => p.type !== 'account_merge');
-                cachedPayments = await Promise.all(filteredData.map(p => paymentInfo(p, publicKey)));
+                cachedPayments = await Promise.all(filteredData.map(p => paymentInfo(p, fromAddress)));
                 cachedPayments = cachedPayments.filter(payment => payment.assetCode === 'WLO');
             }
             return cachedPayments.filter(payment => !toAddress || toAddress === payment.to);
@@ -133,7 +137,7 @@ export const handleAllowances = async ({dispatch, getState}) => {
                     const asset = wolloAsset(getState());
 
                     try {
-                        const result = await sendPayment(secretKey, kid.address, allowance.amount, memo, asset);
+                        await sendPayment(secretKey, kid.address, allowance.amount, memo, asset);
                     } catch (err) {
                         console.log('failed', err);
                         payment.status = 'failed';

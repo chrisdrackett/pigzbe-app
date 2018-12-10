@@ -25,7 +25,8 @@ import {
     MEMO_PREPEND_CREATE,
     MEMO_PREPEND_DELETE,
     KID_WALLET_BALANCE_XLM,
-    CURRENCIES
+    CURRENCIES,
+    HORIZON_FALLBACK
 } from 'app/constants';
 import {wolloAsset} from 'app/selectors';
 import {createKeypair, appError, updateKidBalance, loadSecretKey, saveSecretKey} from './';
@@ -55,8 +56,15 @@ export const walletSendReset = () => ({type: WALLET_SEND_RESET});
 
 export const walletError = error => ({type: WALLET_ERROR, error});
 
-export const setHorizonURI = uri => () => {
+export const setHorizonURI = uri => async () => {
     console.log('setHorizonURI:', uri);
+    if (uri.includes('pigzbe.com')) {
+        const result = await fetch(uri);
+        console.log('check horizon status', uri, result.ok);
+        if (!result.ok) {
+            uri = HORIZON_FALLBACK;
+        }
+    }
     setServer(uri);
 };
 
@@ -267,8 +275,10 @@ export const fundKidAccount = (memo, address, startingBalance) => async (dispatc
         transaction.sign(keypair);
         const result = await submitTransaction(transaction);
         console.log('result', result);
+        return true;
     } catch (error) {
         console.log(error);
+        return false;
     }
 };
 
@@ -286,9 +296,9 @@ export const createKidAccount = (nickname, parentNickname) => async dispatch => 
 
         const memo = formatMemo(`${MEMO_PREPEND_CREATE}${nickname}~${parentNickname}`);
 
-        await dispatch(fundKidAccount(memo, destination, KID_WALLET_BALANCE_XLM));
+        const success = await dispatch(fundKidAccount(memo, destination, KID_WALLET_BALANCE_XLM));
 
-        return destination;
+        return success ? destination : null;
 
     } catch (error) {
         console.log(error);
@@ -344,7 +354,7 @@ export const mergeKidWallet = kid => async (dispatch, getState) => {
             account = await loadAccount(address);
         } catch (e) {
             console.log(e.response || e);
-            return {success: false, error: 'Failed to remove trustline'};
+            // return {success: false, error: 'Failed to remove trustline'};
         }
 
         try {

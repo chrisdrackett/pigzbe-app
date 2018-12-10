@@ -22,7 +22,7 @@ export default class ClaimVIP extends Component {
                 pad
             >
                 <Button
-                    label="Lets go"
+                    label="Let's go"
                     onPress={this.onNext}
                 />
             </StepModule>

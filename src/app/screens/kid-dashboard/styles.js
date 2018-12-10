@@ -24,8 +24,6 @@ export default StyleSheet.create({
         marginBottom: 10,
         paddingTop: 20,
         paddingBottom: 12,
-        paddingLeft: paddingH,
-        paddingRight: paddingH,
     },
     panel: {
         marginTop: 8,
@@ -38,6 +36,12 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginBottom: 5,
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
+    },
+    pad: {
+        paddingLeft: paddingH,
+        paddingRight: paddingH,
     },
     itemTitle: {
         fontFamily,

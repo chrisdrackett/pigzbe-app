@@ -42,6 +42,8 @@ export const SUPPORT_EMAIL = 'mailto:support@pigzbe.com';
 // export const FUNDING_URL = 'https://medium.com/@pigzbe';
 export const FUNDING_URL = 'https://rebrand.ly/pigzb28b53';
 
+export const CONVERSION_CREDIT_URL = 'https://www.cryptocompare.com/';
+
 export const MAX_INNER_WIDTH = 440;
 
 export const NUM_VALIDATIONS = 7;
@@ -92,3 +94,5 @@ export const INFLATION_DEST = 'GCCD6AJOYZCUAQLX32ZJF2MKFFAUJ53PVCFQI3RHWKL3V47QY
 
 export const KID_NICKNAME_MAX_LEN = 15;
 export const PARENT_NICKNAME_MAX_LEN = 10;
+
+export const HORIZON_FALLBACK = 'https://horizon.stellar.org';

@@ -103,6 +103,7 @@ export const authLogoutKid = () => async dispatch => {
 };
 
 export const authLogout = () => async dispatch => {
+    dispatch({type: AUTH_LOGOUT_KID});
     dispatch({type: AUTH_LOGOUT});
 };
 

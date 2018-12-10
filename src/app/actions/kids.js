@@ -5,7 +5,8 @@ import {
     fundKidAccount,
     refreshBalance,
     loadKidActions,
-    mergeKidWallet
+    mergeKidWallet,
+    stayLoggedIn
 } from './';
 import {wolloAsset} from '../selectors';
 import formatMemo from 'app/utils/format-memo';
@@ -59,6 +60,7 @@ export const addKid = (nickname, dob, photo) => async (dispatch, getState) => {
     try {
         const {parentNickname} = getState().kids;
         const address = await dispatch(createKidAccount(nickname, parentNickname));
+        console.log('addKid', address);
         if (!address) {
             throw new Error('Could not create kid account');
         }
@@ -131,17 +133,18 @@ export const loadKidsActions = () => async (dispatch, getState) => {
 };
 
 export const deleteKid = kid => async dispatch => {
+    dispatch(stayLoggedIn(true));
     try {
-        console.log('deleteKid', kid);
-
         const result = await dispatch(mergeKidWallet(kid));
         if (result.success) {
             dispatch(({type: KIDS_REMOVE_KID, address: kid.address}));
             await dispatch(saveKids());
         }
+        dispatch(stayLoggedIn(false));
         return result;
     } catch (e) {
         console.log(e);
+        dispatch(stayLoggedIn(false));
         return {success: false, error: 'Failed to delete kid'};
     }
 };

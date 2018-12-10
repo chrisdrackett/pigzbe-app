@@ -13,7 +13,7 @@ export default ({onNext, onBack}) => (
     >
         <View>
             <Button
-                label="Lets go"
+                label="Let's go"
                 onPress={onNext}
             />
         </View>

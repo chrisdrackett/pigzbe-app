@@ -1,7 +1,13 @@
 import {apiURL, wolloAsset, getClaim, claimToken} from '../selectors';
 import {trustAsset} from '@pigzbe/stellar-utils';
-import {getClaimBalance, updateClaimBalance, storeLoginDetails} from './claim-eth';
-import {updateClaimData, flagClaimDataForReload} from './claim-data';
+import {
+    getClaimBalance,
+    updateClaimBalance,
+    storeLoginDetails,
+    updateClaimData,
+    flagClaimDataForReload,
+    stayLoggedIn
+} from './';
 
 export const CLAIM_START = 'CLAIM_START';
 export const CLAIM_LOADING = 'CLAIM_LOADING';
@@ -203,6 +209,7 @@ export const claimAirdrop = () => async (dispatch, getState) => {
     console.log('  data.stellarAccount', data.stellarAccount);
     console.log('  data.receipt', data.receipt);
 
+    dispatch(stayLoggedIn(true));
     dispatch(claimLoading('Validating claim'));
 
     try {
@@ -228,6 +235,7 @@ export const claimAirdrop = () => async (dispatch, getState) => {
                     dispatch(claimError('Claim failed'));
                 }
                 setTimeout(() => dispatch(claimLoading(null)), 5000);
+                dispatch(stayLoggedIn(false));
                 return;
             }
 
@@ -275,4 +283,5 @@ export const claimAirdrop = () => async (dispatch, getState) => {
         console.log(e);
         dispatch(claimError(e));
     }
+    dispatch(stayLoggedIn(false));
 };

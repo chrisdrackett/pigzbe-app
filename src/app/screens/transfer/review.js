@@ -13,13 +13,15 @@ import {authConfirm, authConfirmPasscode} from 'app/actions';
 import ReactModal from 'react-native-modal';
 import {PasscodeLogin} from '../passcode-login';
 import Alert from 'app/components/alert';
-import {getBalance} from 'app/selectors';
+import {getBalance, getAvailableBalance} from 'app/selectors';
 
 const remainingBalance = (balance, amount) => new BigNumber(balance).minus(amount);
 
-const getBalanceAfter = (balance, amount) => {
-    const remaining = remainingBalance(balance, amount);
-    console.log('remaining', remaining);
+const getBalanceAfter = (balance, amount, selectedToken) => {
+    let remaining = remainingBalance(balance, amount);
+    if (selectedToken === 'XLM') {
+        remaining = remaining.minus('0.00001');
+    }
     return moneyFormat(remaining, CURRENCIES[ASSET_CODE].dps);
 };
 
@@ -108,7 +110,7 @@ export class Review extends Component {
 
     render() {
 
-        const {balance, destination, amount, memo, selectedToken, baseCurrency} = this.props;
+        const {balance, destination, amount, memo, selectedToken, baseCurrency, available} = this.props;
 
         const token = CURRENCIES[selectedToken];
 
@@ -136,9 +138,17 @@ export class Review extends Component {
                 ) : null}
                 <Amount
                     label={strings.transferBalanceAfter}
-                    amount={getBalanceAfter(balance, amount)}
+                    amount={getBalanceAfter(balance, amount, selectedToken)}
                     selectedToken={selectedToken}
                 />
+                {selectedToken === 'XLM' && (
+                    <ExchangedDisplay
+                        label="Available balance after transfer:"
+                        amount={getBalanceAfter(available, amount)}
+                        currencyFrom={selectedToken}
+                        currencyTo={selectedToken}
+                    />
+                )}
                 <View style={styles.edit}>
                     <Button
                         theme="plain"
@@ -188,5 +198,6 @@ export default connect(state => ({
     exchange: state.exchange.exchange,
     selectedToken: state.wallet.selectedToken,
     balance: getBalance(state),
+    available: getAvailableBalance(state),
     publicKey: state.keys.publicKey,
 }))(Review);

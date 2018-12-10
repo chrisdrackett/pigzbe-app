@@ -61,8 +61,6 @@ export default StyleSheet.create({
         right: getWidth() / 35,
     },
     cancelImage: {
-        color: color.mediumBlue,
-        width: getWidth() / 30,
         width: Dimensions.get('window').height / 30,
     },
     flex: {

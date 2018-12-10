@@ -179,7 +179,7 @@ export class Payments extends Component {
                         />
                     </View>
                 )}
-                {!filteredPayments.length && !showHelp && (
+                {!filteredPayments.length && !showHelp && !loading && (
                     <Paragraph style={styles.noHistory}>
                         No transaction history
                     </Paragraph>

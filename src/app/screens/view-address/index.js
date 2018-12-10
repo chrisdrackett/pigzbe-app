@@ -7,7 +7,7 @@ import Title from '../../components/title';
 import QRCode from 'react-native-qrcode';
 import styles from './styles';
 import Alert from 'app/components/alert';
-import {stayLoggedIn} from 'app/actions';
+// import {stayLoggedIn} from 'app/actions';
 
 export class ViewAddress extends Component {
     state = {
@@ -21,36 +21,47 @@ export class ViewAddress extends Component {
     onBack = () => this.props.onBack()
 
     onCopy = async () => {
-        Clipboard.setString(this.props.publicKey);
-        this.showAlert('Address copied to clipboard');
+        try {
+            const result = await Clipboard.setString(this.props.publicKey);
+            console.log('result', result);
+            this.showAlert('Address copied to clipboard');
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     onShare = async () => {
-        this.props.dispatch(stayLoggedIn(true));
+        // this.props.dispatch(stayLoggedIn(true));
 
         const title = 'Address';
         const message = this.props.publicKey;
 
-        const result = await Share.share({
-            title,
-            message,
-        }, {
-            // Android only:
-            dialogTitle: title,
-            // iOS only:
-            excludedActivityTypes: [
-                // 'com.apple.UIKit.activity.PostToTwitter',
-                'com.apple.UIKit.activity.PostToFacebook',
-                // 'com.apple.UIKit.activity.PostToTencentWeibo',
-                // 'com.apple.UIKit.activity.PostToWeibo',
-            ]
-        });
+        try {
+            const result = await Share.share({
+                title,
+                message,
+            }, {
+                // Android only:
+                dialogTitle: title,
+                // iOS only:
+                excludedActivityTypes: [
+                    // 'com.apple.UIKit.activity.PostToTwitter',
+                    'com.apple.UIKit.activity.PostToFacebook',
+                    // 'com.apple.UIKit.activity.PostToTencentWeibo',
+                    // 'com.apple.UIKit.activity.PostToWeibo',
+                ]
+            });
 
-        if (result.action !== 'dismissedAction') {
-            this.showAlert('Address shared');
+            console.log('result:', result);
+
+            if (result.action !== 'dismissedAction') {
+                this.showAlert('Address shared');
+            }
+        } catch (e) {
+            console.log(e);
         }
 
-        this.props.dispatch(stayLoggedIn(false));
+        // this.props.dispatch(stayLoggedIn(false));
     }
 
     render() {

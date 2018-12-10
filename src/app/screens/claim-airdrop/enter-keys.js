@@ -5,7 +5,7 @@ import Config from 'react-native-config';
 import StepWrapper from 'app/components/step-wrapper';
 import Paragraph from 'app/components/paragraph';
 import TextInput from 'app/components/text-input';
-import {appError, getAirdropClaim} from 'app/actions';
+import {appError, getAirdropClaim, stayLoggedIn} from 'app/actions';
 import {SCREEN_CLAIM_AIRDROP_BALANCE} from 'app/constants';
 
 export class EnterKeys extends Component {
@@ -19,15 +19,20 @@ export class EnterKeys extends Component {
 
     componentDidMount() {
         this.focusListener = this.props.navigation.addListener('willFocus', this.reset);
+        this.props.dispatch(stayLoggedIn(true));
     }
 
     componentWillUnMount() {
         this.focusListener.remove();
+        this.props.dispatch(stayLoggedIn(false));
     }
 
     reset = () => this.setState({loading: false})
 
-    onBack = () => this.props.navigation.goBack()
+    onBack = () => {
+        this.props.dispatch(stayLoggedIn(false));
+        this.props.navigation.goBack();
+    }
 
     onNext = async () => {
         const {code, address} = this.state;
@@ -44,6 +49,7 @@ export class EnterKeys extends Component {
         const complete = result.confirmation === 'complete';
 
         if (result.success && !complete) {
+            this.props.dispatch(stayLoggedIn(false));
             this.props.navigation.navigate(SCREEN_CLAIM_AIRDROP_BALANCE);
         } else if (result.success && complete) {
             this.setState({

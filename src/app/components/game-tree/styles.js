@@ -37,13 +37,14 @@ export default StyleSheet.create({
         color: '#fff',
     },
     name: {
-        height: 20,
+        // height: 20,
         textAlign: 'center',
         color: '#fff',
         fontSize: 8,
         textTransform: 'uppercase',
         fontWeight: 'bold',
         marginTop: 10,
+        marginBottom: 10,
     },
     valueWrapper: {
         borderRadius: 15,

@@ -6,8 +6,7 @@ import thunk from 'redux-thunk';
 import BackgroundTask from 'react-native-background-task';
 import reducers from './reducers';
 import Root from './navigation/root';
-import {getKeys} from 'app/actions';
-import {handleAllowances} from 'app/utils/allowances'
+import {handleAllowances} from 'app/utils/allowances';
 
 if (typeof console !== 'undefined') {
     console.disableYellowBox = true;
@@ -17,11 +16,6 @@ export const store = createStore(
     reducers,
     applyMiddleware(thunk),
 );
-
-// Check on boot
-setTimeout(async () => {
-    await handleAllowances(store);
-}, 1000);
 
 BackgroundTask.define(async () => {
     // Finish when the task finishes, or after 25 seconds
@@ -35,7 +29,7 @@ BackgroundTask.define(async () => {
     await handleAllowances(store);
     finished = true;
     BackgroundTask.finish();
-})
+});
 
 export default () => (
     <Provider store={store}>

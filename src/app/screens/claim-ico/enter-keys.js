@@ -2,11 +2,11 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import Config from 'react-native-config';
-import StepWrapper from '../../components/step-wrapper';
-import Paragraph from '../../components/paragraph';
-import TextInput from '../../components/text-input';
-import {userLogin, appError} from '../../actions';
-import {SCREEN_CLAIM_ICO_BALANCE} from '../../constants';
+import StepWrapper from 'app/components/step-wrapper';
+import Paragraph from 'app/components/paragraph';
+import TextInput from 'app/components/text-input';
+import {userLogin, appError, stayLoggedIn} from 'app/actions';
+import {SCREEN_CLAIM_ICO_BALANCE} from 'app/constants';
 
 export class EnterKeys extends Component {
     state = {
@@ -19,15 +19,20 @@ export class EnterKeys extends Component {
 
     componentDidMount() {
         this.focusListener = this.props.navigation.addListener('willFocus', this.reset);
+        this.props.dispatch(stayLoggedIn(true));
     }
 
     componentWillUnMount() {
         this.focusListener.remove();
+        this.props.dispatch(stayLoggedIn(false));
     }
 
     reset = () => this.setState({loading: false})
 
-    onBack = () => this.props.navigation.goBack()
+    onBack = () => {
+        this.props.dispatch(stayLoggedIn(false));
+        this.props.navigation.goBack();
+    }
 
     onImportKey = async () => {
         const {mnemonic, address} = this.state;
@@ -43,6 +48,7 @@ export class EnterKeys extends Component {
         console.log('result', result);
 
         if (result.success) {
+            this.props.dispatch(stayLoggedIn(false));
             this.props.navigation.navigate(SCREEN_CLAIM_ICO_BALANCE);
         } else {
             this.setState({

@@ -10,6 +10,7 @@ import {
     SCREEN_TRANSACTIONS,
     COINS,
     FUNDING_URL,
+    CONVERSION_CREDIT_URL,
     MIN_BALANCE,
     MIN_BALANCE_XLM_ADD_KID,
     ASSET_CODE
@@ -32,8 +33,8 @@ import WelcomeModal from 'app/components/welcome-modal';
 import Pig from 'app/components/pig';
 import styles from './styles';
 import Dev from './dev';
-import ViewAddress from '../view-address';
-import ReactModal from 'react-native-modal';
+// import ViewAddress from '../view-address';
+// import ReactModal from 'react-native-modal';
 import {getBalance} from 'app/selectors';
 
 export class Dashboard extends Component {
@@ -42,6 +43,7 @@ export class Dashboard extends Component {
         showKidAddFundingMessage: this.props.showKidAddFundingMessage,
         modalOpen: this.props.firstTime,
         showActivationGuide: false,
+        showConversionCredit: false,
         showViewAdressModal: false,
     }
 
@@ -109,13 +111,18 @@ export class Dashboard extends Component {
 
     onActivationGuideOpen = () => this.setState({showActivationGuide: true})
 
-    onActivationGuideClose = () => this.setState({showActivationGuide: false})
+    onActivationGuideClose = () => this.setState({
+        showActivationGuide: false,
+        showConversionCredit: false,
+    })
 
     onModalHide = () => this.setState({modalOpen: false})
 
-    onViewAddress = () => this.setState({showViewAdressModal: true})
+    onOpenConvertURL = () => this.setState({showConversionCredit: true})
 
-    onHideAddress = () => this.setState({showViewAdressModal: false})
+    // onViewAddress = () => this.setState({showViewAdressModal: true})
+
+    // onHideAddress = () => this.setState({showViewAdressModal: false})
 
     render () {
         const {
@@ -206,6 +213,7 @@ export class Dashboard extends Component {
                             exchange={exchange}
                             balance={balance}
                             selectedToken={selectedToken}
+                            onOpenURL={this.onOpenConvertURL}
                         />
                     </View>
                     <Dev
@@ -226,12 +234,12 @@ export class Dashboard extends Component {
                     onModalHide={this.onModalHide}
                 />
                 <WebPage
-                    open={!this.state.modalOpen && this.state.showActivationGuide}
-                    url={FUNDING_URL}
-                    title="How to activate your wallet"
+                    open={!this.state.modalOpen && (this.state.showActivationGuide || this.state.showConversionCredit)}
+                    url={this.state.showActivationGuide ? FUNDING_URL : CONVERSION_CREDIT_URL}
+                    title={this.state.showActivationGuide ? 'How to activate your wallet' : 'cryptocompare.com'}
                     onClose={this.onActivationGuideClose}
                 />
-                <ReactModal
+                {/*<ReactModal
                     isVisible={this.state.showViewAdressModal}
                     animationIn="slideInRight"
                     animationOut="slideOutRight"
@@ -242,7 +250,7 @@ export class Dashboard extends Component {
                         publicKey={this.props.publicKey}
                         onBack={this.onHideAddress}
                     />
-                </ReactModal>
+                </ReactModal>*/}
             </Fragment>
         );
     }

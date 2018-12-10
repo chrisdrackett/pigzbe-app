@@ -59,13 +59,10 @@ export default StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginLeft: 10,
-        paddingRight: 90,
+        paddingRight: 5,
         flex: 1,
     },
     balance: {
-        position: 'absolute',
-        right: 0,
-        top: 0,
         paddingRight: 16,
     },
     chevron: {

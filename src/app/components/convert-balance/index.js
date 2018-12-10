@@ -13,7 +13,7 @@ import moneyFormat from '../../utils/money-format';
 import {CURRENCIES, ASSET_CODE} from 'app/constants';
 import getPrice from 'app/utils/get-price';
 
-const ConvertBalance = ({exchange, balance, coins, selectedToken = ASSET_CODE}) => (
+const ConvertBalance = ({exchange, balance, coins, selectedToken = ASSET_CODE, onOpenURL}) => (
     <View style={styles.container}>
         <Text style={styles.title}>
             <Text style={styles.bold}>{moneyFormat(balance, CURRENCIES[selectedToken].dps)}</Text> {CURRENCIES[selectedToken].name} Converted
@@ -29,7 +29,7 @@ const ConvertBalance = ({exchange, balance, coins, selectedToken = ASSET_CODE}) 
         </View>
         <Text
             style={styles.label}
-            onPress={() => openURL(strings.walletConversionCreditUrl)}>
+            onPress={onOpenURL}>
             Prices by <Text style={[styles.label, styles.underline]}>CryptoCompare</Text>
         </Text>
     </View>

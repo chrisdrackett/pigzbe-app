@@ -84,9 +84,7 @@ class Home extends Component {
         parentOverride: false,
     }
 
-    async componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
-
+    async tryLogin() {
         if (this.props.kids.length === 0) {
             const success = await this.props.dispatch(tryTouchIdLogin());
             if (success) {
@@ -95,8 +93,21 @@ class Home extends Component {
         }
     }
 
+    async componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+        if (!this.props.minimized) {
+            this.tryLogin();
+        }
+    }
+
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!this.props.minimized && prevProps.minimized) {
+            this.tryLogin();
+        }
     }
 
     handleBackPress = () => {
@@ -159,6 +170,7 @@ class Home extends Component {
 
 export default connect(
     state => ({
+        minimized: state.app.minimized,
         kids: state.kids.kids,
         accountExists: state.loader.accountExists,
     })

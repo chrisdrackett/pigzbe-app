@@ -122,6 +122,14 @@ export class PaymentInput extends Component {
                         currencyTo={currentCurrency}
                     />
                 )}
+                {this.props.availableBalance && (
+                    <ExchangedDisplay
+                        label="Available balance:"
+                        amount={this.props.availableBalance}
+                        currencyFrom={selectedToken}
+                        currencyTo={currentCurrency}
+                    />
+                )}
             </Fragment>
         );
     }

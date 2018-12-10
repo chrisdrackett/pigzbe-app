@@ -7,7 +7,8 @@ import {
     SCREEN_ALLOWANCE_AMOUNT,
     SCREEN_KID_TRANSACTIONS,
     SCREEN_KID_GOAL_ADD,
-    SCREEN_SETTINGS
+    SCREEN_SETTINGS,
+    SCREEN_DASHBOARD
 } from '../../constants';
 import BalanceGraph from 'app/components/balance-graph';
 import Balance from 'app/components/balance';
@@ -185,11 +186,10 @@ export class KidDashboard extends Component {
         console.log('result', result);
 
         this.setState({deletingKid: false});
-        // appAddSuccessAlert
-        // appError
+
         if (result.success) {
             this.props.dispatch(appAddSuccessAlert('Child profile deleted'));
-            this.onBack();
+            this.props.navigation.navigate(SCREEN_DASHBOARD);
         } else {
             this.props.dispatch(appError(result.error));
         }
@@ -210,7 +210,7 @@ export class KidDashboard extends Component {
             return null;
         }
 
-        const loading = (!exchange) || goalLoading || taskLoading || allowanceLoading || this.state.deletingKid;
+        const loading = !exchange || goalLoading || taskLoading || allowanceLoading || this.state.deletingKid;
         const loaderMessage = taskLoading ? 'Deleting task' : this.state.deletingKid ? 'Deleting child profile' : null;
 
         return (
@@ -314,7 +314,7 @@ export class KidDashboard extends Component {
                                 style={styles.panel}
                                 containerOnly={true}
                             >
-                                <View style={styles.box}>
+                                <View style={[styles.box, styles.pad]}>
                                     <WolloSendSlider
                                         name={kid.name}
                                         address={kid.address}

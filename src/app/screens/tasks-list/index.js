@@ -27,22 +27,25 @@ export class TasksList extends Component {
 
     onBack = () => this.props.navigation.goBack();
 
-    onChangeText = (task) => {
-        this.setState({newTask: task});
-    }
+    onChangeText = newTask => this.setState({newTask})
 
     showInput = () => this.setState({showingInput: true, active: null});
 
     cancelInput = () => this.setState({showingInput: false, newTask: null});
 
-    next = async () => {
+    onNext = async () => {
         const {showingInput, newTask, active} = this.state;
 
-        if (showingInput) {
-            await this.props.dispatch(addCustomTask(this.state.newTask));
+        if (showingInput && newTask) {
+            await this.props.dispatch(addCustomTask(newTask));
+            this.setState({newTask: null, showingInput: false});
         }
 
-        this.props.navigation.push(SCREEN_TASKS_ASSIGN, {kid: this.props.kid, task: newTask ? newTask : active, taskToEdit: this.props.taskToEdit});
+        this.props.navigation.push(SCREEN_TASKS_ASSIGN, {
+            kid: this.props.kid,
+            task: newTask ? newTask : active,
+            taskToEdit: this.props.taskToEdit
+        });
     }
 
     render() {
@@ -85,6 +88,7 @@ export class TasksList extends Component {
                                         onChangeText={this.onChangeText}
                                         returnKeyType="done"
                                         value={this.state.newTask}
+                                        autoFocus={true}
                                     />
                                     <TouchableOpacity
                                         onPress={this.cancelInput}
@@ -114,7 +118,7 @@ export class TasksList extends Component {
                         {
                             <Button
                                 label={'Next'}
-                                onPress={this.next}
+                                onPress={this.onNext}
                                 disabled={showingInput && !newTask || !showingInput && !active}
                             />
                         }
