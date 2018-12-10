@@ -319,7 +319,7 @@ export const mergeKidWallet = kid => async (dispatch, getState) => {
         try {
             account = await loadAccount(address);
         } catch (e) {
-            return {success: false, error: 'Account not found'};
+            return {success: false, error: null};
         }
 
         const secretKey = await dispatch(loadSecretKey(address));

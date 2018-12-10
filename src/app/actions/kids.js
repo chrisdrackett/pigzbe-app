@@ -135,9 +135,10 @@ export const deleteKid = kid => async dispatch => {
         console.log('deleteKid', kid);
 
         const result = await dispatch(mergeKidWallet(kid));
-        if (result.success) {
+        if (!result.error) {
             dispatch(({type: KIDS_REMOVE_KID, address: kid.address}));
             await dispatch(saveKids());
+            return {success: true};
         }
         return result;
     } catch (e) {
