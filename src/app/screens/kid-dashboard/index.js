@@ -320,7 +320,7 @@ export class KidDashboard extends Component {
                                 style={styles.panel}
                                 containerOnly={true}
                             >
-                                <View style={styles.box}>
+                                <View style={[styles.box, styles.pad]}>
                                     <WolloSendSlider
                                         name={kid.name}
                                         address={kid.address}
