@@ -212,12 +212,6 @@ export class KidDashboard extends Component {
 
         const loading = !exchange || goalLoading || taskLoading || allowanceLoading || this.state.deletingKid;
         const loaderMessage = taskLoading ? 'Deleting task' : this.state.deletingKid ? 'Deleting child profile' : null;
-        console.log('>>>>>>>>>> loading', loading);
-        console.log('>>>>>>>>>> exchange', exchange);
-        console.log('>>>>>>>>>> goalLoading', goalLoading);
-        console.log('>>>>>>>>>> taskLoading', taskLoading);
-        console.log('>>>>>>>>>> allowanceLoading', allowanceLoading);
-        console.log('>>>>>>>>>> this.state.deletingKid', this.state.deletingKid);
 
         return (
             <Fragment>
