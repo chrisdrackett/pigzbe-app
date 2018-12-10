@@ -70,7 +70,7 @@ export default class SearchableList extends Component {
         );
     }
 
-    renderItem = ({ item }) => {
+    renderItem = ({item}) => {
         const {onChangeSelection, selectedKey} = this.props;
         const selected = selectedKey === item.key;
 
@@ -83,6 +83,6 @@ export default class SearchableList extends Component {
                     }
                 </TouchableOpacity>
             </View>
-        )
+        );
     }
 }

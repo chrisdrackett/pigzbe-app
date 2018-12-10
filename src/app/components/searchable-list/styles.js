@@ -9,6 +9,7 @@ export default StyleSheet.create({
     container: {
         backgroundColor: color.white,
         borderRadius: 10,
+        flex: 1,
     },
     search: {
         height: 75,
@@ -36,6 +37,7 @@ export default StyleSheet.create({
     items: {
         paddingLeft: 20,
         paddingRight: 20,
+        flex: 1,
     },
     item: {
         height: 49,
