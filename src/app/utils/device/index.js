@@ -8,8 +8,10 @@ import EventEmitter from 'eventemitter3';
 
 const bleEmitter = new NativeEventEmitter(NativeModules.BleManager);
 
-const DEVICE_NAME = 'Pigzbe';
 const SECONDS_TO_SCAN = 3;
+// const RECONNECT_SCAN_INTERVAL = 3;
+
+const DEVICE_NAME = 'Pigzbe';
 const SERVICE = '32980000-1B34-1072-82A5-13805F9B34FB';
 const ACCELEROMETER = '32980001-1B34-1072-82A5-13805F9B34FB';
 // const GYRO = '32980002-1B34-1072-82A5-13805F9B34FB';
@@ -50,24 +52,43 @@ class Device extends EventEmitter {
 
     onStopScan = async () => {
         this.emit('scanning', false);
-        this.emit('discovered', this.discovered);
+        this.emit('discover', this.discovered);
 
         // if (this.discovered.length === 1) {
         //     this.connect(this.discovered.pop());
         // }
+
+        // if (this.deviceId && !this.discovered.length) {
+        //     console.log('Waiting to scan again');
+        //     await time(RECONNECT_SCAN_INTERVAL);
+        //     this.scan();
+        // }
     }
 
     onDiscover = async peripheral => {
-        console.log('onDiscoverPeripheral', peripheral.name);
+        // console.log('onDiscoverPeripheral', peripheral.name);
 
         if (peripheral.name === DEVICE_NAME && !this.discovered.find(d => d.id === peripheral.id)) {
             this.discovered.push(peripheral);
         }
+
+
+        // if (peripheral.id === this.deviceId) {
+        //     console.log('peripheral.id', peripheral.id);
+        //     console.log('this.deviceId', this.deviceId);
+        //     console.log('Connecting prev connected device');
+        //     await BleManager.stopScan();
+        //     this.emit('scanning', false);
+        //     this.connect(peripheral.id);
+        // }
     }
 
     onDisconnect = async data => {
         console.log('Disconnected from ' + data.peripheral);
         this.emit('disconnect');
+
+        // await time(RECONNECT_SCAN_INTERVAL);
+        // this.scan();
     }
 
     onUpdate = data => {
@@ -131,7 +152,7 @@ class Device extends EventEmitter {
 
     destroy = () => {
         this.discoverListener.remove();
-        this.stopListener.remove();
+        this.stopScanListener.remove();
         this.disconnectListener.remove();
         this.updateListener.remove();
         this.removeAllListeners();
