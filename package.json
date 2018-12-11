@@ -65,7 +65,7 @@
     "react-native-confirmation-code-input": "^1.0.4",
     "react-native-datepicker": "^1.7.2",
     "react-native-device-info": "^0.22.5",
-    "react-native-image-picker": "0.27.1",
+    "react-native-image-picker": "0.27.2",
     "react-native-keychain": "3.0.0",
     "react-native-modal": "^6.5.0",
     "react-native-pdf": "^5.0.9",
