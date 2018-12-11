@@ -21,6 +21,7 @@ import AllowanceAmount from 'app/screens/allowance-amount';
 import AllowanceInterval from 'app/screens/allowance-interval';
 import EmailSet from 'app/screens/email-set';
 import CurrencySet from 'app/screens/currency-set';
+import Device from 'app/screens/device';
 import {
     SCREEN_DASHBOARD,
     SCREEN_TRANSACTIONS,
@@ -32,6 +33,7 @@ import {
     SCREEN_CLAIM_AIRDROP,
     SCREEN_SET_EMAIL,
     SCREEN_SET_CURRENCY,
+    SCREEN_DEVICE,
     SCREEN_CHANGE_PASSCODE,
     SCREEN_KIDS_INTRO,
     SCREEN_KID_DASHBOARD,
@@ -76,6 +78,9 @@ const nav = {
     },
     [SCREEN_SET_CURRENCY]: {
         screen: CurrencySet
+    },
+    [SCREEN_DEVICE]: {
+        screen: Device
     },
     [SCREEN_CHANGE_PASSCODE]: {
         screen: PasscodeSet

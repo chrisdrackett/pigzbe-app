@@ -5,9 +5,13 @@ import Keys from '../keys';
 import Home from '../home';
 import Game from '../../screens/game';
 import Footer from '../../components/footer';
+import Device from 'app/screens/device';
 
 class Auth extends Component {
     render() {
+        return <Device />;
+
+
         const {loggedIn, kid, keysSaved, loading} = this.props;
 
         // console.log('loggedIn', loggedIn);

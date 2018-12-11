@@ -17,6 +17,7 @@ import {
     SCREEN_CHANGE_PASSCODE,
     SCREEN_SET_EMAIL,
     SCREEN_SET_CURRENCY,
+    SCREEN_DEVICE,
     CURRENCIES,
 } from 'app/constants';
 import StepModule from 'app/components/step-module';
@@ -82,6 +83,8 @@ export class Settings extends Component {
     onChangeEmail = () => this.props.navigation.push(SCREEN_SET_EMAIL)
 
     onChangeCurrency = () => this.props.navigation.push(SCREEN_SET_CURRENCY)
+
+    onDevice = () => this.props.navigation.push(SCREEN_DEVICE)
 
     render() {
         const {
@@ -170,6 +173,10 @@ export class Settings extends Component {
                             <TouchableOpacity style={styles.itemInner} onPress={this.onChangePasscode}>
                                 <Text style={styles.itemName}>Change Passcode</Text>
 
+                                <Icon name="chevron" style={styles.icon} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.itemInner} onPress={this.onDevice}>
+                                <Text style={styles.itemName}>Set up device</Text>
                                 <Icon name="chevron" style={styles.icon} />
                             </TouchableOpacity>
                             {false && (

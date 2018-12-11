@@ -150,6 +150,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-ble-manager')
     compile project(':react-native-pdf')
     compile project(':rn-fetch-blob')
     compile project(':react-native-touch-id')

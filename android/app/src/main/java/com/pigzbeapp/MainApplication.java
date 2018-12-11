@@ -3,6 +3,7 @@ package com.pigzbeapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import it.innove.BleManagerPackage;
 import org.wonday.pdf.RCTPdfView;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new BleManagerPackage(),
           new RCTPdfView(),
           new RNFetchBlobPackage(),
           new RNDeviceInfo(),
