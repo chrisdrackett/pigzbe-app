@@ -27,6 +27,7 @@ import Trees from './trees';
 import Messages from './messages';
 import IconButton from 'app/components/icon-button';
 import ConfirmModal from 'app/components/confirm-modal';
+import Device from 'app/components/game-device';
 
 export class Game extends Component {
     state = {
@@ -352,6 +353,9 @@ export class Game extends Component {
                 {!this.state.isGoalOverlayOpen && clouds}
                 {!this.state.isGoalOverlayOpen && wolloCounter}
                 {!this.state.isGoalOverlayOpen && logOut}
+                <View style={styles.device}>
+                    <Device />
+                </View>
                 <GoalOverlay
                     kid={kid}
                     isOpen={this.state.isGoalOverlayOpen}

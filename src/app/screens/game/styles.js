@@ -13,6 +13,11 @@ export default StyleSheet.create({
         top: isIphoneX ? 60 : 30,
         left: 15,
     },
+    device: {
+        position: 'absolute',
+        bottom: isIphoneX ? 60 : 30,
+        right: 15,
+    },
     logout: {
         position: 'absolute',
         top: isIphoneX ? 50 : 20,
