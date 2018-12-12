@@ -118,29 +118,33 @@ class Device extends EventEmitter {
     }
 
     connect = async id => {
-        await BleManager.connect(id);
+        try {
+            await BleManager.connect(id);
 
-        console.log('Connected to ' + id);
-        this.emit('connect');
+            console.log('Connected to ' + id);
+            this.emit('connect');
 
-        this.deviceId = id;
+            this.deviceId = id;
 
-        await time(0.2);
+            await time(0.2);
 
-        const peripheralInfo = await BleManager.retrieveServices(id);
-        console.log(peripheralInfo);
+            const peripheralInfo = await BleManager.retrieveServices(id);
+            console.log(peripheralInfo);
 
-        await time(0.2);
+            await time(0.2);
 
-        await BleManager.startNotification(id, SERVICE, ACCELEROMETER);
+            // await BleManager.startNotification(id, SERVICE, ACCELEROMETER);
 
-        // await time(0.2);
+            // await time(0.2);
 
-        await BleManager.startNotification(id, SERVICE, BUTTON);
+            await BleManager.startNotification(id, SERVICE, BUTTON);
 
-        await time(0.2);
+            await time(0.2);
 
-        await BleManager.startNotification(id, SERVICE, OUT);
+            await BleManager.startNotification(id, SERVICE, OUT);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     disconnect = async () => {
@@ -157,7 +161,7 @@ class Device extends EventEmitter {
         this.updateListener.remove();
         this.removeAllListeners();
 
-        BleManager.stopNotification(this.deviceId, SERVICE, ACCELEROMETER);
+        // BleManager.stopNotification(this.deviceId, SERVICE, ACCELEROMETER);
         BleManager.stopNotification(this.deviceId, SERVICE, BUTTON);
         BleManager.stopNotification(this.deviceId, SERVICE, OUT);
         BleManager.disconnect(this.deviceId);

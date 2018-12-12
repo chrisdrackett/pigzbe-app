@@ -1,29 +1,94 @@
 import React, {Component, Fragment} from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {connect} from 'react-redux';
+import {Image, TouchableOpacity, View, ActivityIndicator} from 'react-native';
 import styles from './styles';
 import images from './images';
 import Modal from 'react-native-modal';
 import IconButton from 'app/components/icon-button';
+import Button from 'app/components/button';
+import Title from 'app/components/title';
+import Paragraph from 'app/components/paragraph';
+import Device from 'app/utils/device';
+import {appAddSuccessAlert, appAddWarningAlert} from 'app/actions';
+import {color} from 'app/styles';
 
-export default class GameDevice extends Component {
+export class GameDevice extends Component {
     state = {
         modalOpen: false,
+        connected: false,
+        scanning: false,
+        discovered: [],
     }
 
-    onOpen = () => this.setState({modalOpen: true})
+    componentDidMount() {
+        Device.init();
+        // Device.on('accelerometer', this.onAccelerometer, this);
+        this.addListeners();
+    }
 
-    onClose = () => this.setState({modalOpen: false})
+    addListeners = () => {
+        Device.on('connect', this.onConnect);
+        Device.on('disconnect', this.onDisconnect);
+        Device.on('scanning', this.onScanning);
+        Device.on('discover', this.onDiscover);
+        Device.on('button', this.onButton);
+    }
+
+    removeListeners = () => {
+        Device.removeListener('connect', this.onConnect);
+        Device.removeListener('disconnect', this.onDisconnect);
+        Device.removeListener('scanning', this.onScanning);
+        Device.removeListener('discover', this.onDiscover);
+        Device.removeListener('button', this.onButton);
+    }
+
+    componentWillUnmount() {
+        // Device.destroy();
+        this.removeListeners();
+    }
+
+    onScanning = value => this.setState({scanning: value})
+
+    onDiscover = discovered => this.setState({discovered})
+
+    onConnect = () => {
+        this.setState({connected: true, discovered: []});
+        this.props.dispatch(appAddSuccessAlert('Device Connected'));
+    }
+
+    onDisconnect = () => {
+        this.setState({connected: false, discovered: []});
+        this.props.dispatch(appAddWarningAlert('Device Disconnected'));
+    }
+
+    onScan = () => Device.scan()
+
+    onConnectDevice = id => Device.connect(id)
+
+    onButton = id => {
+        console.log('button pressed', id);
+        this.onClose();
+    }
+
+    onOpen = () => {
+        // this.addListeners();
+        this.setState({modalOpen: true});
+    }
+
+    onClose = () => {
+        // this.removeListeners();
+        this.setState({modalOpen: false});
+    }
 
     render() {
-        const {scanning, connected} = this.props;
-        const source = connected ? images.connected : scanning ? images.scanning : images.idle;
+        const source = this.state.connected ? images.connected : images.idle;
+
         return (
             <Fragment>
                 <TouchableOpacity
                     onPress={this.onOpen}
-                    style={styles.wrapper}>
-                    <Image style={styles.image} source={source}/>
-                    <Text style={styles.text}>CONNECT DEVICE</Text>
+                    style={styles.buttonWrapper}>
+                    <Image style={styles.buttonImage} source={source}/>
                 </TouchableOpacity>
                 <Modal
                     isVisible={this.state.modalOpen}
@@ -35,7 +100,34 @@ export default class GameDevice extends Component {
                     <View style={styles.overlay}>
                         <View style={styles.outerContainer}>
                             <View style={styles.container}>
-                                <Text style={styles.text}>CONNECT DEVICE</Text>
+                                <Title dark>Connect Device</Title>
+                                <View style={{width: '100%', height: 200, alignItems: 'center', justifyContent: 'center'}}>
+                                    {this.state.scanning && (
+                                        <Fragment>
+                                            <ActivityIndicator size="large" color={color.pink} />
+                                            <Paragraph style={{textAlign: 'center'}}>*Scanning*</Paragraph>
+                                        </Fragment>
+                                    )}
+                                    {!this.state.connected && this.state.discovered.map(device => (
+                                        <Button
+                                            key={device.id}
+                                            label={`Connect ${device.name}`}
+                                            onPress={() => this.onConnectDevice(device.id)}
+                                        />
+                                    ))}
+                                    {this.state.connected && (
+                                        <Fragment>
+                                            <Image source={require('../step-header/images/tick2.png')} />
+                                            <Paragraph style={{textAlign: 'center'}}>*Connected*</Paragraph>
+                                            <Paragraph style={{textAlign: 'center'}}>Press any button on the device to continue</Paragraph>
+                                        </Fragment>
+                                    )}
+                                </View>
+                                <Button
+                                    disabled={this.state.scanning}
+                                    label="Scan"
+                                    onPress={this.onScan}
+                                />
                             </View>
                             <IconButton
                                 style={{position: 'absolute', top: 32, right: 32}}
@@ -51,3 +143,5 @@ export default class GameDevice extends Component {
         );
     }
 }
+
+export default connect()(GameDevice);

@@ -1,21 +1,23 @@
 import {StyleSheet} from 'react-native';
-import {color} from '../../styles';
+import {color, fontFamily} from '../../styles';
 
 export default StyleSheet.create({
-    wrapper: {
-        // width: 49,
-        // height: 28,
+    buttonWrapper: {
+        width: 49,
         padding: 2,
     },
-    image: {
+    buttonImage: {
         width: 45,
         height: 24,
     },
-    text: {
+    buttonText: {
+        fontFamily,
         color: color.white,
         fontSize: 8,
         textTransform: 'uppercase',
         fontWeight: 'bold',
+        marginTop: 2,
+        textAlign: 'center',
     },
     overlay: {
         backgroundColor: color.blueOpacity80,
@@ -36,9 +38,8 @@ export default StyleSheet.create({
         paddingRight: 22,
         paddingBottom: 20,
         borderRadius: 4,
-        display: 'flex',
         alignItems: 'center',
+        justifyContent: 'space-between',
         width: 250,
-        minHeight: 200,
     },
 });
