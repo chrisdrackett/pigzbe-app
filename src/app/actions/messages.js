@@ -22,7 +22,7 @@ export const loadMessages = () => async (dispatch, getState) => {
         const api = apiURL(getState());
         const messages = await fetchTimeout(`${api}/content/messages?order=latest`);
 
-        if (!messages) {
+        if (!messages || !Array.isArray(messages)) {
             throw new Error('Could not load messages');
         }
 

@@ -37,6 +37,9 @@ export class Messages extends Component {
     render() {
         const {messages, loading, error} = this.props;
 
+        console.log('error', error);
+        console.log('messages', messages);
+
         return (
             <Fragment>
                 <StepModule
@@ -48,13 +51,15 @@ export class Messages extends Component {
                     loaderMessage={strings.loadMessagesing}
                     showLogo={true}
                 >
-                    <ScrollList
-                        items={messages}
-                        ItemComponent={Message}
-                        itemProps={{
-                            onOpenLink: this.onOpenLink
-                        }}
-                    />
+                    {!!messages.length && (
+                        <ScrollList
+                            items={messages}
+                            ItemComponent={Message}
+                            itemProps={{
+                                onOpenLink: this.onOpenLink
+                            }}
+                        />
+                    )}
                 </StepModule>
                 <WebPage
                     open={this.state.openLink}
