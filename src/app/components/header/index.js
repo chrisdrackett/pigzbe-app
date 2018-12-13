@@ -20,6 +20,7 @@ export default ({
         <View style={styles.iconContainer}>
             {onSettings &&
                 <IconButton
+                    disabled={loading}
                     icon={settingsIcon}
                     size={18}
                     padding={12}
@@ -44,6 +45,7 @@ export default ({
         <View style={styles.iconContainer}>
             {!!rightIcon &&
                 <IconButton
+                    disabled={loading}
                     icon={rightIcon}
                     size={18}
                     padding={12}
