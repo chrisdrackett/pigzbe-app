@@ -144,7 +144,7 @@ export class AllowanceAmount extends Component {
 
     render() {
         const {showingInput, active, custom} = this.state;
-        const {loading} = this.props;
+        const {loading, fromAddKids} = this.props;
 
         return (
             <StepModule
@@ -153,7 +153,7 @@ export class AllowanceAmount extends Component {
                 content="Tell us the value of this regular Wollo allowance"
                 pad
                 loading={loading}
-                onBack={this.onBack}
+                onBack={fromAddKids ? null : this.onBack}
                 keyboardOffset={-180}
             >
                 <View style={styles.flex}>
@@ -190,6 +190,7 @@ export default connect(
         baseCurrency: state.settings.baseCurrency,
         exchange: state.exchange.exchange,
         allowanceToEdit: props.navigation.state.params.allowanceToEdit,
+        fromAddKids: props.navigation.state.params.fromAddKids,
         balances: state.wallet.balances,
     })
 )(AllowanceAmount);
