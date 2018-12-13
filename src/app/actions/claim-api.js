@@ -183,9 +183,19 @@ export const trustStellarAsset = () => async (dispatch, getState) => {
 };
 
 export const getAirdropClaim = (address, code) => async (dispatch, getState) => {
+    if (!address.trim()) {
+        return {success: false, error: 'Enter your wallet address'};
+    }
+    if (!code.trim()) {
+        return {success: false, error: 'Enter your unique code'};
+    }
     try {
         const api = apiURL(getState());
         const result = await (await fetch(`${api}/airdrop/confirm?address=${address}&code=${code}`)).json();
+
+        if (!result.amount) {
+            return {success: false, error: 'Check your wallet address and unique code'};
+        }
 
         if (!result.error) {
             await dispatch(storeLoginDetails(code, address));
