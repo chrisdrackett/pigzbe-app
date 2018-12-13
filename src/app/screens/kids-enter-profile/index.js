@@ -50,7 +50,7 @@ export class KidsEnterProfile extends Component {
             });
         } else {
             // add allowance for all kids:
-            this.props.navigation.push(SCREEN_ALLOWANCE_AMOUNT, {currency: 'GBP'});
+            this.props.navigation.push(SCREEN_ALLOWANCE_AMOUNT, {fromAddKids: true});
         }
     }
 
