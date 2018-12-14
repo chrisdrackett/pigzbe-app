@@ -129,7 +129,7 @@ export class GameDevice extends Component {
                                     {!this.state.connected && this.state.discovered.map(device => (
                                         <Button
                                             key={device.id}
-                                            label={`Connect ${device.name}`}
+                                            label={`Connect ${device.name || 'Device'}`}
                                             onPress={() => this.onConnectDevice(device.id)}
                                         />
                                     ))}

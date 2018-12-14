@@ -117,6 +117,7 @@ export class Game extends Component {
 
     countUpBalance = (goalId) => {
         console.log('this.state.currentCloud.amount', this.state.currentCloud.amount);
+        console.log('this.state.currentCloud.total', this.state.currentCloud.total);
         console.log('new BigNumber(this.state.currentCloud.amount).isGreaterThan(0)', new BigNumber(this.state.currentCloud.amount).isGreaterThan(0));
         if (this.state.currentCloud && new BigNumber(this.state.currentCloud.amount).isGreaterThan(0)) {
             console.log('clearTimeout');
@@ -175,6 +176,10 @@ export class Game extends Component {
             console.log('this.state.currentCloud.amount', this.state.currentCloud.amount);
             console.log('this.state.currentCloud && Number(this.state.currentCloud.amount) === 0', this.state.currentCloud && Number(this.state.currentCloud.amount) === 0);
             if (this.state.currentCloud && Number(this.state.currentCloud.amount) === 0) {
+
+                const balance = this.props.kid.goals.reduce((n, g) => n.plus(g.balance), new BigNumber(0)).toString(10);
+                this.props.dispatch(deviceReceiveWollo(this.state.currentCloud.total, balance));
+
                 this.props.dispatch(removeKidAction(this.props.kid, this.state.currentCloud.hash));
                 this.setState({
                     cloudStatus: null,
@@ -187,8 +192,7 @@ export class Game extends Component {
                     this.transferWollo();
                 }, 4000);
             }
-            const totalWollo = this.props.kid.goals.reduce((n, g) => n.plus(g.balance), new BigNumber(0)).toString(10);
-            this.props.dispatch(deviceReceiveWollo(1, totalWollo));
+
         } else if (!this.state.raining && !outside) {
             // if we are not dropping wollos on tree let's treat as normal tree click:
             this.centerCurrentTree(index);

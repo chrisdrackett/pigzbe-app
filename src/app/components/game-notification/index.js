@@ -10,7 +10,7 @@ export default ({amount, memo, name, hash, onActivateCloud, type}) => (
                 type={type}
                 value={amount}
                 name={name}
-                callback={() => onActivateCloud({amount, memo, hash, type}) }
+                callback={() => onActivateCloud({amount, memo, hash, type, total: amount}) }
             />
         </View>
     </View>

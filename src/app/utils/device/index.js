@@ -82,12 +82,12 @@ class Device extends EventEmitter {
     }
 
     onStopScan = async () => {
-        try {
-            const connectedPeripherals = await BleManager.getConnectedPeripherals([]);
-            console.log('connectedPeripherals', connectedPeripherals);
-        } catch (e) {
-            console.log(e);
-        }
+        // try {
+        //     const connectedPeripherals = await BleManager.getConnectedPeripherals([]);
+        //     console.log('connectedPeripherals', connectedPeripherals);
+        // } catch (e) {
+        //     console.log(e);
+        // }
         this.emit('scanning', false);
         this.emit('discover', this.discovered);
 
