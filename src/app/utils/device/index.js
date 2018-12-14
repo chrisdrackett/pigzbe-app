@@ -11,7 +11,8 @@ const bleEmitter = new NativeEventEmitter(NativeModules.BleManager);
 const SECONDS_TO_SCAN = 3;
 // const RECONNECT_SCAN_INTERVAL = 3;
 
-const DEVICE_NAME = 'Pigzbe';
+// const DEVICE_NAME = 'Pigzbe';
+const SERVICE_UUID = '0D18';
 const SERVICE = '32980000-1B34-1072-82A5-13805F9B34FB';
 const ACCELEROMETER = '32980001-1B34-1072-82A5-13805F9B34FB';
 // const GYRO = '32980002-1B34-1072-82A5-13805F9B34FB';
@@ -41,33 +42,52 @@ class Device extends EventEmitter {
             return;
         }
 
-        const started = BleManager.start({showAlert: false});
-        console.log('started', started);
-        this.initialized = true;
+        try {
+            const started = BleManager.start({showAlert: false});
+            console.log('started', started);
+            this.initialized = true;
 
-        this.stopScanListener = bleEmitter.addListener('BleManagerStopScan', this.onStopScan);
-        this.discoverListener = bleEmitter.addListener('BleManagerDiscoverPeripheral', this.onDiscover);
-        this.disconnectListener = bleEmitter.addListener('BleManagerDisconnectPeripheral', this.onDisconnect);
-        this.updateListener = bleEmitter.addListener('BleManagerDidUpdateValueForCharacteristic', this.onUpdate);
+            this.stopScanListener = bleEmitter.addListener('BleManagerStopScan', this.onStopScan);
+            this.discoverListener = bleEmitter.addListener('BleManagerDiscoverPeripheral', this.onDiscover);
+            this.disconnectListener = bleEmitter.addListener('BleManagerDisconnectPeripheral', this.onDisconnect);
+            this.updateListener = bleEmitter.addListener('BleManagerDidUpdateValueForCharacteristic', this.onUpdate);
 
-        // const connectedPeripherals = await BleManager.getConnectedPeripherals([SERVICE]);
-        const connectedPeripherals = await BleManager.getConnectedPeripherals([]);
-        console.log('connectedPeripherals', connectedPeripherals);
+            // const connectedPeripherals = await BleManager.getConnectedPeripherals([SERVICE]);
+            const connectedPeripherals = await BleManager.getConnectedPeripherals([]);
+            console.log('connectedPeripherals', connectedPeripherals);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     send = async data => {
-        const result = await BleManager.write(this.deviceId, SERVICE, IN, data);
-        console.log('result', result);
-        return result;
+        try {
+            const result = await BleManager.write(this.deviceId, SERVICE, IN, data);
+            console.log('result', result);
+            return result;
+        } catch (e) {
+            console.log(e);
+            return null;
+        }
     }
 
     scan = async () => {
         this.discovered = [];
-        await BleManager.scan([], SECONDS_TO_SCAN, true);
+        try {
+            await BleManager.scan([SERVICE_UUID], SECONDS_TO_SCAN, true);
+        } catch (e) {
+            console.log(e);
+        }
         this.emit('scanning', true);
     }
 
     onStopScan = async () => {
+        try {
+            const connectedPeripherals = await BleManager.getConnectedPeripherals([]);
+            console.log('connectedPeripherals', connectedPeripherals);
+        } catch (e) {
+            console.log(e);
+        }
         this.emit('scanning', false);
         this.emit('discover', this.discovered);
 
@@ -83,21 +103,11 @@ class Device extends EventEmitter {
     }
 
     onDiscover = async peripheral => {
-        // console.log('onDiscoverPeripheral', peripheral.name);
-
-        if (peripheral.name === DEVICE_NAME && !this.discovered.find(d => d.id === peripheral.id)) {
+        if (!this.discovered.find(d => d.id === peripheral.id)) {
+            console.log('onDiscoverPeripheral', peripheral.name);
+            console.log(peripheral);
             this.discovered.push(peripheral);
         }
-
-
-        // if (peripheral.id === this.deviceId) {
-        //     console.log('peripheral.id', peripheral.id);
-        //     console.log('this.deviceId', this.deviceId);
-        //     console.log('Connecting prev connected device');
-        //     await BleManager.stopScan();
-        //     this.emit('scanning', false);
-        //     this.connect(peripheral.id);
-        // }
     }
 
     onDisconnect = async data => {
@@ -168,26 +178,34 @@ class Device extends EventEmitter {
     }
 
     disconnect = async () => {
-        if (this.deviceId) {
-            await BleManager.disconnect(this.deviceId);
-            this.emit('disconnect');
+        try {
+            if (this.deviceId) {
+                await BleManager.disconnect(this.deviceId);
+                this.emit('disconnect');
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
 
     destroy = () => {
-        this.discoverListener.remove();
-        this.stopScanListener.remove();
-        this.disconnectListener.remove();
-        this.updateListener.remove();
-        this.removeAllListeners();
+        try {
+            this.discoverListener.remove();
+            this.stopScanListener.remove();
+            this.disconnectListener.remove();
+            this.updateListener.remove();
+            this.removeAllListeners();
 
-        // BleManager.stopNotification(this.deviceId, SERVICE, ACCELEROMETER);
-        BleManager.stopNotification(this.deviceId, SERVICE, BUTTON);
-        BleManager.stopNotification(this.deviceId, SERVICE, OUT);
-        BleManager.disconnect(this.deviceId);
+            // BleManager.stopNotification(this.deviceId, SERVICE, ACCELEROMETER);
+            BleManager.stopNotification(this.deviceId, SERVICE, BUTTON);
+            BleManager.stopNotification(this.deviceId, SERVICE, OUT);
+            BleManager.disconnect(this.deviceId);
 
-        this.deviceId = null;
-        this.initialized = false;
+            this.deviceId = null;
+            this.initialized = false;
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
 

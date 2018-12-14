@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Image, TouchableOpacity, View, ActivityIndicator} from 'react-native';
+import {Image, TouchableOpacity, View, ActivityIndicator, Platform, PermissionsAndroid} from 'react-native';
 import styles from './styles';
 import images from './images';
 import Modal from 'react-native-modal';
@@ -20,11 +20,25 @@ export class GameDevice extends Component {
         discovered: [],
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         // Device.on('accelerometer', this.onAccelerometer, this);
         this.addListeners();
 
         Device.init();
+
+        if (Platform.OS === 'android' && Platform.Version >= 23) {
+            const check = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+            if (check) {
+                console.log('Permission is OK');
+            } else {
+                const request = await PermissionsAndroid.requestPermission(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+                if (request) {
+                    console.log('User accept');
+                } else {
+                    console.log('User refuse');
+                }
+            }
+        }
     }
 
     addListeners = () => {
