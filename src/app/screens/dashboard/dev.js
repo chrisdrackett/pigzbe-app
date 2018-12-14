@@ -6,7 +6,13 @@ import {
     fundAccount,
     loadWallet,
 } from 'app/actions';
-import openURL from 'app/utils/open-url';
+// import openURL from 'app/utils/open-url';
+// <Button
+//     label={publicKey}
+//     theme="light"
+//     onPress={() => openURL(`https://horizon-testnet.stellar.org/accounts/${publicKey}`)}
+//     style={{marginTop: 20}}
+// />
 
 export class Dev extends Component {
     onFund = async () => {
@@ -19,18 +25,12 @@ export class Dev extends Component {
     render () {
         const {
             network,
-            publicKey,
+            // publicKey,
         } = this.props;
 
         if (network !== 'mainnet') {
             return (
                 <View>
-                    <Button
-                        label={publicKey}
-                        theme="light"
-                        onPress={() => openURL(`https://horizon-testnet.stellar.org/accounts/${publicKey}`)}
-                        style={{marginTop: 20}}
-                    />
                     <Button
                         label="Fund account"
                         theme="light"

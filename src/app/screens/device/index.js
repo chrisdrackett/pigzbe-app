@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+import {View, Image, ActivityIndicator} from 'react-native';
 import Button from 'app/components/button';
 import Paragraph from 'app/components/paragraph';
 import {SCREEN_SETTINGS} from 'app/constants';
 import StepModule from 'app/components/step-module';
-import Device, {VIBRATE} from 'app/utils/device';
+import Device from 'app/utils/device';
 import {appAddSuccessAlert} from 'app/actions';
+import {color} from 'app/styles';
 
 export class DeviceScreen extends Component {
     state = {
@@ -16,8 +17,13 @@ export class DeviceScreen extends Component {
     }
 
     componentDidMount() {
-        Device.init();
         // Device.on('accelerometer', this.onAccelerometer, this);
+        this.addListeners();
+
+        Device.init();
+    }
+
+    addListeners() {
         Device.on('connect', this.onConnect);
         Device.on('disconnect', this.onDisconnect);
         Device.on('scanning', this.onScanning);
@@ -25,8 +31,16 @@ export class DeviceScreen extends Component {
         Device.on('button', this.onButton);
     }
 
+    removeListeners() {
+        Device.removeListener('connect', this.onConnect);
+        Device.removeListener('disconnect', this.onDisconnect);
+        Device.removeListener('scanning', this.onScanning);
+        Device.removeListener('discover', this.onDiscover);
+        Device.removeListener('button', this.onButton);
+    }
+
     componentWillUnmount() {
-        Device.destroy();
+        this.removeListeners();
     }
 
     onScanning = value => this.setState({scanning: value})
@@ -48,6 +62,7 @@ export class DeviceScreen extends Component {
 
     onButton = id => {
         console.log('button pressed', id);
+        this.onBack();
     }
 
     render() {
@@ -60,20 +75,29 @@ export class DeviceScreen extends Component {
                 justify="space-between"
                 pad
             >
-                <View>
-                    <Paragraph>SCANNING: {this.state.scanning ? 'YES' : 'NO'}</Paragraph>
-                    <Paragraph>CONNECTED: {this.state.connected ? 'YES' : 'NO'}</Paragraph>
-                    <Paragraph>DISCOVERED:</Paragraph>
-                    {this.state.discovered.map(device => (
+                <View style={{width: '100%', height: 150, alignItems: 'center', justifyContent: 'center'}}>
+                    {this.state.scanning && (
+                        <Fragment>
+                            <ActivityIndicator size="large" color={color.pink} />
+                            <Paragraph style={{textAlign: 'center'}}>*Scanning*</Paragraph>
+                        </Fragment>
+                    )}
+                    {!this.state.connected && this.state.discovered.map(device => (
                         <Button
                             key={device.id}
                             label={`Connect ${device.name}`}
                             onPress={() => this.onConnectDevice(device.id)}
                         />
                     ))}
+                    {this.state.connected && (
+                        <Fragment>
+                            <Image source={require('../../components/step-header/images/tick2.png')} />
+                            <Paragraph style={{textAlign: 'center'}}>*Connected*</Paragraph>
+                        </Fragment>
+                    )}
                 </View>
                 <Button
-                    theme="outline"
+                    disabled={this.state.scanning}
                     label="Scan"
                     onPress={this.onScan}
                 />

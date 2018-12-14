@@ -25,17 +25,34 @@ export const OINK = [0x03, 0x01];
 const time = (seconds, value) => new Promise(resolve => setTimeout(() => resolve(value), seconds * 1000));
 
 class Device extends EventEmitter {
+    initialized = false
+    connected = false
     deviceId = null
     discovered = []
 
     init = async () => {
+        this.connected = this.deviceId && await BleManager.isPeripheralConnected(this.deviceId);
+
+        if (this.connected) {
+            this.emit('connect');
+        }
+
+        if (this.initialized) {
+            return;
+        }
+
         const started = BleManager.start({showAlert: false});
         console.log('started', started);
+        this.initialized = true;
 
         this.stopScanListener = bleEmitter.addListener('BleManagerStopScan', this.onStopScan);
         this.discoverListener = bleEmitter.addListener('BleManagerDiscoverPeripheral', this.onDiscover);
         this.disconnectListener = bleEmitter.addListener('BleManagerDisconnectPeripheral', this.onDisconnect);
         this.updateListener = bleEmitter.addListener('BleManagerDidUpdateValueForCharacteristic', this.onUpdate);
+
+        // const connectedPeripherals = await BleManager.getConnectedPeripherals([SERVICE]);
+        const connectedPeripherals = await BleManager.getConnectedPeripherals([]);
+        console.log('connectedPeripherals', connectedPeripherals);
     }
 
     send = async data => {
@@ -84,6 +101,7 @@ class Device extends EventEmitter {
     }
 
     onDisconnect = async data => {
+        this.connected = false;
         console.log('Disconnected from ' + data.peripheral);
         this.emit('disconnect');
 
@@ -122,6 +140,8 @@ class Device extends EventEmitter {
             await BleManager.connect(id);
 
             console.log('Connected to ' + id);
+            this.connected = true;
+
             this.emit('connect');
 
             this.deviceId = id;
@@ -167,6 +187,7 @@ class Device extends EventEmitter {
         BleManager.disconnect(this.deviceId);
 
         this.deviceId = null;
+        this.initialized = false;
     }
 }
 

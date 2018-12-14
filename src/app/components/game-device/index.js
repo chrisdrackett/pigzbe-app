@@ -21,9 +21,10 @@ export class GameDevice extends Component {
     }
 
     componentDidMount() {
-        Device.init();
         // Device.on('accelerometer', this.onAccelerometer, this);
         this.addListeners();
+
+        Device.init();
     }
 
     addListeners = () => {
@@ -101,6 +102,9 @@ export class GameDevice extends Component {
                         <View style={styles.outerContainer}>
                             <View style={styles.container}>
                                 <Title dark>Connect Device</Title>
+                                <Paragraph style={{textAlign: 'center'}}>
+                                    To connect your Pigzbe device, turn it on and press Scan
+                                </Paragraph>
                                 <View style={{width: '100%', height: 200, alignItems: 'center', justifyContent: 'center'}}>
                                     {this.state.scanning && (
                                         <Fragment>

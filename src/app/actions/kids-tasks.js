@@ -11,7 +11,7 @@ import {
     ensureValidAmount
 } from '@pigzbe/stellar-utils';
 import {wolloAsset} from '../selectors';
-import {saveKids, refreshBalance, loadSecretKey} from './';
+import {saveKids, refreshBalance, loadSecretKey, deviceSendTask} from './';
 import {MEMO_PREPEND_TASK} from 'app/constants';
 import formatMemo from 'app/utils/format-memo';
 
@@ -52,6 +52,9 @@ export const assignTask = (kid, task, reward) => async (dispatch, getState) => {
         dispatch(appAddSuccessAlert('Added task'));
 
         dispatch(refreshBalance(kid.address));
+
+        dispatch(deviceSendTask(task));
+
     } catch (error) {
         console.log(error);
         dispatch(taskLoading(false));

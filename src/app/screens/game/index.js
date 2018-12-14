@@ -20,7 +20,7 @@ import GameCarousel from 'app/components/game-carousel';
 import GameCloudFlow from 'app/components/game-cloud-flow';
 import GoalOverlay from 'app/components/game-goal-overlay';
 import Loader from 'app/components/loader';
-import {assignWolloToTree, loadKidActions, removeKidAction, authLogoutKid} from 'app/actions';
+import {assignWolloToTree, loadKidActions, removeKidAction, authLogoutKid, deviceReceiveWollo} from 'app/actions';
 import BigNumber from 'bignumber.js';
 import Tour from './tour';
 import Trees from './trees';
@@ -187,6 +187,8 @@ export class Game extends Component {
                     this.transferWollo();
                 }, 4000);
             }
+            const totalWollo = this.props.kid.goals.reduce((n, g) => n.plus(g.balance), new BigNumber(0)).toString(10);
+            this.props.dispatch(deviceReceiveWollo(1, totalWollo));
         } else if (!this.state.raining && !outside) {
             // if we are not dropping wollos on tree let's treat as normal tree click:
             this.centerCurrentTree(index);
